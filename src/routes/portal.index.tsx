@@ -198,7 +198,7 @@ function Overview() {
       </motion.div>
 
       <div className="mb-6 grid grid-cols-4 gap-3">
-        {actionTiles.map((t, i) => (
+        {[...actionTiles, { label: "USDT Wallet", icon: <Gem className="h-6 w-6" />, labelOnly: true as const, to: "/portal" }, { label: "Rewards Wallet", icon: <Gem className="h-6 w-6" />, labelOnly: true as const, to: "/portal" }].map((t, i) => (
           <motion.div
             key={t.label}
             initial={{ opacity: 0, y: 12 }}
