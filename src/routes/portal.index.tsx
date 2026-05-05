@@ -45,7 +45,7 @@ function Overview() {
         description={`Member since ${profile?.member_since ?? "—"}.`}
       />
 
-      <div className="mb-3 grid grid-cols-4 gap-3">
+      <div className="mb-3 grid grid-cols-4 gap-2 sm:gap-3">
         {actionTiles.map((t, i) => (
           <motion.div
             key={t.label}
@@ -69,8 +69,8 @@ function Overview() {
 function Stat({ label, highlight, labelOnly = false }: { label: string; icon?: React.ReactNode; highlight?: boolean; labelOnly?: boolean }) {
   if (labelOnly) {
     return (
-      <div className={`liquid-glass flex items-center justify-center rounded-lg p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
-        <span className="font-serif text-2xl tracking-wide">{label}</span>
+      <div className={`liquid-glass flex aspect-square items-center justify-center rounded-lg p-3 text-center ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
+        <span className="font-serif text-base leading-tight tracking-wide sm:text-lg md:text-xl">{label}</span>
       </div>
     );
   }
