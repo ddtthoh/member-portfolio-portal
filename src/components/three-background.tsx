@@ -423,6 +423,37 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       (geom.attributes.position as THREE.BufferAttribute).needsUpdate = true;
     }
 
+    // Sparkles between nodes (twinkling dots along each edge)
+    const SPARKS_PER_EDGE = 2;
+    for (let e = 0; e < data.edgeList.length; e++) {
+      const ed = data.edgeList[e];
+      const ax = data.pos[ed.a * 3];
+      const ay = data.pos[ed.a * 3 + 1];
+      const az = data.pos[ed.a * 3 + 2];
+      const bx = data.pos[ed.b * 3];
+      const by = data.pos[ed.b * 3 + 1];
+      const bz = data.pos[ed.b * 3 + 2];
+      for (let k = 0; k < SPARKS_PER_EDGE; k++) {
+        const s = e * SPARKS_PER_EDGE + k;
+        const baseOffset = data.sparkOffsets[s];
+        const seed = data.sparkSeeds[s];
+        const tt = baseOffset + Math.sin(t * 0.6 + seed) * 0.08;
+        const cl = Math.max(0.05, Math.min(0.95, tt));
+        data.sparkPositions[s * 3] = ax + (bx - ax) * cl;
+        data.sparkPositions[s * 3 + 1] = ay + (by - ay) * cl;
+        data.sparkPositions[s * 3 + 2] = az + (bz - az) * cl;
+        const twinkle = 0.55 + 0.45 * Math.sin(t * 2.4 + seed * 3.1);
+        data.sparkColors[s * 3] = 1.0 * twinkle;
+        data.sparkColors[s * 3 + 1] = 0.92 * twinkle;
+        data.sparkColors[s * 3 + 2] = 0.7 * twinkle;
+      }
+    }
+    if (sparklesRef.current) {
+      const geom = sparklesRef.current.geometry as THREE.BufferGeometry;
+      (geom.attributes.position as THREE.BufferAttribute).needsUpdate = true;
+      (geom.attributes.color as THREE.BufferAttribute).needsUpdate = true;
+    }
+
     // Parallax / global rotation
     if (groupRef.current) {
       const gx = parallaxTarget.current.y * 0.12 + Math.cos(t * 0.05) * 0.04;
@@ -503,6 +534,32 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
           depthWrite={false}
           blending={THREE.AdditiveBlending}
           opacity={1}
+        />
+      </points>
+
+      {/* Sparkles between nodes */}
+      <points ref={sparklesRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[data.sparkPositions, 3]}
+            count={data.sparkPositions.length / 3}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            args={[data.sparkColors, 3]}
+            count={data.sparkColors.length / 3}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          map={packetSprite}
+          size={pointSize * 0.55}
+          sizeAttenuation
+          vertexColors
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={0.95}
         />
       </points>
     </group>
