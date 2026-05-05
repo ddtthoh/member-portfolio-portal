@@ -127,7 +127,7 @@ function Overview() {
                       { name: "Staking plan : Premium Pro", pct: "25%", highlight: true },
                       { name: "First platinum manager within the division", pct: "50%", highlight: true },
                       { name: "Second platinum manager within the division", pct: "75%", current: true },
-                      { name: "Diamond", pct: "100%", locked: true },
+                      { name: "Third platinum manager within the division", pct: "100%", locked: true },
                     ].map((t) => (
                       <li
                         key={t.name}
