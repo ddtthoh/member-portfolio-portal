@@ -21,6 +21,7 @@ import { Route as PortalPerformanceRouteImport } from './routes/portal.performan
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
+import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
@@ -82,11 +83,17 @@ const PortalDocumentsRoute = PortalDocumentsRouteImport.update({
   path: '/documents',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalDepositRoute = PortalDepositRouteImport.update({
+  id: '/deposit',
+  path: '/deposit',
+  getParentRoute: () => PortalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
+    | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
+    | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
@@ -261,10 +273,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalDocumentsRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/deposit': {
+      id: '/portal/deposit'
+      path: '/deposit'
+      fullPath: '/portal/deposit'
+      preLoaderRoute: typeof PortalDepositRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
 
 interface PortalRouteChildren {
+  PortalDepositRoute: typeof PortalDepositRoute
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
@@ -277,6 +297,7 @@ interface PortalRouteChildren {
 }
 
 const PortalRouteChildren: PortalRouteChildren = {
+  PortalDepositRoute: PortalDepositRoute,
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalNetworkRoute: PortalNetworkRoute,
