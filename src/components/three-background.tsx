@@ -2,164 +2,185 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-function Nodes({ count }: { count: number }) {
-  const group = useRef<THREE.Group>(null);
-  const mouse = useRef({ x: 0, y: 0 });
+function makeSpriteTexture() {
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grad.addColorStop(0, "rgba(255,244,214,1)");
+  grad.addColorStop(0.35, "rgba(232,212,160,0.6)");
+  grad.addColorStop(1, "rgba(232,212,160,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  return tex;
+}
 
-  const nodes = useMemo(() => {
-    const arr: { pos: THREE.Vector3; speed: number; offset: number }[] = [];
+function ParticleField({ count, interactive }: { count: number; interactive: boolean }) {
+  const points = useRef<THREE.Points>(null);
+  const { camera, size, viewport } = useThree();
+
+  const sprite = useMemo(() => makeSpriteTexture(), []);
+
+  // Buffers: positions (current), homes (target), seeds (per-particle phase)
+  const { positions, homes, seeds } = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    const homes = new Float32Array(count * 3);
+    const seeds = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      arr.push({
-        pos: new THREE.Vector3(
-          (Math.random() - 0.5) * 14,
-          (Math.random() - 0.5) * 9,
-          (Math.random() - 0.5) * 8,
-        ),
-        speed: 0.2 + Math.random() * 0.4,
-        offset: Math.random() * Math.PI * 2,
-      });
+      // Distribute in a soft slab that fills the camera frustum
+      const x = (Math.random() - 0.5) * 18;
+      const y = (Math.random() - 0.5) * 12;
+      const z = (Math.random() - 0.5) * 6;
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
+      homes[i * 3] = x;
+      homes[i * 3 + 1] = y;
+      homes[i * 3 + 2] = z;
+      seeds[i] = Math.random() * Math.PI * 2;
     }
-    return arr;
+    return { positions, homes, seeds };
   }, [count]);
 
-  const connections = useMemo(() => {
-    const pairs: [number, number][] = [];
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        if (nodes[i].pos.distanceTo(nodes[j].pos) < 3.4) {
-          pairs.push([i, j]);
-        }
-      }
-    }
-    return pairs;
-  }, [nodes]);
-
-  const lineGeom = useRef<THREE.BufferGeometry>(null);
-  const positions = useMemo(
-    () => new Float32Array(Math.max(connections.length, 1) * 6),
-    [connections.length],
-  );
-
-  const packets = useRef(
-    Array.from({ length: 14 }, () => ({
-      edge: Math.floor(Math.random() * Math.max(connections.length, 1)),
-      t: Math.random(),
-      speed: 0.15 + Math.random() * 0.3,
-    })),
-  );
-  const packetMesh = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
+  // Mouse in NDC -> world plane at z = 0
+  const mouseNDC = useRef(new THREE.Vector2(999, 999));
+  const mouseWorld = useRef(new THREE.Vector3(999, 999, 0));
+  const raycaster = useMemo(() => new THREE.Raycaster(), []);
+  const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    if (!interactive) return;
+    const onMove = (e: PointerEvent) => {
+      mouseNDC.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseNDC.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  const { camera } = useThree();
+    const onLeave = () => {
+      mouseNDC.current.set(999, 999);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerleave", onLeave);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
+    };
+  }, [interactive]);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
-    if (group.current) {
-      group.current.rotation.y += delta * 0.04;
-      group.current.rotation.x = Math.sin(t * 0.1) * 0.08;
-    }
-    camera.position.x += (mouse.current.x * 0.6 - camera.position.x) * 0.03;
-    camera.position.y += (-mouse.current.y * 0.4 - camera.position.y) * 0.03;
-    camera.lookAt(0, 0, 0);
+    const dt = Math.min(delta, 0.05);
 
-    if (lineGeom.current && connections.length > 0) {
-      for (let k = 0; k < connections.length; k++) {
-        const [i, j] = connections[k];
-        const a = nodes[i];
-        const b = nodes[j];
-        const ax = a.pos.x + Math.sin(t * a.speed + a.offset) * 0.15;
-        const ay = a.pos.y + Math.cos(t * a.speed + a.offset) * 0.15;
-        const az = a.pos.z;
-        const bx = b.pos.x + Math.sin(t * b.speed + b.offset) * 0.15;
-        const by = b.pos.y + Math.cos(t * b.speed + b.offset) * 0.15;
-        const bz = b.pos.z;
-        positions[k * 6] = ax;
-        positions[k * 6 + 1] = ay;
-        positions[k * 6 + 2] = az;
-        positions[k * 6 + 3] = bx;
-        positions[k * 6 + 4] = by;
-        positions[k * 6 + 5] = bz;
-      }
-      lineGeom.current.attributes.position.needsUpdate = true;
+    // Update mouse world position
+    if (interactive && mouseNDC.current.x < 900) {
+      raycaster.setFromCamera(mouseNDC.current, camera);
+      const hit = new THREE.Vector3();
+      raycaster.ray.intersectPlane(plane, hit);
+      if (hit) mouseWorld.current.copy(hit);
+    } else {
+      mouseWorld.current.set(999, 999, 0);
     }
 
-    if (packetMesh.current && connections.length > 0) {
-      for (let p = 0; p < packets.current.length; p++) {
-        const pk = packets.current[p];
-        pk.t += delta * pk.speed;
-        if (pk.t >= 1) {
-          pk.t = 0;
-          pk.edge = Math.floor(Math.random() * connections.length);
-          pk.speed = 0.15 + Math.random() * 0.3;
+    const repelRadius = 1.8;
+    const repelStrength = 4.5;
+    const springStrength = 1.6;
+
+    const arr = positions;
+    const mx = mouseWorld.current.x;
+    const my = mouseWorld.current.y;
+
+    for (let i = 0; i < count; i++) {
+      const ix = i * 3;
+      const hx = homes[ix];
+      const hy = homes[ix + 1];
+      const hz = homes[ix + 2];
+      const seed = seeds[i];
+
+      // Gentle drift (cheap pseudo-curl)
+      const driftX = Math.sin(t * 0.35 + seed) * 0.25;
+      const driftY = Math.cos(t * 0.28 + seed * 1.3) * 0.22;
+      const driftZ = Math.sin(t * 0.22 + seed * 0.7) * 0.15;
+
+      const targetX = hx + driftX;
+      const targetY = hy + driftY;
+      const targetZ = hz + driftZ;
+
+      let px = arr[ix];
+      let py = arr[ix + 1];
+      let pz = arr[ix + 2];
+
+      // Spring back toward drifting target
+      px += (targetX - px) * springStrength * dt;
+      py += (targetY - py) * springStrength * dt;
+      pz += (targetZ - pz) * springStrength * dt;
+
+      // Cursor repulsion
+      if (interactive && mx < 900) {
+        const dx = px - mx;
+        const dy = py - my;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < repelRadius * repelRadius) {
+          const dist = Math.sqrt(distSq) + 0.0001;
+          const falloff = 1 - dist / repelRadius;
+          const force = falloff * falloff * repelStrength * dt;
+          px += (dx / dist) * force;
+          py += (dy / dist) * force;
         }
-        const [i, j] = connections[pk.edge];
-        const a = nodes[i].pos;
-        const b = nodes[j].pos;
-        dummy.position.set(
-          a.x + (b.x - a.x) * pk.t,
-          a.y + (b.y - a.y) * pk.t,
-          a.z + (b.z - a.z) * pk.t,
-        );
-        const s = 0.06 + Math.sin(pk.t * Math.PI) * 0.05;
-        dummy.scale.setScalar(s);
-        dummy.updateMatrix();
-        packetMesh.current.setMatrixAt(p, dummy.matrix);
       }
-      packetMesh.current.instanceMatrix.needsUpdate = true;
+
+      arr[ix] = px;
+      arr[ix + 1] = py;
+      arr[ix + 2] = pz;
+    }
+
+    if (points.current) {
+      const geom = points.current.geometry as THREE.BufferGeometry;
+      (geom.attributes.position as THREE.BufferAttribute).needsUpdate = true;
+      points.current.rotation.y = Math.sin(t * 0.05) * 0.08;
+      points.current.rotation.x = Math.cos(t * 0.04) * 0.04;
     }
   });
 
+  // Adjust point size by viewport so it scales with screen
+  const pointSize = Math.max(0.05, Math.min(0.12, viewport.width / 140));
+
   return (
-    <group ref={group}>
-      {nodes.map((n, idx) => (
-        <mesh key={idx} position={n.pos}>
-          <icosahedronGeometry args={[0.13, 0]} />
-          <meshBasicMaterial color="#e8d4a0" wireframe transparent opacity={0.55} />
-        </mesh>
-      ))}
-      {nodes.map((n, idx) => (
-        <mesh key={`c${idx}`} position={n.pos}>
-          <sphereGeometry args={[0.04, 8, 8]} />
-          <meshBasicMaterial color="#fff4d6" transparent opacity={0.9} />
-        </mesh>
-      ))}
-      <lineSegments>
-        <bufferGeometry ref={lineGeom}>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[positions, 3]}
-            count={positions.length / 3}
-          />
-        </bufferGeometry>
-        <lineBasicMaterial color="#c9a567" transparent opacity={0.18} />
-      </lineSegments>
-      <instancedMesh ref={packetMesh} args={[undefined, undefined, packets.current.length]}>
-        <sphereGeometry args={[1, 10, 10]} />
-        <meshBasicMaterial color="#ffd97a" transparent opacity={0.95} />
-      </instancedMesh>
-    </group>
+    <points ref={points}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+          count={positions.length / 3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        map={sprite}
+        size={pointSize}
+        sizeAttenuation
+        transparent
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        color={"#f6e2b3"}
+        opacity={0.9}
+      />
+    </points>
   );
 }
 
 export function ThreeBackground() {
   const [enabled, setEnabled] = useState(false);
-  const [count, setCount] = useState(36);
+  const [count, setCount] = useState(2200);
+  const [interactive, setInteractive] = useState(true);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
     setEnabled(true);
     const mobile = window.innerWidth < 768;
-    setCount(mobile ? 18 : 36);
+    setCount(mobile ? 900 : 2400);
+    setInteractive(!mobile);
   }, []);
 
   if (!enabled) return null;
@@ -168,14 +189,14 @@ export function ThreeBackground() {
     <div
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10"
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.85 }}
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        <Nodes count={count} />
+        <ParticleField count={count} interactive={interactive} />
       </Canvas>
     </div>
   );
