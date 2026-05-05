@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronRight, Gem, Users } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronRight, Gem, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -127,14 +127,18 @@ function Overview() {
                       { name: "Staking plan : Premium Pro", pct: "25%", highlight: true },
                       { name: "First platinum manager within the division", pct: "50%", highlight: true },
                       { name: "Second platinum manager within the division", pct: "75%", current: true },
-                      { name: "Diamond", pct: "100%" },
+                      { name: "Diamond", pct: "100%", locked: true },
                     ].map((t) => (
                       <li
                         key={t.name}
                         className={`flex items-center justify-between rounded-xl border px-4 py-4 text-base ${t.current ? "border-gold/50 bg-gold/5" : "border-border/60"}`}
                       >
                         <span className="flex items-center gap-2">
-                          <Check className="h-4 w-4 text-gold" strokeWidth={3} />
+                          {t.locked ? (
+                            <X className="h-4 w-4 text-muted-foreground" strokeWidth={3} />
+                          ) : (
+                            <Check className="h-4 w-4 text-gold" strokeWidth={3} />
+                          )}
                           <span className={t.current || t.highlight ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
                           {t.current && <span className="text-[10px] uppercase tracking-[0.18em] text-gold">Current</span>}
                         </span>
