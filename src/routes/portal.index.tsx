@@ -124,7 +124,7 @@ function Overview() {
 
                   <ul className="mt-4 space-y-2 text-sm">
                     {[
-                      { name: "Staking plan : Premium Pro", pct: "25%" },
+                      { name: "Staking plan : Premium Pro", pct: "25%", highlight: true },
                       { name: "First platinum manager within the division", pct: "50%", highlight: true },
                       { name: "Second platinum manager within the division", pct: "75%", current: true },
                       { name: "Diamond", pct: "100%" },
