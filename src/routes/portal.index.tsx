@@ -30,10 +30,10 @@ function Overview() {
   const firstName = (profile?.full_name ?? user?.email ?? "").split(" ")[0];
 
   const actionTiles = [
-    { label: "Deposit", icon: <ArrowDownToLine className="h-4 w-4" />, labelOnly: true as const, to: "/portal/deposit" },
-    { label: "Withdrawal", icon: <ArrowUpFromLine className="h-4 w-4" />, labelOnly: true as const, to: "/portal/withdrawal" },
-    { label: "Referral", icon: <Users className="h-4 w-4" />, labelOnly: true as const, to: "/portal/referral" },
-    { label: "Participation", icon: <Users className="h-4 w-4" />, labelOnly: true as const, to: "/portal/participation" },
+    { label: "Deposit", icon: <ArrowDownToLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/deposit" },
+    { label: "Withdrawal", icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
+    { label: "Referral", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
+    { label: "Participation", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/participation" },
   ];
 
 
