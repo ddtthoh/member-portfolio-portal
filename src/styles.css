@@ -103,14 +103,16 @@
 
 @layer utilities {
   .liquid-glass {
+    /* Single knob controlling overall glass opacity (0 = invisible, 1 = solid base look) */
+    --glass-opacity: 0.3;
     position: relative;
-    background: color-mix(in oklab, var(--card) 30%, transparent);
+    background: color-mix(in oklab, var(--card) calc(var(--glass-opacity) * 100%), transparent);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid color-mix(in oklab, white 8%, transparent);
+    border: 1px solid color-mix(in oklab, white calc(var(--glass-opacity) * 27%), transparent);
     box-shadow:
-      inset 0 1px 0 color-mix(in oklab, white 14%, transparent),
-      inset 0 -1px 0 color-mix(in oklab, black 14%, transparent),
+      inset 0 1px 0 color-mix(in oklab, white calc(var(--glass-opacity) * 47%), transparent),
+      inset 0 -1px 0 color-mix(in oklab, black calc(var(--glass-opacity) * 47%), transparent),
       0 10px 40px -20px rgba(0,0,0,0.35);
     overflow: hidden;
     transition:
@@ -123,8 +125,8 @@
     transform: translateY(-3px);
     border-color: color-mix(in oklab, var(--gold) 35%, transparent);
     box-shadow:
-      inset 0 1px 0 color-mix(in oklab, white 18%, transparent),
-      inset 0 -1px 0 color-mix(in oklab, black 14%, transparent),
+      inset 0 1px 0 color-mix(in oklab, white calc(var(--glass-opacity) * 60%), transparent),
+      inset 0 -1px 0 color-mix(in oklab, black calc(var(--glass-opacity) * 47%), transparent),
       0 18px 50px -18px color-mix(in oklab, var(--gold) 35%, transparent),
       0 12px 40px -20px rgba(0,0,0,0.45);
   }
@@ -134,7 +136,7 @@
     inset: 0;
     background: radial-gradient(
       120% 80% at 0% 0%,
-      color-mix(in oklab, white 14%, transparent),
+      color-mix(in oklab, white calc(var(--glass-opacity) * 47%), transparent),
       transparent 55%
     );
     pointer-events: none;
@@ -145,9 +147,9 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      color-mix(in oklab, white 8%, transparent),
+      color-mix(in oklab, white calc(var(--glass-opacity) * 27%), transparent),
       transparent 30%,
-      color-mix(in oklab, var(--gold) 6%, transparent) 100%
+      color-mix(in oklab, var(--gold) calc(var(--glass-opacity) * 20%), transparent) 100%
     );
     pointer-events: none;
   }
