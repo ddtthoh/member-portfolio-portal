@@ -94,7 +94,7 @@ function Overview() {
         transition={{ duration: 0.55, ease: "easeOut" }}
         className="mb-3"
       >
-        <div className="liquid-glass relative overflow-hidden rounded-xl p-5 sm:p-6">
+        <div className="liquid-glass relative overflow-hidden rounded-xl p-5">
           {/* gold glow */}
           <div
             aria-hidden
@@ -243,7 +243,7 @@ function Overview() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="liquid-glass flex flex-col gap-2 rounded-xl px-4 py-5"
+            className="liquid-glass flex flex-col gap-2 rounded-xl p-5"
           >
             <div className="text-xs text-muted-foreground">{w.label}</div>
             <div className="text-xl font-semibold tracking-tight text-gold sm:text-2xl">{w.value}</div>
