@@ -106,13 +106,23 @@ function Overview() {
           <div className="relative mt-5">
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
               <div
-                className="h-full rounded-full"
+                className="relative h-full rounded-full"
                 style={{
-                  width: "55%",
+                  width: "75%",
                   background: "linear-gradient(90deg, color-mix(in oklab, var(--gold) 60%, black), var(--gold))",
                   boxShadow: "0 0 12px color-mix(in oklab, var(--gold) 70%, transparent)",
                 }}
-              />
+              >
+                <span
+                  aria-hidden
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-3 w-3 rounded-full"
+                  style={{
+                    background: "radial-gradient(circle, white 0%, color-mix(in oklab, var(--gold) 90%, white) 40%, transparent 70%)",
+                    boxShadow: "0 0 14px 3px color-mix(in oklab, var(--gold) 90%, white), 0 0 28px 6px color-mix(in oklab, var(--gold) 60%, transparent)",
+                    animation: "pulse 1.8s ease-in-out infinite",
+                  }}
+                />
+              </div>
             </div>
             <div className="mt-1.5 flex justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
               <span>0%</span>
