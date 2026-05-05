@@ -74,7 +74,7 @@ function Stat({
   label, value, sub, icon, highlight, tone,
 }: { label: string; value: string; sub?: string; icon?: React.ReactNode; highlight?: boolean; tone?: "up" | "down" }) {
   return (
-    <div className={`rounded-sm border border-border bg-card p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
+    <div className={`liquid-glass rounded-xl p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
         <span>{label}</span>
         <span className="text-gold">{icon}</span>
@@ -93,7 +93,7 @@ function QuickLink({ to, title, body, icon }: { to: string; title: string; body:
   return (
     <Link
       to={to}
-      className="group block rounded-sm border border-border bg-card p-6 transition-all hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
+      className="liquid-glass group block rounded-xl p-6 transition-all hover:-translate-y-0.5 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="text-gold">{icon}</span>
