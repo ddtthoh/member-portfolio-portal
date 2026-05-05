@@ -40,34 +40,52 @@ function Overview() {
 
   return (
     <div>
-      {/* Est. Total Value + Today's PNL */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="liquid-glass mb-6 rounded-xl p-5"
-      >
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>Est. Total Value (USD)</span>
-          <ChevronUp className="h-4 w-4" />
-        </div>
-        <div className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
-          $50,000.00
-        </div>
-        <div className="mt-3 flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">
-            Today's PNL <span className="text-emerald-400">+$960.2(+1.92%)</span>
-          </span>
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
-        </div>
-      </motion.div>
+      {/* Est. Total Value + Staking info */}
+      <div className="mb-3 grid grid-cols-2 gap-3">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="liquid-glass rounded-xl p-5"
+        >
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <span>Est. Total Value (USD)</span>
+            <ChevronUp className="h-4 w-4" />
+          </div>
+          <div className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+            $50,000.00
+          </div>
+          <div className="mt-3 flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">
+              Today's PNL <span className="text-emerald-400">+$960.2(+1.92%)</span>
+            </span>
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+          className="liquid-glass flex flex-col justify-center gap-3 rounded-xl p-5"
+        >
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Participated date</div>
+            <div className="mt-1 text-2xl font-semibold text-gold">85 days</div>
+          </div>
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Staking amount</div>
+            <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Tier card */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
-        className="mb-6"
+        className="mb-3"
       >
         <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-br from-background via-background to-background p-5 sm:p-6"
           style={{
@@ -213,7 +231,7 @@ function Overview() {
         </div>
       </motion.div>
 
-      <div className="mb-6 grid grid-cols-2 gap-3">
+      <div className="mb-3 grid grid-cols-2 gap-3">
         {[
           { label: "USDT Wallet", value: "$0.00" },
           { label: "Rewards Wallet", value: "$0.00" },
@@ -231,7 +249,7 @@ function Overview() {
         ))}
       </div>
 
-      <div className="mb-6 grid grid-cols-4 gap-3">
+      <div className="mb-3 grid grid-cols-4 gap-3">
         {actionTiles.map((t, i) => (
           <motion.div
             key={t.label}
