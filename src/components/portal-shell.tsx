@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, LineChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X,
@@ -8,6 +9,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { TickerTape } from "@/components/ticker-tape";
 
 const nav = [
   { to: "/portal", label: "Overview", icon: LayoutDashboard },
@@ -95,8 +97,19 @@ export function PortalShell() {
             <ThemeToggle />
           </div>
         </header>
+        <TickerTape />
         <main className="min-w-0 flex-1 px-4 py-8 lg:px-10">
-          <Outlet />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
     </div>
