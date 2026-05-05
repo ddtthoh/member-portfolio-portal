@@ -106,8 +106,8 @@
     position: relative;
     background: linear-gradient(
       135deg,
-      color-mix(in oklab, white 6%, transparent) 0%,
-      color-mix(in oklab, white 2%, transparent) 100%
+      color-mix(in oklab, white 3%, transparent) 0%,
+      color-mix(in oklab, white 1%, transparent) 100%
     );
     backdrop-filter: blur(40px) saturate(160%);
     -webkit-backdrop-filter: blur(40px) saturate(160%);
