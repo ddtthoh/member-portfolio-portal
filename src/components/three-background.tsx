@@ -26,6 +26,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
   const nodesRef = useRef<THREE.Points>(null);
   const edgesRef = useRef<THREE.LineSegments>(null);
   const packetsRef = useRef<THREE.Points>(null);
+  const sparklesRef = useRef<THREE.Points>(null);
   const { camera, viewport } = useThree();
 
   const nodeSprite = useMemo(() => makeSpriteTexture(), []);
@@ -122,11 +123,27 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       packetPositions[p * 3 + 2] = 0;
     }
 
+    // Sparkles: 2 small twinkling dots between each connected pair
+    const SPARKS_PER_EDGE = 2;
+    const sparkCount = edgeList.length * SPARKS_PER_EDGE;
+    const sparkPositions = new Float32Array(sparkCount * 3);
+    const sparkColors = new Float32Array(sparkCount * 3);
+    const sparkSeeds = new Float32Array(sparkCount);
+    const sparkOffsets = new Float32Array(sparkCount); // 0..1 along the edge
+    for (let s = 0; s < sparkCount; s++) {
+      sparkSeeds[s] = Math.random() * Math.PI * 2;
+      sparkOffsets[s] = 0.2 + Math.random() * 0.6; // mid section of edge
+      sparkColors[s * 3] = 1.0;
+      sparkColors[s * 3 + 1] = 0.92;
+      sparkColors[s * 3 + 2] = 0.7;
+    }
+
     return {
       home, pos, colors, sizes, seeds, ignite,
       adjacency, edgeList,
       edgePositions, edgeColors,
       packets, packetPositions, packetAlpha,
+      sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
     };
   }, [count]);
 
