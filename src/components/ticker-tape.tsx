@@ -148,11 +148,11 @@ export function TickerTape() {
         {items.map((t, i) => (
           <a
             key={i}
-            href={`https://dexscreener.com/bsc/${t.pair}`}
+            href={`https://pancakeswap.finance/swap?outputCurrency=${t.token}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-2 transition-colors hover:text-gold"
-            title={`Open ${t.sym} on DexScreener`}
+            title={`Trade ${t.sym} on PancakeSwap`}
           >
             <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               {t.sym}
