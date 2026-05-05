@@ -20,6 +20,7 @@ import { Route as PortalReportsRouteImport } from './routes/portal.reports'
 import { Route as PortalReferralRouteImport } from './routes/portal.referral'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPerformanceRouteImport } from './routes/portal.performance'
+import { Route as PortalParticipationRouteImport } from './routes/portal.participation'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
@@ -80,6 +81,11 @@ const PortalPerformanceRoute = PortalPerformanceRouteImport.update({
   path: '/performance',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalParticipationRoute = PortalParticipationRouteImport.update({
+  id: '/participation',
+  path: '/participation',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalNetworkRoute = PortalNetworkRouteImport.update({
   id: '/network',
   path: '/network',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/participation'
     | '/portal/performance'
     | '/portal/qna'
     | '/portal/referral'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/participation'
     | '/portal/performance'
     | '/portal/qna'
     | '/portal/referral'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/participation'
     | '/portal/performance'
     | '/portal/qna'
     | '/portal/referral'
@@ -290,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPerformanceRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/participation': {
+      id: '/portal/participation'
+      path: '/participation'
+      fullPath: '/portal/participation'
+      preLoaderRoute: typeof PortalParticipationRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/network': {
       id: '/portal/network'
       path: '/network'
@@ -326,6 +345,7 @@ interface PortalRouteChildren {
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
+  PortalParticipationRoute: typeof PortalParticipationRoute
   PortalPerformanceRoute: typeof PortalPerformanceRoute
   PortalQnaRoute: typeof PortalQnaRoute
   PortalReferralRoute: typeof PortalReferralRoute
@@ -341,6 +361,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalNetworkRoute: PortalNetworkRoute,
+  PortalParticipationRoute: PortalParticipationRoute,
   PortalPerformanceRoute: PortalPerformanceRoute,
   PortalQnaRoute: PortalQnaRoute,
   PortalReferralRoute: PortalReferralRoute,
@@ -362,3 +383,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
