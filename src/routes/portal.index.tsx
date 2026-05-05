@@ -239,10 +239,10 @@ function Overview() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="liquid-glass rounded-xl p-5"
+            className="liquid-glass flex items-center justify-between rounded-xl p-5"
           >
             <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
-            <div className="mt-2 text-3xl font-semibold text-gold">{w.value}</div>
+            <div className="text-3xl font-semibold text-gold">{w.value}</div>
           </motion.div>
         ))}
       </div>
