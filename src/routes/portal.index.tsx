@@ -44,7 +44,7 @@ function Overview() {
         description={`Your dedicated advisor is ${profile?.advisor_name ?? "—"}. Member since ${profile?.member_since ?? "—"}.`}
       />
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3">
         <Stat label="Portfolio Value" value={fmt(totalValue)} icon={<Wallet className="h-4 w-4" />} highlight />
         <Stat
           label="Unrealized P/L"
@@ -64,12 +64,12 @@ function Stat({
   label, value, sub, icon, highlight, tone,
 }: { label: string; value: string; sub?: string; icon?: React.ReactNode; highlight?: boolean; tone?: "up" | "down" }) {
   return (
-    <div className={`liquid-glass rounded-xl p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
-      <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
+    <div className={`liquid-glass rounded-lg p-3 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
+      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
         <span>{label}</span>
         <span className="text-gold">{icon}</span>
       </div>
-      <div className="mt-3 font-serif text-3xl">{value}</div>
+      <div className="mt-1.5 font-serif text-lg">{value}</div>
       {sub && (
         <div className={`mt-1 text-sm ${tone === "down" ? "text-destructive" : "text-success"}`}>
           {sub}
