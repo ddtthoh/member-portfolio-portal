@@ -124,7 +124,6 @@ function Overview() {
 
                   <ul className="mt-4 space-y-2 text-sm">
                     {[
-                      { name: "Bronze", pct: "0%" },
                       { name: "Silver", pct: "25%" },
                       { name: "Gold", pct: "50%" },
                       { name: "Platinum", pct: "75%", current: true },
@@ -132,7 +131,7 @@ function Overview() {
                     ].map((t) => (
                       <li
                         key={t.name}
-                        className={`flex items-center justify-between rounded-lg border px-3 py-2 ${t.current ? "border-gold/50 bg-gold/5" : "border-border/60"}`}
+                        className={`flex items-center justify-between rounded-xl border px-4 py-4 text-base ${t.current ? "border-gold/50 bg-gold/5" : "border-border/60"}`}
                       >
                         <span className="flex items-center gap-2">
                           <Gem className={`h-4 w-4 ${t.current ? "text-gold" : "text-muted-foreground"}`} />
