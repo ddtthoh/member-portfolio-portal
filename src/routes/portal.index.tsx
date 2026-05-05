@@ -115,8 +115,11 @@ function Overview() {
               />
             </div>
             <div className="mt-1.5 flex justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              <span>0</span>
-              <span>500</span>
+              <span>0%</span>
+              <span>25%</span>
+              <span>50%</span>
+              <span>75%</span>
+              <span>100%</span>
             </div>
           </div>
         </div>
