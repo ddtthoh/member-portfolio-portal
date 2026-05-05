@@ -149,7 +149,7 @@ export function TickerTape() {
           <a
             key={i}
             href={`https://pancakeswap.finance/swap?outputCurrency=${t.token}`}
-            target="_blank"
+            target="_top"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-2 transition-colors hover:text-gold"
             title={`Trade ${t.sym} on PancakeSwap`}
