@@ -138,12 +138,16 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       sparkColors[s * 3 + 2] = 0.7;
     }
 
+    // Per-edge pulse intensity (0..1), decays over time, spikes when packet fires
+    const edgePulse = new Float32Array(edgeList.length);
+
     return {
       home, pos, colors, sizes, seeds, ignite,
       adjacency, edgeList,
       edgePositions, edgeColors,
       packets, packetPositions, packetAlpha,
       sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
+      edgePulse,
     };
   }, [count]);
 
