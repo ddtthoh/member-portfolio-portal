@@ -67,11 +67,10 @@ function Overview() {
                 "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 55%)",
             }}
           />
-          <div className="relative flex items-start justify-between gap-4">
+          <div className="relative flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Premium Tier</div>
               <div
-                className="mt-1 font-serif text-4xl font-semibold leading-none tracking-tight sm:text-5xl"
+                className="font-serif text-4xl font-semibold leading-none tracking-tight sm:text-5xl"
                 style={{
                   background: "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
                   WebkitBackgroundClip: "text",
