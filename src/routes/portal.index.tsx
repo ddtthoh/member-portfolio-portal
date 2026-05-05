@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Wallet, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
+import { Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -45,6 +45,8 @@ function Overview() {
       />
 
       <div className="grid grid-cols-2 gap-3">
+        <Stat label="Deposit" value={fmt(0)} icon={<ArrowDownToLine className="h-4 w-4" />} />
+        <Stat label="Withdrawal" value={fmt(0)} icon={<ArrowUpFromLine className="h-4 w-4" />} />
         <Stat label="Portfolio Value" value={fmt(totalValue)} icon={<Wallet className="h-4 w-4" />} highlight />
         <Stat
           label="Unrealized P/L"
