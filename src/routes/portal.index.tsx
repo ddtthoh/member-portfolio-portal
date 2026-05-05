@@ -79,18 +79,3 @@ function Stat({
   );
 }
 
-function QuickLink({ to, title, body, icon }: { to: string; title: string; body: string; icon?: React.ReactNode }) {
-  return (
-    <Link
-      to={to}
-      className="liquid-glass group block rounded-xl p-6 transition-all hover:-translate-y-0.5 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
-    >
-      <div className="mb-3 flex items-center justify-between">
-        <span className="text-gold">{icon}</span>
-        <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold" />
-      </div>
-      <h3 className="font-serif text-lg">{title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{body}</p>
-    </Link>
-  );
-}
