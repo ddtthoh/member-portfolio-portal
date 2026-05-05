@@ -45,7 +45,7 @@ function Overview() {
         description={`Member since ${profile?.member_since ?? "—"}.`}
       />
 
-      <div className="mb-3 grid grid-cols-4 gap-3">
+      <div className="mb-3 grid grid-cols-4 gap-2 sm:gap-3">
         {actionTiles.map((t, i) => (
           <motion.div
             key={t.label}
