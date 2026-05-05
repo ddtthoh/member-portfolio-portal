@@ -13,6 +13,7 @@ import { Route as PortalRouteImport } from './routes/portal'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal'
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
 import { Route as PortalSupportRouteImport } from './routes/portal.support'
 import { Route as PortalReportsRouteImport } from './routes/portal.reports'
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
 const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalWithdrawalRoute = PortalWithdrawalRouteImport.update({
+  id: '/withdrawal',
+  path: '/withdrawal',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalTransactionsRoute = PortalTransactionsRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/withdrawal'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/withdrawal'
     | '/portal'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/withdrawal'
     | '/portal/'
   fileRoutesById: FileRoutesById
 }
@@ -215,6 +227,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/portal/'
       preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/withdrawal': {
+      id: '/portal/withdrawal'
+      path: '/withdrawal'
+      fullPath: '/portal/withdrawal'
+      preLoaderRoute: typeof PortalWithdrawalRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/transactions': {
@@ -293,6 +312,7 @@ interface PortalRouteChildren {
   PortalReportsRoute: typeof PortalReportsRoute
   PortalSupportRoute: typeof PortalSupportRoute
   PortalTransactionsRoute: typeof PortalTransactionsRoute
+  PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
 }
 
@@ -306,6 +326,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalReportsRoute: PortalReportsRoute,
   PortalSupportRoute: PortalSupportRoute,
   PortalTransactionsRoute: PortalTransactionsRoute,
+  PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
 }
 
