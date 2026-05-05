@@ -50,7 +50,6 @@ function Overview() {
         >
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <span>Est. Total Value (USD)</span>
-            <ChevronUp className="h-4 w-4" />
           </div>
           <div className="mt-2 text-2xl font-semibold tracking-tight text-gold sm:text-4xl">
             $50,000.00
@@ -59,7 +58,6 @@ function Overview() {
             <span className="text-muted-foreground">
               Today's PNL <span className="text-emerald-400">+$960.2(+1.92%)</span>
             </span>
-            <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </div>
         </motion.div>
 
