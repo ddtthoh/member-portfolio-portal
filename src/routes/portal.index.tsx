@@ -125,7 +125,7 @@ function Overview() {
                   <ul className="mt-4 space-y-2 text-sm">
                     {[
                       { name: "Staking plan : Premium Pro", pct: "25%" },
-                      { name: "First platinum manager within the division", pct: "50%" },
+                      { name: "First platinum manager within the division", pct: "50%", highlight: true },
                       { name: "Second platinum manager within the division", pct: "75%", current: true },
                       { name: "Diamond", pct: "100%" },
                     ].map((t) => (
@@ -135,10 +135,10 @@ function Overview() {
                       >
                         <span className="flex items-center gap-2">
                           <Check className="h-4 w-4 text-gold" strokeWidth={3} />
-                          <span className={t.current ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
+                          <span className={t.current || t.highlight ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
                           {t.current && <span className="text-[10px] uppercase tracking-[0.18em] text-gold">Current</span>}
                         </span>
-                        <span className={`text-xs ${t.current ? "text-gold" : "text-muted-foreground"}`}>{t.pct}</span>
+                        <span className={`text-xs ${t.current || t.highlight ? "text-gold" : "text-muted-foreground"}`}>{t.pct}</span>
                       </li>
                     ))}
                   </ul>
