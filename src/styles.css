@@ -104,7 +104,7 @@
 @layer utilities {
   .liquid-glass {
     /* Single knob controlling overall glass opacity (0 = invisible, 1 = solid base look) */
-    --glass-opacity: 0.3;
+    --glass-opacity: 0.5;
     position: relative;
     background: color-mix(in oklab, var(--card) calc(var(--glass-opacity) * 100%), transparent);
     backdrop-filter: blur(24px) saturate(150%);
