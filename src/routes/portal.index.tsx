@@ -135,10 +135,10 @@ function Overview() {
                       >
                         <span className="flex items-center gap-2">
                           <Check className="h-4 w-4 text-gold" strokeWidth={3} />
-                          <span className={t.current ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
+                          <span className={t.current || t.highlight ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
                           {t.current && <span className="text-[10px] uppercase tracking-[0.18em] text-gold">Current</span>}
                         </span>
-                        <span className={`text-xs ${t.current ? "text-gold" : "text-muted-foreground"}`}>{t.pct}</span>
+                        <span className={`text-xs ${t.current || t.highlight ? "text-gold" : "text-muted-foreground"}`}>{t.pct}</span>
                       </li>
                     ))}
                   </ul>
