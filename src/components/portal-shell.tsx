@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, LineChart, ArrowLeftRight, FileText,
-  BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine,
+  BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
@@ -14,6 +14,7 @@ import { TickerTape } from "@/components/ticker-tape";
 const nav = [
   { to: "/portal", label: "Overview", icon: LayoutDashboard },
   { to: "/portal/deposit", label: "Deposit", icon: ArrowDownToLine },
+  { to: "/portal/withdrawal", label: "Withdrawal", icon: ArrowUpFromLine },
   { to: "/portal/holdings", label: "Holdings", icon: Wallet },
   { to: "/portal/performance", label: "Performance", icon: LineChart },
   { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight },

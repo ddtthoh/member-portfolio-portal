@@ -38,7 +38,7 @@ function Overview() {
 
   const tiles = [
     { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true, labelOnly: true, to: "/portal/deposit" },
-    { label: "Withdrawal", value: 0, icon: <ArrowUpFromLine className="h-4 w-4" />, seed: 3, positive: false },
+    { label: "Withdrawal", value: 0, icon: <ArrowUpFromLine className="h-4 w-4" />, seed: 3, positive: false, labelOnly: true, to: "/portal/withdrawal" },
     { label: "Portfolio Value", value: totalValue, icon: <Wallet className="h-4 w-4" />, highlight: true, seed: 5, positive: true },
     {
       label: "Unrealized P/L",
