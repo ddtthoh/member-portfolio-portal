@@ -56,7 +56,7 @@ function Overview() {
         </div>
         <div className="mt-3 flex items-center justify-between text-sm">
           <span className="text-muted-foreground">
-            Today's PNL <span className="text-emerald-400">+$2,830.74(+1.92%)</span>
+            Today's PNL <span className="text-emerald-400">+$960.2(+1.92%)</span>
           </span>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </div>
