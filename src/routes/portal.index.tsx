@@ -197,6 +197,24 @@ function Overview() {
         </div>
       </motion.div>
 
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        {[
+          { label: "USDT Wallet", value: "$0.00" },
+          { label: "Rewards Wallet", value: "$0.00" },
+        ].map((w, i) => (
+          <motion.div
+            key={w.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            className="liquid-glass rounded-xl p-5"
+          >
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
+            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
+          </motion.div>
+        ))}
+      </div>
+
       <div className="mb-6 grid grid-cols-4 gap-3">
         {actionTiles.map((t, i) => (
           <motion.div
@@ -213,24 +231,6 @@ function Overview() {
               </TiltCard>
               <span className="text-center text-xs font-medium tracking-wide text-foreground/90 sm:text-sm">{t.label}</span>
             </Link>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="mb-6 grid grid-cols-2 gap-3">
-        {[
-          { label: "USDT Wallet", value: "$0.00" },
-          { label: "Rewards Wallet", value: "$0.00" },
-        ].map((w, i) => (
-          <motion.div
-            key={w.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="liquid-glass rounded-xl p-5"
-          >
-            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
-            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
           </motion.div>
         ))}
       </div>
