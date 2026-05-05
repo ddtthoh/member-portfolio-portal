@@ -134,7 +134,11 @@ function Overview() {
                         className={`flex items-center justify-between rounded-xl border px-4 py-4 text-base ${t.current ? "border-gold/50 bg-gold/5" : "border-border/60"}`}
                       >
                         <span className="flex items-center gap-2">
-                          <Check className="h-4 w-4 text-gold" strokeWidth={3} />
+                          {t.locked ? (
+                            <X className="h-4 w-4 text-muted-foreground" strokeWidth={3} />
+                          ) : (
+                            <Check className="h-4 w-4 text-gold" strokeWidth={3} />
+                          )}
                           <span className={t.current || t.highlight ? "text-gold" : "text-muted-foreground"}>{t.name}</span>
                           {t.current && <span className="text-[10px] uppercase tracking-[0.18em] text-gold">Current</span>}
                         </span>
