@@ -15,7 +15,7 @@ import { ThreeBackground } from "@/components/three-background";
 const nav = [
   { to: "/portal", label: "Overview", icon: LayoutDashboard },
   
-  { to: "/portal/withdrawal", label: "Withdrawal", icon: ArrowUpFromLine },
+  
   { to: "/portal/holdings", label: "Holdings", icon: Wallet },
   { to: "/portal/performance", label: "Performance", icon: LineChart },
   { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight },
