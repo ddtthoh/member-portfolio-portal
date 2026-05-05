@@ -124,7 +124,6 @@ function Overview() {
 
                   <ul className="mt-4 space-y-2 text-sm">
                     {[
-                      { name: "Bronze", pct: "0%" },
                       { name: "Silver", pct: "25%" },
                       { name: "Gold", pct: "50%" },
                       { name: "Platinum", pct: "75%", current: true },
