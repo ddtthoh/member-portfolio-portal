@@ -104,7 +104,7 @@
 @layer utilities {
   .liquid-glass {
     position: relative;
-    background: color-mix(in oklab, var(--card) 50%, transparent);
+    background: color-mix(in oklab, var(--card) 30%, transparent);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
     border: 1px solid color-mix(in oklab, white 8%, transparent);
