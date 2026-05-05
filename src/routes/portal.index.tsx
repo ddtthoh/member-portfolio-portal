@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Users } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, ChevronRight, Gem, Users } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -44,6 +44,84 @@ function Overview() {
         title={`Good day, ${firstName || "Member"}`}
         description={`Member since ${profile?.member_since ?? "—"}.`}
       />
+
+      {/* Tier card */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+        className="mb-6"
+      >
+        <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-br from-background via-background to-background p-5 sm:p-6"
+          style={{
+            boxShadow:
+              "inset 0 0 0 1px color-mix(in oklab, var(--gold) 10%, transparent), 0 0 60px -20px color-mix(in oklab, var(--gold) 45%, transparent), 0 20px 60px -30px rgba(0,0,0,0.6)",
+          }}
+        >
+          {/* gold glow */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-px rounded-2xl"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 55%)",
+            }}
+          />
+          <div className="relative flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Premium Tier</div>
+              <div
+                className="mt-1 font-serif text-4xl font-semibold leading-none tracking-tight sm:text-5xl"
+                style={{
+                  background: "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                Diamond
+              </div>
+              <button
+                type="button"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur transition-colors hover:border-gold/50 hover:text-foreground"
+              >
+                Up level <ChevronRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+            <div className="relative shrink-0">
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-xl border border-gold/40 sm:h-16 sm:w-16"
+                style={{
+                  background:
+                    "linear-gradient(160deg, color-mix(in oklab, var(--gold) 30%, transparent), transparent 60%)",
+                  boxShadow:
+                    "0 0 30px -8px color-mix(in oklab, var(--gold) 70%, transparent), inset 0 0 20px color-mix(in oklab, var(--gold) 20%, transparent)",
+                }}
+              >
+                <Gem className="h-7 w-7 text-gold" />
+              </div>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="relative mt-5">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: "55%",
+                  background: "linear-gradient(90deg, color-mix(in oklab, var(--gold) 60%, black), var(--gold))",
+                  boxShadow: "0 0 12px color-mix(in oklab, var(--gold) 70%, transparent)",
+                }}
+              />
+            </div>
+            <div className="mt-1.5 flex justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              <span>0</span>
+              <span>500</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       <div className="mb-6 grid grid-cols-4 gap-3">
         {actionTiles.map((t, i) => (
