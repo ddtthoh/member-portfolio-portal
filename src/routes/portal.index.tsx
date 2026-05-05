@@ -61,7 +61,7 @@ function Overview() {
       <PageHeader
         eyebrow={`Account · ${profile?.account_number ?? "—"}`}
         title={`Good day, ${firstName || "Member"}`}
-        description={`Your dedicated advisor is ${profile?.advisor_name ?? "—"}. Member since ${profile?.member_since ?? "—"}.`}
+        description={`Member since ${profile?.member_since ?? "—"}.`}
       />
 
       <div className="mb-3 grid grid-cols-3 gap-3">
