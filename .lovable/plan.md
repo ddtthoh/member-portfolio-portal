@@ -1,7 +1,5 @@
-In `src/routes/portal.index.tsx`:
+## Make Deposit tile clickable, navigate to /portal/deposit
 
-1. Add `labelOnly: true` to the Deposit tile entry.
-2. Update the `Stat` component to accept a `labelOnly` prop. When true, render only the label centered with larger serif type (`text-2xl`) — no icon, no sparkline, no value.
-3. Other tiles (Withdrawal, Portfolio Value, Unrealized P/L, Positions) remain unchanged.
-
-Result: the Deposit box shows only the word "Deposit" in a large serif font, centered, with no icon or sparkline.
+1. **Create `src/routes/portal.deposit.tsx`** — new page with `PageHeader` ("Deposit") and two `liquid-glass` cards: wire transfer instructions and notes.
+2. **Edit `src/routes/portal.index.tsx`** — wrap the Deposit tile in `<Link to="/portal/deposit">` with hover affordance (gold border on hover).
+3. **Edit `src/components/portal-shell.tsx`** — add a "Deposit" entry to the sidebar nav with the `ArrowDownToLine` icon.
