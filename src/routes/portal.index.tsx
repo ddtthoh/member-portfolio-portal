@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronRight, Gem, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronDown, ChevronRight, ChevronUp, Gem, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -41,26 +41,26 @@ function Overview() {
   return (
     <div>
       {/* Est. Total Value + Today's PNL */}
-      <div className="mb-6 grid grid-cols-2 gap-3">
-        {[
-          {
-            label: "Est. Total Value",
-            value: `$${holdings.reduce((s, h) => s + Number(h.quantity) * Number(h.current_price), 0).toFixed(2)}`,
-          },
-          { label: "Today's PNL", value: "$0.00" },
-        ].map((w, i) => (
-          <motion.div
-            key={w.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="liquid-glass rounded-xl p-5"
-          >
-            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
-            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="liquid-glass mb-6 rounded-xl p-5"
+      >
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>Est. Total Value (USD)</span>
+          <ChevronUp className="h-4 w-4" />
+        </div>
+        <div className="mt-2 font-serif text-4xl font-semibold tracking-tight sm:text-5xl">
+          ${holdings.reduce((s, h) => s + Number(h.quantity) * Number(h.current_price), 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        </div>
+        <div className="mt-3 flex items-center justify-between text-sm">
+          <span className="text-muted-foreground">
+            Today's PNL <span className="text-emerald-400">+$2,830.74(+1.92%)</span>
+          </span>
+          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+        </div>
+      </motion.div>
 
       {/* Tier card */}
       <motion.div
