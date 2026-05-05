@@ -197,26 +197,22 @@ function Overview() {
         </div>
       </motion.div>
 
-      <div className="mb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="liquid-glass rounded-xl p-5"
-        >
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <span>Est. Total Value (USD)</span>
-            <ChevronRight className="h-3.5 w-3.5 -rotate-90" />
-          </div>
-          <div className="mt-1 font-sans text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            $150,290.38
-          </div>
-          <div className="mt-2 flex items-center gap-1 text-sm">
-            <span className="text-muted-foreground">Today's PNL</span>
-            <span className="text-emerald-400">+$2,830.74(+1.92%)</span>
-            <ChevronRight className="h-3.5 w-3.5 rotate-90 text-emerald-400" />
-          </div>
-        </motion.div>
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        {[
+          { label: "USDT Wallet", value: "$0.00" },
+          { label: "Rewards Wallet", value: "$0.00" },
+        ].map((w, i) => (
+          <motion.div
+            key={w.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            className="liquid-glass rounded-xl p-5"
+          >
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
+            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
+          </motion.div>
+        ))}
       </div>
 
       <div className="mb-6 grid grid-cols-4 gap-3">
