@@ -42,19 +42,6 @@ function Overview() {
     { label: "Referral", icon: <Users className="h-4 w-4" />, labelOnly: true as const, to: "/portal/referral" },
   ];
 
-  const tiles = [
-    { label: "Portfolio Value", value: totalValue, icon: <Wallet className="h-4 w-4" />, highlight: true, seed: 5, positive: true },
-    {
-      label: "Unrealized P/L",
-      value: gain,
-      sub: `${gain >= 0 ? "+" : ""}${gainPct.toFixed(2)}%`,
-      icon: gain >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />,
-      tone: gain >= 0 ? ("up" as const) : ("down" as const),
-      seed: 7,
-      positive: gain >= 0,
-    },
-    { label: "Positions", value: holdings.length, prefix: "", icon: <ArrowUpRight className="h-4 w-4" />, seed: 11, positive: true },
-  ];
 
   return (
     <div>
@@ -81,20 +68,6 @@ function Overview() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {tiles.map((t, i) => (
-          <motion.div
-            key={t.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-          >
-            <TiltCard>
-              <Stat {...t} />
-            </TiltCard>
-          </motion.div>
-        ))}
-      </div>
     </div>
   );
 }
