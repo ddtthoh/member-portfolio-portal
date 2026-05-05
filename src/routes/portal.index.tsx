@@ -51,7 +51,7 @@ function Overview() {
           <span>Est. Total Value (USD)</span>
           <ChevronUp className="h-4 w-4" />
         </div>
-        <div className="mt-2 font-serif text-4xl font-semibold tracking-tight sm:text-5xl">
+        <div className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">
           $50,000.00
         </div>
         <div className="mt-3 flex items-center justify-between text-sm">
@@ -226,7 +226,7 @@ function Overview() {
             className="liquid-glass rounded-xl p-5"
           >
             <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
-            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
+            <div className="mt-2 text-3xl font-semibold text-gold">{w.value}</div>
           </motion.div>
         ))}
       </div>
