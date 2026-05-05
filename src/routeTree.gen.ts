@@ -17,6 +17,7 @@ import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
 import { Route as PortalSupportRouteImport } from './routes/portal.support'
 import { Route as PortalReportsRouteImport } from './routes/portal.reports'
+import { Route as PortalReferralRouteImport } from './routes/portal.referral'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPerformanceRouteImport } from './routes/portal.performance'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
@@ -64,6 +65,11 @@ const PortalReportsRoute = PortalReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalReferralRoute = PortalReferralRouteImport.update({
+  id: '/referral',
+  path: '/referral',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalQnaRoute = PortalQnaRouteImport.update({
   id: '/qna',
   path: '/qna',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
+  '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
+  '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/performance': typeof PortalPerformanceRoute
   '/portal/qna': typeof PortalQnaRoute
+  '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/performance'
     | '/portal/qna'
+    | '/portal/referral'
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/performance'
     | '/portal/qna'
+    | '/portal/referral'
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/performance'
     | '/portal/qna'
+    | '/portal/referral'
     | '/portal/reports'
     | '/portal/support'
     | '/portal/transactions'
@@ -257,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalReportsRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/referral': {
+      id: '/portal/referral'
+      path: '/referral'
+      fullPath: '/portal/referral'
+      preLoaderRoute: typeof PortalReferralRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/qna': {
       id: '/portal/qna'
       path: '/qna'
@@ -309,6 +328,7 @@ interface PortalRouteChildren {
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalPerformanceRoute: typeof PortalPerformanceRoute
   PortalQnaRoute: typeof PortalQnaRoute
+  PortalReferralRoute: typeof PortalReferralRoute
   PortalReportsRoute: typeof PortalReportsRoute
   PortalSupportRoute: typeof PortalSupportRoute
   PortalTransactionsRoute: typeof PortalTransactionsRoute
@@ -323,6 +343,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalNetworkRoute: PortalNetworkRoute,
   PortalPerformanceRoute: PortalPerformanceRoute,
   PortalQnaRoute: PortalQnaRoute,
+  PortalReferralRoute: PortalReferralRoute,
   PortalReportsRoute: PortalReportsRoute,
   PortalSupportRoute: PortalSupportRoute,
   PortalTransactionsRoute: PortalTransactionsRoute,
