@@ -198,7 +198,7 @@ function Overview() {
       </motion.div>
 
       <div className="mb-6 grid grid-cols-4 gap-3">
-        {[...actionTiles, { label: "USDT Wallet", icon: <Gem className="h-6 w-6" />, labelOnly: true as const, to: "/portal" }, { label: "Rewards Wallet", icon: <Gem className="h-6 w-6" />, labelOnly: true as const, to: "/portal" }].map((t, i) => (
+        {actionTiles.map((t, i) => (
           <motion.div
             key={t.label}
             initial={{ opacity: 0, y: 12 }}
@@ -216,6 +216,25 @@ function Overview() {
           </motion.div>
         ))}
       </div>
+
+      <div className="mb-6 grid grid-cols-1 gap-3">
+        {[
+          { label: "USDT Wallet", value: "$0.00" },
+          { label: "Rewards Wallet", value: "$0.00" },
+        ].map((w, i) => (
+          <motion.div
+            key={w.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            className="liquid-glass rounded-xl p-5"
+          >
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
+            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
+          </motion.div>
+        ))}
+      </div>
+
 
     </div>
   );
