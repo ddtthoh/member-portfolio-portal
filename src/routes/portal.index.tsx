@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { TiltCard } from "@/components/tilt-card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/portal/")({
   component: Overview,
@@ -80,12 +81,70 @@ function Overview() {
               >
                 Diamond
               </div>
-              <button
-                type="button"
-                className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur transition-colors hover:border-gold/50 hover:text-foreground"
-              >
-                Current tier progress <ChevronRight className="h-3.5 w-3.5" />
-              </button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur transition-colors hover:border-gold/50 hover:text-foreground"
+                  >
+                    Current tier progress <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="border-gold/25 bg-background sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle
+                      className="font-serif text-2xl"
+                      style={{
+                        background: "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
+                    >
+                      Tier Progression
+                    </DialogTitle>
+                    <DialogDescription>Reach 100% to unlock the next tier.</DialogDescription>
+                  </DialogHeader>
+
+                  <div className="mt-2">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: "75%",
+                          background: "linear-gradient(90deg, color-mix(in oklab, var(--gold) 60%, black), var(--gold))",
+                          boxShadow: "0 0 12px color-mix(in oklab, var(--gold) 70%, transparent)",
+                        }}
+                      />
+                    </div>
+                    <div className="mt-1.5 flex justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                      <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                    </div>
+                  </div>
+
+                  <ul className="mt-4 space-y-2 text-sm">
+                    {[
+                      { name: "Bronze", pct: "0%" },
+                      { name: "Silver", pct: "25%" },
+                      { name: "Gold", pct: "50%" },
+                      { name: "Platinum", pct: "75%", current: true },
+                      { name: "Diamond", pct: "100%" },
+                    ].map((t) => (
+                      <li
+                        key={t.name}
+                        className={`flex items-center justify-between rounded-lg border px-3 py-2 ${t.current ? "border-gold/50 bg-gold/5" : "border-border/60"}`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <Gem className={`h-4 w-4 ${t.current ? "text-gold" : "text-muted-foreground"}`} />
+                          <span className={t.current ? "text-foreground" : "text-muted-foreground"}>{t.name}</span>
+                          {t.current && <span className="text-[10px] uppercase tracking-[0.18em] text-gold">Current</span>}
+                        </span>
+                        <span className="text-xs text-muted-foreground">{t.pct}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </DialogContent>
+              </Dialog>
             </div>
             <div className="relative shrink-0">
               <div
