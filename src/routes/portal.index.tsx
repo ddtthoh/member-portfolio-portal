@@ -84,7 +84,7 @@ function Overview() {
                 type="button"
                 className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur transition-colors hover:border-gold/50 hover:text-foreground"
               >
-                Up level <ChevronRight className="h-3.5 w-3.5" />
+                Next tier <ChevronRight className="h-3.5 w-3.5" />
               </button>
             </div>
             <div className="relative shrink-0">
