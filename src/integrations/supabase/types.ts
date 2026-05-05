@@ -14,7 +14,276 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      documents: {
+        Row: {
+          category: string
+          created_at: string
+          file_url: string | null
+          id: string
+          period: string | null
+          size_bytes: number | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          period?: string | null
+          size_bytes?: number | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          file_url?: string | null
+          id?: string
+          period?: string | null
+          size_bytes?: number | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      holdings: {
+        Row: {
+          asset_class: string
+          asset_name: string
+          avg_cost: number
+          created_at: string
+          currency: string
+          current_price: number
+          id: string
+          quantity: number
+          ticker: string | null
+          user_id: string
+        }
+        Insert: {
+          asset_class?: string
+          asset_name: string
+          avg_cost?: number
+          created_at?: string
+          currency?: string
+          current_price?: number
+          id?: string
+          quantity?: number
+          ticker?: string | null
+          user_id: string
+        }
+        Update: {
+          asset_class?: string
+          asset_name?: string
+          avg_cost?: number
+          created_at?: string
+          currency?: string
+          current_price?: number
+          id?: string
+          quantity?: number
+          ticker?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      network_contacts: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          firm: string | null
+          id: string
+          name: string
+          phone: string | null
+          role: string | null
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          firm?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          role?: string | null
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          firm?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          role?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          account_number: string | null
+          advisor_name: string | null
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          member_since: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_number?: string | null
+          advisor_name?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          member_since?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_number?: string | null
+          advisor_name?: string | null
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          member_since?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      qna: {
+        Row: {
+          answer: string | null
+          answered_at: string | null
+          asked_at: string
+          id: string
+          question: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          answer?: string | null
+          answered_at?: string | null
+          asked_at?: string
+          id?: string
+          question: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          answer?: string | null
+          answered_at?: string | null
+          asked_at?: string
+          id?: string
+          question?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          file_url: string | null
+          id: string
+          period: string | null
+          published_at: string
+          summary: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          file_url?: string | null
+          id?: string
+          period?: string | null
+          published_at?: string
+          summary?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          file_url?: string | null
+          id?: string
+          period?: string | null
+          published_at?: string
+          summary?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      support_tickets: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          status: string
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          status?: string
+          subject: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          asset: string | null
+          id: string
+          occurred_at: string
+          price: number | null
+          quantity: number | null
+          status: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          asset?: string | null
+          id?: string
+          occurred_at?: string
+          price?: number | null
+          quantity?: number | null
+          status?: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          asset?: string | null
+          id?: string
+          occurred_at?: string
+          price?: number | null
+          quantity?: number | null
+          status?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
