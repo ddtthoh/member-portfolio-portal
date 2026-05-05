@@ -1,25 +1,27 @@
-## What's happening
+## Why the variable isn't working
 
-When you open the preview in a new tab, every box briefly looks fully transparent / washed out. This isn't an opacity bug — it's a theme bug.
-
-- Your glass boxes use `var(--card)` mixed at 30%.
-- In **dark mode**, `--card` is a dark onyx → 30% over the dark page background reads as a subtle frosted box. ✅
-- In **light mode**, `--card` is pure white → 30% white over the dark page background looks like a faint white haze, almost invisible. ❌
-
-The dark class is only applied **after** React hydrates on the client (`theme-provider.tsx` runs in a `useEffect`). On a fresh tab, the server-rendered HTML has no `dark` class, so light-theme tokens apply for the first paint — that's the "fully transparent" flash you're seeing. After JS runs it snaps back to dark and the boxes look normal.
+`calc(var(--glass-opacity) * 100%)` inside `color-mix()` is rejected/ignored by most browsers today — `color-mix()` percentages must be literal `<percentage>` tokens, not computed values. That's why bumping `--glass-opacity` from 0.3 → 0.5 produced no visible change.
 
 ## Fix
 
-Default the SSR shell to dark so the very first paint already uses dark tokens.
+Rewrite `.liquid-glass` so `--glass-opacity` controls the whole element via the standard `opacity` property (which always works), and restore the inner color-mix percentages to fixed, well-tuned values so the glass still looks rich at full opacity.
 
-**Edit `src/routes/__root.tsx`** (line 59):
+**Edit `src/styles.css` (lines 105–155)** — replace the current `.liquid-glass` block with a version that:
 
-```tsx
-<html lang="en" className="dark">
-```
+- Sets `--glass-opacity: 0.7` (your current request)
+- Applies `opacity: var(--glass-opacity)` on `.liquid-glass` itself
+- Keeps `transition` so opacity changes animate smoothly
+- Restores fixed percentages for background (`var(--card) 100%`), border (`white 30%`), inset highlights, `::before` radial (`white 50%`), and `::after` gradient — these are the values that look correct at opacity 1, then the master opacity scales the whole thing down
 
-That's it — one attribute. The existing `useTheme` hook continues to toggle the class on the client, so the light/dark switch still works for users who pick light mode.
+Future "set glass opacity to X" requests become a one-line change to `--glass-opacity`, and they will actually take effect.
 
-## Why this is the right fix (vs. tweaking opacity)
+## Trade-off to confirm
 
-If we instead bumped the box opacity higher, dark-mode boxes would become too opaque and lose the frosted look you've been refining. The flash only happens because the wrong theme paints first; fixing the default eliminates the flash without touching your finely-tuned 30% glass.
+Using `opacity` on `.liquid-glass` also fades any **content** that's a direct child (text, icons, prices). Looking at `portal.index.tsx`, all the glass cards have text inside them — so at 0.7 the gold numbers and labels would also be at 70%.
+
+Two options:
+
+1. **Accept it** — glass + content fade together (simplest, what most "frosted glass" UIs do).
+2. **Keep content full-opacity** — wrap the glass background in a `::before` pseudo-layer that carries all the visuals, and apply `--glass-opacity` only to that layer. Content stays crisp at 100%.
+
+I recommend **option 2** since you've been carefully tuning the gold text/numbers — they shouldn't fade when you make the glass more transparent. Confirm and I'll implement option 2.
