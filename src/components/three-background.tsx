@@ -138,12 +138,16 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       sparkColors[s * 3 + 2] = 0.7;
     }
 
+    // Per-edge pulse intensity (0..1), decays over time, spikes when packet fires
+    const edgePulse = new Float32Array(edgeList.length);
+
     return {
       home, pos, colors, sizes, seeds, ignite,
       adjacency, edgeList,
       edgePositions, edgeColors,
       packets, packetPositions, packetAlpha,
       sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
+      edgePulse,
     };
   }, [count]);
 
@@ -169,6 +173,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
         }
       }
       if (edgeIdx < 0) continue;
+      data.edgePulse[edgeIdx] = 1;
       // find free packet
       for (let p = 0; p < data.packets.length; p++) {
         const pk = data.packets[p];
@@ -433,6 +438,11 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       const bx = data.pos[ed.b * 3];
       const by = data.pos[ed.b * 3 + 1];
       const bz = data.pos[ed.b * 3 + 2];
+      // decay edge pulse
+      data.edgePulse[e] = Math.max(0, data.edgePulse[e] - dt * 1.1);
+      const pulse = data.edgePulse[e];
+      // pulsing oscillation while pulse is active
+      const pulseOsc = pulse > 0 ? (0.6 + 0.4 * Math.sin(t * 12)) * pulse : 0;
       for (let k = 0; k < SPARKS_PER_EDGE; k++) {
         const s = e * SPARKS_PER_EDGE + k;
         const baseOffset = data.sparkOffsets[s];
@@ -443,9 +453,10 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
         data.sparkPositions[s * 3 + 1] = ay + (by - ay) * cl;
         data.sparkPositions[s * 3 + 2] = az + (bz - az) * cl;
         const twinkle = 0.55 + 0.45 * Math.sin(t * 2.4 + seed * 3.1);
-        data.sparkColors[s * 3] = 1.0 * twinkle;
-        data.sparkColors[s * 3 + 1] = 0.92 * twinkle;
-        data.sparkColors[s * 3 + 2] = 0.7 * twinkle;
+        const intensity = Math.min(1.8, twinkle + pulseOsc * 1.4);
+        data.sparkColors[s * 3] = Math.min(1, 1.0 * intensity);
+        data.sparkColors[s * 3 + 1] = Math.min(1, 0.92 * intensity);
+        data.sparkColors[s * 3 + 2] = Math.min(1, 0.7 * intensity);
       }
     }
     if (sparklesRef.current) {
