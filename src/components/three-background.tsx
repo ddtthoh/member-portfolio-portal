@@ -548,6 +548,32 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
         />
       </points>
 
+      {/* Sparkle glow halos */}
+      <points>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[data.sparkPositions, 3]}
+            count={data.sparkPositions.length / 3}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            args={[data.sparkColors, 3]}
+            count={data.sparkColors.length / 3}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          map={nodeSprite}
+          size={pointSize * 1.6}
+          sizeAttenuation
+          vertexColors
+          transparent
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+          opacity={0.45}
+        />
+      </points>
+
       {/* Sparkles between nodes */}
       <points ref={sparklesRef}>
         <bufferGeometry>
@@ -570,7 +596,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={0.95}
+          opacity={1}
         />
       </points>
     </group>
