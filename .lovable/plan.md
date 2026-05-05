@@ -1,13 +1,10 @@
-## Plan: remove Referral from sidebar nav
+## Plan: make ticker links work inside the Lovable preview
 
-Remove the "Referral" entry (and its now-unused `UserPlus` icon import) from the sidebar nav array in `src/components/portal-shell.tsx`.
+Change the anchor `target` in `src/components/ticker-tape.tsx` from `_blank` to `_top`.
 
-Leave intact:
-- The Referral tile on the `/portal` overview (still navigates to `/portal/referral`)
-- The `/portal/referral` route file itself
+The preview iframe blocks popups (`target="_blank"`), so clicks currently do nothing. `target="_top"` navigates the parent window instead — works in both the preview and the published site.
 
-Only the sidebar link is removed.
+Tradeoff: in the preview, clicking replaces the whole window with PancakeSwap. The user uses browser back to return. On the published site behaviour is identical to the previous setup for end users.
 
 ### Files touched
-
-- `src/components/portal-shell.tsx` — drop the `{ to: "/portal/referral", ... }` line and remove `UserPlus` from the lucide import.
+- `src/components/ticker-tape.tsx` — single one-word change: `target="_blank"` → `target="_top"`.
