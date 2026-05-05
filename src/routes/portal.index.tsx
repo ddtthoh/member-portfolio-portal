@@ -52,7 +52,7 @@ function Overview() {
             <span>Est. Total Value (USD)</span>
             <ChevronUp className="h-4 w-4" />
           </div>
-          <div className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <div className="mt-2 text-3xl font-semibold tracking-tight text-gold sm:text-4xl">
             $50,000.00
           </div>
           <div className="mt-3 flex items-center justify-between text-sm">
@@ -71,11 +71,11 @@ function Overview() {
         >
           <div>
             <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Participated day : </div>
-            <div className="mt-1 text-2xl font-semibold text-white">85 days</div>
+            <div className="mt-1 text-2xl font-semibold text-gold">85 days</div>
           </div>
           <div>
             <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Staking amount :</div>
-            <div className="mt-1 text-2xl font-semibold text-white">50,000</div>
+            <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
           </div>
         </motion.div>
       </div>
@@ -244,7 +244,7 @@ function Overview() {
             className="liquid-glass rounded-xl p-5"
           >
             <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
-            <div className="mt-2 text-3xl font-semibold text-white">{w.value}</div>
+            <div className="mt-2 text-3xl font-semibold text-gold">{w.value}</div>
           </motion.div>
         ))}
       </div>
