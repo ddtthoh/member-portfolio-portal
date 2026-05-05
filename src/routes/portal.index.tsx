@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
@@ -37,7 +37,7 @@ function Overview() {
   const firstName = (profile?.full_name ?? user?.email ?? "").split(" ")[0];
 
   const tiles = [
-    { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true, labelOnly: true },
+    { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true, labelOnly: true, to: "/portal/deposit" },
     { label: "Withdrawal", value: 0, icon: <ArrowUpFromLine className="h-4 w-4" />, seed: 3, positive: false },
     { label: "Portfolio Value", value: totalValue, icon: <Wallet className="h-4 w-4" />, highlight: true, seed: 5, positive: true },
     {
@@ -61,18 +61,29 @@ function Overview() {
       />
 
       <div className="grid grid-cols-2 gap-3">
-        {tiles.map((t, i) => (
-          <motion.div
-            key={t.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-          >
+        {tiles.map((t, i) => {
+          const inner = (
             <TiltCard>
               <Stat {...t} />
             </TiltCard>
-          </motion.div>
-        ))}
+          );
+          return (
+            <motion.div
+              key={t.label}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            >
+              {t.to ? (
+                <Link to={t.to} className="block transition-transform hover:-translate-y-0.5">
+                  {inner}
+                </Link>
+              ) : (
+                inner
+              )}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
