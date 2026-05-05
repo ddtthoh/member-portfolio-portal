@@ -57,6 +57,7 @@ const BSC_PAIRS: { sym: string; pair: string; token: string }[] = [
 type Tick = {
   sym: string;
   pair: string;
+  token: string;
   price: number;
   pct: number;
   flash: boolean;
@@ -74,6 +75,7 @@ export function TickerTape() {
     BSC_PAIRS.map((c) => ({
       sym: c.sym,
       pair: c.pair,
+      token: c.token,
       price: 0,
       pct: 0,
       flash: false,
