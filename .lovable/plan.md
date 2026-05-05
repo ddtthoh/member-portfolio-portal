@@ -1,10 +1,36 @@
-## Plan: make ticker links work inside the Lovable preview
+## Goal
 
-Change the anchor `target` in `src/components/ticker-tape.tsx` from `_blank` to `_top`.
+Replicate the Spline scene's vibe: a dense field of small glowing particles that drift gently and react to the cursor (particles near the pointer get pushed away / swirl, then settle back).
 
-The preview iframe blocks popups (`target="_blank"`), so clicks currently do nothing. `target="_top"` navigates the parent window instead — works in both the preview and the published site.
+We'll do this with the existing react-three-fiber stack (no Spline runtime needed — keeps bundle small and SSR-safe) by rewriting `src/components/three-background.tsx`.
 
-Tradeoff: in the preview, clicking replaces the whole window with PancakeSwap. The user uses browser back to return. On the published site behaviour is identical to the previous setup for end users.
+## What changes
 
-### Files touched
-- `src/components/ticker-tape.tsx` — single one-word change: `target="_blank"` → `target="_top"`.
+**File: `src/components/three-background.tsx`** (rewrite)
+
+Replace the current "nodes + connecting lines + packets" scene with a single GPU-friendly `<Points>` particle system:
+
+- ~2,500 particles on desktop / ~900 on mobile, distributed in a soft 3D volume.
+- Render with `THREE.Points` + `PointsMaterial` (additive blending, soft round sprite via a generated canvas texture, gold/ivory tint matching `--gold`).
+- Per-frame update in `useFrame`:
+  - Each particle has a base position + velocity. Apply gentle curl-noise-like drift (cheap sin/cos of position + time) so the field breathes.
+  - Project the mouse onto the particle plane (using `useThree().viewport` + raycaster plane at z=0). For each particle, if distance to cursor < radius (~1.6), push it radially outward with falloff; otherwise spring it back toward its home position.
+  - Slow global rotation for parallax.
+- Mouse tracking via a `pointermove` listener on `window`, normalized to NDC then unprojected.
+- Respect `prefers-reduced-motion` (already handled) and lower particle count + disable mouse repulsion on mobile.
+- Keep the existing `<ThreeBackground />` export and the `fixed inset-0 -z-10` wrapper so `__root.tsx` keeps working unchanged.
+
+No other files change. No new dependencies (three + @react-three/fiber are already installed).
+
+## Technical notes
+
+- Use a single `Float32Array` for positions and update `geometry.attributes.position.needsUpdate = true` each frame — avoids per-particle React overhead.
+- Store `home`, `velocity`, and `seed` arrays in `useMemo` refs.
+- Sprite texture: generate once with a 2D canvas radial gradient (white center → transparent) and reuse.
+- Cursor interaction is pointer-based (works for touch drag too); on touch-end, particles spring back naturally.
+- Keep DPR capped at `[1, 1.5]` and `alpha: true` so the page background shows through.
+
+## Out of scope
+
+- Importing the actual Spline file (would require `@splinetool/react-spline` + a runtime fetch of their scene; heavier and less controllable than a native r3f port).
+- Changing colors / theme / any portal UI.
