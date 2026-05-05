@@ -94,19 +94,14 @@ function Overview() {
         transition={{ duration: 0.55, ease: "easeOut" }}
         className="mb-3"
       >
-        <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-br from-background via-background to-background p-5 sm:p-6"
-          style={{
-            boxShadow:
-              "inset 0 0 0 1px color-mix(in oklab, var(--gold) 10%, transparent), 0 0 60px -20px color-mix(in oklab, var(--gold) 45%, transparent), 0 20px 60px -30px rgba(0,0,0,0.6)",
-          }}
-        >
+        <div className="liquid-glass relative overflow-hidden rounded-xl p-5 sm:p-6">
           {/* gold glow */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-px rounded-2xl"
+            className="pointer-events-none absolute -inset-px rounded-xl"
             style={{
               background:
-                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 55%)",
+                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 55%)",
             }}
           />
           <div className="relative flex items-center justify-between gap-4">
