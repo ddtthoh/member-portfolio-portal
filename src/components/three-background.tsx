@@ -173,6 +173,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
         }
       }
       if (edgeIdx < 0) continue;
+      data.edgePulse[edgeIdx] = 1;
       // find free packet
       for (let p = 0; p < data.packets.length; p++) {
         const pk = data.packets[p];
