@@ -46,6 +46,28 @@ function Overview() {
         description={`Member since ${profile?.member_since ?? "—"}.`}
       />
 
+      {/* Est. Total Value + Today's PNL */}
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        {[
+          {
+            label: "Est. Total Value",
+            value: `$${holdings.reduce((s, h) => s + Number(h.quantity) * Number(h.current_price), 0).toFixed(2)}`,
+          },
+          { label: "Today's PNL", value: "$0.00" },
+        ].map((w, i) => (
+          <motion.div
+            key={w.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            className="liquid-glass rounded-xl p-5"
+          >
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
+            <div className="mt-2 font-serif text-3xl text-gold">{w.value}</div>
+          </motion.div>
+        ))}
+      </div>
+
       {/* Tier card */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
