@@ -217,7 +217,7 @@ function Overview() {
         ))}
       </div>
 
-      <div className="mb-6 grid grid-cols-1 gap-3">
+      <div className="mb-6 grid grid-cols-2 gap-3">
         {[
           { label: "USDT Wallet", value: "$0.00" },
           { label: "Rewards Wallet", value: "$0.00" },
