@@ -173,7 +173,7 @@ function Overview() {
               >
                 <span
                   aria-hidden
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-3 w-3 rounded-full"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full"
                   style={{
                     background: "radial-gradient(circle, white 0%, color-mix(in oklab, var(--gold) 90%, white) 40%, transparent 70%)",
                     boxShadow: "0 0 14px 3px color-mix(in oklab, var(--gold) 90%, white), 0 0 28px 6px color-mix(in oklab, var(--gold) 60%, transparent)",
