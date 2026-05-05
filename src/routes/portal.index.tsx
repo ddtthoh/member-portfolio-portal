@@ -85,7 +85,7 @@ function Overview() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
-        className="mb-6"
+        className="mb-3"
       >
         <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-br from-background via-background to-background p-5 sm:p-6"
           style={{
@@ -231,7 +231,7 @@ function Overview() {
         </div>
       </motion.div>
 
-      <div className="mb-6 grid grid-cols-2 gap-3">
+      <div className="mb-3 grid grid-cols-2 gap-3">
         {[
           { label: "USDT Wallet", value: "$0.00" },
           { label: "Rewards Wallet", value: "$0.00" },
@@ -249,7 +249,7 @@ function Overview() {
         ))}
       </div>
 
-      <div className="mb-6 grid grid-cols-4 gap-3">
+      <div className="mb-3 grid grid-cols-4 gap-3">
         {actionTiles.map((t, i) => (
           <motion.div
             key={t.label}
