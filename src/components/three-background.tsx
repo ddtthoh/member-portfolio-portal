@@ -61,8 +61,8 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
     }
 
     // Build edges by proximity, max ~3 per node
-    const maxEdgesPerNode = 3;
-    const proximity = 3.6;
+    const maxEdgesPerNode = 6;
+    const proximity = 4.2;
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
