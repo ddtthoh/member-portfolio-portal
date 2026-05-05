@@ -93,7 +93,7 @@ function QuickLink({ to, title, body, icon }: { to: string; title: string; body:
   return (
     <Link
       to={to}
-      className="group block rounded-sm border border-border bg-card p-6 transition-all hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
+      className="liquid-glass group block rounded-xl p-6 transition-all hover:-translate-y-0.5 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="text-gold">{icon}</span>
