@@ -84,18 +84,27 @@ export function TickerTape() {
   useEffect(() => {
     let cancelled = false;
 
+    type Pair = { pairAddress: string; priceUsd?: string; priceChange?: { h24?: number } };
+    const CHUNK = 30;
+    const chunks: string[][] = [];
+    for (let i = 0; i < BSC_PAIRS.length; i += CHUNK) {
+      chunks.push(BSC_PAIRS.slice(i, i + CHUNK).map((c) => c.pair));
+    }
+
     async function fetchPrices() {
       try {
-        const url = `https://api.dexscreener.com/latest/dex/pairs/bsc/${BSC_PAIRS.map(
-          (c) => c.pair,
-        ).join(",")}`;
-        const res = await fetch(url);
-        if (!res.ok) return;
-        const data: { pairs?: Array<{ pairAddress: string; priceUsd?: string; priceChange?: { h24?: number } }> } =
-          await res.json();
-        if (cancelled || !data.pairs) return;
+        const results = await Promise.all(
+          chunks.map((c) =>
+            fetch(`https://api.dexscreener.com/latest/dex/pairs/bsc/${c.join(",")}`)
+              .then((r) => (r.ok ? r.json() : { pairs: [] }))
+              .catch(() => ({ pairs: [] })),
+          ),
+        );
+        if (cancelled) return;
+        const allPairs: Pair[] = results.flatMap((r) => (r as { pairs?: Pair[] }).pairs ?? []);
+        if (!allPairs.length) return;
 
-        const map = new Map(data.pairs.map((p) => [p.pairAddress.toLowerCase(), p]));
+        const map = new Map(allPairs.map((p) => [p.pairAddress.toLowerCase(), p]));
         setTicks((prev) =>
           prev.map((t) => {
             const p = map.get(t.pair.toLowerCase());
