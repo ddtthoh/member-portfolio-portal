@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronDown, ChevronRight, ChevronUp, Gem, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronDown, ChevronRight, ChevronUp, Eye, EyeOff, Gem, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -19,6 +19,7 @@ function Overview() {
   const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
+  const [hideBalance, setHideBalance] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -50,13 +51,21 @@ function Overview() {
         >
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <span>Est. Total Value (USD)</span>
+            <button
+              type="button"
+              onClick={() => setHideBalance((v) => !v)}
+              aria-label={hideBalance ? "Show balance" : "Hide balance"}
+              className="text-muted-foreground transition-colors hover:text-gold"
+            >
+              {hideBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
           <div className="mt-2 text-2xl font-semibold tracking-tight text-gold sm:text-4xl">
-            $50,000.00
+            {hideBalance ? "******" : "$50,000.00"}
           </div>
           <div className="mt-3 flex items-center justify-between text-sm">
             <span className="text-muted-foreground">
-              Today's PNL <span className="text-emerald-400">+$960.2(+1.92%)</span>
+              Today's PNL <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
             </span>
           </div>
         </motion.div>
