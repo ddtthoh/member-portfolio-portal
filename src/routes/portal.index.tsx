@@ -37,7 +37,7 @@ function Overview() {
   const firstName = (profile?.full_name ?? user?.email ?? "").split(" ")[0];
 
   const tiles = [
-    { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true },
+    { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true, labelOnly: true },
     { label: "Withdrawal", value: 0, icon: <ArrowUpFromLine className="h-4 w-4" />, seed: 3, positive: false },
     { label: "Portfolio Value", value: totalValue, icon: <Wallet className="h-4 w-4" />, highlight: true, seed: 5, positive: true },
     {
@@ -79,10 +79,10 @@ function Overview() {
 }
 
 function Stat({
-  label, value, sub, icon, highlight, tone, seed = 1, positive = true, prefix = "$",
+  label, sub, icon, highlight, tone, seed = 1, positive = true, labelOnly = false,
 }: {
   label: string;
-  value: number;
+  value?: number;
   sub?: string;
   icon?: React.ReactNode;
   highlight?: boolean;
@@ -90,7 +90,15 @@ function Stat({
   seed?: number;
   positive?: boolean;
   prefix?: string;
+  labelOnly?: boolean;
 }) {
+  if (labelOnly) {
+    return (
+      <div className={`liquid-glass flex items-center justify-center rounded-lg p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
+        <span className="font-serif text-2xl tracking-wide">{label}</span>
+      </div>
+    );
+  }
   return (
     <div className={`liquid-glass rounded-lg p-3 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
