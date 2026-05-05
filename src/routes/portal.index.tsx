@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  Wallet, TrendingUp, TrendingDown, ArrowUpRight, FileText, MessageCircleQuestion,
-} from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Wallet, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -58,14 +56,6 @@ function Overview() {
         <Stat label="Positions" value={String(holdings.length)} icon={<ArrowUpRight className="h-4 w-4" />} />
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        <QuickLink to="/portal/holdings" title="Holdings & Allocation" body="Review every position and asset-class exposure." />
-        <QuickLink to="/portal/performance" title="Performance & Returns" body="Track value, ROI, and historical performance." icon={<TrendingUp className="h-4 w-4" />} />
-        <QuickLink to="/portal/transactions" title="Transactions" body="Full ledger of deposits, trades and withdrawals." />
-        <QuickLink to="/portal/documents" title="Documents & Statements" body="Statements, tax documents, and contracts." icon={<FileText className="h-4 w-4" />} />
-        <QuickLink to="/portal/reports" title="Quarterly Reports" body="Curated commentary from your advisor." />
-        <QuickLink to="/portal/qna" title="Ask Your Advisor" body="Submit questions and review answered insights." icon={<MessageCircleQuestion className="h-4 w-4" />} />
-      </div>
     </div>
   );
 }
