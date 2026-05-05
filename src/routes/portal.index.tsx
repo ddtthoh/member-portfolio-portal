@@ -40,12 +40,6 @@ function Overview() {
 
   return (
     <div>
-      <PageHeader
-        eyebrow={`Account · ${profile?.account_number ?? "—"}`}
-        title={`Good day, ${firstName || "Member"}`}
-        description={`Member since ${profile?.member_since ?? "—"}.`}
-      />
-
       {/* Est. Total Value + Today's PNL */}
       <div className="mb-6 grid grid-cols-2 gap-3">
         {[
