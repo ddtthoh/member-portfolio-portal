@@ -492,9 +492,15 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
   );
 }
 
-export function ThreeBackground() {
+export function ThreeBackground({
+  className,
+  fade = true,
+}: {
+  className?: string;
+  fade?: boolean;
+}) {
   const [enabled, setEnabled] = useState(false);
-  const [count, setCount] = useState(80);
+  const [count, setCount] = useState(110);
   const [interactive, setInteractive] = useState(true);
 
   useEffect(() => {
@@ -506,17 +512,29 @@ export function ThreeBackground() {
     }
     setEnabled(true);
     const mobile = window.innerWidth < 768;
-    setCount(mobile ? 40 : 80);
+    setCount(mobile ? 60 : 110);
     setInteractive(true);
   }, []);
 
   if (!enabled) return null;
 
+  const maskStyle = fade
+    ? {
+        WebkitMaskImage:
+          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 55%, rgba(0,0,0,0) 100%)",
+        maskImage:
+          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 55%, rgba(0,0,0,0) 100%)",
+      }
+    : undefined;
+
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10"
-      style={{ opacity: 0.95 }}
+      className={
+        className ??
+        "pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] sm:h-[620px]"
+      }
+      style={{ opacity: 0.95, ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
