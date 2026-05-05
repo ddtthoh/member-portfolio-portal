@@ -74,7 +74,7 @@ function Overview() {
             <div className="mt-1 text-2xl font-semibold text-gold">85 days</div>
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Staking amount</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Staking amount :</div>
             <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
           </div>
         </motion.div>
