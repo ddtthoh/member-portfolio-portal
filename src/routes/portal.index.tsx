@@ -97,9 +97,6 @@ function Stat({
         <span>{label}</span>
         <span className="text-gold">{icon}</span>
       </div>
-      <div className="mt-1.5 font-serif text-lg tabular-nums">
-        <CountValue value={value} prefix={prefix} />
-      </div>
       {sub && (
         <div className={`mt-0.5 text-xs ${tone === "down" ? "text-destructive" : "text-success"}`}>
           {sub}
