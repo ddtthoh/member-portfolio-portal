@@ -74,7 +74,7 @@ function Stat({
   label, value, sub, icon, highlight, tone,
 }: { label: string; value: string; sub?: string; icon?: React.ReactNode; highlight?: boolean; tone?: "up" | "down" }) {
   return (
-    <div className={`rounded-sm border border-border bg-card p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
+    <div className={`liquid-glass rounded-xl p-6 ${highlight ? "shadow-[var(--shadow-elegant)]" : ""}`}>
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
         <span>{label}</span>
         <span className="text-gold">{icon}</span>
