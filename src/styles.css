@@ -152,7 +152,7 @@
     100% { transform: translateX(-50%); }
   }
   .ticker-track {
-    animation: ticker-marquee 50s linear infinite;
+    animation: ticker-marquee 240s linear infinite;
     width: max-content;
   }
   .ticker-wrap:hover .ticker-track {
