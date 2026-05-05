@@ -68,11 +68,11 @@ function Overview() {
           className="liquid-glass flex flex-col justify-center gap-3 rounded-xl p-5"
         >
           <div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Participated day : </div>
+            <div className="text-[10px] tracking-[0.2em] text-muted-foreground">Participated day : </div>
             <div className="mt-1 text-2xl font-semibold text-gold">85 days</div>
           </div>
           <div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Staking amount :</div>
+            <div className="text-[10px] tracking-[0.2em] text-muted-foreground">Staking amount :</div>
             <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
           </div>
         </motion.div>
