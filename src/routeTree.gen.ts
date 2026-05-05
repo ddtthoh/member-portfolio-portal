@@ -9,38 +9,188 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortalRouteImport } from './routes/portal'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
+import { Route as PortalSupportRouteImport } from './routes/portal.support'
+import { Route as PortalReportsRouteImport } from './routes/portal.reports'
+import { Route as PortalQnaRouteImport } from './routes/portal.qna'
+import { Route as PortalPerformanceRouteImport } from './routes/portal.performance'
+import { Route as PortalNetworkRouteImport } from './routes/portal.network'
+import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
+import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalTransactionsRoute = PortalTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalSupportRoute = PortalSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalReportsRoute = PortalReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalQnaRoute = PortalQnaRouteImport.update({
+  id: '/qna',
+  path: '/qna',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalPerformanceRoute = PortalPerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalNetworkRoute = PortalNetworkRouteImport.update({
+  id: '/network',
+  path: '/network',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalHoldingsRoute = PortalHoldingsRouteImport.update({
+  id: '/holdings',
+  path: '/holdings',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalDocumentsRoute = PortalDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => PortalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/portal': typeof PortalRouteWithChildren
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/network': typeof PortalNetworkRoute
+  '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/qna': typeof PortalQnaRoute
+  '/portal/reports': typeof PortalReportsRoute
+  '/portal/support': typeof PortalSupportRoute
+  '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/': typeof PortalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/network': typeof PortalNetworkRoute
+  '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/qna': typeof PortalQnaRoute
+  '/portal/reports': typeof PortalReportsRoute
+  '/portal/support': typeof PortalSupportRoute
+  '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal': typeof PortalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/portal': typeof PortalRouteWithChildren
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/network': typeof PortalNetworkRoute
+  '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/qna': typeof PortalQnaRoute
+  '/portal/reports': typeof PortalReportsRoute
+  '/portal/support': typeof PortalSupportRoute
+  '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/': typeof PortalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/portal'
+    | '/portal/documents'
+    | '/portal/holdings'
+    | '/portal/network'
+    | '/portal/performance'
+    | '/portal/qna'
+    | '/portal/reports'
+    | '/portal/support'
+    | '/portal/transactions'
+    | '/portal/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/portal/documents'
+    | '/portal/holdings'
+    | '/portal/network'
+    | '/portal/performance'
+    | '/portal/qna'
+    | '/portal/reports'
+    | '/portal/support'
+    | '/portal/transactions'
+    | '/portal'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/portal'
+    | '/portal/documents'
+    | '/portal/holdings'
+    | '/portal/network'
+    | '/portal/performance'
+    | '/portal/qna'
+    | '/portal/reports'
+    | '/portal/support'
+    | '/portal/transactions'
+    | '/portal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  PortalRoute: typeof PortalRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,21 +198,104 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/': {
+      id: '/portal/'
+      path: '/'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/transactions': {
+      id: '/portal/transactions'
+      path: '/transactions'
+      fullPath: '/portal/transactions'
+      preLoaderRoute: typeof PortalTransactionsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/support': {
+      id: '/portal/support'
+      path: '/support'
+      fullPath: '/portal/support'
+      preLoaderRoute: typeof PortalSupportRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/reports': {
+      id: '/portal/reports'
+      path: '/reports'
+      fullPath: '/portal/reports'
+      preLoaderRoute: typeof PortalReportsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/qna': {
+      id: '/portal/qna'
+      path: '/qna'
+      fullPath: '/portal/qna'
+      preLoaderRoute: typeof PortalQnaRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/performance': {
+      id: '/portal/performance'
+      path: '/performance'
+      fullPath: '/portal/performance'
+      preLoaderRoute: typeof PortalPerformanceRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/network': {
+      id: '/portal/network'
+      path: '/network'
+      fullPath: '/portal/network'
+      preLoaderRoute: typeof PortalNetworkRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/holdings': {
+      id: '/portal/holdings'
+      path: '/holdings'
+      fullPath: '/portal/holdings'
+      preLoaderRoute: typeof PortalHoldingsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/documents': {
+      id: '/portal/documents'
+      path: '/documents'
+      fullPath: '/portal/documents'
+      preLoaderRoute: typeof PortalDocumentsRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
 
+interface PortalRouteChildren {
+  PortalDocumentsRoute: typeof PortalDocumentsRoute
+  PortalHoldingsRoute: typeof PortalHoldingsRoute
+  PortalNetworkRoute: typeof PortalNetworkRoute
+  PortalPerformanceRoute: typeof PortalPerformanceRoute
+  PortalQnaRoute: typeof PortalQnaRoute
+  PortalReportsRoute: typeof PortalReportsRoute
+  PortalSupportRoute: typeof PortalSupportRoute
+  PortalTransactionsRoute: typeof PortalTransactionsRoute
+  PortalIndexRoute: typeof PortalIndexRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalDocumentsRoute: PortalDocumentsRoute,
+  PortalHoldingsRoute: PortalHoldingsRoute,
+  PortalNetworkRoute: PortalNetworkRoute,
+  PortalPerformanceRoute: PortalPerformanceRoute,
+  PortalQnaRoute: PortalQnaRoute,
+  PortalReportsRoute: PortalReportsRoute,
+  PortalSupportRoute: PortalSupportRoute,
+  PortalTransactionsRoute: PortalTransactionsRoute,
+  PortalIndexRoute: PortalIndexRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  PortalRoute: PortalRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
