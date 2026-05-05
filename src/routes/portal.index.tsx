@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
+import { Wallet, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownToLine, ArrowUpFromLine, Users } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -36,9 +36,13 @@ function Overview() {
 
   const firstName = (profile?.full_name ?? user?.email ?? "").split(" ")[0];
 
+  const actionTiles = [
+    { label: "Deposit", icon: <ArrowDownToLine className="h-4 w-4" />, labelOnly: true as const, to: "/portal/deposit" },
+    { label: "Withdrawal", icon: <ArrowUpFromLine className="h-4 w-4" />, labelOnly: true as const, to: "/portal/withdrawal" },
+    { label: "Referral", icon: <Users className="h-4 w-4" />, labelOnly: true as const, to: "/portal/referral" },
+  ];
+
   const tiles = [
-    { label: "Deposit", value: 0, icon: <ArrowDownToLine className="h-4 w-4" />, seed: 2, positive: true, labelOnly: true, to: "/portal/deposit" },
-    { label: "Withdrawal", value: 0, icon: <ArrowUpFromLine className="h-4 w-4" />, seed: 3, positive: false, labelOnly: true, to: "/portal/withdrawal" },
     { label: "Portfolio Value", value: totalValue, icon: <Wallet className="h-4 w-4" />, highlight: true, seed: 5, positive: true },
     {
       label: "Unrealized P/L",
@@ -60,30 +64,36 @@ function Overview() {
         description={`Your dedicated advisor is ${profile?.advisor_name ?? "—"}. Member since ${profile?.member_since ?? "—"}.`}
       />
 
+      <div className="mb-3 grid grid-cols-3 gap-3">
+        {actionTiles.map((t, i) => (
+          <motion.div
+            key={t.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+          >
+            <Link to={t.to} className="block transition-transform hover:-translate-y-0.5">
+              <TiltCard>
+                <Stat label={t.label} icon={t.icon} labelOnly />
+              </TiltCard>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
-        {tiles.map((t, i) => {
-          const inner = (
+        {tiles.map((t, i) => (
+          <motion.div
+            key={t.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+          >
             <TiltCard>
               <Stat {...t} />
             </TiltCard>
-          );
-          return (
-            <motion.div
-              key={t.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            >
-              {t.to ? (
-                <Link to={t.to} className="block transition-transform hover:-translate-y-0.5">
-                  {inner}
-                </Link>
-              ) : (
-                inner
-              )}
-            </motion.div>
-          );
-        })}
+          </motion.div>
+        ))}
       </div>
     </div>
   );
