@@ -48,7 +48,19 @@ export function PortalShell() {
 
   return (
     <div className="relative flex min-h-screen bg-transparent">
-      <ThreeBackground />
+      {/* Futuristic interactive backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-20"
+        style={{
+          background:
+            "radial-gradient(1200px 800px at 20% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 60%), radial-gradient(900px 700px at 80% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 60%), linear-gradient(180deg, #05060a 0%, #07090f 60%, #04050a 100%)",
+        }}
+      />
+      <ThreeBackground
+        className="pointer-events-none fixed inset-0 -z-10"
+        fade={false}
+      />
       {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-40 w-64 transform border-r border-sidebar-border bg-sidebar/80 backdrop-blur-md transition-transform lg:static lg:translate-x-0 ${
