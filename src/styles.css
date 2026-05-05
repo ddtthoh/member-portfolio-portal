@@ -103,16 +103,17 @@
 
 @layer utilities {
   .liquid-glass {
-    /* Single knob controlling overall glass opacity (0 = invisible, 1 = solid base look) */
-    --glass-opacity: 0.5;
+    /* Single knob: 0 = invisible glass, 1 = full glass look. Content stays crisp. */
+    --glass-opacity: 0.7;
     position: relative;
-    background: color-mix(in oklab, var(--card) calc(var(--glass-opacity) * 100%), transparent);
+    background: transparent;
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid color-mix(in oklab, white calc(var(--glass-opacity) * 27%), transparent);
+    border: 1px solid color-mix(in oklab, white 30%, transparent);
+    border-color: color-mix(in oklab, white calc(30% * var(--glass-opacity)), transparent);
     box-shadow:
-      inset 0 1px 0 color-mix(in oklab, white calc(var(--glass-opacity) * 47%), transparent),
-      inset 0 -1px 0 color-mix(in oklab, black calc(var(--glass-opacity) * 47%), transparent),
+      inset 0 1px 0 color-mix(in oklab, white 50%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, black 50%, transparent),
       0 10px 40px -20px rgba(0,0,0,0.35);
     overflow: hidden;
     transition:
@@ -123,57 +124,42 @@
   }
   .liquid-glass:hover {
     transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--gold) 35%, transparent);
+    border-color: color-mix(in oklab, var(--gold) 50%, transparent);
     box-shadow:
-      inset 0 1px 0 color-mix(in oklab, white calc(var(--glass-opacity) * 60%), transparent),
-      inset 0 -1px 0 color-mix(in oklab, black calc(var(--glass-opacity) * 47%), transparent),
+      inset 0 1px 0 color-mix(in oklab, white 60%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, black 50%, transparent),
       0 18px 50px -18px color-mix(in oklab, var(--gold) 35%, transparent),
       0 12px 40px -20px rgba(0,0,0,0.45);
   }
+  /* ::before carries the card fill + radial highlight, faded by --glass-opacity */
   .liquid-glass::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      120% 80% at 0% 0%,
-      color-mix(in oklab, white calc(var(--glass-opacity) * 47%), transparent),
-      transparent 55%
-    );
+    background:
+      radial-gradient(
+        120% 80% at 0% 0%,
+        color-mix(in oklab, white 50%, transparent),
+        transparent 55%
+      ),
+      var(--card);
+    opacity: var(--glass-opacity);
     pointer-events: none;
   }
+  /* ::after carries the top-to-bottom white→gold sheen, also faded */
   .liquid-glass::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
       180deg,
-      color-mix(in oklab, white calc(var(--glass-opacity) * 27%), transparent),
+      color-mix(in oklab, white 30%, transparent),
       transparent 30%,
-      color-mix(in oklab, var(--gold) calc(var(--glass-opacity) * 20%), transparent) 100%
+      color-mix(in oklab, var(--gold) 20%, transparent) 100%
     );
+    opacity: var(--glass-opacity);
     pointer-events: none;
   }
-  .liquid-glass > * { position: relative; z-index: 1; }
-
-  @keyframes spark-draw {
-    to { stroke-dashoffset: 0; }
-  }
-  @keyframes ticker-marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .ticker-track {
-    animation: ticker-marquee 240s linear infinite;
-    width: max-content;
-  }
-  .ticker-wrap:hover .ticker-track {
-    animation-play-state: paused;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ticker-track { animation: none; }
-  }
-}
-
 @layer base {
   * { border-color: var(--color-border); }
   html { font-family: var(--font-sans); }
