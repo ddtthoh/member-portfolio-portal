@@ -73,7 +73,7 @@ function HoldingsPage() {
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             Participation Days
           </div>
-          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
             54 <span className="text-base font-normal text-muted-foreground">days</span>
           </div>
         </div>
