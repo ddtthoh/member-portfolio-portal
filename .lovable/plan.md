@@ -1,20 +1,26 @@
 ## Goal
-On hover, every `.liquid-glass` box across `/portal` and all subpages should turn into a strongly blurred, near‑opaque liquid glass surface. Idle look stays exactly as it is now.
+Rename the "Performance" sidebar item to "Statement". Clicking it expands an inline submenu with three children: Credit Conversion, USD Statement, Rewards Statement. Each opens its own subpage.
 
-## Change
-Single file: `src/styles.css`, the `.liquid-glass` utility block.
+## Changes
 
-1. Extend the existing transition to also animate `backdrop-filter`.
-2. On `:hover`:
-   - Increase blur from `blur(24px) saturate(150%)` to `blur(40px) saturate(180%)` (fully blurry).
-   - Push the fill + sheen (`::before` and `::after`) opacity up to `0.96` (very low transparency).
-   - Strengthen the gold border (`60%` instead of `50%`).
-   - Keep the existing lift and gold glow shadow.
-3. Add a smooth `opacity 0.35s ease` transition on the pseudo‑elements so the fade‑to‑opaque is fluid.
+### 1. `src/components/portal-shell.tsx`
+- Replace the `Performance` nav entry with a `Statement` entry that has a `children` array:
+  - Credit Conversion → `/portal/statement/credit-conversion`
+  - USD Statement → `/portal/statement/usd`
+  - Rewards Statement → `/portal/statement/rewards`
+- Render nav items: if an item has `children`, render a button that toggles an expanded state (auto-expanded when current path starts with its base). Children render as indented `<Link>`s underneath, with the same active styling.
+- Use `FileBarChart` (or keep `LineChart`) icon for Statement; small dot/dash icons (or `ChevronRight`) for children.
 
-## Why this works for every page
-`.liquid-glass` is the shared utility used by all card/box surfaces (PageHeader, holdings cards, staking plan tiers, documents, network, etc.), so updating the rule cascades the hover effect everywhere with no per‑page edits.
+### 2. New route files (3)
+- `src/routes/portal.statement.credit-conversion.tsx`
+- `src/routes/portal.statement.usd.tsx`
+- `src/routes/portal.statement.rewards.tsx`
+
+Each is a simple page using `PageHeader` and a `liquid-glass` placeholder card describing the statement type. Reuse the existing styling pattern from `portal.performance.tsx` so the look matches the rest of the portal.
+
+### 3. Remove old Performance route
+- Delete `src/routes/portal.performance.tsx` (the route tree regenerates automatically).
 
 ## Out of scope
-- No changes to idle appearance, typography, colors, or layout.
-- No changes to dark vs light token values; the hover state uses both themes' existing `--card` and `--gold` so it adapts automatically.
+- No data wiring for the new statements (placeholder content only).
+- No changes to other sidebar items, theme, or styles.
