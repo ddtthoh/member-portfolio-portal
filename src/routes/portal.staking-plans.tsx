@@ -14,7 +14,7 @@ const plans: Plan[] = [
   { name: "Standard Pro", minAmount: "$500.00", roi: "0.15% – 0.25%" },
   { name: "Advance Lite", minAmount: "$1,000.00", roi: "0.25% – 0.35%" },
   { name: "Advance Plus", minAmount: "$3,000.00", roi: "0.25% – 0.35%" },
-  { name: "Advance Pro", minAmount: "$5,000.00", roi: "0.30% – 0.40%" },
+  { name: "Advance Pro", minAmount: "$5,000.00", roi: "0.25% – 0.35%" },
   { name: "Premium Lite", minAmount: "$100,000.00", roi: "0.35% – 0.45%" },
   { name: "Premium Plus", minAmount: "$250,000.00", roi: "0.35% – 0.45%" },
   { name: "Sovereign", minAmount: "$500,000.00", roi: "0.45% – 0.60%" },
