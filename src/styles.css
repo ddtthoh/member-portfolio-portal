@@ -69,10 +69,10 @@
   --sidebar-foreground: oklch(0.26 0.015 250);
   --sidebar-border: oklch(0.9 0.006 250);
   --shadow-elegant: 0 20px 60px -30px color-mix(in oklab, oklch(0.22 0.02 250) 25%, transparent);
-  --glass-opacity: 0.35;
-  --glass-sheen-top: 60%;
-  --glass-sheen-bottom: 8%;
-  --glass-border-strength: 70%;
+  --glass-opacity: 0.62;
+  --glass-sheen-top: 55%;
+  --glass-sheen-bottom: 10%;
+  --glass-border-strength: 85%;
 }
 
 .dark {
