@@ -16,7 +16,7 @@ const nav = [
   { to: "/portal", label: "Overview", icon: LayoutDashboard },
   
   
-  { to: "/portal/holdings", label: "Holdings", icon: Wallet },
+  { to: "/portal/holdings", label: "Portfolio", icon: Wallet },
   { to: "/portal/performance", label: "Performance", icon: LineChart },
   { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight },
   { to: "/portal/documents", label: "Documents", icon: FileText },
