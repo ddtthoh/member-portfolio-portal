@@ -56,7 +56,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-3 border-b border-border/50 pb-2">
       <dt className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{label}</dt>
-      <dd className="flex items-center gap-2 truncate font-mono text-sm">
+      <dd className="flex items-center gap-2 truncate font-sans text-sm">
         <span className="truncate">{value}</span>
         <Copy className="h-3 w-3 shrink-0 cursor-pointer text-muted-foreground hover:text-gold" />
       </dd>

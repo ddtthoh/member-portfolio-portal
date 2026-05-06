@@ -99,12 +99,12 @@ function HoldingsPage() {
                 const value = Number(h.quantity) * Number(h.current_price);
                 return (
                   <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
                     <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
-                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         Active
