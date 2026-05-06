@@ -53,7 +53,7 @@ export function PortalShell() {
         className="portal-backdrop pointer-events-none fixed inset-0 -z-20"
       />
       <ThreeBackground
-        className="pointer-events-none fixed inset-0 -z-10"
+        className="pointer-events-none fixed inset-0 -z-10 hidden dark:block"
         fade={false}
       />
       {/* Sidebar */}
