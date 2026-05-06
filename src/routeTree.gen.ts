@@ -21,12 +21,14 @@ import { Route as PortalReportsRouteImport } from './routes/portal.reports'
 import { Route as PortalReferralRouteImport } from './routes/portal.referral'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
-import { Route as PortalPerformanceRouteImport } from './routes/portal.performance'
 import { Route as PortalParticipationRouteImport } from './routes/portal.participation'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
+import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
+import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
+import { Route as PortalStatementCreditConversionRouteImport } from './routes/portal.statement.credit-conversion'
 
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
@@ -88,11 +90,6 @@ const PortalPromotionRoute = PortalPromotionRouteImport.update({
   path: '/promotion',
   getParentRoute: () => PortalRoute,
 } as any)
-const PortalPerformanceRoute = PortalPerformanceRouteImport.update({
-  id: '/performance',
-  path: '/performance',
-  getParentRoute: () => PortalRoute,
-} as any)
 const PortalParticipationRoute = PortalParticipationRouteImport.update({
   id: '/participation',
   path: '/participation',
@@ -118,6 +115,22 @@ const PortalDepositRoute = PortalDepositRouteImport.update({
   path: '/deposit',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
+  id: '/statement/usd',
+  path: '/statement/usd',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalStatementRewardsRoute = PortalStatementRewardsRouteImport.update({
+  id: '/statement/rewards',
+  path: '/statement/rewards',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalStatementCreditConversionRoute =
+  PortalStatementCreditConversionRouteImport.update({
+    id: '/statement/credit-conversion',
+    path: '/statement/credit-conversion',
+    getParentRoute: () => PortalRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -128,7 +141,6 @@ export interface FileRoutesByFullPath {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
-  '/portal/performance': typeof PortalPerformanceRoute
   '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -138,6 +150,9 @@ export interface FileRoutesByFullPath {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
+  '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -147,7 +162,6 @@ export interface FileRoutesByTo {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
-  '/portal/performance': typeof PortalPerformanceRoute
   '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -157,6 +171,9 @@ export interface FileRoutesByTo {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
+  '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
+  '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -168,7 +185,6 @@ export interface FileRoutesById {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
-  '/portal/performance': typeof PortalPerformanceRoute
   '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -178,6 +194,9 @@ export interface FileRoutesById {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
+  '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -190,7 +209,6 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/network'
     | '/portal/participation'
-    | '/portal/performance'
     | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
@@ -200,6 +218,9 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/statement/credit-conversion'
+    | '/portal/statement/rewards'
+    | '/portal/statement/usd'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -209,7 +230,6 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/network'
     | '/portal/participation'
-    | '/portal/performance'
     | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
@@ -219,6 +239,9 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal'
+    | '/portal/statement/credit-conversion'
+    | '/portal/statement/rewards'
+    | '/portal/statement/usd'
   id:
     | '__root__'
     | '/'
@@ -229,7 +252,6 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/network'
     | '/portal/participation'
-    | '/portal/performance'
     | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
@@ -239,6 +261,9 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/statement/credit-conversion'
+    | '/portal/statement/rewards'
+    | '/portal/statement/usd'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -333,13 +358,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPromotionRouteImport
       parentRoute: typeof PortalRoute
     }
-    '/portal/performance': {
-      id: '/portal/performance'
-      path: '/performance'
-      fullPath: '/portal/performance'
-      preLoaderRoute: typeof PortalPerformanceRouteImport
-      parentRoute: typeof PortalRoute
-    }
     '/portal/participation': {
       id: '/portal/participation'
       path: '/participation'
@@ -375,6 +393,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalDepositRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/statement/usd': {
+      id: '/portal/statement/usd'
+      path: '/statement/usd'
+      fullPath: '/portal/statement/usd'
+      preLoaderRoute: typeof PortalStatementUsdRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/statement/rewards': {
+      id: '/portal/statement/rewards'
+      path: '/statement/rewards'
+      fullPath: '/portal/statement/rewards'
+      preLoaderRoute: typeof PortalStatementRewardsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/statement/credit-conversion': {
+      id: '/portal/statement/credit-conversion'
+      path: '/statement/credit-conversion'
+      fullPath: '/portal/statement/credit-conversion'
+      preLoaderRoute: typeof PortalStatementCreditConversionRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
 
@@ -384,7 +423,6 @@ interface PortalRouteChildren {
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalParticipationRoute: typeof PortalParticipationRoute
-  PortalPerformanceRoute: typeof PortalPerformanceRoute
   PortalPromotionRoute: typeof PortalPromotionRoute
   PortalQnaRoute: typeof PortalQnaRoute
   PortalReferralRoute: typeof PortalReferralRoute
@@ -394,6 +432,9 @@ interface PortalRouteChildren {
   PortalTransactionsRoute: typeof PortalTransactionsRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
+  PortalStatementCreditConversionRoute: typeof PortalStatementCreditConversionRoute
+  PortalStatementRewardsRoute: typeof PortalStatementRewardsRoute
+  PortalStatementUsdRoute: typeof PortalStatementUsdRoute
 }
 
 const PortalRouteChildren: PortalRouteChildren = {
@@ -402,7 +443,6 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalNetworkRoute: PortalNetworkRoute,
   PortalParticipationRoute: PortalParticipationRoute,
-  PortalPerformanceRoute: PortalPerformanceRoute,
   PortalPromotionRoute: PortalPromotionRoute,
   PortalQnaRoute: PortalQnaRoute,
   PortalReferralRoute: PortalReferralRoute,
@@ -412,6 +452,9 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalTransactionsRoute: PortalTransactionsRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
+  PortalStatementCreditConversionRoute: PortalStatementCreditConversionRoute,
+  PortalStatementRewardsRoute: PortalStatementRewardsRoute,
+  PortalStatementUsdRoute: PortalStatementUsdRoute,
 }
 
 const PortalRouteWithChildren =
