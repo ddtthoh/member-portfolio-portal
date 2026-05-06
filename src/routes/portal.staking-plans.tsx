@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Banknote, TrendingUp } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/staking-plans")({
