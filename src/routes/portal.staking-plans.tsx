@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Banknote, TrendingUp } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/staking-plans")({
@@ -32,13 +32,7 @@ function StakingPlansPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
           <div key={plan.name} className="liquid-glass rounded-xl p-6">
-            <div className="flex items-center justify-between border-b border-border/60 pb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                Tier
-              </div>
-              <Banknote className="h-4 w-4 text-gold" />
-            </div>
-            <h3 className="mt-4 font-serif text-2xl font-semibold tracking-tight">
+            <h3 className="font-serif text-2xl font-semibold tracking-tight">
               {plan.name}
             </h3>
 
