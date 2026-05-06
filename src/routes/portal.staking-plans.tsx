@@ -22,35 +22,35 @@ const plans: Plan[] = [
 
 function StakingPlansPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <PageHeader
         eyebrow="Staking"
         title="Staking Plan"
         description="Choose a participation tier that matches your goals."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
-          <div key={plan.name} className="liquid-glass rounded-xl p-6">
-            <h3 className="font-serif text-2xl font-semibold tracking-tight">
+          <div key={plan.name} className="liquid-glass rounded-xl px-5 py-4">
+            <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
               {plan.name}
             </h3>
 
-            <div className="mt-6 space-y-5">
+            <div className="mt-3 space-y-3">
               <div>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   Minimum Participation
                 </div>
-                <div className="mt-1 font-sans text-2xl font-semibold tracking-tight tabular-nums text-foreground">
+                <div className="mt-0.5 font-sans text-lg font-semibold leading-tight tabular-nums text-gold">
                   {plan.minAmount}
                 </div>
               </div>
 
               <div>
-                <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
-                <div className="mt-1 font-sans text-2xl font-semibold tracking-tight tabular-nums text-gold">
+                <div className="mt-0.5 font-sans text-lg font-semibold leading-tight tabular-nums text-gold">
                   {plan.roi}
                 </div>
               </div>
