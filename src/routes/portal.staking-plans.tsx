@@ -9,7 +9,7 @@ export const Route = createFileRoute("/portal/staking-plans")({
 type Plan = { name: string; minAmount: string; roi: string };
 
 const plans: Plan[] = [
-  { name: "$100.00", minAmount: "$1,000.00", roi: "0.10% – 0.15%" },
+  { name: "Standard Lite", minAmount: "$1,000.00", roi: "0.10% – 0.15%" },
   { name: "Standard Plus", minAmount: "$2,500.00", roi: "0.15% – 0.20%" },
   { name: "Standard", minAmount: "$5,000.00", roi: "0.20% – 0.25%" },
   { name: "Advance", minAmount: "$10,000.00", roi: "0.25% – 0.30%" },
