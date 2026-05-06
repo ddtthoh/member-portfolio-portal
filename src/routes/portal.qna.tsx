@@ -48,7 +48,7 @@ function QnAPage() {
       <PageHeader eyebrow="Conversation" title="Q&A"
         description="Submit a question — your advisor responds within one business day." />
 
-      <form onSubmit={submit} className="rounded-sm border border-border bg-card p-6">
+      <form onSubmit={submit} className="liquid-glass rounded-xl p-6">
         <Textarea value={q} onChange={(e) => setQ(e.target.value)} maxLength={1000} rows={4}
           placeholder="What would you like to ask your advisor?" />
         <div className="mt-3 flex items-center justify-between">
@@ -61,7 +61,7 @@ function QnAPage() {
 
       <div className="mt-8 space-y-4">
         {items.map((i) => (
-          <div key={i.id} className="rounded-sm border border-border bg-card p-6">
+          <div key={i.id} className="liquid-glass rounded-xl p-6">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[0.25em] text-gold">{i.status}</span>
               <span className="text-xs text-muted-foreground">{new Date(i.asked_at).toLocaleDateString()}</span>

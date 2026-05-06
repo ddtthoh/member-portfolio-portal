@@ -80,7 +80,7 @@ function PerformancePage() {
         <Box label="Net Δ" value={fmt(last - first)} tone={last - first >= 0 ? "up" : "down"} />
       </div>
 
-      <div className="mt-8 rounded-sm border border-border bg-card p-6">
+      <div className="mt-8 liquid-glass rounded-xl p-6">
         <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">Portfolio Value</div>
         <div className="h-80">
           <ResponsiveContainer>
@@ -110,7 +110,7 @@ function PerformancePage() {
 
 function Box({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   return (
-    <div className="rounded-sm border border-border bg-card p-6">
+    <div className="liquid-glass rounded-xl p-6">
       <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</div>
       <div className={`mt-3 font-serif text-3xl ${tone === "down" ? "text-destructive" : tone === "up" ? "text-success" : ""}`}>
         {value}

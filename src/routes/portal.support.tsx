@@ -55,7 +55,7 @@ function SupportPage() {
         description="Open a private ticket — our concierge team responds promptly." />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
-        <form onSubmit={submit} className="space-y-4 rounded-sm border border-border bg-card p-6">
+        <form onSubmit={submit} className="space-y-4 liquid-glass rounded-xl p-6">
           <div className="space-y-2">
             <Label htmlFor="subject">Subject</Label>
             <Input id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={120} required />
@@ -72,12 +72,12 @@ function SupportPage() {
         <div className="space-y-3">
           <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Your Tickets</div>
           {tickets.length === 0 && (
-            <p className="rounded-sm border border-dashed border-border bg-card p-6 text-center text-sm text-muted-foreground">
+            <p className="liquid-glass rounded-xl p-6 text-center text-sm text-muted-foreground">
               No tickets yet.
             </p>
           )}
           {tickets.map((t) => (
-            <div key={t.id} className="rounded-sm border border-border bg-card p-4">
+            <div key={t.id} className="liquid-glass rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div className="font-medium">{t.subject}</div>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-gold">{t.status}</span>
