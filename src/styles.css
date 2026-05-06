@@ -182,7 +182,17 @@
   }
   .ticker-wrap:hover .ticker-track {
     animation-play-state: paused;
+
+  .portal-backdrop {
+    background: #ffffff;
   }
+  .dark .portal-backdrop {
+    background:
+      radial-gradient(1200px 800px at 20% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 60%),
+      radial-gradient(900px 700px at 80% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 60%),
+      linear-gradient(180deg, #05060a 0%, #07090f 60%, #04050a 100%);
+  }
+}
   @media (prefers-reduced-motion: reduce) {
     .ticker-track { animation: none; }
   }
