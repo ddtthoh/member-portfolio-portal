@@ -26,14 +26,14 @@ function ReportsPage() {
       <PageHeader eyebrow="Curated" title="Quarterly Reports"
         description="Letters and analysis prepared by your advisory team." />
       {items.length === 0 ? (
-        <div className="rounded-sm border border-dashed border-border bg-card p-16 text-center">
+        <div className="liquid-glass rounded-xl p-16 text-center">
           <BookOpen className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Your next quarterly report will appear here when published.</p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {items.map((r) => (
-            <article key={r.id} className="rounded-sm border border-border bg-card p-6 transition-all hover:border-gold/50">
+            <article key={r.id} className="liquid-glass rounded-xl p-6 transition-all hover:border-gold/50">
               <div className="text-[10px] uppercase tracking-[0.25em] text-gold">{r.period ?? "Report"}</div>
               <h3 className="mt-2 font-serif text-2xl">{r.title}</h3>
               {r.summary && <p className="mt-3 text-sm text-muted-foreground">{r.summary}</p>}

@@ -32,7 +32,7 @@ function TransactionsPage() {
       <PageHeader eyebrow="Ledger" title="Transactions"
         description="A complete history of deposits, trades, and withdrawals." />
 
-      <div className="overflow-hidden rounded-sm border border-border bg-card">
+      <div className="liquid-glass overflow-hidden rounded-xl">
         <table className="w-full text-sm">
           <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
             <tr>

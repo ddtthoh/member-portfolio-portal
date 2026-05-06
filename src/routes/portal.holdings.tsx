@@ -45,7 +45,7 @@ function HoldingsPage() {
         description="A complete view of every position and your exposure across asset classes." />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <div className="overflow-hidden rounded-sm border border-border bg-card">
+        <div className="liquid-glass overflow-hidden rounded-xl">
           <table className="w-full text-sm">
             <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
@@ -89,7 +89,7 @@ function HoldingsPage() {
           </table>
         </div>
 
-        <div className="rounded-sm border border-border bg-card p-6">
+        <div className="liquid-glass rounded-xl p-6">
           <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">Allocation</div>
           {allocation.length === 0 ? (
             <div className="py-12 text-center text-sm text-muted-foreground">No allocation data</div>

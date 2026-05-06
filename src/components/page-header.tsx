@@ -5,7 +5,7 @@ export function PageHeader({
   eyebrow, title, description, actions,
 }: { eyebrow?: string; title: string; description?: string; actions?: ReactNode }) {
   return (
-    <div className="mb-8 flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
+    <div className="liquid-glass mb-6 flex flex-col gap-4 rounded-xl p-6 md:flex-row md:items-end md:justify-between">
       <div>
         {eyebrow && (
           <motion.div

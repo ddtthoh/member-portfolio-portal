@@ -26,14 +26,14 @@ function NetworkPage() {
       <PageHeader eyebrow="Relationships" title="Network"
         description="Your trusted circle of advisors, custodians, and partners." />
       {items.length === 0 ? (
-        <div className="rounded-sm border border-dashed border-border bg-card p-16 text-center">
+        <div className="liquid-glass rounded-xl p-16 text-center">
           <Users className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Your dedicated team will be listed here shortly.</p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map((c) => (
-            <div key={c.id} className="rounded-sm border border-border bg-card p-6">
+            <div key={c.id} className="liquid-glass rounded-xl p-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-serif text-lg text-gold">
                   {c.name.charAt(0)}
