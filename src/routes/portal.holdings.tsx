@@ -96,26 +96,26 @@ function HoldingsPage() {
           </div>
         </div>
 
-        <div className="liquid-glass rounded-xl p-6">
-          <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">Allocation</div>
-          {allocation.length === 0 ? (
-            <div className="py-12 text-center text-sm text-muted-foreground">No allocation data</div>
-          ) : (
-            <div className="h-64">
-              <ResponsiveContainer>
-                <PieChart>
-                  <Pie data={allocation} dataKey="value" nameKey="name" innerRadius={50} outerRadius={90} stroke="none">
-                    {allocation.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 4 }}
-                    formatter={(v: number) => fmt(v)}
-                  />
-                  <Legend wrapperStyle={{ fontSize: 12 }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          )}
+        <div className="liquid-glass flex items-center justify-center rounded-xl p-6">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" className="w-full">Request Full Refund</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Request Full Refund</DialogTitle>
+                <DialogDescription>
+                  Are you sure you want to request a full refund? Our team will review your request and contact you shortly.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogClose>
+                <Button onClick={() => alert("Refund request submitted")}>Confirm Request</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
