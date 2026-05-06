@@ -17,7 +17,7 @@ const plans: Plan[] = [
   { name: "Advance Pro", minAmount: "$5,000.00", roi: "0.25% – 0.35%" },
   { name: "Premium Lite", minAmount: "$10,000.00", roi: "0.35% – 0.45%" },
   { name: "Premium Plus", minAmount: "$30,000.00", roi: "0.35% – 0.45%" },
-  { name: "Premium Pro", minAmount: "$500,000.00", roi: "0.35% – 0.45%" },
+  { name: "Premium Pro", minAmount: "$50,000.00", roi: "0.35% – 0.45%" },
 ];
 
 function StakingPlansPage() {
