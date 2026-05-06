@@ -1,16 +1,30 @@
 ## Goal
+Make the standalone preview (new tab) and the future published site look the same as the in‑app preview panel — specifically the light‑mode glass boxes, which currently read as more transparent outside the editor.
 
-Make the `.liquid-glass` boxes use different opacity values in light vs. dark mode so each theme reads cleanly.
+## Why they differ today
+The in‑app preview iframe is composited on the editor's chrome, which sits behind the translucent glass and visually "fills in" the boxes. Outside the editor (new tab / published), only your real white backdrop is behind the glass, so the same `--glass-opacity: 0.35` reads as much more see‑through.
+
+The fix is to raise the light‑mode glass tokens so the standalone view ends up looking like the in‑app version. Dark mode already matches and is left untouched.
 
 ## Change
+Single file: `src/styles.css`, light-mode `:root` block.
 
-In `src/styles.css`, the `.liquid-glass` utility currently hardcodes `--glass-opacity: 0.7` for both themes. I'll move that knob to the theme tokens:
+```text
+--glass-opacity:        0.35  →  0.62
+--glass-sheen-top:      60%   →  55%
+--glass-sheen-bottom:   8%    →  10%
+--glass-border-strength: 70%  →  85%
+```
 
-- `:root` (light mode): `--glass-opacity: 0.85` — boxes look more solid/white on the bright background.
-- `.dark` (dark mode): `--glass-opacity: 0.45` — boxes stay translucent so the gold/black backdrop shows through.
+Effects on every `.liquid-glass` card across `/portal` and all subpages:
+- More solid card fill (closer to in‑app look)
+- Slightly stronger gold border for definition on white
+- Sheen tuned down a touch so the more opaque fill doesn't look milky
 
-Then `.liquid-glass` reads `var(--glass-opacity)` instead of defining its own default. Border, fill, and sheen layers all already reference this variable, so they'll all shift together per theme.
+## Out of scope
+- No changes to dark mode tokens
+- No changes to the page backdrop (stays white)
+- No changes to any component markup or text colors
 
-## Question
-
-Do those two values (light 0.85 / dark 0.45) feel right, or do you want the dark boxes more opaque / light boxes more transparent? I can tune after you try it.
+## Verification
+After the change, open the project in a new tab at `/portal` and `/portal/staking-plans` and compare against the in‑app panel — boxes should match. If you want them slightly more or less opaque after seeing it live, I can fine‑tune the single `--glass-opacity` value.
