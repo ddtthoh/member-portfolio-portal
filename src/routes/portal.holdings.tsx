@@ -55,11 +55,12 @@ function HoldingsPage() {
                 <th className="px-5 py-3 text-right">PARTICIPATION AMOUNT</th>
                 <th className="px-5 py-3 text-right">MINIMUM MONTHLY RATE</th>
                 <th className="px-5 py-3 text-right">MAXIMUM MONTHLY RATE</th>
+                <th className="px-5 py-3 text-right">STATUS</th>
               </tr>
             </thead>
             <tbody>
               {rows.length === 0 && (
-                <tr><td colSpan={6} className="px-5 py-12 text-center text-muted-foreground">
+                <tr><td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
                   No holdings on file. Your advisor will populate this shortly.
                 </td></tr>
               )}
@@ -81,6 +82,11 @@ function HoldingsPage() {
                       <div className={`text-xs ${pl >= 0 ? "text-success" : "text-destructive"}`}>
                         {pl >= 0 ? "+" : ""}{fmt(pl)}
                       </div>
+                    </td>
+                    <td className="px-5 py-4 text-right">
+                      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
+                        Active
+                      </span>
                     </td>
                   </tr>
                 );
