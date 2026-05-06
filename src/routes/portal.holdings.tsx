@@ -42,35 +42,56 @@ function HoldingsPage() {
   }, [rows]);
 
   return (
-    <div>
-      <PageHeader 
-        eyebrow="Portfolio" 
-        title={<div className="flex flex-col gap-1">
-          <div>Total participation amount : $50,000</div>
-          <div className="text-xl opacity-80 font-sans">Participation days : 54 days</div>
-        </div>}
-        description=""
+    <div className="space-y-6">
+      <PageHeader
+        eyebrow="Portfolio"
+        title="Participation Overview"
+        description="A summary of your active staking participation."
       />
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="liquid-glass rounded-xl p-6">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            Total Participation Amount
+          </div>
+          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
+            $50,000
+          </div>
+        </div>
+        <div className="liquid-glass rounded-xl p-6">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            Participation Days
+          </div>
+          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
+            54 <span className="text-base font-normal text-muted-foreground">days</span>
+          </div>
+        </div>
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
         <div className="liquid-glass overflow-hidden rounded-xl">
+          <div className="border-b border-border/60 px-6 py-4">
+            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
+              Staking Plans
+            </h2>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[860px] text-sm">
+            <table className="w-full min-w-[920px] text-sm">
               <thead>
-                <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
-                  <th className="px-5 py-3.5 text-left font-medium">Date</th>
-                  <th className="px-5 py-3.5 text-left font-medium">Staking Plan</th>
-                  <th className="px-5 py-3.5 text-left font-medium">Participation Date</th>
-                  <th className="px-5 py-3.5 text-left font-medium">Participation Amount</th>
-                  <th className="px-5 py-3.5 text-left font-medium">ROI % Min</th>
-                  <th className="px-5 py-3.5 text-left font-medium">ROI % Max</th>
-                  <th className="px-5 py-3.5 text-left font-medium">Status</th>
+                <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  <th className="px-6 py-3 text-left font-medium">Date</th>
+                  <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
+                  <th className="px-6 py-3 text-left font-medium">Participation Date</th>
+                  <th className="px-6 py-3 text-right font-medium">Participation Amount</th>
+                  <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
+                  <th className="px-6 py-3 text-right font-medium">Max Monthly Rate</th>
+                  <th className="px-6 py-3 text-center font-medium">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-5 py-12 text-center text-sm text-muted-foreground">
+                    <td colSpan={7} className="px-6 py-16 text-center text-sm text-muted-foreground">
                       No staking plan yet.
                     </td>
                   </tr>
@@ -78,14 +99,14 @@ function HoldingsPage() {
                 {rows.map((h) => {
                   const value = Number(h.quantity) * Number(h.current_price);
                   return (
-                    <tr key={h.id} className="border-t border-border/40">
-                      <td className="px-5 py-3.5 text-left font-mono text-xs text-muted-foreground">—</td>
-                      <td className="px-5 py-3.5 text-left font-medium">{h.asset_name}</td>
-                      <td className="px-5 py-3.5 text-left font-mono text-xs text-muted-foreground">—</td>
-                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(value)}</td>
-                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(Number(h.avg_cost))}</td>
-                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(Number(h.current_price))}</td>
-                      <td className="px-5 py-3.5 text-left">
+                    <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
+                      <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                      <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
+                      <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(value)}</td>
+                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
+                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
+                      <td className="px-6 py-4 text-center">
                         <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                           Active
                         </span>
@@ -98,7 +119,15 @@ function HoldingsPage() {
           </div>
         </div>
 
-        <div className="liquid-glass flex items-center justify-center rounded-xl p-6">
+        <div className="liquid-glass flex flex-col justify-between gap-4 rounded-xl p-6">
+          <div>
+            <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
+              Refund Request
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Withdraw your full participation amount. Our team will process your request and contact you.
+            </p>
+          </div>
           <Dialog>
             <DialogTrigger asChild>
               <Button size="lg" className="w-full">Request Full Refund</Button>
