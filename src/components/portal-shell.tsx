@@ -50,11 +50,7 @@ export function PortalShell() {
       {/* Futuristic interactive backdrop */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-20"
-        style={{
-          background:
-            "radial-gradient(1200px 800px at 20% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 60%), radial-gradient(900px 700px at 80% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 60%), linear-gradient(180deg, #05060a 0%, #07090f 60%, #04050a 100%)",
-        }}
+        className="portal-backdrop pointer-events-none fixed inset-0 -z-20"
       />
       <ThreeBackground
         className="pointer-events-none fixed inset-0 -z-10"
