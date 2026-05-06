@@ -69,6 +69,7 @@
   --sidebar-foreground: oklch(0.22 0.02 60);
   --sidebar-border: oklch(0.88 0.01 80);
   --shadow-elegant: 0 20px 60px -30px color-mix(in oklab, oklch(0.18 0.02 60) 35%, transparent);
+  --glass-opacity: 0.85;
 }
 
 .dark {
@@ -99,12 +100,12 @@
   --sidebar-foreground: oklch(0.78 0.13 80);
   --sidebar-border: oklch(0.24 0.012 60);
   --shadow-elegant: 0 20px 60px -20px oklch(0 0 0 / 0.6);
+  --glass-opacity: 0.45;
 }
 
 @layer utilities {
   .liquid-glass {
-    /* Single knob: 0 = invisible glass, 1 = full glass look. Content stays crisp. */
-    --glass-opacity: 0.7;
+    /* Per-theme knob via --glass-opacity (set in :root and .dark) */
     position: relative;
     background: transparent;
     backdrop-filter: blur(24px) saturate(150%);
