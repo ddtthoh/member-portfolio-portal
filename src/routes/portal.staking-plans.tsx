@@ -36,8 +36,8 @@ function StakingPlansPage() {
               {plan.name}
             </h3>
 
-            <div className="mt-3 space-y-3">
-              <div>
+            <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
+              <div className="pr-4">
                 <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   Minimum Participation
                 </div>
@@ -46,7 +46,7 @@ function StakingPlansPage() {
                 </div>
               </div>
 
-              <div>
+              <div className="pl-4">
                 <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
