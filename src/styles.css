@@ -74,7 +74,7 @@
 .dark {
   /* Dark: deep ink/onyx + gold */
   --background: oklch(0.14 0.012 60);
-  --foreground: oklch(0.95 0.01 85);
+  --foreground: oklch(0.78 0.13 80);
   --card: oklch(0.18 0.012 60);
   --card-foreground: oklch(0.95 0.01 85);
   --popover: oklch(0.18 0.012 60);
