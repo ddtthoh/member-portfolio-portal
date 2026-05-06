@@ -69,7 +69,7 @@ function HoldingsPage() {
                 {rows.length === 0 && (
                   <tr>
                     <td colSpan={7} className="px-5 py-12 text-center text-sm text-muted-foreground">
-                      No holdings on file. Your advisor will populate this shortly.
+                      No staking plan yet.
                     </td>
                   </tr>
                 )}
