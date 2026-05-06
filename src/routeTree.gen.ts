@@ -16,6 +16,7 @@ import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal'
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
 import { Route as PortalSupportRouteImport } from './routes/portal.support'
+import { Route as PortalStakingPlansRouteImport } from './routes/portal.staking-plans'
 import { Route as PortalReportsRouteImport } from './routes/portal.reports'
 import { Route as PortalReferralRouteImport } from './routes/portal.referral'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
@@ -60,6 +61,11 @@ const PortalTransactionsRoute = PortalTransactionsRouteImport.update({
 const PortalSupportRoute = PortalSupportRouteImport.update({
   id: '/support',
   path: '/support',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalStakingPlansRoute = PortalStakingPlansRouteImport.update({
+  id: '/staking-plans',
+  path: '/staking-plans',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalReportsRoute = PortalReportsRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
+  '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
+  '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
+  '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
+    | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
     | '/portal/withdrawal'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
+    | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
     | '/portal/withdrawal'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
+    | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
     | '/portal/withdrawal'
@@ -284,6 +296,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/portal/support'
       preLoaderRoute: typeof PortalSupportRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/staking-plans': {
+      id: '/portal/staking-plans'
+      path: '/staking-plans'
+      fullPath: '/portal/staking-plans'
+      preLoaderRoute: typeof PortalStakingPlansRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/reports': {
@@ -370,6 +389,7 @@ interface PortalRouteChildren {
   PortalQnaRoute: typeof PortalQnaRoute
   PortalReferralRoute: typeof PortalReferralRoute
   PortalReportsRoute: typeof PortalReportsRoute
+  PortalStakingPlansRoute: typeof PortalStakingPlansRoute
   PortalSupportRoute: typeof PortalSupportRoute
   PortalTransactionsRoute: typeof PortalTransactionsRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
@@ -387,6 +407,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalQnaRoute: PortalQnaRoute,
   PortalReferralRoute: PortalReferralRoute,
   PortalReportsRoute: PortalReportsRoute,
+  PortalStakingPlansRoute: PortalStakingPlansRoute,
   PortalSupportRoute: PortalSupportRoute,
   PortalTransactionsRoute: PortalTransactionsRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
