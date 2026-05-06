@@ -66,7 +66,7 @@ function HoldingsPage() {
             </button>
           </div>
           <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
-            {showAmount ? "$50,000" : "•••••••"}
+            {showAmount ? "$50,000" : "******"}
           </div>
         </div>
         <div className="liquid-glass rounded-xl p-6">
