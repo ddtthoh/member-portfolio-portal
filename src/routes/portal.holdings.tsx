@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -25,7 +26,7 @@ function fmt(n: number) {
 function HoldingsPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
-
+  const [showAmount, setShowAmount] = useState(false);
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
@@ -51,18 +52,28 @@ function HoldingsPage() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Total Participation Amount
+          <div className="flex items-center justify-between">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Total Participation Amount
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAmount((s) => !s)}
+              aria-label={showAmount ? "Hide amount" : "Show amount"}
+              className="text-muted-foreground transition-colors hover:text-gold"
+            >
+              {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
-          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
-            $50,000
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
+            {showAmount ? "$50,000" : "•••••••"}
           </div>
         </div>
         <div className="liquid-glass rounded-xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             Participation Days
           </div>
-          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
             54 <span className="text-base font-normal text-muted-foreground">days</span>
           </div>
         </div>
@@ -99,12 +110,12 @@ function HoldingsPage() {
                 const value = Number(h.quantity) * Number(h.current_price);
                 return (
                   <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
                     <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
-                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         Active

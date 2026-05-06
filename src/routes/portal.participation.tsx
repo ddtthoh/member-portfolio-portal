@@ -67,12 +67,12 @@ function ParticipationPage() {
               <tbody>
                 {rows.map((r, i) => (
                   <tr key={i} className="border-t border-border/40">
-                    <td className="px-4 py-3.5 font-mono text-xs text-muted-foreground">{r.date}</td>
+                    <td className="px-4 py-3.5 font-sans text-xs text-muted-foreground">{r.date}</td>
                     <td className="px-4 py-3.5 font-medium">{r.package}</td>
-                    <td className="px-4 py-3.5 font-mono text-xs text-muted-foreground">{r.roiStart}</td>
-                    <td className="px-4 py-3.5 text-right font-mono">{fmtUSD(r.amount)}</td>
-                    <td className="px-4 py-3.5 text-right font-mono">{r.roiMin.toFixed(1)}%</td>
-                    <td className="px-4 py-3.5 text-right font-mono text-gold">{r.roiMax.toFixed(1)}%</td>
+                    <td className="px-4 py-3.5 font-sans text-xs text-muted-foreground">{r.roiStart}</td>
+                    <td className="px-4 py-3.5 text-right font-sans">{fmtUSD(r.amount)}</td>
+                    <td className="px-4 py-3.5 text-right font-sans">{r.roiMin.toFixed(1)}%</td>
+                    <td className="px-4 py-3.5 text-right font-sans text-gold">{r.roiMax.toFixed(1)}%</td>
                     <td className="px-4 py-3.5 text-right">
                       <StatusBadge status={r.status} />
                     </td>
