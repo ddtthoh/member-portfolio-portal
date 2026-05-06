@@ -109,7 +109,7 @@ export function PortalShell() {
           </div>
         </header>
         <TickerTape />
-        <main className="min-w-0 flex-1 px-4 pb-8 pt-3 lg:px-10">
+        <main className="min-w-0 flex-1 px-4 pb-8 pt-3 lg:px-10 opacity-100">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
