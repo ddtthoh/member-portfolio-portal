@@ -52,11 +52,21 @@ function HoldingsPage() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Total Participation Amount
+          <div className="flex items-center justify-between">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Total Participation Amount
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAmount((s) => !s)}
+              aria-label={showAmount ? "Hide amount" : "Show amount"}
+              className="text-muted-foreground transition-colors hover:text-gold"
+            >
+              {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
-          <div className="mt-2 font-serif text-3xl font-semibold tracking-tight">
-            $50,000
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
+            {showAmount ? "$50,000" : "•••••••"}
           </div>
         </div>
         <div className="liquid-glass rounded-xl p-6">
