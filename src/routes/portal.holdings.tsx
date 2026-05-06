@@ -49,7 +49,7 @@ function HoldingsPage() {
           <table className="w-full text-sm">
             <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
-                <th className="px-5 py-3 text-left">Asset</th>
+                <th className="px-5 py-3 text-left">DATE</th>
                 <th className="px-5 py-3 text-left">Class</th>
                 <th className="px-5 py-3 text-right">Qty</th>
                 <th className="px-5 py-3 text-right">Avg Cost</th>
