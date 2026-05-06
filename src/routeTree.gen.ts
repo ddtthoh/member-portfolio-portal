@@ -19,6 +19,7 @@ import { Route as PortalSupportRouteImport } from './routes/portal.support'
 import { Route as PortalReportsRouteImport } from './routes/portal.reports'
 import { Route as PortalReferralRouteImport } from './routes/portal.referral'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
+import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
 import { Route as PortalPerformanceRouteImport } from './routes/portal.performance'
 import { Route as PortalParticipationRouteImport } from './routes/portal.participation'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
@@ -76,6 +77,11 @@ const PortalQnaRoute = PortalQnaRouteImport.update({
   path: '/qna',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalPromotionRoute = PortalPromotionRouteImport.update({
+  id: '/promotion',
+  path: '/promotion',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalPerformanceRoute = PortalPerformanceRouteImport.update({
   id: '/performance',
   path: '/performance',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/portal/network': typeof PortalNetworkRoute
   '/portal/participation': typeof PortalParticipationRoute
   '/portal/performance': typeof PortalPerformanceRoute
+  '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/reports': typeof PortalReportsRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/participation'
     | '/portal/performance'
+    | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/participation'
     | '/portal/performance'
+    | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/portal/network'
     | '/portal/participation'
     | '/portal/performance'
+    | '/portal/promotion'
     | '/portal/qna'
     | '/portal/referral'
     | '/portal/reports'
@@ -295,6 +307,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalQnaRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/promotion': {
+      id: '/portal/promotion'
+      path: '/promotion'
+      fullPath: '/portal/promotion'
+      preLoaderRoute: typeof PortalPromotionRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/performance': {
       id: '/portal/performance'
       path: '/performance'
@@ -347,6 +366,7 @@ interface PortalRouteChildren {
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalParticipationRoute: typeof PortalParticipationRoute
   PortalPerformanceRoute: typeof PortalPerformanceRoute
+  PortalPromotionRoute: typeof PortalPromotionRoute
   PortalQnaRoute: typeof PortalQnaRoute
   PortalReferralRoute: typeof PortalReferralRoute
   PortalReportsRoute: typeof PortalReportsRoute
@@ -363,6 +383,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalNetworkRoute: PortalNetworkRoute,
   PortalParticipationRoute: PortalParticipationRoute,
   PortalPerformanceRoute: PortalPerformanceRoute,
+  PortalPromotionRoute: PortalPromotionRoute,
   PortalQnaRoute: PortalQnaRoute,
   PortalReferralRoute: PortalReferralRoute,
   PortalReportsRoute: PortalReportsRoute,
