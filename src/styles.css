@@ -160,9 +160,9 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      color-mix(in oklab, white 30%, transparent),
+      color-mix(in oklab, white var(--glass-sheen-top), transparent),
       transparent 30%,
-      color-mix(in oklab, var(--gold) 20%, transparent) 100%
+      color-mix(in oklab, var(--gold) var(--glass-sheen-bottom), transparent) 100%
     );
     opacity: var(--glass-opacity);
     pointer-events: none;
