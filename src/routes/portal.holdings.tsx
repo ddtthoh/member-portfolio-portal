@@ -52,7 +52,7 @@ function HoldingsPage() {
                 <th className="px-5 py-3 text-left">DATE</th>
                 <th className="px-5 py-3 text-left">STAKING PLAN</th>
                 <th className="px-5 py-3 text-left">PARTICIPATION DATE</th>
-                <th className="px-5 py-3 text-right">Avg Cost</th>
+                <th className="px-5 py-3 text-right">PARTICIPATION AMOUNT</th>
                 <th className="px-5 py-3 text-right">Price</th>
                 <th className="px-5 py-3 text-right">Value</th>
               </tr>
