@@ -149,3 +149,56 @@ export function PortalShell() {
     </div>
   );
 }
+
+function NavGroup({
+  item,
+  currentPath,
+}: {
+  item: { label: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
+  currentPath: string;
+}) {
+  const isActiveBranch = currentPath.startsWith(item.basePath);
+  const [open, setOpen] = useState(isActiveBranch);
+  useEffect(() => {
+    if (isActiveBranch) setOpen(true);
+  }, [isActiveBranch]);
+
+  const Icon = item.icon;
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`flex w-full items-center gap-3 rounded-sm border-l-2 px-3 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground ${
+          isActiveBranch
+            ? "border-gold bg-accent text-foreground"
+            : "border-transparent text-muted-foreground"
+        }`}
+      >
+        <Icon className="h-4 w-4" />
+        <span className="flex-1 text-left">{item.label}</span>
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="mt-1 space-y-1 pl-4">
+          {item.children.map((child) => {
+            const ChildIcon = child.icon;
+            return (
+              <Link
+                key={child.to}
+                to={child.to}
+                activeProps={{ className: "bg-accent text-foreground border-l-2 border-gold" }}
+                className="flex items-center gap-3 rounded-sm border-l-2 border-transparent px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                <ChildIcon className="h-3.5 w-3.5" />
+                <span>{child.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
