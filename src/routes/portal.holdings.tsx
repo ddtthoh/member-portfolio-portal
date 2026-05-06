@@ -46,7 +46,7 @@ function HoldingsPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Portfolio"
-        title="Participation Overview"
+        title="Portfolio Overview"
         description="A summary of your active staking participation."
       />
 
