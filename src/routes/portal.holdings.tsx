@@ -46,53 +46,48 @@ function HoldingsPage() {
 
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
         <div className="liquid-glass overflow-hidden rounded-xl">
-          <table className="w-full text-sm">
-            <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
-              <tr>
-                <th className="px-5 py-3 text-left">DATE</th>
-                <th className="px-5 py-3 text-left">STAKING PLAN</th>
-                <th className="px-5 py-3 text-left">PARTICIPATION DATE</th>
-                <th className="px-5 py-3 text-right">PARTICIPATION AMOUNT</th>
-                <th className="px-5 py-3 text-right">MINIMUM MONTHLY RATE</th>
-                <th className="px-5 py-3 text-right">MAXIMUM MONTHLY RATE</th>
-                <th className="px-5 py-3 text-right">STATUS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.length === 0 && (
-                <tr><td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">
-                  No holdings on file. Your advisor will populate this shortly.
-                </td></tr>
-              )}
-              {rows.map((h) => {
-                const value = Number(h.quantity) * Number(h.current_price);
-                const pl = (Number(h.current_price) - Number(h.avg_cost)) * Number(h.quantity);
-                return (
-                  <tr key={h.id} className="border-b border-border/50 last:border-0">
-                    <td className="px-5 py-4">
-                      <div className="font-medium">{h.asset_name}</div>
-                      {h.ticker && <div className="text-xs text-muted-foreground">{h.ticker}</div>}
-                    </td>
-                    <td className="px-5 py-4 text-muted-foreground">{h.asset_class}</td>
-                    <td className="px-5 py-4 text-right">{Number(h.quantity).toLocaleString()}</td>
-                    <td className="px-5 py-4 text-right">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-5 py-4 text-right">{fmt(Number(h.current_price))}</td>
-                    <td className="px-5 py-4 text-right">
-                      <div className="font-medium">{fmt(value)}</div>
-                      <div className={`text-xs ${pl >= 0 ? "text-success" : "text-destructive"}`}>
-                        {pl >= 0 ? "+" : ""}{fmt(pl)}
-                      </div>
-                    </td>
-                    <td className="px-5 py-4 text-right">
-                      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
-                        Active
-                      </span>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[860px] text-sm">
+              <thead>
+                <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
+                  <th className="px-5 py-3.5 text-left font-medium">Date</th>
+                  <th className="px-5 py-3.5 text-left font-medium">Staking Plan</th>
+                  <th className="px-5 py-3.5 text-left font-medium">Participation Date</th>
+                  <th className="px-5 py-3.5 text-left font-medium">Participation Amount</th>
+                  <th className="px-5 py-3.5 text-left font-medium">ROI % Min</th>
+                  <th className="px-5 py-3.5 text-left font-medium">ROI % Max</th>
+                  <th className="px-5 py-3.5 text-left font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.length === 0 && (
+                  <tr>
+                    <td colSpan={7} className="px-5 py-12 text-center text-sm text-muted-foreground">
+                      No holdings on file. Your advisor will populate this shortly.
                     </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                )}
+                {rows.map((h) => {
+                  const value = Number(h.quantity) * Number(h.current_price);
+                  return (
+                    <tr key={h.id} className="border-t border-border/40">
+                      <td className="px-5 py-3.5 text-left font-mono text-xs text-muted-foreground">—</td>
+                      <td className="px-5 py-3.5 text-left font-medium">{h.asset_name}</td>
+                      <td className="px-5 py-3.5 text-left font-mono text-xs text-muted-foreground">—</td>
+                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(value)}</td>
+                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(Number(h.avg_cost))}</td>
+                      <td className="px-5 py-3.5 text-left font-mono text-xs">{fmt(Number(h.current_price))}</td>
+                      <td className="px-5 py-3.5 text-left">
+                        <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
+                          Active
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="liquid-glass rounded-xl p-6">
