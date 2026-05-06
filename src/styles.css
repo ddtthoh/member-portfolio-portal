@@ -69,7 +69,7 @@
   --sidebar-foreground: oklch(0.26 0.015 250);
   --sidebar-border: oklch(0.9 0.006 250);
   --shadow-elegant: 0 20px 60px -30px color-mix(in oklab, oklch(0.22 0.02 250) 25%, transparent);
-  --glass-opacity: 0.62;
+  --glass-opacity: 0.96;
   --glass-sheen-top: 55%;
   --glass-sheen-bottom: 10%;
   --glass-border-strength: 85%;
@@ -103,10 +103,10 @@
   --sidebar-foreground: oklch(0.93 0.018 85);
   --sidebar-border: oklch(0.24 0.012 60);
   --shadow-elegant: 0 20px 60px -20px oklch(0 0 0 / 0.6);
-  --glass-opacity: 0.5;
+  --glass-opacity: 0.96;
   --glass-sheen-top: 30%;
   --glass-sheen-bottom: 20%;
-  --glass-border-strength: 30%;
+  --glass-border-strength: 60%;
 }
 
 @layer utilities {
@@ -114,8 +114,8 @@
     /* Per-theme knob via --glass-opacity (set in :root and .dark) */
     position: relative;
     background: transparent;
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
     border: 1px solid color-mix(in oklab, var(--border) var(--glass-border-strength), transparent);
     border-color: color-mix(in oklab, var(--border) var(--glass-border-strength), transparent);
     box-shadow:
