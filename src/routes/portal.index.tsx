@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronDown, ChevronRight, ChevronUp, Eye, EyeOff, Gem, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronDown, ChevronRight, ChevronUp, Eye, EyeOff, Gem, Gift, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
@@ -36,6 +36,7 @@ function Overview() {
     { label: "Withdrawal", icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
     { label: "Referral", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
     { label: "Participation", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/participation" },
+    { label: "Promotion", icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
   ];
 
 
