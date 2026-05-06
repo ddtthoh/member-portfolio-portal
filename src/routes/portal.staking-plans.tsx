@@ -10,7 +10,7 @@ type Plan = { name: string; minAmount: string; roi: string };
 
 const plans: Plan[] = [
   { name: "Standard Lite", minAmount: "$100.00", roi: "0.15% – 0.25%" },
-  { name: "Standard Plus", minAmount: "$2,500.00", roi: "0.15% – 0.25%" },
+  { name: "Standard Plus", minAmount: "$300.00", roi: "0.15% – 0.25%" },
   { name: "Standard Pro", minAmount: "$5,000.00", roi: "0.15% – 0.25%" },
   { name: "Advance", minAmount: "$10,000.00", roi: "0.25% – 0.30%" },
   { name: "Advance Pro", minAmount: "$25,000.00", roi: "0.25% – 0.35%" },
