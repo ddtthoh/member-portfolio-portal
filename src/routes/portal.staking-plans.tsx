@@ -32,34 +32,32 @@ function StakingPlansPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
           <div key={plan.name} className="liquid-glass rounded-xl p-6">
-            <h3 className="font-serif text-xl font-semibold">{plan.name}</h3>
+            <div className="flex items-center justify-between border-b border-border/60 pb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                Tier
+              </div>
+              <Banknote className="h-4 w-4 text-gold" />
+            </div>
+            <h3 className="mt-4 font-serif text-2xl font-semibold tracking-tight">
+              {plan.name}
+            </h3>
 
-            <div className="mt-5 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-gold/15 text-gold">
-                  <Banknote className="h-5 w-5" />
+            <div className="mt-6 space-y-5">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Minimum Participation
                 </div>
-                <div>
-                  <div className="font-sans text-lg font-semibold tabular-nums">
-                    {plan.minAmount}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Minimum Participation Amount
-                  </div>
+                <div className="mt-1 font-sans text-2xl font-semibold tracking-tight tabular-nums text-foreground">
+                  {plan.minAmount}
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-muted/40 text-muted-foreground">
-                  <TrendingUp className="h-5 w-5" />
+              <div>
+                <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
-                <div>
-                  <div className="font-sans text-lg font-semibold tabular-nums">
-                    {plan.roi}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    ROI Percentage
-                  </div>
+                <div className="mt-1 font-sans text-2xl font-semibold tracking-tight tabular-nums text-gold">
+                  {plan.roi}
                 </div>
               </div>
             </div>
