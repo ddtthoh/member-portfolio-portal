@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  LayoutDashboard, Wallet, LineChart, ArrowLeftRight, FileText,
+  LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
+  ChevronDown, Repeat, DollarSign, Gift,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
@@ -12,18 +13,32 @@ import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
 
-const nav = [
+type NavChild = { to: string; label: string; icon: typeof LayoutDashboard };
+type NavItem =
+  | { to: string; label: string; icon: typeof LayoutDashboard; children?: undefined }
+  | { label: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
+
+const nav: NavItem[] = [
   { to: "/portal", label: "Overview", icon: LayoutDashboard },
   { to: "/portal/staking-plans", label: "Staking Plan", icon: Layers },
   { to: "/portal/holdings", label: "Portfolio", icon: Wallet },
-  { to: "/portal/performance", label: "Performance", icon: LineChart },
+  {
+    label: "Statement",
+    icon: FileBarChart,
+    basePath: "/portal/statement",
+    children: [
+      { to: "/portal/statement/credit-conversion", label: "Credit Conversion", icon: Repeat },
+      { to: "/portal/statement/usd", label: "USD Statement", icon: DollarSign },
+      { to: "/portal/statement/rewards", label: "Rewards Statement", icon: Gift },
+    ],
+  },
   { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight },
   { to: "/portal/documents", label: "Documents", icon: FileText },
   { to: "/portal/reports", label: "Reports", icon: BookOpen },
   { to: "/portal/network", label: "Network", icon: Users },
   { to: "/portal/qna", label: "Q&A", icon: MessageCircleQuestion },
   { to: "/portal/support", label: "Support", icon: LifeBuoy },
-] as const;
+];
 
 export function PortalShell() {
   const { user, loading, signOut } = useAuth();
@@ -69,18 +84,26 @@ export function PortalShell() {
           </button>
         </div>
         <nav className="space-y-1 p-3">
-          {nav.map(({ to, label, icon: Icon }) => (
-            <Link
-              key={to}
-              to={to}
-              activeOptions={{ exact: to === "/portal" }}
-              activeProps={{ className: "bg-accent text-foreground border-l-2 border-gold" }}
-              className="flex items-center gap-3 rounded-sm border-l-2 border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-            >
-              <Icon className="h-4 w-4" />
-              <span>{label}</span>
-            </Link>
-          ))}
+          {nav.map((item) => {
+            if (item.children) {
+              return (
+                <NavGroup key={item.label} item={item} currentPath={location.pathname} />
+              );
+            }
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                activeOptions={{ exact: item.to === "/portal" }}
+                activeProps={{ className: "bg-accent text-foreground border-l-2 border-gold" }}
+                className="flex items-center gap-3 rounded-sm border-l-2 border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
         <div className="absolute bottom-0 left-0 right-0 border-t border-sidebar-border p-3">
           <button
