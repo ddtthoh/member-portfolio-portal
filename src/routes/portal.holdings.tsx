@@ -68,86 +68,76 @@ function HoldingsPage() {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <div className="liquid-glass overflow-hidden rounded-xl">
-          <div className="border-b border-border/60 px-6 py-4">
-            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-              Staking Plans
-            </h2>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[920px] text-sm">
-              <thead>
-                <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  <th className="px-6 py-3 text-left font-medium">Date</th>
-                  <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
-                  <th className="px-6 py-3 text-left font-medium">Participation Date</th>
-                  <th className="px-6 py-3 text-right font-medium">Participation Amount</th>
-                  <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
-                  <th className="px-6 py-3 text-right font-medium">Max Monthly Rate</th>
-                  <th className="px-6 py-3 text-center font-medium">Status</th>
+      <div className="liquid-glass overflow-hidden rounded-xl">
+        <div className="border-b border-border/60 px-6 py-4">
+          <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
+            Staking Plans
+          </h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[920px] text-sm">
+            <thead>
+              <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                <th className="px-6 py-3 text-left font-medium">Date</th>
+                <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
+                <th className="px-6 py-3 text-left font-medium">Participation Date</th>
+                <th className="px-6 py-3 text-right font-medium">Participation Amount</th>
+                <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
+                <th className="px-6 py-3 text-right font-medium">Max Monthly Rate</th>
+                <th className="px-6 py-3 text-center font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-6 py-16 text-center text-sm text-muted-foreground">
+                    No staking plan yet.
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows.length === 0 && (
-                  <tr>
-                    <td colSpan={7} className="px-6 py-16 text-center text-sm text-muted-foreground">
-                      No staking plan yet.
+              )}
+              {rows.map((h) => {
+                const value = Number(h.quantity) * Number(h.current_price);
+                return (
+                  <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
+                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
+                    <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
+                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-center">
+                      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
+                        Active
+                      </span>
                     </td>
                   </tr>
-                )}
-                {rows.map((h) => {
-                  const value = Number(h.quantity) * Number(h.current_price);
-                  return (
-                    <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                      <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
-                      <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
-                      <td className="px-6 py-4 text-left font-mono text-xs tabular-nums text-muted-foreground">—</td>
-                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(value)}</td>
-                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
-                      <td className="px-6 py-4 text-right font-mono text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
-                      <td className="px-6 py-4 text-center">
-                        <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
-                          Active
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        <div className="liquid-glass flex flex-col justify-between gap-4 rounded-xl p-6">
-          <div>
-            <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-              Refund Request
-            </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Withdraw your full participation amount. Our team will process your request and contact you.
-            </p>
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button size="lg" className="w-full">Request Full Refund</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Request Full Refund</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to request a full refund? Our team will review your request and contact you shortly.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <Button onClick={() => alert("Refund request submitted")}>Confirm Request</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
+      <div className="flex justify-start">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="sm">Request Full Refund</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Request Full Refund</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to request a full refund? Our team will review your request and contact you shortly.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={() => alert("Refund request submitted")}>Confirm Request</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
