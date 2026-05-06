@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function PageHeader({
   eyebrow, title, description, actions,
-}: { eyebrow?: string; title: string; description?: string; actions?: ReactNode }) {
+}: { eyebrow?: string; title: ReactNode; description?: string; actions?: ReactNode }) {
   return (
     <div className="liquid-glass mb-6 flex flex-col gap-4 rounded-xl p-6 md:flex-row md:items-end md:justify-between">
       <div>
