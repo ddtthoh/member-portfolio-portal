@@ -45,9 +45,9 @@ function HoldingsPage() {
         eyebrow="Portfolio" 
         title={<div className="flex flex-col gap-1">
           <div>Total participation amount : $50,000</div>
-          <div className="text-xl opacity-80">Participation days : 54 days</div>
+          <div className="text-xl opacity-80 font-sans">Participation days : 54 days</div>
         </div>}
-        description="A complete view of every position and your exposure across asset classes." 
+        description=""
       />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
