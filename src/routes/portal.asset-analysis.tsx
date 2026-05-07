@@ -60,7 +60,7 @@ function AssetAnalysisPage() {
         transition={{ duration: 0.5 }}
       >
         <SpotlightCard className="liquid-glass rounded-xl p-5">
-          <TotalAssetsGauge usd={8636.6} rewards={3701.4} />
+          <TotalAssetsGauge usd={9692.9} rewards={4154.1} />
         </SpotlightCard>
       </motion.div>
     </div>
