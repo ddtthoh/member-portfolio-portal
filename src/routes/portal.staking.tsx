@@ -39,7 +39,7 @@ function StakingPage() {
     <div>
       <PageHeader eyebrow={t("pages.participation.eyebrow")} title={t("pages.participation.title")} description={t("pages.participation.description")} />
 
-      <SpotlightCard className="liquid-glass rounded-xl p-6">
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Users className="h-4 w-4" />
           <span className="text-[11px] uppercase tracking-[0.2em]">Active Programs</span>

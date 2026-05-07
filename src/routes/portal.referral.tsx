@@ -20,7 +20,7 @@ function ReferralPage() {
       <PageHeader eyebrow={t("pages.referral.eyebrow")} title={t("pages.referral.title")} description={t("pages.referral.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Users className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Your Code</span>
@@ -34,7 +34,7 @@ function ReferralPage() {
           </dl>
         </SpotlightCard>
 
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Gift className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Program Terms</span>

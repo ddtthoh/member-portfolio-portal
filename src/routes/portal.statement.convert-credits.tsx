@@ -28,7 +28,7 @@ function ConvertCreditsPage() {
         ))}
       </div>
 
-      <SpotlightCard className="liquid-glass rounded-xl p-5">
+      <SpotlightCard className="liquid-glass rounded-2xl p-5">
         <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Convert Details</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 

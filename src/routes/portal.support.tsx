@@ -121,7 +121,7 @@ function SupportPage() {
       />
 
       {/* Filter card */}
-      <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
+      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
         <button
           type="button"
           onClick={() => setFilterOpen((v) => !v)}
@@ -204,7 +204,7 @@ function SupportPage() {
       </section>
 
       {/* Tickets list */}
-      <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
+      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
         <div className="flex items-center justify-between gap-4 px-6 py-5">
           <h2 className="text-base font-semibold tracking-tight text-gold font-sans">Support Tickets List</h2>
 

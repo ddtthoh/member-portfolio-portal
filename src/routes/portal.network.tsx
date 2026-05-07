@@ -46,7 +46,7 @@ function NetworkPage() {
       />
 
       {passed === null ? (
-        <SpotlightCard className="liquid-glass rounded-xl p-16 text-center">
+        <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
           <p className="text-sm text-muted-foreground">Loading…</p>
         </SpotlightCard>
       ) : !passed ? (
@@ -101,14 +101,14 @@ function NetworkPage() {
           </div>
         </SpotlightCard>
       ) : items.length === 0 ? (
-        <SpotlightCard className="liquid-glass rounded-xl p-16 text-center">
+        <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
           <Users className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Your dedicated team will be listed here shortly.</p>
         </SpotlightCard>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map((c) => (
-            <SpotlightCard key={c.id} className="liquid-glass rounded-xl p-6">
+            <SpotlightCard key={c.id} className="liquid-glass rounded-2xl p-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-serif text-lg text-gold">
                   {c.name.charAt(0)}
