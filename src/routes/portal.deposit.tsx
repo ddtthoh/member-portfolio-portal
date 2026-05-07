@@ -39,6 +39,15 @@ function DepositPage() {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [copied, setCopied] = useState(false);
 
+  // History + filters
+  const [deposits, setDeposits] = useState<DepositRow[]>([]);
+  const [loadingHistory, setLoadingHistory] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(true);
+  const [fDate, setFDate] = useState("");
+  const [fRef, setFRef] = useState("");
+  const [fHash, setFHash] = useState("");
+  const [applied, setApplied] = useState({ date: "", ref: "", hash: "" });
+
   useEffect(() => {
     if (!user) return;
     supabase
@@ -49,18 +58,36 @@ function DepositPage() {
       .then(({ data }) => setSettings(data ?? { network: "BSC", network_label: "BNB Smart Chain (BEP20)", wallet_address: "", qr_url: null }));
   }, [user]);
 
-  const addr = settings?.wallet_address ?? "";
-  const head = addr.slice(0, 6);
-  const tail = addr.slice(-6);
-  const middle = addr.length > 12 ? addr.slice(6, -6) : "";
+  useEffect(() => {
+    if (!user) return;
+    setLoadingHistory(true);
+    supabase
+      .from("deposits")
+      .select("id, received_at, reference_number, transaction_hash, amount, asset, network, status")
+      .eq("user_id", user.id)
+      .order("received_at", { ascending: false })
+      .then(({ data }) => {
+        setDeposits((data ?? []) as DepositRow[]);
+        setLoadingHistory(false);
+      });
+  }, [user]);
 
-  const copy = async () => {
-    if (!addr) return;
-    await navigator.clipboard.writeText(addr);
-    setCopied(true);
-    toast.success("Address copied");
-    setTimeout(() => setCopied(false), 1600);
-  };
+  const filtered = useMemo(() => {
+    return deposits.filter((d) => {
+      if (applied.date && !d.received_at.startsWith(applied.date)) return false;
+      if (applied.ref && !d.reference_number.toLowerCase().includes(applied.ref.toLowerCase())) return false;
+      if (applied.hash && !d.transaction_hash.toLowerCase().includes(applied.hash.toLowerCase())) return false;
+      return true;
+    });
+  }, [deposits, applied]);
+
+  const apply = () => setApplied({ date: fDate.trim(), ref: fRef.trim(), hash: fHash.trim() });
+  const reset = () => { setFDate(""); setFRef(""); setFHash(""); setApplied({ date: "", ref: "", hash: "" }); };
+
+  const fmtAmount = (n: number | null) =>
+    n == null ? "—" : new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(Number(n));
+
+  const shortHash = (h: string) => (h.length > 22 ? `${h.slice(0, 12)}…${h.slice(-8)}` : h);
 
   return (
     <div>
