@@ -105,7 +105,7 @@ function LeaderRewardsPage() {
             <thead>
               <tr className="border-y border-border/40 align-top text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">Computed Amount</th>
+                <th className="px-3 py-3 font-semibold">Amount</th>
                 <th className="px-3 py-3 font-semibold">Percentage</th>
                 <th className="px-3 py-3 font-semibold">Contributed by Member ID</th>
                 <th className="px-3 py-3 font-semibold">Total Subscription Count</th>
