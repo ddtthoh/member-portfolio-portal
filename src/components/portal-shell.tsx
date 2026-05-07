@@ -295,7 +295,10 @@ export function PortalShell() {
 
         {/* Main */}
         <div className="flex min-w-0 flex-1 flex-col opacity-95">
-          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/60 px-4 backdrop-blur lg:px-8">
+          <header
+            className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/60 px-4 backdrop-blur lg:px-8"
+            style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+          >
             <div className="flex items-center gap-3">
               <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
                 <Menu className="h-5 w-5" />
