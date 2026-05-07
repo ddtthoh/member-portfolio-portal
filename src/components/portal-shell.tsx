@@ -29,6 +29,15 @@ const nav: NavItem[] = [
   { to: "/portal/staking-plans", labelKey: "nav.stakingPlan", icon: Layers },
   { to: "/portal/holdings", labelKey: "nav.portfolio", icon: Wallet },
   {
+    labelKey: "nav.usdCreditsTransfer",
+    icon: ArrowRightLeft,
+    basePath: "/portal/statement/",
+    children: [
+      { to: "/portal/statement/convert-credits", labelKey: "nav.convertCredits", icon: ArrowRightLeft },
+      { to: "/portal/statement/transfer-usd", labelKey: "nav.transferUsd", icon: Send },
+    ],
+  },
+  {
     labelKey: "nav.statement",
     icon: FileBarChart,
     basePath: "/portal/statement",
@@ -36,15 +45,6 @@ const nav: NavItem[] = [
       { to: "/portal/statement/credit-conversion", labelKey: "nav.creditConversionStatement", icon: Repeat },
       { to: "/portal/statement/usd", labelKey: "nav.usdStatement", icon: DollarSign },
       { to: "/portal/statement/rewards", labelKey: "nav.rewardsStatement", icon: Gift },
-    ],
-  },
-  {
-    labelKey: "nav.usdCreditsTransfer",
-    icon: ArrowRightLeft,
-    basePath: "/portal/statement/",
-    children: [
-      { to: "/portal/statement/convert-credits", labelKey: "nav.convertCredits", icon: ArrowRightLeft },
-      { to: "/portal/statement/transfer-usd", labelKey: "nav.transferUsd", icon: Send },
     ],
   },
   { to: "/portal/transactions", labelKey: "nav.transactions", icon: ArrowLeftRight },
