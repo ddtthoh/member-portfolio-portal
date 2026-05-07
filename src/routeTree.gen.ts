@@ -28,6 +28,7 @@ import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalAssetAnalysisRouteImport } from './routes/portal.asset-analysis'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
+import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
 import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
 import { Route as PortalStatementTransferUsdRouteImport } from './routes/portal.statement.transfer-usd'
 import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
@@ -38,6 +39,8 @@ import { Route as PortalReportsStakingRouteImport } from './routes/portal.report
 import { Route as PortalReportsReferralRewardsRouteImport } from './routes/portal.reports.referral-rewards'
 import { Route as PortalReportsParRankRewardsRouteImport } from './routes/portal.reports.par-rank-rewards'
 import { Route as PortalReportsLeaderRewardsRouteImport } from './routes/portal.reports.leader-rewards'
+import { Route as PortalQnaMarketingRouteImport } from './routes/portal.qna.marketing'
+import { Route as PortalQnaCompanyRouteImport } from './routes/portal.qna.company'
 
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
@@ -134,6 +137,11 @@ const PortalReportsIndexRoute = PortalReportsIndexRouteImport.update({
   path: '/reports/',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalQnaIndexRoute = PortalQnaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalQnaRoute,
+} as any)
 const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
   id: '/statement/usd',
   path: '/statement/usd',
@@ -191,6 +199,16 @@ const PortalReportsLeaderRewardsRoute =
     path: '/reports/leader-rewards',
     getParentRoute: () => PortalRoute,
   } as any)
+const PortalQnaMarketingRoute = PortalQnaMarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
+  getParentRoute: () => PortalQnaRoute,
+} as any)
+const PortalQnaCompanyRoute = PortalQnaCompanyRouteImport.update({
+  id: '/company',
+  path: '/company',
+  getParentRoute: () => PortalQnaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -202,7 +220,7 @@ export interface FileRoutesByFullPath {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/promotion': typeof PortalPromotionRoute
-  '/portal/qna': typeof PortalQnaRoute
+  '/portal/qna': typeof PortalQnaRouteWithChildren
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -211,6 +229,8 @@ export interface FileRoutesByFullPath {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/qna/company': typeof PortalQnaCompanyRoute
+  '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -221,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -232,7 +253,6 @@ export interface FileRoutesByTo {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/promotion': typeof PortalPromotionRoute
-  '/portal/qna': typeof PortalQnaRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -241,6 +261,8 @@ export interface FileRoutesByTo {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
+  '/portal/qna/company': typeof PortalQnaCompanyRoute
+  '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -251,6 +273,7 @@ export interface FileRoutesByTo {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/qna': typeof PortalQnaIndexRoute
   '/portal/reports': typeof PortalReportsIndexRoute
 }
 export interface FileRoutesById {
@@ -264,7 +287,7 @@ export interface FileRoutesById {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/promotion': typeof PortalPromotionRoute
-  '/portal/qna': typeof PortalQnaRoute
+  '/portal/qna': typeof PortalQnaRouteWithChildren
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -273,6 +296,8 @@ export interface FileRoutesById {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/qna/company': typeof PortalQnaCompanyRoute
+  '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -283,6 +308,7 @@ export interface FileRoutesById {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
 }
 export interface FileRouteTypes {
@@ -306,6 +332,8 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/qna/company'
+    | '/portal/qna/marketing'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -316,6 +344,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/qna/'
     | '/portal/reports/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -327,7 +356,6 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/network'
     | '/portal/promotion'
-    | '/portal/qna'
     | '/portal/referral'
     | '/portal/staking'
     | '/portal/staking-plans'
@@ -336,6 +364,8 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal'
+    | '/portal/qna/company'
+    | '/portal/qna/marketing'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -346,6 +376,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/qna'
     | '/portal/reports'
   id:
     | '__root__'
@@ -367,6 +398,8 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/qna/company'
+    | '/portal/qna/marketing'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -377,6 +410,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/qna/'
     | '/portal/reports/'
   fileRoutesById: FileRoutesById
 }
@@ -521,6 +555,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalReportsIndexRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/qna/': {
+      id: '/portal/qna/'
+      path: '/'
+      fullPath: '/portal/qna/'
+      preLoaderRoute: typeof PortalQnaIndexRouteImport
+      parentRoute: typeof PortalQnaRoute
+    }
     '/portal/statement/usd': {
       id: '/portal/statement/usd'
       path: '/statement/usd'
@@ -591,8 +632,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalReportsLeaderRewardsRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/qna/marketing': {
+      id: '/portal/qna/marketing'
+      path: '/marketing'
+      fullPath: '/portal/qna/marketing'
+      preLoaderRoute: typeof PortalQnaMarketingRouteImport
+      parentRoute: typeof PortalQnaRoute
+    }
+    '/portal/qna/company': {
+      id: '/portal/qna/company'
+      path: '/company'
+      fullPath: '/portal/qna/company'
+      preLoaderRoute: typeof PortalQnaCompanyRouteImport
+      parentRoute: typeof PortalQnaRoute
+    }
   }
 }
+
+interface PortalQnaRouteChildren {
+  PortalQnaCompanyRoute: typeof PortalQnaCompanyRoute
+  PortalQnaMarketingRoute: typeof PortalQnaMarketingRoute
+  PortalQnaIndexRoute: typeof PortalQnaIndexRoute
+}
+
+const PortalQnaRouteChildren: PortalQnaRouteChildren = {
+  PortalQnaCompanyRoute: PortalQnaCompanyRoute,
+  PortalQnaMarketingRoute: PortalQnaMarketingRoute,
+  PortalQnaIndexRoute: PortalQnaIndexRoute,
+}
+
+const PortalQnaRouteWithChildren = PortalQnaRoute._addFileChildren(
+  PortalQnaRouteChildren,
+)
 
 interface PortalRouteChildren {
   PortalAssetAnalysisRoute: typeof PortalAssetAnalysisRoute
@@ -601,7 +672,7 @@ interface PortalRouteChildren {
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalPromotionRoute: typeof PortalPromotionRoute
-  PortalQnaRoute: typeof PortalQnaRoute
+  PortalQnaRoute: typeof PortalQnaRouteWithChildren
   PortalReferralRoute: typeof PortalReferralRoute
   PortalStakingRoute: typeof PortalStakingRoute
   PortalStakingPlansRoute: typeof PortalStakingPlansRoute
@@ -630,7 +701,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalNetworkRoute: PortalNetworkRoute,
   PortalPromotionRoute: PortalPromotionRoute,
-  PortalQnaRoute: PortalQnaRoute,
+  PortalQnaRoute: PortalQnaRouteWithChildren,
   PortalReferralRoute: PortalReferralRoute,
   PortalStakingRoute: PortalStakingRoute,
   PortalStakingPlansRoute: PortalStakingPlansRoute,
