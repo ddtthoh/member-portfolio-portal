@@ -260,6 +260,36 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_questions: {
+        Row: {
+          category: string
+          correct_index: number
+          created_at: string
+          created_by: string
+          id: string
+          options: Json
+          question: string
+        }
+        Insert: {
+          category: string
+          correct_index: number
+          created_at?: string
+          created_by: string
+          id?: string
+          options: Json
+          question: string
+        }
+        Update: {
+          category?: string
+          correct_index?: number
+          created_at?: string
+          created_by?: string
+          id?: string
+          options?: Json
+          question?: string
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           file_url: string | null
