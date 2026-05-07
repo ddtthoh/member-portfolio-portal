@@ -66,7 +66,7 @@ const sections: NavSection[] = [
         icon: BookOpen,
         basePath: "/portal/reports",
         children: [
-          { to: "/portal/reports/participation", labelKey: "nav.reportsParticipation", icon: Users },
+          { to: "/portal/reports/staking", labelKey: "nav.reportsParticipation", icon: Users },
           { to: "/portal/reports/referral-rewards", labelKey: "nav.reportsReferral", icon: Gift },
           { to: "/portal/reports/team-rewards", labelKey: "nav.reportsTeam", icon: Users },
           { to: "/portal/reports/leader-rewards", labelKey: "nav.reportsLeader", icon: ShieldCheck },

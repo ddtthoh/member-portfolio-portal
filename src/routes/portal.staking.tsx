@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 
-export const Route = createFileRoute("/portal/participation")({
+export const Route = createFileRoute("/portal/staking")({
   head: () => ({
     meta: [
       { title: "Staking — Portal" },
