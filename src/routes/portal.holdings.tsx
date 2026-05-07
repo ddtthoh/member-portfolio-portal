@@ -52,7 +52,7 @@ function HoldingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow={t("pages.holdings.eyebrow")} title={t("pages.holdings.title")} description={t("pages.holdings.description")} />
+      
 
       <div className="grid gap-4 sm:grid-cols-2">
         <SpotlightCard className="liquid-glass rounded-xl p-6">
