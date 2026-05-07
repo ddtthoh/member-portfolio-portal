@@ -206,7 +206,7 @@ function SupportPage() {
       {/* Tickets list */}
       <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
         <div className="flex items-center justify-between gap-4 px-6 py-5">
-          <h2 className="text-base font-semibold tracking-tight">Support Tickets List</h2>
+          <h2 className="text-base font-semibold tracking-tight text-gold">Support Tickets List</h2>
 
           <Dialog open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setFiles([]); }}>
             <DialogTrigger asChild>
