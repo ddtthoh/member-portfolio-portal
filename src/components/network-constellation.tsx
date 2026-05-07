@@ -2,6 +2,7 @@ import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
+import { useDeviceCapability } from "@/hooks/use-device-capability";
 
 type Node = { id: string; label: string; sub?: string };
 
@@ -10,25 +11,40 @@ type Node = { id: string; label: string; sub?: string };
  * Pure visual layer — links to data via hover label.
  */
 export function NetworkConstellation({ nodes }: { nodes: Node[] }) {
+  const cap = useDeviceCapability();
+  const small = cap.isPhone;
+  const trimmed = small && nodes.length > 14 ? nodes.slice(0, 14) : nodes;
+  const dprMax = small ? 1.25 : cap.isTablet ? 1.6 : 2;
+  const height = small ? "h-[280px]" : cap.isTablet ? "h-[340px]" : "h-[420px]";
+
   return (
-    <div className="relative h-[420px] w-full overflow-hidden rounded-2xl">
+    <div
+      className={`relative ${height} w-full overflow-hidden rounded-2xl`}
+      style={{ touchAction: "none" }}
+    >
       <Canvas
-        camera={{ position: [0, 0, 9], fov: 55 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        camera={{ position: [0, 0, small ? 10 : 9], fov: 55 }}
+        dpr={[1, dprMax]}
+        gl={{ antialias: !small, alpha: true, powerPreference: small ? "low-power" : "high-performance" }}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[5, 5, 5]} intensity={1.2} color="#ffd97a" />
         <pointLight position={[-5, -3, -4]} intensity={0.6} color="#7ec8ff" />
-        <Scene nodes={nodes} />
+        <Scene nodes={trimmed} />
         <OrbitControls
           enablePan={false}
           enableZoom={false}
           autoRotate
-          autoRotateSpeed={0.6}
+          autoRotateSpeed={small ? 0.4 : 0.6}
+          rotateSpeed={small ? 0.6 : 1}
         />
       </Canvas>
       <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,transparent_55%,color-mix(in_oklab,var(--background)_75%,transparent)_100%)]" />
+      {cap.coarse && (
+        <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-gold backdrop-blur">
+          Drag to orbit
+        </div>
+      )}
     </div>
   );
 }

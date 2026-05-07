@@ -616,15 +616,19 @@ export function ThreeBackground({
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const w = window.innerWidth;
+    const phone = w < 640;
+    const tablet = w >= 640 && w < 1024;
     if (reduce) {
       setEnabled(true);
       setInteractive(false);
+      setCount(phone ? 28 : tablet ? 60 : 90);
       return;
     }
     setEnabled(true);
-    const mobile = window.innerWidth < 768;
-    setCount(mobile ? 60 : 110);
-    setInteractive(true);
+    setCount(phone ? 40 : tablet ? 75 : 110);
+    setInteractive(!coarse); // disable mouse interactions on touch
   }, []);
 
   if (!enabled) return null;
@@ -649,8 +653,13 @@ export function ThreeBackground({
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1] : [1, 1.5]}
+        gl={{
+          antialias: typeof window === "undefined" || window.innerWidth >= 640,
+          alpha: true,
+          powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
+        }}
+        frameloop="always"
       >
         <NodeWeb count={count} interactive={interactive} />
       </Canvas>
