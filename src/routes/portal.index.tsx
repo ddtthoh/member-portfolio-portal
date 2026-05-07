@@ -34,6 +34,8 @@ function Overview() {
   const actionTiles = [
     { label: "Deposit", icon: <ArrowDownToLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/deposit" },
     { label: "Withdrawal", icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
+    { label: "Convert Credits", icon: <Repeat className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/convert-credits" },
+    { label: "Transfer USD", icon: <Send className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/transfer-usd" },
     { label: "Referral", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
     { label: "Participation", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/participation" },
     { label: "Promotion", icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
