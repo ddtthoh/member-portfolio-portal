@@ -101,7 +101,10 @@ export function PortalShell() {
         }`}
       >
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-5">
-          <span className="truncate text-sm font-medium text-foreground">{user.email}</span>
+          <div className="flex min-w-0 items-center gap-2">
+            <img src={participantPortalLogo} alt={t("brand.portal")} className="h-8 w-8 shrink-0 object-contain" />
+            <span className="truncate text-sm font-medium text-foreground">{user.email}</span>
+          </div>
           <button onClick={() => setOpen(false)} className="lg:hidden">
             <X className="h-5 w-5" />
           </button>
