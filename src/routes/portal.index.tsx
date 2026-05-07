@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowDownToLine, ArrowUpFromLine, Check, ChevronRight, Eye, EyeOff, Gem, Gift, Repeat, Send, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowUpFromLine, ArrowUpRight, Check, ChevronRight, Eye, EyeOff, Gem, Gift, LineChart, Repeat, Send, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { TiltCard } from "@/components/tilt-card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useTranslation } from "react-i18next";
+import { CountUp } from "@/components/count-up";
+import { Sparkline } from "@/components/sparkline";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/")({
   component: Overview,
