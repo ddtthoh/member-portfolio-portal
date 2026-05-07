@@ -89,13 +89,19 @@ export function ReportPlaceholder({ title }: { title: string }) {
         </div>
 
         <div className="overflow-x-auto px-2 pb-4 sm:px-5">
-          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+          <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-sm">
+            <colgroup>
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+            </colgroup>
             <thead>
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">Transaction Number</th>
-                <th className="px-3 py-3 font-semibold">Payout Amount</th>
-                <th className="px-3 py-3 font-semibold">Action</th>
+                <th className="px-3 py-3 font-semibold">Member ID</th>
+                <th className="px-3 py-3 font-semibold">Percentage</th>
+                <th className="px-3 py-3 font-semibold">Computed Amount</th>
               </tr>
             </thead>
             <tbody>
