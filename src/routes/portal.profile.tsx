@@ -212,8 +212,16 @@ function ProfilePage() {
               <Select value={form.mobile_prefix} onValueChange={set("mobile_prefix")}>
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
-                  {PREFIXES.map((p) => (
-                    <SelectItem key={p.code} value={p.code}>{p.label}</SelectItem>
+                  {COUNTRIES.map((c) => (
+                    <SelectItem key={c.dial} value={c.dial}>
+                      <span className="flex w-full items-center justify-between gap-3">
+                        <span className="flex items-center gap-2">
+                          <span>{c.flag}</span>
+                          <span>{c.name}</span>
+                        </span>
+                        <span className="font-mono text-xs text-gold/80">{c.dial}</span>
+                      </span>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
