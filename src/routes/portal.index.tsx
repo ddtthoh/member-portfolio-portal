@@ -394,7 +394,7 @@ function Overview() {
                   {t.icon}
                 </div>
               </TiltCard>
-              <span className="text-center text-xs font-medium tracking-wide text-foreground/90 sm:text-sm">{t.label}</span>
+              <span className="rounded-md bg-background/55 px-2 py-0.5 text-center text-xs font-medium tracking-wide text-foreground/90 backdrop-blur-sm sm:text-sm">{t.label}</span>
             </Link>
           </motion.div>
         ))}
