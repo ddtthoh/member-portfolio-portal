@@ -27,13 +27,7 @@ function AssetAnalysisPage() {
     { label: t("assetAnalysis.allocations", "Allocations"), value: "5", icon: <BarChart3 className="h-5 w-5 text-gold" /> },
   ];
 
-  const allocations = [
-    { name: "USD Stable Pool", pct: 42 },
-    { name: "Premium Staking", pct: 28 },
-    { name: "Equity Basket", pct: 18 },
-    { name: "Yield Reserve", pct: 8 },
-    { name: "Cash", pct: 4 },
-  ];
+
 
   return (
     <div>
