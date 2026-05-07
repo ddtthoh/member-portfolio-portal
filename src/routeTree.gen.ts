@@ -14,6 +14,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal'
+import { Route as PortalWalletEditRouteImport } from './routes/portal.wallet-edit'
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
 import { Route as PortalSupportRouteImport } from './routes/portal.support'
 import { Route as PortalStakingPlansRouteImport } from './routes/portal.staking-plans'
@@ -56,6 +57,11 @@ const PortalIndexRoute = PortalIndexRouteImport.update({
 const PortalWithdrawalRoute = PortalWithdrawalRouteImport.update({
   id: '/withdrawal',
   path: '/withdrawal',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalWalletEditRoute = PortalWalletEditRouteImport.update({
+  id: '/wallet-edit',
+  path: '/wallet-edit',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalTransactionsRoute = PortalTransactionsRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
   '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByTo {
   '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
   '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/portal/staking-plans': typeof PortalStakingPlansRoute
   '/portal/support': typeof PortalSupportRoute
   '/portal/transactions': typeof PortalTransactionsRoute
+  '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
   '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
@@ -246,6 +255,7 @@ export interface FileRouteTypes {
     | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
     | '/portal/statement/convert-credits'
@@ -270,6 +280,7 @@ export interface FileRouteTypes {
     | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal'
     | '/portal/statement/convert-credits'
@@ -295,6 +306,7 @@ export interface FileRouteTypes {
     | '/portal/staking-plans'
     | '/portal/support'
     | '/portal/transactions'
+    | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
     | '/portal/statement/convert-credits'
@@ -345,6 +357,13 @@ declare module '@tanstack/react-router' {
       path: '/withdrawal'
       fullPath: '/portal/withdrawal'
       preLoaderRoute: typeof PortalWithdrawalRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/wallet-edit': {
+      id: '/portal/wallet-edit'
+      path: '/wallet-edit'
+      fullPath: '/portal/wallet-edit'
+      preLoaderRoute: typeof PortalWalletEditRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/transactions': {
@@ -490,6 +509,7 @@ interface PortalRouteChildren {
   PortalStakingPlansRoute: typeof PortalStakingPlansRoute
   PortalSupportRoute: typeof PortalSupportRoute
   PortalTransactionsRoute: typeof PortalTransactionsRoute
+  PortalWalletEditRoute: typeof PortalWalletEditRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
   PortalStatementConvertCreditsRoute: typeof PortalStatementConvertCreditsRoute
@@ -513,6 +533,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalStakingPlansRoute: PortalStakingPlansRoute,
   PortalSupportRoute: PortalSupportRoute,
   PortalTransactionsRoute: PortalTransactionsRoute,
+  PortalWalletEditRoute: PortalWalletEditRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
   PortalStatementConvertCreditsRoute: PortalStatementConvertCreditsRoute,
