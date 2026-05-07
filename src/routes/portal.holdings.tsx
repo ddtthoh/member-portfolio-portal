@@ -86,7 +86,7 @@ function HoldingsPage() {
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-            Staking Plans
+            Participation Plans
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -94,7 +94,7 @@ function HoldingsPage() {
             <thead>
               <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-6 py-3 text-left font-medium">Date</th>
-                <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
+                <th className="px-6 py-3 text-left font-medium">Participation Plan</th>
                 <th className="px-6 py-3 text-left font-medium">Participation Date</th>
                 <th className="px-6 py-3 text-right font-medium">Participation Amount</th>
                 <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
@@ -106,7 +106,7 @@ function HoldingsPage() {
               {rows.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-6 py-16 text-center text-sm text-gold">
-                    No staking plan yet.
+                    No participation plan yet.
                   </td>
                 </tr>
               )}

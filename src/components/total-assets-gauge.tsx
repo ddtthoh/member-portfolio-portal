@@ -105,7 +105,7 @@ export function TotalAssetsGauge({
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span className="h-2 w-2 rounded-full bg-gold" />
-            Staking
+            Participation
           </div>
           <div className="font-light tabular-nums tracking-[-0.02em] text-gold">
             <CountUp value={stakingPct} decimals={2} suffix="%" />
