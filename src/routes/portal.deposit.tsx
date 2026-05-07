@@ -265,16 +265,17 @@ function DepositPage() {
 
         {/* History card */}
         <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
-          <div className="flex items-center justify-between border-b border-border/50 px-6 py-4">
+          <div className="relative flex items-center justify-between border-b border-border/40 px-8 py-5">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-gold/30 bg-gold/10 text-gold">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold shadow-[0_4px_16px_-4px_rgba(212,175,55,0.4)]">
                 <History className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-sm font-semibold tracking-tight text-gold">Deposit History</div>
+                <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-muted-foreground">Ledger</div>
+                <div className="text-base font-semibold tracking-tight text-foreground">Deposit History</div>
               </div>
             </div>
-            <div className="hidden items-center gap-1.5 rounded-full border border-border/50 bg-card/40 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex">
+            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-300 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               Live
             </div>
