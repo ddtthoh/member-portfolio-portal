@@ -65,15 +65,16 @@ function AssetAnalysisPage() {
         transition={{ duration: 0.5 }}
       >
         <SpotlightCard className="liquid-glass rounded-xl p-5">
-          <TotalAssetsGauge usd={wallet.usd} rewards={wallet.rewards} />
+          <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
         </SpotlightCard>
       </motion.div>
     </div>
   );
 }
 
-function TotalAssetsGauge({ usd, rewards }: { usd: number; rewards: number }) {
-  const total = usd + rewards;
+function TotalAssetsGauge({ staking, usd, rewards }: { staking: number; usd: number; rewards: number }) {
+  const total = staking + usd + rewards;
+  const stakingPct = total > 0 ? (staking / total) * 100 : 0;
   const usdPct = total > 0 ? (usd / total) * 100 : 0;
   const rewardsPct = total > 0 ? (rewards / total) * 100 : 0;
 
@@ -82,32 +83,41 @@ function TotalAssetsGauge({ usd, rewards }: { usd: number; rewards: number }) {
   const cx = 110;
   const cy = 110;
   const circumference = Math.PI * r; // half circle
+  const stakingLen = (stakingPct / 100) * circumference;
   const usdLen = (usdPct / 100) * circumference;
   const rewardsLen = (rewardsPct / 100) * circumference;
 
   const ref = useRef<SVGSVGElement | null>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
+  const [stakingDraw, setStakingDraw] = useState(0);
   const [usdDraw, setUsdDraw] = useState(0);
   const [rewardsDraw, setRewardsDraw] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
+    const c0 = animate(0, stakingLen, {
+      duration: 1.2,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setStakingDraw(v),
+    });
     const c1 = animate(0, usdLen, {
       duration: 1.2,
+      delay: 0.25,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setUsdDraw(v),
     });
     const c2 = animate(0, rewardsLen, {
       duration: 1.2,
-      delay: 0.3,
+      delay: 0.5,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setRewardsDraw(v),
     });
     return () => {
+      c0.stop();
       c1.stop();
       c2.stop();
     };
-  }, [inView, usdLen, rewardsLen]);
+  }, [inView, stakingLen, usdLen, rewardsLen]);
 
   return (
     <div className="flex flex-col items-center">
@@ -121,23 +131,32 @@ function TotalAssetsGauge({ usd, rewards }: { usd: number; rewards: number }) {
             strokeWidth="14"
             strokeLinecap="round"
           />
-          {/* USD segment (gold) */}
+          {/* Staking segment (gold) */}
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
             stroke="hsl(var(--gold))"
             strokeWidth="14"
             strokeLinecap="round"
-            strokeDasharray={`${usdDraw} ${circumference}`}
+            strokeDasharray={`${stakingDraw} ${circumference}`}
+          />
+          {/* USD segment (mid gold) starts after staking */}
+          <path
+            d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
+            fill="none"
+            stroke="hsl(var(--gold) / 0.7)"
+            strokeWidth="14"
+            strokeLinecap="round"
+            strokeDasharray={`0 ${stakingLen} ${usdDraw} ${circumference}`}
           />
           {/* Rewards segment (lighter gold) starts after USD */}
           <path
             d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
             fill="none"
-            stroke="hsl(var(--gold) / 0.45)"
+            stroke="hsl(var(--gold) / 0.4)"
             strokeWidth="14"
             strokeLinecap="round"
-            strokeDasharray={`0 ${usdLen} ${rewardsDraw} ${circumference}`}
+            strokeDasharray={`0 ${stakingLen + usdLen} ${rewardsDraw} ${circumference}`}
           />
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-1">
@@ -149,10 +168,19 @@ function TotalAssetsGauge({ usd, rewards }: { usd: number; rewards: number }) {
           </div>
         </div>
       </div>
-      <div className="mt-4 grid w-full grid-cols-2 gap-3">
+      <div className="mt-4 grid w-full grid-cols-3 gap-3">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span className="h-2 w-2 rounded-full bg-gold" />
+            Staking
+          </div>
+          <div className="font-light tabular-nums tracking-[-0.02em] text-gold">
+            <CountUp value={stakingPct} decimals={2} suffix="%" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="h-2 w-2 rounded-full bg-gold/70" />
             USD
           </div>
           <div className="font-light tabular-nums tracking-[-0.02em] text-gold">
@@ -161,7 +189,7 @@ function TotalAssetsGauge({ usd, rewards }: { usd: number; rewards: number }) {
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-gold/45" />
+            <span className="h-2 w-2 rounded-full bg-gold/40" />
             Rewards
           </div>
           <div className="font-light tabular-nums tracking-[-0.02em] text-gold">
