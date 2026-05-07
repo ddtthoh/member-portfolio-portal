@@ -141,10 +141,6 @@ function LinkLine({ to }: { to: THREE.Vector3 }) {
     return g;
   }, [to]);
   return (
-    <line>
-      {/* @ts-expect-error — drei doesn't add proper line types */}
-      <primitive object={geo} attach="geometry" />
-      <lineBasicMaterial color="#ffd97a" transparent opacity={0.25} />
-    </line>
+    <primitive object={new THREE.Line(geo, new THREE.LineBasicMaterial({ color: 0xffd97a, transparent: true, opacity: 0.25 }))} />
   );
 }
