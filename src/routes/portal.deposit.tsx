@@ -181,7 +181,6 @@ function DepositPage() {
                 <FilterIcon className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">Refine</div>
                 <div className="text-sm font-semibold tracking-tight text-foreground">Filter Transactions</div>
               </div>
             </div>
