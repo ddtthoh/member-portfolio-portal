@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronDown, Info } from "lucide-react";
+import { ChevronDown, Info, TrendingUp, TrendingDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,7 +9,6 @@ import {
 
 type DayPL = { day: number; amount: number; pct: number };
 
-// Seeded RNG so values stay stable across renders
 function mulberry32(seed: number) {
   return function () {
     let t = (seed += 0x6d2b79f5);
@@ -19,20 +18,17 @@ function mulberry32(seed: number) {
   };
 }
 
-function generateMay2026(): DayPL[] {
+function generateMay2026(base: number): DayPL[] {
   const rand = mulberry32(20260501);
-  // Days 1..7. 5 profit days, 2 loss days.
   const lossDays = new Set<number>();
-  while (lossDays.size < 2) {
-    lossDays.add(1 + Math.floor(rand() * 7));
-  }
-  const base = 250000; // notional base for amount calc
+  while (lossDays.size < 2) lossDays.add(1 + Math.floor(rand() * 7));
+
   const out: DayPL[] = [];
   for (let d = 1; d <= 7; d++) {
     const isLoss = lossDays.has(d);
     const pct = isLoss
-      ? -(1 + rand() * 1) // -1% .. -2%
-      : 2 + rand() * 2; //  2% ..  4%
+      ? -(0.1 + rand() * 0.2) // -0.1% .. -0.3%
+      : 0.5 + rand() * 0.5; //  0.5% ..  1.0%
     const amount = (base * pct) / 100;
     out.push({ day: d, amount, pct });
   }
@@ -46,28 +42,25 @@ const MONTHS = [
 const YEARS = [2024, 2025, 2026, 2027];
 
 function fmtAmount(n: number) {
-  const sign = n > 0 ? "+" : n < 0 ? "-" : "+";
+  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
   const abs = Math.abs(n);
-  if (abs >= 1000) {
-    return `${sign}${(abs / 1000).toFixed(2)}K`;
-  }
-  return `${sign}${abs.toFixed(2)}`;
+  if (abs >= 1000) return `${sign}$${(abs / 1000).toFixed(2)}K`;
+  return `${sign}$${abs.toFixed(2)}`;
 }
 
 function fmtPct(n: number) {
-  const sign = n > 0 ? "+" : n < 0 ? "-" : "+";
+  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
   return `${sign}${Math.abs(n).toFixed(2)}%`;
 }
 
-export function PLCalendar() {
-  const [view, setView] = useState<"monthly" | "year">("monthly");
-  const [month, setMonth] = useState(4); // May (0-indexed)
+export function PLCalendar({ participation = 250000 }: { participation?: number }) {
+  const [month, setMonth] = useState(4); // May
   const [year, setYear] = useState(2026);
 
   const data = useMemo(() => {
-    if (year === 2026 && month === 4) return generateMay2026();
+    if (year === 2026 && month === 4) return generateMay2026(participation || 250000);
     return [];
-  }, [year, month]);
+  }, [year, month, participation]);
 
   const totals = useMemo(() => {
     const amount = data.reduce((s, d) => s + d.amount, 0);
@@ -75,7 +68,6 @@ export function PLCalendar() {
     return { amount, pct };
   }, [data]);
 
-  // First day of month: May 1 2026 = Friday (index 5, Sun=0)
   const firstDow = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -89,109 +81,112 @@ export function PLCalendar() {
   const weeks: Array<Array<DayPL | null>> = [];
   for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
 
-  const totalColor =
-    totals.amount > 0 ? "text-success" : totals.amount < 0 ? "text-destructive" : "text-foreground";
+  const totalPositive = totals.amount > 0;
+  const totalNegative = totals.amount < 0;
+  const totalColor = totalPositive
+    ? "text-success"
+    : totalNegative
+      ? "text-destructive"
+      : "text-muted-foreground";
+  const TotalIcon = totalPositive ? TrendingUp : totalNegative ? TrendingDown : null;
 
   return (
     <div className="w-full">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3 px-1 pb-4">
+      {/* Header row */}
+      <div className="flex items-center justify-between gap-3 pb-5">
         <div className="flex items-center gap-1.5">
           <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
             P/L Calendar
           </h3>
           <Info className="h-3.5 w-3.5 text-muted-foreground/60" />
         </div>
-        <div className="inline-flex rounded-md border border-border/60 bg-background/40 p-0.5 text-xs">
-          <button
-            type="button"
-            onClick={() => setView("monthly")}
-            className={`rounded px-3 py-1 transition-colors ${
-              view === "monthly"
-                ? "bg-accent text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            type="button"
-            onClick={() => setView("year")}
-            className={`rounded px-3 py-1 transition-colors ${
-              view === "year"
-                ? "bg-accent text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Year
-          </button>
-        </div>
-      </div>
 
-      {/* Month selector + totals */}
-      <div className="flex items-end justify-between gap-3 px-1 pb-3">
-        <div>
+        <div className="flex items-center gap-2">
+          {/* Month selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-gold"
+                className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
               >
-                {view === "monthly" ? `${MONTHS[month]} ${year}` : `${year}`}
-                <ChevronDown className="h-3.5 w-3.5" />
+                <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Month
+                </span>
+                <span>{MONTHS[month]}</span>
+                <ChevronDown className="h-3 w-3 opacity-60" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="max-h-72 w-44 overflow-y-auto">
-              {view === "monthly"
-                ? YEARS.flatMap((y) =>
-                    MONTHS.map((m, mi) => (
-                      <DropdownMenuItem
-                        key={`${y}-${mi}`}
-                        onSelect={() => {
-                          setYear(y);
-                          setMonth(mi);
-                        }}
-                      >
-                        {m} {y}
-                      </DropdownMenuItem>
-                    )),
-                  )
-                : YEARS.map((y) => (
-                    <DropdownMenuItem key={y} onSelect={() => setYear(y)}>
-                      {y}
-                    </DropdownMenuItem>
-                  ))}
+            <DropdownMenuContent align="end" className="max-h-72 w-40 overflow-y-auto">
+              {MONTHS.map((m, mi) => (
+                <DropdownMenuItem key={mi} onSelect={() => setMonth(mi)}>
+                  {m}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className="mt-2 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            {MONTHS[month]} P/L · USD
+          {/* Year selector */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
+              >
+                <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Year
+                </span>
+                <span className="tabular-nums">{year}</span>
+                <ChevronDown className="h-3 w-3 opacity-60" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-28">
+              {YEARS.map((y) => (
+                <DropdownMenuItem key={y} onSelect={() => setYear(y)} className="tabular-nums">
+                  {y}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      {/* Totals strip */}
+      <div className="mb-5 flex items-stretch justify-between gap-4 rounded-lg border border-border/50 bg-background/30 p-4">
+        <div className="min-w-0">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            {MONTHS[month]} {year} · P/L
           </div>
-          <div className={`mt-0.5 text-xl font-light tabular-nums tracking-[-0.02em] ${totalColor}`}>
-            {fmtAmount(totals.amount)}
+          <div
+            className={`mt-1 flex items-center gap-2 text-2xl font-light tabular-nums tracking-[-0.03em] ${totalColor}`}
+          >
+            {TotalIcon && <TotalIcon className="h-5 w-5" />}
+            <span>{fmtAmount(totals.amount)}</span>
           </div>
         </div>
+        <div className="hidden h-auto w-px bg-border/50 sm:block" />
         <div className="text-right">
-          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             Return
           </div>
-          <div className={`mt-0.5 text-xl font-light tabular-nums tracking-[-0.02em] ${totalColor}`}>
+          <div
+            className={`mt-1 text-2xl font-light tabular-nums tracking-[-0.03em] ${totalColor}`}
+          >
             {fmtPct(totals.pct)}
           </div>
         </div>
       </div>
 
       {/* Weekday header */}
-      <div className="grid grid-cols-7 border-t border-border/60 px-1 pt-2 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+      <div className="grid grid-cols-7 px-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} className="px-1 pb-2 text-left">
+          <div key={d} className="pb-2 text-center">
             {d}
           </div>
         ))}
       </div>
 
-      {/* Grid */}
-      <div className="overflow-hidden rounded-md border border-border/40">
+      {/* Calendar grid */}
+      <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
         {weeks.map((week, wi) => (
           <div
             key={wi}
@@ -202,23 +197,47 @@ export function PLCalendar() {
               const has = !isEmpty && cell!.amount !== 0;
               const isProfit = has && cell!.amount > 0;
               const isLoss = has && cell!.amount < 0;
-              const color = isProfit
+
+              const tone = isProfit
+                ? "bg-success/5"
+                : isLoss
+                  ? "bg-destructive/5"
+                  : "";
+              const accent = isProfit
+                ? "before:bg-success"
+                : isLoss
+                  ? "before:bg-destructive"
+                  : "before:bg-transparent";
+              const valueColor = isProfit
                 ? "text-success"
                 : isLoss
                   ? "text-destructive"
-                  : "text-muted-foreground/60";
+                  : "text-muted-foreground/50";
+
               return (
                 <div
                   key={ci}
-                  className={`min-h-[78px] px-2 py-2 ${ci !== 0 ? "border-l border-border/40" : ""}`}
+                  className={`relative min-h-[84px] px-2 py-2 transition-colors ${
+                    ci !== 0 ? "border-l border-border/40" : ""
+                  } ${tone} ${
+                    has
+                      ? `before:absolute before:inset-x-2 before:top-0 before:h-px ${accent}`
+                      : ""
+                  } hover:bg-accent/30`}
                 >
                   {!isEmpty && (
                     <>
-                      <div className="text-sm tabular-nums text-foreground">{cell!.day}</div>
+                      <div className="text-xs font-medium tabular-nums text-foreground/90">
+                        {cell!.day}
+                      </div>
                       {has && (
-                        <div className={`mt-1 space-y-0.5 text-[11px] tabular-nums ${color}`}>
-                          <div>{fmtAmount(cell!.amount)}</div>
-                          <div className="text-[10px] opacity-80">{fmtPct(cell!.pct)}</div>
+                        <div className={`mt-1.5 space-y-0.5 tabular-nums ${valueColor}`}>
+                          <div className="text-[11px] font-medium leading-tight">
+                            {fmtAmount(cell!.amount)}
+                          </div>
+                          <div className="text-[10px] leading-tight opacity-80">
+                            {fmtPct(cell!.pct)}
+                          </div>
                         </div>
                       )}
                     </>
