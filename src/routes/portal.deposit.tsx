@@ -300,64 +300,48 @@ function DepositPage() {
             </div>
           ) : (
             <>
-              {/* Desktop table */}
+              {/* Desktop ledger — 3 columns sized to real sample widths */}
               <div className="hidden overflow-x-auto md:block">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border/40 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                      <th className="px-6 py-3 text-left">Received At</th>
-                      <th className="px-6 py-3 text-left">Reference</th>
-                      <th className="px-6 py-3 text-left">Tx Hash</th>
-                      <th className="px-6 py-3 text-right">Amount</th>
-                      <th className="px-6 py-3 text-center">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                <div className="min-w-max px-6 py-4">
+                  {/* Header row */}
+                  <div className="grid grid-cols-[14ch_22ch_minmax(66ch,1fr)] gap-x-10 border-b border-border/40 pb-3 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/80">
+                    <div>Date</div>
+                    <div>Reference Number</div>
+                    <div>Transaction Hash</div>
+                  </div>
+
+                  {/* Data rows */}
+                  <div className="divide-y divide-border/30">
                     {filtered.map((d, i) => (
-                      <motion.tr
+                      <motion.div
                         key={d.id}
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.03, duration: 0.25 }}
-                        className="group border-b border-border/30 last:border-0 transition-colors hover:bg-gold/[0.03]"
+                        className="group grid grid-cols-[14ch_22ch_minmax(66ch,1fr)] gap-x-10 py-4 transition-colors hover:bg-gold/[0.03]"
                       >
-                        <td className="px-6 py-4 text-sm tabular-nums text-foreground/80">
-                          {new Date(d.received_at).toLocaleString(undefined, {
-                            year: "numeric", month: "2-digit", day: "2-digit",
-                            hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
-                          })}
-                        </td>
-                        <td className="px-6 py-4">
-                          <button
-                            onClick={() => copyValue(d.reference_number, "Reference copied")}
-                            className="font-mono text-sm text-foreground/80 transition hover:text-gold"
-                          >
-                            {d.reference_number}
-                          </button>
-                        </td>
-                        <td className="px-6 py-4">
-                          <button
-                            onClick={() => copyValue(d.transaction_hash, "Hash copied")}
-                            className="inline-flex items-center gap-1.5 font-mono text-sm text-foreground/70 transition hover:text-gold"
-                            title={d.transaction_hash}
-                          >
-                            {shortHash(d.transaction_hash)}
-                            <Copy className="h-3 w-3 opacity-0 transition group-hover:opacity-60" />
-                          </button>
-                        </td>
-                        <td className="px-6 py-4 text-right font-mono text-sm font-semibold tabular-nums text-gold">
-                          {fmtAmount(d.amount)} <span className="text-[10px] font-normal text-muted-foreground">{d.asset ?? "USDT"}</span>
-                        </td>
-                        <td className="px-6 py-4 text-center">
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-emerald-300">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                            {d.status}
-                          </span>
-                        </td>
-                      </motion.tr>
+                        <div className="font-mono text-sm tabular-nums text-foreground/80">
+                          {new Date(d.received_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}
+                        </div>
+                        <button
+                          onClick={() => copyValue(d.reference_number, "Reference copied")}
+                          className="truncate text-left font-mono text-sm text-foreground/80 transition hover:text-gold"
+                          title={d.reference_number}
+                        >
+                          {d.reference_number}
+                        </button>
+                        <button
+                          onClick={() => copyValue(d.transaction_hash, "Hash copied")}
+                          className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/70 transition hover:text-gold"
+                          title={d.transaction_hash}
+                        >
+                          <span className="truncate">{d.transaction_hash}</span>
+                          <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
+                        </button>
+                      </motion.div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+                </div>
               </div>
 
               {/* Mobile cards */}
