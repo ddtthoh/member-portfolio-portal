@@ -247,7 +247,9 @@ function ProfilePage() {
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
                   {COUNTRIES.map((c) => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                    <SelectItem key={c.name} value={c.name}>
+                      <span className="flex items-center gap-2"><span>{c.flag}</span><span>{c.name}</span></span>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
