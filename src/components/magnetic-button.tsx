@@ -30,9 +30,6 @@ export function MagneticButton({ children, className, strength = 0.35, onClick, 
     if (el) el.style.transform = "translate(0,0)";
   };
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    try {
-      if (!isFine()) navigator.vibrate?.(8);
-    } catch {}
     onClick?.(e);
   };
 
