@@ -115,7 +115,7 @@ function SupportPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow={t("pages.support.eyebrow")}
+        
         title={t("pages.support.title")}
         description={t("pages.support.description")}
       />
