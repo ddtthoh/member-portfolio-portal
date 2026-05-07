@@ -195,123 +195,51 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
         </div>
       </div>
 
-      {/* List view — mobile-friendly */}
-      {view === "list" && (
-        <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
-          {activeDays.length === 0 && (
-            <div className="px-4 py-10 text-center text-xs text-muted-foreground">
-              No data for this period.
+      {/* List view */}
+      <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
+        {activeDays.length === 0 && (
+          <div className="px-4 py-10 text-center text-xs text-muted-foreground">
+            No data for this period.
+          </div>
+        )}
+        {activeDays.map((d, i) => {
+          const profit = d.amount > 0;
+          const color = profit ? "text-success" : "text-destructive";
+          const sign = profit ? "+" : "−";
+          const Icon = profit ? TrendingUp : TrendingDown;
+          return (
+            <div
+              key={d.day}
+              className={`flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-accent/30 ${
+                i !== 0 ? "border-t border-border/40" : ""
+              } ${profit ? "border-l-2 border-l-success/70" : "border-l-2 border-l-destructive/70"}`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 flex-col items-center justify-center rounded-md border border-border/50 bg-background/40">
+                  <span className="text-[8px] uppercase tracking-[0.15em] text-muted-foreground leading-none">
+                    {weekdayOf(d.day)}
+                  </span>
+                  <span className="text-sm font-medium tabular-nums leading-tight">
+                    {d.day}
+                  </span>
+                </div>
+                <div className={`flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] ${color}`}>
+                  <Icon className="h-3 w-3" />
+                  {profit ? "Profit" : "Loss"}
+                </div>
+              </div>
+              <div className={`text-right tabular-nums ${color}`}>
+                <div className="text-sm font-medium">
+                  {sign}${formatUSD(Math.abs(d.amount))}
+                </div>
+                <div className="text-[10px] opacity-80">
+                  {sign}{Math.abs(d.pct).toFixed(2)}%
+                </div>
+              </div>
             </div>
-          )}
-          {activeDays.map((d, i) => {
-            const profit = d.amount > 0;
-            const color = profit ? "text-success" : "text-destructive";
-            const sign = profit ? "+" : "−";
-            const Icon = profit ? TrendingUp : TrendingDown;
-            return (
-              <div
-                key={d.day}
-                className={`flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-accent/30 ${
-                  i !== 0 ? "border-t border-border/40" : ""
-                } ${profit ? "border-l-2 border-l-success/70" : "border-l-2 border-l-destructive/70"}`}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 flex-col items-center justify-center rounded-md border border-border/50 bg-background/40">
-                    <span className="text-[8px] uppercase tracking-[0.15em] text-muted-foreground leading-none">
-                      {weekdayOf(d.day)}
-                    </span>
-                    <span className="text-sm font-medium tabular-nums leading-tight">
-                      {d.day}
-                    </span>
-                  </div>
-                  <div className={`flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] ${color}`}>
-                    <Icon className="h-3 w-3" />
-                    {profit ? "Profit" : "Loss"}
-                  </div>
-                </div>
-                <div className={`text-right tabular-nums ${color}`}>
-                  <div className="text-sm font-medium">
-                    {sign}${formatUSD(Math.abs(d.amount))}
-                  </div>
-                  <div className="text-[10px] opacity-80">
-                    {sign}{Math.abs(d.pct).toFixed(2)}%
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Calendar view — desktop */}
-      {view === "calendar" && (
-        <>
-          <div className="grid grid-cols-7 px-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
-            {WEEKDAYS_SHORT.map((d) => (
-              <div key={d} className="pb-2 text-center">
-                {d}
-              </div>
-            ))}
-          </div>
-          <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
-            {weeks.map((week, wi) => (
-              <div
-                key={wi}
-                className={`grid grid-cols-7 ${wi !== 0 ? "border-t border-border/40" : ""}`}
-              >
-                {week.map((cell, ci) => {
-                  const isEmpty = cell === null;
-                  const has = !isEmpty && cell!.amount !== 0;
-                  const isProfit = has && cell!.amount > 0;
-                  const isLoss = has && cell!.amount < 0;
-                  const tone = isProfit ? "bg-success/5" : isLoss ? "bg-destructive/5" : "";
-                  const accent = isProfit
-                    ? "before:bg-success"
-                    : isLoss
-                      ? "before:bg-destructive"
-                      : "before:bg-transparent";
-                  const valueColor = isProfit
-                    ? "text-success"
-                    : isLoss
-                      ? "text-destructive"
-                      : "text-muted-foreground/50";
-                  const sign = isProfit ? "+" : isLoss ? "−" : "";
-                  return (
-                    <div
-                      key={ci}
-                      className={`relative min-h-[88px] px-2 py-2 transition-colors ${
-                        ci !== 0 ? "border-l border-border/40" : ""
-                      } ${tone} ${
-                        has
-                          ? `before:absolute before:inset-x-2 before:top-0 before:h-px ${accent}`
-                          : ""
-                      } hover:bg-accent/30`}
-                    >
-                      {!isEmpty && (
-                        <>
-                          <div className="text-xs font-medium tabular-nums text-foreground/90">
-                            {cell!.day}
-                          </div>
-                          {has && (
-                            <div className={`mt-1.5 space-y-0.5 tabular-nums ${valueColor}`}>
-                              <div className="text-[11px] font-medium leading-tight">
-                                {sign}${formatUSD(Math.abs(cell!.amount))}
-                              </div>
-                              <div className="text-[10px] leading-tight opacity-80">
-                                {sign}{Math.abs(cell!.pct).toFixed(2)}%
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+          );
+        })}
+      </div>
     </div>
   );
 }
