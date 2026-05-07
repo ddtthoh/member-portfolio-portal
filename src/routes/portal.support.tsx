@@ -46,7 +46,7 @@ function SupportPage() {
   const [files, setFiles] = useState<File[]>([]);
 
   // filters
-  const [filterOpen, setFilterOpen] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [fDate, setFDate] = useState("");
   const [fNumber, setFNumber] = useState("");
   const [fCategory, setFCategory] = useState<string>("all");

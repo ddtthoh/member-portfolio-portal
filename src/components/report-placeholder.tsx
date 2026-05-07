@@ -10,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export function ReportPlaceholder({ title }: { title: string }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
 
   return (

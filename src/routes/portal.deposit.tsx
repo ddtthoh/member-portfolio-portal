@@ -42,7 +42,7 @@ function DepositPage() {
   // History + filters
   const [deposits, setDeposits] = useState<DepositRow[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
-  const [filterOpen, setFilterOpen] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [fDate, setFDate] = useState("");
   const [fRef, setFRef] = useState("");
   const [fHash, setFHash] = useState("");
