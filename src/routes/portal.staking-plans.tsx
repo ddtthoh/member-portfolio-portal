@@ -40,7 +40,7 @@ function StakingPlansPage() {
                 <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   Minimum Participation
                 </div>
-                <div className="mt-0.5 font-sans text-lg font-semibold leading-tight tabular-nums text-gold">
+                <div className="mt-0.5 font-light text-2xl tabular-nums tracking-[-0.04em] text-gold">
                   {plan.minAmount}
                 </div>
               </div>
@@ -49,7 +49,7 @@ function StakingPlansPage() {
                 <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
-                <div className="mt-0.5 font-sans text-lg font-semibold leading-tight tabular-nums text-gold">
+                <div className="mt-0.5 font-light text-2xl tabular-nums tracking-[-0.04em] text-gold">
                   {plan.roi}
                 </div>
               </div>
