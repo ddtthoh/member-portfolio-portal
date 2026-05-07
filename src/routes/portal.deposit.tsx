@@ -89,6 +89,24 @@ function DepositPage() {
 
   const shortHash = (h: string) => (h.length > 22 ? `${h.slice(0, 12)}…${h.slice(-8)}` : h);
 
+  const addr = settings?.wallet_address ?? "";
+  const head = addr.slice(0, 6);
+  const tail = addr.slice(-6);
+  const middle = addr.length > 12 ? addr.slice(6, -6) : "";
+
+  const copy = async () => {
+    if (!addr) return;
+    await navigator.clipboard.writeText(addr);
+    setCopied(true);
+    toast.success("Address copied");
+    setTimeout(() => setCopied(false), 1600);
+  };
+
+  const copyValue = async (val: string, label = "Copied") => {
+    await navigator.clipboard.writeText(val);
+    toast.success(label);
+  };
+
   return (
     <div>
       <PageHeader
