@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil, Search, RotateCcw, Calendar as CalendarIcon, History, Inbox, ExternalLink, Filter as FilterIcon, ChevronDown } from "lucide-react";
+import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil, Search, RotateCcw, Calendar as CalendarIcon, History, Inbox, ExternalLink, Filter as FilterIcon, ChevronDown, AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHeader } from "@/components/page-header";
@@ -163,6 +163,38 @@ function DepositPage() {
           </div>
         </div>
       </SpotlightCard>
+
+      {/* Important reminder — visible on all viewports */}
+      <div className="mx-auto mt-6 max-w-md">
+        <div className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/[0.08] via-amber-500/[0.04] to-transparent p-5 shadow-[0_8px_32px_-12px_rgba(245,158,11,0.3)]">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.12),transparent_60%)]" />
+          <div className="relative flex gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-amber-400/40 bg-amber-500/10 text-amber-400 shadow-[0_0_16px_-4px_rgba(245,158,11,0.5)]">
+              <AlertTriangle className="h-4 w-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-400">
+                Important Reminder
+              </div>
+              <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/85">
+                <li className="flex gap-2">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  Send only <span className="font-semibold text-gold">USDT</span> via the{" "}
+                  <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span> network.
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  Other tokens or networks will result in <span className="font-semibold text-amber-300">permanent loss</span>.
+                </li>
+                <li className="flex gap-2">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  Deposits credit after on-chain confirmation (usually 1–3 minutes).
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Deposit History — premium filter + ledger */}
       <div className="mx-auto mt-10 max-w-5xl space-y-5">
