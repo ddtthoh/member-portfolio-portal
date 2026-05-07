@@ -1,5 +1,4 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { LayoutDashboard, Wallet, Users, FileBarChart, Menu } from "lucide-react";
 
 type Tab = { to: string; label: string; icon: typeof LayoutDashboard; match?: (p: string) => boolean };
@@ -32,11 +31,7 @@ export function BottomTabBar({ onMore }: { onMore: () => void }) {
                 className="relative flex h-14 flex-col items-center justify-center gap-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors active:scale-[0.96]"
               >
                 {active && (
-                  <motion.span
-                    layoutId="bottomTabPill"
-                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className="absolute inset-x-3 top-1.5 -z-10 h-9 rounded-full bg-gradient-to-b from-gold/20 to-gold/5 ring-1 ring-gold/40 shadow-[0_0_18px_-6px_color-mix(in_oklab,var(--gold)_70%,transparent)]"
-                  />
+                  <span className="absolute inset-x-3 top-1.5 -z-10 h-9 rounded-full bg-gradient-to-b from-gold/20 to-gold/5 ring-1 ring-gold/40" />
                 )}
                 <Icon className={`h-[18px] w-[18px] ${active ? "text-gold drop-shadow-[0_0_6px_color-mix(in_oklab,var(--gold)_60%,transparent)]" : ""}`} />
                 <span className={active ? "text-gold" : ""}>{t.label}</span>
