@@ -200,7 +200,15 @@ function ProfilePage() {
             <Field label="Sponsor ID">
               <div className="relative">
                 <Users className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
-                <Input value={form.sponsor_id} readOnly className="pl-9 bg-muted/30" />
+                <Input
+                  value={form.sponsor_id}
+                  readOnly
+                  disabled
+                  tabIndex={-1}
+                  aria-readonly
+                  className="pl-9 pr-9 bg-muted/30 cursor-not-allowed select-none"
+                />
+                <Lock className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gold/60" />
               </div>
             </Field>
           </Grid>
