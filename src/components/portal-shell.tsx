@@ -158,6 +158,7 @@ export function PortalShell() {
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <CursorGlow />
+        <CommandPalette />
         {/* Backdrop layers */}
         <div
           aria-hidden
