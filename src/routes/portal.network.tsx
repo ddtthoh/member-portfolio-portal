@@ -75,7 +75,7 @@ function NetworkPage() {
                 {[
                   "Take the Marketing Plan Quiz",
                   "Score at least 7 out of 10 to pass",
-                  "Network unlocks instantly — for life",
+                  "Network unlocks instantly",
                 ].map((step, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-mono text-[11px] font-semibold text-gold">
