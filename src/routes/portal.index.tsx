@@ -182,7 +182,7 @@ function Overview() {
                     {t("overview.stakingAmount")}
                   </span>
                   <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
-                    <CountUp value={50000} prefix="$" decimals={0} />
+                    <CountUp value={wallet.staking} prefix="$" decimals={0} />
                   </span>
                 </div>
               </div>
