@@ -4,7 +4,7 @@
   },
   "nav": {
     "overview": "نمای کلی",
-    "stakingPlan": "طرح استیکینگ",
+    "stakingPlan": "طرح مشارکت",
     "portfolio": "سبد سرمایه",
     "statement": "صورتحساب",
     "creditConversionStatement": "صورتحساب تبدیل اعتبار",
@@ -50,12 +50,12 @@
     "estTotalValue": "ارزش کل تخمینی (دلار)",
     "todaysPnl": "سود/زیان امروز",
     "participatedDay": "روزهای مشارکت :",
-    "stakingAmount": "مبلغ استیکینگ :",
+    "stakingAmount": "مبلغ مشارکت :",
     "diamond": "الماس",
     "currentTierProgress": "پیشرفت سطح فعلی",
     "tierProgression": "ارتقاء سطح",
     "tierUnlock": "برای باز کردن سطح بعدی به ۱۰۰٪ برسید.",
-    "stakingPlanPremium": "طرح استیکینگ: Premium Pro",
+    "stakingPlanPremium": "طرح مشارکت: Premium Pro",
     "firstPlatinum": "اولین مدیر پلاتینیوم در بخش",
     "secondPlatinum": "دومین مدیر پلاتینیوم در بخش",
     "thirdPlatinum": "سومین مدیر پلاتینیوم در بخش",
@@ -145,7 +145,7 @@
     },
     "stakingPlans": {
       "eyebrow": "استیکینگ",
-      "title": "طرح استیکینگ",
+      "title": "طرح مشارکت",
       "description": "سطح مشارکتی متناسب با اهداف خود انتخاب کنید."
     },
     "convertCredits": {

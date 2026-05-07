@@ -4,7 +4,7 @@
   },
   "nav": {
     "overview": "Übersicht",
-    "stakingPlan": "Staking-Plan",
+    "stakingPlan": "Teilnahmeplan",
     "portfolio": "Portfolio",
     "statement": "Kontoauszug",
     "creditConversionStatement": "Kontoauszug Guthabenumtausch",
@@ -50,12 +50,12 @@
     "estTotalValue": "Geschätzter Gesamtwert (USD)",
     "todaysPnl": "Heutiger G/V",
     "participatedDay": "Teilnahmetage:",
-    "stakingAmount": "Staking-Betrag:",
+    "stakingAmount": "Teilnahmebetrag:",
     "diamond": "Diamant",
     "currentTierProgress": "Aktueller Stufenfortschritt",
     "tierProgression": "Stufen-Aufstieg",
     "tierUnlock": "Erreiche 100 %, um die nächste Stufe freizuschalten.",
-    "stakingPlanPremium": "Staking-Plan: Premium Pro",
+    "stakingPlanPremium": "Teilnahmeplan: Premium Pro",
     "firstPlatinum": "Erster Platin-Manager in der Abteilung",
     "secondPlatinum": "Zweiter Platin-Manager in der Abteilung",
     "thirdPlatinum": "Dritter Platin-Manager in der Abteilung",
@@ -121,7 +121,7 @@
     "holdings": {
       "eyebrow": "Portfolio",
       "title": "Portfolio-Übersicht",
-      "description": "Zusammenfassung Ihrer aktiven Staking-Teilnahme."
+      "description": "Zusammenfassung Ihrer aktiven Teilnahme."
     },
     "transferUsd": {
       "eyebrow": "USD-Wallet",
@@ -144,8 +144,8 @@
       "description": "Überprüfen Sie Verlauf und Salden des Guthabenumtauschs."
     },
     "stakingPlans": {
-      "eyebrow": "Staking",
-      "title": "Staking-Plan",
+      "eyebrow": "Teilnahme",
+      "title": "Teilnahmeplan",
       "description": "Wählen Sie eine Teilnahmestufe, die zu Ihren Zielen passt."
     },
     "convertCredits": {
