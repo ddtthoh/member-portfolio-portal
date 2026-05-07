@@ -107,7 +107,13 @@ function NetworkPage() {
           <p className="text-sm text-muted-foreground">Your dedicated team will be listed here shortly.</p>
         </SpotlightCard>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <>
+          <SpotlightCard className="liquid-glass mt-4 overflow-hidden rounded-2xl">
+            <NetworkConstellation
+              nodes={items.map((c) => ({ id: c.id, label: c.name, sub: c.role ?? undefined }))}
+            />
+          </SpotlightCard>
+          <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map((c) => (
             <SpotlightCard key={c.id} className="liquid-glass rounded-2xl p-6">
               <div className="flex items-center gap-3">
