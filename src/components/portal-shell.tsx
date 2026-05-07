@@ -142,7 +142,7 @@ export function PortalShell() {
             </Button>
             <Link to="/portal" className="flex items-center gap-2">
               <img src={participantPortalLogo} alt={t("brand.portal")} className="h-12 w-12 object-contain" />
-              <span className="font-semibold tracking-wide sm:text-base text-2xl font-sans text-yellow-500">{t("brand.portal")}</span>
+              
             </Link>
           </div>
           <div className="flex items-center gap-2">
