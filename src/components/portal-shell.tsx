@@ -105,7 +105,7 @@ export function PortalShell() {
           {nav.map((item) => {
             if (item.children) {
               return (
-                <NavGroup key={item.label} item={item} currentPath={location.pathname} />
+                <NavGroup key={item.labelKey} item={item} currentPath={location.pathname} />
               );
             }
             const Icon = item.icon;
@@ -118,7 +118,7 @@ export function PortalShell() {
                 className="flex items-center gap-3 rounded-sm border-l-2 border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 <Icon className="h-4 w-4" />
-                <span>{item.label}</span>
+                <span>{t(item.labelKey)}</span>
               </Link>
             );
           })}
@@ -128,7 +128,7 @@ export function PortalShell() {
             onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
             className="flex w-full items-center gap-3 rounded-sm px-3 py-2.5 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
           >
-            <LogOut className="h-4 w-4" /> Sign out
+            <LogOut className="h-4 w-4" /> {t("nav.signOut")}
           </button>
         </div>
       </aside>
@@ -141,8 +141,8 @@ export function PortalShell() {
               <Menu className="h-5 w-5" />
             </Button>
             <Link to="/portal" className="flex items-center gap-2">
-              <img src={participantPortalLogo} alt="Participant Portal" className="h-12 w-12 object-contain" />
-              <span className="font-semibold tracking-wide sm:text-base text-2xl font-sans text-yellow-500">​</span>
+              <img src={participantPortalLogo} alt={t("brand.portal")} className="h-12 w-12 object-contain" />
+              <span className="font-semibold tracking-wide sm:text-base text-2xl font-sans text-yellow-500">{t("brand.portal")}</span>
             </Link>
           </div>
           <div className="flex items-center gap-2">
@@ -153,16 +153,18 @@ export function PortalShell() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Switch language"
+                  aria-label={t("language.switch")}
                   className="rounded-full border border-border/60"
                 >
-                  <span className="text-base leading-none">🇺🇸</span>
+                  <span className="text-base leading-none">{currentLang.flag}</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-40">
-                <DropdownMenuItem><span className="mr-2">🇺🇸</span>English</DropdownMenuItem>
-                <DropdownMenuItem><span className="mr-2">🇨🇳</span>中文</DropdownMenuItem>
-                <DropdownMenuItem><span className="mr-2">🇲🇾</span>Bahasa Melayu</DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-44">
+                {SUPPORTED_LANGUAGES.map((l) => (
+                  <DropdownMenuItem key={l.code} onSelect={() => i18n.changeLanguage(l.code)}>
+                    <span className="mr-2">{l.flag}</span>{l.label}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
@@ -170,7 +172,7 @@ export function PortalShell() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Account"
+                  aria-label={t("account.label")}
                   className="rounded-full border border-border/60"
                 >
                   <UserCircle2 className="h-5 w-5 text-gold" />
@@ -178,23 +180,23 @@ export function PortalShell() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/profile" as any })}>
-                  <UserCircle2 className="h-4 w-4" /> Profile
+                  <UserCircle2 className="h-4 w-4" /> {t("account.profile")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" as any })}>
-                  <KeyRound className="h-4 w-4" /> Change Password
+                  <KeyRound className="h-4 w-4" /> {t("account.changePassword")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" as any })}>
-                  <ShieldCheck className="h-4 w-4" /> My KYC
+                  <ShieldCheck className="h-4 w-4" /> {t("account.myKyc")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
-                  <QrCode className="h-4 w-4" /> My QR Code
+                  <QrCode className="h-4 w-4" /> {t("account.myQrCode")}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/network" })}>
-                  <Users className="h-4 w-4" /> Network
+                  <Users className="h-4 w-4" /> {t("account.network")}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={async () => { await signOut(); navigate({ to: "/login" }); }}>
-                  <LogOut className="h-4 w-4" /> Logout
+                  <LogOut className="h-4 w-4" /> {t("account.logout")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -223,9 +225,10 @@ function NavGroup({
   item,
   currentPath,
 }: {
-  item: { label: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
+  item: { labelKey: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
   currentPath: string;
 }) {
+  const { t } = useTranslation();
   const isActiveBranch = item.children.some((c) => currentPath === c.to || currentPath.startsWith(c.to + "/"));
   const [open, setOpen] = useState(isActiveBranch);
   useEffect(() => {
@@ -245,7 +248,7 @@ function NavGroup({
         }`}
       >
         <Icon className="h-4 w-4" />
-        <span className="flex-1 text-left">{item.label}</span>
+        <span className="flex-1 text-left">{t(item.labelKey)}</span>
         <ChevronDown
           className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
         />
@@ -262,7 +265,7 @@ function NavGroup({
                 className="flex items-center gap-3 rounded-sm border-l-2 border-transparent px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
                 <ChildIcon className="h-3.5 w-3.5" />
-                <span>{child.label}</span>
+                <span>{t(child.labelKey)}</span>
               </Link>
             );
           })}
