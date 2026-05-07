@@ -125,17 +125,21 @@ function DepositPage() {
               </div>
               <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/90">
                 <li className="flex gap-2">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
-                  Send only <span className="font-semibold text-gold">USDT</span> via the{" "}
-                  <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span> network.
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="flex-1">
+                    Send only <span className="font-semibold text-gold">USDT</span> via the{" "}
+                    <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span> network.
+                  </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
-                  Other tokens or networks will result in <span className="font-semibold text-amber-300">permanent loss</span>.
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="flex-1">
+                    Other tokens or networks will result in <span className="font-semibold text-amber-300">permanent loss</span>.
+                  </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
-                  Deposits credit after on-chain confirmation (usually 1–3 minutes).
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="flex-1">Deposits credit after on-chain confirmation (usually 1–3 minutes).</span>
                 </li>
               </ul>
             </div>
