@@ -68,7 +68,7 @@ function formatUSD(n: number, decimals = 2) {
 export function PLCalendar({ participation = 250000 }: { participation?: number }) {
   const [month, setMonth] = useState(4);
   const [year, setYear] = useState(2026);
-  const [view, setView] = useState<"calendar" | "list">("list"); // default mobile-friendly
+  
 
   const data = useMemo(() => {
     const base = participation || 250000;
