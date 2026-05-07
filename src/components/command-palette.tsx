@@ -64,16 +64,10 @@ export function CommandPalette() {
   const groups = Array.from(new Set(ITEMS.map((i) => i.group)));
 
   return (
-    <CommandDialog
-      open={open}
-      onOpenChange={setOpen}
-      className={cap.coarse ? "top-auto bottom-0 translate-y-0 rounded-b-none rounded-t-2xl border-b-0 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:rounded-2xl" : ""}
-    >
+    <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput
         placeholder={cap.coarse ? "Search the portal…" : "Type to navigate… (⌘K)"}
         autoFocus={!cap.coarse}
-        // @ts-expect-error inputMode supported
-        inputMode="search"
       />
       <CommandList className={cap.coarse ? "max-h-[70vh]" : ""}>
         <CommandEmpty>No results.</CommandEmpty>
