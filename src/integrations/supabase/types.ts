@@ -284,6 +284,27 @@ export type Database = {
         }
         Relationships: []
       }
+      wallets: {
+        Row: {
+          rewards_balance: number
+          updated_at: string
+          usd_balance: number
+          user_id: string
+        }
+        Insert: {
+          rewards_balance?: number
+          updated_at?: string
+          usd_balance?: number
+          user_id: string
+        }
+        Update: {
+          rewards_balance?: number
+          updated_at?: string
+          usd_balance?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
