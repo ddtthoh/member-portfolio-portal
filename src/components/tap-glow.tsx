@@ -18,9 +18,6 @@ export function TapGlow() {
       if (!t) return;
       const next = { id: ++id, x: t.clientX, y: t.clientY };
       setRings((prev) => [...prev, next]);
-      try {
-        navigator.vibrate?.(6);
-      } catch {}
       window.setTimeout(() => {
         setRings((prev) => prev.filter((r) => r.id !== next.id));
       }, 520);
