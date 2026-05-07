@@ -166,7 +166,7 @@ function NavGroup({
   item: { label: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
   currentPath: string;
 }) {
-  const isActiveBranch = currentPath.startsWith(item.basePath);
+  const isActiveBranch = item.children.some((c) => currentPath === c.to || currentPath.startsWith(c.to + "/"));
   const [open, setOpen] = useState(isActiveBranch);
   useEffect(() => {
     if (isActiveBranch) setOpen(true);
