@@ -66,7 +66,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  Member ID
+                  amount
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
@@ -99,7 +99,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
             <thead>
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">Member ID</th>
+                <th className="px-3 py-3 font-semibold">amount</th>
                 <th className="px-3 py-3 font-semibold">amount</th>
                 <th className="px-3 py-3 font-semibold">rank</th>
               </tr>
