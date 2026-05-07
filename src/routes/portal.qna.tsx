@@ -25,7 +25,7 @@ function QnALayout() {
     <div>
       <PageHeader
         eyebrow="Knowledge Test"
-        title="Q&A"
+        title="Education"
         description="Answer 7 out of 10 questions correctly to pass. You can retake the test as many times as you want."
       />
 
