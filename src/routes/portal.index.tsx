@@ -163,7 +163,7 @@ function Overview() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="flex-1"
           >
-            <SpotlightCard className="liquid-glass flex h-full items-center justify-between gap-4 rounded-xl p-5">
+            <SpotlightCard className="liquid-glass flex h-full flex-col justify-center gap-4 rounded-xl p-5">
               <div className="flex flex-col">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                   {t("overview.participatedDay")}
@@ -173,8 +173,7 @@ function Overview() {
                   <span className="text-xs font-normal text-muted-foreground">{t("common.days")}</span>
                 </span>
               </div>
-              <div aria-hidden className="h-12 w-px shrink-0 bg-gradient-to-b from-transparent via-border to-transparent" />
-              <div className="flex flex-col items-end text-right">
+              <div className="flex flex-col">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                   {t("overview.stakingAmount")}
                 </span>
