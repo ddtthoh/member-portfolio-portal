@@ -301,39 +301,43 @@ function DepositPage() {
             </div>
           ) : (
             <>
-              {/* Desktop ledger — 3 columns sized to real sample widths */}
+              {/* Desktop ledger — premium 3-column with gold gradient underline */}
               <div className="hidden overflow-x-auto md:block">
-                <div className="min-w-max px-6 py-4">
+                <div className="min-w-max px-8 py-6">
                   {/* Header row */}
-                  <div className="grid grid-cols-[14ch_22ch_minmax(66ch,1fr)] gap-x-10 border-b border-border/40 pb-3 text-[10px] font-medium uppercase tracking-[0.22em] text-gold/80">
-                    <div>Date</div>
+                  <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+                    <div>Received At</div>
                     <div>Reference Number</div>
                     <div>Transaction Hash</div>
                   </div>
 
+                  {/* Gold gradient underline */}
+                  <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
+
                   {/* Data rows */}
-                  <div className="divide-y divide-border/30">
+                  <div className="divide-y divide-border/20">
                     {filtered.map((d, i) => (
                       <motion.div
                         key={d.id}
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.03, duration: 0.25 }}
-                        className="group grid grid-cols-[14ch_22ch_minmax(66ch,1fr)] gap-x-10 py-4 transition-colors hover:bg-gold/[0.03]"
+                        className="group grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 py-5 transition-colors hover:bg-gold/[0.025]"
                       >
-                        <div className="font-mono text-sm tabular-nums text-foreground/80">
+                        <div className="font-mono text-sm tabular-nums text-foreground/85">
                           {new Date(d.received_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}
                         </div>
                         <button
                           onClick={() => copyValue(d.reference_number, "Reference copied")}
-                          className="truncate text-left font-mono text-sm text-foreground/80 transition hover:text-gold"
+                          className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold"
                           title={d.reference_number}
                         >
-                          {d.reference_number}
+                          <span className="truncate">{d.reference_number}</span>
+                          <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
                         </button>
                         <button
                           onClick={() => copyValue(d.transaction_hash, "Hash copied")}
-                          className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/70 transition hover:text-gold"
+                          className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/75 transition hover:text-gold"
                           title={d.transaction_hash}
                         >
                           <span className="truncate">{d.transaction_hash}</span>
