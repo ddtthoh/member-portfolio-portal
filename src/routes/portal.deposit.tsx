@@ -181,7 +181,7 @@ function DepositPage() {
                 <FilterIcon className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-sm font-semibold tracking-tight text-foreground">Filter Transactions</div>
+                <div className="text-sm font-semibold tracking-tight text-gold">Filter Transactions</div>
               </div>
             </div>
             <ChevronDown
