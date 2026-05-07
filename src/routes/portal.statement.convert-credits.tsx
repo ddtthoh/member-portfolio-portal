@@ -29,7 +29,7 @@ function ConvertCreditsPage() {
         ))}
       </div>
 
-      <div className="liquid-glass rounded-xl p-5">
+      <div className="liquid-glass rounded-xl p-5" style={{ ["--glass-sheen-top" as any]: "0%" }}>
         <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Convert Details</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 
