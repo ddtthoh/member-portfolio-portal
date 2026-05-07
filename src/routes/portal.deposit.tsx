@@ -181,7 +181,7 @@ function DepositPage() {
                 <FilterIcon className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-sm font-semibold tracking-tight text-foreground">Filter Transactions</div>
+                <div className="text-sm font-semibold tracking-tight text-gold">Filter Transactions</div>
               </div>
             </div>
             <ChevronDown
@@ -271,8 +271,7 @@ function DepositPage() {
                 <History className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/70">Ledger</div>
-                <div className="text-sm font-semibold tracking-tight text-foreground">Deposit History</div>
+                <div className="text-sm font-semibold tracking-tight text-gold">Deposit History</div>
               </div>
             </div>
             <div className="hidden items-center gap-1.5 rounded-full border border-border/50 bg-card/40 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:flex">
