@@ -114,11 +114,7 @@ function QrCodePage() {
 
             <div className="relative px-6 pt-6 pb-5">
               {/* Brand row */}
-              <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-gold">
-                  <Sparkles className="h-3 w-3" />
-                  Naslabtec • Private Invitation
-                </div>
+              <div className="flex items-center justify-end">
                 <span className="rounded-full border border-gold/30 bg-background/40 px-2 py-0.5 font-mono text-[10px] tracking-widest text-gold/80">
                   No. {memberId.slice(0, 4)}
                 </span>
