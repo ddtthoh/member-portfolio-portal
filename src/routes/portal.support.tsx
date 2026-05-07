@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
-import { ChevronUp, ChevronDown, Plus, Eye, Calendar as CalendarIcon } from "lucide-react";
+import { ChevronUp, ChevronDown, Plus, Eye, Calendar as CalendarIcon, Paperclip, X as XIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
