@@ -71,7 +71,7 @@ function LeaderRewardsPage() {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  amount
+                  Referral rewards
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
@@ -105,9 +105,9 @@ function LeaderRewardsPage() {
             <thead>
               <tr className="border-y border-border/40 align-top text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">amount</th>
+                <th className="px-3 py-3 font-semibold">Referral rewards</th>
                 <th className="px-3 py-3 font-semibold">Percentage</th>
-                <th className="px-3 py-3 font-semibold">Contributed by amount</th>
+                <th className="px-3 py-3 font-semibold">Contributed by Referral rewards</th>
                 <th className="px-3 py-3 font-semibold">Total Subscription Count</th>
               </tr>
             </thead>
