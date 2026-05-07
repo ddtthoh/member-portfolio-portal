@@ -40,11 +40,6 @@ function QrCodePage() {
     referralUrl,
   )}`;
 
-  const memberName =
-    user?.user_metadata?.full_name ||
-    user?.email?.split("@")[0] ||
-    "Member";
-
   const [copiedLink, setCopiedLink] = useState(false);
   const [copiedId, setCopiedId] = useState(false);
 
