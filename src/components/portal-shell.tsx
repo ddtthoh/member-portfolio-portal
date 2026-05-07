@@ -168,8 +168,25 @@ export function PortalShell() {
         <aside
           className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-sidebar-border bg-sidebar/80 backdrop-blur-md transition-all duration-300 ease-out lg:static lg:translate-x-0 ${sidebarWidth} ${
             open ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0`}
+          } lg:translate-x-0 relative`}
         >
+          {/* Floating collapse rail handle (tablet/desktop) */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={() => setCollapsed((v) => !v)}
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                className="absolute -right-3 top-20 z-50 hidden h-6 w-6 items-center justify-center rounded-full border border-gold/60 bg-sidebar text-gold/90 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] transition-all hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] md:flex"
+              >
+                {collapsed ? <PanelLeft className="h-3.5 w-3.5" /> : <PanelLeftClose className="h-3.5 w-3.5" />}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              {collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              <span className="ml-1.5 rounded border border-border/60 bg-muted/40 px-1 py-0.5 text-[9px] opacity-80">⌘B</span>
+            </TooltipContent>
+          </Tooltip>
           {/* Brand header */}
           <div className="flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border px-3">
             <div className={`flex min-w-0 items-center gap-2.5 ${collapsed ? "justify-center w-full" : ""}`}>
