@@ -448,3 +448,27 @@
     .tap-glow-ring { animation: none; opacity: 0; }
   }
 }
+
+@layer utilities {
+  @keyframes ptr-spin { to { transform: rotate(360deg); } }
+
+  /* Bottom tab bloom burst */
+  @keyframes tab-bloom {
+    0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.9; }
+    70%  { transform: translate(-50%, -50%) scale(1.6); opacity: 0.25; }
+    100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; }
+  }
+  .tab-bloom {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 56px; height: 56px;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in oklab, var(--gold) 55%, transparent) 0%, color-mix(in oklab, var(--gold) 18%, transparent) 50%, transparent 75%);
+    mix-blend-mode: screen;
+    animation: tab-bloom 520ms cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tab-bloom { animation: none; opacity: 0; }
+  }
+}
