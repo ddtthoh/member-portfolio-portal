@@ -300,92 +300,52 @@ function DepositPage() {
               </div>
             </div>
           ) : (
-            <>
-              {/* Desktop ledger — premium 3-column with gold gradient underline */}
-              <div className="hidden overflow-x-auto md:block">
-                <div className="min-w-max px-8 py-6">
-                  {/* Header row */}
-                  <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-                    <div>Received At</div>
-                    <div>Reference Number</div>
-                    <div>Transaction Hash</div>
-                  </div>
+            <div className="overflow-x-auto">
+              <div className="min-w-max px-6 py-6 sm:px-8">
+                {/* Header row */}
+                <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+                  <div>Received At</div>
+                  <div>Reference Number</div>
+                  <div>Transaction Hash</div>
+                </div>
 
-                  {/* Gold gradient underline */}
-                  <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
+                {/* Gold gradient underline */}
+                <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
 
-                  {/* Data rows */}
-                  <div className="divide-y divide-border/20">
-                    {filtered.map((d, i) => (
-                      <motion.div
-                        key={d.id}
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.03, duration: 0.25 }}
-                        className="group grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 py-5 transition-colors hover:bg-gold/[0.025]"
+                {/* Data rows */}
+                <div className="divide-y divide-border/20">
+                  {filtered.map((d, i) => (
+                    <motion.div
+                      key={d.id}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.03, duration: 0.25 }}
+                      className="group grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 py-5 transition-colors hover:bg-gold/[0.025]"
+                    >
+                      <div className="font-mono text-sm tabular-nums text-foreground/85">
+                        {new Date(d.received_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}
+                      </div>
+                      <button
+                        onClick={() => copyValue(d.reference_number, "Reference copied")}
+                        className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold"
+                        title={d.reference_number}
                       >
-                        <div className="font-mono text-sm tabular-nums text-foreground/85">
-                          {new Date(d.received_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}
-                        </div>
-                        <button
-                          onClick={() => copyValue(d.reference_number, "Reference copied")}
-                          className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold"
-                          title={d.reference_number}
-                        >
-                          <span className="truncate">{d.reference_number}</span>
-                          <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
-                        </button>
-                        <button
-                          onClick={() => copyValue(d.transaction_hash, "Hash copied")}
-                          className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/75 transition hover:text-gold"
-                          title={d.transaction_hash}
-                        >
-                          <span className="truncate">{d.transaction_hash}</span>
-                          <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
-                        </button>
-                      </motion.div>
-                    ))}
-                  </div>
+                        <span className="truncate">{d.reference_number}</span>
+                        <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
+                      </button>
+                      <button
+                        onClick={() => copyValue(d.transaction_hash, "Hash copied")}
+                        className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/75 transition hover:text-gold"
+                        title={d.transaction_hash}
+                      >
+                        <span className="truncate">{d.transaction_hash}</span>
+                        <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
+                      </button>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
-
-              {/* Mobile cards */}
-              <div className="space-y-2 px-4 py-4 md:hidden">
-                {filtered.map((d, i) => (
-                  <motion.div
-                    key={d.id}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.03 }}
-                    className="rounded-xl border border-border/50 bg-card/40 p-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                        {new Date(d.received_at).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}
-                      </div>
-                      <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[9px] uppercase text-emerald-300">
-                        <span className="h-1 w-1 rounded-full bg-emerald-400" /> {d.status}
-                      </span>
-                    </div>
-                    <div className="mt-2 font-mono text-base font-semibold text-gold">
-                      {fmtAmount(d.amount)} <span className="text-[10px] text-muted-foreground">{d.asset ?? "USDT"}</span>
-                    </div>
-                    <div className="mt-3 space-y-1.5 border-t border-border/30 pt-3 text-xs">
-                      <div className="flex justify-between gap-2">
-                        <span className="text-muted-foreground">Ref</span>
-                        <span className="truncate font-mono text-foreground/80">{d.reference_number}</span>
-                      </div>
-                      <div className="flex justify-between gap-2">
-                        <span className="text-muted-foreground">Hash</span>
-                        <button onClick={() => copyValue(d.transaction_hash, "Hash copied")} className="truncate font-mono text-foreground/70">
-                          {shortHash(d.transaction_hash)}
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </>
+            </div>
           )}
         </SpotlightCard>
       </div>
