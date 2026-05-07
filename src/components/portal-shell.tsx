@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
 import { CursorGlow } from "@/components/cursor-glow";
+import { CommandPalette } from "@/components/command-palette";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
 
