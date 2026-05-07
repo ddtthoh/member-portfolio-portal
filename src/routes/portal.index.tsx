@@ -163,24 +163,26 @@ function Overview() {
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             className="flex-1"
           >
-            <SpotlightCard className="liquid-glass flex h-full items-center justify-center rounded-xl p-5">
-              <div className="flex flex-1 flex-col items-center text-center">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("overview.participatedDay")}
-                </span>
-                <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
-                  <CountUp value={85} decimals={0} duration={1} />{" "}
-                  <span className="text-xs font-normal text-muted-foreground">{t("common.days")}</span>
-                </span>
-              </div>
-              <div aria-hidden className="mx-3 h-12 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
-              <div className="flex flex-1 flex-col items-center text-center">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {t("overview.stakingAmount")}
-                </span>
-                <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
-                  <CountUp value={50000} prefix="$" decimals={0} />
-                </span>
+            <SpotlightCard className="liquid-glass h-full rounded-xl p-5">
+              <div className="flex h-full items-center justify-center">
+                <div className="flex flex-1 flex-col items-center text-center">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {t("overview.participatedDay")}
+                  </span>
+                  <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
+                    <CountUp value={85} decimals={0} duration={1} />{" "}
+                    <span className="text-xs font-normal text-muted-foreground">{t("common.days")}</span>
+                  </span>
+                </div>
+                <div aria-hidden className="mx-3 h-12 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
+                <div className="flex flex-1 flex-col items-center text-center">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    {t("overview.stakingAmount")}
+                  </span>
+                  <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
+                    <CountUp value={50000} prefix="$" decimals={0} />
+                  </span>
+                </div>
               </div>
             </SpotlightCard>
           </motion.div>
