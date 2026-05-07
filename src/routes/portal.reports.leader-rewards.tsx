@@ -84,11 +84,11 @@ function LeaderRewardsPage() {
         )}
       </SpotlightCard>
 
-      {/* Leader Bonus Breakdown Transactions */}
+      {/* Leader Rewards Transactions */}
       <SpotlightCard className="liquid-glass mt-4 rounded-2xl">
         <div className="flex flex-col items-start justify-between gap-3 px-5 py-4 sm:flex-row sm:items-center">
           <h3 className="font-serif text-base font-semibold text-gold md:text-lg">
-            Leader Bonus Breakdown Transactions
+            Leader Rewards Transactions
           </h3>
           <Button className="bg-gold text-background hover:bg-gold/90">EXPORT</Button>
         </div>
