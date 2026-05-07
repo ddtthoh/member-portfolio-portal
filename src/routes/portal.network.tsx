@@ -139,7 +139,8 @@ function NetworkPage() {
               </div>
             </SpotlightCard>
           ))}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
