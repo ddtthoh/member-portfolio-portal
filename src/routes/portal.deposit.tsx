@@ -55,12 +55,17 @@ function DepositPage() {
         title={t("pages.deposit.title")}
         description={t("pages.deposit.description")}
         actions={
-          <Link
-            to="/portal/wallet-edit"
-            className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/20"
-          >
-            <Pencil className="h-3 w-3" /> Edit
-          </Link>
+          <div className="flex flex-col items-end gap-2">
+            <Link
+              to="/portal/wallet-edit"
+              className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1.5 text-xs font-medium text-gold transition hover:bg-gold/20"
+            >
+              <Pencil className="h-3 w-3" /> Edit
+            </Link>
+            <p className="max-w-[200px] text-right text-[11px] leading-relaxed text-muted-foreground">
+              Please be Informed you will have to deposit at least 10 Usdt Bep20 amount.
+            </p>
+          </div>
         }
       />
 
