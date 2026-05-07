@@ -287,18 +287,21 @@ export type Database = {
       wallets: {
         Row: {
           rewards_balance: number
+          staking_balance: number
           updated_at: string
           usd_balance: number
           user_id: string
         }
         Insert: {
           rewards_balance?: number
+          staking_balance?: number
           updated_at?: string
           usd_balance?: number
           user_id: string
         }
         Update: {
           rewards_balance?: number
+          staking_balance?: number
           updated_at?: string
           usd_balance?: number
           user_id?: string
