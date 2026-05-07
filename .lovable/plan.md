@@ -1,14 +1,25 @@
-## Issue
-The user is on `/portal/asset-analysis` but doesn't see the new 3-color half-donut. The gauge component was previously moved to the portal home (`/portal`) only — the asset-analysis route currently shows just 4 stat cards (Total Assets / 30D Growth / Volatility / Allocations) with no chart.
+## Goal
+Add USD amount alongside percentage in the gauge legend, with a more professional, institutional layout (vs the current bare 3-column percent grid).
 
-## Fix
-Add the `TotalAssetsGauge` back to the `/portal/asset-analysis` page as the hero section, above the stats grid.
+## Edit `src/components/total-assets-gauge.tsx`
+Replace the current 3-column grid (lines ~114–160) with a vertical stacked-row list layout:
 
-### Edit `src/routes/portal.asset-analysis.tsx`
-1. Add imports:
-   - `TotalAssetsGauge` from `@/components/total-assets-gauge`
-   - `SpotlightCard` from `@/components/spotlight-card`
-2. Insert a `motion.div` containing a `SpotlightCard` with `<TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />` directly above the existing stats grid.
-3. Keep the 4 stat cards underneath unchanged.
+```
+─────────────────────────────────────────
+ ●  PARTICIPATION         $50,000.00  75.49%
+─────────────────────────────────────────
+ ●  CASH                  $12,340.00  18.63%
+─────────────────────────────────────────
+ ●  EARNINGS              $ 3,897.00   5.89%
+─────────────────────────────────────────
+```
 
-No other file changes needed — the gauge component itself was already updated in the prior turn with the 3-color (Gold / Teal / Violet) refined half-donut.
+Per row:
+- Left: small colored dot (with matching glow) + uppercase tracked label in muted small text
+- Right: USD amount (in segment's color, light weight, tabular-nums) + percent (smaller, muted, fixed width for alignment)
+- Dividers (top + between rows) using `border-border/40` for the financial-statement feel
+- Padding `py-2.5` per row, `mt-5` from the arc above
+
+Use a `[{label, amount, pct, color}]` array mapped to rows to keep code DRY. Both amount and percent animated via existing `CountUp`.
+
+This matches private-bank / Bloomberg-style account breakdowns: amount as the hero, percent as the supporting detail, lined up right-aligned for fast scanning.
