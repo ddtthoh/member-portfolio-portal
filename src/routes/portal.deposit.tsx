@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil, Search, RotateCcw, Calendar as CalendarIcon, History, Inbox, ExternalLink, Filter as FilterIcon, ChevronDown } from "lucide-react";
+import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil, Search, RotateCcw, Calendar as CalendarIcon, History, Inbox, ExternalLink, Filter as FilterIcon, ChevronDown, AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHeader } from "@/components/page-header";
