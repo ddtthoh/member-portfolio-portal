@@ -21,8 +21,12 @@ export const Route = createFileRoute("/portal/asset-analysis")({
 function AssetAnalysisPage() {
   const { t } = useTranslation();
 
+  const { wallet } = useWallet();
+
+  const totalFormatted = `$${wallet.total.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
   const stats = [
-    { label: t("assetAnalysis.totalAssets", "Total Assets"), value: "$50,000.00", icon: <PieChart className="h-5 w-5 text-gold" /> },
+    { label: t("assetAnalysis.totalAssets", "Total Assets"), value: totalFormatted, icon: <PieChart className="h-5 w-5 text-gold" /> },
     { label: t("assetAnalysis.growth", "30D Growth"), value: "+4.68%", icon: <TrendingUp className="h-5 w-5 text-emerald-400" /> },
     { label: t("assetAnalysis.volatility", "Volatility"), value: "Low", icon: <Activity className="h-5 w-5 text-gold" /> },
     { label: t("assetAnalysis.allocations", "Allocations"), value: "5", icon: <BarChart3 className="h-5 w-5 text-gold" /> },
