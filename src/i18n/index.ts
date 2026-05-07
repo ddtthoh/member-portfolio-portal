@@ -8,6 +8,7 @@ import fa from "./locales/fa.json";
 import ar from "./locales/ar.json";
 import es from "./locales/es.json";
 import de from "./locales/de.json";
+import tr from "./locales/tr.json";
 
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English", flag: "🇺🇸" },
@@ -17,6 +18,7 @@ export const SUPPORTED_LANGUAGES = [
   { code: "ar", label: "العربية", flag: "🇸🇦" },
   { code: "es", label: "Español", flag: "🇪🇸" },
   { code: "de", label: "Deutsch", flag: "🇩🇪" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
 ] as const;
 
 export const RTL_LANGS = ["fa", "ar"];
@@ -34,9 +36,10 @@ if (!i18n.isInitialized) {
         ar: { translation: ar },
         es: { translation: es },
         de: { translation: de },
+        tr: { translation: tr },
       },
       fallbackLng: "en",
-      supportedLngs: ["en", "zh", "id", "fa", "ar", "es", "de"],
+      supportedLngs: ["en", "zh", "id", "fa", "ar", "es", "de", "tr"],
       interpolation: { escapeValue: false },
       detection: {
         order: ["localStorage", "navigator"],
