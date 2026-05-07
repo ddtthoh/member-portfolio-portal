@@ -85,7 +85,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
           <h3 className="font-serif text-base font-semibold text-foreground md:text-lg">
             {title} Transactions
           </h3>
-          <Button className="bg-gold text-background hover:bg-gold/90">EXPORT TABLE</Button>
+          <Button className="bg-gold text-background hover:bg-gold/90">EXPORT</Button>
         </div>
 
         <div className="overflow-x-auto px-2 pb-4 sm:px-5">
