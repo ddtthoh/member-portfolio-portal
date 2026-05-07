@@ -36,7 +36,7 @@ function AssetAnalysisPage() {
     <div>
       <PageHeader
         title={t("assetAnalysis.title", "Asset Analysis")}
-        subtitle={t("assetAnalysis.subtitle", "Performance, allocation and risk insights for your portfolio.")}
+        description={t("assetAnalysis.subtitle", "Performance, allocation and risk insights for your portfolio.")}
       />
 
       <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
