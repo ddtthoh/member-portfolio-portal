@@ -303,9 +303,9 @@ function ProfilePage() {
   );
 }
 
-function StatPill({ label, value }: { label: string; value: string }) {
+function StatPill({ label, value, className = "" }: { label: string; value: string; className?: string }) {
   return (
-    <div className="rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-center">
+    <div className={`rounded-lg border border-gold/20 bg-background/40 px-3 py-2 text-center ${className}`}>
       <div className="text-[9px] uppercase tracking-[0.22em] text-gold/60">{label}</div>
       <div className="mt-0.5 font-serif text-sm font-semibold text-gold">{value}</div>
     </div>
