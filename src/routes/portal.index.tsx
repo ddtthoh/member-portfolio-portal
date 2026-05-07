@@ -12,6 +12,7 @@ import { CountUp } from "@/components/count-up";
 import { Sparkline } from "@/components/sparkline";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { useWallet } from "@/hooks/use-wallet";
+import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 
 export const Route = createFileRoute("/portal/")({
   component: Overview,
