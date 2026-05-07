@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { CountUp } from "@/components/count-up";
 import { Sparkline } from "@/components/sparkline";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { useWallet } from "@/hooks/use-wallet";
 
 export const Route = createFileRoute("/portal/")({
   component: Overview,
@@ -25,6 +26,7 @@ function Overview() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [hideBalance, setHideBalance] = useState(false);
+  const { wallet } = useWallet();
 
   useEffect(() => {
     if (!user) return;
@@ -83,7 +85,7 @@ function Overview() {
               {hideBalance ? (
                 "******"
               ) : (
-                <CountUp value={50000} prefix="$" decimals={2} />
+                <CountUp value={wallet.total} prefix="$" decimals={2} />
               )}
             </div>
 
@@ -361,8 +363,8 @@ function Overview() {
 
       <div className="mb-3 grid grid-cols-2 gap-3">
         {[
-          { label: t("overview.usdtWallet"), value: 0 },
-          { label: t("overview.rewardsWallet"), value: 0 },
+          { label: t("overview.usdtWallet"), value: wallet.usd },
+          { label: t("overview.rewardsWallet"), value: wallet.rewards },
         ].map((w, i) => (
           <motion.div
             key={w.label}
