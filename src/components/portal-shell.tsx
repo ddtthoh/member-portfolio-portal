@@ -9,6 +9,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
@@ -131,9 +132,10 @@ export function PortalShell() {
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
               <Menu className="h-5 w-5" />
             </Button>
-            <div className="hidden text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">
-              Member Portal
-            </div>
+            <Link to="/portal" className="flex items-center gap-2">
+              <img src={participantPortalLogo} alt="Participant Portal" className="h-12 w-12 object-contain" />
+              <span className="font-serif text-sm font-semibold tracking-wide sm:text-base">Participant Portal</span>
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             <span className="hidden text-xs text-muted-foreground sm:inline">{user.email}</span>
