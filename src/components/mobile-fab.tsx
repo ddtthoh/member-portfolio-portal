@@ -19,7 +19,7 @@ export function MobileFab() {
   return (
     <div
       className="pointer-events-none fixed right-4 z-40 flex flex-col items-end gap-3 lg:hidden"
-      style={{ bottom: "calc(72px + env(safe-area-inset-bottom, 0px))" }}
+      style={{ bottom: "calc(20px + env(safe-area-inset-bottom, 0px))" }}
       aria-hidden={false}
     >
       {showTop && (

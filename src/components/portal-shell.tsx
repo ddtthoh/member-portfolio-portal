@@ -22,7 +22,7 @@ import { CursorGlow } from "@/components/cursor-glow";
 import { CommandPalette } from "@/components/command-palette";
 import { TapGlow } from "@/components/tap-glow";
 import { MobileFab } from "@/components/mobile-fab";
-import { BottomTabBar } from "@/components/bottom-tab-bar";
+
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
 
@@ -164,7 +164,6 @@ export function PortalShell() {
         <TapGlow />
         <CommandPalette />
         <MobileFab />
-        <BottomTabBar onMore={() => setOpen(true)} />
         {/* Backdrop layers */}
         <div
           aria-hidden
@@ -408,7 +407,7 @@ export function PortalShell() {
           </header>
           <TickerTape />
           <main
-            className="min-w-0 flex-1 px-4 pb-[calc(96px+env(safe-area-inset-bottom,0px))] pt-3 lg:px-10 lg:pb-8"
+            className="min-w-0 flex-1 px-4 pb-[calc(24px+env(safe-area-inset-bottom,0px))] pt-3 lg:px-10 lg:pb-8"
           >
             <AnimatePresence mode="wait">
               <motion.div
