@@ -69,37 +69,37 @@ export function TotalAssetsGauge({
           <path
             d={arcPath}
             fill="none"
-            stroke="oklch(var(--asset-participation))"
+            stroke="var(--asset-participation)"
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
             strokeDasharray={`${sDraw} 1`}
             strokeDashoffset={-sOffset}
-            style={{ filter: "drop-shadow(0 0 6px oklch(var(--asset-participation) / 0.55))" }}
+            style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-participation) 55%, transparent))" }}
           />
           {/* Cash */}
           <path
             d={arcPath}
             fill="none"
-            stroke="oklch(var(--asset-cash))"
+            stroke="var(--asset-cash)"
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
             strokeDasharray={`${cDraw} 1`}
             strokeDashoffset={-cOffset}
-            style={{ filter: "drop-shadow(0 0 6px oklch(var(--asset-cash) / 0.55))" }}
+            style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-cash) 55%, transparent))" }}
           />
           {/* Earnings */}
           <path
             d={arcPath}
             fill="none"
-            stroke="oklch(var(--asset-earnings))"
+            stroke="var(--asset-earnings)"
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
             strokeDasharray={`${eDraw} 1`}
             strokeDashoffset={-eOffset}
-            style={{ filter: "drop-shadow(0 0 6px oklch(var(--asset-earnings) / 0.55))" }}
+            style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-earnings) 55%, transparent))" }}
           />
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-1">
@@ -116,13 +116,13 @@ export function TotalAssetsGauge({
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span
               className="h-2 w-2 rounded-full"
-              style={{ background: "oklch(var(--asset-participation))" }}
+              style={{ background: "var(--asset-participation)" }}
             />
             Participation
           </div>
           <div
             className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "oklch(var(--asset-participation))" }}
+            style={{ color: "var(--asset-participation)" }}
           >
             <CountUp value={stakingPct} decimals={2} suffix="%" />
           </div>
@@ -131,13 +131,13 @@ export function TotalAssetsGauge({
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span
               className="h-2 w-2 rounded-full"
-              style={{ background: "oklch(var(--asset-cash))" }}
+              style={{ background: "var(--asset-cash)" }}
             />
             Cash
           </div>
           <div
             className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "oklch(var(--asset-cash))" }}
+            style={{ color: "var(--asset-cash)" }}
           >
             <CountUp value={usdPct} decimals={2} suffix="%" />
           </div>
@@ -146,13 +146,13 @@ export function TotalAssetsGauge({
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span
               className="h-2 w-2 rounded-full"
-              style={{ background: "oklch(var(--asset-earnings))" }}
+              style={{ background: "var(--asset-earnings)" }}
             />
             Earnings
           </div>
           <div
             className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "oklch(var(--asset-earnings))" }}
+            style={{ color: "var(--asset-earnings)" }}
           >
             <CountUp value={rewardsPct} decimals={2} suffix="%" />
           </div>
