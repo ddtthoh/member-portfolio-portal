@@ -78,7 +78,7 @@ function TransferUsdPage() {
         <div>
           <Button
             type="submit"
-            className="bg-gradient-to-r from-gold to-gold/80 text-background font-semibold uppercase tracking-wider hover:from-gold/90 hover:to-gold/70"
+            className="bg-gold text-background font-semibold uppercase tracking-wider hover:bg-gold/90"
           >
             Submit
           </Button>
