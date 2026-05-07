@@ -76,7 +76,10 @@ function TransferUsdPage() {
         </Field>
 
         <div>
-          <Button type="submit" variant="gold">
+          <Button
+            type="submit"
+            className="bg-gradient-to-r from-gold to-gold/80 text-background font-semibold uppercase tracking-wider hover:from-gold/90 hover:to-gold/70"
+          >
             Submit
           </Button>
         </div>
