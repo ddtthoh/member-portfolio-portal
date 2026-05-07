@@ -70,15 +70,10 @@ function DepositPage() {
         </div>
 
         <div className="mt-8 space-y-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Network</div>
-              <div className="mt-1.5 text-xl font-semibold tracking-tight text-foreground">{settings?.network ?? "—"}</div>
-              <div className="text-xs text-muted-foreground">{settings?.network_label ?? ""}</div>
-            </div>
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border/60 bg-card/60 text-muted-foreground">
-              <ArrowLeftRight className="h-4 w-4" />
-            </div>
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Network</div>
+            <div className="mt-1.5 text-xl font-semibold tracking-tight text-foreground">{settings?.network ?? "—"}</div>
+            <div className="text-xs text-muted-foreground">{settings?.network_label ?? ""}</div>
           </div>
 
           <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
