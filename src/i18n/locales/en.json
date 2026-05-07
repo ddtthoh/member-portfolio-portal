@@ -18,7 +18,12 @@
     "network": "Network",
     "qna": "Q&A",
     "support": "Support",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "sections": {
+      "overview": "Overview",
+      "operations": "Operations",
+      "support": "Account & Support"
+    }
   },
   "account": {
     "label": "Account",
