@@ -111,52 +111,35 @@ export function TotalAssetsGauge({
           </div>
         </div>
       </div>
-      <div className="mt-4 grid w-full grid-cols-3 gap-3">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ background: "var(--asset-participation)" }}
-            />
-            Participation
+      <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
+        {[
+          { label: "Participation", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
+          { label: "Cash", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
+          { label: "Earnings", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
+        ].map((row) => (
+          <div key={row.label} className="flex items-center justify-between py-2.5">
+            <div className="flex min-w-0 items-center gap-2.5">
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ background: row.color, boxShadow: `0 0 8px ${row.color}` }}
+              />
+              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                {row.label}
+              </span>
+            </div>
+            <div className="flex items-baseline gap-3">
+              <span
+                className="text-sm font-light tabular-nums tracking-[-0.02em]"
+                style={{ color: row.color }}
+              >
+                <CountUp value={row.amount} prefix="$" decimals={2} />
+              </span>
+              <span className="w-14 text-right text-[10px] tabular-nums text-muted-foreground/70">
+                <CountUp value={row.pct} decimals={2} suffix="%" />
+              </span>
+            </div>
           </div>
-          <div
-            className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "var(--asset-participation)" }}
-          >
-            <CountUp value={stakingPct} decimals={2} suffix="%" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ background: "var(--asset-cash)" }}
-            />
-            Cash
-          </div>
-          <div
-            className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "var(--asset-cash)" }}
-          >
-            <CountUp value={usdPct} decimals={2} suffix="%" />
-          </div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ background: "var(--asset-earnings)" }}
-            />
-            Earnings
-          </div>
-          <div
-            className="font-light tabular-nums tracking-[-0.02em]"
-            style={{ color: "var(--asset-earnings)" }}
-          >
-            <CountUp value={rewardsPct} decimals={2} suffix="%" />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
