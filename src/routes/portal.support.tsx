@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
-import { ChevronUp, ChevronDown, Plus, Eye, Calendar as CalendarIcon } from "lucide-react";
+import { ChevronUp, ChevronDown, Plus, Eye, Calendar as CalendarIcon, Paperclip, X as XIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
@@ -39,10 +39,11 @@ function SupportPage() {
   // form
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [category, setCategory] = useState("General");
+  const [category, setCategory] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [openNew, setOpenNew] = useState(false);
   const [viewing, setViewing] = useState<Ticket | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   // filters
   const [filterOpen, setFilterOpen] = useState(true);
@@ -74,7 +75,7 @@ function SupportPage() {
       .insert({ user_id: user.id, subject: parsed.data.subject, message: `[${parsed.data.category}] ${parsed.data.message}` });
     setSubmitting(false);
     if (error) return toast.error(error.message);
-    setSubject(""); setMessage(""); setCategory("General");
+    setSubject(""); setMessage(""); setCategory(""); setFiles([]);
     setOpenNew(false);
     toast.success("Support ticket created");
     load();
@@ -207,38 +208,110 @@ function SupportPage() {
         <div className="flex items-center justify-between gap-4 px-6 py-5">
           <h2 className="text-base font-semibold tracking-tight">Support Tickets List</h2>
 
-          <Dialog open={openNew} onOpenChange={setOpenNew}>
+          <Dialog open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setFiles([]); }}>
             <DialogTrigger asChild>
               <Button className="h-10 rounded-md bg-gradient-to-b from-gold to-gold/80 px-4 font-semibold uppercase tracking-wider text-gold-foreground shadow-sm hover:from-gold hover:to-gold">
                 <Plus className="mr-1 h-4 w-4" /> New Support Ticket
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
-              <DialogHeader>
-                <DialogTitle>New Support Ticket</DialogTitle>
-                <DialogDescription>Open a private ticket — our concierge team responds promptly.</DialogDescription>
+            <DialogContent className="sm:max-w-3xl p-0 overflow-hidden">
+              <DialogHeader className="px-8 pt-7 pb-5 border-b border-border/60">
+                <DialogTitle className="text-xl font-semibold tracking-tight">New Support Ticket</DialogTitle>
               </DialogHeader>
-              <form onSubmit={submit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Category</Label>
-                  <Select value={category} onValueChange={setCategory}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
+
+              <form onSubmit={submit} className="px-8 py-7">
+                <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">
+                  <div className="space-y-2.5">
+                    <Label className="text-sm font-semibold">
+                      Category <span className="text-destructive">*</span>
+                    </Label>
+                    <Select value={category} onValueChange={setCategory}>
+                      <SelectTrigger className="h-11"><SelectValue placeholder="--" /></SelectTrigger>
+                      <SelectContent>
+                        {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    <Label htmlFor="subject" className="text-sm font-semibold">
+                      Subject <span className="text-destructive">*</span>
+                    </Label>
+                    <Input id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={120} required className="h-11" />
+                  </div>
+
+                  <div className="space-y-2.5">
+                    <Label htmlFor="message" className="text-sm font-semibold">
+                      Message <span className="text-destructive">*</span>
+                    </Label>
+                    <Textarea id="message" rows={7} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={2000} required className="resize-y" />
+                  </div>
+
+                  <div className="space-y-2.5">
+                    <Label className="text-sm font-semibold">Attachments</Label>
+                    <div className="flex items-stretch overflow-hidden rounded-md border border-input">
+                      <label
+                        htmlFor="attach-input"
+                        className="flex cursor-pointer items-center gap-2 border-r border-input bg-muted/40 px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
+                      >
+                        <Paperclip className="h-4 w-4" />
+                        Choose File
+                      </label>
+                      <input
+                        id="attach-input"
+                        type="file"
+                        multiple
+                        accept="image/jpeg,image/png,image/gif"
+                        className="hidden"
+                        onChange={(e) => {
+                          const list = Array.from(e.target.files ?? []).filter((f) => f.size <= 2 * 1024 * 1024);
+                          if (list.length !== (e.target.files?.length ?? 0)) toast.error("Some files exceeded 2MB and were skipped.");
+                          setFiles((prev) => [...prev, ...list]);
+                          e.target.value = "";
+                        }}
+                      />
+                      <div className="flex-1 truncate px-4 py-2.5 text-sm text-muted-foreground">
+                        {files.length === 0 ? "No File Chosen" : `${files.length} file${files.length > 1 ? "s" : ""} selected`}
+                      </div>
+                    </div>
+                    {files.length > 0 && (
+                      <ul className="space-y-1.5 pt-1">
+                        {files.map((f, i) => (
+                          <li key={i} className="flex items-center justify-between rounded-md bg-muted/30 px-3 py-1.5 text-xs">
+                            <span className="truncate">{f.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))}
+                              className="ml-2 text-muted-foreground hover:text-destructive"
+                              aria-label="Remove file"
+                            >
+                              <XIcon className="h-3.5 w-3.5" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <p className="text-xs leading-relaxed text-muted-foreground">
+                      2mb File Limit, Jpg/png/gif Types, More Than 1 File Can Be Uploaded
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={120} required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" rows={5} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={2000} required />
-                </div>
-                <DialogFooter>
-                  <Button type="submit" disabled={submitting} className="rounded-md bg-gold text-gold-foreground hover:bg-gold/90">
-                    {submitting ? "Submitting…" : "Submit"}
+
+                <DialogFooter className="mt-8 gap-3 sm:gap-3">
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="h-10 rounded-md bg-gradient-to-b from-gold to-gold/80 px-7 font-semibold uppercase tracking-wider text-gold-foreground shadow-sm hover:from-gold hover:to-gold"
+                  >
+                    {submitting ? "Submitting…" : "Proceed"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => { setOpenNew(false); setFiles([]); }}
+                    className="h-10 rounded-md bg-foreground px-7 font-semibold uppercase tracking-wider text-background hover:bg-foreground/90"
+                  >
+                    Cancel
                   </Button>
                 </DialogFooter>
               </form>
