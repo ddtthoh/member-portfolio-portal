@@ -79,7 +79,15 @@ const sections: NavSection[] = [
     id: "support",
     labelKey: "nav.sections.support",
     items: [
-      { to: "/portal/qna", labelKey: "nav.qna", icon: MessageCircleQuestion },
+      {
+        labelKey: "nav.qna",
+        icon: MessageCircleQuestion,
+        basePath: "/portal/qna",
+        children: [
+          { to: "/portal/qna/company", labelKey: "nav.qnaCompany", icon: BookOpen },
+          { to: "/portal/qna/marketing", labelKey: "nav.qnaMarketing", icon: FileBarChart },
+        ],
+      },
       { to: "/portal/support", labelKey: "nav.support", icon: LifeBuoy },
       {
         labelKey: "account.label",

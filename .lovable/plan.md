@@ -1,20 +1,36 @@
-## Root cause
+## Goal
 
-`src/routes/portal.reports.tsx` is the **layout/parent route** for all `/portal/reports/*` children (staking, leader-rewards, par-rank-rewards, referral-rewards, team-rewards). Its `beforeLoad` unconditionally throws `redirect({ to: "/portal/reports/staking" })`.
+Convert the **Q&A** entry in the left sidebar from a single link into an expandable group (like Reports / Statement) that shows two sub-items:
+- Company → `/portal/qna/company`
+- Marketing plan → `/portal/qna/marketing`
 
-Because TanStack Router runs the parent's `beforeLoad` on **every** child match, visiting `/portal/reports/staking` triggers the parent → redirect → re-match parent → redirect → infinite loop. The browser eventually shows the "Page unresponsive — wait / exit" dialog. This is why staking (and any other reports child) cannot load.
+## Change
 
-## Fix
+In `src/components/portal-shell.tsx`, inside the `support` section's items, replace the current Q&A leaf:
 
-The redirect logic belongs on the bare `/portal/reports` URL only, not on the parent layout. Two clean options; I'll use Option A (smallest change):
+```tsx
+{ to: "/portal/qna", labelKey: "nav.qna", icon: MessageCircleQuestion },
+```
 
-**Option A — make it an index route**
-1. Rename `src/routes/portal.reports.tsx` → `src/routes/portal.reports.index.tsx`
-2. Change the route path from `/portal/reports` to `/portal/reports/` (index). The `beforeLoad` redirect then only fires when the user hits `/portal/reports` exactly, not its children.
+with a `NavBranch` so it renders through the existing `NavGroup` (chevron + animated expand) used by Reports and Statement:
 
-After the rename, the children (`portal.reports.staking.tsx`, etc.) become top-level flat routes under `/portal/reports/*` with no parent layout — which is what the current code already assumes (none of them rely on an `<Outlet />` from the parent).
+```tsx
+{
+  labelKey: "nav.qna",
+  icon: MessageCircleQuestion,
+  basePath: "/portal/qna",
+  children: [
+    { to: "/portal/qna/company", labelKey: "nav.qnaCompany", icon: BookOpen },
+    { to: "/portal/qna/marketing", labelKey: "nav.qnaMarketing", icon: FileBarChart },
+  ],
+},
+```
 
-## Verification
-- Hard-refresh `/portal/reports/staking` → renders `ReportPlaceholder` cleanly, no hang.
-- Visit `/portal/reports` directly → still redirects to `/portal/reports/staking`.
-- Other report children (`/portal/reports/leader-rewards`, etc.) load normally.
+Add the two label strings to `src/i18n/locales/en.json` (keys `nav.qnaCompany` = "Company", `nav.qnaMarketing` = "Marketing plan"). Other locales fall back to English keys, so no other locale files need to change.
+
+## Behavior
+
+- Clicking Q&A in the sidebar expands/collapses just like Reports.
+- Auto-expanded when on any `/portal/qna/*` route.
+- Sub-items navigate to the existing tabs we built last turn (no route changes needed).
+- The horizontal Company / Marketing plan tabs at the top of the page stay as-is so users can switch from either place.
