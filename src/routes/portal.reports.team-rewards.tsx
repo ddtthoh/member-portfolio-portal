@@ -108,9 +108,9 @@ function TeamRewardsPage() {
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">Member ID</th>
                 <th className="px-3 py-3 font-semibold">Level</th>
-                <th className="px-3 py-3 font-semibold">division roi</th>
+                <th className="px-3 py-3 font-semibold">​division roi</th>
                 <th className="px-3 py-3 font-semibold">Percentage</th>
-                <th className="px-3 py-3 font-semibold">division roi</th>
+                <th className="px-3 py-3 font-semibold">​division roi</th>
               </tr>
             </thead>
             <tbody>
