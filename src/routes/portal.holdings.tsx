@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
 import { MetricValue } from "@/components/metric-value";
 import { useAuth } from "@/hooks/use-auth";
@@ -10,6 +11,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { TotalAssetsGauge } from "@/components/total-assets-gauge";
+import { useWallet } from "@/hooks/use-wallet";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -30,6 +33,7 @@ function HoldingsPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
+  const { wallet } = useWallet();
   const [showAmount, setShowAmount] = useState(true);
   useEffect(() => {
     if (!user) return;
@@ -82,6 +86,16 @@ function HoldingsPage() {
           </div>
         </SpotlightCard>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
+          <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
+        </SpotlightCard>
+      </motion.div>
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
