@@ -13,35 +13,38 @@ export const Route = createFileRoute("/portal/deposit")({
 
 function DepositPage() {
   const { t } = useTranslation();
-  const [reminderOpen, setReminderOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [reminderOpen, setReminderOpen] = useState(true);
   useEffect(() => {
-    setReminderOpen(true);
+    setMounted(true);
   }, []);
   return (
     <div>
-      <Dialog open={reminderOpen} onOpenChange={setReminderOpen}>
-        <DialogContent className="liquid-glass border border-gold/40 sm:max-w-md">
-          <DialogHeader className="items-center text-center">
-            <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-gold/10">
-              <AlertTriangle className="h-6 w-6 text-gold" />
-            </div>
-            <DialogTitle className="text-center text-2xl font-light tracking-[-0.02em] text-gold">
-              Reminder
-            </DialogTitle>
-            <DialogDescription className="pt-3 text-center text-sm leading-relaxed text-foreground/85">
-              Please use the <span className="font-medium text-gold">BEP20</span> deposit address on this page when performing any deposit transfer. If you do not, the deposit transfer will not be valid.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="sm:justify-center">
-            <Button
-              onClick={() => setReminderOpen(false)}
-              className="min-w-[120px] bg-gradient-to-b from-gold to-gold/80 text-background hover:from-gold/90 hover:to-gold/70"
-            >
-              OK
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {mounted && (
+        <Dialog open={reminderOpen} onOpenChange={setReminderOpen}>
+          <DialogContent className="z-[100] border border-gold/40 bg-background/95 backdrop-blur-xl sm:max-w-md">
+            <DialogHeader className="items-center text-center">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-gold/10">
+                <AlertTriangle className="h-6 w-6 text-gold" />
+              </div>
+              <DialogTitle className="text-center text-2xl font-light tracking-[-0.02em] text-gold">
+                Reminder
+              </DialogTitle>
+              <DialogDescription className="pt-3 text-center text-sm leading-relaxed text-foreground/85">
+                Please use the <span className="font-medium text-gold">BEP20</span> deposit address on this page when performing any deposit transfer. If you do not, the deposit transfer will not be valid.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="sm:justify-center">
+              <Button
+                onClick={() => setReminderOpen(false)}
+                className="min-w-[120px] bg-gradient-to-b from-gold to-gold/80 text-background hover:from-gold/90 hover:to-gold/70"
+              >
+                OK
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <PageHeader eyebrow={t("pages.deposit.eyebrow")} title={t("pages.deposit.title")} description={t("pages.deposit.description")} />
 
