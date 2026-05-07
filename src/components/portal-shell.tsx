@@ -269,6 +269,23 @@ export function PortalShell() {
               <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
                 <Menu className="h-5 w-5" />
               </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                    onClick={() => setCollapsed((v) => !v)}
+                    className="hidden md:inline-flex rounded-full border border-gold/60 text-gold/90 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] transition-all"
+                  >
+                    {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  {collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                  <span className="ml-1.5 rounded border border-border/60 bg-muted/40 px-1 py-0.5 text-[9px] opacity-80">⌘B</span>
+                </TooltipContent>
+              </Tooltip>
               <Link to="/portal" className="flex items-center gap-2">
                 <img src={participantPortalLogo} alt={t("brand.portal")} className="h-12 w-12 object-contain" />
               </Link>
