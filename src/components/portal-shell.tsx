@@ -101,7 +101,7 @@ export function PortalShell() {
         }`}
       >
         <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-5">
-          <Logo />
+          <span className="truncate text-sm font-medium text-foreground">{user.email}</span>
           <button onClick={() => setOpen(false)} className="lg:hidden">
             <X className="h-5 w-5" />
           </button>
