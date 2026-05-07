@@ -20,8 +20,10 @@ import { Route as PortalSupportRouteImport } from './routes/portal.support'
 import { Route as PortalStakingPlansRouteImport } from './routes/portal.staking-plans'
 import { Route as PortalStakingRouteImport } from './routes/portal.staking'
 import { Route as PortalReferralRouteImport } from './routes/portal.referral'
+import { Route as PortalQrCodeRouteImport } from './routes/portal.qr-code'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
+import { Route as PortalProfileRouteImport } from './routes/portal.profile'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
@@ -97,6 +99,11 @@ const PortalReferralRoute = PortalReferralRouteImport.update({
   path: '/referral',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalQrCodeRoute = PortalQrCodeRouteImport.update({
+  id: '/qr-code',
+  path: '/qr-code',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalQnaRoute = PortalQnaRouteImport.update({
   id: '/qna',
   path: '/qna',
@@ -105,6 +112,11 @@ const PortalQnaRoute = PortalQnaRouteImport.update({
 const PortalPromotionRoute = PortalPromotionRouteImport.update({
   id: '/promotion',
   path: '/promotion',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalProfileRoute = PortalProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalNetworkRoute = PortalNetworkRouteImport.update({
@@ -219,8 +231,10 @@ export interface FileRoutesByFullPath {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRouteWithChildren
+  '/portal/qr-code': typeof PortalQrCodeRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -252,7 +266,9 @@ export interface FileRoutesByTo {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRoute
+  '/portal/qr-code': typeof PortalQrCodeRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -286,8 +302,10 @@ export interface FileRoutesById {
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRoute
   '/portal/qna': typeof PortalQnaRouteWithChildren
+  '/portal/qr-code': typeof PortalQrCodeRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
   '/portal/staking-plans': typeof PortalStakingPlansRoute
@@ -322,8 +340,10 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/profile'
     | '/portal/promotion'
     | '/portal/qna'
+    | '/portal/qr-code'
     | '/portal/referral'
     | '/portal/staking'
     | '/portal/staking-plans'
@@ -355,7 +375,9 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/profile'
     | '/portal/promotion'
+    | '/portal/qr-code'
     | '/portal/referral'
     | '/portal/staking'
     | '/portal/staking-plans'
@@ -388,8 +410,10 @@ export interface FileRouteTypes {
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/network'
+    | '/portal/profile'
     | '/portal/promotion'
     | '/portal/qna'
+    | '/portal/qr-code'
     | '/portal/referral'
     | '/portal/staking'
     | '/portal/staking-plans'
@@ -499,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalReferralRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/qr-code': {
+      id: '/portal/qr-code'
+      path: '/qr-code'
+      fullPath: '/portal/qr-code'
+      preLoaderRoute: typeof PortalQrCodeRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/qna': {
       id: '/portal/qna'
       path: '/qna'
@@ -511,6 +542,13 @@ declare module '@tanstack/react-router' {
       path: '/promotion'
       fullPath: '/portal/promotion'
       preLoaderRoute: typeof PortalPromotionRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/profile': {
+      id: '/portal/profile'
+      path: '/profile'
+      fullPath: '/portal/profile'
+      preLoaderRoute: typeof PortalProfileRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/network': {
@@ -671,8 +709,10 @@ interface PortalRouteChildren {
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
+  PortalProfileRoute: typeof PortalProfileRoute
   PortalPromotionRoute: typeof PortalPromotionRoute
   PortalQnaRoute: typeof PortalQnaRouteWithChildren
+  PortalQrCodeRoute: typeof PortalQrCodeRoute
   PortalReferralRoute: typeof PortalReferralRoute
   PortalStakingRoute: typeof PortalStakingRoute
   PortalStakingPlansRoute: typeof PortalStakingPlansRoute
@@ -700,8 +740,10 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalNetworkRoute: PortalNetworkRoute,
+  PortalProfileRoute: PortalProfileRoute,
   PortalPromotionRoute: PortalPromotionRoute,
   PortalQnaRoute: PortalQnaRouteWithChildren,
+  PortalQrCodeRoute: PortalQrCodeRoute,
   PortalReferralRoute: PortalReferralRoute,
   PortalStakingRoute: PortalStakingRoute,
   PortalStakingPlansRoute: PortalStakingPlansRoute,
