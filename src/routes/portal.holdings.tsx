@@ -53,28 +53,28 @@ function HoldingsPage() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">
           <div className="flex items-center justify-between">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
               Total Participation Amount
             </div>
             <button
               type="button"
               onClick={() => setShowAmount((s) => !s)}
               aria-label={showAmount ? "Hide amount" : "Show amount"}
-              className="text-muted-foreground transition-colors hover:text-gold"
+              className="text-gold transition-colors hover:text-gold/80"
             >
               {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
             {showAmount ? "$50,000" : "******"}
           </div>
         </div>
         <div className="liquid-glass rounded-xl p-6">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Participation Days
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums">
-            54 <span className="text-base font-normal text-muted-foreground">days</span>
+          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
+            54 <span className="text-base font-normal text-gold/80">days</span>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ function HoldingsPage() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[920px] text-sm">
             <thead>
-              <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-6 py-3 text-left font-medium">Date</th>
                 <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
                 <th className="px-6 py-3 text-left font-medium">Participation Date</th>
@@ -101,7 +101,7 @@ function HoldingsPage() {
             <tbody>
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-16 text-center text-sm text-muted-foreground">
+                  <td colSpan={7} className="px-6 py-16 text-center text-sm text-gold">
                     No staking plan yet.
                   </td>
                 </tr>
@@ -110,12 +110,12 @@ function HoldingsPage() {
                 const value = Number(h.quantity) * Number(h.current_price);
                 return (
                   <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
-                    <td className="px-6 py-4 text-left text-sm font-medium">{h.asset_name}</td>
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-muted-foreground">—</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
+                    <td className="px-6 py-4 text-left text-sm font-medium text-gold">{h.asset_name}</td>
+                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         Active
