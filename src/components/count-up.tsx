@@ -24,17 +24,27 @@ export function CountUp({
   useEffect(() => {
     if (!inView || !ref.current) return;
     const node = ref.current;
+    const fmt = (v: number) =>
+      prefix +
+      v.toLocaleString("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }) +
+      suffix;
+
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      node.textContent = fmt(value);
+      return;
+    }
+
     const controls = animate(0, value, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate(v) {
-        node.textContent =
-          prefix +
-          v.toLocaleString("en-US", {
-            minimumFractionDigits: decimals,
-            maximumFractionDigits: decimals,
-          }) +
-          suffix;
+        node.textContent = fmt(v);
       },
     });
     return () => controls.stop();

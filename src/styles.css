@@ -403,3 +403,48 @@
     .page-enter { animation: none !important; }
   }
 }
+
+/* ---------------------------------------------------------------
+   Touch / mobile interaction layer
+   --------------------------------------------------------------- */
+@layer utilities {
+  /* Touch ripple from TapGlow */
+  @keyframes tap-glow-pop {
+    0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.85; }
+    70%  { transform: translate(-50%, -50%) scale(1.1); opacity: 0.35; }
+    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+  }
+  .tap-glow-ring {
+    position: fixed;
+    width: 140px;
+    height: 140px;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in oklab, var(--gold) 38%, transparent) 0%, color-mix(in oklab, var(--gold) 12%, transparent) 45%, transparent 70%);
+    mix-blend-mode: screen;
+    animation: tap-glow-pop 520ms cubic-bezier(.2,.8,.2,1) forwards;
+    z-index: 9998;
+  }
+
+  /* No 300ms tap delay anywhere interactive */
+  button, a, [role="button"] { touch-action: manipulation; }
+
+  /* Safe-area helpers */
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+
+  /* Mobile: stronger active feedback for premium feel */
+  @media (pointer: coarse) {
+    .liquid-glass:active {
+      transform: translateY(-1px) scale(0.997);
+      box-shadow:
+        inset 0 1px 0 color-mix(in oklab, white 22%, transparent),
+        inset 0 0 0 1px color-mix(in oklab, var(--gold) 22%, transparent),
+        0 12px 32px -14px color-mix(in oklab, var(--gold) 55%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tap-glow-ring { animation: none; opacity: 0; }
+  }
+}

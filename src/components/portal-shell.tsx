@@ -20,6 +20,9 @@ import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
 import { CursorGlow } from "@/components/cursor-glow";
 import { CommandPalette } from "@/components/command-palette";
+import { TapGlow } from "@/components/tap-glow";
+import { MobileFab } from "@/components/mobile-fab";
+import { BottomTabBar } from "@/components/bottom-tab-bar";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
 
@@ -158,7 +161,10 @@ export function PortalShell() {
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <CursorGlow />
+        <TapGlow />
         <CommandPalette />
+        <MobileFab />
+        <BottomTabBar onMore={() => setOpen(true)} />
         {/* Backdrop layers */}
         <div
           aria-hidden
@@ -289,7 +295,10 @@ export function PortalShell() {
 
         {/* Main */}
         <div className="flex min-w-0 flex-1 flex-col opacity-95">
-          <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/60 px-4 backdrop-blur lg:px-8">
+          <header
+            className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/60 px-4 backdrop-blur lg:px-8"
+            style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+          >
             <div className="flex items-center gap-3">
               <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
                 <Menu className="h-5 w-5" />
@@ -398,7 +407,9 @@ export function PortalShell() {
             </div>
           </header>
           <TickerTape />
-          <main className="min-w-0 flex-1 px-4 pb-8 pt-3 lg:px-10 opacity-100">
+          <main
+            className="min-w-0 flex-1 px-4 pb-[calc(96px+env(safe-area-inset-bottom,0px))] pt-3 lg:px-10 lg:pb-8"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
