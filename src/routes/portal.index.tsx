@@ -98,7 +98,7 @@ function Overview() {
             to="/portal/asset-analysis"
             className="liquid-glass group flex items-center justify-between rounded-xl px-4 py-3 transition-colors hover:bg-accent/40"
           >
-            <span className="text-sm font-medium text-foreground">{t("overview.assetAnalysis", "Asset Analysis")}</span>
+            <span className="text-sm text-muted-foreground">{t("overview.assetAnalysis", "Asset Analysis")}</span>
             <ChevronRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
