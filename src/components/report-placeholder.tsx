@@ -99,7 +99,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
             <thead>
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">amount</th>
+                <th className="px-3 py-3 font-semibold">​division roi</th>
                 <th className="px-3 py-3 font-semibold">Referral rates</th>
                 <th className="px-3 py-3 font-semibold">member id</th>
               </tr>
