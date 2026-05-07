@@ -89,9 +89,9 @@ export function PortalShell() {
       {/* Backdrop — full strength near top, softens past the hero / Diamond card, lingers faintly to the bottom */}
       <div
         aria-hidden
-        className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-full [mask-image:linear-gradient(to_bottom,black_0%,black_60%,rgba(0,0,0,0.35)_85%,rgba(0,0,0,0.18)_100%)]"
+        className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-full opacity-60 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.65)_40%,rgba(0,0,0,0.55)_70%,rgba(0,0,0,0.3)_88%,rgba(0,0,0,0.15)_100%)]"
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-full [mask-image:linear-gradient(to_bottom,black_0%,black_55%,rgba(0,0,0,0.25)_80%,rgba(0,0,0,0.12)_100%)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-full opacity-70 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.22)_85%,rgba(0,0,0,0.1)_100%)]">
         <ThreeBackground className="absolute inset-0" fade={false} />
       </div>
       {/* Top hairline */}
