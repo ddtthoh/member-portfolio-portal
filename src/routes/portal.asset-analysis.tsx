@@ -45,7 +45,7 @@ function AssetAnalysisPage() {
         transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       >
         <SpotlightCard className="liquid-glass rounded-xl p-6">
-          <PLCalendar />
+          <PLCalendar participation={wallet.staking} />
         </SpotlightCard>
       </motion.div>
     </div>
