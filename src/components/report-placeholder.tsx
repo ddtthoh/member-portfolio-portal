@@ -100,7 +100,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">Member ID</th>
-                <th className="px-3 py-3 font-semibold">Percentage</th>
+                <th className="px-3 py-3 font-semibold">Referrral rate</th>
                 <th className="px-3 py-3 font-semibold">Computed Amount</th>
               </tr>
             </thead>
