@@ -75,7 +75,7 @@ function SupportPage() {
       .insert({ user_id: user.id, subject: parsed.data.subject, message: `[${parsed.data.category}] ${parsed.data.message}` });
     setSubmitting(false);
     if (error) return toast.error(error.message);
-    setSubject(""); setMessage(""); setCategory("General");
+    setSubject(""); setMessage(""); setCategory(""); setFiles([]);
     setOpenNew(false);
     toast.success("Support ticket created");
     load();
