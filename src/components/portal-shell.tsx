@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
-  BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
+  BookOpen, Users, MessageCircleQuestion, GraduationCap, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
   ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send, Languages, UserCircle2, KeyRound, ShieldCheck, QrCode,
   PanelLeftClose, PanelLeft,
 } from "lucide-react";
@@ -81,7 +81,7 @@ const sections: NavSection[] = [
     items: [
       {
         labelKey: "nav.qna",
-        icon: MessageCircleQuestion,
+        icon: GraduationCap,
         basePath: "/portal/qna",
         children: [
           { to: "/portal/qna/company", labelKey: "nav.qnaCompany", icon: BookOpen },
