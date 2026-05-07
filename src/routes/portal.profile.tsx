@@ -34,27 +34,16 @@ export const Route = createFileRoute("/portal/profile")({
   component: ProfilePage,
 });
 
+// Aligned with app language options
 const COUNTRIES = [
-  "Singapore", "Malaysia", "Hong Kong", "China", "Taiwan",
-  "Indonesia", "Thailand", "Vietnam", "Philippines", "Japan",
-  "South Korea", "United States", "United Kingdom", "Australia", "Canada",
-];
-
-const PREFIXES = [
-  { code: "+65", label: "+65 SG" },
-  { code: "+60", label: "+60 MY" },
-  { code: "+852", label: "+852 HK" },
-  { code: "+86", label: "+86 CN" },
-  { code: "+886", label: "+886 TW" },
-  { code: "+62", label: "+62 ID" },
-  { code: "+66", label: "+66 TH" },
-  { code: "+84", label: "+84 VN" },
-  { code: "+63", label: "+63 PH" },
-  { code: "+81", label: "+81 JP" },
-  { code: "+82", label: "+82 KR" },
-  { code: "+1", label: "+1 US/CA" },
-  { code: "+44", label: "+44 UK" },
-  { code: "+61", label: "+61 AU" },
+  { name: "United States", flag: "🇺🇸", dial: "+1" },
+  { name: "China", flag: "🇨🇳", dial: "+86" },
+  { name: "Indonesia", flag: "🇮🇩", dial: "+62" },
+  { name: "Iran", flag: "🇮🇷", dial: "+98" },
+  { name: "Saudi Arabia", flag: "🇸🇦", dial: "+966" },
+  { name: "Spain", flag: "🇪🇸", dial: "+34" },
+  { name: "Germany", flag: "🇩🇪", dial: "+49" },
+  { name: "Turkey", flag: "🇹🇷", dial: "+90" },
 ];
 
 function ProfilePage() {
