@@ -4,8 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
-  ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send,
+  ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send, Languages, UserCircle2, KeyRound, ShieldCheck, QrCode,
 } from "lucide-react";
+import {
+  DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
