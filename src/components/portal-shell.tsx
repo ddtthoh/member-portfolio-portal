@@ -16,47 +16,50 @@ import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
+import { useTranslation } from "react-i18next";
+import { SUPPORTED_LANGUAGES } from "@/i18n";
 
-type NavChild = { to: string; label: string; icon: typeof LayoutDashboard };
+type NavChild = { to: string; labelKey: string; icon: typeof LayoutDashboard };
 type NavItem =
-  | { to: string; label: string; icon: typeof LayoutDashboard; children?: undefined }
-  | { label: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
+  | { to: string; labelKey: string; icon: typeof LayoutDashboard; children?: undefined }
+  | { labelKey: string; icon: typeof LayoutDashboard; basePath: string; children: NavChild[] };
 
 const nav: NavItem[] = [
-  { to: "/portal", label: "Overview", icon: LayoutDashboard },
-  { to: "/portal/staking-plans", label: "Staking Plan", icon: Layers },
-  { to: "/portal/holdings", label: "Portfolio", icon: Wallet },
+  { to: "/portal", labelKey: "nav.overview", icon: LayoutDashboard },
+  { to: "/portal/staking-plans", labelKey: "nav.stakingPlan", icon: Layers },
+  { to: "/portal/holdings", labelKey: "nav.portfolio", icon: Wallet },
   {
-    label: "Statement",
+    labelKey: "nav.statement",
     icon: FileBarChart,
     basePath: "/portal/statement",
     children: [
-      { to: "/portal/statement/credit-conversion", label: "Credit Conversion Statement", icon: Repeat },
-      { to: "/portal/statement/usd", label: "USD Statement", icon: DollarSign },
-      { to: "/portal/statement/rewards", label: "Rewards Statement", icon: Gift },
+      { to: "/portal/statement/credit-conversion", labelKey: "nav.creditConversionStatement", icon: Repeat },
+      { to: "/portal/statement/usd", labelKey: "nav.usdStatement", icon: DollarSign },
+      { to: "/portal/statement/rewards", labelKey: "nav.rewardsStatement", icon: Gift },
     ],
   },
   {
-    label: "USD & Credits Transfer",
+    labelKey: "nav.usdCreditsTransfer",
     icon: ArrowRightLeft,
     basePath: "/portal/statement/",
     children: [
-      { to: "/portal/statement/convert-credits", label: "Convert Credits", icon: ArrowRightLeft },
-      { to: "/portal/statement/transfer-usd", label: "Transfer USD", icon: Send },
+      { to: "/portal/statement/convert-credits", labelKey: "nav.convertCredits", icon: ArrowRightLeft },
+      { to: "/portal/statement/transfer-usd", labelKey: "nav.transferUsd", icon: Send },
     ],
   },
-  { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight },
-  { to: "/portal/documents", label: "Documents", icon: FileText },
-  { to: "/portal/reports", label: "Reports", icon: BookOpen },
-  { to: "/portal/network", label: "Network", icon: Users },
-  { to: "/portal/qna", label: "Q&A", icon: MessageCircleQuestion },
-  { to: "/portal/support", label: "Support", icon: LifeBuoy },
+  { to: "/portal/transactions", labelKey: "nav.transactions", icon: ArrowLeftRight },
+  { to: "/portal/documents", labelKey: "nav.documents", icon: FileText },
+  { to: "/portal/reports", labelKey: "nav.reports", icon: BookOpen },
+  { to: "/portal/network", labelKey: "nav.network", icon: Users },
+  { to: "/portal/qna", labelKey: "nav.qna", icon: MessageCircleQuestion },
+  { to: "/portal/support", labelKey: "nav.support", icon: LifeBuoy },
 ];
 
 export function PortalShell() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -68,10 +71,12 @@ export function PortalShell() {
   if (loading || !user) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="text-sm text-muted-foreground">Loading your portal…</div>
+        <div className="text-sm text-muted-foreground">{t("common.loadingPortal")}</div>
       </div>
     );
   }
+
+  const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) ?? SUPPORTED_LANGUAGES[0];
 
   return (
     <div className="relative flex min-h-screen bg-transparent">
