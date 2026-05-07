@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      deposit_settings: {
+        Row: {
+          created_at: string
+          id: string
+          network: string
+          network_label: string
+          qr_url: string | null
+          updated_at: string
+          user_id: string
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          network?: string
+          network_label?: string
+          qr_url?: string | null
+          updated_at?: string
+          user_id: string
+          wallet_address?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          network?: string
+          network_label?: string
+          qr_url?: string | null
+          updated_at?: string
+          user_id?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           category: string
