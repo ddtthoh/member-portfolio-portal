@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDownToLine, Building2, Copy, Sparkles, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/deposit")({
   component: DepositPage,
@@ -14,7 +15,7 @@ function DepositPage() {
       <PageHeader eyebrow={t("pages.deposit.eyebrow")} title={t("pages.deposit.title")} description={t("pages.deposit.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Building2 className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Wire Instructions</span>
@@ -27,9 +28,9 @@ function DepositPage() {
             <Row label="Account" value="•••• 4821" />
             <Row label="Reference" value="Your account number" />
           </dl>
-        </div>
+        </SpotlightCard>
 
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <ArrowDownToLine className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Notes</span>
@@ -40,11 +41,11 @@ function DepositPage() {
             <li>• International wires may take 2–3 business days.</li>
             <li>• Contact your advisor for crypto on-ramp options.</li>
           </ul>
-        </div>
+        </SpotlightCard>
       </div>
 
       <div className="mt-6">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Gift className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Promotion</span>
@@ -57,7 +58,7 @@ function DepositPage() {
             <Row label="Promo Code" value="IVORY2026" />
             <Row label="Valid Until" value="Jun 30, 2026" />
           </dl>
-        </div>
+        </SpotlightCard>
 
         <div className="mt-3 flex items-start gap-2 px-1 text-xs text-muted-foreground">
           <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />

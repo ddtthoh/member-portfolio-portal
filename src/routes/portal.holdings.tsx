@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
+import { MetricValue } from "@/components/metric-value";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
@@ -8,6 +9,7 @@ import { PageHeader } from "@/components/page-header";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -49,7 +51,7 @@ function HoldingsPage() {
       <PageHeader eyebrow={t("pages.holdings.eyebrow")} title={t("pages.holdings.title")} description={t("pages.holdings.description")} />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
               Total Participation Amount
@@ -63,21 +65,25 @@ function HoldingsPage() {
               {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
-            {showAmount ? "$50,000" : "******"}
+          <div className="mt-2 text-3xl">
+            {showAmount ? (
+              <MetricValue value={50000} prefix="$" decimals={0} size="lg" />
+            ) : (
+              <span className="font-light tabular-nums tracking-[-0.04em] text-gold">******</span>
+            )}
           </div>
-        </div>
-        <div className="liquid-glass rounded-xl p-6">
+        </SpotlightCard>
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Participation Days
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
-            54 <span className="text-base font-normal text-gold/80">days</span>
+          <div className="mt-2">
+            <MetricValue value={54} decimals={0} size="lg" unit="days" />
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
-      <div className="liquid-glass overflow-hidden rounded-xl">
+      <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
             Staking Plans
@@ -108,12 +114,12 @@ function HoldingsPage() {
                 const value = Number(h.quantity) * Number(h.current_price);
                 return (
                   <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
+                    <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
                     <td className="px-6 py-4 text-left text-sm font-medium text-gold">{h.asset_name}</td>
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         Active
@@ -125,7 +131,7 @@ function HoldingsPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </SpotlightCard>
 
       <div className="flex justify-start">
         <Dialog>

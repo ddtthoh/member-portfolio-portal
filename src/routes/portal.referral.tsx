@@ -3,6 +3,7 @@ import { Users, Gift, Copy } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/referral")({
   component: ReferralPage,
@@ -19,7 +20,7 @@ function ReferralPage() {
       <PageHeader eyebrow={t("pages.referral.eyebrow")} title={t("pages.referral.title")} description={t("pages.referral.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Users className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Your Code</span>
@@ -31,9 +32,9 @@ function ReferralPage() {
             <Row label="Active Referrals" value="0" />
             <Row label="Lifetime Rebate" value="$0.00" />
           </dl>
-        </div>
+        </SpotlightCard>
 
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Gift className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Program Terms</span>
@@ -44,7 +45,7 @@ function ReferralPage() {
             <li>• Rebates settle quarterly to your portfolio cash balance.</li>
             <li>• Contact your advisor to upgrade to Platinum tier.</li>
           </ul>
-        </div>
+        </SpotlightCard>
       </div>
     </div>
   );

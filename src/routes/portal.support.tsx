@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/support")({
   component: SupportPage,
@@ -78,14 +79,14 @@ function SupportPage() {
             </p>
           )}
           {tickets.map((t) => (
-            <div key={t.id} className="liquid-glass rounded-xl p-4">
+            <SpotlightCard key={t.id} className="liquid-glass rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div className="font-medium">{t.subject}</div>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-gold">{t.status}</span>
               </div>
               <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{t.message}</p>
               <div className="mt-2 text-xs text-muted-foreground">{new Date(t.created_at).toLocaleString()}</div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/network")({
   component: NetworkPage,
@@ -27,14 +28,14 @@ function NetworkPage() {
     <div>
       <PageHeader eyebrow={t("pages.network.eyebrow")} title={t("pages.network.title")} description={t("pages.network.description")} />
       {items.length === 0 ? (
-        <div className="liquid-glass rounded-xl p-16 text-center">
+        <SpotlightCard className="liquid-glass rounded-xl p-16 text-center">
           <Users className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Your dedicated team will be listed here shortly.</p>
-        </div>
+        </SpotlightCard>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map((c) => (
-            <div key={c.id} className="liquid-glass rounded-xl p-6">
+            <SpotlightCard key={c.id} className="liquid-glass rounded-xl p-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-serif text-lg text-gold">
                   {c.name.charAt(0)}
@@ -56,7 +57,7 @@ function NetworkPage() {
                   </a>
                 )}
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       )}
