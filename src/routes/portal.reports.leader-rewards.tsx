@@ -71,7 +71,7 @@ function LeaderRewardsPage() {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  Member ID
+                  amount
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
@@ -107,7 +107,7 @@ function LeaderRewardsPage() {
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">Amount</th>
                 <th className="px-3 py-3 font-semibold">Percentage</th>
-                <th className="px-3 py-3 font-semibold">Contributed by Member ID</th>
+                <th className="px-3 py-3 font-semibold">Contributed by amount</th>
                 <th className="px-3 py-3 font-semibold">Total Subscription Count</th>
               </tr>
             </thead>
