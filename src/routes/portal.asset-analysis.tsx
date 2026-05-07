@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, animate, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { TrendingUp, PieChart, BarChart3, Activity } from "lucide-react";
+import { CountUp } from "@/components/count-up";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/asset-analysis")({
   head: () => ({
