@@ -89,7 +89,7 @@ export function TotalAssetsGauge({
             strokeDashoffset={-cOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-cash) 55%, transparent))" }}
           />
-          {/* Earnings */}
+          {/* Rewards asset */}
           <path
             d={arcPath}
             fill="none"
@@ -115,7 +115,7 @@ export function TotalAssetsGauge({
         {[
           { label: "Participation", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
           { label: "USD", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
-          { label: "Earnings", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
+          { label: "Rewards asset", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
         ].map((row) => (
           <div key={row.label} className="flex items-center justify-between py-2.5">
             <div className="flex min-w-0 items-center gap-2.5">
