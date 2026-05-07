@@ -61,7 +61,7 @@ export function SectionHeader({
       )}
     >
       <div>
-        <h3 className="font-serif text-base font-semibold text-gold md:text-lg">
+        <h3 className="font-serif text-base font-semibold text-gold text-gold-shine md:text-lg">
           {title}
         </h3>
         {subtitle && (
