@@ -58,7 +58,7 @@ function HoldingsPage() {
         <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-              Total Participation Amount
+              Total Staking Amount
             </div>
             <button
               type="button"
@@ -79,7 +79,7 @@ function HoldingsPage() {
         </SpotlightCard>
         <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-            Participation Days
+            Staking Days
           </div>
           <div className="mt-2">
             <MetricValue value={54} decimals={0} size="lg" unit="days" />
@@ -100,7 +100,7 @@ function HoldingsPage() {
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-            Participation Plans
+            Staking Plans
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -108,9 +108,9 @@ function HoldingsPage() {
             <thead>
               <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-6 py-3 text-left font-medium">Date</th>
-                <th className="px-6 py-3 text-left font-medium">Participation Plan</th>
-                <th className="px-6 py-3 text-left font-medium">Participation Date</th>
-                <th className="px-6 py-3 text-right font-medium">Participation Amount</th>
+                <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
+                <th className="px-6 py-3 text-left font-medium">Staking Date</th>
+                <th className="px-6 py-3 text-right font-medium">Staking Amount</th>
                 <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
                 <th className="px-6 py-3 text-right font-medium">Max Monthly Rate</th>
                 <th className="px-6 py-3 text-center font-medium">Status</th>
