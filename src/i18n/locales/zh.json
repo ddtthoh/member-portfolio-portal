@@ -45,6 +45,7 @@
   "overview": {
     "estTotalValue": "预估总价值 (美元)",
     "todaysPnl": "今日盈亏",
+    "totalPnl": "总盈亏",
     "participatedDay": "参与天数：",
     "stakingAmount": "质押金额：",
     "diamond": "钻石",

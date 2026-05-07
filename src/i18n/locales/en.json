@@ -45,6 +45,7 @@
   "overview": {
     "estTotalValue": "Est. Total Value (USD)",
     "todaysPnl": "Today's PNL",
+    "totalPnl": "Total PNL",
     "participatedDay": "Participated day :",
     "stakingAmount": "Staking amount :",
     "diamond": "Diamond",

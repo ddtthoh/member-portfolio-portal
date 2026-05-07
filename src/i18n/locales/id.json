@@ -45,6 +45,7 @@
   "overview": {
     "estTotalValue": "Estimasi Nilai Total (USD)",
     "todaysPnl": "PNL Hari Ini",
+    "totalPnl": "Total PNL",
     "participatedDay": "Hari berpartisipasi :",
     "stakingAmount": "Jumlah staking :",
     "diamond": "Diamond",
