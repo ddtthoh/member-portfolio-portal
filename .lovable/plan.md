@@ -1,25 +1,9 @@
 ## Goal
-Add USD amount alongside percentage in the gauge legend, with a more professional, institutional layout (vs the current bare 3-column percent grid).
+Remove the four stat cards (Total Assets, 30D Growth, Volatility, Allocations) from `/portal/asset-analysis`. Keep only the page header and the Total Assets gauge.
 
-## Edit `src/components/total-assets-gauge.tsx`
-Replace the current 3-column grid (lines ~114–160) with a vertical stacked-row list layout:
+## Edit `src/routes/portal.asset-analysis.tsx`
+1. Remove the `stats` array and `totalFormatted` variable.
+2. Remove the entire stats grid `<div className="mb-4 grid grid-cols-2 ...">...</div>` block.
+3. Remove unused imports: `TrendingUp, PieChart, BarChart3, Activity` from `lucide-react`.
 
-```
-─────────────────────────────────────────
- ●  PARTICIPATION         $50,000.00  75.49%
-─────────────────────────────────────────
- ●  CASH                  $12,340.00  18.63%
-─────────────────────────────────────────
- ●  EARNINGS              $ 3,897.00   5.89%
-─────────────────────────────────────────
-```
-
-Per row:
-- Left: small colored dot (with matching glow) + uppercase tracked label in muted small text
-- Right: USD amount (in segment's color, light weight, tabular-nums) + percent (smaller, muted, fixed width for alignment)
-- Dividers (top + between rows) using `border-border/40` for the financial-statement feel
-- Padding `py-2.5` per row, `mt-5` from the arc above
-
-Use a `[{label, amount, pct, color}]` array mapped to rows to keep code DRY. Both amount and percent animated via existing `CountUp`.
-
-This matches private-bank / Bloomberg-style account breakdowns: amount as the hero, percent as the supporting detail, lined up right-aligned for fast scanning.
+Result: page shows only the header + the 3-color half-donut gauge card.
