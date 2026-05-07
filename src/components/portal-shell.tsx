@@ -20,6 +20,9 @@ import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
 import { CursorGlow } from "@/components/cursor-glow";
 import { CommandPalette } from "@/components/command-palette";
+import { TapGlow } from "@/components/tap-glow";
+import { MobileFab } from "@/components/mobile-fab";
+import { BottomTabBar } from "@/components/bottom-tab-bar";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
 
@@ -158,7 +161,10 @@ export function PortalShell() {
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <CursorGlow />
+        <TapGlow />
         <CommandPalette />
+        <MobileFab />
+        <BottomTabBar onMore={() => setOpen(true)} />
         {/* Backdrop layers */}
         <div
           aria-hidden
@@ -398,7 +404,10 @@ export function PortalShell() {
             </div>
           </header>
           <TickerTape />
-          <main className="min-w-0 flex-1 px-4 pb-8 pt-3 lg:px-10 opacity-100">
+          <main
+            className="min-w-0 flex-1 px-4 pt-3 lg:px-10 opacity-100"
+            style={{ paddingBottom: "calc(96px + env(safe-area-inset-bottom, 0px))" }}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
