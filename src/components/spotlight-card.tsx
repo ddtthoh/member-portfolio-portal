@@ -7,7 +7,7 @@ type Props = {
   intensity?: number;
 };
 
-export function SpotlightCard({ children, className = "", intensity = 18 }: Props) {
+export function SpotlightCard({ children, className = "font-normal", intensity = 18 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
