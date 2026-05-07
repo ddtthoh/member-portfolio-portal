@@ -71,7 +71,7 @@ function StakingReportPage() {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  Transaction Number
+                  Member ID
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
@@ -104,7 +104,7 @@ function StakingReportPage() {
             <thead>
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
-                <th className="px-3 py-3 font-semibold">transaction id</th>
+                <th className="px-3 py-3 font-semibold">Member ID</th>
                 <th className="px-3 py-3 font-semibold">Amount</th>
                 <th className="px-3 py-3 font-semibold">package</th>
               </tr>

@@ -66,7 +66,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  Transaction Number
+                  Member ID
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
