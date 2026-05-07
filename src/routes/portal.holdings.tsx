@@ -64,16 +64,20 @@ function HoldingsPage() {
               {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <div className="mt-2 font-light tabular-nums tracking-[-0.04em] text-gold">
-            {showAmount ? "$50,000" : "******"}
+          <div className="mt-2 text-3xl">
+            {showAmount ? (
+              <MetricValue value={50000} prefix="$" decimals={0} size="lg" />
+            ) : (
+              <span className="font-light tabular-nums tracking-[-0.04em] text-gold">******</span>
+            )}
           </div>
         </SpotlightCard>
         <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Participation Days
           </div>
-          <div className="mt-2 font-light tabular-nums tracking-[-0.04em] text-gold">
-            54 <span className="text-base font-normal text-gold/80">days</span>
+          <div className="mt-2">
+            <MetricValue value={54} decimals={0} size="lg" unit="days" />
           </div>
         </SpotlightCard>
       </div>
