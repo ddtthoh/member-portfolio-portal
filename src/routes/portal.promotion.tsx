@@ -14,7 +14,7 @@ function PromotionPage() {
     <div>
       <PageHeader eyebrow={t("pages.promotion.eyebrow")} title={t("pages.promotion.title")} description={t("pages.promotion.description")} />
 
-      <SpotlightCard className="liquid-glass rounded-xl p-6">
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Gift className="h-4 w-4" />
           <span className="text-[11px] uppercase tracking-[0.2em]">Promotion</span>

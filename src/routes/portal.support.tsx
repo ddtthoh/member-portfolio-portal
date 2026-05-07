@@ -121,13 +121,13 @@ function SupportPage() {
       />
 
       {/* Filter card */}
-      <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
+      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
         <button
           type="button"
           onClick={() => setFilterOpen((v) => !v)}
           className="flex w-full items-center justify-between px-6 py-4 text-left"
         >
-          <span className="text-base font-semibold tracking-tight text-gold font-sans">Filter</span>
+          <span className="font-serif text-base font-semibold text-gold md:text-lg">Filter</span>
           {filterOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
         </button>
 
@@ -204,9 +204,9 @@ function SupportPage() {
       </section>
 
       {/* Tickets list */}
-      <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
+      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
         <div className="flex items-center justify-between gap-4 px-6 py-5">
-          <h2 className="text-base font-semibold tracking-tight text-gold font-sans">Support Tickets List</h2>
+          <h2 className="font-serif text-base font-semibold text-gold md:text-lg">Support Tickets List</h2>
 
           <Dialog open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setFiles([]); }}>
             <DialogTrigger asChild>

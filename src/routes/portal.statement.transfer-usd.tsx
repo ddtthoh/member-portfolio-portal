@@ -29,7 +29,7 @@ function TransferUsdPage() {
     <div className="space-y-5">
       <PageHeader eyebrow={t("pages.transferUsd.eyebrow")} title={t("pages.transferUsd.title")} description={t("pages.transferUsd.description")} />
 
-      <SpotlightCard className="liquid-glass rounded-xl p-5">
+      <SpotlightCard className="liquid-glass rounded-2xl p-5">
         <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Transfer Details</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 

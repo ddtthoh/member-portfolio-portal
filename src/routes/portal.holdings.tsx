@@ -55,7 +55,7 @@ function HoldingsPage() {
       
 
       <div className="mb-3 grid grid-cols-2 gap-3">
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
               Total Staking Amount
@@ -77,7 +77,7 @@ function HoldingsPage() {
             )}
           </div>
         </SpotlightCard>
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Staking Days
           </div>
@@ -92,7 +92,7 @@ function HoldingsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
         </SpotlightCard>
       </motion.div>

@@ -30,7 +30,7 @@ function StakingPlansPage() {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
-          <SpotlightCard key={plan.name} className="liquid-glass rounded-xl px-5 py-4">
+          <SpotlightCard key={plan.name} className="liquid-glass rounded-2xl px-5 py-4">
             <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
               {plan.name}
             </h3>

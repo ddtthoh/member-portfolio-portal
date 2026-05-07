@@ -15,7 +15,7 @@ function WithdrawalPage() {
       <PageHeader eyebrow={t("pages.withdrawal.eyebrow")} title={t("pages.withdrawal.title")} description={t("pages.withdrawal.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Building2 className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Payout Account</span>
@@ -30,7 +30,7 @@ function WithdrawalPage() {
           </dl>
         </SpotlightCard>
 
-        <SpotlightCard className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <ArrowUpFromLine className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Notes</span>

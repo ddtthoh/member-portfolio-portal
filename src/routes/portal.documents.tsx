@@ -32,7 +32,7 @@ function DocumentsPage() {
       ) : (
         <div className="grid gap-3">
           {docs.map((d) => (
-            <SpotlightCard key={d.id} className="flex items-center justify-between liquid-glass rounded-xl p-5">
+            <SpotlightCard key={d.id} className="flex items-center justify-between liquid-glass rounded-2xl p-5">
               <div className="flex items-center gap-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-sm border border-gold/40 bg-gold/10 text-gold">
                   <FileText className="h-4 w-4" />
@@ -60,7 +60,7 @@ function DocumentsPage() {
 
 function Empty() {
   return (
-    <SpotlightCard className="liquid-glass rounded-xl p-16 text-center">
+    <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
       <FileText className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
       <p className="text-sm text-muted-foreground">No documents available yet. Your statements will appear here as they are issued.</p>
     </SpotlightCard>

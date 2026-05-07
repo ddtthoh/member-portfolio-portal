@@ -31,7 +31,7 @@ function CreditConversionPage() {
     <div className="space-y-5">
       <PageHeader eyebrow={t("pages.creditConversionStatement.eyebrow")} title={t("pages.creditConversionStatement.title")} description={t("pages.creditConversionStatement.description")} />
 
-      <SpotlightCard className="liquid-glass rounded-xl p-px">
+      <SpotlightCard className="liquid-glass rounded-2xl p-px">
         <div className="overflow-x-auto px-5 py-4">
           <div className="min-w-max">
           <div className="grid grid-cols-[auto_auto_auto_auto_auto] gap-x-8 divide-x divide-gold/40">

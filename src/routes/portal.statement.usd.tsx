@@ -33,7 +33,7 @@ function UsdStatementPage() {
     <div className="space-y-5">
       <PageHeader eyebrow={t("pages.usdStatement.eyebrow")} title={t("pages.usdStatement.title")} description={t("pages.usdStatement.description")} />
 
-      <SpotlightCard className="liquid-glass rounded-xl p-px">
+      <SpotlightCard className="liquid-glass rounded-2xl p-px">
         <div className="overflow-x-auto px-5 py-4">
           <div className="min-w-max">
             <div className="grid grid-cols-6 divide-x divide-gold/40">

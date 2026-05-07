@@ -4,19 +4,36 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
-import { SpotlightCard } from "@/components/spotlight-card";
+import {
+  SectionCard,
+  SectionHeader,
+  DataTable,
+  Thead,
+  Th,
+  Td,
+  EmptyRow,
+} from "@/components/portal-ui";
 
 export const Route = createFileRoute("/portal/transactions")({
   component: TransactionsPage,
 });
 
 type Tx = {
-  id: string; type: string; asset: string | null; amount: number;
-  quantity: number | null; price: number | null; status: string; occurred_at: string;
+  id: string;
+  type: string;
+  asset: string | null;
+  amount: number;
+  quantity: number | null;
+  price: number | null;
+  status: string;
+  occurred_at: string;
 };
 
 function fmt(n: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(n);
 }
 
 function TransactionsPage() {
@@ -26,49 +43,63 @@ function TransactionsPage() {
 
   useEffect(() => {
     if (!user) return;
-    supabase.from("transactions").select("*").eq("user_id", user.id).order("occurred_at", { ascending: false })
+    supabase
+      .from("transactions")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("occurred_at", { ascending: false })
       .then(({ data }) => setRows((data ?? []) as Tx[]));
   }, [user]);
 
   return (
     <div>
-      <PageHeader eyebrow={t("pages.transactions.eyebrow")} title={t("pages.transactions.title")} description={t("pages.transactions.description")} />
+      <PageHeader
+        eyebrow={t("pages.transactions.eyebrow")}
+        title={t("pages.transactions.title")}
+        description={t("pages.transactions.description")}
+      />
 
-      <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
-        <table className="w-full text-sm">
-          <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
-            <tr>
-              <th className="px-5 py-3 text-left">Date</th>
-              <th className="px-5 py-3 text-left">Type</th>
-              <th className="px-5 py-3 text-left">Asset</th>
-              <th className="px-5 py-3 text-right">Quantity</th>
-              <th className="px-5 py-3 text-right">Price</th>
-              <th className="px-5 py-3 text-right">Amount</th>
-              <th className="px-5 py-3 text-right">Status</th>
-            </tr>
-          </thead>
+      <SectionCard>
+        <SectionHeader title="Transactions History" />
+        <DataTable minWidth={760}>
+          <Thead>
+            <Th>Date</Th>
+            <Th>Type</Th>
+            <Th>Asset</Th>
+            <Th align="right">Quantity</Th>
+            <Th align="right">Price</Th>
+            <Th align="right">Amount</Th>
+            <Th align="right">Status</Th>
+          </Thead>
           <tbody>
-            {rows.length === 0 && (
-              <tr><td colSpan={7} className="px-5 py-12 text-center text-muted-foreground">No transactions yet.</td></tr>
+            {rows.length === 0 ? (
+              <EmptyRow colSpan={7}>No transactions yet.</EmptyRow>
+            ) : (
+              rows.map((tx) => (
+                <tr key={tx.id} className="border-b border-border/40 last:border-0">
+                  <Td className="text-muted-foreground">
+                    {new Date(tx.occurred_at).toLocaleDateString()}
+                  </Td>
+                  <Td className="capitalize">{tx.type}</Td>
+                  <Td>{tx.asset ?? "—"}</Td>
+                  <Td align="right">{tx.quantity ?? "—"}</Td>
+                  <Td align="right">
+                    {tx.price != null ? fmt(Number(tx.price)) : "—"}
+                  </Td>
+                  <Td align="right" className="font-medium">
+                    {fmt(Number(tx.amount))}
+                  </Td>
+                  <Td align="right">
+                    <span className="inline-flex rounded-full border border-gold/30 bg-gold/5 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-gold/80">
+                      {tx.status}
+                    </span>
+                  </Td>
+                </tr>
+              ))
             )}
-            {rows.map((t) => (
-              <tr key={t.id} className="border-b border-border/50 last:border-0">
-                <td className="px-5 py-4 text-muted-foreground">{new Date(t.occurred_at).toLocaleDateString()}</td>
-                <td className="px-5 py-4 capitalize">{t.type}</td>
-                <td className="px-5 py-4">{t.asset ?? "—"}</td>
-                <td className="px-5 py-4 text-right">{t.quantity ?? "—"}</td>
-                <td className="px-5 py-4 text-right">{t.price != null ? fmt(Number(t.price)) : "—"}</td>
-                <td className="px-5 py-4 text-right font-medium">{fmt(Number(t.amount))}</td>
-                <td className="px-5 py-4 text-right">
-                  <span className="inline-flex rounded-full border border-border px-2 py-0.5 text-xs capitalize text-muted-foreground">
-                    {t.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
           </tbody>
-        </table>
-      </SpotlightCard>
+        </DataTable>
+      </SectionCard>
     </div>
   );
 }
