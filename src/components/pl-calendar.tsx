@@ -71,7 +71,9 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
   const [view, setView] = useState<"calendar" | "list">("list"); // default mobile-friendly
 
   const data = useMemo(() => {
-    if (year === 2026 && month === 4) return generateMay2026(participation || 250000);
+    const base = participation || 250000;
+    if (year === 2026 && month === 4) return generateMay2026(base);
+    if (year === 2026 && month === 3) return generateApril2026(base);
     return [];
   }, [year, month, participation]);
 
