@@ -89,7 +89,7 @@ export function TotalAssetsGauge({
             strokeDashoffset={-cOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-cash) 55%, transparent))" }}
           />
-          {/* Earnings */}
+          {/* Rewards asset */}
           <path
             d={arcPath}
             fill="none"
