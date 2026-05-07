@@ -1,25 +1,37 @@
-## 根本原因
+## 目标
 
-之前两次改动没生效，是因为 `SpotlightCard` 组件内部把 `children` 包在自己的 `<div className="relative h-full">`（block 容器）里。我之前在 `SpotlightCard` 的 className 上加 `flex` 是没用的——那只是作用在最外层包装 div 上，里面的两列内容仍在一个 block 子容器里，所以保持上下堆叠。
+以"背景只停留在顶部一屏、scroll 时跟着走"为前提，叠加之前提议的高级感升级套件。
 
-## 修复
+## 改动总览
 
-在 `src/routes/portal.index.tsx`（约 166–185 行）把 participated day / staking amount 的两列内容**额外包一层 `<div class="flex h-full items-center justify-center">`**，让 flex 真正作用在两个子项上：
+### 1. 背景改为顶部锚定（核心需求）
+`src/components/portal-shell.tsx` 第 87–96 行：
+- `portal-backdrop` 和 `ThreeBackground` 从 `fixed inset-0` → `absolute inset-x-0 top-0 h-screen`
+- 这样 scroll 时背景跟内容一起向上离开视口，底部变纯净
 
-```tsx
-<SpotlightCard className="liquid-glass h-full rounded-xl p-5">
-  <div className="flex h-full items-center justify-center">
-    <div className="flex flex-1 flex-col items-center text-center">
-      {/* Participated day : 85 days */}
-    </div>
-    <div aria-hidden className="mx-3 h-12 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
-    <div className="flex flex-1 flex-col items-center text-center">
-      {/* Staking amount : $50,000 */}
-    </div>
-  </div>
-</SpotlightCard>
-```
+### 2. 顶/底极细金色 hairline（杂志感框线）
+在背景层后再加两条 `absolute` 定位的 1px 渐变金线：
+- 顶部：跨整宽，金色由两侧透明 → 中央 30% 不透明
+- 底部一屏处（即背景结束处）：同样一条，作为视觉过渡，避免背景突然消失
 
-这样左右两列 + 中间金色渐变分隔线就能正常显示，不再上下堆叠。
+### 3. 全局细颗粒 grain overlay（电影感、消除色带）
+在 `src/styles.css` 加一个 `.grain-overlay` 类，复用 `SpotlightCard` 已有的 SVG turbulence noise，作为 PortalShell 的 fixed 全局层（`fixed inset-0 -z-5 mix-blend-overlay opacity-[0.04]`）
 
-不会有 credit 再被无效扣除——这一次定位到了真正的原因。
+### 4. 移动端禁用 3D 背景（性能 + 视觉）
+PortalShell 用 `hidden lg:block` 让 ThreeBackground 仅在 ≥ lg 显示，移动端只保留渐变 backdrop + grain
+
+### 5. 修 action tile 文字被背景挡住的 bug
+`src/routes/portal.index.tsx` action tile 的 `<span>` label：
+- 加 `rounded-md bg-background/50 px-2 py-0.5 backdrop-blur-sm`
+- 文字下方有半透明毛玻璃保护层，金色亮点不再吃掉文字
+
+### 6. 顶部背景下淡出（避免硬切边）
+背景层加一个 `[mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]`，使背景在底部 30% 平滑淡出到透明，scroll 时不会有明显边界
+
+## 改动文件
+
+- `src/components/portal-shell.tsx`：背景定位 + hairline + grain 容器 + 移动端响应
+- `src/styles.css`：`.grain-overlay`、`.portal-backdrop` 增加 mask
+- `src/routes/portal.index.tsx`：action tile label 加保护层
+
+不动任何排版、内容、文案。

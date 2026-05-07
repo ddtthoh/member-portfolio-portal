@@ -84,15 +84,33 @@ export function PortalShell() {
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) ?? SUPPORTED_LANGUAGES[0];
 
   return (
-    <div className="relative flex min-h-screen bg-transparent">
-      {/* Futuristic interactive backdrop */}
+    <div className="relative flex min-h-screen overflow-x-hidden bg-transparent">
+      {/* Top-anchored backdrop — scrolls away with the page */}
       <div
         aria-hidden
-        className="portal-backdrop pointer-events-none fixed inset-0 -z-20"
+        className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]"
       />
-      <ThreeBackground
-        className="pointer-events-none fixed inset-0 -z-10"
-        fade={false}
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 hidden h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)] lg:block">
+        <ThreeBackground className="absolute inset-0" fade={false} />
+      </div>
+      {/* Top hairline */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+      />
+      {/* Bottom-of-hero hairline (where backdrop fades) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[100vh] -z-10 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+      />
+      {/* Cinematic grain overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-[5] opacity-[0.05] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\")",
+        }}
       />
       {/* Sidebar */}
       <aside
