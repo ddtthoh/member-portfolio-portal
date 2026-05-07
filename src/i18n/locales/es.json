@@ -45,6 +45,7 @@
   "overview": {
     "estTotalValue": "Valor total estimado (USD)",
     "todaysPnl": "PNL de hoy",
+    "totalPnl": "PNL Total",
     "participatedDay": "Días participados:",
     "stakingAmount": "Importe en staking:",
     "diamond": "Diamante",

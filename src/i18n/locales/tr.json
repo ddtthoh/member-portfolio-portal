@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "Katılımcı Portalı" },
+  "brand": {
+    "portal": "Katılımcı Portalı"
+  },
   "nav": {
     "overview": "Genel Bakış",
     "stakingPlan": "Staking Planı",
@@ -28,7 +30,9 @@
     "network": "Ağ",
     "logout": "Çıkış Yap"
   },
-  "language": { "switch": "Dili değiştir" },
+  "language": {
+    "switch": "Dili değiştir"
+  },
   "common": {
     "submit": "Gönder",
     "cancel": "İptal",
@@ -65,26 +69,99 @@
       "referral": "Tavsiye",
       "participation": "Katılım",
       "promotion": "Promosyon"
-    }
+    },
+    "totalPnl": "Toplam Kâr/Zarar"
   },
   "pages": {
-    "deposit": { "eyebrow": "Fonlar · Gelen", "title": "Para Yatır", "description": "Hesabınızı havale ile yükleyin. Mutabakat genellikle 1 iş günü içinde tamamlanır." },
-    "withdrawal": { "eyebrow": "Fonlar · Giden", "title": "Para Çek", "description": "Doğrulanmış banka hesabınıza ödeme talep edin. Fonlar genellikle 1-2 iş günü içinde ulaşır." },
-    "promotion": { "eyebrow": "Fonlar · Bonus", "title": "Promosyon", "description": "Uygun yatırımlar için sınırlı süreli kurucu promosyonu." },
-    "qna": { "eyebrow": "Sohbet", "title": "Soru & Cevap", "description": "Bir soru gönderin — danışmanınız bir iş günü içinde yanıtlar." },
-    "participation": { "eyebrow": "Programlar · Katılım", "title": "Katılım", "description": "Şirket programlarına, girişimlerine ve tahsislerine aktif katılımınızı takip edin." },
-    "transactions": { "eyebrow": "Defter", "title": "İşlemler", "description": "Para yatırma, işlem ve para çekme işlemlerinin tam geçmişi." },
-    "support": { "eyebrow": "Concierge", "title": "Destek", "description": "Özel bir destek talebi açın — ekibimiz hızla yanıt verir." },
-    "usdStatement": { "eyebrow": "Hesap Özeti", "title": "USD Hesap Özeti", "description": "USD hesap etkinliğinizin özeti." },
-    "network": { "eyebrow": "İlişkiler", "title": "Ağ", "description": "Güvenilir danışman, kustodyan ve ortaklarınızdan oluşan çevreniz." },
-    "holdings": { "eyebrow": "Portföy", "title": "Portföy Genel Bakışı", "description": "Aktif staking katılımınızın özeti." },
-    "transferUsd": { "eyebrow": "USD Cüzdanı", "title": "USD Transfer Et", "description": "Başka bir üyenin hesabına USD transfer edin." },
-    "rewardsStatement": { "eyebrow": "Hesap Özeti", "title": "Ödül Hesap Özeti", "description": "Ödül etkinliğinizin özeti." },
-    "documents": { "eyebrow": "Kütüphane", "title": "Belgeler & Hesap Özetleri", "description": "Dosyadaki hesap özetleri, vergi belgeleri ve hukuki sözleşmeler." },
-    "creditConversionStatement": { "eyebrow": "Hesap Özeti", "title": "Kredi Dönüşüm Özeti", "description": "Kredi dönüşüm geçmişinizi ve bakiyelerinizi inceleyin." },
-    "stakingPlans": { "eyebrow": "Staking", "title": "Staking Planı", "description": "Hedeflerinize uygun bir katılım seviyesi seçin." },
-    "convertCredits": { "eyebrow": "Hesap Özeti", "title": "Kredi Dönüştür", "description": "Bakiyeler arasında kredi dönüştürün." },
-    "referral": { "eyebrow": "Ağ · Davet", "title": "Tavsiye", "description": "Nitelikli yatırımcıları davet edin. Fonlanan her hesap için yapılandırılmış iade kazanın." },
-    "reports": { "eyebrow": "Seçilmiş", "title": "Üç Aylık Raporlar", "description": "Danışman ekibinizin hazırladığı mektuplar ve analizler." }
+    "deposit": {
+      "eyebrow": "Fonlar · Gelen",
+      "title": "Para Yatır",
+      "description": "Hesabınızı havale ile yükleyin. Mutabakat genellikle 1 iş günü içinde tamamlanır."
+    },
+    "withdrawal": {
+      "eyebrow": "Fonlar · Giden",
+      "title": "Para Çek",
+      "description": "Doğrulanmış banka hesabınıza ödeme talep edin. Fonlar genellikle 1-2 iş günü içinde ulaşır."
+    },
+    "promotion": {
+      "eyebrow": "Fonlar · Bonus",
+      "title": "Promosyon",
+      "description": "Uygun yatırımlar için sınırlı süreli kurucu promosyonu."
+    },
+    "qna": {
+      "eyebrow": "Sohbet",
+      "title": "Soru & Cevap",
+      "description": "Bir soru gönderin — danışmanınız bir iş günü içinde yanıtlar."
+    },
+    "participation": {
+      "eyebrow": "Programlar · Katılım",
+      "title": "Katılım",
+      "description": "Şirket programlarına, girişimlerine ve tahsislerine aktif katılımınızı takip edin."
+    },
+    "transactions": {
+      "eyebrow": "Defter",
+      "title": "İşlemler",
+      "description": "Para yatırma, işlem ve para çekme işlemlerinin tam geçmişi."
+    },
+    "support": {
+      "eyebrow": "Concierge",
+      "title": "Destek",
+      "description": "Özel bir destek talebi açın — ekibimiz hızla yanıt verir."
+    },
+    "usdStatement": {
+      "eyebrow": "Hesap Özeti",
+      "title": "USD Hesap Özeti",
+      "description": "USD hesap etkinliğinizin özeti."
+    },
+    "network": {
+      "eyebrow": "İlişkiler",
+      "title": "Ağ",
+      "description": "Güvenilir danışman, kustodyan ve ortaklarınızdan oluşan çevreniz."
+    },
+    "holdings": {
+      "eyebrow": "Portföy",
+      "title": "Portföy Genel Bakışı",
+      "description": "Aktif staking katılımınızın özeti."
+    },
+    "transferUsd": {
+      "eyebrow": "USD Cüzdanı",
+      "title": "USD Transfer Et",
+      "description": "Başka bir üyenin hesabına USD transfer edin."
+    },
+    "rewardsStatement": {
+      "eyebrow": "Hesap Özeti",
+      "title": "Ödül Hesap Özeti",
+      "description": "Ödül etkinliğinizin özeti."
+    },
+    "documents": {
+      "eyebrow": "Kütüphane",
+      "title": "Belgeler & Hesap Özetleri",
+      "description": "Dosyadaki hesap özetleri, vergi belgeleri ve hukuki sözleşmeler."
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Hesap Özeti",
+      "title": "Kredi Dönüşüm Özeti",
+      "description": "Kredi dönüşüm geçmişinizi ve bakiyelerinizi inceleyin."
+    },
+    "stakingPlans": {
+      "eyebrow": "Staking",
+      "title": "Staking Planı",
+      "description": "Hedeflerinize uygun bir katılım seviyesi seçin."
+    },
+    "convertCredits": {
+      "eyebrow": "Hesap Özeti",
+      "title": "Kredi Dönüştür",
+      "description": "Bakiyeler arasında kredi dönüştürün."
+    },
+    "referral": {
+      "eyebrow": "Ağ · Davet",
+      "title": "Tavsiye",
+      "description": "Nitelikli yatırımcıları davet edin. Fonlanan her hesap için yapılandırılmış iade kazanın."
+    },
+    "reports": {
+      "eyebrow": "Seçilmiş",
+      "title": "Üç Aylık Raporlar",
+      "description": "Danışman ekibinizin hazırladığı mektuplar ve analizler."
+    }
   }
 }

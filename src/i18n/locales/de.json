@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "Teilnehmerportal" },
+  "brand": {
+    "portal": "Teilnehmerportal"
+  },
   "nav": {
     "overview": "Übersicht",
     "stakingPlan": "Staking-Plan",
@@ -28,7 +30,9 @@
     "network": "Netzwerk",
     "logout": "Abmelden"
   },
-  "language": { "switch": "Sprache wechseln" },
+  "language": {
+    "switch": "Sprache wechseln"
+  },
   "common": {
     "submit": "Absenden",
     "cancel": "Abbrechen",
@@ -65,26 +69,99 @@
       "referral": "Empfehlung",
       "participation": "Teilnahme",
       "promotion": "Aktion"
-    }
+    },
+    "totalPnl": "Gesamt G/V"
   },
   "pages": {
-    "deposit": { "eyebrow": "Mittel · Eingang", "title": "Einzahlung", "description": "Laden Sie Ihr Konto per Überweisung auf. Die Abwicklung erfolgt in der Regel innerhalb eines Werktags." },
-    "withdrawal": { "eyebrow": "Mittel · Ausgang", "title": "Auszahlung", "description": "Beantragen Sie eine Auszahlung auf Ihr verifiziertes Bankkonto. Geld trifft meist in 1–2 Werktagen ein." },
-    "promotion": { "eyebrow": "Mittel · Bonus", "title": "Aktion", "description": "Zeitlich begrenzte Gründer-Aktion für qualifizierende Einzahlungen." },
-    "qna": { "eyebrow": "Gespräch", "title": "Fragen & Antworten", "description": "Stellen Sie eine Frage — Ihr Berater antwortet innerhalb eines Werktags." },
-    "participation": { "eyebrow": "Programme · Engagement", "title": "Teilnahme", "description": "Verfolgen Sie Ihre aktive Teilnahme an Programmen, Initiativen und Allokationen der Firma." },
-    "transactions": { "eyebrow": "Hauptbuch", "title": "Transaktionen", "description": "Vollständige Historie von Einzahlungen, Trades und Auszahlungen." },
-    "support": { "eyebrow": "Concierge", "title": "Support", "description": "Eröffnen Sie ein privates Ticket — unser Team antwortet zeitnah." },
-    "usdStatement": { "eyebrow": "Kontoauszug", "title": "USD-Kontoauszug", "description": "Zusammenfassung Ihrer USD-Kontoaktivität." },
-    "network": { "eyebrow": "Beziehungen", "title": "Netzwerk", "description": "Ihr vertrauenswürdiger Kreis aus Beratern, Verwahrern und Partnern." },
-    "holdings": { "eyebrow": "Portfolio", "title": "Portfolio-Übersicht", "description": "Zusammenfassung Ihrer aktiven Staking-Teilnahme." },
-    "transferUsd": { "eyebrow": "USD-Wallet", "title": "USD überweisen", "description": "Überweisen Sie USD auf das Konto eines anderen Mitglieds." },
-    "rewardsStatement": { "eyebrow": "Kontoauszug", "title": "Belohnungs-Kontoauszug", "description": "Zusammenfassung Ihrer Belohnungsaktivität." },
-    "documents": { "eyebrow": "Bibliothek", "title": "Dokumente & Auszüge", "description": "Auszüge, Steuerdokumente und Verträge in Ihrer Akte." },
-    "creditConversionStatement": { "eyebrow": "Kontoauszug", "title": "Kontoauszug Guthabenumtausch", "description": "Überprüfen Sie Verlauf und Salden des Guthabenumtauschs." },
-    "stakingPlans": { "eyebrow": "Staking", "title": "Staking-Plan", "description": "Wählen Sie eine Teilnahmestufe, die zu Ihren Zielen passt." },
-    "convertCredits": { "eyebrow": "Kontoauszug", "title": "Guthaben umtauschen", "description": "Tauschen Sie Guthaben zwischen Salden um." },
-    "referral": { "eyebrow": "Netzwerk · Einladung", "title": "Empfehlung", "description": "Laden Sie qualifizierte Investoren ein. Erhalten Sie strukturierte Rückvergütung für jedes finanzierte Konto." },
-    "reports": { "eyebrow": "Kuratiert", "title": "Quartalsberichte", "description": "Briefe und Analysen Ihres Beraterteams." }
+    "deposit": {
+      "eyebrow": "Mittel · Eingang",
+      "title": "Einzahlung",
+      "description": "Laden Sie Ihr Konto per Überweisung auf. Die Abwicklung erfolgt in der Regel innerhalb eines Werktags."
+    },
+    "withdrawal": {
+      "eyebrow": "Mittel · Ausgang",
+      "title": "Auszahlung",
+      "description": "Beantragen Sie eine Auszahlung auf Ihr verifiziertes Bankkonto. Geld trifft meist in 1–2 Werktagen ein."
+    },
+    "promotion": {
+      "eyebrow": "Mittel · Bonus",
+      "title": "Aktion",
+      "description": "Zeitlich begrenzte Gründer-Aktion für qualifizierende Einzahlungen."
+    },
+    "qna": {
+      "eyebrow": "Gespräch",
+      "title": "Fragen & Antworten",
+      "description": "Stellen Sie eine Frage — Ihr Berater antwortet innerhalb eines Werktags."
+    },
+    "participation": {
+      "eyebrow": "Programme · Engagement",
+      "title": "Teilnahme",
+      "description": "Verfolgen Sie Ihre aktive Teilnahme an Programmen, Initiativen und Allokationen der Firma."
+    },
+    "transactions": {
+      "eyebrow": "Hauptbuch",
+      "title": "Transaktionen",
+      "description": "Vollständige Historie von Einzahlungen, Trades und Auszahlungen."
+    },
+    "support": {
+      "eyebrow": "Concierge",
+      "title": "Support",
+      "description": "Eröffnen Sie ein privates Ticket — unser Team antwortet zeitnah."
+    },
+    "usdStatement": {
+      "eyebrow": "Kontoauszug",
+      "title": "USD-Kontoauszug",
+      "description": "Zusammenfassung Ihrer USD-Kontoaktivität."
+    },
+    "network": {
+      "eyebrow": "Beziehungen",
+      "title": "Netzwerk",
+      "description": "Ihr vertrauenswürdiger Kreis aus Beratern, Verwahrern und Partnern."
+    },
+    "holdings": {
+      "eyebrow": "Portfolio",
+      "title": "Portfolio-Übersicht",
+      "description": "Zusammenfassung Ihrer aktiven Staking-Teilnahme."
+    },
+    "transferUsd": {
+      "eyebrow": "USD-Wallet",
+      "title": "USD überweisen",
+      "description": "Überweisen Sie USD auf das Konto eines anderen Mitglieds."
+    },
+    "rewardsStatement": {
+      "eyebrow": "Kontoauszug",
+      "title": "Belohnungs-Kontoauszug",
+      "description": "Zusammenfassung Ihrer Belohnungsaktivität."
+    },
+    "documents": {
+      "eyebrow": "Bibliothek",
+      "title": "Dokumente & Auszüge",
+      "description": "Auszüge, Steuerdokumente und Verträge in Ihrer Akte."
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Kontoauszug",
+      "title": "Kontoauszug Guthabenumtausch",
+      "description": "Überprüfen Sie Verlauf und Salden des Guthabenumtauschs."
+    },
+    "stakingPlans": {
+      "eyebrow": "Staking",
+      "title": "Staking-Plan",
+      "description": "Wählen Sie eine Teilnahmestufe, die zu Ihren Zielen passt."
+    },
+    "convertCredits": {
+      "eyebrow": "Kontoauszug",
+      "title": "Guthaben umtauschen",
+      "description": "Tauschen Sie Guthaben zwischen Salden um."
+    },
+    "referral": {
+      "eyebrow": "Netzwerk · Einladung",
+      "title": "Empfehlung",
+      "description": "Laden Sie qualifizierte Investoren ein. Erhalten Sie strukturierte Rückvergütung für jedes finanzierte Konto."
+    },
+    "reports": {
+      "eyebrow": "Kuratiert",
+      "title": "Quartalsberichte",
+      "description": "Briefe und Analysen Ihres Beraterteams."
+    }
   }
 }
