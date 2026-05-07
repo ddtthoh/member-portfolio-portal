@@ -110,7 +110,7 @@ function TeamRewardsPage() {
                 <th className="px-3 py-3 font-semibold">Level</th>
                 <th className="px-3 py-3 font-semibold">Amount</th>
                 <th className="px-3 py-3 font-semibold">Percentage</th>
-                <th className="px-3 py-3 font-semibold">Computed Amount</th>
+                <th className="px-3 py-3 font-semibold">Amount</th>
               </tr>
             </thead>
             <tbody>
