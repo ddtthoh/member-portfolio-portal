@@ -121,7 +121,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
 
         <div className="flex flex-wrap items-center gap-2">
           {/* View toggle — desktop & tablet only */}
-          <div className="hidden sm:inline-flex rounded-md border border-border/60 bg-background/40 p-0.5 text-[11px]">
+          <div className="hidden min-[560px]:inline-flex rounded-md border border-border/60 bg-background/40 p-0.5 text-[11px]">
             <button
               type="button"
               onClick={() => setView("list")}
@@ -221,7 +221,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
       </div>
 
       {/* List view — always visible on mobile; on sm+ only when selected */}
-      <div className={`${view === "list" ? "block" : "block sm:hidden"} overflow-hidden rounded-lg border border-border/40 bg-background/20`}>
+      <div className={`${view === "list" ? "block" : "block min-[560px]:hidden"} overflow-hidden rounded-lg border border-border/40 bg-background/20`}>
         {activeDays.length === 0 && (
           <div className="px-4 py-10 text-center text-xs text-muted-foreground">
             No data for this period.
@@ -268,7 +268,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
 
       {/* Calendar view — desktop & tablet only */}
       {view === "calendar" && (
-        <div className="hidden sm:block">
+        <div className="hidden min-[560px]:block">
           <div className="grid grid-cols-7 px-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
             {WEEKDAYS_SHORT.map((d) => (
               <div key={d} className="pb-2 text-center">{d}</div>
