@@ -70,7 +70,7 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "Funds · Inbound", "title": "Deposit", "description": "Fund your account via wire transfer. Settlement typically completes within 1 business day." },
+    "deposit": { "eyebrow": "Funds · Inbound", "title": "Deposit", "description": "Please be Informed you will have to deposit at least 10 Usdt Bep20 amount." },
     "withdrawal": { "eyebrow": "Funds · Outbound", "title": "Withdrawal", "description": "Request a payout to your verified bank account. Funds typically arrive within 1–2 business days." },
     "promotion": { "eyebrow": "Funds · Bonus", "title": "Promotion", "description": "Limited-time founders' promotion for qualifying deposits." },
     "qna": { "eyebrow": "Conversation", "title": "Q&A", "description": "Submit a question — your advisor responds within one business day." },
