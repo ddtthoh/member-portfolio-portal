@@ -49,8 +49,6 @@ function Overview() {
 
   return (
     <div>
-      {/* Est. Total Value + Staking info */}
-      <div className="mb-3 grid grid-cols-2 gap-3">
       {/* Hero bento: Est. Total Value (2/3) + Staking/Asset (1/3) */}
       <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {/* HERO CARD */}
