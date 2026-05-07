@@ -173,10 +173,10 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
             {MONTHS[month]} {year} · P/L
           </div>
           <div
-            className={`mt-1 flex items-center gap-1.5 text-2xl font-light tabular-nums tracking-[-0.03em] ${totalColor}`}
+            className={`mt-1 flex items-center gap-1.5 text-base font-light tabular-nums tracking-[-0.02em] sm:text-xl ${totalColor}`}
           >
-            {TotalIcon && <TotalIcon className="h-5 w-5 shrink-0" />}
-            <span className="truncate">
+            {TotalIcon && <TotalIcon className="h-4 w-4 shrink-0" />}
+            <span className="whitespace-nowrap">
               {totalSign}$
               <CountUp value={Math.abs(totals.amount)} decimals={2} />
             </span>
@@ -187,7 +187,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
             Return
           </div>
           <div
-            className={`mt-1 text-2xl font-light tabular-nums tracking-[-0.03em] ${totalColor}`}
+            className={`mt-1 text-base font-light tabular-nums tracking-[-0.02em] sm:text-xl ${totalColor}`}
           >
             {totalSign}
             <CountUp value={Math.abs(totals.pct)} decimals={2} suffix="%" />
