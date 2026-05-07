@@ -67,8 +67,8 @@ function ConvertCreditsPage() {
             </Button>
           </div>
         </div>
-      </div>
-    </SpotlightCard>
+      </SpotlightCard>
+    </div>
   );
 }
 
