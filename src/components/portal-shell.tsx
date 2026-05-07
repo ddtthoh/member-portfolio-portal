@@ -168,25 +168,8 @@ export function PortalShell() {
         <aside
           className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-sidebar-border bg-sidebar/80 backdrop-blur-md transition-all duration-300 ease-out lg:static lg:translate-x-0 ${sidebarWidth} ${
             open ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 relative`}
+          } lg:translate-x-0`}
         >
-          {/* Floating collapse rail handle (tablet/desktop) */}
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                onClick={() => setCollapsed((v) => !v)}
-                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-                className="absolute -right-3 top-20 z-50 hidden h-6 w-6 items-center justify-center rounded-full border border-gold/60 bg-sidebar text-gold/90 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] transition-all hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] md:flex"
-              >
-                {collapsed ? <PanelLeft className="h-3.5 w-3.5" /> : <PanelLeftClose className="h-3.5 w-3.5" />}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              {collapsed ? "Expand sidebar" : "Collapse sidebar"}
-              <span className="ml-1.5 rounded border border-border/60 bg-muted/40 px-1 py-0.5 text-[9px] opacity-80">⌘B</span>
-            </TooltipContent>
-          </Tooltip>
           {/* Brand header */}
           <div className="flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border px-3">
             <div className={`flex min-w-0 items-center gap-2.5 ${collapsed ? "justify-center w-full" : ""}`}>
@@ -286,6 +269,23 @@ export function PortalShell() {
               <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
                 <Menu className="h-5 w-5" />
               </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                    onClick={() => setCollapsed((v) => !v)}
+                    className="hidden md:inline-flex rounded-full border border-gold/60 text-gold/90 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] transition-all"
+                  >
+                    {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  {collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                  <span className="ml-1.5 rounded border border-border/60 bg-muted/40 px-1 py-0.5 text-[9px] opacity-80">⌘B</span>
+                </TooltipContent>
+              </Tooltip>
               <Link to="/portal" className="flex items-center gap-2">
                 <img src={participantPortalLogo} alt={t("brand.portal")} className="h-12 w-12 object-contain" />
               </Link>
