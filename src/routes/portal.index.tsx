@@ -73,23 +73,27 @@ function Overview() {
               <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
                 {t("overview.todaysPnl")}
               </span>
-              <span className="mt-0.5 text-sm font-semibold tabular-nums text-emerald-400">
-                {hideBalance ? "******" : "+$960.20"}
-              </span>
-              <span className="text-[11px] tabular-nums text-emerald-400/80">
-                {hideBalance ? "" : "+1.92%"}
-              </span>
+              <div className="mt-0.5 flex items-baseline gap-1.5">
+                <span className="text-sm font-semibold tabular-nums text-emerald-400">
+                  {hideBalance ? "******" : "+$960.20"}
+                </span>
+                {!hideBalance && (
+                  <span className="text-[11px] tabular-nums text-emerald-400/80">+1.92%</span>
+                )}
+              </div>
             </div>
             <div className="flex flex-col">
               <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
                 {t("overview.totalPnl", "Total PNL")}
               </span>
-              <span className="mt-0.5 text-sm font-semibold tabular-nums text-emerald-400">
-                {hideBalance ? "******" : "+$2,344.20"}
-              </span>
-              <span className="text-[11px] tabular-nums text-emerald-400/80">
-                {hideBalance ? "" : "+2.54%"}
-              </span>
+              <div className="mt-0.5 flex items-baseline gap-1.5">
+                <span className="text-sm font-semibold tabular-nums text-emerald-400">
+                  {hideBalance ? "******" : "+$2,344.20"}
+                </span>
+                {!hideBalance && (
+                  <span className="text-[11px] tabular-nums text-emerald-400/80">+2.54%</span>
+                )}
+              </div>
             </div>
           </div>
         </motion.div>
