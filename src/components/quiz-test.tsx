@@ -24,6 +24,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function QuizTest({ category, title }: { category: "company" | "marketing"; title: string }) {
+  const { user } = useAuth();
   const [pool, setPool] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
