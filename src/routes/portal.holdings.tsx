@@ -26,7 +26,7 @@ function fmt(n: number) {
 function HoldingsPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
-  const [showAmount, setShowAmount] = useState(false);
+  const [showAmount, setShowAmount] = useState(true);
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
