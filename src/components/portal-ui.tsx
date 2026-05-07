@@ -29,8 +29,15 @@ export function SectionCard({
   children: ReactNode;
 }) {
   return (
-    <SpotlightCard className={cn("liquid-glass mt-4 rounded-2xl", className)}>
-      {children}
+    <SpotlightCard className={cn("liquid-glass glass-shimmer glass-spotlight mt-4 rounded-2xl", className)}>
+      <div
+        onMouseMove={handleSpotlightMove}
+        className="contents"
+      >
+        <span aria-hidden className="shimmer-streak" />
+        <span aria-hidden className="spotlight-layer" />
+        {children}
+      </div>
     </SpotlightCard>
   );
 }
