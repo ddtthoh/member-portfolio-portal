@@ -28,33 +28,23 @@ import {
   Users,
   Save,
   CheckCircle2,
+  Lock as LockIcon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/portal/profile")({
   component: ProfilePage,
 });
 
+// Aligned with app language options
 const COUNTRIES = [
-  "Singapore", "Malaysia", "Hong Kong", "China", "Taiwan",
-  "Indonesia", "Thailand", "Vietnam", "Philippines", "Japan",
-  "South Korea", "United States", "United Kingdom", "Australia", "Canada",
-];
-
-const PREFIXES = [
-  { code: "+65", label: "+65 SG" },
-  { code: "+60", label: "+60 MY" },
-  { code: "+852", label: "+852 HK" },
-  { code: "+86", label: "+86 CN" },
-  { code: "+886", label: "+886 TW" },
-  { code: "+62", label: "+62 ID" },
-  { code: "+66", label: "+66 TH" },
-  { code: "+84", label: "+84 VN" },
-  { code: "+63", label: "+63 PH" },
-  { code: "+81", label: "+81 JP" },
-  { code: "+82", label: "+82 KR" },
-  { code: "+1", label: "+1 US/CA" },
-  { code: "+44", label: "+44 UK" },
-  { code: "+61", label: "+61 AU" },
+  { name: "United States", flag: "🇺🇸", dial: "+1" },
+  { name: "China", flag: "🇨🇳", dial: "+86" },
+  { name: "Indonesia", flag: "🇮🇩", dial: "+62" },
+  { name: "Iran", flag: "🇮🇷", dial: "+98" },
+  { name: "Saudi Arabia", flag: "🇸🇦", dial: "+966" },
+  { name: "Spain", flag: "🇪🇸", dial: "+34" },
+  { name: "Germany", flag: "🇩🇪", dial: "+49" },
+  { name: "Turkey", flag: "🇹🇷", dial: "+90" },
 ];
 
 function ProfilePage() {
@@ -211,7 +201,15 @@ function ProfilePage() {
             <Field label="Sponsor ID">
               <div className="relative">
                 <Users className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
-                <Input value={form.sponsor_id} readOnly className="pl-9 bg-muted/30" />
+                <Input
+                  value={form.sponsor_id}
+                  readOnly
+                  disabled
+                  tabIndex={-1}
+                  aria-readonly
+                  className="pl-9 pr-9 bg-muted/30 cursor-not-allowed select-none"
+                />
+                <LockIcon className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gold/60" />
               </div>
             </Field>
           </Grid>
@@ -223,8 +221,16 @@ function ProfilePage() {
               <Select value={form.mobile_prefix} onValueChange={set("mobile_prefix")}>
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
-                  {PREFIXES.map((p) => (
-                    <SelectItem key={p.code} value={p.code}>{p.label}</SelectItem>
+                  {COUNTRIES.map((c) => (
+                    <SelectItem key={c.dial} value={c.dial}>
+                      <span className="flex w-full items-center justify-between gap-3">
+                        <span className="flex items-center gap-2">
+                          <span>{c.flag}</span>
+                          <span>{c.name}</span>
+                        </span>
+                        <span className="font-mono text-xs text-gold/80">{c.dial}</span>
+                      </span>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -250,7 +256,9 @@ function ProfilePage() {
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
                   {COUNTRIES.map((c) => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                    <SelectItem key={c.name} value={c.name}>
+                      <span className="flex items-center gap-2"><span>{c.flag}</span><span>{c.name}</span></span>
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
