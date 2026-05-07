@@ -47,6 +47,45 @@ export type Database = {
         }
         Relationships: []
       }
+      deposits: {
+        Row: {
+          amount: number | null
+          asset: string | null
+          created_at: string
+          id: string
+          network: string | null
+          received_at: string
+          reference_number: string
+          status: string
+          transaction_hash: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number | null
+          asset?: string | null
+          created_at?: string
+          id?: string
+          network?: string | null
+          received_at?: string
+          reference_number: string
+          status?: string
+          transaction_hash: string
+          user_id: string
+        }
+        Update: {
+          amount?: number | null
+          asset?: string | null
+          created_at?: string
+          id?: string
+          network?: string | null
+          received_at?: string
+          reference_number?: string
+          status?: string
+          transaction_hash?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           category: string
