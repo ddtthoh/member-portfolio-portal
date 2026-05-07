@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
-  ChevronDown, Repeat, DollarSign, Gift,
+  ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
@@ -27,6 +27,8 @@ const nav: NavItem[] = [
     icon: FileBarChart,
     basePath: "/portal/statement",
     children: [
+      { to: "/portal/statement/convert-credits", label: "Convert Credits", icon: ArrowRightLeft },
+      { to: "/portal/statement/transfer-usd", label: "Transfer USD", icon: Send },
       { to: "/portal/statement/credit-conversion", label: "Credit Conversion", icon: Repeat },
       { to: "/portal/statement/usd", label: "USD Statement", icon: DollarSign },
       { to: "/portal/statement/rewards", label: "Rewards Statement", icon: Gift },
