@@ -68,12 +68,28 @@ function Overview() {
           <div className="mt-2 text-2xl font-semibold tracking-tight text-gold sm:text-4xl">
             {hideBalance ? "******" : "$50,000.00"}
           </div>
-          <div className="mt-3 space-y-1.5 text-sm">
-            <div className="grid grid-cols-[auto_1fr] gap-x-2">
-              <span className="text-muted-foreground">{t("overview.todaysPnl")}</span>
-              <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
-              <span className="text-muted-foreground">{t("overview.totalPnl", "Total PNL")}</span>
-              <span className="text-emerald-400">{hideBalance ? "******" : "+$2344.2(+2.54%)"}</span>
+          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border/40 pt-3">
+            <div className="flex flex-col">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                {t("overview.todaysPnl")}
+              </span>
+              <span className="mt-0.5 text-sm font-semibold tabular-nums text-emerald-400">
+                {hideBalance ? "******" : "+$960.20"}
+              </span>
+              <span className="text-[11px] tabular-nums text-emerald-400/80">
+                {hideBalance ? "" : "+1.92%"}
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                {t("overview.totalPnl", "Total PNL")}
+              </span>
+              <span className="mt-0.5 text-sm font-semibold tabular-nums text-emerald-400">
+                {hideBalance ? "******" : "+$2,344.20"}
+              </span>
+              <span className="text-[11px] tabular-nums text-emerald-400/80">
+                {hideBalance ? "" : "+2.54%"}
+              </span>
             </div>
           </div>
         </motion.div>
@@ -83,15 +99,23 @@ function Overview() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-            className="liquid-glass flex flex-1 flex-col justify-center gap-2 rounded-xl p-4"
+            className="liquid-glass flex flex-1 flex-col justify-center gap-4 rounded-xl p-5"
           >
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="truncate text-xs text-muted-foreground">{t("overview.participatedDay")}</span>
-              <span className="whitespace-nowrap text-base font-semibold text-gold sm:text-lg">85 {t("common.days")}</span>
+            <div className="flex flex-col">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                {t("overview.participatedDay")}
+              </span>
+              <span className="mt-1 text-xl font-semibold tabular-nums text-gold sm:text-2xl">
+                85 <span className="text-sm font-normal text-muted-foreground">{t("common.days")}</span>
+              </span>
             </div>
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="truncate text-xs text-muted-foreground">{t("overview.stakingAmount")}</span>
-              <span className="whitespace-nowrap text-base font-semibold text-gold sm:text-lg">50,000</span>
+            <div className="flex flex-col">
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                {t("overview.stakingAmount")}
+              </span>
+              <span className="mt-1 text-xl font-semibold tabular-nums text-gold sm:text-2xl">
+                $50,000
+              </span>
             </div>
           </motion.div>
           <Link
