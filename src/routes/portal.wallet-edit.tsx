@@ -125,7 +125,7 @@ function WalletEditPage() {
             <Input id="rewards" type="number" step="0.01" value={rewards} onChange={(e) => setRewards(e.target.value)} />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="staking">Participation Amount</Label>
+            <Label htmlFor="staking">Staking Amount</Label>
             <Input id="staking" type="number" step="0.01" value={staking} onChange={(e) => setStaking(e.target.value)} />
           </div>
           <Button onClick={save} disabled={saving || !user} className="w-full">

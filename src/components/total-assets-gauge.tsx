@@ -65,7 +65,7 @@ export function TotalAssetsGauge({
             strokeLinecap="round"
             pathLength={1}
           />
-          {/* Participation */}
+          {/* Staking */}
           <path
             d={arcPath}
             fill="none"
@@ -113,7 +113,7 @@ export function TotalAssetsGauge({
       </div>
       <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
         {[
-          { label: "Participation", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
+          { label: "Staking", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
           { label: "USD", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
           { label: "Rewards asset", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
         ].map((row) => (

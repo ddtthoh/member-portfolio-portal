@@ -7,11 +7,11 @@ import { SpotlightCard } from "@/components/spotlight-card";
 export const Route = createFileRoute("/portal/participation")({
   head: () => ({
     meta: [
-      { title: "Participation — Portal" },
-      { name: "description", content: "Your participation in firm programs and initiatives." },
+      { title: "Staking — Portal" },
+      { name: "description", content: "Your staking in firm programs and initiatives." },
     ],
   }),
-  component: ParticipationPage,
+  component: StakingPage,
 });
 
 type Row = {
@@ -33,7 +33,7 @@ const rows: Row[] = [
 const fmtUSD = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
-function ParticipationPage() {
+function StakingPage() {
   const { t } = useTranslation();
   return (
     <div>
@@ -47,7 +47,7 @@ function ParticipationPage() {
 
         {rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            You currently have no active participations. New opportunities will appear here when available.
+            You currently have no active stakings. New opportunities will appear here when available.
           </p>
         ) : (
           <div className="-mx-6 overflow-x-auto">
@@ -57,7 +57,7 @@ function ParticipationPage() {
                   <th className="px-4 py-3 text-left font-medium">Date</th>
                   <th className="px-4 py-3 text-left font-medium">Package</th>
                   <th className="px-4 py-3 text-left font-medium">ROI Start Date</th>
-                  <th className="px-4 py-3 text-right font-medium">Participation Amount</th>
+                  <th className="px-4 py-3 text-right font-medium">Staking Amount</th>
                   <th className="px-4 py-3 text-right font-medium">ROI % Min</th>
                   <th className="px-4 py-3 text-right font-medium">ROI % Max</th>
                   <th className="px-4 py-3 text-right font-medium">Status</th>

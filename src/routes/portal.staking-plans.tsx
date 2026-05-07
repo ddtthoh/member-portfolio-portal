@@ -38,7 +38,7 @@ function StakingPlansPage() {
             <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
               <div className="pr-4">
                 <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                  Minimum Participation
+                  Minimum Staking
                 </div>
                 <div className="mt-0.5 font-light text-2xl tabular-nums tracking-[-0.04em] text-gold">
                   {plan.minAmount}
