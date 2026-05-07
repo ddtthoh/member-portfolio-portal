@@ -1,7 +1,14 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, type MouseEvent } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { cn } from "@/lib/utils";
+
+function handleSpotlightMove(e: MouseEvent<HTMLDivElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+  el.style.setProperty("--my", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+}
 
 /**
  * Shared portal building blocks. Use these on every /portal page so headers,
