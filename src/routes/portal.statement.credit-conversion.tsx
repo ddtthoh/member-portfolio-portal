@@ -32,8 +32,9 @@ function CreditConversionPage() {
         description="Review your credit conversion history and balances."
       />
 
-      <div className="liquid-glass rounded-xl px-5 py-4 overflow-x-auto">
-        <div className="min-w-max">
+      <div className="liquid-glass rounded-xl p-px">
+        <div className="overflow-x-auto px-5 py-4">
+          <div className="min-w-max">
           <div className="grid grid-cols-[auto_auto_auto_auto_auto] gap-x-8 divide-x divide-gold/40">
             {columns.map((col) => (
               <div key={col.key} className="px-2 first:pl-0 last:pr-0">
@@ -67,6 +68,7 @@ function CreditConversionPage() {
               ​
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
