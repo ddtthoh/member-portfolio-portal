@@ -384,7 +384,7 @@ function Overview() {
             key={t.label}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+            transition={{ duration: 0.45, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link to={t.to} className="group flex flex-col items-center gap-2 transition-transform hover:-translate-y-0.5">
               <TiltCard>
