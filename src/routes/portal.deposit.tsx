@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDownToLine, Building2, Copy, Sparkles, Gift, AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,10 @@ export const Route = createFileRoute("/portal/deposit")({
 
 function DepositPage() {
   const { t } = useTranslation();
-  const [reminderOpen, setReminderOpen] = useState(true);
+  const [reminderOpen, setReminderOpen] = useState(false);
+  useEffect(() => {
+    setReminderOpen(true);
+  }, []);
   return (
     <div>
       <Dialog open={reminderOpen} onOpenChange={setReminderOpen}>
