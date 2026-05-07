@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
+import { NetworkConstellation } from "@/components/network-constellation";
 
 export const Route = createFileRoute("/portal/network")({
   component: NetworkPage,
