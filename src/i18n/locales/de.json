@@ -5,7 +5,8 @@
   "nav": {
     "overview": "Übersicht",
     "stakingPlan": "Teilnahmeplan",
-    "portfolio": "Portfolio",
+   "portfolio": "Portfolio",
+   "assetAnalysis": "Vermögensanalyse",
     "statement": "Kontoauszug",
     "creditConversionStatement": "Kontoauszug Guthabenumtausch",
     "usdStatement": "USD-Kontoauszug",
