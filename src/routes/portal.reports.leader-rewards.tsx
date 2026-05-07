@@ -15,7 +15,7 @@ export const Route = createFileRoute("/portal/reports/leader-rewards")({
 });
 
 function LeaderRewardsPage() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
 
   return (

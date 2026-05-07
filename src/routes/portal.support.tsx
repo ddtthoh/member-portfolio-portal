@@ -46,7 +46,7 @@ function SupportPage() {
   const [files, setFiles] = useState<File[]>([]);
 
   // filters
-  const [filterOpen, setFilterOpen] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [fDate, setFDate] = useState("");
   const [fNumber, setFNumber] = useState("");
   const [fCategory, setFCategory] = useState<string>("all");
@@ -127,7 +127,7 @@ function SupportPage() {
           onClick={() => setFilterOpen((v) => !v)}
           className="flex w-full items-center justify-between px-6 py-4 text-left"
         >
-          <span className="text-base font-semibold tracking-tight">Filter</span>
+          <span className="text-base font-semibold tracking-tight text-gold">Filter</span>
           {filterOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
         </button>
 
@@ -206,7 +206,7 @@ function SupportPage() {
       {/* Tickets list */}
       <section className="liquid-glass rounded-xl border border-border/60 overflow-hidden">
         <div className="flex items-center justify-between gap-4 px-6 py-5">
-          <h2 className="text-base font-semibold tracking-tight">Support Tickets List</h2>
+          <h2 className="text-base font-semibold tracking-tight text-gold">Support Tickets List</h2>
 
           <Dialog open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setFiles([]); }}>
             <DialogTrigger asChild>

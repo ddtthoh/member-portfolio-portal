@@ -15,7 +15,7 @@ export const Route = createFileRoute("/portal/reports/staking")({
 });
 
 function StakingReportPage() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
 
   return (
