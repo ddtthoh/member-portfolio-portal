@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/reports")({
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/portal/reports")({
 type Report = { id: string; title: string; period: string | null; summary: string | null; file_url: string | null; published_at: string };
 
 function ReportsPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [items, setItems] = useState<Report[]>([]);
 
@@ -23,8 +25,7 @@ function ReportsPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Curated" title="Quarterly Reports"
-        description="Letters and analysis prepared by your advisory team." />
+      <PageHeader eyebrow={t("pages.reports.eyebrow")} title={t("pages.reports.title")} description={t("pages.reports.description")} />
       {items.length === 0 ? (
         <div className="liquid-glass rounded-xl p-16 text-center">
           <BookOpen className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />

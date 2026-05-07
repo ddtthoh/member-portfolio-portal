@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TrendingUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/staking-plans")({
@@ -21,13 +22,10 @@ const plans: Plan[] = [
 ];
 
 function StakingPlansPage() {
+  const { t } = useTranslation();
   return (
     <div className="space-y-5">
-      <PageHeader
-        eyebrow="Staking"
-        title="Staking Plan"
-        description="Choose a participation tier that matches your goals."
-      />
+      <PageHeader eyebrow={t("pages.stakingPlans.eyebrow")} title={t("pages.stakingPlans.title")} description={t("pages.stakingPlans.description")} />
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (

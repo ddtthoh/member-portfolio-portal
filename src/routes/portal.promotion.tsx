@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Copy, Gift, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/promotion")({
@@ -7,13 +8,10 @@ export const Route = createFileRoute("/portal/promotion")({
 });
 
 function PromotionPage() {
+  const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
-        eyebrow="Funds · Bonus"
-        title="Promotion"
-        description="Limited-time founders' promotion for qualifying deposits."
-      />
+      <PageHeader eyebrow={t("pages.promotion.eyebrow")} title={t("pages.promotion.title")} description={t("pages.promotion.description")} />
 
       <div className="liquid-glass rounded-xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">

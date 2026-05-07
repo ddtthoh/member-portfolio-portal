@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,7 @@ const schema = z.object({
 });
 
 function SupportPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [subject, setSubject] = useState("");
@@ -51,8 +53,7 @@ function SupportPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Concierge" title="Support"
-        description="Open a private ticket — our concierge team responds promptly." />
+      <PageHeader eyebrow={t("pages.support.eyebrow")} title={t("pages.support.title")} description={t("pages.support.description")} />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
         <form onSubmit={submit} className="space-y-4 liquid-glass rounded-xl p-6">

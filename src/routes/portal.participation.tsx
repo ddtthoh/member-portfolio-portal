@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/participation")({
@@ -32,13 +33,10 @@ const fmtUSD = (n: number) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
 function ParticipationPage() {
+  const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
-        eyebrow="Programs · Engagement"
-        title="Participation"
-        description="Track your active participation across firm programs, initiatives, and allocations."
-      />
+      <PageHeader eyebrow={t("pages.participation.eyebrow")} title={t("pages.participation.title")} description={t("pages.participation.description")} />
 
       <div className="liquid-glass rounded-xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
