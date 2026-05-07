@@ -69,15 +69,11 @@ function Overview() {
             {hideBalance ? "******" : "$50,000.00"}
           </div>
           <div className="mt-3 space-y-1.5 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                {t("overview.todaysPnl")} <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">
-                {t("overview.totalPnl", "Total PNL")} <span className="text-emerald-400">{hideBalance ? "******" : "+$2344.2(+2.54%)"}</span>
-              </span>
+            <div className="grid grid-cols-[auto_1fr] gap-x-2">
+              <span className="text-muted-foreground">{t("overview.todaysPnl")}</span>
+              <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
+              <span className="text-muted-foreground">{t("overview.totalPnl", "Total PNL")}</span>
+              <span className="text-emerald-400">{hideBalance ? "******" : "+$2344.2(+2.54%)"}</span>
             </div>
           </div>
         </motion.div>
