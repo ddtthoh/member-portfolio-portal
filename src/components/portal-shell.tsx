@@ -47,8 +47,6 @@ const nav: NavItem[] = [
       { to: "/portal/statement/rewards", labelKey: "nav.rewardsStatement", icon: Gift },
     ],
   },
-  { to: "/portal/transactions", labelKey: "nav.transactions", icon: ArrowLeftRight },
-  { to: "/portal/documents", labelKey: "nav.documents", icon: FileText },
   { to: "/portal/reports", labelKey: "nav.reports", icon: BookOpen },
   { to: "/portal/network", labelKey: "nav.network", icon: Users },
   { to: "/portal/qna", labelKey: "nav.qna", icon: MessageCircleQuestion },
