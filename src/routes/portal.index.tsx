@@ -52,7 +52,7 @@ function Overview() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="liquid-glass rounded-xl p-5"
+          className="liquid-glass flex h-full flex-col rounded-xl p-6"
         >
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <span>{t("overview.estTotalValue")}</span>
