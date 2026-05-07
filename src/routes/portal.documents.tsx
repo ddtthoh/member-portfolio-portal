@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Download } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/documents")({
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/portal/documents")({
 type Doc = { id: string; title: string; category: string; period: string | null; file_url: string | null; created_at: string };
 
 function DocumentsPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [docs, setDocs] = useState<Doc[]>([]);
 
@@ -23,8 +25,7 @@ function DocumentsPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Library" title="Documents & Statements"
-        description="Statements, tax documents, and legal contracts on file." />
+      <PageHeader eyebrow={t("pages.documents.eyebrow")} title={t("pages.documents.title")} description={t("pages.documents.description")} />
       {docs.length === 0 ? (
         <Empty />
       ) : (

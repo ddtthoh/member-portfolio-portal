@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/statement/usd")({
@@ -26,13 +27,10 @@ const columns: { key: keyof UsdRow; label: string }[] = [
 const rows: UsdRow[] = [];
 
 function UsdStatementPage() {
+  const { t } = useTranslation();
   return (
     <div className="space-y-5">
-      <PageHeader
-        eyebrow="Statement"
-        title="USD Statement"
-        description="A summary of your USD account activity."
-      />
+      <PageHeader eyebrow={t("pages.usdStatement.eyebrow")} title={t("pages.usdStatement.title")} description={t("pages.usdStatement.description")} />
 
       <div className="liquid-glass rounded-xl p-px">
         <div className="overflow-x-auto px-5 py-4">

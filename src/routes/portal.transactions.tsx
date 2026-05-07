@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/transactions")({
@@ -18,6 +19,7 @@ function fmt(n: number) {
 }
 
 function TransactionsPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [rows, setRows] = useState<Tx[]>([]);
 
@@ -29,8 +31,7 @@ function TransactionsPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Ledger" title="Transactions"
-        description="A complete history of deposits, trades, and withdrawals." />
+      <PageHeader eyebrow={t("pages.transactions.eyebrow")} title={t("pages.transactions.title")} description={t("pages.transactions.description")} />
 
       <div className="liquid-glass overflow-hidden rounded-xl">
         <table className="w-full text-sm">

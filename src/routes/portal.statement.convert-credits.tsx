@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 
@@ -8,15 +9,12 @@ export const Route = createFileRoute("/portal/statement/convert-credits")({
 });
 
 function ConvertCreditsPage() {
+  const { t } = useTranslation();
   const [amount, setAmount] = useState("");
 
   return (
     <div className="space-y-5">
-      <PageHeader
-        eyebrow="Statement"
-        title="Convert Credits"
-        description="Convert credits between balances."
-      />
+      <PageHeader eyebrow={t("pages.convertCredits.eyebrow")} title={t("pages.convertCredits.title")} description={t("pages.convertCredits.description")} />
       <div className="grid grid-cols-2 gap-3">
         {[
           { label: "USD Wallet", value: "$0.00" },

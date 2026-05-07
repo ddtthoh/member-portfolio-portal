@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +18,7 @@ type Qna = { id: string; question: string; answer: string | null; status: string
 const schema = z.object({ question: z.string().trim().min(5, "Please write at least 5 characters").max(1000) });
 
 function QnAPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [items, setItems] = useState<Qna[]>([]);
   const [q, setQ] = useState("");
@@ -45,8 +47,7 @@ function QnAPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Conversation" title="Q&A"
-        description="Submit a question — your advisor responds within one business day." />
+      <PageHeader eyebrow={t("pages.qna.eyebrow")} title={t("pages.qna.title")} description={t("pages.qna.description")} />
 
       <form onSubmit={submit} className="liquid-glass rounded-xl p-6">
         <Textarea value={q} onChange={(e) => setQ(e.target.value)} maxLength={1000} rows={4}

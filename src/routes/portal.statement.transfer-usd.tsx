@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Send } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/portal/statement/transfer-usd")({
 });
 
 function TransferUsdPage() {
+  const { t } = useTranslation();
   const [memberId, setMemberId] = useState("");
   const [amount, setAmount] = useState("");
   const [remarks, setRemarks] = useState("");
@@ -27,11 +29,7 @@ function TransferUsdPage() {
 
   return (
     <div className="space-y-5">
-      <PageHeader
-        eyebrow="USD Wallet"
-        title="Transfer USD"
-        description="Transfer USD to another member's account."
-      />
+      <PageHeader eyebrow={t("pages.transferUsd.eyebrow")} title={t("pages.transferUsd.title")} description={t("pages.transferUsd.description")} />
 
       <form onSubmit={handleSubmit} className="liquid-glass rounded-xl p-6 space-y-6">
         <div className="flex items-center gap-2 text-gold border-b border-border/50 pb-4">

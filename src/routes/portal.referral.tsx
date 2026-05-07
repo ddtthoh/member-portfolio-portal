@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Users, Gift, Copy } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/referral")({
@@ -8,17 +9,14 @@ export const Route = createFileRoute("/portal/referral")({
 });
 
 function ReferralPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const code = (user?.id ?? "").slice(0, 8).toUpperCase() || "—";
   const link = `https://members.example.com/join?ref=${code}`;
 
   return (
     <div>
-      <PageHeader
-        eyebrow="Network · Invitation"
-        title="Referral"
-        description="Invite qualified investors to the firm. Earn a structured rebate on every funded account."
-      />
+      <PageHeader eyebrow={t("pages.referral.eyebrow")} title={t("pages.referral.title")} description={t("pages.referral.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">

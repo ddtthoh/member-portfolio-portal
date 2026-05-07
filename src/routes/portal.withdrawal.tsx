@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpFromLine, Building2, Copy } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/withdrawal")({
@@ -7,13 +8,10 @@ export const Route = createFileRoute("/portal/withdrawal")({
 });
 
 function WithdrawalPage() {
+  const { t } = useTranslation();
   return (
     <div>
-      <PageHeader
-        eyebrow="Funds · Outbound"
-        title="Withdrawal"
-        description="Request a payout to your verified bank account. Funds typically arrive within 1–2 business days."
-      />
+      <PageHeader eyebrow={t("pages.withdrawal.eyebrow")} title={t("pages.withdrawal.title")} description={t("pages.withdrawal.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">

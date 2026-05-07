@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ function fmt(n: number) {
 }
 
 function HoldingsPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
   const [showAmount, setShowAmount] = useState(true);
@@ -44,11 +46,7 @@ function HoldingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        eyebrow="Portfolio"
-        title="Portfolio Overview"
-        description="A summary of your active staking participation."
-      />
+      <PageHeader eyebrow={t("pages.holdings.eyebrow")} title={t("pages.holdings.title")} description={t("pages.holdings.description")} />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="liquid-glass rounded-xl p-6">

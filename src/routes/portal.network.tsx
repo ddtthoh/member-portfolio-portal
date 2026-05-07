@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, Users } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/network")({
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/portal/network")({
 type Contact = { id: string; name: string; role: string | null; firm: string | null; email: string | null; phone: string | null };
 
 function NetworkPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [items, setItems] = useState<Contact[]>([]);
 
@@ -23,8 +25,7 @@ function NetworkPage() {
 
   return (
     <div>
-      <PageHeader eyebrow="Relationships" title="Network"
-        description="Your trusted circle of advisors, custodians, and partners." />
+      <PageHeader eyebrow={t("pages.network.eyebrow")} title={t("pages.network.title")} description={t("pages.network.description")} />
       {items.length === 0 ? (
         <div className="liquid-glass rounded-xl p-16 text-center">
           <Users className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />

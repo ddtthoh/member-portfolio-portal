@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { TiltCard } from "@/components/tilt-card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/")({
   component: Overview,
@@ -16,6 +17,7 @@ type Profile = { full_name: string | null; account_number: string | null; member
 type Holding = { quantity: number; current_price: number };
 
 function Overview() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
@@ -32,13 +34,13 @@ function Overview() {
   const firstName = (profile?.full_name ?? user?.email ?? "").split(" ")[0];
 
   const actionTiles = [
-    { label: "Deposit", icon: <ArrowDownToLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/deposit" },
-    { label: "Withdrawal", icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
-    { label: "Convert Credits", icon: <Repeat className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/convert-credits" },
-    { label: "Transfer USD", icon: <Send className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/transfer-usd" },
-    { label: "Referral", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
-    { label: "Participation", icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/participation" },
-    { label: "Promotion", icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
+    { label: t("overview.tiles.deposit"), icon: <ArrowDownToLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/deposit" },
+    { label: t("overview.tiles.withdrawal"), icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
+    { label: t("overview.tiles.convertCredits"), icon: <Repeat className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/convert-credits" },
+    { label: t("overview.tiles.transferUsd"), icon: <Send className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/transfer-usd" },
+    { label: t("overview.tiles.referral"), icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
+    { label: t("overview.tiles.participation"), icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/participation" },
+    { label: t("overview.tiles.promotion"), icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
   ];
 
 
@@ -53,7 +55,7 @@ function Overview() {
           className="liquid-glass rounded-xl p-5"
         >
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <span>Est. Total Value (USD)</span>
+            <span>{t("overview.estTotalValue")}</span>
             <button
               type="button"
               onClick={() => setHideBalance((v) => !v)}
@@ -68,7 +70,7 @@ function Overview() {
           </div>
           <div className="mt-3 flex items-center justify-between text-sm">
             <span className="text-muted-foreground">
-              Today's PNL <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
+              {t("overview.todaysPnl")} <span className="text-emerald-400">{hideBalance ? "******" : "+$960.2(+1.92%)"}</span>
             </span>
           </div>
         </motion.div>
@@ -80,11 +82,11 @@ function Overview() {
           className="liquid-glass flex flex-col justify-center gap-3 rounded-xl p-5"
         >
           <div>
-            <div className="text-sm text-muted-foreground">Participated day : </div>
-            <div className="mt-1 text-2xl font-semibold text-gold">85 days</div>
+            <div className="text-sm text-muted-foreground">{t("overview.participatedDay")} </div>
+            <div className="mt-1 text-2xl font-semibold text-gold">85 {t("common.days")}</div>
           </div>
           <div>
-            <div className="text-sm text-muted-foreground">Staking amount :</div>
+            <div className="text-sm text-muted-foreground">{t("overview.stakingAmount")}</div>
             <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
           </div>
         </motion.div>
@@ -118,7 +120,7 @@ function Overview() {
                   color: "transparent",
                 }}
               >
-                Diamond
+                {t("overview.diamond")}
               </div>
               <Dialog>
                 <DialogTrigger asChild>
@@ -126,7 +128,7 @@ function Overview() {
                     type="button"
                     className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur transition-colors hover:border-gold/50 hover:text-foreground"
                   >
-                    Current tier progress <ChevronRight className="h-3.5 w-3.5" />
+                    {t("overview.currentTierProgress")} <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                 </DialogTrigger>
                 <DialogContent className="border-gold/25 bg-background sm:max-w-md">
@@ -140,9 +142,9 @@ function Overview() {
                         color: "transparent",
                       }}
                     >
-                      Tier Progression
+                      {t("overview.tierProgression")}
                     </DialogTitle>
-                    <DialogDescription>Reach 100% to unlock the next tier.</DialogDescription>
+                    <DialogDescription>{t("overview.tierUnlock")}</DialogDescription>
                   </DialogHeader>
 
                   <div className="mt-2">
@@ -163,10 +165,10 @@ function Overview() {
 
                   <ul className="mt-4 space-y-2 text-sm">
                     {[
-                      { name: "Staking plan : Premium Pro", pct: "25%", highlight: true },
-                      { name: "First platinum manager within the division", pct: "50%", highlight: true },
-                      { name: "Second platinum manager within the division", pct: "75%", current: true },
-                      { name: "Third platinum manager within the division", pct: "100%", locked: true },
+                      { name: t("overview.stakingPlanPremium"), pct: "25%", highlight: true },
+                      { name: t("overview.firstPlatinum"), pct: "50%", highlight: true },
+                      { name: t("overview.secondPlatinum"), pct: "75%", current: true },
+                      { name: t("overview.thirdPlatinum"), pct: "100%", locked: true },
                     ].map((t) => (
                       <li
                         key={t.name}
@@ -238,8 +240,8 @@ function Overview() {
 
       <div className="mb-3 grid grid-cols-2 gap-3">
         {[
-          { label: "USDT Wallet", value: "$0.00" },
-          { label: "Rewards Wallet", value: "$0.00" },
+          { label: t("overview.usdtWallet"), value: "$0.00" },
+          { label: t("overview.rewardsWallet"), value: "$0.00" },
         ].map((w, i) => (
           <motion.div
             key={w.label}

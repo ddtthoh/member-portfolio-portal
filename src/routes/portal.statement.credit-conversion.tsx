@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 
 export const Route = createFileRoute("/portal/statement/credit-conversion")({
@@ -24,13 +25,10 @@ const columns: { key: keyof ConversionRow; label: string }[] = [
 ];
 
 function CreditConversionPage() {
+  const { t } = useTranslation();
   return (
     <div className="space-y-5">
-      <PageHeader
-        eyebrow="Statement"
-        title="Credit Conversion Statement"
-        description="Review your credit conversion history and balances."
-      />
+      <PageHeader eyebrow={t("pages.creditConversionStatement.eyebrow")} title={t("pages.creditConversionStatement.title")} description={t("pages.creditConversionStatement.description")} />
 
       <div className="liquid-glass rounded-xl p-px">
         <div className="overflow-x-auto px-5 py-4">
