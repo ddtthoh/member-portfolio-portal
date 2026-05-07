@@ -167,7 +167,28 @@ export function PortalShell() {
             </Link>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden text-xs text-muted-foreground sm:inline">{user.email}</span>
+            <Link
+              to="/portal/promotion"
+              aria-label={t("nav.promotion", "Promotion")}
+              className="group relative inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full border border-gold/70 bg-gradient-to-r from-gold/15 via-gold/30 to-gold/15 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_35%,transparent),0_0_18px_-2px_color-mix(in_oklab,var(--gold)_60%,transparent)] transition-all hover:scale-[1.04] hover:border-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_24px_-2px_color-mix(in_oklab,var(--gold)_85%,transparent)]"
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -inset-1 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--gold) 55%, transparent), transparent 70%)",
+                  filter: "blur(8px)",
+                  animation: "promo-pulse 1.8s ease-in-out infinite",
+                }}
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+              />
+              <Gift className="relative h-4 w-4 text-gold drop-shadow-[0_0_6px_color-mix(in_oklab,var(--gold)_80%,transparent)]" />
+              <span className="relative hidden sm:inline">{t("nav.promotion", "Promo")}</span>
+            </Link>
             <ThemeToggle />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
