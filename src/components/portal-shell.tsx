@@ -170,24 +170,19 @@ export function PortalShell() {
             <Link
               to="/portal/promotion"
               aria-label={t("nav.promotion", "Promotion")}
-              className="group relative inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full border border-gold/70 bg-gradient-to-r from-gold/15 via-gold/30 to-gold/15 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_35%,transparent),0_0_18px_-2px_color-mix(in_oklab,var(--gold)_60%,transparent)] transition-all hover:scale-[1.04] hover:border-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_24px_-2px_color-mix(in_oklab,var(--gold)_85%,transparent)]"
+              className="group relative inline-flex h-9 items-center gap-1.5 rounded-full border border-border/70 bg-background/40 px-3 text-xs font-medium tracking-wide text-foreground/85 backdrop-blur-sm transition-colors hover:border-gold/60 hover:text-gold"
             >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -inset-1 rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--gold) 55%, transparent), transparent 70%)",
-                  filter: "blur(8px)",
-                  animation: "promo-pulse 1.8s ease-in-out infinite",
-                }}
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-              />
-              <Gift className="relative h-4 w-4 text-gold drop-shadow-[0_0_6px_color-mix(in_oklab,var(--gold)_80%,transparent)]" />
-              <span className="relative hidden sm:inline">{t("nav.promotion", "Promo")}</span>
+              <span className="relative flex h-4 w-4 items-center justify-center">
+                <Gift
+                  className="h-4 w-4 text-gold/90 transition-transform duration-500 ease-out group-hover:rotate-[-10deg]"
+                  style={{ animation: "promo-tilt 3.2s ease-in-out infinite", transformOrigin: "50% 60%" }}
+                />
+                <span className="absolute -right-0.5 -top-0.5 flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/70 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+                </span>
+              </span>
+              <span className="hidden sm:inline">{t("nav.promotion", "Promo")}</span>
             </Link>
             <ThemeToggle />
             <DropdownMenu>
