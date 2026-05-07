@@ -120,32 +120,6 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {/* View toggle (mobile-first) */}
-          <div className="inline-flex rounded-md border border-border/60 bg-background/40 p-0.5 text-[11px]">
-            <button
-              type="button"
-              onClick={() => setView("list")}
-              className={`rounded px-2.5 py-1 transition-colors ${
-                view === "list"
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              List
-            </button>
-            <button
-              type="button"
-              onClick={() => setView("calendar")}
-              className={`rounded px-2.5 py-1 transition-colors ${
-                view === "calendar"
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Calendar
-            </button>
-          </div>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
@@ -153,7 +127,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                 className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
               >
                 <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Mo
+                  Month
                 </span>
                 <span>{MONTHS_SHORT[month]}</span>
                 <ChevronDown className="h-3 w-3 opacity-60" />
@@ -175,7 +149,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                 className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
               >
                 <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Yr
+                  Year
                 </span>
                 <span className="tabular-nums">{year}</span>
                 <ChevronDown className="h-3 w-3 opacity-60" />
