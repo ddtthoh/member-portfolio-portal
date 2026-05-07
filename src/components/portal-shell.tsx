@@ -4,8 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
-  ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send,
+  ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send, Languages, UserCircle2, KeyRound, ShieldCheck, QrCode,
 } from "lucide-react";
+import {
+  DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -140,6 +143,56 @@ export function PortalShell() {
           <div className="flex items-center gap-2">
             <span className="hidden text-xs text-muted-foreground sm:inline">{user.email}</span>
             <ThemeToggle />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Switch language"
+                  className="rounded-full border border-border/60"
+                >
+                  <span className="text-base leading-none">🇺🇸</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuItem><span className="mr-2">🇺🇸</span>English</DropdownMenuItem>
+                <DropdownMenuItem><span className="mr-2">🇨🇳</span>中文</DropdownMenuItem>
+                <DropdownMenuItem><span className="mr-2">🇲🇾</span>Bahasa Melayu</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Account"
+                  className="rounded-full border border-border/60"
+                >
+                  <UserCircle2 className="h-5 w-5 text-gold" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/profile" as any })}>
+                  <UserCircle2 className="h-4 w-4" /> Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" as any })}>
+                  <KeyRound className="h-4 w-4" /> Change Password
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" as any })}>
+                  <ShieldCheck className="h-4 w-4" /> My KYC
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
+                  <QrCode className="h-4 w-4" /> My QR Code
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/network" })}>
+                  <Users className="h-4 w-4" /> Network
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={async () => { await signOut(); navigate({ to: "/login" }); }}>
+                  <LogOut className="h-4 w-4" /> Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
         <TickerTape />
