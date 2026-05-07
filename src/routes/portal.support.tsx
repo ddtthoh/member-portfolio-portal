@@ -127,7 +127,7 @@ function SupportPage() {
           onClick={() => setFilterOpen((v) => !v)}
           className="flex w-full items-center justify-between px-6 py-4 text-left"
         >
-          <span className="text-base font-semibold tracking-tight">Filter</span>
+          <span className="text-base font-semibold tracking-tight text-gold">Filter</span>
           {filterOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
         </button>
 
