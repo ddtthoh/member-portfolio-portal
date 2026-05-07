@@ -109,10 +109,7 @@ function DepositPage() {
 
   return (
     <div>
-      <PageHeader
-        eyebrow={t("pages.deposit.eyebrow")}
-        title={t("pages.deposit.title")}
-      />
+      <PageHeader title={t("pages.deposit.title")} />
 
       <SpotlightCard className="liquid-glass mx-auto max-w-md rounded-2xl p-6 sm:p-8">
         <div className="flex flex-col items-center">
