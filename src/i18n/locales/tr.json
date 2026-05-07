@@ -4,7 +4,7 @@
   },
   "nav": {
     "overview": "Genel Bakış",
-    "stakingPlan": "Staking Planı",
+    "stakingPlan": "Katılım Planı",
     "portfolio": "Portföy",
     "statement": "Hesap Özeti",
     "creditConversionStatement": "Kredi Dönüşüm Özeti",
@@ -50,12 +50,12 @@
     "estTotalValue": "Tahmini Toplam Değer (USD)",
     "todaysPnl": "Bugünkü Kâr/Zarar",
     "participatedDay": "Katılım günü:",
-    "stakingAmount": "Staking tutarı:",
+    "stakingAmount": "Katılım tutarı:",
     "diamond": "Elmas",
     "currentTierProgress": "Mevcut seviye ilerlemesi",
     "tierProgression": "Seviye İlerlemesi",
     "tierUnlock": "Bir sonraki seviyeyi açmak için %100'e ulaşın.",
-    "stakingPlanPremium": "Staking planı: Premium Pro",
+    "stakingPlanPremium": "Katılım planı: Premium Pro",
     "firstPlatinum": "Bölümdeki birinci platin yönetici",
     "secondPlatinum": "Bölümdeki ikinci platin yönetici",
     "thirdPlatinum": "Bölümdeki üçüncü platin yönetici",
@@ -121,7 +121,7 @@
     "holdings": {
       "eyebrow": "Portföy",
       "title": "Portföy Genel Bakışı",
-      "description": "Aktif staking katılımınızın özeti."
+      "description": "Aktif katılımınızın özeti."
     },
     "transferUsd": {
       "eyebrow": "USD Cüzdanı",
@@ -144,8 +144,8 @@
       "description": "Kredi dönüşüm geçmişinizi ve bakiyelerinizi inceleyin."
     },
     "stakingPlans": {
-      "eyebrow": "Staking",
-      "title": "Staking Planı",
+      "eyebrow": "Katılım",
+      "title": "Katılım Planı",
       "description": "Hedeflerinize uygun bir katılım seviyesi seçin."
     },
     "convertCredits": {

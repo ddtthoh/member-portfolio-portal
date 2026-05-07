@@ -4,7 +4,7 @@
   },
   "nav": {
     "overview": "نظرة عامة",
-    "stakingPlan": "خطة الرهن",
+    "stakingPlan": "خطة المشاركة",
     "portfolio": "المحفظة",
     "statement": "كشف الحساب",
     "creditConversionStatement": "كشف تحويل الأرصدة",
@@ -50,12 +50,12 @@
     "estTotalValue": "القيمة الإجمالية التقديرية (دولار)",
     "todaysPnl": "الربح/الخسارة اليوم",
     "participatedDay": "أيام المشاركة:",
-    "stakingAmount": "مبلغ الرهن:",
+    "stakingAmount": "مبلغ المشاركة:",
     "diamond": "ماسي",
     "currentTierProgress": "تقدم المستوى الحالي",
     "tierProgression": "تقدم المستوى",
     "tierUnlock": "اصل إلى 100٪ لفتح المستوى التالي.",
-    "stakingPlanPremium": "خطة الرهن: Premium Pro",
+    "stakingPlanPremium": "خطة المشاركة: Premium Pro",
     "firstPlatinum": "أول مدير بلاتيني في القسم",
     "secondPlatinum": "ثاني مدير بلاتيني في القسم",
     "thirdPlatinum": "ثالث مدير بلاتيني في القسم",
@@ -145,7 +145,7 @@
     },
     "stakingPlans": {
       "eyebrow": "الرهن",
-      "title": "خطة الرهن",
+      "title": "خطة المشاركة",
       "description": "اختر مستوى المشاركة الذي يناسب أهدافك."
     },
     "convertCredits": {
