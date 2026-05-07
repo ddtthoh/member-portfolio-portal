@@ -170,7 +170,7 @@ export function PortalShell() {
             <Link
               to="/portal/promotion"
               aria-label={t("nav.promotion", "Promotion")}
-              className="group relative inline-flex h-9 items-center gap-1.5 rounded-full border border-border/70 bg-background/40 px-3 text-xs font-medium tracking-wide text-foreground/85 backdrop-blur-sm transition-colors hover:border-gold/60 hover:text-gold"
+              className="group relative inline-flex h-9 items-center gap-1.5 rounded-full border border-gold/60 bg-background/40 px-3 text-xs font-medium tracking-wide text-foreground/85 backdrop-blur-sm shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] transition-all hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)]"
             >
               <span className="relative flex h-4 w-4 items-center justify-center">
                 <Gift
