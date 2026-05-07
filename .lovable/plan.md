@@ -1,9 +1,24 @@
-Update `src/routes/portal.statement.credit-conversion.tsx`:
+## Change
 
-- Replace fixed pixel column widths `grid-cols-[110px_120px_140px_130px_100px]` with content-sized `grid-cols-[auto_auto_auto_auto_auto]` on both header and row grids so each label gets exactly the width its text needs and "Destination Credit" no longer touches the gold divider.
-- Increase column gap from `gap-x-6` to `gap-x-8` for even, comfortable breathing room.
-- Reduce per-cell padding from `px-3` to `px-2` (the larger gap now handles spacing).
-- Change inner wrapper from `min-w-[640px]` to `min-w-max` so the grid expands to its natural width and the outer `overflow-x-auto` can actually scroll right on the 390 px mobile viewport to reveal the Status column.
-- Keep dividers, typography, empty-state, and zero-width-space placeholder unchanged.
+In `src/routes/portal.index.tsx`, on the Est. Total Value card, place each percentage to the right of its dollar amount on the same line, instead of stacked underneath.
 
-Result: headers (Date, Source Credit, Destination Credit, Converted Amount, Status) sit evenly spaced without touching dividers, no awkward empty gaps, and the table scrolls horizontally on mobile.
+## Layout
+
+Before (stacked):
+```
+TODAY'S PNL
++$960.20
++1.92%
+```
+
+After (inline):
+```
+TODAY'S PNL
++$960.20  +1.92%
+```
+
+Same change applied to Total PNL.
+
+## Implementation
+
+Wrap the `+$amount` and `+x.xx%` spans in a `flex items-baseline gap-1.5` container so the smaller percentage sits to the right of the larger amount, baseline-aligned for a clean financial look. Percentage stays at smaller font size and slightly muted emerald (`text-emerald-400/80`) so the dollar value remains the primary number.
