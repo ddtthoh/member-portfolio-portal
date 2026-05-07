@@ -359,18 +359,21 @@ function Overview() {
 
       <div className="mb-3 grid grid-cols-2 gap-3">
         {[
-          { label: t("overview.usdtWallet"), value: "$0.00" },
-          { label: t("overview.rewardsWallet"), value: "$0.00" },
+          { label: t("overview.usdtWallet"), value: 0 },
+          { label: t("overview.rewardsWallet"), value: 0 },
         ].map((w, i) => (
           <motion.div
             key={w.label}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-            className="liquid-glass flex flex-col gap-2 rounded-xl p-5"
+            transition={{ duration: 0.55, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="text-xs text-muted-foreground">{w.label}</div>
-            <div className="text-xl font-semibold tracking-tight text-gold sm:text-2xl">{w.value}</div>
+            <SpotlightCard className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
+              <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
+              <div className="text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
+                <CountUp value={w.value} prefix="$" decimals={2} />
+              </div>
+            </SpotlightCard>
           </motion.div>
         ))}
       </div>
