@@ -48,9 +48,16 @@ const nav: NavItem[] = [
     ],
   },
   { to: "/portal/reports", labelKey: "nav.reports", icon: BookOpen },
-  { to: "/portal/network", labelKey: "nav.network", icon: Users },
   { to: "/portal/qna", labelKey: "nav.qna", icon: MessageCircleQuestion },
   { to: "/portal/support", labelKey: "nav.support", icon: LifeBuoy },
+  {
+    labelKey: "account.label",
+    icon: UserCircle2,
+    basePath: "/portal/account",
+    children: [
+      { to: "/portal/network", labelKey: "nav.network", icon: Users },
+    ],
+  },
 ];
 
 export function PortalShell() {
