@@ -191,7 +191,7 @@ function Overview() {
             transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link to="/portal/asset-analysis" className="block">
-              <SpotlightCard className="liquid-glass flex items-center justify-between rounded-xl px-5 py-4 transition-transform hover:-translate-y-0.5">
+              <SpotlightCard className="liquid-glass relative flex items-center justify-center rounded-xl px-5 py-4 transition-transform hover:-translate-y-0.5">
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold/10 ring-1 ring-gold/25">
                     <LineChart className="h-4 w-4 text-gold" />
@@ -205,7 +205,7 @@ function Overview() {
                     </span>
                   </div>
                 </div>
-                <ChevronRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5" />
+                <ChevronRight className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gold transition-transform group-hover:translate-x-0.5" />
               </SpotlightCard>
             </Link>
           </motion.div>
