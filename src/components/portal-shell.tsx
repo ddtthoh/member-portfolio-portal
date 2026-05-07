@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { ThreeBackground } from "@/components/three-background";
 import { CursorGlow } from "@/components/cursor-glow";
+import { CommandPalette } from "@/components/command-palette";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
 
@@ -157,6 +158,7 @@ export function PortalShell() {
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <CursorGlow />
+        <CommandPalette />
         {/* Backdrop layers */}
         <div
           aria-hidden
@@ -331,6 +333,15 @@ export function PortalShell() {
                 </span>
                 
               </Link>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+                className="hidden items-center gap-2 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur transition hover:border-gold/50 hover:text-gold md:inline-flex"
+                title="Search (⌘K)"
+              >
+                <span>Search</span>
+                <kbd className="rounded bg-muted/60 px-1.5 py-0.5 font-mono text-[10px] text-foreground/70">⌘K</kbd>
+              </button>
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
