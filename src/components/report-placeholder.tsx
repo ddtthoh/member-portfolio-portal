@@ -91,10 +91,10 @@ export function ReportPlaceholder({ title }: { title: string }) {
         <div className="overflow-x-auto px-2 pb-4 sm:px-5">
           <table className="w-full min-w-[640px] table-fixed border-collapse text-left text-sm">
             <colgroup>
-              <col className="w-1/4" />
-              <col className="w-1/4" />
-              <col className="w-1/4" />
-              <col className="w-1/4" />
+              <col className="w-[30%]" />
+              <col className="w-[20%]" />
+              <col className="w-[15%]" />
+              <col className="w-[35%]" />
             </colgroup>
             <thead>
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
