@@ -101,7 +101,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">Member ID</th>
                 <th className="px-3 py-3 font-semibold">amount</th>
-                <th className="px-3 py-3 font-semibold">Amount</th>
+                <th className="px-3 py-3 font-semibold">rank</th>
               </tr>
             </thead>
             <tbody>
