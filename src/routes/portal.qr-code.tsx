@@ -129,15 +129,7 @@ function QrCodePage() {
                 </span>
               </div>
 
-              {/* Member */}
-              <div className="mt-5">
-                <div className="text-[10px] uppercase tracking-[0.22em] text-gold/60">
-                  Introduced by
-                </div>
-                <div className="mt-1 font-serif text-[22px] font-semibold leading-tight text-gold">
-                  {memberName}
-                </div>
-              </div>
+
 
               {/* QR */}
               <motion.div
