@@ -40,7 +40,7 @@ function NetworkPage() {
   return (
     <div>
       <PageHeader
-        eyebrow={t("pages.network.eyebrow")}
+        
         title={t("pages.network.title")}
         description={t("pages.network.description")}
       />
