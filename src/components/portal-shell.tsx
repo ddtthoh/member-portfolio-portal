@@ -94,6 +94,8 @@ const sections: NavSection[] = [
         icon: UserCircle2,
         basePath: "/portal/account",
         children: [
+          { to: "/portal/profile", labelKey: "account.profile", icon: UserCircle2 },
+          { to: "/portal/qr-code", labelKey: "account.myQrCode", icon: QrCode },
           { to: "/portal/network", labelKey: "nav.network", icon: Users },
         ],
       },
