@@ -8,6 +8,7 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
+import { useDeviceCapability } from "@/hooks/use-device-capability";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, Users, GraduationCap,
   LifeBuoy, ArrowDownToLine, ArrowUpFromLine, Layers, DollarSign, Gift,
@@ -47,6 +48,7 @@ const ITEMS: Item[] = [
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const cap = useDeviceCapability();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -62,9 +64,18 @@ export function CommandPalette() {
   const groups = Array.from(new Set(ITEMS.map((i) => i.group)));
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Type to navigate… (⌘K)" />
-      <CommandList>
+    <CommandDialog
+      open={open}
+      onOpenChange={setOpen}
+      className={cap.coarse ? "top-auto bottom-0 translate-y-0 rounded-b-none rounded-t-2xl border-b-0 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:rounded-2xl" : ""}
+    >
+      <CommandInput
+        placeholder={cap.coarse ? "Search the portal…" : "Type to navigate… (⌘K)"}
+        autoFocus={!cap.coarse}
+        // @ts-expect-error inputMode supported
+        inputMode="search"
+      />
+      <CommandList className={cap.coarse ? "max-h-[70vh]" : ""}>
         <CommandEmpty>No results.</CommandEmpty>
         {groups.map((g) => (
           <CommandGroup key={g} heading={g}>
@@ -74,6 +85,7 @@ export function CommandPalette() {
                 <CommandItem
                   key={i.to}
                   value={`${g} ${i.label}`}
+                  className={cap.coarse ? "min-h-[44px] py-3 text-[15px]" : ""}
                   onSelect={() => {
                     setOpen(false);
                     navigate({ to: i.to });
