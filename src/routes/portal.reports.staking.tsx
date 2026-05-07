@@ -106,7 +106,7 @@ function StakingReportPage() {
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">transaction id</th>
                 <th className="px-3 py-3 font-semibold">Amount</th>
-                <th className="px-3 py-3 font-semibold">Daily ROI Amount</th>
+                <th className="px-3 py-3 font-semibold">package</th>
               </tr>
             </thead>
             <tbody>
