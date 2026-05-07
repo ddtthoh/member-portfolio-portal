@@ -1,26 +1,9 @@
-## Goal
-Rename the "Performance" sidebar item to "Statement". Clicking it expands an inline submenu with three children: Credit Conversion, USD Statement, Rewards Statement. Each opens its own subpage.
+Update `src/routes/portal.statement.credit-conversion.tsx`:
 
-## Changes
+- Replace fixed pixel column widths `grid-cols-[110px_120px_140px_130px_100px]` with content-sized `grid-cols-[auto_auto_auto_auto_auto]` on both header and row grids so each label gets exactly the width its text needs and "Destination Credit" no longer touches the gold divider.
+- Increase column gap from `gap-x-6` to `gap-x-8` for even, comfortable breathing room.
+- Reduce per-cell padding from `px-3` to `px-2` (the larger gap now handles spacing).
+- Change inner wrapper from `min-w-[640px]` to `min-w-max` so the grid expands to its natural width and the outer `overflow-x-auto` can actually scroll right on the 390 px mobile viewport to reveal the Status column.
+- Keep dividers, typography, empty-state, and zero-width-space placeholder unchanged.
 
-### 1. `src/components/portal-shell.tsx`
-- Replace the `Performance` nav entry with a `Statement` entry that has a `children` array:
-  - Credit Conversion → `/portal/statement/credit-conversion`
-  - USD Statement → `/portal/statement/usd`
-  - Rewards Statement → `/portal/statement/rewards`
-- Render nav items: if an item has `children`, render a button that toggles an expanded state (auto-expanded when current path starts with its base). Children render as indented `<Link>`s underneath, with the same active styling.
-- Use `FileBarChart` (or keep `LineChart`) icon for Statement; small dot/dash icons (or `ChevronRight`) for children.
-
-### 2. New route files (3)
-- `src/routes/portal.statement.credit-conversion.tsx`
-- `src/routes/portal.statement.usd.tsx`
-- `src/routes/portal.statement.rewards.tsx`
-
-Each is a simple page using `PageHeader` and a `liquid-glass` placeholder card describing the statement type. Reuse the existing styling pattern from `portal.performance.tsx` so the look matches the rest of the portal.
-
-### 3. Remove old Performance route
-- Delete `src/routes/portal.performance.tsx` (the route tree regenerates automatically).
-
-## Out of scope
-- No data wiring for the new statements (placeholder content only).
-- No changes to other sidebar items, theme, or styles.
+Result: headers (Date, Source Credit, Destination Credit, Converted Amount, Status) sit evenly spaced without touching dividers, no awkward empty gaps, and the table scrolls horizontally on mobile.
