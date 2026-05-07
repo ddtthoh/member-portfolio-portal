@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/qna")({
   component: QnALayout,
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/portal/qna")({
 function QnALayout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (location.pathname === "/portal/qna") {
@@ -24,9 +26,9 @@ function QnALayout() {
   return (
     <div>
       <PageHeader
-        eyebrow="Knowledge Test"
-        title="Q&A"
-        description="Answer 7 out of 10 questions correctly to pass. You can retake the test as many times as you want."
+        eyebrow={t("pages.qna.eyebrow", "Knowledge Test")}
+        title={t("pages.qna.title", "Education")}
+        description={t("pages.qna.description", "Answer 7 out of 10 questions correctly to pass. You can retake the test as many times as you want.")}
       />
 
       <div className="mb-5 flex gap-2 border-b border-border">
