@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { TrendingUp, PieChart, BarChart3, Activity } from "lucide-react";
 import { CountUp } from "@/components/count-up";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { useWallet } from "@/hooks/use-wallet";
 
 export const Route = createFileRoute("/portal/asset-analysis")({
   head: () => ({
