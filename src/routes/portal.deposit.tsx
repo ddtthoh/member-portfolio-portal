@@ -306,7 +306,7 @@ function DepositPage() {
               </div>
               <div>
                 
-                <div className="text-base font-semibold tracking-tight text-gold font-sans">Deposit History</div>
+                <div className="font-serif text-base font-semibold text-gold md:text-lg">Deposit History</div>
               </div>
             </div>
             <div className="hidden items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-300 sm:flex">
