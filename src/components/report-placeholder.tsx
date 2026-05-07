@@ -66,7 +66,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
               </div>
               <div>
                 <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-                  Referral rewards
+                  Referral rates
                 </label>
                 <Input type="text" className="bg-background/40" />
               </div>
@@ -100,7 +100,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
               <tr className="border-y border-border/40 text-[11px] uppercase tracking-[0.18em] text-gold">
                 <th className="px-3 py-3 font-semibold">Date</th>
                 <th className="px-3 py-3 font-semibold">amount</th>
-                <th className="px-3 py-3 font-semibold">Referral rewards</th>
+                <th className="px-3 py-3 font-semibold">Referral rates</th>
                 <th className="px-3 py-3 font-semibold">member id</th>
               </tr>
             </thead>
