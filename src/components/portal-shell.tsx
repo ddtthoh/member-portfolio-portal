@@ -29,7 +29,7 @@ const nav: NavItem[] = [
     children: [
       { to: "/portal/statement/convert-credits", label: "Convert Credits", icon: ArrowRightLeft },
       { to: "/portal/statement/transfer-usd", label: "Transfer USD", icon: Send },
-      { to: "/portal/statement/credit-conversion", label: "Credit Conversion", icon: Repeat },
+      { to: "/portal/statement/credit-conversion", label: "Credit Conversion Statement", icon: Repeat },
       { to: "/portal/statement/usd", label: "USD Statement", icon: DollarSign },
       { to: "/portal/statement/rewards", label: "Rewards Statement", icon: Gift },
     ],
