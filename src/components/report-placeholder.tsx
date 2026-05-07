@@ -24,7 +24,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
           onClick={() => setOpen((v) => !v)}
           className="flex w-full items-center justify-between px-5 py-4 text-left"
         >
-          <span className="font-serif text-base font-semibold text-foreground md:text-lg">Filter</span>
+          <span className="font-serif text-base font-semibold text-gold md:text-lg">Filter</span>
           {open ? (
             <ChevronUp className="h-4 w-4 text-muted-foreground" />
           ) : (
@@ -82,7 +82,7 @@ export function ReportPlaceholder({ title }: { title: string }) {
       {/* Transactions card */}
       <SpotlightCard className="liquid-glass mt-4 rounded-2xl">
         <div className="flex flex-col items-start justify-between gap-3 px-5 py-4 sm:flex-row sm:items-center">
-          <h3 className="font-serif text-base font-semibold text-foreground md:text-lg">
+          <h3 className="font-serif text-base font-semibold text-gold md:text-lg">
             {title} Transactions
           </h3>
           <Button className="bg-gold text-background hover:bg-gold/90">EXPORT</Button>
