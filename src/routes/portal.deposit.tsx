@@ -285,7 +285,7 @@ function DepositPage() {
             <div className="min-w-max px-6 py-6 sm:px-8">
               {/* Header row — always visible */}
               <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-                <div>Received At</div>
+                <div>Date</div>
                 <div>Reference Number</div>
                 <div>Transaction Hash</div>
               </div>
