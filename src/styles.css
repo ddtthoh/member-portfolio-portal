@@ -153,25 +153,19 @@
     content: "";
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(
-        120% 80% at 0% 0%,
-        color-mix(in oklab, white 50%, transparent),
-        transparent 55%
-      ),
-      var(--card);
+    background: var(--card);
     opacity: var(--glass-opacity);
     pointer-events: none;
   }
-  /* ::after carries the top-to-bottom white→gold sheen, also faded */
+  /* ::after carries a subtle bottom gold sheen, no top white highlight */
   .liquid-glass::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
       180deg,
-      color-mix(in oklab, white var(--glass-sheen-top), transparent),
-      transparent 30%,
+      transparent 0%,
+      transparent 60%,
       color-mix(in oklab, var(--gold) var(--glass-sheen-bottom), transparent) 100%
     );
     opacity: var(--glass-opacity);
