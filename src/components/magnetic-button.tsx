@@ -6,11 +6,18 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   strength?: number;
 };
 
-/** Button that gently follows the cursor when nearby (desktop only). */
-export function MagneticButton({ children, className, strength = 0.35, ...props }: Props) {
+/**
+ * Button that gently follows the cursor when nearby on fine pointers.
+ * On touch devices, falls back to a press-scale + haptic tap.
+ */
+export function MagneticButton({ children, className, strength = 0.35, onClick, ...props }: Props) {
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  const isFine = () =>
+    typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches;
+
   const onMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!isFine()) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -22,6 +29,12 @@ export function MagneticButton({ children, className, strength = 0.35, ...props 
     const el = ref.current;
     if (el) el.style.transform = "translate(0,0)";
   };
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    try {
+      if (!isFine()) navigator.vibrate?.(8);
+    } catch {}
+    onClick?.(e);
+  };
 
   return (
     <button
@@ -29,7 +42,11 @@ export function MagneticButton({ children, className, strength = 0.35, ...props 
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={cn("transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)] will-change-transform", className)}
+      onClick={handleClick}
+      className={cn(
+        "transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)] will-change-transform active:scale-[0.97] [touch-action:manipulation]",
+        className,
+      )}
     >
       {children}
     </button>
