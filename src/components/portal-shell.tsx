@@ -90,7 +90,7 @@ export function PortalShell() {
         aria-hidden
         className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]"
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 hidden h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)] lg:block">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]">
         <ThreeBackground className="absolute inset-0" fade={false} />
       </div>
       {/* Top hairline */}
