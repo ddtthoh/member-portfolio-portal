@@ -85,23 +85,18 @@ export function PortalShell() {
 
   return (
     <div className="relative flex min-h-screen overflow-x-hidden bg-transparent">
-      {/* Top-anchored backdrop — scrolls away with the page */}
+      {/* Backdrop — full strength near top, softens past the hero / Diamond card, lingers faintly to the bottom */}
       <div
         aria-hidden
-        className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]"
+        className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-full [mask-image:linear-gradient(to_bottom,black_0%,black_60%,rgba(0,0,0,0.35)_85%,rgba(0,0,0,0.18)_100%)]"
       />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-screen [mask-image:linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-full [mask-image:linear-gradient(to_bottom,black_0%,black_55%,rgba(0,0,0,0.25)_80%,rgba(0,0,0,0.12)_100%)]">
         <ThreeBackground className="absolute inset-0" fade={false} />
       </div>
       {/* Top hairline */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
-      />
-      {/* Bottom-of-hero hairline (where backdrop fades) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-[100vh] -z-10 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent"
       />
       {/* Cinematic grain overlay */}
       <div
