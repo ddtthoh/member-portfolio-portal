@@ -143,10 +143,6 @@ function ProfilePage() {
                 </div>
                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.18em] text-gold/70">
                   <span className="inline-flex items-center gap-1">
-                    <IdCard className="h-3 w-3" /> ID {memberId}
-                  </span>
-                  <span className="text-gold/40">•</span>
-                  <span className="inline-flex items-center gap-1">
                     <Mail className="h-3 w-3" /> {user?.email ?? "—"}
                   </span>
                 </div>
