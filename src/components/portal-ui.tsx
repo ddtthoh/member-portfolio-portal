@@ -235,3 +235,33 @@ export function EmptyRow({
     </tr>
   );
 }
+
+/** Animated KPI number — tabular-nums + reveal. */
+export function KpiNumber({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <span className={cn("num-tick", className)}>{children}</span>;
+}
+
+/** Pulsing status dot. */
+export function StatusDot({
+  active = true,
+  className = "",
+}: {
+  active?: boolean;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-block h-2 w-2 rounded-full",
+        active ? "bg-gold ring-pulse" : "bg-muted-foreground/40",
+        className,
+      )}
+    />
+  );
+}
