@@ -82,21 +82,30 @@ function Overview() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-          className="liquid-glass flex flex-col justify-center gap-3 rounded-xl p-5"
-        >
-          <div>
-            <div className="text-sm text-muted-foreground">{t("overview.participatedDay")} </div>
-            <div className="mt-1 text-2xl font-semibold text-gold">85 {t("common.days")}</div>
-          </div>
-          <div>
-            <div className="text-sm text-muted-foreground">{t("overview.stakingAmount")}</div>
-            <div className="mt-1 text-2xl font-semibold text-gold">50,000</div>
-          </div>
-        </motion.div>
+        <div className="flex flex-col gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+            className="liquid-glass flex flex-1 flex-col justify-center gap-2 rounded-xl p-4"
+          >
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="truncate text-xs text-muted-foreground">{t("overview.participatedDay")}</span>
+              <span className="whitespace-nowrap text-base font-semibold text-gold sm:text-lg">85 {t("common.days")}</span>
+            </div>
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="truncate text-xs text-muted-foreground">{t("overview.stakingAmount")}</span>
+              <span className="whitespace-nowrap text-base font-semibold text-gold sm:text-lg">50,000</span>
+            </div>
+          </motion.div>
+          <Link
+            to="/portal/asset-analysis"
+            className="liquid-glass group flex items-center justify-between rounded-xl px-4 py-3 transition-colors hover:bg-accent/40"
+          >
+            <span className="text-sm font-medium text-foreground">{t("overview.assetAnalysis", "Asset Analysis")}</span>
+            <ChevronRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
       </div>
 
       {/* Tier card */}
