@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/use-auth";
 
 type Question = {
   id: string;
@@ -23,6 +24,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function QuizTest({ category, title }: { category: "company" | "marketing"; title: string }) {
+  const { user } = useAuth();
   const [pool, setPool] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -148,7 +150,21 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
             </div>
             <Button
               disabled={Object.keys(answers).length < questions.length}
-              onClick={() => setSubmitted(true)}
+              onClick={async () => {
+                setSubmitted(true);
+                const finalScore = questions.reduce(
+                  (s, q) => (answers[q.id] === q.correct_index ? s + 1 : s),
+                  0,
+                );
+                if (finalScore >= PASS && user) {
+                  await supabase
+                    .from("quiz_passes")
+                    .upsert(
+                      { user_id: user.id, category, score: finalScore, total: TOTAL },
+                      { onConflict: "user_id,category" },
+                    );
+                }
+              }}
               className="bg-gold text-gold-foreground hover:bg-gold/90"
             >
               Submit Answers

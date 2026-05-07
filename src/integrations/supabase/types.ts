@@ -260,6 +260,33 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_passes: {
+        Row: {
+          category: string
+          id: string
+          passed_at: string
+          score: number
+          total: number
+          user_id: string
+        }
+        Insert: {
+          category: string
+          id?: string
+          passed_at?: string
+          score: number
+          total: number
+          user_id: string
+        }
+        Update: {
+          category?: string
+          id?: string
+          passed_at?: string
+          score?: number
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       quiz_questions: {
         Row: {
           category: string
