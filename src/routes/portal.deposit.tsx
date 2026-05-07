@@ -53,8 +53,6 @@ function DepositPage() {
       <PageHeader
         eyebrow={t("pages.deposit.eyebrow")}
         title={t("pages.deposit.title")}
-        description={t("pages.deposit.description")}
-        actions={null}
       />
 
       <SpotlightCard className="liquid-glass mx-auto max-w-md rounded-2xl p-6 sm:p-8">
