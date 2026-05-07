@@ -33,10 +33,10 @@ function CreditConversionPage() {
       />
 
       <div className="liquid-glass rounded-xl px-5 py-4 overflow-x-auto">
-        <div className="min-w-[640px]">
-          <div className="grid grid-cols-[110px_120px_140px_130px_100px] gap-x-6 divide-x divide-gold/40">
+        <div className="min-w-max">
+          <div className="grid grid-cols-[auto_auto_auto_auto_auto] gap-x-8 divide-x divide-gold/40">
             {columns.map((col) => (
-              <div key={col.key} className="px-3 first:pl-0 last:pr-0">
+              <div key={col.key} className="px-2 first:pl-0 last:pr-0">
                 <div className="whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   {col.label}
                 </div>
@@ -49,12 +49,12 @@ function CreditConversionPage() {
               {rows.map((row, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-[110px_120px_140px_130px_100px] gap-x-6 divide-x divide-gold/20 border-t border-gold/20 pt-2"
+                  className="grid grid-cols-[auto_auto_auto_auto_auto] gap-x-8 divide-x divide-gold/20 border-t border-gold/20 pt-2"
                 >
                   {columns.map((col) => (
                     <div
                       key={col.key}
-                      className="px-3 first:pl-0 last:pr-0 whitespace-nowrap font-sans text-sm tabular-nums text-gold"
+                      className="px-2 first:pl-0 last:pr-0 whitespace-nowrap font-sans text-sm tabular-nums text-gold"
                     >
                       {row[col.key]}
                     </div>
