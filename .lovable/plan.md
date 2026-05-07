@@ -1,19 +1,9 @@
-# Fix Deposit Reminder Popup Not Showing
+Fix the Reminder dialog on `/portal/deposit` so it actually shows on every visit.
 
-The reminder dialog on `/portal/deposit` doesn't appear because initializing `useState(true)` during SSR causes the dialog to render server-side, which conflicts with the client hydration (the page just hydrated into another route — the global page transition `<AnimatePresence>` in `portal-shell.tsx` may also unmount/remount, but the root cause is the SSR/CSR mismatch suppressing the modal).
+**Root cause**: `DialogContent` uses the `liquid-glass` class whose `::before/::after` pseudo-elements paint opaque layers over the modal content, and the open-flip via `useEffect` can race the Radix portal mount, so nothing visible appears.
 
-## Fix
-
-In `src/routes/portal.deposit.tsx`:
-
-- Initialize `reminderOpen` as `false`.
-- Open it in a `useEffect` on mount so it only triggers client-side after navigation/hydration completes.
-
-```tsx
-const [reminderOpen, setReminderOpen] = useState(false);
-useEffect(() => { setReminderOpen(true); }, []);
-```
-
-Add `useEffect` to the existing `useState` import.
-
-No other changes.
+**Change** (`src/routes/portal.deposit.tsx`):
+- Add a `mounted` flag that flips `true` in `useEffect`; only render the `<Dialog>` once mounted (avoids SSR hydration race).
+- Initialize `reminderOpen` to `true` so the dialog is open on first client render.
+- Replace `liquid-glass` on `DialogContent` with `bg-background/95 backdrop-blur-xl border border-gold/40 z-[100]` to remove the obscuring pseudo-element layers and stay above the portal shell stacking context.
+- Keep title/description/icon/OK button identical.
