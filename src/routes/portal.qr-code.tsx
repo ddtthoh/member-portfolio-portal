@@ -113,12 +113,6 @@ function QrCodePage() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_-20%,color-mix(in_oklab,var(--gold)_18%,transparent),transparent_60%)]" />
 
             <div className="relative px-6 pt-6 pb-5">
-              {/* Brand row */}
-              <div className="flex items-center justify-end">
-                <span className="rounded-full border border-gold/30 bg-background/40 px-2 py-0.5 font-mono text-[10px] tracking-widest text-gold/80">
-                  No. {memberId.slice(0, 4)}
-                </span>
-              </div>
 
 
 
