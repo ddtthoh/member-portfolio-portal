@@ -54,7 +54,7 @@ function HoldingsPage() {
     <div className="space-y-6">
       
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="mb-3 grid grid-cols-2 gap-3">
         <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
