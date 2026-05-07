@@ -77,7 +77,7 @@ export function TotalAssetsGauge({
             strokeDashoffset={-sOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-participation) 55%, transparent))" }}
           />
-          {/* Cash */}
+          {/* USD */}
           <path
             d={arcPath}
             fill="none"
@@ -114,7 +114,7 @@ export function TotalAssetsGauge({
       <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
         {[
           { label: "Participation", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
-          { label: "Cash", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
+          { label: "USD", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
           { label: "Earnings", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
         ].map((row) => (
           <div key={row.label} className="flex items-center justify-between py-2.5">
