@@ -317,7 +317,7 @@ export function PortalShell() {
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
                   </span>
                 </span>
-                <span className="hidden sm:inline">{t("nav.promotion", "Promo")}</span>
+                
               </Link>
               <ThemeToggle />
               <DropdownMenu>
