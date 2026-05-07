@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/statement/convert-credits")({
   component: ConvertCreditsPage,
@@ -20,14 +21,14 @@ function ConvertCreditsPage() {
           { label: "USD Wallet", value: "$0.00" },
           { label: "Rewards Wallet", value: "$0.00" },
         ].map((w) => (
-          <div key={w.label} className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
+          <SpotlightCard key={w.label} className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
             <div className="text-xs text-muted-foreground">{w.label}</div>
             <div className="text-xl font-semibold tracking-tight text-gold sm:text-2xl">{w.value}</div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
 
-      <div className="liquid-glass rounded-xl p-5">
+      <SpotlightCard className="liquid-glass rounded-xl p-5">
         <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Convert Details</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 
@@ -67,7 +68,7 @@ function ConvertCreditsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 }
 

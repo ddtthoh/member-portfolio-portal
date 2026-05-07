@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Copy, Gift, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/promotion")({
   component: PromotionPage,
@@ -13,7 +14,7 @@ function PromotionPage() {
     <div>
       <PageHeader eyebrow={t("pages.promotion.eyebrow")} title={t("pages.promotion.title")} description={t("pages.promotion.description")} />
 
-      <div className="liquid-glass rounded-xl p-6">
+      <SpotlightCard className="liquid-glass rounded-xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Gift className="h-4 w-4" />
           <span className="text-[11px] uppercase tracking-[0.2em]">Promotion</span>
@@ -26,7 +27,7 @@ function PromotionPage() {
           <Row label="Promo Code" value="IVORY2026" />
           <Row label="Valid Until" value="Jun 30, 2026" />
         </dl>
-      </div>
+      </SpotlightCard>
 
       <div className="mt-3 flex items-start gap-2 px-1 text-xs text-muted-foreground">
         <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />

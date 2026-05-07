@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/transactions")({
   component: TransactionsPage,
@@ -33,7 +34,7 @@ function TransactionsPage() {
     <div>
       <PageHeader eyebrow={t("pages.transactions.eyebrow")} title={t("pages.transactions.title")} description={t("pages.transactions.description")} />
 
-      <div className="liquid-glass overflow-hidden rounded-xl">
+      <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <table className="w-full text-sm">
           <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
@@ -67,7 +68,7 @@ function TransactionsPage() {
             ))}
           </tbody>
         </table>
-      </div>
+      </SpotlightCard>
     </div>
   );
 }

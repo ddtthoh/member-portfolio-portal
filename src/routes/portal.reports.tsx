@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/reports")({
   component: ReportsPage,
@@ -27,10 +28,10 @@ function ReportsPage() {
     <div>
       <PageHeader eyebrow={t("pages.reports.eyebrow")} title={t("pages.reports.title")} description={t("pages.reports.description")} />
       {items.length === 0 ? (
-        <div className="liquid-glass rounded-xl p-16 text-center">
+        <SpotlightCard className="liquid-glass rounded-xl p-16 text-center">
           <BookOpen className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">Your next quarterly report will appear here when published.</p>
-        </div>
+        </SpotlightCard>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {items.map((r) => (

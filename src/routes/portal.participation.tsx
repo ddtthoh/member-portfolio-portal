@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/participation")({
   head: () => ({
@@ -38,7 +39,7 @@ function ParticipationPage() {
     <div>
       <PageHeader eyebrow={t("pages.participation.eyebrow")} title={t("pages.participation.title")} description={t("pages.participation.description")} />
 
-      <div className="liquid-glass rounded-xl p-6">
+      <SpotlightCard className="liquid-glass rounded-xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Users className="h-4 w-4" />
           <span className="text-[11px] uppercase tracking-[0.2em]">Active Programs</span>
@@ -80,7 +81,7 @@ function ParticipationPage() {
             </table>
           </div>
         )}
-      </div>
+      </SpotlightCard>
     </div>
   );
 }

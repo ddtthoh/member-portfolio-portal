@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/staking-plans")({
   component: StakingPlansPage,
@@ -29,7 +30,7 @@ function StakingPlansPage() {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
-          <div key={plan.name} className="liquid-glass rounded-xl px-5 py-4">
+          <SpotlightCard key={plan.name} className="liquid-glass rounded-xl px-5 py-4">
             <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
               {plan.name}
             </h3>
@@ -53,7 +54,7 @@ function StakingPlansPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </div>

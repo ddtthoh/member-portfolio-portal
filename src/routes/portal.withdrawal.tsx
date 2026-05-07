@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpFromLine, Building2, Copy } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/withdrawal")({
   component: WithdrawalPage,
@@ -14,7 +15,7 @@ function WithdrawalPage() {
       <PageHeader eyebrow={t("pages.withdrawal.eyebrow")} title={t("pages.withdrawal.title")} description={t("pages.withdrawal.description")} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Building2 className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Payout Account</span>
@@ -27,9 +28,9 @@ function WithdrawalPage() {
             <Row label="Currency" value="USD" />
             <Row label="Daily Limit" value="$500,000" />
           </dl>
-        </div>
+        </SpotlightCard>
 
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <ArrowUpFromLine className="h-4 w-4" />
             <span className="text-[11px] uppercase tracking-[0.2em]">Notes</span>
@@ -40,7 +41,7 @@ function WithdrawalPage() {
             <li>• Wires to a new account require advisor verification.</li>
             <li>• Contact your advisor to add a new payout destination.</li>
           </ul>
-        </div>
+        </SpotlightCard>
       </div>
     </div>
   );

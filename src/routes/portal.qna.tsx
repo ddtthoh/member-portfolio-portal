@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/qna")({
   component: QnAPage,
@@ -62,7 +63,7 @@ function QnAPage() {
 
       <div className="mt-8 space-y-4">
         {items.map((i) => (
-          <div key={i.id} className="liquid-glass rounded-xl p-6">
+          <SpotlightCard key={i.id} className="liquid-glass rounded-xl p-6">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[0.25em] text-gold">{i.status}</span>
               <span className="text-xs text-muted-foreground">{new Date(i.asked_at).toLocaleDateString()}</span>
@@ -74,7 +75,7 @@ function QnAPage() {
                 <p className="text-sm">{i.answer}</p>
               </div>
             )}
-          </div>
+          </SpotlightCard>
         ))}
         {items.length === 0 && (
           <p className="text-center text-sm text-muted-foreground">No questions yet.</p>

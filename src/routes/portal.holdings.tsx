@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/page-header";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { SpotlightCard } from "@/components/spotlight-card";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -49,7 +50,7 @@ function HoldingsPage() {
       <PageHeader eyebrow={t("pages.holdings.eyebrow")} title={t("pages.holdings.title")} description={t("pages.holdings.description")} />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="liquid-glass rounded-xl p-6">
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
               Total Participation Amount
@@ -66,18 +67,18 @@ function HoldingsPage() {
           <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
             {showAmount ? "$50,000" : "******"}
           </div>
-        </div>
-        <div className="liquid-glass rounded-xl p-6">
+        </SpotlightCard>
+        <SpotlightCard className="liquid-glass rounded-xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Participation Days
           </div>
           <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
             54 <span className="text-base font-normal text-gold/80">days</span>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
-      <div className="liquid-glass overflow-hidden rounded-xl">
+      <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
             Staking Plans
@@ -125,7 +126,7 @@ function HoldingsPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </SpotlightCard>
 
       <div className="flex justify-start">
         <Dialog>
