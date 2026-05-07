@@ -27,8 +27,10 @@ import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
+import { Route as PortalStatementTransferUsdRouteImport } from './routes/portal.statement.transfer-usd'
 import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
 import { Route as PortalStatementCreditConversionRouteImport } from './routes/portal.statement.credit-conversion'
+import { Route as PortalStatementConvertCreditsRouteImport } from './routes/portal.statement.convert-credits'
 
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
@@ -120,6 +122,12 @@ const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
   path: '/statement/usd',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalStatementTransferUsdRoute =
+  PortalStatementTransferUsdRouteImport.update({
+    id: '/statement/transfer-usd',
+    path: '/statement/transfer-usd',
+    getParentRoute: () => PortalRoute,
+  } as any)
 const PortalStatementRewardsRoute = PortalStatementRewardsRouteImport.update({
   id: '/statement/rewards',
   path: '/statement/rewards',
@@ -129,6 +137,12 @@ const PortalStatementCreditConversionRoute =
   PortalStatementCreditConversionRouteImport.update({
     id: '/statement/credit-conversion',
     path: '/statement/credit-conversion',
+    getParentRoute: () => PortalRoute,
+  } as any)
+const PortalStatementConvertCreditsRoute =
+  PortalStatementConvertCreditsRouteImport.update({
+    id: '/statement/convert-credits',
+    path: '/statement/convert-credits',
     getParentRoute: () => PortalRoute,
   } as any)
 
@@ -150,8 +164,10 @@ export interface FileRoutesByFullPath {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
   '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRoutesByTo {
@@ -171,8 +187,10 @@ export interface FileRoutesByTo {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
+  '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
   '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRoutesById {
@@ -194,8 +212,10 @@ export interface FileRoutesById {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/statement/convert-credits': typeof PortalStatementConvertCreditsRoute
   '/portal/statement/credit-conversion': typeof PortalStatementCreditConversionRoute
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
+  '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
 }
 export interface FileRouteTypes {
@@ -218,8 +238,10 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/statement/convert-credits'
     | '/portal/statement/credit-conversion'
     | '/portal/statement/rewards'
+    | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -239,8 +261,10 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal'
+    | '/portal/statement/convert-credits'
     | '/portal/statement/credit-conversion'
     | '/portal/statement/rewards'
+    | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
   id:
     | '__root__'
@@ -261,8 +285,10 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/statement/convert-credits'
     | '/portal/statement/credit-conversion'
     | '/portal/statement/rewards'
+    | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
   fileRoutesById: FileRoutesById
 }
@@ -400,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalStatementUsdRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/statement/transfer-usd': {
+      id: '/portal/statement/transfer-usd'
+      path: '/statement/transfer-usd'
+      fullPath: '/portal/statement/transfer-usd'
+      preLoaderRoute: typeof PortalStatementTransferUsdRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/statement/rewards': {
       id: '/portal/statement/rewards'
       path: '/statement/rewards'
@@ -412,6 +445,13 @@ declare module '@tanstack/react-router' {
       path: '/statement/credit-conversion'
       fullPath: '/portal/statement/credit-conversion'
       preLoaderRoute: typeof PortalStatementCreditConversionRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/statement/convert-credits': {
+      id: '/portal/statement/convert-credits'
+      path: '/statement/convert-credits'
+      fullPath: '/portal/statement/convert-credits'
+      preLoaderRoute: typeof PortalStatementConvertCreditsRouteImport
       parentRoute: typeof PortalRoute
     }
   }
@@ -432,8 +472,10 @@ interface PortalRouteChildren {
   PortalTransactionsRoute: typeof PortalTransactionsRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
+  PortalStatementConvertCreditsRoute: typeof PortalStatementConvertCreditsRoute
   PortalStatementCreditConversionRoute: typeof PortalStatementCreditConversionRoute
   PortalStatementRewardsRoute: typeof PortalStatementRewardsRoute
+  PortalStatementTransferUsdRoute: typeof PortalStatementTransferUsdRoute
   PortalStatementUsdRoute: typeof PortalStatementUsdRoute
 }
 
@@ -452,8 +494,10 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalTransactionsRoute: PortalTransactionsRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
+  PortalStatementConvertCreditsRoute: PortalStatementConvertCreditsRoute,
   PortalStatementCreditConversionRoute: PortalStatementCreditConversionRoute,
   PortalStatementRewardsRoute: PortalStatementRewardsRoute,
+  PortalStatementTransferUsdRoute: PortalStatementTransferUsdRoute,
   PortalStatementUsdRoute: PortalStatementUsdRoute,
 }
 
