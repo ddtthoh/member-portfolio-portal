@@ -1,7 +1,14 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, type MouseEvent } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { cn } from "@/lib/utils";
+
+function handleSpotlightMove(e: MouseEvent<HTMLDivElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+  el.style.setProperty("--my", `${((e.clientY - rect.top) / rect.height) * 100}%`);
+}
 
 /**
  * Shared portal building blocks. Use these on every /portal page so headers,
@@ -22,8 +29,15 @@ export function SectionCard({
   children: ReactNode;
 }) {
   return (
-    <SpotlightCard className={cn("liquid-glass mt-4 rounded-2xl", className)}>
-      {children}
+    <SpotlightCard className={cn("liquid-glass glass-shimmer glass-spotlight mt-4 rounded-2xl", className)}>
+      <div
+        onMouseMove={handleSpotlightMove}
+        className="contents"
+      >
+        <span aria-hidden className="shimmer-streak" />
+        <span aria-hidden className="spotlight-layer" />
+        {children}
+      </div>
     </SpotlightCard>
   );
 }
@@ -47,7 +61,7 @@ export function SectionHeader({
       )}
     >
       <div>
-        <h3 className="font-serif text-base font-semibold text-gold md:text-lg">
+        <h3 className="font-serif text-base font-semibold text-gold text-gold-shine md:text-lg">
           {title}
         </h3>
         {subtitle && (
@@ -219,5 +233,35 @@ export function EmptyRow({
         {children}
       </td>
     </tr>
+  );
+}
+
+/** Animated KPI number — tabular-nums + reveal. */
+export function KpiNumber({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <span className={cn("num-tick", className)}>{children}</span>;
+}
+
+/** Pulsing status dot. */
+export function StatusDot({
+  active = true,
+  className = "",
+}: {
+  active?: boolean;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-block h-2 w-2 rounded-full",
+        active ? "bg-gold ring-pulse" : "bg-muted-foreground/40",
+        className,
+      )}
+    />
   );
 }

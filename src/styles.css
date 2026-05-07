@@ -228,3 +228,178 @@
   }
   h1, h2, h3, .font-serif { font-family: var(--font-serif); letter-spacing: -0.01em; }
 }
+
+/* ---------------------------------------------------------------
+   Portal futuristic effect layer
+   --------------------------------------------------------------- */
+@layer utilities {
+  /* 1. Aurora flowing background (dark-mode strong, light-mode subtle) */
+  @keyframes aurora-drift {
+    0%   { transform: translate3d(0,0,0) rotate(0deg); }
+    50%  { transform: translate3d(-2%, 1%, 0) rotate(180deg); }
+    100% { transform: translate3d(0,0,0) rotate(360deg); }
+  }
+  .aurora-bg { position: relative; isolation: isolate; }
+  .aurora-bg::before {
+    content: "";
+    position: absolute; inset: -20%;
+    z-index: -1;
+    background:
+      radial-gradient(40% 35% at 20% 25%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 70%),
+      radial-gradient(35% 30% at 80% 15%, color-mix(in oklab, oklch(0.7 0.16 220) 14%, transparent), transparent 70%),
+      radial-gradient(45% 40% at 70% 85%, color-mix(in oklab, oklch(0.55 0.18 310) 12%, transparent), transparent 70%),
+      radial-gradient(35% 30% at 15% 90%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 70%);
+    filter: blur(60px) saturate(140%);
+    opacity: 0.55;
+    animation: aurora-drift 48s ease-in-out infinite;
+    will-change: transform;
+    pointer-events: none;
+  }
+  :root:not(.dark) .aurora-bg::before { opacity: 0.18; filter: blur(80px) saturate(120%); }
+
+  /* 5. Subtle grid floor (dark only) */
+  .grid-floor { position: relative; }
+  .dark .grid-floor::after {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--gold) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--gold) 8%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 0%, transparent 75%);
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* 2. Glass shimmer — single sweep on hover */
+  @keyframes glass-shimmer-sweep {
+    0%   { transform: translateX(-120%) skewX(-12deg); }
+    100% { transform: translateX(220%) skewX(-12deg); }
+  }
+  .glass-shimmer { position: relative; overflow: hidden; }
+  .glass-shimmer > .shimmer-streak {
+    content: "";
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 45%;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      color-mix(in oklab, var(--gold) 28%, transparent) 50%,
+      transparent 100%
+    );
+    transform: translateX(-120%) skewX(-12deg);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2;
+    mix-blend-mode: screen;
+  }
+  .glass-shimmer:hover > .shimmer-streak {
+    opacity: 1;
+    animation: glass-shimmer-sweep 1.1s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  /* 3. Spotlight that follows cursor (uses --mx / --my in %) */
+  .glass-spotlight { position: relative; }
+  .glass-spotlight > .spotlight-layer {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in oklab, var(--gold) 18%, transparent),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  .glass-spotlight:hover > .spotlight-layer { opacity: 1; }
+
+  /* 4. Text gold shine on serif headings */
+  @keyframes text-shine {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+  .text-gold-shine {
+    background-image: linear-gradient(
+      110deg,
+      var(--gold) 0%,
+      var(--gold) 35%,
+      color-mix(in oklab, var(--gold) 30%, white) 50%,
+      var(--gold) 65%,
+      var(--gold) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: text-shine 7s linear infinite;
+  }
+
+  /* 6. KPI number reveal */
+  @keyframes num-tick {
+    0%   { opacity: 0; transform: translateY(6px); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0);   filter: blur(0); }
+  }
+  .num-tick {
+    font-variant-numeric: tabular-nums;
+    animation: num-tick 0.6s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  /* 7. Row scan line on hover */
+  .divider-scan { position: relative; }
+  .divider-scan::before {
+    content: "";
+    position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 70%, transparent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+    pointer-events: none;
+  }
+  .divider-scan:hover::before { transform: scaleX(1); }
+  .divider-scan:hover { background: color-mix(in oklab, var(--gold) 4%, transparent); }
+
+  /* 8. Status ring pulse */
+  @keyframes ring-pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--gold) 55%, transparent); }
+    70%  { box-shadow: 0 0 0 8px color-mix(in oklab, var(--gold) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent); }
+  }
+  .ring-pulse { animation: ring-pulse 2.2s ease-out infinite; border-radius: 9999px; }
+
+  /* 9. Page enter */
+  @keyframes page-enter {
+    0%   { opacity: 0; transform: translateY(10px) scale(0.992); filter: blur(6px); }
+    100% { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0); }
+  }
+  .page-enter { animation: page-enter 0.5s cubic-bezier(.2,.8,.2,1) both; }
+
+  /* 10. Cursor glow */
+  .cursor-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 380px; height: 380px;
+    margin-left: -190px; margin-top: -190px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, color-mix(in oklab, var(--gold) 20%, transparent) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transform: translate3d(var(--cx,-9999px), var(--cy,-9999px), 0);
+    transition: opacity 0.3s ease;
+    will-change: transform;
+  }
+  :root:not(.dark) .cursor-glow { opacity: 0.4; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-bg::before,
+    .text-gold-shine,
+    .ring-pulse,
+    .num-tick,
+    .glass-shimmer:hover > .shimmer-streak { animation: none !important; }
+    .page-enter { animation: none !important; }
+  }
+}
