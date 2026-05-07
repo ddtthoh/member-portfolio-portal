@@ -15,7 +15,7 @@
     "documents": "文件",
     "reports": "报告",
     "network": "网络",
-    "qna": "问答",
+    "qna": "教育",
     "support": "客户支持",
     "signOut": "退出"
   },
@@ -72,7 +72,7 @@
     "deposit": { "eyebrow": "资金 · 入账", "title": "存款", "description": "通过电汇为账户充值。结算通常在1个工作日内完成。" },
     "withdrawal": { "eyebrow": "资金 · 出账", "title": "提款", "description": "向已验证的银行账户申请提款。资金通常在1-2个工作日内到账。" },
     "promotion": { "eyebrow": "资金 · 奖励", "title": "推广", "description": "限时创始人优惠,适用于符合条件的存款。" },
-    "qna": { "eyebrow": "沟通", "title": "问答", "description": "提交问题——您的顾问将在一个工作日内回复。" },
+    "qna": { "eyebrow": "沟通", "title": "教育", "description": "提交问题——您的顾问将在一个工作日内回复。" },
     "participation": { "eyebrow": "计划 · 参与", "title": "参与", "description": "跟踪您在公司各项计划、活动与配置中的参与情况。" },
     "transactions": { "eyebrow": "账本", "title": "交易记录", "description": "存款、交易和提款的完整历史记录。" },
     "support": { "eyebrow": "贴身服务", "title": "客户支持", "description": "提交私人工单——我们的礼宾团队将迅速回复。" },
