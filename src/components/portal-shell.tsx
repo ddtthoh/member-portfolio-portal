@@ -61,7 +61,18 @@ const sections: NavSection[] = [
           { to: "/portal/statement/rewards", labelKey: "nav.rewardsStatement", icon: Gift },
         ],
       },
-      { to: "/portal/reports", labelKey: "nav.reports", icon: BookOpen },
+      {
+        labelKey: "nav.reports",
+        icon: BookOpen,
+        basePath: "/portal/reports",
+        children: [
+          { to: "/portal/reports/participation", labelKey: "nav.reportsParticipation", icon: Users },
+          { to: "/portal/reports/referral-rewards", labelKey: "nav.reportsReferral", icon: Gift },
+          { to: "/portal/reports/team-rewards", labelKey: "nav.reportsTeam", icon: Users },
+          { to: "/portal/reports/leader-rewards", labelKey: "nav.reportsLeader", icon: ShieldCheck },
+          { to: "/portal/reports/par-rank-rewards", labelKey: "nav.reportsParRank", icon: FileBarChart },
+        ],
+      },
     ],
   },
   {
