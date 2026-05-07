@@ -85,7 +85,7 @@ function Overview() {
               {hideBalance ? (
                 "******"
               ) : (
-                <CountUp value={50000} prefix="$" decimals={2} />
+                <CountUp value={wallet.total} prefix="$" decimals={2} />
               )}
             </div>
 
