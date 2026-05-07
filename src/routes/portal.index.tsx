@@ -363,8 +363,8 @@ function Overview() {
 
       <div className="mb-3 grid grid-cols-2 gap-3">
         {[
-          { label: t("overview.usdtWallet"), value: 0 },
-          { label: t("overview.rewardsWallet"), value: 0 },
+          { label: t("overview.usdtWallet"), value: wallet.usd },
+          { label: t("overview.rewardsWallet"), value: wallet.rewards },
         ].map((w, i) => (
           <motion.div
             key={w.label}
