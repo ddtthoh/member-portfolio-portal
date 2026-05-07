@@ -281,38 +281,37 @@ function DepositPage() {
             </div>
           </div>
 
-          {loadingHistory ? (
-            <div className="space-y-2 px-6 py-6">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="h-14 animate-pulse rounded-lg bg-muted/20" />
-              ))}
-            </div>
-          ) : filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-3 px-6 py-16 text-center">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground">
-                <Inbox className="h-6 w-6" />
+          <div className="overflow-x-auto">
+            <div className="min-w-max px-6 py-6 sm:px-8">
+              {/* Header row — always visible */}
+              <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+                <div>Received At</div>
+                <div>Reference Number</div>
+                <div>Transaction Hash</div>
               </div>
-              <div className="text-sm font-medium text-foreground">No deposits found</div>
-              <div className="max-w-xs text-xs text-muted-foreground">
-                {deposits.length === 0
-                  ? "Your confirmed deposits will appear here once received."
-                  : "Try adjusting your filters or reset to see all records."}
-              </div>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <div className="min-w-max px-6 py-6 sm:px-8">
-                {/* Header row */}
-                <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  <div>Received At</div>
-                  <div>Reference Number</div>
-                  <div>Transaction Hash</div>
+
+              {/* Gold gradient underline */}
+              <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
+
+              {loadingHistory ? (
+                <div className="space-y-2 py-6">
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className="h-14 animate-pulse rounded-lg bg-muted/20" />
+                  ))}
                 </div>
-
-                {/* Gold gradient underline */}
-                <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
-
-                {/* Data rows */}
+              ) : filtered.length === 0 ? (
+                <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground">
+                    <Inbox className="h-6 w-6" />
+                  </div>
+                  <div className="text-sm font-medium text-foreground">No deposits found</div>
+                  <div className="max-w-xs text-xs text-muted-foreground">
+                    {deposits.length === 0
+                      ? "Your confirmed deposits will appear here once received."
+                      : "Try adjusting your filters or reset to see all records."}
+                  </div>
+                </div>
+              ) : (
                 <div className="divide-y divide-border/20">
                   {filtered.map((d, i) => (
                     <motion.div
@@ -344,9 +343,9 @@ function DepositPage() {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              )}
             </div>
-          )}
+          </div>
         </SpotlightCard>
       </div>
     </div>
