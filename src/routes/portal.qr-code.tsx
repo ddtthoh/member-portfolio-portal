@@ -141,17 +141,6 @@ function QrCodePage() {
                 </div>
               </motion.div>
 
-              {/* Member ID */}
-              <div className="mt-5 flex items-center justify-center gap-2 text-center">
-                <IdCard className="h-3.5 w-3.5 text-gold/70" />
-                <span className="text-[10px] uppercase tracking-[0.22em] text-gold/60">
-                  Member ID
-                </span>
-                <span className="font-mono text-sm font-semibold tracking-[0.2em] text-foreground">
-                  {memberId}
-                </span>
-              </div>
-
               {/* Footer */}
               <div className="mt-5 border-t border-gold/15 pt-3 text-center">
                 <p className="text-[10px] uppercase tracking-[0.24em] text-gold/55">
