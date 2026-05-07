@@ -28,7 +28,7 @@ function CreditConversionPage() {
     <div className="space-y-5">
       <PageHeader
         eyebrow="Statement"
-        title="Credit Conversion"
+        title="Credit Conversion Statement"
         description="Review your credit conversion history and balances."
       />
 
