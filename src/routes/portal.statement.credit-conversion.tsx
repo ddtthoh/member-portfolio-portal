@@ -14,7 +14,7 @@ function CreditConversionPage() {
         description="Review your credit conversion history and balances."
       />
       <div className="liquid-glass rounded-xl p-6">
-        <div className="text-sm text-muted-foreground">No credit conversion records yet.</div>
+        <div className="text-sm text-muted-foreground">​</div>
       </div>
     </div>
   );
