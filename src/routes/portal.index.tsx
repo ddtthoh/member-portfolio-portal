@@ -94,12 +94,12 @@ function Overview() {
           </div>
         </motion.div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex h-full flex-col gap-3">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-            className="liquid-glass flex flex-1 flex-col justify-center gap-4 rounded-xl p-5"
+            className="liquid-glass flex flex-1 flex-col justify-center gap-4 rounded-xl p-6"
           >
             <div className="flex flex-col">
               <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
@@ -120,7 +120,7 @@ function Overview() {
           </motion.div>
           <Link
             to="/portal/asset-analysis"
-            className="liquid-glass group flex items-center justify-between rounded-xl px-4 py-3 transition-colors hover:bg-accent/40"
+            className="liquid-glass group flex items-center justify-between rounded-xl px-5 py-4 transition-colors hover:bg-accent/40"
           >
             <span className="text-sm text-muted-foreground">{t("overview.assetAnalysis", "Asset Analysis")}</span>
             <ChevronRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5" />
