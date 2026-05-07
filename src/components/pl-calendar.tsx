@@ -220,8 +220,8 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
         </div>
       </div>
 
-      {/* List view */}
-      <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
+      {/* List view — always visible on mobile; on sm+ only when selected */}
+      <div className={`${view === "list" ? "block" : "block sm:hidden"} overflow-hidden rounded-lg border border-border/40 bg-background/20`}>
         {activeDays.length === 0 && (
           <div className="px-4 py-10 text-center text-xs text-muted-foreground">
             No data for this period.
@@ -265,6 +265,72 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
           );
         })}
       </div>
+
+      {/* Calendar view — desktop & tablet only */}
+      {view === "calendar" && (
+        <div className="hidden sm:block">
+          <div className="grid grid-cols-7 px-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
+            {WEEKDAYS_SHORT.map((d) => (
+              <div key={d} className="pb-2 text-center">{d}</div>
+            ))}
+          </div>
+          <div className="overflow-hidden rounded-lg border border-border/40 bg-background/20">
+            {weeks.map((week, wi) => (
+              <div
+                key={wi}
+                className={`grid grid-cols-7 ${wi !== 0 ? "border-t border-border/40" : ""}`}
+              >
+                {week.map((cell, ci) => {
+                  const isEmpty = cell === null;
+                  const has = !isEmpty && cell!.amount !== 0;
+                  const isProfit = has && cell!.amount > 0;
+                  const isLoss = has && cell!.amount < 0;
+                  const tone = isProfit ? "bg-success/5" : isLoss ? "bg-destructive/5" : "";
+                  const accent = isProfit
+                    ? "before:bg-success"
+                    : isLoss
+                      ? "before:bg-destructive"
+                      : "before:bg-transparent";
+                  const valueColor = isProfit
+                    ? "text-success"
+                    : isLoss
+                      ? "text-destructive"
+                      : "text-muted-foreground/50";
+                  const sign = isProfit ? "+" : isLoss ? "−" : "";
+                  return (
+                    <div
+                      key={ci}
+                      className={`relative min-h-[88px] px-2 py-2 transition-colors ${
+                        ci !== 0 ? "border-l border-border/40" : ""
+                      } ${tone} ${
+                        has ? `before:absolute before:inset-x-2 before:top-0 before:h-px ${accent}` : ""
+                      } hover:bg-accent/30`}
+                    >
+                      {!isEmpty && (
+                        <>
+                          <div className="text-xs font-medium tabular-nums text-foreground/90">
+                            {cell!.day}
+                          </div>
+                          {has && (
+                            <div className={`mt-1.5 space-y-0.5 tabular-nums ${valueColor}`}>
+                              <div className="text-[11px] font-medium leading-tight">
+                                {sign}${formatUSD(Math.abs(cell!.amount))}
+                              </div>
+                              <div className="text-[10px] leading-tight opacity-80">
+                                {sign}{Math.abs(cell!.pct).toFixed(2)}%
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
