@@ -120,7 +120,7 @@ function HoldingsPage() {
               {rows.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-6 py-16 text-center text-sm text-gold">
-                    No participation plan yet.
+                    No staking plan yet.
                   </td>
                 </tr>
               )}
