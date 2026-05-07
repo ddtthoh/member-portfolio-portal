@@ -333,6 +333,15 @@ export function PortalShell() {
                 </span>
                 
               </Link>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+                className="hidden items-center gap-2 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur transition hover:border-gold/50 hover:text-gold md:inline-flex"
+                title="Search (⌘K)"
+              >
+                <span>Search</span>
+                <kbd className="rounded bg-muted/60 px-1.5 py-0.5 font-mono text-[10px] text-foreground/70">⌘K</kbd>
+              </button>
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
