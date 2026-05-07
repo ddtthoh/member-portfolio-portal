@@ -28,6 +28,7 @@ import {
   Users,
   Save,
   CheckCircle2,
+  Lock as LockIcon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/portal/profile")({
