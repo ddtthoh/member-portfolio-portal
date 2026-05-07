@@ -172,16 +172,16 @@ export function PortalShell() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/profile" })}>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/profile" as any })}>
                   <UserCircle2 className="h-4 w-4" /> Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" })}>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" as any })}>
                   <KeyRound className="h-4 w-4" /> Change Password
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" })}>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" as any })}>
                   <ShieldCheck className="h-4 w-4" /> My KYC
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" })}>
+                <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
                   <QrCode className="h-4 w-4" /> My QR Code
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => navigate({ to: "/portal/network" })}>
