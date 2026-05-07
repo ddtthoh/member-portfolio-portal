@@ -54,11 +54,7 @@ function DepositPage() {
         eyebrow={t("pages.deposit.eyebrow")}
         title={t("pages.deposit.title")}
         description={t("pages.deposit.description")}
-        actions={
-          <p className="max-w-[200px] text-right text-[11px] leading-relaxed text-muted-foreground">
-            Please be Informed you will have to deposit at least 10 Usdt Bep20 amount.
-          </p>
-        }
+        actions={null}
       />
 
       <SpotlightCard className="liquid-glass mx-auto max-w-md rounded-2xl p-6 sm:p-8">
