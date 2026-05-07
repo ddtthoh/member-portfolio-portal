@@ -64,7 +64,7 @@ function HoldingsPage() {
               {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
+          <div className="mt-2 font-light tabular-nums tracking-[-0.04em] text-gold">
             {showAmount ? "$50,000" : "******"}
           </div>
         </SpotlightCard>
@@ -72,7 +72,7 @@ function HoldingsPage() {
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
             Participation Days
           </div>
-          <div className="mt-2 font-sans text-3xl font-semibold tracking-tight tabular-nums text-gold">
+          <div className="mt-2 font-light tabular-nums tracking-[-0.04em] text-gold">
             54 <span className="text-base font-normal text-gold/80">days</span>
           </div>
         </SpotlightCard>
@@ -109,12 +109,12 @@ function HoldingsPage() {
                 const value = Number(h.quantity) * Number(h.current_price);
                 return (
                   <tr key={h.id} className="border-t border-border/40 transition-colors hover:bg-muted/20">
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
+                    <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
                     <td className="px-6 py-4 text-left text-sm font-medium text-gold">{h.asset_name}</td>
-                    <td className="px-6 py-4 text-left font-sans text-xs tabular-nums text-gold">—</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-sans text-xs tabular-nums text-gold">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(value)}</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.avg_cost))}</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         Active

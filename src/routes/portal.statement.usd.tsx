@@ -56,7 +56,7 @@ function UsdStatementPage() {
                     {columns.map((col) => (
                       <div
                         key={col.key}
-                        className="px-6 text-center whitespace-nowrap font-sans text-sm tabular-nums text-gold"
+                        className="px-6 text-center whitespace-nowrap font-light text-sm tabular-nums tracking-[-0.02em] text-gold"
                       >
                         {row[col.key]}
                       </div>
