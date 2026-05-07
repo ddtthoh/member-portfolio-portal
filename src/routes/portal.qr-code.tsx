@@ -158,9 +158,6 @@ function QrCodePage() {
               <h3 className="font-serif text-[15px] font-semibold text-gold">
                 Referral Link
               </h3>
-              <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-gold/50">
-                Direct registration URL with your member tag
-              </p>
             </div>
             <div className="space-y-4 px-5 py-5">
               <div className="group relative overflow-hidden rounded-lg border border-gold/20 bg-background/40">
