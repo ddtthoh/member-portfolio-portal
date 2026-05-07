@@ -210,6 +210,7 @@ function QuizUploadSection() {
     if (!file || !user) return;
     setParsing(true);
     try {
+      // @ts-expect-error no types for browser build
       const mammoth: any = await import("mammoth/mammoth.browser");
       const buf = await file.arrayBuffer();
       const result = await mammoth.extractRawText({ arrayBuffer: buf });
