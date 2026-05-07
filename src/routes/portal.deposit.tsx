@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil } from "lucide-react";
+import { Copy, Check, ArrowLeftRight, ChevronRight, QrCode, Pencil, Search, RotateCcw, Calendar as CalendarIcon, History, Inbox, ExternalLink, Filter as FilterIcon, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { motion, AnimatePresence } from "framer-motion";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
@@ -17,6 +20,17 @@ type Settings = {
   network_label: string;
   wallet_address: string;
   qr_url: string | null;
+};
+
+type DepositRow = {
+  id: string;
+  received_at: string;
+  reference_number: string;
+  transaction_hash: string;
+  amount: number | null;
+  asset: string | null;
+  network: string | null;
+  status: string;
 };
 
 function DepositPage() {
