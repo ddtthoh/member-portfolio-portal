@@ -68,7 +68,7 @@ function Overview() {
           <div className="mt-2 text-2xl font-semibold tracking-tight text-gold sm:text-4xl">
             {hideBalance ? "******" : "$50,000.00"}
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border/40 pt-3">
+          <div className="mt-4 flex flex-col gap-3 border-t border-border/40 pt-3">
             <div className="flex flex-col">
               <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
                 {t("overview.todaysPnl")}
