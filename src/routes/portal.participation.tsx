@@ -8,7 +8,7 @@ export const Route = createFileRoute("/portal/participation")({
   head: () => ({
     meta: [
       { title: "Staking — Portal" },
-      { name: "description", content: "Your participation in firm programs and initiatives." },
+      { name: "description", content: "Your staking in firm programs and initiatives." },
     ],
   }),
   component: StakingPage,
