@@ -405,8 +405,7 @@ export function PortalShell() {
           </header>
           <TickerTape />
           <main
-            className="min-w-0 flex-1 px-4 pt-3 lg:px-10 opacity-100"
-            style={{ paddingBottom: "calc(96px + env(safe-area-inset-bottom, 0px))" }}
+            className="min-w-0 flex-1 px-4 pb-[calc(96px+env(safe-area-inset-bottom,0px))] pt-3 lg:px-10 lg:pb-8"
           >
             <AnimatePresence mode="wait">
               <motion.div
