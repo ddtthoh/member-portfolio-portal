@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/page-header";
 import { useWallet } from "@/hooks/use-wallet";
 import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 
 export const Route = createFileRoute("/portal/asset-analysis")({
   head: () => ({
