@@ -34,6 +34,22 @@ function generateMay2026(base: number): DayPL[] {
   return out;
 }
 
+function generateApril2026(base: number): DayPL[] {
+  const rand = mulberry32(20260401);
+  const totalDays = 30;
+  const lossDays = new Set<number>();
+  while (lossDays.size < 6) lossDays.add(1 + Math.floor(rand() * totalDays));
+
+  const out: DayPL[] = [];
+  for (let d = 1; d <= totalDays; d++) {
+    const isLoss = lossDays.has(d);
+    const pct = isLoss ? -(0.1 + rand() * 0.2) : 0.5 + rand() * 0.5;
+    const amount = (base * pct) / 100;
+    out.push({ day: d, amount, pct });
+  }
+  return out;
+}
+
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
