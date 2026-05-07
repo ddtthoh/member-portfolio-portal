@@ -149,8 +149,8 @@ function ProfilePage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:flex">
-              <StatPill label="Status" value="Active" />
-              <StatPill label="Tier" value="Gold" />
+              <StatPill label="Status" value="Active" className="sm:w-28" />
+              <StatPill label="Tier" value="Gold" className="sm:w-28" />
             </div>
           </div>
         </div>
