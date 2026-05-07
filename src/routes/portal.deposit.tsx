@@ -268,7 +268,7 @@ function DepositPage() {
                 <History className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-muted-foreground">Ledger</div>
+                
                 <div className="text-base font-semibold tracking-tight text-foreground">Deposit History</div>
               </div>
             </div>
