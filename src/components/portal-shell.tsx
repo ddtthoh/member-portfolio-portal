@@ -154,7 +154,7 @@ export function PortalShell() {
                   variant="ghost"
                   size="icon"
                   aria-label={t("language.switch")}
-                  className="rounded-full border border-border/60"
+                  className="rounded-full border border-gold/60 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:border-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] transition-all"
                 >
                   <span className="text-base leading-none">{currentLang.flag}</span>
                 </Button>
@@ -173,7 +173,7 @@ export function PortalShell() {
                   variant="ghost"
                   size="icon"
                   aria-label={t("account.label")}
-                  className="rounded-full border border-border/60"
+                  className="rounded-full border border-gold/60 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:border-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] transition-all"
                 >
                   <UserCircle2 className="h-5 w-5 text-gold" />
                 </Button>
