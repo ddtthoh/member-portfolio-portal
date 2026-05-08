@@ -260,7 +260,7 @@ function WithdrawalPage() {
               <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">Amount *</label>
               <Input type="number" inputMode="decimal" min={MIN_AMOUNT} step="0.01" placeholder={`Min ${MIN_AMOUNT} USDT`}
                 value={amountStr} onChange={(e) => setAmountStr(e.target.value)}
-                className="h-11 border-border/60 bg-card/40 font-mono text-base focus-visible:ring-gold/40" />
+                className="h-11 border-border/60 bg-card/40 text-base tabular-nums focus-visible:ring-gold/40" />
               <div className="mt-1.5 flex justify-between text-[11px] text-muted-foreground">
                 <span>Available: <span className="font-light tabular-nums tracking-tight text-foreground/80">${fmt(wallet.usd)}</span></span>
                 {exceedsBalance && <span className="text-rose-300">Exceeds available balance</span>}
