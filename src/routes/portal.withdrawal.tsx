@@ -314,7 +314,7 @@ function WithdrawalPage() {
                 value={amountStr} onChange={(e) => setAmountStr(e.target.value)}
                 className="h-11 border-border/60 bg-card/40 font-mono text-base focus-visible:ring-gold/40" />
               <div className="mt-1.5 flex justify-between text-[11px] text-muted-foreground">
-                <span>Available: <span className="font-mono tabular-nums text-foreground/80">${fmt(wallet.usd)}</span></span>
+                <span>Available: <span className="font-light tabular-nums tracking-tight text-foreground/80">${fmt(wallet.usd)}</span></span>
                 {exceedsBalance && <span className="text-rose-300">Exceeds available balance</span>}
               </div>
             </div>
