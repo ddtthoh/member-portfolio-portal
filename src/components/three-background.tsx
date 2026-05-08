@@ -631,7 +631,7 @@ export function ThreeBackground({
       return;
     }
     setEnabled(true);
-    setCount(phone ? 32 : tablet ? 65 : 100);
+    setCount(phone ? 28 : tablet ? 65 : 100);
     setInteractive(!coarse);
   }, []);
 
