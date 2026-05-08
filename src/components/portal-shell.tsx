@@ -159,7 +159,7 @@ export function PortalShell() {
 
   return (
     <TooltipProvider delayDuration={120}>
-      <div className="relative flex min-h-screen overflow-x-hidden bg-background">
+      <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         
         <CommandPalette />
         <MobileFab />
