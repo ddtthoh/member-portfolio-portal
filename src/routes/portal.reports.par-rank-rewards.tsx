@@ -22,7 +22,7 @@ function ParRankRewardsPage() {
           <Thead>
             <Th>Date</Th>
             <Th>amount</Th>
-            <Th>Percentage</Th>
+            <Th>rate</Th>
             <Th>Amount</Th>
           </Thead>
           <tbody>
