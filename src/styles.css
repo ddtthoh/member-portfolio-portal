@@ -119,9 +119,7 @@
   .liquid-glass {
     /* Per-theme knob via --glass-opacity (set in :root and .dark) */
     position: relative;
-    background: transparent;
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    background: var(--card);
     border: 1px solid color-mix(in oklab, var(--border) var(--glass-border-strength), transparent);
     border-color: color-mix(in oklab, var(--border) var(--glass-border-strength), transparent);
     box-shadow:
@@ -135,15 +133,10 @@
     transition:
       transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 0.35s ease,
-      border-color 0.35s ease,
-      backdrop-filter 0.35s ease,
-      -webkit-backdrop-filter 0.35s ease;
-    will-change: transform;
+      border-color 0.35s ease;
   }
   .liquid-glass:hover {
     transform: translateY(-3px);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
     border-color: color-mix(in oklab, var(--gold) 60%, transparent);
     box-shadow:
       inset 0 1px 0 color-mix(in oklab, white 22%, transparent),
@@ -197,7 +190,7 @@
     100% { transform: translateX(-50%); }
   }
   .ticker-track {
-    animation: ticker-marquee 240s linear infinite;
+    animation: none;
     width: max-content;
   }
   .ticker-wrap:hover .ticker-track {
@@ -251,8 +244,6 @@
       radial-gradient(35% 30% at 15% 90%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 70%);
     filter: blur(60px) saturate(140%);
     opacity: 0.55;
-    animation: aurora-drift 48s ease-in-out infinite;
-    will-change: transform;
     pointer-events: none;
   }
   :root:not(.dark) .aurora-bg::before { opacity: 0.18; filter: blur(80px) saturate(120%); }
