@@ -437,6 +437,89 @@ export type Database = {
         }
         Relationships: []
       }
+      withdrawal_wallets: {
+        Row: {
+          chain: string
+          created_at: string
+          id: string
+          user_id: string
+          wallet_address: string
+          wallet_name: string
+        }
+        Insert: {
+          chain?: string
+          created_at?: string
+          id?: string
+          user_id: string
+          wallet_address: string
+          wallet_name: string
+        }
+        Update: {
+          chain?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+          wallet_address?: string
+          wallet_name?: string
+        }
+        Relationships: []
+      }
+      withdrawals: {
+        Row: {
+          admin_fee: number
+          amount: number
+          chain: string
+          created_at: string
+          id: string
+          receive_amount: number
+          recipient_address: string
+          reference_number: string
+          remark: string | null
+          status: string
+          transaction_hash: string | null
+          user_id: string
+          wallet_id: string | null
+        }
+        Insert: {
+          admin_fee?: number
+          amount: number
+          chain?: string
+          created_at?: string
+          id?: string
+          receive_amount?: number
+          recipient_address: string
+          reference_number?: string
+          remark?: string | null
+          status?: string
+          transaction_hash?: string | null
+          user_id: string
+          wallet_id?: string | null
+        }
+        Update: {
+          admin_fee?: number
+          amount?: number
+          chain?: string
+          created_at?: string
+          id?: string
+          receive_amount?: number
+          recipient_address?: string
+          reference_number?: string
+          remark?: string | null
+          status?: string
+          transaction_hash?: string | null
+          user_id?: string
+          wallet_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "withdrawals_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "withdrawal_wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
