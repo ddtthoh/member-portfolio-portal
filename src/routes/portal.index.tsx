@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowDownToLine, ArrowUpFromLine, ArrowUpRight, Check, ChevronRight, Eye, EyeOff, Gem, Gift, LineChart, Repeat, Send, Users, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
@@ -55,12 +54,7 @@ function Overview() {
       {/* Hero bento: Est. Total Value (2/3) + Staking/Asset (1/3) */}
       <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
         {/* HERO CARD */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="sm:col-span-2"
-        >
+        <div className="sm:col-span-2">
           <SpotlightCard className="liquid-glass flex h-full flex-col rounded-2xl p-6 sm:p-7">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -156,16 +150,11 @@ function Overview() {
               <span>Updated just now</span>
             </div>
           </SpotlightCard>
-        </motion.div>
+        </div>
 
         {/* RIGHT COLUMN */}
         <div className="flex h-full flex-col gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1"
-          >
+          <div className="flex-1">
             <SpotlightCard className="liquid-glass h-full rounded-xl p-5">
               <div className="flex h-full items-center justify-center">
                 <div className="flex flex-1 flex-col items-center text-center">
@@ -188,13 +177,9 @@ function Overview() {
                 </div>
               </div>
             </SpotlightCard>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div >
             <Link to="/portal/asset-analysis" className="block">
               <SpotlightCard className="liquid-glass relative flex items-center justify-center rounded-xl px-5 py-4 transition-transform hover:-translate-y-0.5">
                 <div className="flex items-center justify-center gap-3">
@@ -212,18 +197,13 @@ function Overview() {
                 </div>
               </SpotlightCard>
             </Link>
-          </motion.div>
+          </div>
 
         </div>
       </div>
 
       {/* Tier card */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: "easeOut" }}
-        className="mb-3"
-      >
+      <div className="mb-3">
         <div className="liquid-glass relative overflow-hidden rounded-xl p-5">
           {/* gold glow */}
           <div
@@ -361,37 +341,27 @@ function Overview() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="mb-3 grid grid-cols-2 gap-3">
         {[
           { label: t("overview.usdtWallet"), value: wallet.usd },
           { label: t("overview.rewardsWallet"), value: wallet.rewards },
         ].map((w, i) => (
-          <motion.div
-            key={w.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div >
             <SpotlightCard className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
               <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
               <div className="text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
                 <CountUp value={w.value} prefix="$" decimals={2} />
               </div>
             </SpotlightCard>
-          </motion.div>
+          </div>
         ))}
       </div>
 
       <div className="mb-3 grid grid-cols-4 gap-3">
         {actionTiles.map((t, i) => (
-          <motion.div
-            key={t.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div >
             <Link to={t.to} className="group flex flex-col items-center gap-2 transition-transform hover:-translate-y-0.5">
               <TiltCard>
                 <div className="liquid-glass flex h-14 w-14 items-center justify-center rounded-2xl text-gold sm:h-16 sm:w-16">
@@ -400,7 +370,7 @@ function Overview() {
               </TiltCard>
               <span className="rounded-md bg-background/55 px-2 py-0.5 text-center text-xs font-medium tracking-wide text-foreground/90 backdrop-blur-sm sm:text-sm">{t.label}</span>
             </Link>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

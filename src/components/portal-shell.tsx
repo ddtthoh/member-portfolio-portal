@@ -159,7 +159,7 @@ export function PortalShell() {
 
   return (
     <TooltipProvider delayDuration={120}>
-      <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
+      <div className="relative flex min-h-screen overflow-x-hidden bg-background">
         
         <CommandPalette />
         <MobileFab />
@@ -171,14 +171,6 @@ export function PortalShell() {
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-[5] opacity-[0.05] mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\")",
-          }}
         />
 
         {/* Mobile backdrop */}
