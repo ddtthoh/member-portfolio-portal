@@ -21,9 +21,9 @@ function TeamRewardsPage() {
           <Thead>
             <Th>Date</Th>
             <Th>Member ID</Th>
-            <Th align="right">Level</Th>
-            <Th align="center">division roi</Th>
-            <Th align="left">Percentage</Th>
+            <Th>Level</Th>
+            <Th>division roi</Th>
+            <Th>Percentage</Th>
             <Th>amount</Th>
           </Thead>
           <tbody>
