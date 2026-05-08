@@ -22,7 +22,7 @@ function LeaderRewardsPage() {
             <Th>Date</Th>
             <Th>amount</Th>
             <Th>rate</Th>
-            <Th>Contributed by Referral rates</Th>
+            <Th>contributed by member id</Th>
             <Th>Total Subscription Count</Th>
           </Thead>
           <tbody>
