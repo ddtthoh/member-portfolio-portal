@@ -156,6 +156,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
   const mouseWorld = useRef(new THREE.Vector3(999, 999, 0));
   const parallaxTarget = useRef(new THREE.Vector2(0, 0));
   const shockwave = useRef<{ x: number; y: number; z: number; strength: number } | null>(null);
+  const autoFireTimer = useRef(1.5);
   const raycaster = useMemo(() => new THREE.Raycaster(), []);
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
 
@@ -321,9 +322,9 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       const ix = i * 3;
       const seed = data.seeds[i];
 
-      const driftX = Math.sin(t * 0.32 + seed) * 0.18;
-      const driftY = Math.cos(t * 0.27 + seed * 1.3) * 0.16;
-      const driftZ = Math.sin(t * 0.22 + seed * 0.7) * 0.12;
+      const driftX = Math.sin(t * 0.32 + seed) * 0.34 + Math.sin(t * 0.11 + seed * 2.7) * 0.22;
+      const driftY = Math.cos(t * 0.27 + seed * 1.3) * 0.30 + Math.cos(t * 0.09 + seed * 1.9) * 0.20;
+      const driftZ = Math.sin(t * 0.22 + seed * 0.7) * 0.22 + Math.cos(t * 0.13 + seed * 2.3) * 0.14;
 
       const tx = data.home[ix] + driftX;
       const ty = data.home[ix + 1] + driftY;
@@ -389,6 +390,14 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
     if (sw) {
       sw.strength -= dt * 1.2;
       if (sw.strength <= 0) shockwave.current = null;
+    }
+
+    // Spontaneous activity: periodically fire a random node so the web feels alive on its own
+    autoFireTimer.current -= dt;
+    if (autoFireTimer.current <= 0) {
+      const idx = Math.floor(Math.random() * count);
+      fireFromNode(idx, 0);
+      autoFireTimer.current = 1.8 + Math.random() * 2.6;
     }
 
     // Update node geometry attributes
