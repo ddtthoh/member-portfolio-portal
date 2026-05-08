@@ -21,7 +21,7 @@ function makeSpriteTexture(inner = "rgba(255,244,214,1)", mid = "rgba(232,201,12
 
 type Packet = { edge: number; t: number; speed: number; alive: boolean; cascade: number };
 
-function NodeWeb({ count, interactive }: { count: number; interactive: boolean }) {
+function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; interactive: boolean; spreadX: number; spreadY: number }) {
   const groupRef = useRef<THREE.Group>(null);
   const nodesRef = useRef<THREE.Points>(null);
   const edgesRef = useRef<THREE.LineSegments>(null);
@@ -45,8 +45,8 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
     const ignite = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      const x = (Math.random() - 0.5) * 16;
-      const y = (Math.random() - 0.5) * 10 + 1.0; // bias upward
+      const x = (Math.random() - 0.5) * spreadX;
+      const y = (Math.random() - 0.5) * spreadY + 1.0; // bias upward
       const z = (Math.random() - 0.5) * 6;
       home[i * 3] = x;
       home[i * 3 + 1] = y;
@@ -61,9 +61,11 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       seeds[i] = Math.random() * Math.PI * 2;
     }
 
-    // Build edges by proximity, max ~3 per node
+    // Build edges by proximity, max ~6 per node — proximity scales with average node spacing
     const maxEdgesPerNode = 6;
-    const proximity = 4.2;
+    const volume = spreadX * spreadY * 6;
+    const avgSpacing = Math.cbrt(volume / Math.max(count, 1));
+    const proximity = avgSpacing * 1.9;
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
@@ -149,7 +151,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
       edgePulse,
     };
-  }, [count]);
+  }, [count, spreadX, spreadY]);
 
   // Mouse / interaction refs
   const mouseNDC = useRef(new THREE.Vector2(999, 999));
@@ -669,24 +671,35 @@ export function ThreeBackground({
   const [interactive, setInteractive] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+  const [spread, setSpread] = useState({ x: 16, y: 10 });
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    const w = window.innerWidth;
-    const phone = w < 640;
-    const tablet = w >= 640 && w < 1024;
-    setReduceMotion(reduce);
-    setIsPhone(phone);
-    if (reduce) {
+    const apply = () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const phone = w < 640;
+      const tablet = w >= 640 && w < 1024;
+      setReduceMotion(reduce);
+      setIsPhone(phone);
+      // World-space spread tuned to viewport aspect so nodes fill the visible area on every device
+      const aspect = w / Math.max(h, 1);
+      const spreadX = phone ? Math.max(8.5, 16 * Math.min(1, aspect / 0.55)) : 16;
+      const spreadY = phone ? Math.max(13, 10 / Math.max(0.45, aspect)) : 10;
+      setSpread({ x: spreadX, y: spreadY });
+      if (reduce) {
+        setEnabled(true);
+        setInteractive(false);
+        setCount(phone ? 24 : tablet ? 50 : 80);
+        return;
+      }
       setEnabled(true);
-      setInteractive(false);
-      setCount(phone ? 24 : tablet ? 50 : 80);
-      return;
-    }
-    setEnabled(true);
-    setCount(phone ? 28 : tablet ? 65 : 100);
-    setInteractive(true);
+      setCount(phone ? 55 : tablet ? 70 : 100);
+      setInteractive(true);
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
   }, []);
 
   if (!enabled) return null;
@@ -720,7 +733,7 @@ export function ThreeBackground({
         }}
         frameloop={reduceMotion ? "demand" : "always"}
       >
-        <NodeWeb count={count} interactive={interactive} />
+        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} />
       </Canvas>
     </div>
   );
