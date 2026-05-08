@@ -606,13 +606,16 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
 export function ThreeBackground({
   className,
   fade = true,
+  fixed = false,
 }: {
   className?: string;
   fade?: boolean;
+  fixed?: boolean;
 }) {
   const [enabled, setEnabled] = useState(false);
   const [count, setCount] = useState(110);
   const [interactive, setInteractive] = useState(true);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -620,15 +623,16 @@ export function ThreeBackground({
     const w = window.innerWidth;
     const phone = w < 640;
     const tablet = w >= 640 && w < 1024;
+    setReduceMotion(reduce);
     if (reduce) {
       setEnabled(true);
       setInteractive(false);
-      setCount(phone ? 28 : tablet ? 60 : 90);
+      setCount(phone ? 24 : tablet ? 50 : 80);
       return;
     }
     setEnabled(true);
-    setCount(phone ? 40 : tablet ? 75 : 110);
-    setInteractive(!coarse); // disable mouse interactions on touch
+    setCount(phone ? 32 : tablet ? 65 : 100);
+    setInteractive(!coarse);
   }, []);
 
   if (!enabled) return null;
@@ -636,30 +640,31 @@ export function ThreeBackground({
   const maskStyle = fade
     ? {
         WebkitMaskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 55%, rgba(0,0,0,0) 100%)",
+          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
         maskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 55%, rgba(0,0,0,0) 100%)",
+          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
       }
     : undefined;
+
+  const defaultClass = fixed
+    ? "pointer-events-none fixed inset-0 -z-10 h-screen w-screen"
+    : "pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] sm:h-[620px]";
 
   return (
     <div
       aria-hidden
-      className={
-        className ??
-        "pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] sm:h-[620px]"
-      }
-      style={{ opacity: 0.95, ...maskStyle }}
+      className={className ?? defaultClass}
+      style={{ opacity: 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
-        dpr={typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1] : [1, 1.5]}
+        dpr={typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1] : [1, 1.25]}
         gl={{
           antialias: typeof window === "undefined" || window.innerWidth >= 640,
           alpha: true,
           powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
         }}
-        frameloop="always"
+        frameloop={reduceMotion ? "demand" : "always"}
       >
         <NodeWeb count={count} interactive={interactive} />
       </Canvas>
