@@ -23,7 +23,7 @@ function StakingReportPage() {
             <Th>Date</Th>
             <Th>transaction number</Th>
             <Th>amount</Th>
-            <Th>Package</Th>
+            <Th>staking plan</Th>
           </Thead>
           <tbody>
             <EmptyRow colSpan={4}>No transactions yet.</EmptyRow>
