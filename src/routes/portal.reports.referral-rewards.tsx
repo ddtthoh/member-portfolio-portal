@@ -22,7 +22,7 @@ function ReferralRewardsPage() {
           <Thead>
             <Th>Date</Th>
             <Th>Member ID</Th>
-            <Th>Percentage</Th>
+            <Th>referral rate</Th>
             <Th>Amount</Th>
           </Thead>
           <tbody>
