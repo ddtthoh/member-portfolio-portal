@@ -50,7 +50,7 @@ function StakingPlansPage() {
                   <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
                 <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
-                  {plan.roi.replace(/\s*–\s*/, "\u2011")}
+                  {plan.roi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
                 </div>
               </div>
             </div>
