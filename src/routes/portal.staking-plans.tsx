@@ -36,21 +36,21 @@ function StakingPlansPage() {
             </h3>
 
             <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
-              <div className="pr-4">
+              <div className="pr-3">
                 <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   Minimum Staking
                 </div>
-                <div className="mt-0.5 font-light text-2xl tabular-nums tracking-[-0.04em] text-gold">
+                <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
                   {plan.minAmount}
                 </div>
               </div>
 
-              <div className="pl-4">
+              <div className="pl-3">
                 <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
                   <TrendingUp className="h-3 w-3" /> Monthly ROI
                 </div>
-                <div className="mt-0.5 font-light text-2xl tabular-nums tracking-[-0.04em] text-gold">
-                  {plan.roi}
+                <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
+                  {plan.roi.replace(/\s*–\s*/, "\u2011")}
                 </div>
               </div>
             </div>
