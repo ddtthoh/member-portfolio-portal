@@ -487,9 +487,9 @@ function WithdrawalPage() {
             <div className="flex justify-between"><dt className="text-muted-foreground">Wallet</dt><dd className="font-medium">{wallets.find((w) => w.id === selWalletId)?.wallet_name}</dd></div>
             <div className="flex justify-between"><dt className="text-muted-foreground">Address</dt><dd className="font-mono text-xs">{shortAddr(wallets.find((w) => w.id === selWalletId)?.wallet_address ?? "")}</dd></div>
             <div className="flex justify-between"><dt className="text-muted-foreground">Chain</dt><dd>USDT (BEP20)</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Amount</dt><dd className="font-mono tabular-nums">${fmt(amount)}</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee</dt><dd className="font-mono tabular-nums">${fmt(adminFee)}</dd></div>
-            <div className="flex justify-between border-t border-border/50 pt-2"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-mono font-semibold tabular-nums text-gold">${fmt(receive)}</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Amount</dt><dd className="font-light tabular-nums tracking-tight">${fmt(amount)}</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee</dt><dd className="font-light tabular-nums tracking-tight">${fmt(adminFee)}</dd></div>
+            <div className="flex justify-between border-t border-border/50 pt-2"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-light tabular-nums tracking-tight text-gold">${fmt(receive)}</dd></div>
           </dl>
           <DialogFooter>
             <Button variant="outline" onClick={() => setConfirmOpen(false)} className="border-border/60">Cancel</Button>
