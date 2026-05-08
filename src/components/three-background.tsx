@@ -708,7 +708,7 @@ export function ThreeBackground({
     <div
       aria-hidden
       className={className ?? defaultClass}
-      style={{ opacity: 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
+      style={{ opacity: isPhone ? 0.55 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
