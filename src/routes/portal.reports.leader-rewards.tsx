@@ -21,7 +21,7 @@ function LeaderRewardsPage() {
           <Thead>
             <Th>Date</Th>
             <Th>Referral rates</Th>
-            <Th>Percentage</Th>
+            <Th>rate</Th>
             <Th>Contributed by Referral rates</Th>
             <Th>Total Subscription Count</Th>
           </Thead>
