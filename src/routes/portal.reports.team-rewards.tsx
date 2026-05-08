@@ -20,9 +20,9 @@ function TeamRewardsPage() {
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>Member ID</Th>
+            <Th>amount</Th>
             <Th>Level</Th>
-            <Th>​division roi</Th>
+            <Th>amount</Th>
             <Th>Percentage</Th>
             <Th>​division roi</Th>
           </Thead>

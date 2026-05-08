@@ -22,7 +22,7 @@ function StakingReportPage() {
           <Thead>
             <Th>Date</Th>
             <Th>transaction number</Th>
-            <Th>​division roi</Th>
+            <Th>amount</Th>
             <Th>Package</Th>
           </Thead>
           <tbody>
