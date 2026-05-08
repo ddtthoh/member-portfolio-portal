@@ -323,17 +323,11 @@ export function PortalShell() {
               <Link
                 to="/portal/promotion"
                 aria-label={t("nav.promotion", "Promotion")}
-                className="group relative inline-flex h-9 items-center gap-1.5 rounded-full border border-gold/60 bg-background/40 px-3 text-xs font-medium tracking-wide text-foreground/85 backdrop-blur-sm shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] transition-all hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)]"
+                className="group relative inline-flex h-9 items-center gap-1.5 rounded-full border border-gold/60 bg-background/60 px-3 text-xs font-medium tracking-wide text-foreground/85 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] transition-all hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)]"
               >
                 <span className="relative flex h-4 w-4 items-center justify-center">
-                  <Gift
-                    className="h-4 w-4 text-gold/90 transition-transform duration-500 ease-out group-hover:rotate-[-10deg]"
-                    style={{ animation: "promo-tilt 3.2s ease-in-out infinite", transformOrigin: "50% 60%" }}
-                  />
-                  <span className="absolute -right-0.5 -top-0.5 flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/70 opacity-60" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
-                  </span>
+                  <Gift className="h-4 w-4 text-gold/90 transition-transform duration-500 ease-out group-hover:rotate-[-10deg]" />
+                  <span className="absolute -right-0.5 -top-0.5 inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
                 </span>
                 
               </Link>
