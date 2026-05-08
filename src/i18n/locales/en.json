@@ -9,6 +9,8 @@
     "creditConversionStatement": "Credit Conversion Statement",
     "usdStatement": "USD Statement",
     "rewardsStatement": "Rewards Statement",
+    "deposit": "Deposit",
+    "withdrawal": "Withdrawal",
     "usdCreditsTransfer": "USD & Credits Transfer",
     "convertCredits": "Convert Credits",
     "transferUsd": "Transfer USD",

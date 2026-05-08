@@ -47,6 +47,8 @@ const sections: NavSection[] = [
     id: "operations",
     labelKey: "nav.sections.operations",
     items: [
+      { to: "/portal/deposit", labelKey: "nav.deposit", icon: ArrowDownToLine },
+      { to: "/portal/withdrawal", labelKey: "nav.withdrawal", icon: ArrowUpFromLine },
       {
         labelKey: "nav.usdCreditsTransfer",
         icon: ArrowRightLeft,
