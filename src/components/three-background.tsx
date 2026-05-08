@@ -45,8 +45,8 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
     const ignite = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      const x = (Math.random() - 0.5) * 16;
-      const y = (Math.random() - 0.5) * 10 + 1.0; // bias upward
+      const x = (Math.random() - 0.5) * spreadX;
+      const y = (Math.random() - 0.5) * spreadY + 1.0; // bias upward
       const z = (Math.random() - 0.5) * 6;
       home[i * 3] = x;
       home[i * 3 + 1] = y;
@@ -61,9 +61,11 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
       seeds[i] = Math.random() * Math.PI * 2;
     }
 
-    // Build edges by proximity, max ~3 per node
+    // Build edges by proximity, max ~6 per node — proximity scales with average node spacing
     const maxEdgesPerNode = 6;
-    const proximity = 4.2;
+    const volume = spreadX * spreadY * 6;
+    const avgSpacing = Math.cbrt(volume / Math.max(count, 1));
+    const proximity = avgSpacing * 1.9;
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
