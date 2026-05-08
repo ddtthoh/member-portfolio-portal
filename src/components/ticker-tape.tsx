@@ -143,7 +143,7 @@ export function TickerTape() {
   const items = [...ticks, ...ticks];
 
   return (
-    <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/60 backdrop-blur">
+    <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80">
       <div className="ticker-track flex gap-8 whitespace-nowrap py-2 text-xs">
         {items.map((t, i) => (
           <a

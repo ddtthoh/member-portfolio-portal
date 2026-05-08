@@ -17,10 +17,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
-import { ThreeBackground } from "@/components/three-background";
-import { CursorGlow } from "@/components/cursor-glow";
 import { CommandPalette } from "@/components/command-palette";
-import { TapGlow } from "@/components/tap-glow";
 import { MobileFab } from "@/components/mobile-fab";
 
 import { useTranslation } from "react-i18next";
@@ -163,7 +160,7 @@ export function PortalShell() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
-        <TapGlow />
+        
         <CommandPalette />
         <MobileFab />
         {/* Backdrop layers */}
