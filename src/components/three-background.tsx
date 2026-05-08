@@ -668,6 +668,7 @@ export function ThreeBackground({
   const [count, setCount] = useState(110);
   const [interactive, setInteractive] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -676,6 +677,7 @@ export function ThreeBackground({
     const phone = w < 640;
     const tablet = w >= 640 && w < 1024;
     setReduceMotion(reduce);
+    setIsPhone(phone);
     if (reduce) {
       setEnabled(true);
       setInteractive(false);
