@@ -733,7 +733,7 @@ export function ThreeBackground({
         }}
         frameloop={reduceMotion ? "demand" : "always"}
       >
-        <NodeWeb count={count} interactive={interactive} />
+        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} />
       </Canvas>
     </div>
   );
