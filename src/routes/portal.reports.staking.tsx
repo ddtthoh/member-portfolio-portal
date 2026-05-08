@@ -12,12 +12,12 @@ function StakingReportPage() {
     <div>
       <PageHeader title="Staking" />
       <ReportShell title="Staking Transactions">
-        <DataTable minWidth={640}>
+        <DataTable minWidth={760}>
           <colgroup>
-            <col className="w-1/4" />
-            <col className="w-1/4" />
-            <col className="w-1/4" />
-            <col className="w-1/4" />
+            <col className="w-[22%]" />
+            <col className="w-[34%]" />
+            <col className="w-[22%]" />
+            <col className="w-[22%]" />
           </colgroup>
           <Thead>
             <Th>Date</Th>
