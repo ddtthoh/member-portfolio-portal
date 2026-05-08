@@ -392,6 +392,14 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       if (sw.strength <= 0) shockwave.current = null;
     }
 
+    // Spontaneous activity: periodically fire a random node so the web feels alive on its own
+    autoFireTimer.current -= dt;
+    if (autoFireTimer.current <= 0) {
+      const idx = Math.floor(Math.random() * count);
+      fireFromNode(idx, 0);
+      autoFireTimer.current = 1.8 + Math.random() * 2.6;
+    }
+
     // Update node geometry attributes
     if (nodesRef.current) {
       const geom = nodesRef.current.geometry as THREE.BufferGeometry;
