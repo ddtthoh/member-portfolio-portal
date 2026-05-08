@@ -12,7 +12,7 @@ function TeamRewardsPage() {
     <div>
       <PageHeader title="Team Rewards" />
       <ReportShell title="Team Rewards Report">
-        <DataTable minWidth={720}>
+        <DataTable minWidth={960}>
           <colgroup>
             {Array.from({ length: 6 }).map((_, i) => (
               <col key={i} className="w-1/6" />
@@ -21,9 +21,9 @@ function TeamRewardsPage() {
           <Thead>
             <Th>Date</Th>
             <Th>Member ID</Th>
-            <Th align="right">Level</Th>
-            <Th align="center">division roi</Th>
-            <Th align="left">Percentage</Th>
+            <Th>Level</Th>
+            <Th>division roi</Th>
+            <Th>Percentage</Th>
             <Th>amount</Th>
           </Thead>
           <tbody>
