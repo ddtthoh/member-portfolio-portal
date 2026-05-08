@@ -194,15 +194,15 @@ function WithdrawalPage() {
         <div className="relative overflow-hidden rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/[0.15] via-amber-500/[0.06] to-transparent p-5 shadow-[0_8px_32px_-8px_rgba(245,158,11,0.4)]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.18),transparent_60%)]" />
           <div className="relative flex gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-400/50 bg-amber-500/15 text-amber-300 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-500/60 bg-amber-500/20 text-amber-600 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)] dark:border-amber-400/50 dark:bg-amber-500/15 dark:text-amber-300">
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-300">Important Reminder</div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700 dark:text-amber-300">Important Reminder</div>
               <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/90">
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Withdrawals only support <span className="font-semibold text-gold">USDT</span> via the <span className="font-semibold text-gold">BSC (BEP20)</span> network.</span></li>
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Wrong address or network will result in <span className="font-semibold text-amber-300">permanent loss</span>.</span></li>
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Requests are processed after admin approval — typically within minutes.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Withdrawals only support <span className="font-semibold text-amber-700 dark:text-gold">USDT</span> via the <span className="font-semibold text-amber-700 dark:text-gold">BSC (BEP20)</span> network.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Wrong address or network will result in <span className="font-semibold text-amber-700 dark:text-amber-300">permanent loss</span>.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Requests are processed after admin approval — typically within minutes.</span></li>
               </ul>
             </div>
           </div>
