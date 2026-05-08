@@ -658,9 +658,9 @@ export function ThreeBackground({
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
-        dpr={typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1] : [1, 1.25]}
+        dpr={reduceMotion ? [1, 1.5] : [1, 2]}
         gl={{
-          antialias: typeof window === "undefined" || window.innerWidth >= 640,
+          antialias: true,
           alpha: true,
           powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
         }}
