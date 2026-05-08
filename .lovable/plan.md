@@ -1,24 +1,21 @@
-## 为什么看起来偏右
+## Problem
 
-Team Rewards 的表头其实 6 栏宽度是相等的（每栏 1/6），"division roi" 用 `text-center` 已经在第 4 栏的几何正中间。但旁边的表头 **Level / Percentage 都是左对齐**：
-- "Level" 文字贴在第 3 栏的最左边 → 离 "division roi" 看起来很远
-- "Percentage" 文字贴在第 5 栏的最左边 → 紧挨着 "division roi"
+In `src/routes/portal.reports.team-rewards.tsx`, the table has 6 equal-width columns. "division roi" is in column 4 and is geometrically centered in its own cell, but because "Level" (col 3) and "Percentage" (col 5) are both left-aligned, their text sits at the left edge of each column. Result: "Level" text is far away on the left, "Percentage" text is right next to "division roi" — so "division roi" looks pushed toward Percentage.
 
-所以视觉上 "division roi" 就显得"靠右、贴着 Percentage"。这跟 phone / tablet / desktop 哪个视口无关，是同一个根因，所有视口都会一样。
+Just toggling `align="center"` on the single Th cannot fix this — it only centers within column 4, which is already what's happening.
 
-## 解决方案（推荐）
+## Fix (only this file, only this header row)
 
-把 "division roi" 改回 **左对齐**，跟其他表头保持一致，这样 6 栏的表头都从各自栏位最左边开始 —— 在所有视口下，"division roi" 都会自然落在 Level 与 Percentage 文字的中间位置（因为列宽相等）。
+Adjust the alignment of the three middle headers so their visible text is balanced around "division roi":
 
-```diff
-- <Th align="center">division roi</Th>
-+ <Th>division roi</Th>
-```
+- `<Th align="right">Level</Th>` — pushes "Level" text to the right edge of col 3
+- `<Th align="center">division roi</Th>` — centers in col 4
+- `<Th align="left">Percentage</Th>` — keeps "Percentage" at the left edge of col 5
 
-只改 `src/routes/portal.reports.team-rewards.tsx` 第 25 行那一格。其他 report、其他 page、其他 subpage 不动。
+Now the three labels read: `Level   division roi   Percentage` with roughly equal gaps on both sides of "division roi", at every viewport (phone / tablet / desktop), because the columns are all `w-1/6` and the rule is purely text-align based.
 
-## 不影响的地方
+The table body currently only renders `<EmptyRow colSpan={6}>` so no data cells need to be re-aligned. Other reports, pages, subpages, tabs, and shared components are untouched.
 
-- Staking / Referral Rewards / Leader Rewards / Par Rank Rewards 的 report 都不动
-- 没有 i18n、没有共享组件改动
-- 列宽 / 表格 minWidth 都不动 → 三个视口表现一致
+## Files
+
+- `src/routes/portal.reports.team-rewards.tsx` — change lines 24–26 only.
