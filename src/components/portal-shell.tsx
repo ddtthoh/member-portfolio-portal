@@ -163,7 +163,6 @@ export function PortalShell() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
-        <CursorGlow />
         <TapGlow />
         <CommandPalette />
         <MobileFab />
@@ -172,9 +171,6 @@ export function PortalShell() {
           aria-hidden
           className="portal-backdrop pointer-events-none absolute inset-x-0 top-0 -z-20 h-full opacity-60 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.65)_40%,rgba(0,0,0,0.55)_70%,rgba(0,0,0,0.3)_88%,rgba(0,0,0,0.15)_100%)]"
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 block h-full opacity-70 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.45)_70%,rgba(0,0,0,0.22)_85%,rgba(0,0,0,0.1)_100%)]">
-          <ThreeBackground className="absolute inset-0" fade={false} />
-        </div>
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
@@ -193,13 +189,13 @@ export function PortalShell() {
           <div
             aria-hidden
             onClick={() => setOpen(false)}
-            className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-30 bg-background/80 lg:hidden"
           />
         )}
 
         {/* Sidebar */}
         <aside
-          className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-sidebar-border bg-sidebar/80 backdrop-blur-md transition-all duration-300 ease-out lg:static lg:translate-x-0 ${sidebarWidth} ${
+          className={`fixed inset-y-0 left-0 z-40 flex flex-col border-r border-sidebar-border bg-sidebar/95 transition-all duration-300 ease-out lg:static lg:translate-x-0 ${sidebarWidth} ${
             open ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0`}
         >
@@ -298,7 +294,7 @@ export function PortalShell() {
         {/* Main */}
         <div className="flex min-w-0 flex-1 flex-col opacity-95">
           <header
-            className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/60 px-4 backdrop-blur lg:px-8"
+            className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/90 px-4 lg:px-8"
             style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
           >
             <div className="flex items-center gap-3">
