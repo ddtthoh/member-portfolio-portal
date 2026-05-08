@@ -23,7 +23,7 @@ function ParRankRewardsPage() {
             <Th>Date</Th>
             <Th>amount</Th>
             <Th>rate</Th>
-            <Th>Amount</Th>
+            <Th>rank</Th>
           </Thead>
           <tbody>
             <EmptyRow colSpan={4}>No transactions yet.</EmptyRow>
