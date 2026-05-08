@@ -232,10 +232,10 @@
     50%  { transform: translate3d(-2%, 1%, 0) rotate(180deg); }
     100% { transform: translate3d(0,0,0) rotate(360deg); }
   }
-  .aurora-bg { position: relative; isolation: isolate; }
+  .aurora-bg { position: relative; }
   .aurora-bg::before {
     content: "";
-    position: absolute; inset: -20%;
+    position: fixed; inset: 0;
     z-index: -1;
     background:
       radial-gradient(40% 35% at 20% 25%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 70%),
@@ -245,6 +245,8 @@
     filter: blur(60px) saturate(140%);
     opacity: 0.55;
     pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
   }
   :root:not(.dark) .aurora-bg::before { opacity: 0.18; filter: blur(80px) saturate(120%); }
 
@@ -252,7 +254,7 @@
   .grid-floor { position: relative; }
   .dark .grid-floor::after {
     content: "";
-    position: absolute; inset: 0;
+    position: fixed; inset: 0;
     z-index: -1;
     background-image:
       linear-gradient(color-mix(in oklab, var(--gold) 8%, transparent) 1px, transparent 1px),
@@ -262,6 +264,8 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 0%, transparent 75%);
     opacity: 0.35;
     pointer-events: none;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   /* 2. Glass shimmer — single sweep on hover */

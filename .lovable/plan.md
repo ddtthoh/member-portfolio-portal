@@ -1,28 +1,18 @@
-I found this is not just the old background effect. The remaining first-scroll hitch is likely caused by first-render animation work still happening at the same time as the user’s first scroll:
+Bring back the aurora + grid background, but stop it from causing scroll lag.
 
-1. **Remove first-load motion from the /portal overview**
-   - Replace the `framer-motion` wrappers on the overview cards/action tiles with normal `div`s.
-   - This stops multiple delayed opacity/translate animations from running during the first scroll.
+The original lag came from the background painting on scroll: `.aurora-bg::before` and `.grid-floor::after` are absolutely positioned at the height of the whole scrolling page, so every scroll forces the browser to recomposite a giant blurred (60px blur) layer.
 
-2. **Disable animated numbers on initial portal load**
-   - Update `CountUp` so it renders the final number immediately instead of animating through many DOM text updates.
-   - This matches the replay showing many number updates right before the scroll lag.
+## Fix
 
-3. **Make the sparkline static**
-   - Remove `framer-motion` path animation from `Sparkline`.
-   - Keep the exact same chart visual, just no first-load SVG path drawing.
+1. **Restore the background classes** on the portal shell wrapper (`aurora-bg grid-floor`).
 
-4. **Remove remaining motion/tilt listeners from action buttons**
-   - Replace `TiltCard` usage on overview action tiles with a static wrapper.
-   - This removes parallax/device-orientation setup that can initialize around the first interaction.
+2. **Make the background fixed to the viewport, not the page**:
+   - Change `.aurora-bg::before` from `position: absolute; inset: -20%` to `position: fixed; inset: 0` so it only covers the visible area and never repaints during scroll.
+   - Same change for `.dark .grid-floor::after`.
+   - Keep all visuals (gold/blue/purple radial gradients, blur, grid lines, mask).
 
-5. **Remove remaining paint-heavy decorative CSS on portal shell/cards**
-   - Remove the fixed SVG noise overlay and card SVG noise layer.
-   - Disable aurora blur/grid floor on the portal shell so the browser has less to rasterize on the first scroll.
+3. **Promote the layers to their own GPU layer** with `will-change: transform; transform: translateZ(0)` so the compositor doesn't re-rasterize them.
 
-6. **Fix the hydration mismatch warning**
-   - Add a stable `dir="ltr"` on the root `<html>` element.
-   - This prevents React hydration recovery work from competing with early interactions.
+4. **Keep the previous performance fixes intact** (no animated counters, no sparkline draw-in animation, no per-card motion fade-ins, no SVG noise overlays, no tilt parallax). Only the visual background returns.
 
-7. **Verify after implementation**
-   - Re-profile the first scroll and confirm the page no longer performs number animation/motion initialization during the first scroll.
+5. **Verify** by re-profiling the first scroll on `/portal` — confirm no large paint/composite spikes.
