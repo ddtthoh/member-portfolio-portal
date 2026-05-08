@@ -20,11 +20,11 @@ function TeamRewardsPage() {
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>amount</Th>
+            <Th>Member ID</Th>
             <Th>Level</Th>
             <Th>amount</Th>
             <Th>Percentage</Th>
-            <Th>​division roi</Th>
+            <Th>amount</Th>
           </Thead>
           <tbody>
             <EmptyRow colSpan={6}>No transactions yet.</EmptyRow>
