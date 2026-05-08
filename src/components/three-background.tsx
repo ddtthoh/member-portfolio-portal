@@ -322,9 +322,9 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
       const ix = i * 3;
       const seed = data.seeds[i];
 
-      const driftX = Math.sin(t * 0.32 + seed) * 0.18;
-      const driftY = Math.cos(t * 0.27 + seed * 1.3) * 0.16;
-      const driftZ = Math.sin(t * 0.22 + seed * 0.7) * 0.12;
+      const driftX = Math.sin(t * 0.32 + seed) * 0.34 + Math.sin(t * 0.11 + seed * 2.7) * 0.22;
+      const driftY = Math.cos(t * 0.27 + seed * 1.3) * 0.30 + Math.cos(t * 0.09 + seed * 1.9) * 0.20;
+      const driftZ = Math.sin(t * 0.22 + seed * 0.7) * 0.22 + Math.cos(t * 0.13 + seed * 2.3) * 0.14;
 
       const tx = data.home[ix] + driftX;
       const ty = data.home[ix + 1] + driftY;
