@@ -328,12 +328,12 @@ function WithdrawalPage() {
           {/* Summary */}
           <div className="rounded-2xl border border-border/50 bg-gradient-to-br from-gold/[0.04] to-transparent p-5">
             <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">USD Credit</div>
-            <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-gold">${fmt(wallet.usd)}</div>
+            <div className="mt-1 text-2xl font-light tabular-nums tracking-tight text-gold sm:text-3xl">${fmt(wallet.usd)}</div>
             <div className="my-4 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             <dl className="space-y-3 text-sm">
-              <div className="flex justify-between"><dt className="text-muted-foreground">Withdrawal Amount</dt><dd className="font-mono tabular-nums text-foreground/90">${fmt(amount)}</dd></div>
-              <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee (2%)</dt><dd className="font-mono tabular-nums text-foreground/90">${fmt(adminFee)}</dd></div>
-              <div className="flex justify-between border-t border-border/50 pt-3"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-mono text-base font-semibold tabular-nums text-gold">${fmt(receive)}</dd></div>
+              <div className="flex justify-between"><dt className="text-muted-foreground">Withdrawal Amount</dt><dd className="font-light tabular-nums tracking-tight text-foreground/90">${fmt(amount)}</dd></div>
+              <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee (2%)</dt><dd className="font-light tabular-nums tracking-tight text-foreground/90">${fmt(adminFee)}</dd></div>
+              <div className="flex justify-between border-t border-border/50 pt-3"><dt className="font-medium text-gold">You'll Receive</dt><dd className="text-base font-light tabular-nums tracking-tight text-gold">${fmt(receive)}</dd></div>
             </dl>
           </div>
         </div>
