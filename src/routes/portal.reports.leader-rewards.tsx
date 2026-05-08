@@ -20,7 +20,7 @@ function LeaderRewardsPage() {
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>Referral rates</Th>
+            <Th>amount</Th>
             <Th>rate</Th>
             <Th>Contributed by Referral rates</Th>
             <Th>Total Subscription Count</Th>
