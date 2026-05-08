@@ -44,7 +44,7 @@ function Overview() {
     { label: t("overview.tiles.withdrawal"), icon: <ArrowUpFromLine className="h-6 w-6" />, labelOnly: true as const, to: "/portal/withdrawal" },
     { label: t("overview.tiles.convertCredits"), icon: <Repeat className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/convert-credits" },
     { label: t("overview.tiles.transferUsd"), icon: <Send className="h-6 w-6" />, labelOnly: true as const, to: "/portal/statement/transfer-usd" },
-    { label: t("overview.tiles.referral"), icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/referral" },
+    { label: t("overview.tiles.referral"), icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/qr-code" },
     { label: t("overview.tiles.participation"), icon: <Users className="h-6 w-6" />, labelOnly: true as const, to: "/portal/staking" },
     { label: t("overview.tiles.promotion"), icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
   ];
