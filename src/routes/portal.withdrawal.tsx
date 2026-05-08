@@ -304,19 +304,19 @@ function WithdrawalPage() {
           </Button>
         </div>
 
-        <div className="overflow-x-auto">
-          <div className="min-w-max px-6 py-5 sm:px-8">
-            <div className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-              <div>Date</div><div>Wallet Name</div><div>Wallet Address</div><div className="text-right">Action</div>
-            </div>
-            <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
-            {wallets.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><WalletIcon className="h-6 w-6" /></div>
-                <div className="text-sm font-medium text-foreground">No wallets yet</div>
-                <div className="max-w-xs text-xs text-muted-foreground">Add a BEP20 wallet to start withdrawing.</div>
+        {wallets.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-3 px-6 py-12 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><WalletIcon className="h-6 w-6" /></div>
+            <div className="text-sm font-medium text-foreground">No wallets yet</div>
+            <div className="max-w-xs text-xs text-muted-foreground">Add a BEP20 wallet to start withdrawing.</div>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <div className="min-w-max px-6 py-5 sm:px-8">
+              <div className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+                <div>Date</div><div>Wallet Name</div><div>Wallet Address</div><div className="text-right">Action</div>
               </div>
-            ) : (
+              <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
               <div className="divide-y divide-border/20">
                 {wallets.map((w, i) => (
                   <motion.div key={w.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03, duration: 0.25 }}
@@ -334,9 +334,9 @@ function WithdrawalPage() {
                   </motion.div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </SpotlightCard>
 
       {/* SECTION 3 — Filter */}
