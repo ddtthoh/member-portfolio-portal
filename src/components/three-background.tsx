@@ -151,7 +151,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
       sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
       edgePulse,
     };
-  }, [count]);
+  }, [count, spreadX, spreadY]);
 
   // Mouse / interaction refs
   const mouseNDC = useRef(new THREE.Vector2(999, 999));
