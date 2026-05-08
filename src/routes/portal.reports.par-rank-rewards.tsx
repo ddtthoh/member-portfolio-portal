@@ -21,7 +21,7 @@ function ParRankRewardsPage() {
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>Rank</Th>
+            <Th>amount</Th>
             <Th>Percentage</Th>
             <Th>Amount</Th>
           </Thead>
