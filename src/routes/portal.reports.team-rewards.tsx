@@ -23,7 +23,7 @@ function TeamRewardsPage() {
             <Th>Member ID</Th>
             <Th>Level</Th>
             <Th>division roi</Th>
-            <Th>Percentage</Th>
+            <Th>rate</Th>
             <Th>amount</Th>
           </Thead>
           <tbody>
