@@ -427,9 +427,9 @@ function WithdrawalPage() {
                     <button onClick={() => copyVal(d.reference_number, "Reference copied")} className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={d.reference_number}><span className="truncate">{d.reference_number}</span><Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" /></button>
                     <button onClick={() => copyVal(d.recipient_address, "Address copied")} className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={d.recipient_address}><span className="truncate">{shortAddr(d.recipient_address)}</span></button>
                     <div className="text-sm text-foreground/85">{d.chain}</div>
-                    <div className="text-right font-mono text-sm tabular-nums text-foreground/90">${fmt(Number(d.amount))}</div>
-                    <div className="text-right font-mono text-sm tabular-nums text-muted-foreground">${fmt(Number(d.admin_fee))}</div>
-                    <div className="text-right font-mono text-sm tabular-nums font-semibold text-gold">${fmt(Number(d.receive_amount))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-foreground/90">${fmt(Number(d.amount))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-muted-foreground">${fmt(Number(d.admin_fee))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-gold">${fmt(Number(d.receive_amount))}</div>
                     <div>{statusBadge(d.status)}</div>
                     <div className="truncate text-sm text-muted-foreground" title={d.remark ?? ""}>{d.remark || "—"}</div>
                     {d.transaction_hash ? (
