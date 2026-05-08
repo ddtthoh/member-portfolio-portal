@@ -21,7 +21,7 @@ function StakingReportPage() {
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>Member ID</Th>
+            <Th>transaction number</Th>
             <Th>​division roi</Th>
             <Th>Package</Th>
           </Thead>
