@@ -194,74 +194,22 @@ function WithdrawalPage() {
         <div className="relative overflow-hidden rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/[0.15] via-amber-500/[0.06] to-transparent p-5 shadow-[0_8px_32px_-8px_rgba(245,158,11,0.4)]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.18),transparent_60%)]" />
           <div className="relative flex gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-400/50 bg-amber-500/15 text-amber-300 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-500/60 bg-amber-500/20 text-amber-600 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)] dark:border-amber-400/50 dark:bg-amber-500/15 dark:text-amber-300">
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-300">Important Reminder</div>
+              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700 dark:text-amber-300">Important Reminder</div>
               <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/90">
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Withdrawals only support <span className="font-semibold text-gold">USDT</span> via the <span className="font-semibold text-gold">BSC (BEP20)</span> network.</span></li>
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Wrong address or network will result in <span className="font-semibold text-amber-300">permanent loss</span>.</span></li>
-                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" /><span>Requests are processed after admin approval — typically within minutes.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Withdrawals only support <span className="font-semibold text-amber-700 dark:text-gold">USDT</span> via the <span className="font-semibold text-amber-700 dark:text-gold">BSC (BEP20)</span> network.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Wrong address or network will result in <span className="font-semibold text-amber-700 dark:text-amber-300">permanent loss</span>.</span></li>
+                <li className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" /><span>Requests are processed after admin approval — typically within minutes.</span></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 1 — Withdrawal Wallets */}
-      <SpotlightCard className="liquid-glass mb-6 overflow-hidden rounded-2xl">
-        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold shadow-[0_4px_16px_-4px_rgba(212,175,55,0.4)]">
-              <WalletIcon className="h-4 w-4" />
-            </div>
-            <div>
-              <div className="font-serif text-base font-semibold text-gold md:text-lg">Withdrawal Wallets</div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Saved BEP20 addresses</div>
-            </div>
-          </div>
-          <Button onClick={openAddWallet} className="h-9 gap-2 bg-gradient-to-r from-gold to-amber-400 font-semibold text-black shadow-[0_8px_24px_-8px_rgba(212,175,55,0.6)] hover:opacity-95">
-            <Plus className="h-4 w-4" /> Add Wallet
-          </Button>
-        </div>
-
-        <div className="overflow-x-auto">
-          <div className="min-w-max px-6 py-5 sm:px-8">
-            <div className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-              <div>Date</div><div>Wallet Name</div><div>Wallet Address</div><div className="text-right">Action</div>
-            </div>
-            <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
-            {wallets.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><WalletIcon className="h-6 w-6" /></div>
-                <div className="text-sm font-medium text-foreground">No wallets yet</div>
-                <div className="max-w-xs text-xs text-muted-foreground">Add a BEP20 wallet to start withdrawing.</div>
-              </div>
-            ) : (
-              <div className="divide-y divide-border/20">
-                {wallets.map((w, i) => (
-                  <motion.div key={w.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03, duration: 0.25 }}
-                    className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] items-center gap-x-8 py-4 transition-colors hover:bg-gold/[0.025]">
-                    <div className="font-mono text-sm tabular-nums text-foreground/85">{new Date(w.created_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}</div>
-                    <div className="text-sm text-foreground">{w.wallet_name}</div>
-                    <button onClick={() => copyVal(w.wallet_address, "Address copied")} className="group inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={w.wallet_address}>
-                      <span className="truncate"><span className="text-gold">{w.wallet_address.slice(0, 6)}</span>{w.wallet_address.slice(6, -6)}<span className="text-gold">{w.wallet_address.slice(-6)}</span></span>
-                      <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
-                    </button>
-                    <div className="flex items-center justify-end gap-1">
-                      <button onClick={() => openEditWallet(w)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/60 bg-card/40 text-muted-foreground transition hover:border-gold/50 hover:text-gold" aria-label="Edit"><Pencil className="h-3.5 w-3.5" /></button>
-                      <button onClick={() => deleteWallet(w)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/60 bg-card/40 text-muted-foreground transition hover:border-rose-400/50 hover:text-rose-300" aria-label="Delete"><Trash2 className="h-3.5 w-3.5" /></button>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </SpotlightCard>
-
-      {/* SECTION 2 — New Withdrawal Request */}
+      {/* SECTION 1 — New Withdrawal Request */}
       <SpotlightCard className="liquid-glass mb-6 overflow-hidden rounded-2xl">
         <div className="flex items-center gap-3 border-b border-border/40 px-6 py-5">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold shadow-[0_4px_16px_-4px_rgba(212,175,55,0.4)]">
@@ -314,7 +262,7 @@ function WithdrawalPage() {
                 value={amountStr} onChange={(e) => setAmountStr(e.target.value)}
                 className="h-11 border-border/60 bg-card/40 font-mono text-base focus-visible:ring-gold/40" />
               <div className="mt-1.5 flex justify-between text-[11px] text-muted-foreground">
-                <span>Available: <span className="font-mono tabular-nums text-foreground/80">${fmt(wallet.usd)}</span></span>
+                <span>Available: <span className="font-light tabular-nums tracking-tight text-foreground/80">${fmt(wallet.usd)}</span></span>
                 {exceedsBalance && <span className="text-rose-300">Exceeds available balance</span>}
               </div>
             </div>
@@ -328,13 +276,65 @@ function WithdrawalPage() {
           {/* Summary */}
           <div className="rounded-2xl border border-border/50 bg-gradient-to-br from-gold/[0.04] to-transparent p-5">
             <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">USD Credit</div>
-            <div className="mt-1 font-mono text-2xl font-semibold tabular-nums text-gold">${fmt(wallet.usd)}</div>
+            <div className="mt-1 text-2xl font-light tabular-nums tracking-tight text-gold sm:text-3xl">${fmt(wallet.usd)}</div>
             <div className="my-4 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
             <dl className="space-y-3 text-sm">
-              <div className="flex justify-between"><dt className="text-muted-foreground">Withdrawal Amount</dt><dd className="font-mono tabular-nums text-foreground/90">${fmt(amount)}</dd></div>
-              <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee (2%)</dt><dd className="font-mono tabular-nums text-foreground/90">${fmt(adminFee)}</dd></div>
-              <div className="flex justify-between border-t border-border/50 pt-3"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-mono text-base font-semibold tabular-nums text-gold">${fmt(receive)}</dd></div>
+              <div className="flex justify-between"><dt className="text-muted-foreground">Withdrawal Amount</dt><dd className="font-light tabular-nums tracking-tight text-foreground/90">${fmt(amount)}</dd></div>
+              <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee (2%)</dt><dd className="font-light tabular-nums tracking-tight text-foreground/90">${fmt(adminFee)}</dd></div>
+              <div className="flex justify-between border-t border-border/50 pt-3"><dt className="font-medium text-gold">You'll Receive</dt><dd className="text-base font-light tabular-nums tracking-tight text-gold">${fmt(receive)}</dd></div>
             </dl>
+          </div>
+        </div>
+      </SpotlightCard>
+
+      {/* SECTION 2 — Withdrawal Wallets */}
+      <SpotlightCard className="liquid-glass mb-6 overflow-hidden rounded-2xl">
+        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/15 to-gold/5 text-gold shadow-[0_4px_16px_-4px_rgba(212,175,55,0.4)]">
+              <WalletIcon className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="font-serif text-base font-semibold text-gold md:text-lg">Withdrawal Wallets</div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Saved BEP20 addresses</div>
+            </div>
+          </div>
+          <Button onClick={openAddWallet} className="h-9 gap-2 bg-gradient-to-r from-gold to-amber-400 font-semibold text-black shadow-[0_8px_24px_-8px_rgba(212,175,55,0.6)] hover:opacity-95">
+            <Plus className="h-4 w-4" /> Add Wallet
+          </Button>
+        </div>
+
+        <div className="overflow-x-auto">
+          <div className="min-w-max px-6 py-5 sm:px-8">
+            <div className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <div>Date</div><div>Wallet Name</div><div>Wallet Address</div><div className="text-right">Action</div>
+            </div>
+            <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
+            {wallets.length === 0 ? (
+              <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><WalletIcon className="h-6 w-6" /></div>
+                <div className="text-sm font-medium text-foreground">No wallets yet</div>
+                <div className="max-w-xs text-xs text-muted-foreground">Add a BEP20 wallet to start withdrawing.</div>
+              </div>
+            ) : (
+              <div className="divide-y divide-border/20">
+                {wallets.map((w, i) => (
+                  <motion.div key={w.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03, duration: 0.25 }}
+                    className="grid grid-cols-[18ch_18ch_minmax(40ch,1fr)_10ch] items-center gap-x-8 py-4 transition-colors hover:bg-gold/[0.025]">
+                    <div className="font-mono text-sm tabular-nums text-foreground/85">{new Date(w.created_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}</div>
+                    <div className="text-sm text-foreground">{w.wallet_name}</div>
+                    <button onClick={() => copyVal(w.wallet_address, "Address copied")} className="group inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={w.wallet_address}>
+                      <span className="truncate"><span className="text-gold">{w.wallet_address.slice(0, 6)}</span>{w.wallet_address.slice(6, -6)}<span className="text-gold">{w.wallet_address.slice(-6)}</span></span>
+                      <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
+                    </button>
+                    <div className="flex items-center justify-end gap-1">
+                      <button onClick={() => openEditWallet(w)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/60 bg-card/40 text-muted-foreground transition hover:border-gold/50 hover:text-gold" aria-label="Edit"><Pencil className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => deleteWallet(w)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/60 bg-card/40 text-muted-foreground transition hover:border-rose-400/50 hover:text-rose-300" aria-label="Delete"><Trash2 className="h-3.5 w-3.5" /></button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </SpotlightCard>
@@ -396,9 +396,6 @@ function WithdrawalPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-300 sm:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" /> Live
-            </div>
             <Button variant="outline" onClick={exportExcel} className="h-9 gap-2 border-border/60 bg-transparent text-muted-foreground hover:border-gold/40 hover:text-gold">
               <Download className="h-3.5 w-3.5" /> Export Excel
             </Button>
@@ -430,9 +427,9 @@ function WithdrawalPage() {
                     <button onClick={() => copyVal(d.reference_number, "Reference copied")} className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={d.reference_number}><span className="truncate">{d.reference_number}</span><Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" /></button>
                     <button onClick={() => copyVal(d.recipient_address, "Address copied")} className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold" title={d.recipient_address}><span className="truncate">{shortAddr(d.recipient_address)}</span></button>
                     <div className="text-sm text-foreground/85">{d.chain}</div>
-                    <div className="text-right font-mono text-sm tabular-nums text-foreground/90">${fmt(Number(d.amount))}</div>
-                    <div className="text-right font-mono text-sm tabular-nums text-muted-foreground">${fmt(Number(d.admin_fee))}</div>
-                    <div className="text-right font-mono text-sm tabular-nums font-semibold text-gold">${fmt(Number(d.receive_amount))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-foreground/90">${fmt(Number(d.amount))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-muted-foreground">${fmt(Number(d.admin_fee))}</div>
+                    <div className="text-right text-sm font-light tabular-nums tracking-tight text-gold">${fmt(Number(d.receive_amount))}</div>
                     <div>{statusBadge(d.status)}</div>
                     <div className="truncate text-sm text-muted-foreground" title={d.remark ?? ""}>{d.remark || "—"}</div>
                     {d.transaction_hash ? (
@@ -490,9 +487,9 @@ function WithdrawalPage() {
             <div className="flex justify-between"><dt className="text-muted-foreground">Wallet</dt><dd className="font-medium">{wallets.find((w) => w.id === selWalletId)?.wallet_name}</dd></div>
             <div className="flex justify-between"><dt className="text-muted-foreground">Address</dt><dd className="font-mono text-xs">{shortAddr(wallets.find((w) => w.id === selWalletId)?.wallet_address ?? "")}</dd></div>
             <div className="flex justify-between"><dt className="text-muted-foreground">Chain</dt><dd>USDT (BEP20)</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Amount</dt><dd className="font-mono tabular-nums">${fmt(amount)}</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee</dt><dd className="font-mono tabular-nums">${fmt(adminFee)}</dd></div>
-            <div className="flex justify-between border-t border-border/50 pt-2"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-mono font-semibold tabular-nums text-gold">${fmt(receive)}</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Amount</dt><dd className="font-light tabular-nums tracking-tight">${fmt(amount)}</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Admin Fee</dt><dd className="font-light tabular-nums tracking-tight">${fmt(adminFee)}</dd></div>
+            <div className="flex justify-between border-t border-border/50 pt-2"><dt className="font-medium text-gold">You'll Receive</dt><dd className="font-light tabular-nums tracking-tight text-gold">${fmt(receive)}</dd></div>
           </dl>
           <DialogFooter>
             <Button variant="outline" onClick={() => setConfirmOpen(false)} className="border-border/60">Cancel</Button>
