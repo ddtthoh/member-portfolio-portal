@@ -396,9 +396,6 @@ function WithdrawalPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-300 sm:flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" /> Live
-            </div>
             <Button variant="outline" onClick={exportExcel} className="h-9 gap-2 border-border/60 bg-transparent text-muted-foreground hover:border-gold/40 hover:text-gold">
               <Download className="h-3.5 w-3.5" /> Export Excel
             </Button>
