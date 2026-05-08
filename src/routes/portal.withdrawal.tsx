@@ -402,23 +402,23 @@ function WithdrawalPage() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <div className="min-w-max px-6 py-6 sm:px-8">
-            <div className="grid grid-cols-[18ch_20ch_28ch_10ch_14ch_12ch_14ch_14ch_18ch_28ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-              <div>Date</div><div>Reference Number</div><div>Recipient Address</div><div>USDT Chain</div>
-              <div className="text-right">Withdrawal Amt</div><div className="text-right">Admin Fee</div><div className="text-right">You'll Receive</div>
-              <div>Status</div><div>Remark</div><div>Transaction Hash</div>
-            </div>
-            <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
-            {loadingHist ? (
-              <div className="space-y-2 py-6">{[0, 1, 2].map((i) => <div key={i} className="h-14 animate-pulse rounded-lg bg-muted/20" />)}</div>
-            ) : filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><Inbox className="h-6 w-6" /></div>
-                <div className="text-sm font-medium text-foreground">No withdrawals found</div>
-                <div className="max-w-xs text-xs text-muted-foreground">{withdrawals.length === 0 ? "Your requests will appear here." : "Try adjusting your filters."}</div>
+        {loadingHist ? (
+          <div className="space-y-2 px-6 py-6 sm:px-8">{[0, 1, 2].map((i) => <div key={i} className="h-14 animate-pulse rounded-lg bg-muted/20" />)}</div>
+        ) : filtered.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-3 px-6 py-16 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground"><Inbox className="h-6 w-6" /></div>
+            <div className="text-sm font-medium text-foreground">No withdrawals found</div>
+            <div className="max-w-xs text-xs text-muted-foreground">{withdrawals.length === 0 ? "Your requests will appear here." : "Try adjusting your filters."}</div>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <div className="min-w-max px-6 py-6 sm:px-8">
+              <div className="grid grid-cols-[18ch_20ch_28ch_10ch_14ch_12ch_14ch_14ch_18ch_28ch] gap-x-8 pb-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+                <div>Date</div><div>Reference Number</div><div>Recipient Address</div><div>USDT Chain</div>
+                <div className="text-right">Withdrawal Amt</div><div className="text-right">Admin Fee</div><div className="text-right">You'll Receive</div>
+                <div>Status</div><div>Remark</div><div>Transaction Hash</div>
               </div>
-            ) : (
+              <div className="h-px bg-gradient-to-r from-gold/80 via-amber-400/60 to-orange-500/40" />
               <div className="divide-y divide-border/20">
                 {filtered.map((d, i) => (
                   <motion.div key={d.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03, duration: 0.25 }}
@@ -438,9 +438,9 @@ function WithdrawalPage() {
                   </motion.div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </SpotlightCard>
 
       {/* Add/Edit Wallet Dialog */}
