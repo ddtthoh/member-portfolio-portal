@@ -156,6 +156,7 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
   const mouseWorld = useRef(new THREE.Vector3(999, 999, 0));
   const parallaxTarget = useRef(new THREE.Vector2(0, 0));
   const shockwave = useRef<{ x: number; y: number; z: number; strength: number } | null>(null);
+  const autoFireTimer = useRef(1.5);
   const raycaster = useMemo(() => new THREE.Raycaster(), []);
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), []);
 
