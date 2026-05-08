@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { CommandPalette } from "@/components/command-palette";
 import { MobileFab } from "@/components/mobile-fab";
+import { ThreeBackground } from "@/components/three-background";
 
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
@@ -160,7 +161,7 @@ export function PortalShell() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
-        
+        <ThreeBackground fixed />
         <CommandPalette />
         <MobileFab />
         {/* Backdrop layers */}
