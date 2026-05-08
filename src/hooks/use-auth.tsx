@@ -11,12 +11,21 @@ export function useAuth() {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, sess) => {
       setSession(sess);
       setUser(sess?.user ?? null);
-    });
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setUser(data.session?.user ?? null);
       setLoading(false);
     });
+
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        setSession(data.session);
+        setUser(data.session?.user ?? null);
+      })
+      .catch(() => {
+        // Stored refresh token is invalid — clear it so next load starts clean.
+        supabase.auth.signOut().catch(() => {});
+      })
+      .finally(() => setLoading(false));
+
     return () => sub.subscription.unsubscribe();
   }, []);
 
