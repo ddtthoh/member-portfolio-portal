@@ -222,32 +222,75 @@ function NodeWeb({ count, interactive }: { count: number; interactive: boolean }
 
   useEffect(() => {
     if (!interactive) return;
-    const onMove = (e: PointerEvent) => {
-      mouseNDC.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseNDC.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-      parallaxTarget.current.x = mouseNDC.current.x;
-      parallaxTarget.current.y = mouseNDC.current.y;
-    };
-    const onLeave = () => mouseNDC.current.set(999, 999);
-    const onClick = (e: MouseEvent) => {
+    const coarse = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
+    const tapAt = (clientX: number, clientY: number, strength = 1) => {
       const ndc = new THREE.Vector2(
-        (e.clientX / window.innerWidth) * 2 - 1,
-        -(e.clientY / window.innerHeight) * 2 + 1,
+        (clientX / window.innerWidth) * 2 - 1,
+        -(clientY / window.innerHeight) * 2 + 1,
       );
       raycaster.setFromCamera(ndc, camera);
       const hit = new THREE.Vector3();
       if (raycaster.ray.intersectPlane(plane, hit)) {
         triggerClick(hit.x, hit.y);
+        if (shockwave.current) shockwave.current.strength = strength;
       }
     };
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerleave", onLeave);
-    window.addEventListener("click", onClick);
-    return () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("click", onClick);
-    };
+
+    const cleanups: Array<() => void> = [];
+
+    if (coarse) {
+      // Phone: tap only (passive) — never blocks scroll
+      let orientationGranted = false;
+      const onDown = (e: PointerEvent) => {
+        parallaxTarget.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+        parallaxTarget.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        tapAt(e.clientX, e.clientY, 1.2);
+        // Lazy iOS gyro permission request on first tap
+        if (!orientationGranted) {
+          orientationGranted = true;
+          // @ts-expect-error iOS-only API
+          const req = window.DeviceOrientationEvent?.requestPermission;
+          if (typeof req === "function") {
+            req().catch(() => {});
+          }
+        }
+      };
+      window.addEventListener("pointerdown", onDown, { passive: true });
+      cleanups.push(() => window.removeEventListener("pointerdown", onDown));
+
+      // Throttled gyro parallax
+      let lastOri = 0;
+      const onOrientation = (e: DeviceOrientationEvent) => {
+        const now = performance.now();
+        if (now - lastOri < 33) return;
+        lastOri = now;
+        const gx = e.gamma ?? 0; // [-90, 90] left/right
+        const gy = e.beta ?? 0; // [-180, 180] front/back
+        parallaxTarget.current.x = Math.max(-1, Math.min(1, gx / 30));
+        parallaxTarget.current.y = Math.max(-1, Math.min(1, (gy - 30) / 30));
+      };
+      window.addEventListener("deviceorientation", onOrientation);
+      cleanups.push(() => window.removeEventListener("deviceorientation", onOrientation));
+    } else {
+      // Desktop: hover parallax + click
+      const onMove = (e: PointerEvent) => {
+        mouseNDC.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseNDC.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        parallaxTarget.current.x = mouseNDC.current.x;
+        parallaxTarget.current.y = mouseNDC.current.y;
+      };
+      const onLeave = () => mouseNDC.current.set(999, 999);
+      const onClick = (e: MouseEvent) => tapAt(e.clientX, e.clientY, 1);
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerleave", onLeave);
+      window.addEventListener("click", onClick);
+      cleanups.push(() => window.removeEventListener("pointermove", onMove));
+      cleanups.push(() => window.removeEventListener("pointerleave", onLeave));
+      cleanups.push(() => window.removeEventListener("click", onClick));
+    }
+
+    return () => cleanups.forEach((fn) => fn());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interactive, camera]);
 
@@ -632,7 +675,7 @@ export function ThreeBackground({
     }
     setEnabled(true);
     setCount(phone ? 28 : tablet ? 65 : 100);
-    setInteractive(!coarse);
+    setInteractive(true);
   }, []);
 
   if (!enabled) return null;
