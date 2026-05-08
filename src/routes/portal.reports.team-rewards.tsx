@@ -14,8 +14,9 @@ function TeamRewardsPage() {
       <ReportShell title="Team Rewards Report">
         <DataTable minWidth={720}>
           <colgroup>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <col key={i} className="w-1/6" />
+            <col className="w-[28%]" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <col key={i} className="w-[14.4%]" />
             ))}
           </colgroup>
           <Thead>
