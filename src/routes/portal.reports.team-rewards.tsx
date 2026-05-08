@@ -14,18 +14,20 @@ function TeamRewardsPage() {
       <ReportShell title="Team Rewards Report">
         <DataTable minWidth={720}>
           <colgroup>
-            <col className="w-[28%]" />
-            {Array.from({ length: 5 }).map((_, i) => (
-              <col key={i} className="w-[14.4%]" />
-            ))}
+            <col className="w-auto" />
+            <col className="w-px" />
+            <col className="w-px" />
+            <col className="w-px" />
+            <col className="w-px" />
+            <col className="w-px" />
           </colgroup>
           <Thead>
             <Th>Date</Th>
-            <Th>Member ID</Th>
-            <Th>Level</Th>
-            <Th>division roi</Th>
-            <Th>Percentage</Th>
-            <Th>amount</Th>
+            <Th className="whitespace-nowrap">Member ID</Th>
+            <Th className="whitespace-nowrap">Level</Th>
+            <Th className="whitespace-nowrap">division roi</Th>
+            <Th className="whitespace-nowrap">Percentage</Th>
+            <Th className="whitespace-nowrap">amount</Th>
           </Thead>
           <tbody>
             <EmptyRow colSpan={6}>No transactions yet.</EmptyRow>
