@@ -113,8 +113,9 @@ function DepositPage() {
 
       {/* Important reminder — visible above the deposit card on all viewports */}
       <div className="mx-auto mb-6 max-w-md">
-        <div className="relative overflow-hidden rounded-2xl border-2 border-amber-500/50 bg-gradient-to-br from-amber-500/[0.15] via-amber-500/[0.06] to-transparent p-5 shadow-[0_8px_32px_-8px_rgba(245,158,11,0.4)]">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.18),transparent_60%)]" />
+        <div className="relative overflow-hidden rounded-2xl border border-amber-500/60 bg-card/95 p-5 shadow-[0_10px_40px_-12px_rgba(245,158,11,0.55)] backdrop-blur-xl supports-[backdrop-filter]:bg-card/85">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.14),transparent_60%)]" />
           <div className="relative flex gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-400/50 bg-amber-500/15 text-amber-300 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)]">
               <AlertTriangle className="h-5 w-5" />
