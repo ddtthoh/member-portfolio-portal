@@ -108,26 +108,6 @@ function StakingPlansPage() {
         );
       })}
 
-      {/* Mobile sticky CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40 sm:hidden">
-        <div
-          className="px-4 pb-4 pt-3"
-          style={{
-            background: "linear-gradient(180deg, transparent, color-mix(in oklab, var(--background) 92%, transparent) 35%, var(--background) 80%)",
-          }}
-        >
-          <Button
-            size="lg"
-            onClick={() => setOpen(true)}
-            className="cta-premium group relative w-full overflow-hidden rounded-full border-0 py-5 text-[12px] font-semibold uppercase tracking-[0.3em]"
-          >
-            <Sparkles className="mr-2 h-4 w-4 relative z-10" strokeWidth={2.2} />
-            <span className="relative z-10">{t("pages.stakingPlans.cta", { defaultValue: "Start Staking" })}</span>
-            <Sparkles className="ml-2 h-4 w-4 relative z-10" strokeWidth={2.2} />
-          </Button>
-        </div>
-      </div>
-
       <StartStakingDialog open={open} onOpenChange={setOpen} plans={plans} />
     </div>
   );
