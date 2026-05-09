@@ -258,7 +258,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
         />
         <TrackCard
           icon={<Users className="h-4 w-4" />}
-          eyebrow="Track 02 · Referrer"
+          eyebrow="Track 02 · Referral"
           title="Referral Participation"
           standing={referral}
         />
