@@ -36,11 +36,11 @@ function StakingPlansPage() {
         <Button
           size="lg"
           onClick={() => setOpen(true)}
-          className="cta-gold-breathe group relative overflow-hidden rounded-full border border-gold/55 bg-[linear-gradient(135deg,#070707_0%,#161208_50%,#070707_100%)] px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold transition-all hover:-translate-y-0.5 hover:border-gold/80"
+          className="cta-premium group relative overflow-hidden rounded-full border-0 px-12 py-6 text-[13px] font-semibold uppercase tracking-[0.32em] transition-transform hover:-translate-y-0.5"
         >
-          <Sparkles className="mr-2 h-4 w-4 opacity-80 transition-opacity group-hover:opacity-100" />
-          Start Staking
-          <Sparkles className="ml-2 h-4 w-4 opacity-80 transition-opacity group-hover:opacity-100" />
+          <Sparkles className="mr-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
+          <span className="relative z-10">Start Staking</span>
+          <Sparkles className="ml-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
         </Button>
       </div>
 
