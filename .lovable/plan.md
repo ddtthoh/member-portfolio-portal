@@ -1,60 +1,75 @@
-## Goal
+## 目标
 
-Add the four official channels — **Telegram**, **Instagram**, **X**, **Website** — across the app in a quietly premium way that matches the gold accent / private-banking aesthetic.
+在已有的"单色 icon + 圆形金色 hover + 一次性流光"基础上，让四个社交 logo（Telegram / Instagram / X / Website）在**静止状态**就更出众、更有"被设计过"的板块感，同时不破坏私行克制美学。
 
-## Links
+---
 
-- Telegram → https://t.me/NaslabMiddleEast
-- Instagram → https://www.instagram.com/naslab_tec/
-- X → https://x.com/NaslabTec
-- Website → https://www.naslabtec.com
+## 方案：三层叠加升级
 
-## Design (high-end, minimal)
+### 层 1：永久细金边框（默认态可见度）
+每个 icon 的圆形容器从"完全透明"改为：
+- 默认：`border-gold/20` + `bg-card/40` + 极轻 inner shadow
+- Hover：升级到 `border-gold/60` + `bg-[gold/10%]` + 外发光（沿用现有效果）
 
-A reusable `<SocialLinks />` component rendered as a horizontal row of 4 brand-accurate icons.
+效果：四个 icon 静止时就像四枚嵌在侧栏的小金色勋章，远看一眼能识别。
 
-**Visual language:**
-- **Brand-accurate SVG icons** for Telegram / Instagram / X (Lucide doesn't ship faithful versions of these). Website uses Lucide `Globe`. Inline SVGs (no extra dependency), `currentColor` so they adapt to theme.
-- **Icon size:** 16px (sidebar) / 18px (footer & support).
-- **Default state:** `text-muted-foreground/70`, no background, no border — pure icon.
-- **Hover state:** smooth 250ms transition to `text-gold`, with a soft gold halo via `drop-shadow(0 0 6px color-mix(in oklab, var(--gold) 55%, transparent))` and a subtle `-translate-y-0.5` lift.
-- **Spacing:** `gap-4` between icons (sidebar `gap-3.5` when collapsed allows vertical stack).
-- **Accessibility:** each link has `aria-label`, `target="_blank"`, `rel="noopener noreferrer"`, and a tooltip showing the channel name (sidebar variant).
-- **Optional thin top divider** (`h-px bg-gradient-to-r from-transparent via-border to-transparent`) above the row in the sidebar to separate it from Sign Out.
+### 层 2：上方 eyebrow 标题 + 金色细线
+在 icon 行上方加：
+- 一条 `h-px` 渐变线：`from-transparent via-gold/30 to-transparent`
+- 一行 micro 标题：`CONNECT`（10px、letter-spacing 0.3em、`text-muted-foreground/60`）
+- Sidebar 折叠态：标题隐藏，只保留细线
 
-This avoids colored brand fills (which would look cheap next to gold-on-charcoal) and instead reads as discreet, editorial — the same restraint as the rest of the portal.
+效果：把四个 icon 从"孤儿按钮"升格为一个**有名字的板块**，瞬间有杂志/品牌官网气质。
 
-## Placement (3 spots)
+### 层 3：错位呼吸光晕（Idle pulse）
+四个 icon 在 idle 状态下，金色边框透明度做 4 秒一次的极轻微呼吸（`gold/20 → gold/35 → gold/20`），**每个 icon 延迟 0.4s 依次呼吸**，形成左→右的金色波浪。
+- 用 framer-motion `animate` + `repeat: Infinity`
+- 加 `prefers-reduced-motion` 守护，关闭动画时回到静态
 
-1. **Portal sidebar footer** (`src/components/portal-shell.tsx`)
-   - Inserted just **above** the existing Sign Out / collapse-toggle row.
-   - Expanded sidebar: horizontal row, centered, with the thin divider above.
-   - Collapsed sidebar (68px): icons stack vertically, centered, tooltips on hover.
+效果：余光会被吸引但完全不打扰阅读，是顶级品牌网站常见的"活着的细节"。
 
-2. **Landing page footer** (`src/routes/index.tsx`)
-   - In the existing `<footer>`, change layout to two rows or a flex row: copyright on the left, social icons on the right. 18px icons, same hover behavior.
+---
 
-3. **Support page** (`src/routes/portal.support.tsx`)
-   - New "Official Channels" card: small eyebrow label + 4 icons with channel names below each (icon + label vertical micro-stack), so users can clearly identify them in a support context.
+## 技术实现
 
-## Technical Details
+**只改一个文件**：`src/components/social-links.tsx`
 
-**New file:** `src/components/social-links.tsx`
-- Exports `<SocialLinks variant="row" | "stack" | "labeled" size={16|18} />`.
-- Holds the link constants and inline SVG icon components: `TelegramIcon`, `InstagramIcon`, `XIcon`, plus Lucide `Globe` for the website.
-- Uses `Tooltip` from `@/components/ui/tooltip` only when `variant !== "labeled"`.
+1. 把每个 `<a>` 内的"圆形容器 span"默认样式从 transparent 改为 `border-gold/20 bg-card/40 shadow-[inset_0_1px_0_color-mix(in_oklab,var(--gold)_8%,transparent)]`，hover 态保留现有金色加强。
+2. 在 `row` / `stack` 变体的 `<div>` 外层包一个新容器：
+   - 上方 `<div>` 渲染细线 + `CONNECT` eyebrow（折叠时只渲染细线）
+   - 通过新增 prop `showEyebrow?: boolean`（默认 true）控制，landing footer 可关掉只保留 icons
+3. 把每个圆形容器 span 换成 `motion.span`，加 `animate={{ boxShadow: [...3 帧...] }}` + `transition={{ duration: 4, repeat: Infinity, delay: index * 0.4 }}`
+4. 用 `useReducedMotion()` 守护，开启 reduce-motion 时跳过呼吸动画
+5. `labeled` 变体（support 页）保持现状不动，那里已经是卡片样式
 
-**Edits:**
-- `src/components/portal-shell.tsx` — render `<SocialLinks variant={collapsed ? "stack" : "row"} />` inside the sidebar footer block above the Sign Out row.
-- `src/routes/index.tsx` — add `<SocialLinks variant="row" size={18} />` to the footer.
-- `src/routes/portal.support.tsx` — add an "Official Channels" section using `<SocialLinks variant="labeled" />`.
+**不改的文件**：portal-shell / index / portal.support — 它们只调用组件，自动继承新效果。
 
-**i18n:** add keys `social.telegram`, `social.instagram`, `social.x`, `social.website`, `social.officialChannels` to `src/i18n/locales/en.json` (other locales fall back to English; translation script can be run later).
+---
 
-**No new dependencies.** No business-logic changes. Pure presentation.
+## 视觉草图
 
-## Out of scope
+```text
+展开 sidebar：
+─────── CONNECT ───────
+  (TG)  (IG)  (X)  (WEB)   ← 四枚带细金边的圆形勋章
+   ↑↑↑↑ 错位呼吸 ↑↑↑↑
 
-- Login page socials (can be added later if you want).
-- Header icon (intentionally avoided to keep top bar clean).
-- Animated logo marks or full-color brand fills.
+折叠 sidebar：
+   ───
+  (TG)
+  (IG)
+  (X)
+  (WEB)
+
+Landing footer（关 eyebrow）：
+© 2026 ... Private Wealth      (TG) (IG) (X) (WEB)
+```
+
+---
+
+## 范围之外
+
+- 不加品牌色小点（已讨论过，会拉低质感）
+- 不加 magnetic / tilt 交互（与克制美学冲突，留作以后 landing 重做时再考虑）
+- 不动 support 页的 labeled 卡片（已经是另一种好设计）
+- 不加 i18n 新 key，"CONNECT" 直接英文写死（属于品牌排版，不翻译）
