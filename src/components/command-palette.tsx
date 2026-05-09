@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import {
   CommandDialog,
   CommandInput,
@@ -17,38 +18,39 @@ import {
 
 type Item = { to: string; label: string; icon: typeof LayoutDashboard; group: string };
 
-const ITEMS: Item[] = [
-  { to: "/portal", label: "Dashboard", icon: LayoutDashboard, group: "Overview" },
-  { to: "/portal/holdings", label: "Holdings", icon: Wallet, group: "Wallet" },
-  { to: "/portal/transactions", label: "Transactions", icon: ArrowLeftRight, group: "Wallet" },
-  { to: "/portal/asset-analysis", label: "Asset Analysis", icon: FileBarChart, group: "Wallet" },
-  { to: "/portal/staking", label: "Staking", icon: Layers, group: "Wallet" },
-  { to: "/portal/staking-plans", label: "Staking Plans", icon: Layers, group: "Wallet" },
-  { to: "/portal/deposit", label: "Deposit", icon: ArrowDownToLine, group: "Funds" },
-  { to: "/portal/withdrawal", label: "Withdrawal", icon: ArrowUpFromLine, group: "Funds" },
-  { to: "/portal/statement/usd", label: "USD Statement", icon: DollarSign, group: "Statement" },
-  { to: "/portal/statement/transfer-usd", label: "Transfer USD", icon: Send, group: "Statement" },
-  { to: "/portal/statement/rewards", label: "Rewards", icon: Gift, group: "Statement" },
-  { to: "/portal/statement/convert-credits", label: "Convert Credits", icon: Repeat, group: "Statement" },
-  { to: "/portal/statement/credit-conversion", label: "Credit Conversion", icon: ArrowRightLeft, group: "Statement" },
-  { to: "/portal/network", label: "Network", icon: Users, group: "Network" },
-  { to: "/portal/referral", label: "Referral", icon: Users, group: "Network" },
-  { to: "/portal/promotion", label: "Promotion", icon: Gift, group: "Network" },
-  { to: "/portal/reports", label: "Reports", icon: FileBarChart, group: "Reports" },
-  { to: "/portal/reports/staking", label: "Staking Rewards", icon: FileBarChart, group: "Reports" },
-  { to: "/portal/reports/team-rewards", label: "Team Rewards", icon: FileBarChart, group: "Reports" },
-  { to: "/portal/reports/leader-rewards", label: "Leader Rewards", icon: FileBarChart, group: "Reports" },
-  { to: "/portal/qna", label: "Quiz", icon: GraduationCap, group: "Learn" },
-  { to: "/portal/documents", label: "Documents", icon: FileBarChart, group: "Learn" },
-  { to: "/portal/support", label: "Support", icon: LifeBuoy, group: "Account" },
-  { to: "/portal/profile", label: "Profile", icon: UserCircle2, group: "Account" },
-  { to: "/portal/qr-code", label: "QR Code", icon: QrCode, group: "Account" },
-];
-
 export function CommandPalette() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const cap = useDeviceCapability();
+
+  const ITEMS: Item[] = useMemo(() => [
+    { to: "/portal", label: t("palette.items.dashboard"), icon: LayoutDashboard, group: t("nav.overview") },
+    { to: "/portal/holdings", label: t("palette.items.holdings"), icon: Wallet, group: t("palette.groups.wallet") },
+    { to: "/portal/transactions", label: t("nav.transactions"), icon: ArrowLeftRight, group: t("palette.groups.wallet") },
+    { to: "/portal/asset-analysis", label: t("nav.assetAnalysis"), icon: FileBarChart, group: t("palette.groups.wallet") },
+    { to: "/portal/staking", label: t("nav.reportsParticipation"), icon: Layers, group: t("palette.groups.wallet") },
+    { to: "/portal/staking-plans", label: t("palette.items.stakingPlans"), icon: Layers, group: t("palette.groups.wallet") },
+    { to: "/portal/deposit", label: t("nav.deposit"), icon: ArrowDownToLine, group: t("palette.groups.funds") },
+    { to: "/portal/withdrawal", label: t("nav.withdrawal"), icon: ArrowUpFromLine, group: t("palette.groups.funds") },
+    { to: "/portal/statement/usd", label: t("nav.usdStatement"), icon: DollarSign, group: t("nav.statement") },
+    { to: "/portal/statement/transfer-usd", label: t("nav.transferUsd"), icon: Send, group: t("nav.statement") },
+    { to: "/portal/statement/rewards", label: t("palette.items.rewards"), icon: Gift, group: t("nav.statement") },
+    { to: "/portal/statement/convert-credits", label: t("nav.convertCredits"), icon: Repeat, group: t("nav.statement") },
+    { to: "/portal/statement/credit-conversion", label: t("palette.items.creditConversion"), icon: ArrowRightLeft, group: t("nav.statement") },
+    { to: "/portal/network", label: t("nav.network"), icon: Users, group: t("nav.network") },
+    { to: "/portal/referral", label: t("palette.items.referral"), icon: Users, group: t("nav.network") },
+    { to: "/portal/promotion", label: t("palette.items.promotion"), icon: Gift, group: t("nav.network") },
+    { to: "/portal/reports", label: t("nav.reports"), icon: FileBarChart, group: t("nav.reports") },
+    { to: "/portal/reports/staking", label: t("palette.items.stakingRewards"), icon: FileBarChart, group: t("nav.reports") },
+    { to: "/portal/reports/team-rewards", label: t("nav.reportsTeam"), icon: FileBarChart, group: t("nav.reports") },
+    { to: "/portal/reports/leader-rewards", label: t("nav.reportsLeader"), icon: FileBarChart, group: t("nav.reports") },
+    { to: "/portal/qna", label: t("palette.items.quiz"), icon: GraduationCap, group: t("palette.groups.learn") },
+    { to: "/portal/documents", label: t("nav.documents"), icon: FileBarChart, group: t("palette.groups.learn") },
+    { to: "/portal/support", label: t("nav.support"), icon: LifeBuoy, group: t("account.label") },
+    { to: "/portal/profile", label: t("account.profile"), icon: UserCircle2, group: t("account.label") },
+    { to: "/portal/qr-code", label: t("palette.items.qrCode"), icon: QrCode, group: t("account.label") },
+  ], [t]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -66,11 +68,11 @@ export function CommandPalette() {
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput
-        placeholder={cap.coarse ? "Search the portal…" : "Type to navigate… (⌘K)"}
+        placeholder={cap.coarse ? t("palette.searchPortal") : t("palette.typeToNavigate")}
         autoFocus={!cap.coarse}
       />
       <CommandList className={cap.coarse ? "max-h-[70vh]" : ""}>
-        <CommandEmpty>No results.</CommandEmpty>
+        <CommandEmpty>{t("palette.empty.noResults")}</CommandEmpty>
         {groups.map((g) => (
           <CommandGroup key={g} heading={g}>
             {ITEMS.filter((i) => i.group === g).map((i) => {

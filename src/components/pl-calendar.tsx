@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown, Info, TrendingUp, TrendingDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -50,12 +51,6 @@ function generateApril2026(base: number): DayPL[] {
   return out;
 }
 
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const WEEKDAYS_SHORT = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const YEARS = [2024, 2025, 2026, 2027];
 
 function formatUSD(n: number, decimals = 2) {
@@ -66,9 +61,48 @@ function formatUSD(n: number, decimals = 2) {
 }
 
 export function PLCalendar({ participation = 250000 }: { participation?: number }) {
+  const { t } = useTranslation();
   const [month, setMonth] = useState(4);
   const [year, setYear] = useState(2026);
   const [view, setView] = useState<"calendar" | "list">("list");
+
+  const months = [
+    t("components.plCalendar.months.january"),
+    t("components.plCalendar.months.february"),
+    t("components.plCalendar.months.march"),
+    t("components.plCalendar.months.april"),
+    t("components.plCalendar.months.may"),
+    t("components.plCalendar.months.june"),
+    t("components.plCalendar.months.july"),
+    t("components.plCalendar.months.august"),
+    t("components.plCalendar.months.september"),
+    t("components.plCalendar.months.october"),
+    t("components.plCalendar.months.november"),
+    t("components.plCalendar.months.december"),
+  ];
+  const monthsShort = [
+    t("components.plCalendar.monthsShort.jan"),
+    t("components.plCalendar.monthsShort.feb"),
+    t("components.plCalendar.monthsShort.mar"),
+    t("components.plCalendar.monthsShort.apr"),
+    t("components.plCalendar.monthsShort.may"),
+    t("components.plCalendar.monthsShort.jun"),
+    t("components.plCalendar.monthsShort.jul"),
+    t("components.plCalendar.monthsShort.aug"),
+    t("components.plCalendar.monthsShort.sep"),
+    t("components.plCalendar.monthsShort.oct"),
+    t("components.plCalendar.monthsShort.nov"),
+    t("components.plCalendar.monthsShort.dec"),
+  ];
+  const weekdaysShort = [
+    t("components.plCalendar.weekdaysShort.sun"),
+    t("components.plCalendar.weekdaysShort.mon"),
+    t("components.plCalendar.weekdaysShort.tue"),
+    t("components.plCalendar.weekdaysShort.wed"),
+    t("components.plCalendar.weekdaysShort.thu"),
+    t("components.plCalendar.weekdaysShort.fri"),
+    t("components.plCalendar.weekdaysShort.sat"),
+  ];
 
   const data = useMemo(() => {
     const base = participation || 250000;
@@ -106,7 +140,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
   const TotalIcon = totalPositive ? TrendingUp : totalNegative ? TrendingDown : null;
 
   const activeDays = data.filter((d) => d.amount !== 0);
-  const weekdayOf = (day: number) => WEEKDAYS_SHORT[new Date(year, month, day).getDay()];
+  const weekdayOf = (day: number) => weekdaysShort[new Date(year, month, day).getDay()];
 
   return (
     <div className="w-full">
@@ -114,7 +148,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
       <div className="flex flex-wrap items-center justify-between gap-3 pb-5">
         <div className="flex items-center gap-1.5">
           <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-            P/L Calendar
+            {t("components.plCalendar.title")}
           </h3>
           <Info className="h-3.5 w-3.5 text-muted-foreground/60" />
         </div>
@@ -131,7 +165,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              List
+              {t("components.plCalendar.view.list")}
             </button>
             <button
               type="button"
@@ -142,7 +176,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              Calendar
+              {t("components.plCalendar.view.calendar")}
             </button>
           </div>
           <DropdownMenu>
@@ -152,14 +186,14 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                 className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
               >
                 <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Month
+                  {t("components.plCalendar.filters.month")}
                 </span>
-                <span>{MONTHS_SHORT[month]}</span>
+                <span>{monthsShort[month]}</span>
                 <ChevronDown className="h-3 w-3 opacity-60" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="max-h-72 w-36 overflow-y-auto">
-              {MONTHS.map((m, mi) => (
+              {months.map((m, mi) => (
                 <DropdownMenuItem key={mi} onSelect={() => setMonth(mi)}>
                   {m}
                 </DropdownMenuItem>
@@ -174,7 +208,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                 className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-background/40 px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-gold/60 hover:text-gold"
               >
                 <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  Year
+                  {t("components.plCalendar.filters.year")}
                 </span>
                 <span className="tabular-nums">{year}</span>
                 <ChevronDown className="h-3 w-3 opacity-60" />
@@ -195,7 +229,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
       <div className="mb-5 grid grid-cols-2 gap-3 rounded-lg border border-border/50 bg-background/30 p-4">
         <div className="min-w-0">
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            {MONTHS[month]} {year} · P/L
+            {months[month]} {year} · {t("components.plCalendar.totals.pl")}
           </div>
           <div
             className={`mt-1 flex items-center gap-1.5 text-base font-light tabular-nums tracking-[-0.02em] sm:text-xl ${totalColor}`}
@@ -209,7 +243,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
         </div>
         <div className="text-right">
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Return
+            {t("components.plCalendar.totals.return")}
           </div>
           <div
             className={`mt-1 text-base font-light tabular-nums tracking-[-0.02em] sm:text-xl ${totalColor}`}
@@ -224,7 +258,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
       <div className={`${view === "list" ? "block" : "block min-[560px]:hidden"} overflow-hidden rounded-lg border border-border/40 bg-background/20`}>
         {activeDays.length === 0 && (
           <div className="px-4 py-10 text-center text-xs text-muted-foreground">
-            No data for this period.
+            {t("components.plCalendar.empty.noData")}
           </div>
         )}
         {activeDays.map((d, i) => {
@@ -250,7 +284,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
                 </div>
                 <div className={`flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] ${color}`}>
                   <Icon className="h-3 w-3" />
-                  {profit ? "Profit" : "Loss"}
+                  {profit ? t("components.plCalendar.status.profit") : t("components.plCalendar.status.loss")}
                 </div>
               </div>
               <div className={`text-right tabular-nums ${color}`}>
@@ -270,7 +304,7 @@ export function PLCalendar({ participation = 250000 }: { participation?: number 
       {view === "calendar" && (
         <div className="hidden min-[560px]:block">
           <div className="grid grid-cols-7 px-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground/80">
-            {WEEKDAYS_SHORT.map((d) => (
+            {weekdaysShort.map((d) => (
               <div key={d} className="pb-2 text-center">{d}</div>
             ))}
           </div>

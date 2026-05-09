@@ -1,7 +1,9 @@
 import { Search } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 /** Floating search button. Mobile/tablet only. */
 export function MobileFab() {
+  const { t } = useTranslation();
   const openPalette = () => {
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
   };
@@ -14,7 +16,7 @@ export function MobileFab() {
     >
       <button
         type="button"
-        aria-label="Search (Cmd K)"
+        aria-label={t("fab.searchLabel")}
         onClick={openPalette}
         className="pointer-events-auto relative flex h-14 w-14 items-center justify-center rounded-full border border-gold/60 bg-gradient-to-br from-gold/30 to-amber-500/20 text-gold shadow-[0_12px_36px_-10px_color-mix(in_oklab,var(--gold)_70%,transparent),0_0_0_1px_color-mix(in_oklab,var(--gold)_35%,transparent)] active:scale-95 transition-transform"
       >

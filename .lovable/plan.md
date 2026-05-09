@@ -1,30 +1,59 @@
 ## Goal
-Bring the gold node web back to full crispness on phone and desktop without re-introducing the first-scroll stutter.
 
-## Why it looks low-res now
-In `src/components/three-background.tsx`, the `<Canvas>` is currently rendered at `dpr={[1, 1]}` on phones and `[1, 1.25]` on tablet/desktop, with `antialias` disabled below 640px. On a Retina display (devicePixelRatio 2) this means the canvas is drawn at roughly half resolution, then upscaled — that's the blur on nodes and lines.
+Make the entire portal — every page, sub-page, tab, card, pill, button, table header, empty state, tooltip, sidebar item, command palette entry, mobile FAB, etc. — fully translated in all 14 languages, not just the page header.
 
-## Changes (single file: `src/components/three-background.tsx`)
+## Best translation approach (your question)
 
-1. **Raise DPR caps to native, with a sane ceiling**
-   - Phone: `dpr={[1, 2]}`
-   - Tablet/Desktop: `dpr={[1, 2]}` (cap at 2 even on 3x screens — diminishing returns, big GPU cost)
-   - When `prefers-reduced-motion` is set, keep `[1, 1.5]` to stay extra cheap.
+For professional, non-Google-Translate quality without you writing them yourself, the best option is:
 
-2. **Re-enable antialiasing everywhere**
-   - `antialias: true` on all viewports. With sprite-based points + lines, MSAA cost is small and edges stop looking jagged.
+**Lovable AI with `google/gemini-3.1-pro-preview` (or `openai/gpt-5.2`), driven by a one-shot script that translates the whole `en.json` file at once with:**
+1. A **domain glossary** locked in the system prompt (e.g. "Staking", "Par Rank", "Rewards Wallet", "USDT", "BEP20", "Promotion", "KYC", brand name, tier names like Diamond/Platinum) — these stay in English or use a fixed translation per language so terminology is consistent across pages.
+2. A **tone instruction** ("formal financial-services portal, concise, professional, native-speaker phrasing — never literal").
+3. **Whole-file context** (model sees all keys at once → understands "Submit" in deposit context vs. "Submit" in support context).
+4. **JSON-mode output** so structure is preserved 1:1.
 
-3. **Keep scroll smooth — counter the extra GPU load**
-   - The canvas is already `position: fixed` (no scroll repaint), so resolution itself doesn't cause scroll jank.
-   - To offset the higher pixel count, slightly lower node counts only on phone: `phone: 28` (was 32). Tablet/desktop unchanged.
-   - Keep `powerPreference: "high-performance"` on tablet/desktop, `"low-power"` on phone.
-   - Keep `frameloop="demand"` when reduced-motion is on.
+This is dramatically better than Google Translate because the model sees the surrounding keys + glossary + tone instruction. Quality is publication-grade for ~95% of strings; you can spot-edit any locale later by just editing its JSON file.
 
-4. **No other changes**
-   - Do not touch `portal-shell.tsx`, aurora/grid layers, counters, sparkline, tilt, or per-card motion.
-   - No new dependencies.
+Cost is small — roughly 13 model calls of ~3–5K tokens each.
 
-## Verification
-- Reload `/portal` on desktop preview: nodes and connecting lines look sharp, not soft.
-- Switch preview to mobile (390px): same crispness, no first-scroll stutter when scrolling immediately after load.
-- If reduced-motion is enabled in OS, canvas still renders crisply but does not animate continuously.
+## Scope of extraction
+
+I'll extract strings from:
+
+**Routes (~30 files)**
+`portal.index`, `portal.deposit`, `portal.withdrawal`, `portal.promotion` (+ `$promoId`), `portal.qna` (+ company / marketing / index), `portal.staking`, `portal.staking-plans`, `portal.holdings`, `portal.asset-analysis`, `portal.network`, `portal.referral`, `portal.transactions`, `portal.documents`, `portal.support`, `portal.profile`, `portal.qr-code`, `portal.wallet-edit`, `portal.statement.*` (5 files), `portal.reports.*` (6 files).
+
+**Shared chrome / components**
+`portal-shell` (sidebar, header, account menu), `command-palette`, `mobile-fab`, `total-assets-gauge`, `pl-calendar`, `network-constellation`, `ticker-tape`, `quiz-test`, `report-shell`, `count-up`/`count-value` labels, KPI tiles, empty-state strings, toast messages, form validation copy.
+
+**What stays untranslated** (per your answer)
+User data, currency amounts, transaction IDs, dates, names, hashes, promo codes, numbers.
+
+## How I'll execute (one pass)
+
+1. **Audit & extract** — Walk every portal file, replace hardcoded strings with `t("namespace.key")`, and build a fully-namespaced `en.json` (e.g. `pages.deposit.history.title`, `pages.deposit.table.date`, `shell.sidebar.signOut`, `common.empty.noResults`). Existing keys stay where they are; new keys get organized namespaces per page.
+
+2. **Build glossary** — One-time `glossary.json` with locked brand + finance terms per language (e.g. zh: Staking → 质押, Rewards Wallet → 奖励钱包, Diamond → 钻石；ja: Staking → ステーキング, etc.). Used by the translation script and by you later for consistency.
+
+3. **Run translation script** — `scripts/translate-locales.ts` using Lovable AI Gateway. For each of the 13 locales: send `en.json` + glossary + tone instruction to `google/gemini-3.1-pro-preview` in JSON mode, write result to `src/i18n/locales/{lang}.json`. Preserves keys exactly; only values change.
+
+4. **RTL polish** — Verify `fa` and `ar` render correctly (we already set `dir="rtl"` on `<html>`). Spot-check icon directions in sidebar/breadcrumbs.
+
+5. **Verification** — Build, then visually switch through 4 sample languages (zh, ja, ar, de) on Overview, Deposit, Reports, Promotion to confirm nothing leaked as raw English.
+
+## Technical details
+
+- Translation script runs server-side via `code--exec` using `LOVABLE_API_KEY`; output JSONs are committed to `src/i18n/locales/`. No runtime AI calls — all translation happens at build time, so app stays fast and works offline.
+- Keys use dot-notation grouped by surface: `shell.*`, `pages.{routeName}.*`, `common.*`, `forms.*`, `tables.*`, `empty.*`, `actions.*`. Components reference `useTranslation()` and call `t("…")`.
+- Plural/interpolation: any string with counts (e.g. "3 items") will use i18next's `{{count}}` interpolation so each language can pluralize correctly.
+- Files I will NOT touch: `src/integrations/supabase/*`, `src/i18n/index.ts` (already correct), `routeTree.gen.ts`.
+
+## Deliverable
+
+After this pass, switching any language in the language picker translates every visible string everywhere in the portal — sidebar, page headers, tables, tabs, buttons, empty states, command palette, mobile FAB, the lot — in professional, finance-appropriate phrasing for all 13 non-English locales.
+
+## Caveats
+
+- ~500–700 strings is a large diff (~30 files touched + 14 JSON files rewritten). Big PR but low logic risk — text-only changes.
+- After delivery you can edit any locale's JSON directly to refine wording; no code changes needed.
+- If a translation feels off in one language, tell me the page + screenshot and I'll fix that specific key (or re-run the script with an updated glossary entry so it propagates everywhere).

@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useDeviceCapability } from "@/hooks/use-device-capability";
+import { useTranslation } from "react-i18next";
 
 type Node = { id: string; label: string; sub?: string };
 
@@ -11,6 +12,7 @@ type Node = { id: string; label: string; sub?: string };
  * Pure visual layer — links to data via hover label.
  */
 export function NetworkConstellation({ nodes }: { nodes: Node[] }) {
+  const { t } = useTranslation();
   const cap = useDeviceCapability();
   const small = cap.isPhone;
   const trimmed = small && nodes.length > 14 ? nodes.slice(0, 14) : nodes;
@@ -42,7 +44,7 @@ export function NetworkConstellation({ nodes }: { nodes: Node[] }) {
       <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_center,transparent_55%,color-mix(in_oklab,var(--background)_75%,transparent)_100%)]" />
       {cap.coarse && (
         <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-gold/30 bg-background/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-gold backdrop-blur">
-          Drag to orbit
+          {t("components.networkConstellation.dragToOrbit")}
         </div>
       )}
     </div>

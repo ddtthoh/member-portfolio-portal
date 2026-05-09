@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, useInView } from "framer-motion";
 import { CountUp } from "@/components/count-up";
+import { useTranslation } from "react-i18next";
 
 export function TotalAssetsGauge({
   staking,
@@ -11,6 +12,7 @@ export function TotalAssetsGauge({
   usd: number;
   rewards: number;
 }) {
+  const { t } = useTranslation();
   const total = staking + usd + rewards;
   const stakingPct = total > 0 ? (staking / total) * 100 : 0;
   const usdPct = total > 0 ? (usd / total) * 100 : 0;
@@ -104,7 +106,7 @@ export function TotalAssetsGauge({
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-1">
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Total Assets · USD
+            {t("components.totalAssets.totalAssetsUsd")}
           </div>
           <div className="text-2xl font-light tabular-nums tracking-[-0.04em] text-gold">
             <CountUp value={total} prefix="$" decimals={2} />
@@ -113,9 +115,9 @@ export function TotalAssetsGauge({
       </div>
       <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
         {[
-          { label: "Staking", amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
-          { label: "USD", amount: usd, pct: usdPct, color: "var(--asset-cash)" },
-          { label: "Rewards asset", amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
+          { label: t("components.totalAssets.labels.staking"), amount: staking, pct: stakingPct, color: "var(--asset-participation)" },
+          { label: t("components.totalAssets.labels.usd"), amount: usd, pct: usdPct, color: "var(--asset-cash)" },
+          { label: t("components.totalAssets.labels.rewardsAsset"), amount: rewards, pct: rewardsPct, color: "var(--asset-earnings)" },
         ].map((row) => (
           <div key={row.label} className="flex items-center justify-between py-2.5">
             <div className="flex min-w-0 items-center gap-2.5">

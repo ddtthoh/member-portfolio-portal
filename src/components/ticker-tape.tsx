@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // BNB Chain — top liquidity pairs (50 coins). `token` = base token address used for PancakeSwap deep links.
 const BSC_PAIRS: { sym: string; pair: string; token: string }[] = [
@@ -71,6 +72,7 @@ function fmt(p: number) {
 }
 
 export function TickerTape() {
+  const { t } = useTranslation();
   const [ticks, setTicks] = useState<Tick[]>(
     BSC_PAIRS.map((c) => ({
       sym: c.sym,
@@ -145,32 +147,32 @@ export function TickerTape() {
   return (
     <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80">
       <div className="ticker-track flex gap-8 whitespace-nowrap py-2 text-xs">
-        {items.map((t, i) => (
+        {items.map((tick, i) => (
           <a
             key={i}
-            href={`https://pancakeswap.finance/swap?outputCurrency=${t.token}`}
+            href={`https://pancakeswap.finance/swap?outputCurrency=${tick.token}`}
             target="_top"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-2 transition-colors hover:text-gold"
-            title={`Trade ${t.sym} on PancakeSwap`}
+            title={t("components.ticker.tradeOnPancakeSwap", { sym: tick.sym })}
           >
             <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              {t.sym}
+              {tick.sym}
             </span>
             <span
               className={`font-mono tabular-nums transition-colors duration-500 ${
-                t.flash ? "text-gold" : "text-foreground"
+                tick.flash ? "text-gold" : "text-foreground"
               }`}
             >
-              ${fmt(t.price)}
+              ${fmt(tick.price)}
             </span>
             <span
               className={`font-mono text-[11px] tabular-nums ${
-                t.pct >= 0 ? "text-success" : "text-destructive"
+                tick.pct >= 0 ? "text-success" : "text-destructive"
               }`}
             >
-              {t.pct >= 0 ? "+" : ""}
-              {t.pct.toFixed(2)}%
+              {tick.pct >= 0 ? "+" : ""}
+              {tick.pct.toFixed(2)}%
             </span>
             <span className="text-border">·</span>
           </a>
