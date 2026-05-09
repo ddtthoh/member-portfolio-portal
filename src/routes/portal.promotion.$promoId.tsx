@@ -68,6 +68,12 @@ type TcbTier = {
   pct: number;
 };
 
+type TrackProgressData = {
+  pct: number;
+  topLeft: string;
+  bottom: React.ReactNode;
+};
+
 type RankingPromo = {
   kind: "ranking";
   id: string;
