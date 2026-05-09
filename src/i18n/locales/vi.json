@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "Cổng người tham gia" },
+  "brand": {
+    "portal": "Cổng người tham gia"
+  },
   "nav": {
     "overview": "Tổng quan",
     "stakingPlan": "Kế hoạch Staking",
@@ -9,6 +11,8 @@
     "creditConversionStatement": "Sao kê chuyển đổi tín dụng",
     "usdStatement": "Sao kê USD",
     "rewardsStatement": "Sao kê phần thưởng",
+    "deposit": "Nạp tiền",
+    "withdrawal": "Rút tiền",
     "usdCreditsTransfer": "Chuyển USD & Tín dụng",
     "convertCredits": "Chuyển đổi tín dụng",
     "transferUsd": "Chuyển USD",
@@ -41,7 +45,9 @@
     "network": "Mạng lưới",
     "logout": "Đăng xuất"
   },
-  "language": { "switch": "Đổi ngôn ngữ" },
+  "language": {
+    "switch": "Đổi ngôn ngữ"
+  },
   "common": {
     "submit": "Gửi",
     "cancel": "Hủy",
@@ -82,23 +88,654 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "Tiền · Vào", "title": "Nạp tiền", "description": "Vui lòng lưu ý bạn phải nạp ít nhất 10 USDT BEP20." },
-    "withdrawal": { "eyebrow": "Tiền · Ra", "title": "Rút tiền", "description": "Yêu cầu rút tiền về tài khoản ngân hàng đã xác minh. Tiền thường về trong 1-2 ngày làm việc." },
-    "promotion": { "eyebrow": "Tiền · Thưởng", "title": "Khuyến mãi", "description": "Khuyến mãi nhà sáng lập có thời hạn cho khoản nạp đủ điều kiện." },
-    "qna": { "eyebrow": "Kiểm tra kiến thức", "title": "Giáo dục", "description": "Trả lời đúng 7/10 câu để vượt qua. Bạn có thể làm lại không giới hạn." },
-    "participation": { "eyebrow": "Chương trình", "title": "Staking", "description": "Theo dõi staking đang hoạt động trên các chương trình của công ty." },
-    "transactions": { "eyebrow": "Sổ cái", "title": "Giao dịch", "description": "Lịch sử đầy đủ của nạp, giao dịch và rút tiền." },
-    "support": { "eyebrow": "Hỗ trợ", "title": "Hỗ trợ", "description": "Mở phiếu riêng tư — đội ngũ của chúng tôi phản hồi nhanh chóng." },
-    "usdStatement": { "eyebrow": "Sao kê", "title": "Sao kê USD", "description": "Tóm tắt hoạt động tài khoản USD của bạn." },
-    "network": { "eyebrow": "Mối quan hệ", "title": "Mạng lưới", "description": "Vòng tròn cố vấn, người giám hộ và đối tác đáng tin cậy." },
-    "holdings": { "eyebrow": "Danh mục", "title": "Tổng quan danh mục", "description": "Tóm tắt staking đang hoạt động." },
-    "transferUsd": { "eyebrow": "Ví USD", "title": "Chuyển USD", "description": "Chuyển USD sang tài khoản thành viên khác." },
-    "rewardsStatement": { "eyebrow": "Sao kê", "title": "Sao kê phần thưởng", "description": "Tóm tắt hoạt động phần thưởng." },
-    "documents": { "eyebrow": "Thư viện", "title": "Tài liệu & Sao kê", "description": "Sao kê, tài liệu thuế và hợp đồng pháp lý." },
-    "creditConversionStatement": { "eyebrow": "Sao kê", "title": "Sao kê chuyển đổi tín dụng", "description": "Xem lịch sử và số dư chuyển đổi tín dụng." },
-    "stakingPlans": { "eyebrow": "Staking", "title": "Kế hoạch Staking", "description": "Chọn cấp staking phù hợp với mục tiêu của bạn." },
-    "convertCredits": { "eyebrow": "Sao kê", "title": "Chuyển đổi tín dụng", "description": "Chuyển đổi tín dụng giữa các số dư." },
-    "referral": { "eyebrow": "Mạng lưới · Lời mời", "title": "Giới thiệu", "description": "Mời nhà đầu tư đủ điều kiện. Nhận hoàn tiền từ mỗi tài khoản được nạp." },
-    "reports": { "eyebrow": "Tuyển chọn", "title": "Báo cáo hàng quý", "description": "Thư từ và phân tích từ đội ngũ cố vấn của bạn." }
+    "deposit": {
+      "eyebrow": "Tiền · Vào",
+      "title": "Nạp tiền",
+      "description": "Vui lòng lưu ý bạn phải nạp ít nhất 10 USDT BEP20.",
+      "toast": {
+        "addressCopied": "Đã sao chép địa chỉ",
+        "copied": "Đã sao chép",
+        "referenceCopied": "Đã sao chép mã tham chiếu",
+        "hashCopied": "Đã sao chép mã băm"
+      },
+      "importantReminder": {
+        "title": "Lưu ý Quan trọng",
+        "sendOnly": "Chỉ gửi ",
+        "viaThe": " qua mạng lưới ",
+        "networkSuffix": ".",
+        "otherTokens": "Gửi Token hoặc trên mạng lưới khác sẽ dẫn đến việc ",
+        "permanentLoss": "mất vĩnh viễn",
+        "confirmation": "Tiền nạp sẽ được ghi có sau khi xác nhận trên chuỗi (thường từ 1–3 phút)."
+      },
+      "qr": {
+        "alt": "Mã QR nạp tiền",
+        "empty": "Chưa tải lên mã QR"
+      },
+      "address": {
+        "label": "Địa chỉ Nạp tiền",
+        "empty": "Chưa thiết lập địa chỉ. Sử dụng Chỉnh sửa để cấu hình.",
+        "copyAria": "Sao chép địa chỉ"
+      },
+      "filter": {
+        "title": "Lọc Giao dịch",
+        "date": "Ngày",
+        "reference": "Mã Tham chiếu",
+        "refPlaceholder": "TXN…",
+        "hash": "Mã băm Giao dịch",
+        "hashPlaceholder": "0x…",
+        "showing": "Đang hiển thị ",
+        "of": " trên ",
+        "records": " bản ghi",
+        "reset": "Thiết lập lại",
+        "apply": "Áp dụng Bộ lọc"
+      },
+      "history": {
+        "title": "Lịch sử Nạp tiền",
+        "live": "Trực tiếp"
+      },
+      "tableHeaders": {
+        "date": "Ngày",
+        "reference": "Mã Tham chiếu",
+        "hash": "Mã băm Giao dịch"
+      },
+      "empty": {
+        "title": "Không tìm thấy giao dịch nạp tiền",
+        "noDeposits": "Các khoản nạp tiền đã xác nhận của bạn sẽ hiển thị tại đây sau khi được nhận.",
+        "filtered": "Vui lòng điều chỉnh bộ lọc hoặc thiết lập lại để xem tất cả bản ghi."
+      }
+    },
+    "withdrawal": {
+      "eyebrow": "Tiền · Ra",
+      "title": "Rút tiền",
+      "description": "Yêu cầu rút tiền về tài khoản ngân hàng đã xác minh. Tiền thường về trong 1-2 ngày làm việc.",
+      "pageDescription": "Rút USDT về các địa chỉ ví BEP20 đã lưu của bạn.",
+      "importantReminder": {
+        "title": "Lưu ý Quan trọng",
+        "supportOnly": "Việc rút tiền chỉ hỗ trợ ",
+        "viaThe": " qua mạng lưới ",
+        "networkSuffix": ".",
+        "wrongAddress": "Rút sai địa chỉ hoặc mạng lưới sẽ dẫn đến việc ",
+        "permanentLoss": "mất vĩnh viễn",
+        "processingTime": "Các yêu cầu sẽ được xử lý sau khi quản trị viên phê duyệt — thường trong vòng vài phút."
+      },
+      "newRequest": {
+        "title": "Yêu cầu Rút tiền Mới",
+        "creditType": "Loại Tiền *",
+        "walletAddress": "Địa chỉ Ví Rút tiền *",
+        "noWallets": "Chưa có ví nào được lưu. ",
+        "addOneFirst": "Hãy thêm một ví trước →",
+        "selectWallet": "-- Chọn một ví đã lưu --",
+        "amount": "Số tiền *",
+        "minAmount": "Tối thiểu {{min}} USDT",
+        "available": "Khả dụng: ",
+        "exceedsBalance": "Vượt quá số dư khả dụng",
+        "submit": "Yêu cầu Rút tiền"
+      },
+      "summary": {
+        "usdCredit": "Số dư USD",
+        "withdrawalAmount": "Số tiền Rút",
+        "adminFee": "Phí Quản trị (2%)",
+        "receiveAmount": "Bạn Sẽ Nhận"
+      },
+      "wallets": {
+        "title": "Ví Rút tiền",
+        "subtitle": "Các địa chỉ BEP20 đã lưu",
+        "addWallet": "Thêm Ví",
+        "noWalletsTitle": "Chưa có ví nào",
+        "noWalletsDesc": "Thêm ví BEP20 để bắt đầu rút tiền."
+      },
+      "tableHeaders": {
+        "date": "Ngày",
+        "walletName": "Tên Ví",
+        "walletAddress": "Địa chỉ Ví",
+        "action": "Thao tác",
+        "reference": "Mã Tham chiếu",
+        "recipientAddress": "Địa chỉ Người nhận",
+        "chain": "Mạng USDT",
+        "withdrawalAmt": "Số tiền Rút",
+        "adminFee": "Phí Quản trị",
+        "receiveAmount": "Bạn Sẽ Nhận",
+        "status": "Trạng thái",
+        "remark": "Ghi chú",
+        "hash": "Mã băm Giao dịch"
+      },
+      "actions": {
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa"
+      },
+      "filter": {
+        "recipientAddress": "Địa chỉ Người nhận",
+        "status": "Trạng thái",
+        "statusAll": "Tất cả",
+        "statusPending": "Chờ xử lý",
+        "statusProcessing": "Đang xử lý",
+        "statusCompleted": "Hoàn thành",
+        "statusRejected": "Bị Từ chối"
+      },
+      "history": {
+        "title": "Lịch sử Rút tiền",
+        "subtitle": "Tất cả các yêu cầu",
+        "exportExcel": "Xuất Excel"
+      },
+      "empty": {
+        "title": "Không tìm thấy giao dịch rút tiền",
+        "noRequests": "Các yêu cầu rút tiền của bạn sẽ hiển thị tại đây.",
+        "filtered": "Vui lòng điều chỉnh bộ lọc của bạn."
+      },
+      "dialog": {
+        "editWallet": "Chỉnh sửa Ví",
+        "addWallet": "Thêm Ví Mới",
+        "walletDesc": "Địa chỉ rút USDT BEP20.",
+        "walletName": "Tên Ví *",
+        "walletNamePlaceholder": "VD: Bí cá nhân",
+        "walletAddress": "Địa chỉ Ví *",
+        "walletAddressHint": "Phải là địa chỉ BEP20 hợp lệ bắt đầu bằng 0x.",
+        "saving": "Đang lưu…",
+        "update": "Cập nhật"
+      },
+      "confirm": {
+        "title": "Xác nhận Rút tiền",
+        "desc": "Vui lòng xem lại thông tin chi tiết trước khi gửi.",
+        "wallet": "Ví",
+        "address": "Địa chỉ",
+        "chain": "Mạng lưới",
+        "amount": "Số tiền",
+        "adminFee": "Phí Quản trị",
+        "receiveAmount": "Bạn Sẽ Nhận",
+        "submitting": "Đang gửi…",
+        "confirmBtn": "Xác nhận",
+        "deleteWallet": "Xóa ví \"{{name}}\"?"
+      },
+      "toast": {
+        "walletNameRequired": "Tên ví là bắt buộc",
+        "invalidAddress": "Địa chỉ ví không hợp lệ (phải bắt đầu bằng 0x và có 42 ký tự)",
+        "walletUpdated": "Đã cập nhật ví",
+        "walletAdded": "Đã thêm ví",
+        "walletDeleted": "Đã xóa ví",
+        "selectWallet": "Vui lòng chọn một ví",
+        "invalidAmount": "Số tiền không hợp lệ",
+        "requestSubmitted": "Đã gửi yêu cầu rút tiền",
+        "noRecordsExport": "Không có bản ghi để xuất",
+        "excelExported": "Đã xuất tệp Excel"
+      }
+    },
+    "promotion": {
+      "eyebrow": "Tiền · Thưởng",
+      "title": "Khuyến mãi",
+      "description": "Khuyến mãi nhà sáng lập có thời hạn cho khoản nạp đủ điều kiện.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Sự kiện Khai trương Naslab tại Thổ Nhĩ Kỳ",
+          "subtitle": "Sự kiện Ra mắt"
+        },
+        "rankingIncentive": {
+          "title": "Giải thưởng Xếp hạng RCB, TCB và Cộng đồng",
+          "subtitle": "Phần thưởng Xếp hạng"
+        }
+      },
+      "viewDetails": "Xem chi tiết"
+    },
+    "qna": {
+      "eyebrow": "Kiểm tra kiến thức",
+      "title": "Giáo dục",
+      "description": "Trả lời đúng 7/10 câu để vượt qua. Bạn có thể làm lại không giới hạn."
+    },
+    "participation": {
+      "eyebrow": "Chương trình",
+      "title": "Staking",
+      "description": "Theo dõi staking đang hoạt động trên các chương trình của công ty."
+    },
+    "transactions": {
+      "eyebrow": "Sổ cái",
+      "title": "Giao dịch",
+      "description": "Lịch sử đầy đủ của nạp, giao dịch và rút tiền.",
+      "history": {
+        "title": "Lịch sử Giao dịch"
+      },
+      "tableHeaders": {
+        "type": "Loại",
+        "asset": "Tài sản",
+        "quantity": "Số lượng",
+        "price": "Giá"
+      },
+      "empty": {
+        "noTransactions": "Chưa có giao dịch nào."
+      }
+    },
+    "support": {
+      "eyebrow": "Hỗ trợ",
+      "title": "Hỗ trợ",
+      "description": "Mở phiếu riêng tư — đội ngũ của chúng tôi phản hồi nhanh chóng.",
+      "categories": {
+        "general": "Chung",
+        "account": "Tài khoản",
+        "deposit": "Nạp tiền",
+        "withdrawal": "Rút tiền",
+        "technical": "Kỹ thuật",
+        "other": "Khác"
+      },
+      "status": {
+        "open": "mở",
+        "pending": "chờ xử lý",
+        "resolved": "đã giải quyết",
+        "closed": "đóng"
+      },
+      "toast": {
+        "created": "Đã tạo phiếu hỗ trợ",
+        "fileSizeExceeded": "Một số tệp vượt quá 2MB và đã bị bỏ qua."
+      },
+      "filter": {
+        "title": "Bộ lọc",
+        "ticketNumber": "Mã Phiếu",
+        "category": "Danh mục",
+        "apply": "Lọc"
+      },
+      "list": {
+        "title": "Danh sách Phiếu Hỗ trợ",
+        "newTicket": "Yêu cầu Hỗ trợ Mới"
+      },
+      "dialog": {
+        "newTicket": "Yêu cầu Hỗ trợ Mới",
+        "category": "Danh mục",
+        "subject": "Chủ đề",
+        "message": "Nội dung",
+        "attachments": "Tệp đính kèm",
+        "chooseFile": "Chọn Tệp",
+        "noFileChosen": "Chưa Chọn Tệp",
+        "filesSelected": "Đã chọn {{count}} tệp",
+        "removeFile": "Xóa tệp",
+        "fileLimit": "Giới hạn 2MB/tệp, định dạng JPG/PNG/GIF, có thể tải lên nhiều tệp",
+        "proceed": "Tiếp tục",
+        "categoryLabel": "Danh mục:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Mã Phiếu",
+        "category": "Danh mục",
+        "subject": "Chủ đề"
+      },
+      "empty": {
+        "noTickets": "Không tìm thấy yêu cầu hỗ trợ nào."
+      },
+      "actions": {
+        "view": "Xem"
+      }
+    },
+    "usdStatement": {
+      "eyebrow": "Sao kê",
+      "title": "Sao kê USD",
+      "description": "Tóm tắt hoạt động tài khoản USD của bạn.",
+      "tableHeaders": {
+        "txId": "Mã Giao dịch",
+        "type": "Loại Giao dịch",
+        "credit": "Ghi Có",
+        "debit": "Ghi Nợ",
+        "remarks": "Ghi chú"
+      }
+    },
+    "network": {
+      "eyebrow": "Mối quan hệ",
+      "title": "Mạng lưới",
+      "description": "Vòng tròn cố vấn, người giám hộ và đối tác đáng tin cậy.",
+      "verificationRequired": "Yêu cầu Xác minh",
+      "unlockTitle": "Hoàn thành Bài kiểm tra Về Kế hoạch Tiếp thị để Mở khóa Mạng lưới của Bạn",
+      "unlockDescription": "Để đảm bảo mọi thành viên hiểu rõ kế hoạch tiếp thị trước khi xây dựng nhóm, cấu trúc mạng lưới của bạn sẽ bị khóa cho đến khi bạn vượt qua bài kiểm tra. Sau khi qua bài, tính năng này sẽ được mở vĩnh viễn.",
+      "steps": {
+        "takeQuiz": "Làm Bài kiểm tra Kế hoạch Tiếp thị",
+        "score": "Đạt điểm tối thiểu 7/10 để vượt qua",
+        "unlock": "Mạng lưới sẽ được mở khóa ngay lập tức"
+      },
+      "actions": {
+        "takeQuiz": "Làm Bài Kiểm tra Kế hoạch Tiếp thị"
+      },
+      "empty": {
+        "noTeam": "Đội nhóm tuyến dưới của bạn sẽ sớm xuất hiện tại đây."
+      }
+    },
+    "holdings": {
+      "eyebrow": "Danh mục",
+      "title": "Tổng quan danh mục",
+      "description": "Tóm tắt staking đang hoạt động.",
+      "totalStakingAmount": "Tổng Tiền Staking",
+      "stakingDays": "Số ngày Staking",
+      "tableHeaders": {
+        "date": "Ngày",
+        "stakingPlan": "Gói Staking",
+        "stakingDate": "Ngày Staking",
+        "stakingAmount": "Số tiền Staking",
+        "minMonthlyRate": "Lãi suất / Tháng (Tối thiểu)",
+        "maxMonthlyRate": "Lãi suất / Tháng (Tối đa)",
+        "status": "Trạng thái"
+      },
+      "empty": {
+        "noStakingPlan": "Hiện chưa có gói staking nào."
+      },
+      "refund": {
+        "button": "Yêu cầu Hoàn tiền 100%",
+        "title": "Yêu cầu Hoàn tiền Toàn bộ",
+        "description": "Bạn có chắc chắn muốn yêu cầu hoàn tiền toàn bộ không? Đội ngũ của chúng tôi sẽ xem xét yêu cầu và liên hệ lại với bạn trong thời gian sớm nhất.",
+        "confirm": "Xác nhận Yêu cầu",
+        "submitted": "Đã gửi yêu cầu hoàn tiền"
+      }
+    },
+    "transferUsd": {
+      "eyebrow": "Ví USD",
+      "title": "Chuyển USD",
+      "description": "Chuyển USD sang tài khoản thành viên khác.",
+      "toast": {
+        "fillRequired": "Vui lòng nhập đầy đủ các trường bắt buộc",
+        "submitted": "Đã gửi yêu cầu chuyển tiền"
+      },
+      "details": {
+        "title": "Chi tiết Chuyển tiền"
+      },
+      "form": {
+        "usdTransfer": "Chuyển tiền USD",
+        "transferTo": "Chuyển đến ID Thành viên",
+        "memberIdPlaceholder": "Nhập ID thành viên",
+        "transferAmount": "Số tiền Chuyển",
+        "remarks": "Ghi chú",
+        "remarksPlaceholder": "Nội dung tuỳ chọn"
+      }
+    },
+    "rewardsStatement": {
+      "eyebrow": "Sao kê",
+      "title": "Sao kê phần thưởng",
+      "description": "Tóm tắt hoạt động phần thưởng."
+    },
+    "documents": {
+      "eyebrow": "Thư viện",
+      "title": "Tài liệu & Sao kê",
+      "description": "Sao kê, tài liệu thuế và hợp đồng pháp lý.",
+      "empty": {
+        "noDocuments": "Chưa có tài liệu nào khả dụng. Các bản sao kê của bạn sẽ hiển thị tại đây khi được phát hành."
+      }
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Sao kê",
+      "title": "Sao kê chuyển đổi tín dụng",
+      "description": "Xem lịch sử và số dư chuyển đổi tín dụng.",
+      "tableHeaders": {
+        "date": "Ngày",
+        "source": "Loại Tiền Nguồn",
+        "destination": "Loại Tiền Đích",
+        "amount": "Số tiền Quy đổi",
+        "status": "Trạng thái"
+      }
+    },
+    "stakingPlans": {
+      "eyebrow": "Staking",
+      "title": "Kế hoạch Staking",
+      "description": "Chọn cấp staking phù hợp với mục tiêu của bạn.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Mức Staking Tối thiểu",
+        "monthlyRoi": "ROI Hàng tháng"
+      }
+    },
+    "convertCredits": {
+      "eyebrow": "Sao kê",
+      "title": "Chuyển đổi tín dụng",
+      "description": "Chuyển đổi tín dụng giữa các số dư.",
+      "usdWallet": "Ví USD",
+      "rewardsWallet": "Ví Phần thưởng",
+      "convertDetails": "Chi tiết Quy đổi",
+      "sourceCredit": "Tiền Nguồn",
+      "rewardsCredit": "Tiền Phần thưởng",
+      "destinationCredit": "Tiền Đích",
+      "sourceAmount": "Số lượng Nguồn"
+    },
+    "referral": {
+      "eyebrow": "Mạng lưới · Lời mời",
+      "title": "Giới thiệu",
+      "description": "Mời nhà đầu tư đủ điều kiện. Nhận hoàn tiền từ mỗi tài khoản được nạp.",
+      "yourCode": "Mã của Bạn",
+      "labels": {
+        "referralCode": "Mã Giới thiệu",
+        "inviteLink": "Liên kết Mời",
+        "tier": "Cấp bậc",
+        "activeReferrals": "Giới thiệu Đang Hoạt động",
+        "lifetimeRebate": "Hoa hồng Trọn đời"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Điều khoản Chương trình",
+      "terms": {
+        "rebate": "Hoa hồng 1,0% tính trên phí quản lý năm đầu tiên cho mỗi tài khoản giới thiệu đã nạp tiền.",
+        "minimum": "Tài khoản được giới thiệu phải đạt mức tối thiểu 25.000 USD để đủ điều kiện.",
+        "settle": "Hoa hồng sẽ được quyết toán hàng quý vào số dư tiền mặt danh mục đầu tư của bạn.",
+        "upgrade": "Hãy liên hệ với người cố vấn của bạn để nâng cấp lên cấp bậc Platinum."
+      }
+    },
+    "reports": {
+      "eyebrow": "Tuyển chọn",
+      "title": "Báo cáo hàng quý",
+      "description": "Thư từ và phân tích từ đội ngũ cố vấn của bạn."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "Chi tiết về sự kiện sẽ sớm được công bố. Phần này sẽ cung cấp mô tả đầy đủ chương trình, điều kiện tham gia, cơ cấu nhận giải và mốc thời gian."
+        },
+        "rankingIncentive": {
+          "description": "Chi tiết về sự kiện sẽ sớm được công bố. Phần này sẽ cập nhật các cấp bậc xếp hạng, cấu trúc trả thưởng và cách thức đo lường những đóng góp từ cộng đồng."
+        }
+      },
+      "progressLabel": "Tiến trình của bạn",
+      "notFound": "Không tìm thấy chương trình khuyến mãi.",
+      "backToPromotions": "Quay lại danh sách Khuyến mãi",
+      "details": "Chi tiết",
+      "progressDescription": "Tiến trình của bạn cho chương trình này sẽ được hiển thị tại đây."
+    },
+    "staking": {
+      "activePrograms": "Chương trình Đang hoạt động",
+      "empty": {
+        "noStakings": "Bạn hiện không có gói staking nào đang hoạt động. Các cơ hội mới sẽ xuất hiện ở đây khi có sẵn."
+      },
+      "tableHeaders": {
+        "package": "Gói",
+        "roiStartDate": "Ngày Bắt đầu Tính ROI",
+        "stakingAmount": "Số tiền Staking",
+        "roiMin": "% ROI Tối thiểu",
+        "roiMax": "% ROI Tối đa"
+      },
+      "status": {
+        "active": "Đang hoạt động"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Thông tin chi tiết về hiệu suất, phân bổ và rủi ro cho danh mục đầu tư của bạn."
+    },
+    "profile": {
+      "title": "Thông tin Hồ sơ",
+      "description": "Quản lý thông tin chi tiết cá nhân, thông tin liên lạc và tình trạng xác thực tài khoản của bạn.",
+      "verifiedMember": "Thành viên Đã Xác minh",
+      "memberFallback": "Thành viên",
+      "status": "Trạng thái",
+      "active": "Hoạt động",
+      "tier": "Cấp bậc",
+      "accountIdentity": {
+        "title": "Định danh Tài khoản",
+        "subtitle": "Thông tin định danh đã xác thực (chỉ đọc)"
+      },
+      "memberId": "ID Thành viên",
+      "emailAddress": "Địa chỉ Email",
+      "personalDetails": {
+        "title": "Thông tin Cá nhân",
+        "subtitle": "Danh tính pháp lý và ngày sinh của bạn"
+      },
+      "name": "Họ và Tên",
+      "namePlaceholder": "Họ và tên theo pháp lý",
+      "nationalId": "Số CCCD/CMND",
+      "nationalIdPlaceholder": "Số CCCD/CMND / Hộ chiếu",
+      "dob": "Ngày Sinh",
+      "sponsorId": "ID Người bảo trợ",
+      "contact": {
+        "title": "Liên hệ",
+        "subtitle": "Phương thức liên lạc với bạn"
+      },
+      "mobilePrefix": "Mã Vùng",
+      "mobileNumber": "Số Điện thoại",
+      "mobileNumberPlaceholder": "Số điện thoại di động",
+      "address": {
+        "title": "Địa chỉ",
+        "subtitle": "Nơi cư trú"
+      },
+      "country": "Quốc gia",
+      "region": "Khu vực",
+      "province": "Tỉnh/Thành",
+      "provincePlaceholder": "Tỉnh / Thành phố",
+      "city": "Thành phố",
+      "addressPlaceholder": "Địa chỉ Số nhà/Đường",
+      "auditNotice": "Các thay đổi được mã hóa và được kiểm tra bởi sổ lưu trữ",
+      "saving": "Đang lưu…",
+      "toast": {
+        "error": "Lưu hồ sơ thất bại",
+        "success": "Đã cập nhật hồ sơ"
+      },
+      "countries": {
+        "UnitedStates": "Hoa Kỳ",
+        "China": "Trung Quốc",
+        "Indonesia": "Indonesia",
+        "Iran": "Iran",
+        "SaudiArabia": "Ả Rập Xê Út",
+        "Spain": "Tây Ban Nha",
+        "Germany": "Đức",
+        "Turkey": "Thổ Nhĩ Kỳ"
+      }
+    },
+    "qrCode": {
+      "title": "Mã QR Giới thiệu Của tôi",
+      "description": "Thẻ mời kỹ thuật số duy nhất của bạn. Chia sẻ với khách hàng tiềm năng để họ đăng ký dưới tài khoản của bạn.",
+      "verifiedReferral": "Lượt Giới thiệu Đã Xác minh",
+      "toast": {
+        "linkCopied": "Đã sao chép liên kết giới thiệu",
+        "idCopied": "Đã sao chép ID Thành viên",
+        "qrDownloaded": "Đã tải xuống mã QR",
+        "downloadFailed": "Tải xuống thất bại"
+      },
+      "share": {
+        "title": "Tham gia thông qua lời mời của tôi",
+        "text": "Đăng ký bằng mã thành viên của tôi {{memberId}}"
+      },
+      "qrAlt": "Mã QR giới thiệu cho thành viên {{memberId}}",
+      "scanToRegister": "Quét để đăng ký với mã tham vấn này",
+      "referralLink": "Liên kết Giới thiệu",
+      "copyLink": "Sao chép Liên kết",
+      "downloadQr": "Tải mã QR",
+      "shareBtn": "Chia sẻ",
+      "copyMemberId": "Sao chép ID Thành viên",
+      "howItWorks": "Cách thức hoạt động",
+      "steps": {
+        "1": "Gửi mã QR hoặc liên kết giới thiệu cho khách hàng của bạn.",
+        "2": "Họ quét hoặc nhấp vào đường link — và được chuyển đến trang đăng ký đã điền sẵn mã giới thiệu của bạn.",
+        "3": "Sau khi hoàn tất đăng ký, họ được định danh và gắn kết vĩnh viễn với mạng lưới tuyến dưới của bạn."
+      }
+    },
+    "walletEdit": {
+      "title": "Chỉnh sửa Ví",
+      "description": "Cập nhật số dư, mạng nộp tiền, địa chỉ và mã QR.",
+      "balances": {
+        "title": "Số dư",
+        "usdWallet": "Ví USD",
+        "rewardsWallet": "Ví Phần thưởng",
+        "stakingAmount": "Số tiền Staking"
+      },
+      "actions": {
+        "saving": "Đang lưu…",
+        "saveBalances": "Lưu Số Dư",
+        "uploading": "Đang tải lên…",
+        "replaceQr": "Đổi mã QR",
+        "uploadQr": "Tải lên mã QR",
+        "saveDepositSettings": "Lưu Cài đặt Nạp tiền",
+        "parsing": "Đang trích xuất…",
+        "uploadDocx": "Tải lên tệp .docx",
+        "clearCompany": "Xóa thông tin Công ty",
+        "clearMarketing": "Xóa thông tin Marketing"
+      },
+      "toast": {
+        "walletUpdated": "Đã cập nhật ví",
+        "qrUploaded": "Đã tải mã QR lên",
+        "depositSettingsSaved": "Đã lưu cài đặt nạp tiền",
+        "noQuestions": "Không tìm thấy câu hỏi nào. Hãy kiểm tra định dạng (xem phần hướng dẫn bên dưới).",
+        "importedQuestions": "Đã thêm {{count}} câu hỏi",
+        "failedToImport": "Lỗi, không thể thêm câu hỏi",
+        "cleared": "Đã xóa xong"
+      },
+      "depositSettings": {
+        "title": "Cài đặt Nạp tiền",
+        "network": "Mạng lưới",
+        "networkLabel": "Tên Mạng lưới",
+        "walletAddress": "Địa chỉ Ví",
+        "qrCode": "Mã QR",
+        "qrPreviewAlt": "Bản xem trước QR"
+      },
+      "quiz": {
+        "title": "Ngân hàng Câu hỏi Trắc nghiệm",
+        "description": "Tải lên tệp định dạng .docx chứa các câu hỏi đa lựa chọn. Hệ thống sẽ tự động ghép ngẫu nhiên 10 câu hỏi để tạo thành bài test gửi cho khách truy cập.",
+        "company": "Công ty: ",
+        "marketing": "Tiếp thị: ",
+        "expectedFormat": "Cấu trúc .docx mẫu dự kiến",
+        "hint": {
+          "part1": "Sử dụng tiêu đề ",
+          "part2": " hoặc ",
+          "part3": " để chuyển đổi danh mục. Các câu hỏi phải bắt đầu bằng chữ số, phần đáp án dùng ",
+          "part4": " / ",
+          "part5": " v.v., và ký tự ",
+          "part6": "sẽ được dùng để chỉ định đáp án đúng."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "Thao tác này sẽ xóa tất cả các câu hỏi thuộc danh mục {{category}}. Quý khách vẫn muốn tiếp tục?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Các Giao dịch Staking",
+      "tableHeaders": {
+        "transactionNumber": "Mã Giao dịch",
+        "amount": "Số tiền",
+        "stakingPlan": "Gói Staking"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Giao dịch Thưởng Giới thiệu",
+      "tableHeaders": {
+        "referralRate": "Tỷ lệ Giới thiệu"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Báo cáo Thưởng Nhóm",
+      "tableHeaders": {
+        "date": "Ngày",
+        "memberId": "ID Thành viên",
+        "level": "Cấp bậc",
+        "divisionRoi": "ROI Bộ phận",
+        "rate": "Tỷ suất",
+        "amount": "Số tiền"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Giao dịch Thưởng cho Lãnh đạo",
+      "tableHeaders": {
+        "contributedBy": "Người Đóng góp (ID Thành viên)",
+        "totalSubscriptionCount": "Tổng Lượt Tham gia"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Giao dịch Thưởng Hạng Par Rank",
+      "tableHeaders": {
+        "rank": "Hạng"
+      }
+    }
   }
 }
