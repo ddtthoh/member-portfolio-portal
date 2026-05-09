@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "تراکنش‌های پاداش‌ راهبردی (Leader)",
       "tableHeaders": {
-        "contributedBy": "مشارکت توسط شناسه عضو",
+        "contributedBy": "شناسه عضو",
         "totalSubscriptionCount": "مجموع تعداد اشتراک‌ها"
       }
     },

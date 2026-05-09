@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Lider Ödül İşlemleri",
       "tableHeaders": {
-        "contributedBy": "Katkı Sağlayan Üye ID",
+        "contributedBy": "üye kimliği",
         "totalSubscriptionCount": "Toplam Katılım Sayısı"
       }
     },

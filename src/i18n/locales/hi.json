@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "लीडर रिवॉर्ड्स लेनदेन",
       "tableHeaders": {
-        "contributedBy": "सदस्य ID द्वारा योगदान",
+        "contributedBy": "सदस्य आईडी",
         "totalSubscriptionCount": "कुल सब्सक्रिप्शन संख्या"
       }
     },

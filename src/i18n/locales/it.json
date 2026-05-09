@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Transazioni premi leader",
       "tableHeaders": {
-        "contributedBy": "Contribuito dall'ID membro",
+        "contributedBy": "id membro",
         "totalSubscriptionCount": "Conteggio totale abbonamenti"
       }
     },
