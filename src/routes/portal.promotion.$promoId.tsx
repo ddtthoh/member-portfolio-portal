@@ -359,7 +359,7 @@ function TrackCard({
       </div>
 
       {/* Currently unlocked rewards */}
-      <div className="mt-5 grid grid-cols-3 gap-2">
+      <div className="relative mt-5 grid grid-cols-3 gap-2">
         <RewardStat
           icon={<Ticket className="h-3.5 w-3.5" />}
           label="Seats"
