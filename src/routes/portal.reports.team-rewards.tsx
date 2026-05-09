@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
@@ -8,10 +9,12 @@ export const Route = createFileRoute("/portal/reports/team-rewards")({
 });
 
 function TeamRewardsPage() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <PageHeader title="Team Rewards" />
-      <ReportShell title="Team Rewards Report">
+      <PageHeader title={t("nav.reportsTeam")} />
+      <ReportShell title={t("pages.reportsTeam.reportTitle")}>
         <DataTable minWidth={960}>
           <colgroup>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -19,15 +22,15 @@ function TeamRewardsPage() {
             ))}
           </colgroup>
           <Thead>
-            <Th>Date</Th>
-            <Th>Member ID</Th>
-            <Th>Level</Th>
-            <Th>division roi</Th>
-            <Th>rate</Th>
-            <Th>amount</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.date")}</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.memberId")}</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.level")}</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.divisionRoi")}</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.rate")}</Th>
+            <Th>{t("pages.reportsTeam.tableHeaders.amount")}</Th>
           </Thead>
           <tbody>
-            <EmptyRow colSpan={6}>No transactions yet.</EmptyRow>
+            <EmptyRow colSpan={6}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>
           </tbody>
         </DataTable>
       </ReportShell>

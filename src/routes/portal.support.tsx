@@ -77,7 +77,7 @@ function SupportPage() {
     if (error) return toast.error(error.message);
     setSubject(""); setMessage(""); setCategory(""); setFiles([]);
     setOpenNew(false);
-    toast.success("Support ticket created");
+    toast.success(t("pages.support.toast.created"));
     load();
   };
 
@@ -107,7 +107,7 @@ function SupportPage() {
     };
     return (
       <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${map[status] ?? map.closed}`}>
-        {status}
+        {t(`pages.support.status.${status}`, status)}
       </span>
     );
   };
@@ -127,7 +127,7 @@ function SupportPage() {
           onClick={() => setFilterOpen((v) => !v)}
           className="flex w-full items-center justify-between px-6 py-4 text-left"
         >
-          <span className="font-serif text-base font-semibold text-gold md:text-lg">Filter</span>
+          <span className="font-serif text-base font-semibold text-gold md:text-lg">{t("pages.support.filter.title")}</span>
           {filterOpen ? <ChevronUp className="h-4 w-4 text-muted-foreground" /> : <ChevronDown className="h-4 w-4 text-muted-foreground" />}
         </button>
 
@@ -135,7 +135,7 @@ function SupportPage() {
           <div className="border-t border-border/60 px-6 py-6">
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-2">
-                <Label htmlFor="f-date" className="text-sm font-medium">Date</Label>
+                <Label htmlFor="f-date" className="text-sm font-medium">{t("pages.deposit.tableHeaders.date")}</Label>
                 <div className="relative">
                   <Input
                     id="f-date"
@@ -148,7 +148,7 @@ function SupportPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="f-num" className="text-sm font-medium">Ticket Number</Label>
+                <Label htmlFor="f-num" className="text-sm font-medium">{t("pages.support.filter.ticketNumber")}</Label>
                 <Input
                   id="f-num"
                   value={fNumber}
@@ -158,22 +158,22 @@ function SupportPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Category</Label>
+                <Label className="text-sm font-medium">{t("pages.support.filter.category")}</Label>
                 <Select value={fCategory} onValueChange={setFCategory}>
                   <SelectTrigger className="h-11"><SelectValue placeholder="--" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">--</SelectItem>
-                    {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{t(`pages.support.categories.${c.toLowerCase()}`)}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Status</Label>
+                <Label className="text-sm font-medium">{t("pages.withdrawal.tableHeaders.status")}</Label>
                 <Select value={fStatus} onValueChange={setFStatus}>
                   <SelectTrigger className="h-11"><SelectValue placeholder="--" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">--</SelectItem>
-                    {STATUSES.map((s) => <SelectItem key={s} value={s} className="capitalize">{s}</SelectItem>)}
+                    {STATUSES.map((s) => <SelectItem key={s} value={s} className="capitalize">{t(`pages.support.status.${s}`)}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
@@ -185,7 +185,7 @@ function SupportPage() {
                 onClick={() => setApplied({ date: fDate, number: fNumber, category: fCategory, status: fStatus })}
                 className="h-10 rounded-md bg-gradient-to-b from-gold to-gold/80 px-6 font-semibold uppercase tracking-wider text-gold-foreground shadow-sm hover:from-gold hover:to-gold"
               >
-                Filter
+                {t("pages.support.filter.apply")}
               </Button>
               <Button
                 type="button"
@@ -196,7 +196,7 @@ function SupportPage() {
                 }}
                 className="h-10 rounded-md bg-foreground px-6 font-semibold uppercase tracking-wider text-background hover:bg-foreground/90"
               >
-                Reset
+                {t("pages.deposit.filter.reset")}
               </Button>
             </div>
           </div>
@@ -206,56 +206,56 @@ function SupportPage() {
       {/* Tickets list */}
       <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
         <div className="flex items-center justify-between gap-4 px-6 py-5">
-          <h2 className="font-serif text-base font-semibold text-gold md:text-lg">Support Tickets List</h2>
+          <h2 className="font-serif text-base font-semibold text-gold md:text-lg">{t("pages.support.list.title")}</h2>
 
           <Dialog open={openNew} onOpenChange={(o) => { setOpenNew(o); if (!o) setFiles([]); }}>
             <DialogTrigger asChild>
               <Button className="h-10 rounded-md bg-gradient-to-b from-gold to-gold/80 px-4 font-semibold uppercase tracking-wider text-gold-foreground shadow-sm hover:from-gold hover:to-gold">
-                <Plus className="mr-1 h-4 w-4" /> New Support Ticket
+                <Plus className="mr-1 h-4 w-4" /> {t("pages.support.list.newTicket")}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-3xl p-0 overflow-hidden">
               <DialogHeader className="px-8 pt-7 pb-5 border-b border-border/60">
-                <DialogTitle className="text-xl font-semibold tracking-tight">New Support Ticket</DialogTitle>
+                <DialogTitle className="text-xl font-semibold tracking-tight">{t("pages.support.dialog.newTicket")}</DialogTitle>
               </DialogHeader>
 
               <form onSubmit={submit} className="px-8 py-7">
                 <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">
                   <div className="space-y-2.5">
                     <Label className="text-sm font-semibold">
-                      Category <span className="text-destructive">*</span>
+                      {t("pages.support.dialog.category")} <span className="text-destructive">*</span>
                     </Label>
                     <Select value={category} onValueChange={setCategory}>
                       <SelectTrigger className="h-11"><SelectValue placeholder="--" /></SelectTrigger>
                       <SelectContent>
-                        {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                        {CATEGORIES.map((c) => <SelectItem key={c} value={c}>{t(`pages.support.categories.${c.toLowerCase()}`)}</SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2.5">
                     <Label htmlFor="subject" className="text-sm font-semibold">
-                      Subject <span className="text-destructive">*</span>
+                      {t("pages.support.dialog.subject")} <span className="text-destructive">*</span>
                     </Label>
                     <Input id="subject" value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={120} required className="h-11" />
                   </div>
 
                   <div className="space-y-2.5">
                     <Label htmlFor="message" className="text-sm font-semibold">
-                      Message <span className="text-destructive">*</span>
+                      {t("pages.support.dialog.message")} <span className="text-destructive">*</span>
                     </Label>
                     <Textarea id="message" rows={7} value={message} onChange={(e) => setMessage(e.target.value)} maxLength={2000} required className="resize-y" />
                   </div>
 
                   <div className="space-y-2.5">
-                    <Label className="text-sm font-semibold">Attachments</Label>
+                    <Label className="text-sm font-semibold">{t("pages.support.dialog.attachments")}</Label>
                     <div className="flex items-stretch overflow-hidden rounded-md border border-input">
                       <label
                         htmlFor="attach-input"
                         className="flex cursor-pointer items-center gap-2 border-r border-input bg-muted/40 px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/70"
                       >
                         <Paperclip className="h-4 w-4" />
-                        Choose File
+                        {t("pages.support.dialog.chooseFile")}
                       </label>
                       <input
                         id="attach-input"
@@ -265,13 +265,13 @@ function SupportPage() {
                         className="hidden"
                         onChange={(e) => {
                           const list = Array.from(e.target.files ?? []).filter((f) => f.size <= 2 * 1024 * 1024);
-                          if (list.length !== (e.target.files?.length ?? 0)) toast.error("Some files exceeded 2MB and were skipped.");
+                          if (list.length !== (e.target.files?.length ?? 0)) toast.error(t("pages.support.toast.fileSizeExceeded"));
                           setFiles((prev) => [...prev, ...list]);
                           e.target.value = "";
                         }}
                       />
                       <div className="flex-1 truncate px-4 py-2.5 text-sm text-muted-foreground">
-                        {files.length === 0 ? "No File Chosen" : `${files.length} file${files.length > 1 ? "s" : ""} selected`}
+                        {files.length === 0 ? t("pages.support.dialog.noFileChosen") : t("pages.support.dialog.filesSelected", { count: files.length, s: files.length > 1 ? "s" : "" })}
                       </div>
                     </div>
                     {files.length > 0 && (
@@ -283,7 +283,7 @@ function SupportPage() {
                               type="button"
                               onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))}
                               className="ml-2 text-muted-foreground hover:text-destructive"
-                              aria-label="Remove file"
+                              aria-label={t("pages.support.dialog.removeFile")}
                             >
                               <XIcon className="h-3.5 w-3.5" />
                             </button>
@@ -292,7 +292,7 @@ function SupportPage() {
                       </ul>
                     )}
                     <p className="text-xs leading-relaxed text-muted-foreground">
-                      2mb File Limit, Jpg/png/gif Types, More Than 1 File Can Be Uploaded
+                      {t("pages.support.dialog.fileLimit")}
                     </p>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ function SupportPage() {
                     disabled={submitting}
                     className="h-10 rounded-md bg-gradient-to-b from-gold to-gold/80 px-7 font-semibold uppercase tracking-wider text-gold-foreground shadow-sm hover:from-gold hover:to-gold"
                   >
-                    {submitting ? "Submitting…" : "Proceed"}
+                    {submitting ? t("pages.withdrawal.confirm.submitting") : t("pages.support.dialog.proceed")}
                   </Button>
                   <Button
                     type="button"
@@ -311,7 +311,7 @@ function SupportPage() {
                     onClick={() => { setOpenNew(false); setFiles([]); }}
                     className="h-10 rounded-md bg-foreground px-7 font-semibold uppercase tracking-wider text-background hover:bg-foreground/90"
                   >
-                    Cancel
+                    {t("common.cancel")}
                   </Button>
                 </DialogFooter>
               </form>
@@ -323,19 +323,19 @@ function SupportPage() {
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-muted/30 text-[11px] uppercase tracking-[0.18em] text-gold">
-                <th className="px-6 py-3 text-left font-semibold">Date</th>
-                <th className="px-6 py-3 text-left font-semibold">Ticket Number</th>
-                <th className="px-6 py-3 text-left font-semibold">Category</th>
-                <th className="px-6 py-3 text-left font-semibold">Subject</th>
-                <th className="px-6 py-3 text-left font-semibold">Status</th>
-                <th className="px-6 py-3 text-right font-semibold">Action</th>
+                <th className="px-6 py-3 text-left font-semibold">{t("pages.deposit.tableHeaders.date")}</th>
+                <th className="px-6 py-3 text-left font-semibold">{t("pages.support.tableHeaders.ticketNumber")}</th>
+                <th className="px-6 py-3 text-left font-semibold">{t("pages.support.tableHeaders.category")}</th>
+                <th className="px-6 py-3 text-left font-semibold">{t("pages.support.tableHeaders.subject")}</th>
+                <th className="px-6 py-3 text-left font-semibold">{t("pages.withdrawal.tableHeaders.status")}</th>
+                <th className="px-6 py-3 text-right font-semibold">{t("pages.withdrawal.tableHeaders.action")}</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-16 text-center text-sm text-muted-foreground">
-                    No tickets found.
+                    {t("pages.support.empty.noTickets")}
                   </td>
                 </tr>
               ) : (
@@ -345,7 +345,7 @@ function SupportPage() {
                       {new Date(tk.created_at).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" })}
                     </td>
                     <td className="px-6 py-4 font-mono text-xs text-foreground/90">{ticketNumber(tk.id)}</td>
-                    <td className="px-6 py-4">{extractCategory(tk.message)}</td>
+                    <td className="px-6 py-4">{t(`pages.support.categories.${extractCategory(tk.message).toLowerCase()}`, extractCategory(tk.message))}</td>
                     <td className="px-6 py-4 max-w-xs truncate">{tk.subject}</td>
                     <td className="px-6 py-4">{statusBadge(tk.status)}</td>
                     <td className="px-6 py-4 text-right">
@@ -355,7 +355,7 @@ function SupportPage() {
                         onClick={() => setViewing(tk)}
                         className="h-8 gap-1 text-gold hover:bg-gold/10 hover:text-gold"
                       >
-                        <Eye className="h-4 w-4" /> View
+                        <Eye className="h-4 w-4" /> {t("pages.support.actions.view")}
                       </Button>
                     </td>
                   </tr>
@@ -377,8 +377,8 @@ function SupportPage() {
           {viewing && (
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-muted-foreground">Category:</span>
-                <span className="font-medium">{extractCategory(viewing.message)}</span>
+                <span className="text-muted-foreground">{t("pages.support.dialog.categoryLabel")}</span>
+                <span className="font-medium">{t(`pages.support.categories.${extractCategory(viewing.message).toLowerCase()}`, extractCategory(viewing.message))}</span>
                 <span className="ml-auto">{statusBadge(viewing.status)}</span>
               </div>
               <p className="whitespace-pre-wrap rounded-md border border-border/60 bg-muted/20 p-4 text-sm">

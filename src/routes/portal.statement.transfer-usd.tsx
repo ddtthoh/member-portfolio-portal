@@ -19,10 +19,10 @@ function TransferUsdPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!memberId.trim() || !amount.trim()) {
-      toast.error("Please fill in all required fields");
+      toast.error(t("pages.transferUsd.toast.fillRequired"));
       return;
     }
-    toast.success("Transfer request submitted");
+    toast.success(t("pages.transferUsd.toast.submitted"));
   };
 
   return (
@@ -30,21 +30,21 @@ function TransferUsdPage() {
       <PageHeader eyebrow={t("pages.transferUsd.eyebrow")} title={t("pages.transferUsd.title")} description={t("pages.transferUsd.description")} />
 
       <SpotlightCard className="liquid-glass rounded-2xl p-5">
-        <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Transfer Details</h2>
+        <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">{t("pages.transferUsd.details.title")}</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <ReadOnlyField label="USD Transfer" value="USD" />
+          <ReadOnlyField label={t("pages.transferUsd.form.usdTransfer")} value="USD" />
 
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.2em] text-gold/80">
-              Transfer To Member Id <span className="text-gold">*</span>
+              {t("pages.transferUsd.form.transferTo")} <span className="text-gold">*</span>
             </label>
             <input
               type="text"
               value={memberId}
               onChange={(e) => setMemberId(e.target.value)}
-              placeholder="Enter member ID"
+              placeholder={t("pages.transferUsd.form.memberIdPlaceholder")}
               required
               className="w-full rounded-lg border border-gold/30 bg-transparent px-4 py-2.5 text-sm text-gold placeholder:text-gold/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/40"
             />
@@ -52,7 +52,7 @@ function TransferUsdPage() {
 
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.2em] text-gold/80">
-              Transfer Amount <span className="text-gold">*</span>
+              {t("pages.transferUsd.form.transferAmount")} <span className="text-gold">*</span>
             </label>
             <input
               type="number"
@@ -69,12 +69,12 @@ function TransferUsdPage() {
 
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.2em] text-gold/80">
-              Remarks
+              {t("pages.transferUsd.form.remarks")}
             </label>
             <textarea
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
-              placeholder="Optional notes"
+              placeholder={t("pages.transferUsd.form.remarksPlaceholder")}
               rows={4}
               className="w-full rounded-lg border border-gold/30 bg-transparent px-4 py-2.5 text-sm text-gold placeholder:text-gold/30 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/40"
             />
@@ -91,13 +91,13 @@ function TransferUsdPage() {
               }}
               className="border-gold/30 bg-transparent text-gold hover:bg-gold/10 hover:text-gold"
             >
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button
               type="submit"
               className="bg-gradient-to-r from-gold to-gold/70 font-semibold text-background hover:opacity-90"
             >
-              Submit
+              {t("common.submit")}
             </Button>
           </div>
         </form>

@@ -305,12 +305,72 @@
     "support": {
       "eyebrow": "Concierge",
       "title": "Support",
-      "description": "Open a private ticket — our concierge team responds promptly."
+      "description": "Open a private ticket — our concierge team responds promptly.",
+      "categories": {
+        "general": "General",
+        "account": "Account",
+        "deposit": "Deposit",
+        "withdrawal": "Withdrawal",
+        "technical": "Technical",
+        "other": "Other"
+      },
+      "status": {
+        "open": "open",
+        "pending": "pending",
+        "resolved": "resolved",
+        "closed": "closed"
+      },
+      "toast": {
+        "created": "Support ticket created",
+        "fileSizeExceeded": "Some files exceeded 2MB and were skipped."
+      },
+      "filter": {
+        "title": "Filter",
+        "ticketNumber": "Ticket Number",
+        "category": "Category",
+        "apply": "Filter"
+      },
+      "list": {
+        "title": "Support Tickets List",
+        "newTicket": "New Support Ticket"
+      },
+      "dialog": {
+        "newTicket": "New Support Ticket",
+        "category": "Category",
+        "subject": "Subject",
+        "message": "Message",
+        "attachments": "Attachments",
+        "chooseFile": "Choose File",
+        "noFileChosen": "No File Chosen",
+        "filesSelected": "{{count}} file{{s}} selected",
+        "removeFile": "Remove file",
+        "fileLimit": "2mb File Limit, Jpg/png/gif Types, More Than 1 File Can Be Uploaded",
+        "proceed": "Proceed",
+        "categoryLabel": "Category:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Ticket Number",
+        "category": "Category",
+        "subject": "Subject"
+      },
+      "empty": {
+        "noTickets": "No tickets found."
+      },
+      "actions": {
+        "view": "View"
+      }
     },
     "usdStatement": {
       "eyebrow": "Statement",
       "title": "USD Statement",
-      "description": "A summary of your USD account activity."
+      "description": "A summary of your USD account activity.",
+      "tableHeaders": {
+        "txId": "Transaction ID",
+        "type": "Transaction Type",
+        "credit": "Credit",
+        "debit": "Debit",
+        "remarks": "Remarks"
+      }
     },
     "network": {
       "eyebrow": "Relationships",
@@ -360,7 +420,22 @@
     "transferUsd": {
       "eyebrow": "USD Wallet",
       "title": "Transfer USD",
-      "description": "Transfer USD to another member's account."
+      "description": "Transfer USD to another member's account.",
+      "toast": {
+        "fillRequired": "Please fill in all required fields",
+        "submitted": "Transfer request submitted"
+      },
+      "details": {
+        "title": "Transfer Details"
+      },
+      "form": {
+        "usdTransfer": "USD Transfer",
+        "transferTo": "Transfer To Member Id",
+        "memberIdPlaceholder": "Enter member ID",
+        "transferAmount": "Transfer Amount",
+        "remarks": "Remarks",
+        "remarksPlaceholder": "Optional notes"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "Statement",
@@ -378,7 +453,14 @@
     "creditConversionStatement": {
       "eyebrow": "Statement",
       "title": "Credit Conversion Statement",
-      "description": "Review your credit conversion history and balances."
+      "description": "Review your credit conversion history and balances.",
+      "tableHeaders": {
+        "date": "Date",
+        "source": "Source Credit",
+        "destination": "Destination Credit",
+        "amount": "Converted Amount",
+        "status": "Status"
+      }
     },
     "stakingPlans": {
       "eyebrow": "Staking",
@@ -403,7 +485,14 @@
     "convertCredits": {
       "eyebrow": "Statement",
       "title": "Convert Credits",
-      "description": "Convert credits between balances."
+      "description": "Convert credits between balances.",
+      "usdWallet": "USD Wallet",
+      "rewardsWallet": "Rewards Wallet",
+      "convertDetails": "Convert Details",
+      "sourceCredit": "Source Credit",
+      "rewardsCredit": "Rewards Credit",
+      "destinationCredit": "Destination Credit",
+      "sourceAmount": "Source Amount"
     },
     "referral": {
       "eyebrow": "Network · Invitation",
@@ -466,6 +555,187 @@
     },
     "assetAnalysis": {
       "description": "Performance, allocation and risk insights for your portfolio."
+    },
+    "profile": {
+      "title": "Profile Information",
+      "description": "Manage your personal details, contact information, and account identity.",
+      "verifiedMember": "Verified Member",
+      "memberFallback": "Member",
+      "status": "Status",
+      "active": "Active",
+      "tier": "Tier",
+      "accountIdentity": {
+        "title": "Account Identity",
+        "subtitle": "Read-only verified credentials"
+      },
+      "memberId": "Member ID",
+      "emailAddress": "Email Address",
+      "personalDetails": {
+        "title": "Personal Details",
+        "subtitle": "Your legal identity and date of birth"
+      },
+      "name": "Name",
+      "namePlaceholder": "Full legal name",
+      "nationalId": "National ID",
+      "nationalIdPlaceholder": "ID / passport number",
+      "dob": "Date of Birth",
+      "sponsorId": "Sponsor ID",
+      "contact": {
+        "title": "Contact",
+        "subtitle": "How we reach you"
+      },
+      "mobilePrefix": "Mobile Prefix",
+      "mobileNumber": "Mobile Number",
+      "mobileNumberPlaceholder": "Phone number",
+      "address": {
+        "title": "Address",
+        "subtitle": "Residential location"
+      },
+      "country": "Country",
+      "region": "Region",
+      "province": "Province",
+      "provincePlaceholder": "State / Province",
+      "city": "City",
+      "addressPlaceholder": "Street address",
+      "auditNotice": "Changes are encrypted & audit-logged",
+      "saving": "Saving…",
+      "toast": {
+        "error": "Failed to save profile",
+        "success": "Profile updated"
+      },
+      "countries": {
+        "UnitedStates": "United States",
+        "China": "China",
+        "Indonesia": "Indonesia",
+        "Iran": "Iran",
+        "SaudiArabia": "Saudi Arabia",
+        "Spain": "Spain",
+        "Germany": "Germany",
+        "Turkey": "Turkey"
+      }
+    },
+    "qrCode": {
+      "title": "My Referral QR Code",
+      "description": "Your unique invitation card. Share with prospective clients to register under your account.",
+      "verifiedReferral": "Verified Referral",
+      "toast": {
+        "linkCopied": "Referral link copied",
+        "idCopied": "Member ID copied",
+        "qrDownloaded": "QR code downloaded",
+        "downloadFailed": "Download failed"
+      },
+      "share": {
+        "title": "Join via my referral",
+        "text": "Register using my member ID {{memberId}}"
+      },
+      "qrAlt": "Referral QR for member {{memberId}}",
+      "scanToRegister": "Scan to register under this advisor",
+      "referralLink": "Referral Link",
+      "copyLink": "Copy Link",
+      "downloadQr": "Download QR",
+      "shareBtn": "Share",
+      "copyMemberId": "Copy Member ID",
+      "howItWorks": "How it works",
+      "steps": {
+        "1": "Send your QR code or referral link to your client.",
+        "2": "They scan or click — and land on the registration page pre-filled with your member tag.",
+        "3": "Once they complete sign-up, they are permanently linked to your network."
+      }
+    },
+    "walletEdit": {
+      "title": "Edit Wallet",
+      "description": "Update balances, deposit network, address and QR code.",
+      "balances": {
+        "title": "Balances",
+        "usdWallet": "USD Wallet",
+        "rewardsWallet": "Rewards Wallet",
+        "stakingAmount": "Staking Amount"
+      },
+      "actions": {
+        "saving": "Saving…",
+        "saveBalances": "Save Balances",
+        "uploading": "Uploading…",
+        "replaceQr": "Replace QR",
+        "uploadQr": "Upload QR",
+        "saveDepositSettings": "Save Deposit Settings",
+        "parsing": "Parsing…",
+        "uploadDocx": "Upload .docx",
+        "clearCompany": "Clear Company",
+        "clearMarketing": "Clear Marketing"
+      },
+      "toast": {
+        "walletUpdated": "Wallet updated",
+        "qrUploaded": "QR uploaded",
+        "depositSettingsSaved": "Deposit settings saved",
+        "noQuestions": "No questions detected. Check formatting (see hint below).",
+        "importedQuestions": "Imported {{count}} questions",
+        "failedToImport": "Failed to import",
+        "cleared": "Cleared"
+      },
+      "depositSettings": {
+        "title": "Deposit Settings",
+        "network": "Network",
+        "networkLabel": "Network Label",
+        "walletAddress": "Wallet Address",
+        "qrCode": "QR Code",
+        "qrPreviewAlt": "QR preview"
+      },
+      "quiz": {
+        "title": "Q&A Question Bank",
+        "description": "Upload a .docx file containing multiple-choice questions. The system will randomly pick 10 each time the client takes the test.",
+        "company": "Company: ",
+        "marketing": "Marketing: ",
+        "expectedFormat": "Expected .docx format",
+        "hint": {
+          "part1": "Use ",
+          "part2": " or ",
+          "part3": " headers to switch category. Questions start with a number, options use ",
+          "part4": " / ",
+          "part5": " etc., and ",
+          "part6": "marks the correct letter."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "Delete all your uploaded {{category}} questions?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Staking Transactions",
+      "tableHeaders": {
+        "transactionNumber": "transaction number",
+        "amount": "amount",
+        "stakingPlan": "staking plan"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Referral Rewards Transactions",
+      "tableHeaders": {
+        "referralRate": "referral rate"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Team Rewards Report",
+      "tableHeaders": {
+        "date": "Date",
+        "memberId": "Member ID",
+        "level": "Level",
+        "divisionRoi": "division roi",
+        "rate": "rate",
+        "amount": "amount"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Leader Rewards Transactions",
+      "tableHeaders": {
+        "contributedBy": "contributed by member id",
+        "totalSubscriptionCount": "Total Subscription Count"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Par Rank Rewards Transactions",
+      "tableHeaders": {
+        "rank": "rank"
+      }
     }
   },
   "palette": {

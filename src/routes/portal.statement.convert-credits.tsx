@@ -18,8 +18,8 @@ function ConvertCreditsPage() {
       <PageHeader eyebrow={t("pages.convertCredits.eyebrow")} title={t("pages.convertCredits.title")} description={t("pages.convertCredits.description")} />
       <div className="grid grid-cols-2 gap-3">
         {[
-          { label: "USD Wallet", value: "$0.00" },
-          { label: "Rewards Wallet", value: "$0.00" },
+          { label: t("pages.convertCredits.usdWallet"), value: "$0.00" },
+          { label: t("pages.convertCredits.rewardsWallet"), value: "$0.00" },
         ].map((w) => (
           <SpotlightCard key={w.label} className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
             <div className="text-xs text-muted-foreground">{w.label}</div>
@@ -29,16 +29,16 @@ function ConvertCreditsPage() {
       </div>
 
       <SpotlightCard className="liquid-glass rounded-2xl p-5">
-        <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">Convert Details</h2>
+        <h2 className="font-serif tracking-tight text-gold text-2xl font-thin">{t("pages.convertCredits.convertDetails")}</h2>
         <div className="my-4 h-px w-full bg-gold/20" />
 
         <div className="space-y-5">
-          <Field label="Source Credit" value="Rewards Credit" />
-          <Field label="Destination Credit" value="USD" />
+          <Field label={t("pages.convertCredits.sourceCredit")} value={t("pages.convertCredits.rewardsCredit")} />
+          <Field label={t("pages.convertCredits.destinationCredit")} value="USD" />
 
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.2em] text-gold/80">
-              Source Amount <span className="text-gold">*</span>
+              {t("pages.convertCredits.sourceAmount")} <span className="text-gold">*</span>
             </label>
             <input
               type="number"
@@ -57,13 +57,13 @@ function ConvertCreditsPage() {
               onClick={() => setAmount("")}
               className="border-gold/30 bg-transparent text-gold hover:bg-gold/10 hover:text-gold"
             >
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button
               type="button"
               className="bg-gradient-to-r from-gold to-gold/70 font-semibold text-background hover:opacity-90"
             >
-              Submit
+              {t("common.submit")}
             </Button>
           </div>
         </div>

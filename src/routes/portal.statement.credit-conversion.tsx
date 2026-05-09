@@ -18,11 +18,11 @@ type ConversionRow = {
 const rows: ConversionRow[] = [];
 
 const columns: { key: keyof ConversionRow; label: string }[] = [
-  { key: "date", label: "Date" },
-  { key: "source", label: "Source Credit" },
-  { key: "destination", label: "Destination Credit" },
-  { key: "amount", label: "Converted Amount" },
-  { key: "status", label: "Status" },
+  { key: "date", label: "pages.creditConversionStatement.tableHeaders.date" },
+  { key: "source", label: "pages.creditConversionStatement.tableHeaders.source" },
+  { key: "destination", label: "pages.creditConversionStatement.tableHeaders.destination" },
+  { key: "amount", label: "pages.creditConversionStatement.tableHeaders.amount" },
+  { key: "status", label: "pages.creditConversionStatement.tableHeaders.status" },
 ];
 
 function CreditConversionPage() {
@@ -38,7 +38,7 @@ function CreditConversionPage() {
             {columns.map((col) => (
               <div key={col.key} className="px-2 first:pl-0 last:pr-0">
                 <div className="whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                  {col.label}
+                  {t(col.label)}
                 </div>
               </div>
             ))}
