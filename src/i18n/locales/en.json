@@ -420,7 +420,22 @@
     "transferUsd": {
       "eyebrow": "USD Wallet",
       "title": "Transfer USD",
-      "description": "Transfer USD to another member's account."
+      "description": "Transfer USD to another member's account.",
+      "toast": {
+        "fillRequired": "Please fill in all required fields",
+        "submitted": "Transfer request submitted"
+      },
+      "details": {
+        "title": "Transfer Details"
+      },
+      "form": {
+        "usdTransfer": "USD Transfer",
+        "transferTo": "Transfer To Member Id",
+        "memberIdPlaceholder": "Enter member ID",
+        "transferAmount": "Transfer Amount",
+        "remarks": "Remarks",
+        "remarksPlaceholder": "Optional notes"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "Statement",
@@ -682,6 +697,44 @@
       },
       "confirm": {
         "deleteCategory": "Delete all your uploaded {{category}} questions?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Staking Transactions",
+      "tableHeaders": {
+        "transactionNumber": "transaction number",
+        "amount": "amount",
+        "stakingPlan": "staking plan"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Referral Rewards Transactions",
+      "tableHeaders": {
+        "referralRate": "referral rate"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Team Rewards Report",
+      "tableHeaders": {
+        "date": "Date",
+        "memberId": "Member ID",
+        "level": "Level",
+        "divisionRoi": "division roi",
+        "rate": "rate",
+        "amount": "amount"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Leader Rewards Transactions",
+      "tableHeaders": {
+        "contributedBy": "contributed by member id",
+        "totalSubscriptionCount": "Total Subscription Count"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Par Rank Rewards Transactions",
+      "tableHeaders": {
+        "rank": "rank"
       }
     }
   },
