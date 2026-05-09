@@ -501,7 +501,7 @@ function TierLadder({
                     <td className="px-4 py-3">
                       {reached ? (
                         <span className="inline-flex items-center gap-1.5 text-gold">
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
+                          <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
                             <Check className="h-3 w-3" />
                           </span>
                           <span className="text-[11px] uppercase tracking-[0.18em]">Achieved</span>
