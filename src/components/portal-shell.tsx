@@ -76,6 +76,7 @@ const sections: NavSection[] = [
           { to: "/portal/reports/team-rewards", labelKey: "nav.reportsTeam", icon: Users },
           { to: "/portal/reports/leader-rewards", labelKey: "nav.reportsLeader", icon: ShieldCheck },
           { to: "/portal/reports/par-rank-rewards", labelKey: "nav.reportsParRank", icon: FileBarChart },
+          { to: "/portal/reports/global-rewards", labelKey: "nav.reportsGlobal", icon: Gift },
         ],
       },
     ],
