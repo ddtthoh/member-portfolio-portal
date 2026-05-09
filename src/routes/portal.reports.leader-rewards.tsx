@@ -12,7 +12,7 @@ function LeaderRewardsPage() {
   const { t } = useTranslation();
   const headers = [
     t("pages.reportsTeam.tableHeaders.date"),
-    t("pages.reportsTeam.tableHeaders.amount"),
+    "Division staked amount",
     t("pages.reportsTeam.tableHeaders.rate"),
     t("pages.reportsLeader.tableHeaders.contributedBy"),
     t("pages.reportsLeader.tableHeaders.totalSubscriptionCount"),
