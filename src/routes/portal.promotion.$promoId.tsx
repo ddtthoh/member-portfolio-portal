@@ -75,16 +75,20 @@ type RankingPromo = {
   subtitle: string;
   windowLabel: string;
   intro: string;
-  // RCB: $5 per qualifying referral
   rcbPerReferralUsd: number;
   rcbMinStakeUsd: number;
-  rcbCount: number; // current
-  // TCB: tiered % of AUM
+  rcbCount: number;
   tcbTiers: TcbTier[];
   currentAum: number;
-  // Community ranking ladder
   rankingTiers: RankingTier[];
-  currentRankIndex: number; // -1 if none reached
+  currentRankIndex: number;
+  // Backend-provided: progress towards next community rank
+  nextRankProgress?: {
+    current: number;
+    target: number;
+    unit: string;
+    metricLabel: string;
+  };
 };
 
 type Promo = EventPromo | GenericPromo | RankingPromo;
