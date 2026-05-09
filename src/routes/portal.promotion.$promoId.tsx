@@ -12,6 +12,11 @@ import {
   Users,
   Sparkles,
   TrendingUp,
+  UserPlus,
+  Wallet,
+  Trophy,
+  Crown,
+  Gift,
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
