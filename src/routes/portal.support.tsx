@@ -121,7 +121,7 @@ function SupportPage() {
       />
 
       {/* Filter card */}
-      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden">
+      <section className="liquid-glass rounded-2xl border border-border/60 overflow-hidden text-gold [&_label]:text-gold [&_input]:text-gold [&_input::placeholder]:text-gold/60 [&_[data-slot=select-trigger]]:text-gold [&_[data-slot=select-value]]:text-gold">
         <button
           type="button"
           onClick={() => setFilterOpen((v) => !v)}
