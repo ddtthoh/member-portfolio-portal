@@ -33,14 +33,13 @@ function HoldingsPage() {
   return (
     <div className="space-y-6">
       <StakingOverviewCard
-        stakingAmount={50000}
-        stakingDays={54}
-        sinceDate="Mar 16"
-        tier="Premium"
         totalAssets={wallet.total}
         usd={wallet.usd}
         rewards={wallet.rewards}
         staking={wallet.staking}
+        stakingDays={54}
+        sinceDate="Mar 16"
+        tier="Premium"
       />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
