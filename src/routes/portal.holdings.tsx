@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { TotalAssetsGauge } from "@/components/total-assets-gauge";
+import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
 
 export const Route = createFileRoute("/portal/holdings")({
