@@ -172,45 +172,49 @@ function QrCodePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <div className="grid w-full min-w-0 grid-cols-1 gap-2 sm:grid-cols-2">
                 <Button
                   variant="outline"
                   onClick={copyLink}
-                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full min-w-0 border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   {copiedLink ? (
-                    <Check className="mr-2 h-4 w-4" />
+                    <Check className="mr-2 h-4 w-4 shrink-0" />
                   ) : (
-                    <Copy className="mr-2 h-4 w-4" />
+                    <Copy className="mr-2 h-4 w-4 shrink-0" />
                   )}
-                  {copiedLink ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyLink")}
+                  <span className="truncate">
+                    {copiedLink ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyLink")}
+                  </span>
                 </Button>
                 <Button
                   onClick={downloadQR}
-                  className="w-full bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
+                  className="w-full min-w-0 bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
                 >
-                  <Download className="mr-2 h-4 w-4" />
-                  {t("pages.qrCode.downloadQr")}
+                  <Download className="mr-2 h-4 w-4 shrink-0" />
+                  <span className="truncate">{t("pages.qrCode.downloadQr")}</span>
                 </Button>
                 <Button
                   variant="outline"
                   onClick={share}
-                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full min-w-0 border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
-                  <Share2 className="mr-2 h-4 w-4" />
-                  {t("pages.qrCode.shareBtn")}
+                  <Share2 className="mr-2 h-4 w-4 shrink-0" />
+                  <span className="truncate">{t("pages.qrCode.shareBtn")}</span>
                 </Button>
                 <Button
                   variant="outline"
                   onClick={copyId}
-                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full min-w-0 border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   {copiedId ? (
-                    <Check className="mr-2 h-4 w-4" />
+                    <Check className="mr-2 h-4 w-4 shrink-0" />
                   ) : (
-                    <IdCard className="mr-2 h-4 w-4" />
+                    <IdCard className="mr-2 h-4 w-4 shrink-0" />
                   )}
-                  {copiedId ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyMemberId")}
+                  <span className="truncate">
+                    {copiedId ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyMemberId")}
+                  </span>
                 </Button>
               </div>
             </div>
