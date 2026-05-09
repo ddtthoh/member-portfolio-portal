@@ -76,24 +76,26 @@ export function SocialLinks({ variant = "row", size = 16, className }: SocialLin
   }
 
   return (
-    <div className={cn(containerClass, className)}>
-      {channels.map(({ name, href, Icon }) => (
-        <Tooltip key={name}>
-          <TooltipTrigger asChild>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={name}
-              className="group inline-flex items-center justify-center text-muted-foreground/70 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
-              style={{ width: size + 4, height: size + 4 }}
-            >
-              <Icon className="h-full w-full" />
-            </a>
-          </TooltipTrigger>
-          <TooltipContent side={variant === "stack" ? "right" : "top"}>{name}</TooltipContent>
-        </Tooltip>
-      ))}
-    </div>
+    <TooltipProvider delayDuration={150}>
+      <div className={cn(containerClass, className)}>
+        {channels.map(({ name, href, Icon }) => (
+          <Tooltip key={name}>
+            <TooltipTrigger asChild>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={name}
+                className="group inline-flex items-center justify-center text-muted-foreground/70 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
+                style={{ width: size + 4, height: size + 4 }}
+              >
+                <Icon className="h-full w-full" />
+              </a>
+            </TooltipTrigger>
+            <TooltipContent side={variant === "stack" ? "right" : "top"}>{name}</TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </TooltipProvider>
   );
 }
