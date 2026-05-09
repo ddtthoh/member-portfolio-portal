@@ -28,6 +28,7 @@ import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
+import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
 import { Route as PortalAssetAnalysisRouteImport } from './routes/portal.asset-analysis'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
@@ -141,6 +142,11 @@ const PortalDepositRoute = PortalDepositRouteImport.update({
   path: '/deposit',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalChangePasswordRoute = PortalChangePasswordRouteImport.update({
+  id: '/change-password',
+  path: '/change-password',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalAssetAnalysisRoute = PortalAssetAnalysisRouteImport.update({
   id: '/asset-analysis',
   path: '/asset-analysis',
@@ -239,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
   '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
+  '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
+  '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
@@ -313,6 +321,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
   '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
+  '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
@@ -353,6 +362,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/portal'
     | '/portal/asset-analysis'
+    | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal/asset-analysis'
+    | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
@@ -426,6 +437,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/portal'
     | '/portal/asset-analysis'
+    | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
@@ -601,6 +613,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalDepositRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/change-password': {
+      id: '/portal/change-password'
+      path: '/change-password'
+      fullPath: '/portal/change-password'
+      preLoaderRoute: typeof PortalChangePasswordRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/asset-analysis': {
       id: '/portal/asset-analysis'
       path: '/asset-analysis'
@@ -755,6 +774,7 @@ const PortalQnaRouteWithChildren = PortalQnaRoute._addFileChildren(
 
 interface PortalRouteChildren {
   PortalAssetAnalysisRoute: typeof PortalAssetAnalysisRoute
+  PortalChangePasswordRoute: typeof PortalChangePasswordRoute
   PortalDepositRoute: typeof PortalDepositRoute
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
@@ -786,6 +806,7 @@ interface PortalRouteChildren {
 
 const PortalRouteChildren: PortalRouteChildren = {
   PortalAssetAnalysisRoute: PortalAssetAnalysisRoute,
+  PortalChangePasswordRoute: PortalChangePasswordRoute,
   PortalDepositRoute: PortalDepositRoute,
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,

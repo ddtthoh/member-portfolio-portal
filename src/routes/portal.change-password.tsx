@@ -362,7 +362,7 @@ function passwordChecks(pw: string) {
   ];
 }
 
-function strengthLabel(score: number, t: (k: string, f?: string) => string) {
+function strengthLabel(score: number, t: (k: string, f: string) => string) {
   if (score <= 1) return t("pages.changePassword.strength.weak", "Weak password");
   if (score === 2) return t("pages.changePassword.strength.fair", "Fair password");
   if (score === 3) return t("pages.changePassword.strength.good", "Good password");
