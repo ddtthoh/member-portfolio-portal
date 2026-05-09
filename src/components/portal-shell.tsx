@@ -200,7 +200,7 @@ export function PortalShell() {
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[13px] font-semibold leading-tight text-foreground">{userName}</div>
                   <div className="mt-0.5 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.18em] text-gold/90">
-                    <ShieldCheck className="h-2.5 w-2.5" /> {t("shell.verified")}
+                    <ShieldCheck className="h-2.5 w-2.5" /> Verified
                   </div>
                 </div>
               )}
