@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "参加者ポータル" },
+  "brand": {
+    "portal": "参加者ポータル"
+  },
   "nav": {
     "overview": "概要",
     "stakingPlan": "ステーキングプラン",
@@ -9,6 +11,8 @@
     "creditConversionStatement": "クレジット変換明細書",
     "usdStatement": "USD明細書",
     "rewardsStatement": "報酬明細書",
+    "deposit": "入金",
+    "withdrawal": "出金",
     "usdCreditsTransfer": "USDとクレジットの送金",
     "convertCredits": "クレジット変換",
     "transferUsd": "USD送金",
@@ -41,7 +45,9 @@
     "network": "ネットワーク",
     "logout": "ログアウト"
   },
-  "language": { "switch": "言語を切り替え" },
+  "language": {
+    "switch": "言語を切り替え"
+  },
   "common": {
     "submit": "送信",
     "cancel": "キャンセル",
@@ -82,23 +88,750 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "資金 · 入金", "title": "入金", "description": "最低10 USDT BEP20を入金する必要があります。" },
-    "withdrawal": { "eyebrow": "資金 · 出金", "title": "出金", "description": "確認済みの銀行口座への出金をリクエストしてください。通常1〜2営業日以内に到着します。" },
-    "promotion": { "eyebrow": "資金 · ボーナス", "title": "プロモーション", "description": "対象入金向けの期間限定ファウンダーズプロモーション。" },
-    "qna": { "eyebrow": "知識テスト", "title": "教育", "description": "10問中7問正解で合格。何度でも再受験できます。" },
-    "participation": { "eyebrow": "プログラム", "title": "ステーキング", "description": "会社のプログラム全体でアクティブなステーキングを追跡。" },
-    "transactions": { "eyebrow": "元帳", "title": "取引", "description": "入金、取引、出金の完全な履歴。" },
-    "support": { "eyebrow": "コンシェルジュ", "title": "サポート", "description": "プライベートチケットを開いてください。チームが迅速に対応します。" },
-    "usdStatement": { "eyebrow": "明細書", "title": "USD明細書", "description": "USDアカウント活動の概要。" },
-    "network": { "eyebrow": "関係", "title": "ネットワーク", "description": "信頼できるアドバイザー、カストディアン、パートナーのサークル。" },
-    "holdings": { "eyebrow": "ポートフォリオ", "title": "ポートフォリオ概要", "description": "アクティブなステーキングの概要。" },
-    "transferUsd": { "eyebrow": "USDウォレット", "title": "USD送金", "description": "他のメンバーのアカウントにUSDを送金。" },
-    "rewardsStatement": { "eyebrow": "明細書", "title": "報酬明細書", "description": "報酬活動の概要。" },
-    "documents": { "eyebrow": "ライブラリ", "title": "ドキュメントと明細書", "description": "明細書、税務書類、法的契約。" },
-    "creditConversionStatement": { "eyebrow": "明細書", "title": "クレジット変換明細書", "description": "クレジット変換履歴と残高を確認。" },
-    "stakingPlans": { "eyebrow": "ステーキング", "title": "ステーキングプラン", "description": "目標に合ったステーキングティアを選択。" },
-    "convertCredits": { "eyebrow": "明細書", "title": "クレジット変換", "description": "残高間でクレジットを変換。" },
-    "referral": { "eyebrow": "ネットワーク · 招待", "title": "紹介", "description": "適格な投資家を招待。資金口座ごとにリベートを獲得。" },
-    "reports": { "eyebrow": "厳選", "title": "四半期レポート", "description": "アドバイザリーチームが作成した手紙と分析。" }
+    "deposit": {
+      "eyebrow": "資金 · 入金",
+      "title": "入金",
+      "description": "最低10 USDT BEP20を入金する必要があります。",
+      "toast": {
+        "addressCopied": "アドレスをコピーしました",
+        "copied": "コピーしました",
+        "referenceCopied": "リファレンスをコピーしました",
+        "hashCopied": "ハッシュをコピーしました"
+      },
+      "importantReminder": {
+        "title": "重要なリマインダー",
+        "sendOnly": "送金は必ず ",
+        "viaThe": " ネットワーク経由で ",
+        "networkSuffix": " を使用してください。",
+        "otherTokens": "他のトークンやネットワークを使用した場合、資金は",
+        "permanentLoss": "永久に失われます",
+        "confirmation": "入金はオンチェーン確認後（通常1〜3分）に反映されます。"
+      },
+      "qr": {
+        "alt": "入金用QRコード",
+        "empty": "QRコードがアップロードされていません"
+      },
+      "address": {
+        "label": "入金アドレス",
+        "empty": "アドレスが設定されていません。編集から設定してください。",
+        "copyAria": "アドレスをコピー"
+      },
+      "filter": {
+        "title": "トランザクションの絞り込み",
+        "date": "日付",
+        "reference": "リファレンス番号",
+        "refPlaceholder": "TXN…",
+        "hash": "トランザクションハッシュ",
+        "hashPlaceholder": "0x…",
+        "showing": "表示中: ",
+        "of": " / ",
+        "records": " 件",
+        "reset": "リセット",
+        "apply": "フィルターを適用"
+      },
+      "history": {
+        "title": "入金履歴",
+        "live": "ライブ"
+      },
+      "tableHeaders": {
+        "date": "日付",
+        "reference": "リファレンス番号",
+        "hash": "トランザクションハッシュ"
+      },
+      "empty": {
+        "title": "入金が見つかりません",
+        "noDeposits": "確認済みの入金は、受取後にここに表示されます。",
+        "filtered": "フィルターを調整するか、リセットしてすべての記録を表示してください。"
+      }
+    },
+    "withdrawal": {
+      "eyebrow": "資金 · 出金",
+      "title": "出金",
+      "description": "確認済みの銀行口座への出金をリクエストしてください。通常1〜2営業日以内に到着します。",
+      "pageDescription": "USDTを保存済みのBEP20ウォレットアドレスに出金します。",
+      "importantReminder": {
+        "title": "重要なリマインダー",
+        "supportOnly": "出金に対応しているのは、",
+        "viaThe": " ネットワーク経由の ",
+        "networkSuffix": " のみです。",
+        "wrongAddress": "誤ったアドレスやネットワークを使用した場合、資金は",
+        "permanentLoss": "永久に失われます",
+        "processingTime": "リクエストは管理者の承認後に処理されます（通常数分以内）。"
+      },
+      "newRequest": {
+        "title": "新規出金リクエスト",
+        "creditType": "クレジットタイプ *",
+        "walletAddress": "出金先ウォレットアドレス *",
+        "noWallets": "保存済みのウォレットがありません。",
+        "addOneFirst": "最初に追加する →",
+        "selectWallet": "-- 保存済みのウォレットを選択 --",
+        "amount": "金額 *",
+        "minAmount": "最小 {{min}} USDT",
+        "available": "利用可能残高: ",
+        "exceedsBalance": "利用可能残高を超えています",
+        "submit": "出金をリクエスト"
+      },
+      "summary": {
+        "usdCredit": "USD クレジット",
+        "withdrawalAmount": "出金額",
+        "adminFee": "管理手数料 (2%)",
+        "receiveAmount": "受取予定額"
+      },
+      "wallets": {
+        "title": "出金先ウォレット",
+        "subtitle": "保存済みのBEP20アドレス",
+        "addWallet": "ウォレットを追加",
+        "noWalletsTitle": "ウォレットがありません",
+        "noWalletsDesc": "出金を開始するには、BEP20ウォレットを追加してください。"
+      },
+      "tableHeaders": {
+        "date": "日付",
+        "walletName": "ウォレット名",
+        "walletAddress": "ウォレットアドレス",
+        "action": "アクション",
+        "reference": "リファレンス番号",
+        "recipientAddress": "受取先アドレス",
+        "chain": "USDT チェーン",
+        "withdrawalAmt": "出金額",
+        "adminFee": "管理手数料",
+        "receiveAmount": "受取予定額",
+        "status": "ステータス",
+        "remark": "備考",
+        "hash": "トランザクションハッシュ"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "filter": {
+        "recipientAddress": "受取先アドレス",
+        "status": "ステータス",
+        "statusAll": "すべて",
+        "statusPending": "保留中",
+        "statusProcessing": "処理中",
+        "statusCompleted": "完了",
+        "statusRejected": "拒否"
+      },
+      "history": {
+        "title": "出金履歴",
+        "subtitle": "すべてのリクエスト",
+        "exportExcel": "Excelをエクスポート"
+      },
+      "empty": {
+        "title": "出金が見つかりません",
+        "noRequests": "出金リクエストはここに表示されます。",
+        "filtered": "フィルターを調整してください。"
+      },
+      "dialog": {
+        "editWallet": "ウォレットを編集",
+        "addWallet": "新規ウォレットを追加",
+        "walletDesc": "USDT BEP20出金アドレス。",
+        "walletName": "ウォレット名 *",
+        "walletNamePlaceholder": "例: 個人用",
+        "walletAddress": "ウォレットアドレス *",
+        "walletAddressHint": "0xで始まる42文字の有効なBEP20アドレスを指定してください。",
+        "saving": "保存中…",
+        "update": "更新"
+      },
+      "confirm": {
+        "title": "出金の確認",
+        "desc": "送信する前に詳細を確認してください。",
+        "wallet": "ウォレット",
+        "address": "アドレス",
+        "chain": "チェーン",
+        "amount": "金額",
+        "adminFee": "管理手数料",
+        "receiveAmount": "受取予定額",
+        "submitting": "送信中…",
+        "confirmBtn": "確認",
+        "deleteWallet": "ウォレット \"{{name}}\" を削除しますか？"
+      },
+      "toast": {
+        "walletNameRequired": "ウォレット名は必須です",
+        "invalidAddress": "無効なウォレットアドレスです（0xから始まる42文字である必要があります）",
+        "walletUpdated": "ウォレットを更新しました",
+        "walletAdded": "ウォレットを追加しました",
+        "walletDeleted": "ウォレットを削除しました",
+        "selectWallet": "ウォレットを選択してください",
+        "invalidAmount": "無効な金額です",
+        "requestSubmitted": "出金リクエストを送信しました",
+        "noRecordsExport": "エクスポートするデータがありません",
+        "excelExported": "Excelにエクスポートしました"
+      }
+    },
+    "promotion": {
+      "eyebrow": "資金 · ボーナス",
+      "title": "プロモーション",
+      "description": "対象入金向けの期間限定ファウンダーズプロモーション。",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Naslab トルコ・オープニングイベント",
+          "subtitle": "ローンチイベント"
+        },
+        "rankingIncentive": {
+          "title": "RCB、TCB、コミュニティランキングインセンティブ",
+          "subtitle": "ランキング報酬"
+        }
+      },
+      "viewDetails": "詳細を見る"
+    },
+    "qna": {
+      "eyebrow": "知識テスト",
+      "title": "教育",
+      "description": "10問中7問正解で合格。何度でも再受験できます。"
+    },
+    "participation": {
+      "eyebrow": "プログラム",
+      "title": "ステーキング",
+      "description": "会社のプログラム全体でアクティブなステーキングを追跡。"
+    },
+    "transactions": {
+      "eyebrow": "元帳",
+      "title": "取引",
+      "description": "入金、取引、出金の完全な履歴。",
+      "history": {
+        "title": "トランザクション履歴"
+      },
+      "tableHeaders": {
+        "type": "タイプ",
+        "asset": "資産",
+        "quantity": "数量",
+        "price": "価格"
+      },
+      "empty": {
+        "noTransactions": "トランザクションはまだありません。"
+      }
+    },
+    "support": {
+      "eyebrow": "コンシェルジュ",
+      "title": "サポート",
+      "description": "プライベートチケットを開いてください。チームが迅速に対応します。",
+      "categories": {
+        "general": "一般",
+        "account": "アカウント",
+        "deposit": "入金",
+        "withdrawal": "出金",
+        "technical": "テクニカル",
+        "other": "その他"
+      },
+      "status": {
+        "open": "オープン",
+        "pending": "保留中",
+        "resolved": "解決済み",
+        "closed": "クローズ"
+      },
+      "toast": {
+        "created": "サポートチケットを作成しました",
+        "fileSizeExceeded": "一部のファイルが2MBを超えていたためスキップされました。"
+      },
+      "filter": {
+        "title": "フィルター",
+        "ticketNumber": "チケット番号",
+        "category": "カテゴリー",
+        "apply": "フィルターを適用"
+      },
+      "list": {
+        "title": "サポートチケット一覧",
+        "newTicket": "新規サポートチケット"
+      },
+      "dialog": {
+        "newTicket": "新規サポートチケット",
+        "category": "カテゴリー",
+        "subject": "件名",
+        "message": "メッセージ",
+        "attachments": "添付ファイル",
+        "chooseFile": "ファイルを選択",
+        "noFileChosen": "ファイルが選択されていません",
+        "filesSelected": "{{count}} 個のファイルを選択済み",
+        "removeFile": "ファイルを削除",
+        "fileLimit": "ファイル上限 2MB（JPG/PNG/GIF）、複数ファイルのアップロードが可能",
+        "proceed": "進む",
+        "categoryLabel": "カテゴリー:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "チケット番号",
+        "category": "カテゴリー",
+        "subject": "件名"
+      },
+      "empty": {
+        "noTickets": "チケットが見つかりません。"
+      },
+      "actions": {
+        "view": "表示"
+      }
+    },
+    "usdStatement": {
+      "eyebrow": "明細書",
+      "title": "USD明細書",
+      "description": "USDアカウント活動の概要。",
+      "tableHeaders": {
+        "txId": "トランザクション ID",
+        "type": "トランザクションタイプ",
+        "credit": "入金",
+        "debit": "出金",
+        "remarks": "備考"
+      }
+    },
+    "network": {
+      "eyebrow": "関係",
+      "title": "ネットワーク",
+      "description": "信頼できるアドバイザー、カストディアン、パートナーのサークル。",
+      "verificationRequired": "認証が必要です",
+      "unlockTitle": "マーケティングプランのクイズに合格してネットワークのロックを解除する",
+      "unlockDescription": "チーム構築の前にすべてのメンバーがマーケティングプランを完全に理解できるよう、クイズに1回合格するまでネットワーク表示は保護されます。合格後は永久にアクセス可能です。",
+      "steps": {
+        "takeQuiz": "マーケティングプランのクイズに回答する",
+        "score": "10点中7点以上で合格",
+        "unlock": "ネットワークが即座にロック解除されます"
+      },
+      "actions": {
+        "takeQuiz": "マーケティングプランのクイズに回答"
+      },
+      "empty": {
+        "noTeam": "あなたの専属チームは間もなくここに表示されます。"
+      }
+    },
+    "holdings": {
+      "eyebrow": "ポートフォリオ",
+      "title": "ポートフォリオ概要",
+      "description": "アクティブなステーキングの概要。",
+      "totalStakingAmount": "ステーキング総額",
+      "stakingDays": "ステーキング日数",
+      "tableHeaders": {
+        "date": "日付",
+        "stakingPlan": "ステーキングプラン",
+        "stakingDate": "ステーキング日",
+        "stakingAmount": "ステーキング額",
+        "minMonthlyRate": "最小月利",
+        "maxMonthlyRate": "最大月利",
+        "status": "ステータス"
+      },
+      "empty": {
+        "noStakingPlan": "ステーキングプランはまだありません。"
+      },
+      "refund": {
+        "button": "全額返金をリクエスト",
+        "title": "全額返金をリクエスト",
+        "description": "全額返金をリクエストしてもよろしいですか？弊社の担当チームがリクエストを確認し、追ってご連絡いたします。",
+        "confirm": "リクエストを確定",
+        "submitted": "返金リクエストを送信しました"
+      }
+    },
+    "transferUsd": {
+      "eyebrow": "USDウォレット",
+      "title": "USD送金",
+      "description": "他のメンバーのアカウントにUSDを送金。",
+      "toast": {
+        "fillRequired": "必須項目をすべて入力してください",
+        "submitted": "送金リクエストを送信しました"
+      },
+      "details": {
+        "title": "送金詳細"
+      },
+      "form": {
+        "usdTransfer": "USD 送金",
+        "transferTo": "送金先メンバーID",
+        "memberIdPlaceholder": "メンバーIDを入力",
+        "transferAmount": "送金額",
+        "remarks": "備考",
+        "remarksPlaceholder": "任意のメモ"
+      }
+    },
+    "rewardsStatement": {
+      "eyebrow": "明細書",
+      "title": "報酬明細書",
+      "description": "報酬活動の概要。"
+    },
+    "documents": {
+      "eyebrow": "ライブラリ",
+      "title": "ドキュメントと明細書",
+      "description": "明細書、税務書類、法的契約。",
+      "empty": {
+        "noDocuments": "現在利用可能なドキュメントはありません。明細書は発行され次第ここに表示されます。"
+      }
+    },
+    "creditConversionStatement": {
+      "eyebrow": "明細書",
+      "title": "クレジット変換明細書",
+      "description": "クレジット変換履歴と残高を確認。",
+      "tableHeaders": {
+        "date": "日付",
+        "source": "変換元クレジット",
+        "destination": "変換先クレジット",
+        "amount": "変換額",
+        "status": "ステータス"
+      }
+    },
+    "stakingPlans": {
+      "eyebrow": "ステーキング",
+      "title": "ステーキングプラン",
+      "description": "目標に合ったステーキングティアを選択。",
+      "plans": {
+        "standardLite": "スタンダード ライト",
+        "standardPlus": "スタンダード プラス",
+        "standardPro": "スタンダード プロ",
+        "advanceLite": "アドバンス ライト",
+        "advancePlus": "アドバンス プラス",
+        "advancePro": "アドバンス プロ",
+        "premiumLite": "プレミアム ライト",
+        "premiumPlus": "プレミアム プラス",
+        "premiumPro": "プレミアム プロ"
+      },
+      "labels": {
+        "minimumStaking": "最小ステーキング",
+        "monthlyRoi": "月間ROI"
+      }
+    },
+    "convertCredits": {
+      "eyebrow": "明細書",
+      "title": "クレジット変換",
+      "description": "残高間でクレジットを変換。",
+      "usdWallet": "USD ウォレット",
+      "rewardsWallet": "報酬ウォレット",
+      "convertDetails": "変換詳細",
+      "sourceCredit": "変換元クレジット",
+      "rewardsCredit": "報酬クレジット",
+      "destinationCredit": "変換先クレジット",
+      "sourceAmount": "変換元金額"
+    },
+    "referral": {
+      "eyebrow": "ネットワーク · 招待",
+      "title": "紹介",
+      "description": "適格な投資家を招待。資金口座ごとにリベートを獲得。",
+      "yourCode": "あなたのコード",
+      "labels": {
+        "referralCode": "紹介コード",
+        "inviteLink": "招待リンク",
+        "tier": "ティア",
+        "activeReferrals": "アクティブな紹介数",
+        "lifetimeRebate": "ライフタイムリベート"
+      },
+      "tiers": {
+        "gold": "ゴールド"
+      },
+      "programTerms": "プログラム利用規約",
+      "terms": {
+        "rebate": "入金済みの紹介1件につき、初年度管理費の1.0%をリベートします。",
+        "minimum": "資格を得るには、紹介先アカウントが最低要件の$25,000を満たす必要があります。",
+        "settle": "リベートは四半期ごとにポートフォリオの現金残高として決済されます。",
+        "upgrade": "プラチナティアへのアップグレードについては担当アドバイザーにお問い合わせください。"
+      }
+    },
+    "reports": {
+      "eyebrow": "厳選",
+      "title": "四半期レポート",
+      "description": "アドバイザリーチームが作成した手紙と分析。"
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "プロモーションの詳細は近日公開予定です。イベントの全容、資格基準、報酬、タイムラインなどがここに表示されます。"
+        },
+        "rankingIncentive": {
+          "description": "プロモーションの詳細は近日公開予定です。ランキングティア、支払い構造、コミュニティ貢献度の測定方法などがここに表示されます。"
+        }
+      },
+      "progressLabel": "あなたの進捗",
+      "notFound": "プロモーションが見つかりません。",
+      "backToPromotions": "プロモーション一覧に戻る",
+      "details": "詳細",
+      "progressDescription": "このプロモーションにおけるあなたの進捗がここに表示されます。"
+    },
+    "staking": {
+      "activePrograms": "アクティブなプログラム",
+      "empty": {
+        "noStakings": "現在、アクティブなステーキングはありません。新しい機会が利用可能になると、ここに表示されます。"
+      },
+      "tableHeaders": {
+        "package": "パッケージ",
+        "roiStartDate": "ROI開始日",
+        "stakingAmount": "ステーキング額",
+        "roiMin": "最小ROI(%)",
+        "roiMax": "最大ROI(%)"
+      },
+      "status": {
+        "active": "アクティブ"
+      }
+    },
+    "assetAnalysis": {
+      "description": "ポートフォリオのパフォーマンス、配分、およびリスク分析のインサイト。"
+    },
+    "profile": {
+      "title": "プロフィール情報",
+      "description": "個人情報、連絡先、アカウントIDの管理をします。",
+      "verifiedMember": "認証済みメンバー",
+      "memberFallback": "メンバー",
+      "status": "ステータス",
+      "active": "アクティブ",
+      "tier": "ティア",
+      "accountIdentity": {
+        "title": "アカウント認証情報",
+        "subtitle": "読み取り専用の認証済み資格情報"
+      },
+      "memberId": "メンバーID",
+      "emailAddress": "メールアドレス",
+      "personalDetails": {
+        "title": "個人情報",
+        "subtitle": "法的身元と生年月日"
+      },
+      "name": "氏名",
+      "namePlaceholder": "法的フルネーム",
+      "nationalId": "国民ID",
+      "nationalIdPlaceholder": "ID / パスポート番号",
+      "dob": "生年月日",
+      "sponsorId": "スポンサーID",
+      "contact": {
+        "title": "連絡先情報",
+        "subtitle": "ご連絡手段"
+      },
+      "mobilePrefix": "国番号",
+      "mobileNumber": "携帯電話番号",
+      "mobileNumberPlaceholder": "電話番号",
+      "address": {
+        "title": "住所",
+        "subtitle": "居住地"
+      },
+      "country": "国",
+      "region": "地域",
+      "province": "都道府県",
+      "provincePlaceholder": "都道府県 / 州",
+      "city": "市区町村",
+      "addressPlaceholder": "番地・建物名",
+      "auditNotice": "変更は暗号化され、監査ログに記録されます",
+      "saving": "保存中…",
+      "toast": {
+        "error": "プロフィールの保存に失敗しました",
+        "success": "プロフィールを更新しました"
+      },
+      "countries": {
+        "UnitedStates": "アメリカ合衆国",
+        "China": "中国",
+        "Indonesia": "インドネシア",
+        "Iran": "イラン",
+        "SaudiArabia": "サウジアラビア",
+        "Spain": "スペイン",
+        "Germany": "ドイツ",
+        "Turkey": "トルコ"
+      }
+    },
+    "qrCode": {
+      "title": "マイ紹介QRコード",
+      "description": "あなた専用の招待カードです。見込み顧客と共有し、あなたのアカウントの配下に登録してもらいましょう。",
+      "verifiedReferral": "認証済み紹介",
+      "toast": {
+        "linkCopied": "紹介リンクをコピーしました",
+        "idCopied": "メンバーIDをコピーしました",
+        "qrDownloaded": "QRコードをダウンロードしました",
+        "downloadFailed": "ダウンロードに失敗しました"
+      },
+      "share": {
+        "title": "私の紹介で参加する",
+        "text": "私のメンバーID {{memberId}} を使用して登録してください"
+      },
+      "qrAlt": "メンバー {{memberId}} の紹介QRコード",
+      "scanToRegister": "スキャンしてこのアドバイザーの配下に登録",
+      "referralLink": "紹介リンク",
+      "copyLink": "リンクをコピー",
+      "downloadQr": "QRをダウンロード",
+      "shareBtn": "共有",
+      "copyMemberId": "メンバーIDをコピー",
+      "howItWorks": "仕組み",
+      "steps": {
+        "1": "クライアントにQRコードまたは紹介リンクを送信します。",
+        "2": "クライアントがそれをスキャンまたはクリックすると、あなたのメンバタグが事前入力された登録ページにアクセスします。",
+        "3": "サインアップが完了すると、彼らはあなたのネットワークに永久にリンクされます。"
+      }
+    },
+    "walletEdit": {
+      "title": "ウォレットの編集",
+      "description": "残高、入金ネットワーク、アドレス、QRコードを更新します。",
+      "balances": {
+        "title": "残高",
+        "usdWallet": "USD ウォレット",
+        "rewardsWallet": "報酬ウォレット",
+        "stakingAmount": "ステーキング額"
+      },
+      "actions": {
+        "saving": "保存中…",
+        "saveBalances": "残高を保存",
+        "uploading": "アップロード中…",
+        "replaceQr": "QRを置換",
+        "uploadQr": "QRをアップロード",
+        "saveDepositSettings": "入金設定を保存",
+        "parsing": "解析中…",
+        "uploadDocx": ".docxをアップロード",
+        "clearCompany": "会社情報をクリア",
+        "clearMarketing": "マーケティング情報をクリア"
+      },
+      "toast": {
+        "walletUpdated": "ウォレットを更新しました",
+        "qrUploaded": "QRをアップロードしました",
+        "depositSettingsSaved": "入金設定を保存しました",
+        "noQuestions": "質問が検出されませんでした。形式を確認してください（以下のヒントを参照）。",
+        "importedQuestions": "{{count}} 個の質問をインポートしました",
+        "failedToImport": "インポートに失敗しました",
+        "cleared": "クリアしました"
+      },
+      "depositSettings": {
+        "title": "入金設定",
+        "network": "ネットワーク",
+        "networkLabel": "ネットワークラベル",
+        "walletAddress": "ウォレットアドレス",
+        "qrCode": "QRコード",
+        "qrPreviewAlt": "QR プレビュー"
+      },
+      "quiz": {
+        "title": "Q&A 質問バンク",
+        "description": "多肢選択式の質問を含む .docx ファイルをアップロードします。クライアントがテストを受けるたびに、システムがランダムに10問を選択します。",
+        "company": "会社: ",
+        "marketing": "マーケティング: ",
+        "expectedFormat": "想定される .docx 形式",
+        "hint": {
+          "part1": "カテゴリを切り替えるには、 ",
+          "part2": " または ",
+          "part3": " のヘッダーを使用します。質問は数字で始まり、選択肢には ",
+          "part4": " / ",
+          "part5": " 等を使用し、正解の文字には ",
+          "part6": " でマークを付けます。"
+        }
+      },
+      "confirm": {
+        "deleteCategory": "アップロードした「{{category}}」のすべての質問を削除しますか？"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "ステーキング・トランザクション",
+      "tableHeaders": {
+        "transactionNumber": "トランザクション番号",
+        "amount": "金額",
+        "stakingPlan": "ステーキングプラン"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "紹介報酬トランザクション",
+      "tableHeaders": {
+        "referralRate": "紹介レート"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "チーム報酬レポート",
+      "tableHeaders": {
+        "date": "日付",
+        "memberId": "メンバーID",
+        "level": "レベル",
+        "divisionRoi": "部門ROI",
+        "rate": "レート",
+        "amount": "金額"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "リーダー報酬トランザクション",
+      "tableHeaders": {
+        "contributedBy": "貢献メンバーID",
+        "totalSubscriptionCount": "合計サブスクリプション数"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Par Rank 報酬トランザクション",
+      "tableHeaders": {
+        "rank": "ランク"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "ダッシュボード",
+      "holdings": "保有資産",
+      "stakingPlans": "ステーキングプラン",
+      "rewards": "報酬",
+      "creditConversion": "クレジット変換",
+      "referral": "紹介",
+      "promotion": "プロモーション",
+      "stakingRewards": "ステーキング報酬",
+      "quiz": "クイズ",
+      "qrCode": "QRコード"
+    },
+    "groups": {
+      "wallet": "ウォレット",
+      "funds": "資金",
+      "learn": "学習"
+    },
+    "searchPortal": "ポータルを検索...",
+    "typeToNavigate": "コマンドを入力または検索...",
+    "empty": {
+      "noResults": "結果が見つかりません。"
+    }
+  },
+  "fab": {
+    "searchLabel": "検索"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "総資産 (USD)",
+      "labels": {
+        "staking": "ステーキング",
+        "usd": "USD",
+        "rewardsAsset": "報酬資産"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "1月",
+        "february": "2月",
+        "march": "3月",
+        "april": "4月",
+        "may": "5月",
+        "june": "6月",
+        "july": "7月",
+        "august": "8月",
+        "september": "9月",
+        "october": "10月",
+        "november": "11月",
+        "december": "12月"
+      },
+      "monthsShort": {
+        "jan": "1月",
+        "feb": "2月",
+        "mar": "3月",
+        "apr": "4月",
+        "may": "5月",
+        "jun": "6月",
+        "jul": "7月",
+        "aug": "8月",
+        "sep": "9月",
+        "oct": "10月",
+        "nov": "11月",
+        "dec": "12月"
+      },
+      "weekdaysShort": {
+        "sun": "日",
+        "mon": "月",
+        "tue": "火",
+        "wed": "水",
+        "thu": "木",
+        "fri": "金",
+        "sat": "土"
+      },
+      "title": "P&Lカレンダー",
+      "view": {
+        "list": "リスト",
+        "calendar": "カレンダー"
+      },
+      "filters": {
+        "month": "月",
+        "year": "年"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "リターン"
+      },
+      "empty": {
+        "noData": "データなし"
+      },
+      "status": {
+        "profit": "利益",
+        "loss": "損失"
+      }
+    }
   }
 }

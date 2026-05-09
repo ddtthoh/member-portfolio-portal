@@ -1,23 +1,40 @@
 {
-  "brand": { "portal": "参与者门户" },
+  "brand": {
+    "portal": "参与者门户"
+  },
   "nav": {
     "overview": "总览",
     "stakingPlan": "参与计划",
     "portfolio": "投资组合",
+    "assetAnalysis": "资产分析",
     "statement": "账单",
     "creditConversionStatement": "积分兑换账单",
     "usdStatement": "美元账单",
     "rewardsStatement": "奖励账单",
+    "deposit": "充值",
+    "withdrawal": "提现",
     "usdCreditsTransfer": "美元与积分转账",
     "convertCredits": "兑换积分",
     "transferUsd": "转账美元",
     "transactions": "交易记录",
     "documents": "文件",
     "reports": "报告",
+    "reportsParticipation": "质押",
+    "reportsReferral": "推荐奖励",
+    "reportsTeam": "团队奖励",
+    "reportsLeader": "领导者奖励",
+    "reportsParRank": "平级奖励",
     "network": "网络",
     "qna": "教育",
+    "qnaCompany": "公司",
+    "qnaMarketing": "营销计划",
     "support": "客户支持",
-    "signOut": "退出"
+    "signOut": "退出",
+    "sections": {
+      "overview": "概览",
+      "operations": "操作",
+      "support": "账户与支持"
+    }
   },
   "account": {
     "label": "账户",
@@ -28,7 +45,9 @@
     "network": "网络",
     "logout": "退出登录"
   },
-  "language": { "switch": "切换语言" },
+  "language": {
+    "switch": "切换语言"
+  },
   "common": {
     "submit": "提交",
     "cancel": "取消",
@@ -69,23 +88,750 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "资金 · 入账", "title": "存款", "description": "通过电汇为账户充值。结算通常在1个工作日内完成。" },
-    "withdrawal": { "eyebrow": "资金 · 出账", "title": "提款", "description": "向已验证的银行账户申请提款。资金通常在1-2个工作日内到账。" },
-    "promotion": { "eyebrow": "资金 · 奖励", "title": "推广", "description": "限时创始人优惠,适用于符合条件的存款。" },
-    "qna": { "eyebrow": "知识测试", "title": "教育", "description": "正确回答10道题中的7道即可通过。您可以不限次数地重新测试。" },
-    "participation": { "eyebrow": "计划 · 参与", "title": "参与", "description": "跟踪您在公司各项计划、活动与配置中的参与情况。" },
-    "transactions": { "eyebrow": "账本", "title": "交易记录", "description": "存款、交易和提款的完整历史记录。" },
-    "support": { "eyebrow": "贴身服务", "title": "客户支持", "description": "提交私人工单——我们的礼宾团队将迅速回复。" },
-    "usdStatement": { "eyebrow": "账单", "title": "美元账单", "description": "您的美元账户活动摘要。" },
-    "network": { "eyebrow": "人脉", "title": "网络", "description": "您信赖的顾问、托管方与合作伙伴圈子。" },
-    "holdings": { "eyebrow": "投资组合", "title": "投资组合概览", "description": "您当前活跃质押参与的摘要。" },
-    "transferUsd": { "eyebrow": "美元钱包", "title": "转账美元", "description": "向另一位会员的账户转账美元。" },
-    "rewardsStatement": { "eyebrow": "账单", "title": "奖励账单", "description": "您的奖励活动摘要。" },
-    "documents": { "eyebrow": "资料库", "title": "文件与账单", "description": "您账户上的账单、税务文件与法律合同。" },
-    "creditConversionStatement": { "eyebrow": "账单", "title": "积分兑换账单", "description": "查看您的积分兑换历史与余额。" },
-    "stakingPlans": { "eyebrow": "参与", "title": "参与计划", "description": "选择符合您目标的参与等级。" },
-    "convertCredits": { "eyebrow": "账单", "title": "兑换积分", "description": "在余额之间兑换积分。" },
-    "referral": { "eyebrow": "网络 · 邀请", "title": "推荐", "description": "邀请合格的投资者加入。每个成功入金的账户都可获得结构化返佣。" },
-    "reports": { "eyebrow": "精选", "title": "季度报告", "description": "由您的顾问团队撰写的信函与分析。" }
+    "deposit": {
+      "eyebrow": "资金 · 入账",
+      "title": "存款",
+      "description": "通过电汇为账户充值。结算通常在1个工作日内完成。",
+      "toast": {
+        "addressCopied": "地址已复制",
+        "copied": "已复制",
+        "referenceCopied": "参考号已复制",
+        "hashCopied": "哈希值已复制"
+      },
+      "importantReminder": {
+        "title": "重要提醒",
+        "sendOnly": "请仅发送 ",
+        "viaThe": "，并仅支持 ",
+        "networkSuffix": " 网络。",
+        "otherTokens": "充值其他代币或使用其他网络将导致",
+        "permanentLoss": "永久丢失",
+        "confirmation": "充值将在链上确认后到账（通常需要 1-3 分钟）。"
+      },
+      "qr": {
+        "alt": "充值 QR 码",
+        "empty": "未上传 QR"
+      },
+      "address": {
+        "label": "充值地址",
+        "empty": "尚未设置地址。请使用“编辑”进行配置。",
+        "copyAria": "复制地址"
+      },
+      "filter": {
+        "title": "筛选交易",
+        "date": "日期",
+        "reference": "参考号",
+        "refPlaceholder": "TXN…",
+        "hash": "交易哈希",
+        "hashPlaceholder": "0x…",
+        "showing": "显示 ",
+        "of": " / ",
+        "records": " 条记录",
+        "reset": "重置",
+        "apply": "应用筛选"
+      },
+      "history": {
+        "title": "充值记录",
+        "live": "实时"
+      },
+      "tableHeaders": {
+        "date": "日期",
+        "reference": "参考号",
+        "hash": "交易哈希"
+      },
+      "empty": {
+        "title": "未找到充值记录",
+        "noDeposits": "确认到账后，您的充值将显示在此处。",
+        "filtered": "请尝试调整筛选条件或重置以查看所有记录。"
+      }
+    },
+    "withdrawal": {
+      "eyebrow": "资金 · 出账",
+      "title": "提款",
+      "description": "向已验证的银行账户申请提款。资金通常在1-2个工作日内到账。",
+      "pageDescription": "将 USDT 提现至您保存的 BEP20 钱包地址。",
+      "importantReminder": {
+        "title": "重要提醒",
+        "supportOnly": "提现仅支持 ",
+        "viaThe": "，并仅限使用 ",
+        "networkSuffix": " 网络。",
+        "wrongAddress": "地址或网络错误将导致",
+        "permanentLoss": "永久丢失",
+        "processingTime": "提现请求将在管理员审批后处理 — 通常在几分钟内完成。"
+      },
+      "newRequest": {
+        "title": "新建提现请求",
+        "creditType": "资金类型 *",
+        "walletAddress": "提现钱包地址 *",
+        "noWallets": "尚未保存钱包。",
+        "addOneFirst": "请先添加一个 →",
+        "selectWallet": "-- 选择已保存的钱包 --",
+        "amount": "金额 *",
+        "minAmount": "最低 {{min}} USDT",
+        "available": "可用余额：",
+        "exceedsBalance": "超出可用余额",
+        "submit": "提交提现请求"
+      },
+      "summary": {
+        "usdCredit": "USD 余额",
+        "withdrawalAmount": "提现金额",
+        "adminFee": "管理费 (2%)",
+        "receiveAmount": "实际到账"
+      },
+      "wallets": {
+        "title": "提现钱包",
+        "subtitle": "已保存的 BEP20 地址",
+        "addWallet": "添加钱包",
+        "noWalletsTitle": "暂无钱包",
+        "noWalletsDesc": "添加一个 BEP20 钱包以开始提现。"
+      },
+      "tableHeaders": {
+        "date": "日期",
+        "walletName": "钱包名称",
+        "walletAddress": "钱包地址",
+        "action": "操作",
+        "reference": "参考号",
+        "recipientAddress": "收款地址",
+        "chain": "USDT 链",
+        "withdrawalAmt": "提现金额",
+        "adminFee": "管理费",
+        "receiveAmount": "实际到账",
+        "status": "状态",
+        "remark": "备注",
+        "hash": "交易哈希"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "filter": {
+        "recipientAddress": "收款地址",
+        "status": "状态",
+        "statusAll": "全部",
+        "statusPending": "待处理",
+        "statusProcessing": "处理中",
+        "statusCompleted": "已完成",
+        "statusRejected": "已拒绝"
+      },
+      "history": {
+        "title": "提现记录",
+        "subtitle": "所有请求",
+        "exportExcel": "导出 Excel"
+      },
+      "empty": {
+        "title": "未找到提现记录",
+        "noRequests": "您的提现请求将显示在此处。",
+        "filtered": "请尝试调整您的筛选条件。"
+      },
+      "dialog": {
+        "editWallet": "编辑钱包",
+        "addWallet": "添加新钱包",
+        "walletDesc": "USDT BEP20 提现地址。",
+        "walletName": "钱包名称 *",
+        "walletNamePlaceholder": "例如：个人钱包",
+        "walletAddress": "钱包地址 *",
+        "walletAddressHint": "必须是以 0x 开头的有效 BEP20 地址。",
+        "saving": "保存中…",
+        "update": "更新"
+      },
+      "confirm": {
+        "title": "确认提现",
+        "desc": "请在提交前仔细核对详情。",
+        "wallet": "钱包",
+        "address": "地址",
+        "chain": "网络",
+        "amount": "金额",
+        "adminFee": "管理费",
+        "receiveAmount": "实际到账",
+        "submitting": "提交中…",
+        "confirmBtn": "确认",
+        "deleteWallet": "是否删除钱包 \"{{name}}\"？"
+      },
+      "toast": {
+        "walletNameRequired": "必须填写钱包名称",
+        "invalidAddress": "无效的钱包地址（必须以 0x 开头且为 42 个字符）",
+        "walletUpdated": "钱包已更新",
+        "walletAdded": "钱包已添加",
+        "walletDeleted": "钱包已删除",
+        "selectWallet": "请选择一个钱包",
+        "invalidAmount": "无效的金额",
+        "requestSubmitted": "提现请求已提交",
+        "noRecordsExport": "没有可导出的记录",
+        "excelExported": "已导出 Excel"
+      }
+    },
+    "promotion": {
+      "eyebrow": "资金 · 奖励",
+      "title": "推广",
+      "description": "限时创始人优惠,适用于符合条件的存款。",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Naslab 土耳其开业活动",
+          "subtitle": "发布会活动"
+        },
+        "rankingIncentive": {
+          "title": "RCB、TCB、社区排名奖励",
+          "subtitle": "排名奖励"
+        }
+      },
+      "viewDetails": "查看详情"
+    },
+    "qna": {
+      "eyebrow": "知识测试",
+      "title": "教育",
+      "description": "正确回答10道题中的7道即可通过。您可以不限次数地重新测试。"
+    },
+    "participation": {
+      "eyebrow": "计划 · 参与",
+      "title": "参与",
+      "description": "跟踪您在公司各项计划、活动与配置中的参与情况。"
+    },
+    "transactions": {
+      "eyebrow": "账本",
+      "title": "交易记录",
+      "description": "存款、交易和提款的完整历史记录。",
+      "history": {
+        "title": "交易记录"
+      },
+      "tableHeaders": {
+        "type": "类型",
+        "asset": "资产",
+        "quantity": "数量",
+        "price": "价格"
+      },
+      "empty": {
+        "noTransactions": "暂无交易记录。"
+      }
+    },
+    "support": {
+      "eyebrow": "贴身服务",
+      "title": "客户支持",
+      "description": "提交私人工单——我们的礼宾团队将迅速回复。",
+      "categories": {
+        "general": "常规问题",
+        "account": "账户问题",
+        "deposit": "充值问题",
+        "withdrawal": "提现问题",
+        "technical": "技术支持",
+        "other": "其他"
+      },
+      "status": {
+        "open": "已开启",
+        "pending": "处理中",
+        "resolved": "已解决",
+        "closed": "已关闭"
+      },
+      "toast": {
+        "created": "支持工单已创建",
+        "fileSizeExceeded": "部分文件超过 2MB，已被跳过。"
+      },
+      "filter": {
+        "title": "筛选",
+        "ticketNumber": "工单号",
+        "category": "类别",
+        "apply": "筛选"
+      },
+      "list": {
+        "title": "支持工单列表",
+        "newTicket": "新建工单"
+      },
+      "dialog": {
+        "newTicket": "新建支持工单",
+        "category": "类别",
+        "subject": "主题",
+        "message": "内容",
+        "attachments": "附件",
+        "chooseFile": "选择文件",
+        "noFileChosen": "未选择文件",
+        "filesSelected": "已选择 {{count}} 个文件{{s}}",
+        "removeFile": "移除文件",
+        "fileLimit": "文件大小限制为 2MB，格式为 Jpg/png/gif，可上传多个文件",
+        "proceed": "继续",
+        "categoryLabel": "类别："
+      },
+      "tableHeaders": {
+        "ticketNumber": "工单号",
+        "category": "类别",
+        "subject": "主题"
+      },
+      "empty": {
+        "noTickets": "未找到工单。"
+      },
+      "actions": {
+        "view": "查看"
+      }
+    },
+    "usdStatement": {
+      "eyebrow": "账单",
+      "title": "美元账单",
+      "description": "您的美元账户活动摘要。",
+      "tableHeaders": {
+        "txId": "交易 ID",
+        "type": "交易类型",
+        "credit": "入账",
+        "debit": "出账",
+        "remarks": "备注"
+      }
+    },
+    "network": {
+      "eyebrow": "人脉",
+      "title": "网络",
+      "description": "您信赖的顾问、托管方与合作伙伴圈子。",
+      "verificationRequired": "需要进行验证",
+      "unlockTitle": "完成营销计划测验以解锁您的网络视图",
+      "unlockDescription": "为确保每位成员在组建团队前能够充分了解营销计划，在您通过测验前，网络视图将被锁定。测验通过后即可永久访问。",
+      "steps": {
+        "takeQuiz": "参加营销计划测验",
+        "score": "得分达到 7/10 即可通过",
+        "unlock": "网络视图立即解锁"
+      },
+      "actions": {
+        "takeQuiz": "开始营销计划测验"
+      },
+      "empty": {
+        "noTeam": "您的专属团队即将在此处显示。"
+      }
+    },
+    "holdings": {
+      "eyebrow": "投资组合",
+      "title": "投资组合概览",
+      "description": "您当前活跃质押参与的摘要。",
+      "totalStakingAmount": "总质押金额",
+      "stakingDays": "质押天数",
+      "tableHeaders": {
+        "date": "日期",
+        "stakingPlan": "质押计划",
+        "stakingDate": "质押日期",
+        "stakingAmount": "质押金额",
+        "minMonthlyRate": "最低月化收益率",
+        "maxMonthlyRate": "最高月化收益率",
+        "status": "状态"
+      },
+      "empty": {
+        "noStakingPlan": "暂无质押计划。"
+      },
+      "refund": {
+        "button": "申请全额退款",
+        "title": "申请全额退款",
+        "description": "您确定要申请全额退款吗？我们的团队将审核您的请求并尽快与您联系。",
+        "confirm": "确认申请",
+        "submitted": "退款申请已提交"
+      }
+    },
+    "transferUsd": {
+      "eyebrow": "美元钱包",
+      "title": "转账美元",
+      "description": "向另一位会员的账户转账美元。",
+      "toast": {
+        "fillRequired": "请填写所有必填项",
+        "submitted": "转账请求已提交"
+      },
+      "details": {
+        "title": "转账详情"
+      },
+      "form": {
+        "usdTransfer": "USD 转账",
+        "transferTo": "转账至会员 ID",
+        "memberIdPlaceholder": "输入会员 ID",
+        "transferAmount": "转账金额",
+        "remarks": "备注",
+        "remarksPlaceholder": "选填备注"
+      }
+    },
+    "rewardsStatement": {
+      "eyebrow": "账单",
+      "title": "奖励账单",
+      "description": "您的奖励活动摘要。"
+    },
+    "documents": {
+      "eyebrow": "资料库",
+      "title": "文件与账单",
+      "description": "您账户上的账单、税务文件与法律合同。",
+      "empty": {
+        "noDocuments": "暂无可用文件。您的对账单生成后将在此处显示。"
+      }
+    },
+    "creditConversionStatement": {
+      "eyebrow": "账单",
+      "title": "积分兑换账单",
+      "description": "查看您的积分兑换历史与余额。",
+      "tableHeaders": {
+        "date": "日期",
+        "source": "兑出资金",
+        "destination": "兑入资金",
+        "amount": "转换金额",
+        "status": "状态"
+      }
+    },
+    "stakingPlans": {
+      "eyebrow": "参与",
+      "title": "参与计划",
+      "description": "选择符合您目标的参与等级。",
+      "plans": {
+        "standardLite": "标准 Lite",
+        "standardPlus": "标准 Plus",
+        "standardPro": "标准 Pro",
+        "advanceLite": "进阶 Lite",
+        "advancePlus": "进阶 Plus",
+        "advancePro": "进阶 Pro",
+        "premiumLite": "高级 Lite",
+        "premiumPlus": "高级 Plus",
+        "premiumPro": "高级 Pro"
+      },
+      "labels": {
+        "minimumStaking": "最低质押金额",
+        "monthlyRoi": "月均收益率 (ROI)"
+      }
+    },
+    "convertCredits": {
+      "eyebrow": "账单",
+      "title": "兑换积分",
+      "description": "在余额之间兑换积分。",
+      "usdWallet": "USD 钱包",
+      "rewardsWallet": "奖励钱包",
+      "convertDetails": "转换详情",
+      "sourceCredit": "兑出资金",
+      "rewardsCredit": "奖励资金",
+      "destinationCredit": "兑入资金",
+      "sourceAmount": "兑出金额"
+    },
+    "referral": {
+      "eyebrow": "网络 · 邀请",
+      "title": "推荐",
+      "description": "邀请合格的投资者加入。每个成功入金的账户都可获得结构化返佣。",
+      "yourCode": "您的邀请码",
+      "labels": {
+        "referralCode": "邀请码",
+        "inviteLink": "邀请链接",
+        "tier": "等级",
+        "activeReferrals": "活跃推荐人数",
+        "lifetimeRebate": "终身返佣"
+      },
+      "tiers": {
+        "gold": "黄金级别"
+      },
+      "programTerms": "计划条款",
+      "terms": {
+        "rebate": "每个成功入金的推荐账户，您可获得首年管理费的 1.0% 返佣。",
+        "minimum": "被推荐人的账户余额必须达到最低 25,000 美元方可符合资格。",
+        "settle": "返佣将按季度结算至您的投资组合现金余额中。",
+        "upgrade": "请联系您的专属顾问申请升级至白金 (Platinum) 级别。"
+      }
+    },
+    "reports": {
+      "eyebrow": "精选",
+      "title": "季度报告",
+      "description": "由您的顾问团队撰写的信函与分析。"
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "促销详情即将公布。此处将更新完整的活动说明、符合资格标准、奖励及时间表。"
+        },
+        "rankingIncentive": {
+          "description": "促销详情即将公布。此处将更新排名层级、奖励发放机制建议及社区贡献度的衡量方式。"
+        }
+      },
+      "progressLabel": "您的进度",
+      "notFound": "未找到相关活动。",
+      "backToPromotions": "返回活动",
+      "details": "详情",
+      "progressDescription": "您在此活动中的进度将显示于此。"
+    },
+    "staking": {
+      "activePrograms": "活跃项目",
+      "empty": {
+        "noStakings": "您目前没有活跃的质押项目。当有新机遇时将在此处显示。"
+      },
+      "tableHeaders": {
+        "package": "套餐",
+        "roiStartDate": "收益起算日",
+        "stakingAmount": "质押金额",
+        "roiMin": "最低收益率 %",
+        "roiMax": "最高收益率 %"
+      },
+      "status": {
+        "active": "活跃"
+      }
+    },
+    "assetAnalysis": {
+      "description": "为您提供投资组合的业绩、资产配置及风险洞察。"
+    },
+    "profile": {
+      "title": "个人资料",
+      "description": "管理您的个人信息、联系方式及账户身份。",
+      "verifiedMember": "已验证会员",
+      "memberFallback": "会员",
+      "status": "状态",
+      "active": "活跃",
+      "tier": "等级",
+      "accountIdentity": {
+        "title": "账户身份",
+        "subtitle": "只读的已验证凭证"
+      },
+      "memberId": "会员 ID",
+      "emailAddress": "邮箱地址",
+      "personalDetails": {
+        "title": "个人信息",
+        "subtitle": "您的法定全名和出生日期"
+      },
+      "name": "姓名",
+      "namePlaceholder": "法定全名",
+      "nationalId": "身份证/护照号",
+      "nationalIdPlaceholder": "身份证/护照号码",
+      "dob": "出生日期",
+      "sponsorId": "推荐人 ID",
+      "contact": {
+        "title": "联系方式",
+        "subtitle": "我们如何联系到您"
+      },
+      "mobilePrefix": "区号",
+      "mobileNumber": "手机号码",
+      "mobileNumberPlaceholder": "手机号码",
+      "address": {
+        "title": "地址",
+        "subtitle": "常住地信息"
+      },
+      "country": "国家/地区",
+      "region": "地区",
+      "province": "省/州",
+      "provincePlaceholder": "省 / 州",
+      "city": "城市",
+      "addressPlaceholder": "详细地址",
+      "auditNotice": "更改将被加密并记录审计日志",
+      "saving": "保存中…",
+      "toast": {
+        "error": "保存资料失败",
+        "success": "资料已更新"
+      },
+      "countries": {
+        "UnitedStates": "美国",
+        "China": "中国",
+        "Indonesia": "印度尼西亚",
+        "Iran": "伊朗",
+        "SaudiArabia": "沙特阿拉伯",
+        "Spain": "西班牙",
+        "Germany": "德国",
+        "Turkey": "土耳其"
+      }
+    },
+    "qrCode": {
+      "title": "我的邀请 QR 码",
+      "description": "您的专属邀请名片。与意向客户分享，即可将他们注册至您的名下。",
+      "verifiedReferral": "实名推荐人",
+      "toast": {
+        "linkCopied": "邀请链接已复制",
+        "idCopied": "会员 ID 已复制",
+        "qrDownloaded": "QR 码已下载",
+        "downloadFailed": "下载失败"
+      },
+      "share": {
+        "title": "通过我的邀请加入",
+        "text": "请使用我的会员 ID {{memberId}} 进行注册"
+      },
+      "qrAlt": "会员 {{memberId}} 的邀请 QR 码",
+      "scanToRegister": "扫描即可注册成为该顾问的客户",
+      "referralLink": "邀请链接",
+      "copyLink": "复制链接",
+      "downloadQr": "下载 QR",
+      "shareBtn": "分享",
+      "copyMemberId": "复制会员 ID",
+      "howItWorks": "操作流程",
+      "steps": {
+        "1": "把您的 QR 码或邀请链接发送给客户。",
+        "2": "客户扫描或点击链接后，将跳转至预填了您的会员代码的注册页面。",
+        "3": "客户完成注册后，将永久绑定在您的网络下。"
+      }
+    },
+    "walletEdit": {
+      "title": "编辑钱包",
+      "description": "更新余额、充值网络、地址及 QR 码。",
+      "balances": {
+        "title": "余额",
+        "usdWallet": "USD 钱包",
+        "rewardsWallet": "奖励钱包",
+        "stakingAmount": "质押金额"
+      },
+      "actions": {
+        "saving": "保存中…",
+        "saveBalances": "保存余额",
+        "uploading": "上传中…",
+        "replaceQr": "更换 QR",
+        "uploadQr": "上传 QR",
+        "saveDepositSettings": "保存充值设置",
+        "parsing": "解析中…",
+        "uploadDocx": "上传 .docx",
+        "clearCompany": "清除公司数据",
+        "clearMarketing": "清除营销数据"
+      },
+      "toast": {
+        "walletUpdated": "钱包已更新",
+        "qrUploaded": "QR 已上传",
+        "depositSettingsSaved": "充值设置已保存",
+        "noQuestions": "未检测到问题。请检查格式（参见下方提示）。",
+        "importedQuestions": "已成功导入 {{count}} 个问题",
+        "failedToImport": "导入失败",
+        "cleared": "已清除"
+      },
+      "depositSettings": {
+        "title": "充值设置",
+        "network": "网络",
+        "networkLabel": "网络标签",
+        "walletAddress": "钱包地址",
+        "qrCode": "QR 码",
+        "qrPreviewAlt": "QR 预览"
+      },
+      "quiz": {
+        "title": "问答题库",
+        "description": "上传包含选择题的 .docx 文件。系统将在客户每次测试时随机抽取 10 道题。",
+        "company": "公司：",
+        "marketing": "营销：",
+        "expectedFormat": "预期的 .docx 格式",
+        "hint": {
+          "part1": "请使用 ",
+          "part2": " 或 ",
+          "part3": " 标题以切换类别。问题需以数字开头，选项请使用 ",
+          "part4": " / ",
+          "part5": " 等，并使用 ",
+          "part6": "标记正确选项。"
+        }
+      },
+      "confirm": {
+        "deleteCategory": "是否确定删除您已上传的所有 {{category}} 问题？"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "质押交易记录",
+      "tableHeaders": {
+        "transactionNumber": "交易编号",
+        "amount": "金额",
+        "stakingPlan": "质押计划"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "直推奖励记录",
+      "tableHeaders": {
+        "referralRate": "推荐比例"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "团队奖励报告",
+      "tableHeaders": {
+        "date": "日期",
+        "memberId": "会员 ID",
+        "level": "层级",
+        "divisionRoi": "团队收益率",
+        "rate": "比例",
+        "amount": "金额"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "领导奖励记录",
+      "tableHeaders": {
+        "contributedBy": "贡献来源 (会员 ID)",
+        "totalSubscriptionCount": "总认购数"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "平级奖励记录",
+      "tableHeaders": {
+        "rank": "职级"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "仪表盘",
+      "holdings": "持仓",
+      "stakingPlans": "质押计划",
+      "rewards": "奖励",
+      "creditConversion": "积分兑换",
+      "referral": "推荐",
+      "promotion": "推广",
+      "stakingRewards": "质押奖励",
+      "quiz": "测验",
+      "qrCode": "QR 码"
+    },
+    "groups": {
+      "wallet": "钱包",
+      "funds": "资金",
+      "learn": "学习"
+    },
+    "searchPortal": "搜索平台...",
+    "typeToNavigate": "输入命令或搜索...",
+    "empty": {
+      "noResults": "未找到结果。"
+    }
+  },
+  "fab": {
+    "searchLabel": "搜索"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "总资产 (USD)",
+      "labels": {
+        "staking": "质押",
+        "usd": "USD",
+        "rewardsAsset": "奖励资产"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "一月",
+        "february": "二月",
+        "march": "三月",
+        "april": "四月",
+        "may": "五月",
+        "june": "六月",
+        "july": "七月",
+        "august": "八月",
+        "september": "九月",
+        "october": "十月",
+        "november": "十一月",
+        "december": "十二月"
+      },
+      "monthsShort": {
+        "jan": "1月",
+        "feb": "2月",
+        "mar": "3月",
+        "apr": "4月",
+        "may": "5月",
+        "jun": "6月",
+        "jul": "7月",
+        "aug": "8月",
+        "sep": "9月",
+        "oct": "10月",
+        "nov": "11月",
+        "dec": "12月"
+      },
+      "weekdaysShort": {
+        "sun": "周日",
+        "mon": "周一",
+        "tue": "周二",
+        "wed": "周三",
+        "thu": "周四",
+        "fri": "周五",
+        "sat": "周六"
+      },
+      "title": "P&L 日历",
+      "view": {
+        "list": "列表",
+        "calendar": "日历"
+      },
+      "filters": {
+        "month": "月份",
+        "year": "年份"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "收益"
+      },
+      "empty": {
+        "noData": "暂无数据"
+      },
+      "status": {
+        "profit": "盈利",
+        "loss": "亏损"
+      }
+    }
   }
 }
