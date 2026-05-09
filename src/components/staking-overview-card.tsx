@@ -80,11 +80,11 @@ export function StakingOverviewCard({
 
       {/* Footnote breakdown */}
       <div className="mt-8 border-t border-border/40 pt-5 sm:mt-10 sm:pt-6">
-        <div className="grid grid-cols-1 gap-y-5 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-0">
+        <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-x-8 divide-y divide-border/40 sm:divide-y-0">
           {cols.map((c) => (
             <div
               key={c.key}
-              className="flex items-baseline justify-between sm:block"
+              className="flex items-baseline justify-between py-4 first:pt-0 last:pb-0 sm:block sm:py-0"
             >
               <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                 {c.label}
