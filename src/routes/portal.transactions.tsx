@@ -60,20 +60,20 @@ function TransactionsPage() {
       />
 
       <SectionCard>
-        <SectionHeader title="Transactions History" />
+        <SectionHeader title={t("pages.transactions.history.title")} />
         <DataTable minWidth={760}>
           <Thead>
-            <Th>Date</Th>
-            <Th>Type</Th>
-            <Th>Asset</Th>
-            <Th align="right">Quantity</Th>
-            <Th align="right">Price</Th>
-            <Th align="right">Amount</Th>
-            <Th align="right">Status</Th>
+            <Th>{t("pages.deposit.tableHeaders.date")}</Th>
+            <Th>{t("pages.transactions.tableHeaders.type")}</Th>
+            <Th>{t("pages.transactions.tableHeaders.asset")}</Th>
+            <Th align="right">{t("pages.transactions.tableHeaders.quantity")}</Th>
+            <Th align="right">{t("pages.transactions.tableHeaders.price")}</Th>
+            <Th align="right">{t("pages.withdrawal.confirm.amount")}</Th>
+            <Th align="right">{t("pages.withdrawal.tableHeaders.status")}</Th>
           </Thead>
           <tbody>
             {rows.length === 0 ? (
-              <EmptyRow colSpan={7}>No transactions yet.</EmptyRow>
+              <EmptyRow colSpan={7}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>
             ) : (
               rows.map((tx) => (
                 <tr key={tx.id} className="border-b border-border/40 last:border-0">

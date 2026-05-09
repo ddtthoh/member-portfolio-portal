@@ -3,6 +3,7 @@ import { ChevronLeft, Gift } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Progress } from "@/components/ui/progress";
+import { useTranslation } from "react-i18next";
 
 type Promo = {
   id: string;
@@ -16,20 +17,20 @@ type Promo = {
 const PROMOTIONS: Record<string, Promo> = {
   "naslab-turkey": {
     id: "naslab-turkey",
-    title: "Naslab Opening Event At Turkey",
-    subtitle: "Launch Event",
+    title: "pages.promotion.promotions.naslabTurkey.title",
+    subtitle: "pages.promotion.promotions.naslabTurkey.subtitle",
     description:
-      "Promotion details coming soon. Update this section with the full event description, qualifying criteria, rewards and timeline.",
-    progressLabel: "Your progress",
+      "pages.promotionDetail.promotions.naslabTurkey.description",
+    progressLabel: "pages.promotionDetail.progressLabel",
     progressValue: 0,
   },
   "rcb-tcb-community-ranking": {
     id: "rcb-tcb-community-ranking",
-    title: "RCB, TCB, Community Ranking Incentive",
-    subtitle: "Ranking Rewards",
+    title: "pages.promotion.promotions.rankingIncentive.title",
+    subtitle: "pages.promotion.promotions.rankingIncentive.subtitle",
     description:
-      "Promotion details coming soon. Update this section with the ranking tiers, payout structure and how community contributions are measured.",
-    progressLabel: "Your progress",
+      "pages.promotionDetail.promotions.rankingIncentive.description",
+    progressLabel: "pages.promotionDetail.progressLabel",
     progressValue: 0,
   },
 };
@@ -41,15 +42,19 @@ export const Route = createFileRoute("/portal/promotion/$promoId")({
     return { promo };
   },
   component: PromotionDetailPage,
-  notFoundComponent: () => (
-    <div className="p-6 text-sm text-muted-foreground">Promotion not found.</div>
-  ),
+  notFoundComponent: () => {
+    const { t } = useTranslation();
+    return (
+      <div className="p-6 text-sm text-muted-foreground">{t("pages.promotionDetail.notFound")}</div>
+    );
+  },
   errorComponent: ({ error }) => (
     <div className="p-6 text-sm text-destructive">{error.message}</div>
   ),
 });
 
 function PromotionDetailPage() {
+  const { t } = useTranslation();
   const { promo } = Route.useLoaderData();
 
   return (
@@ -59,25 +64,25 @@ function PromotionDetailPage() {
         className="mb-3 inline-flex items-center gap-1 text-xs text-gold/70 hover:text-gold"
       >
         <ChevronLeft className="h-3.5 w-3.5" />
-        Back to promotions
+        {t("pages.promotionDetail.backToPromotions")}
       </Link>
 
-      <PageHeader eyebrow={promo.subtitle} title={promo.title} />
+      <PageHeader eyebrow={t(promo.subtitle)} title={t(promo.title)} />
 
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Gift className="h-4 w-4" />
-          <span className="text-[11px] uppercase tracking-[0.2em]">Details</span>
+          <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.promotionDetail.details")}</span>
         </div>
         <p className="text-sm leading-relaxed text-foreground/80">
-          {promo.description}
+          {t(promo.description)}
         </p>
       </SpotlightCard>
 
       <SpotlightCard className="liquid-glass mt-4 rounded-2xl p-6">
         <div className="mb-3 flex items-center justify-between">
           <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
-            {promo.progressLabel}
+            {t(promo.progressLabel)}
           </span>
           <span className="font-sans text-sm text-gold">
             {promo.progressValue}%
@@ -85,7 +90,7 @@ function PromotionDetailPage() {
         </div>
         <Progress value={promo.progressValue} />
         <p className="mt-3 text-xs text-muted-foreground">
-          Your progress for this promotion will appear here.
+          {t("pages.promotionDetail.progressDescription")}
         </p>
       </SpotlightCard>
     </div>

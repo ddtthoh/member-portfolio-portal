@@ -19,8 +19,8 @@ function QnALayout() {
   }, [location.pathname, navigate]);
 
   const tabs = [
-    { to: "/portal/qna/company", label: "Company" },
-    { to: "/portal/qna/marketing", label: "Marketing plan" },
+    { to: "/portal/qna/company", label: t("nav.qnaCompany") },
+    { to: "/portal/qna/marketing", label: t("nav.qnaMarketing") },
   ];
 
   return (

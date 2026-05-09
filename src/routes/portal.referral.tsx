@@ -23,27 +23,27 @@ function ReferralPage() {
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Users className="h-4 w-4" />
-            <span className="text-[11px] uppercase tracking-[0.2em]">Your Code</span>
+            <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.referral.yourCode")}</span>
           </div>
           <dl className="space-y-3 text-sm">
-            <Row label="Referral Code" value={code} />
-            <Row label="Invite Link" value={link} />
-            <Row label="Tier" value="Gold" />
-            <Row label="Active Referrals" value="0" />
-            <Row label="Lifetime Rebate" value="$0.00" />
+            <Row label={t("pages.referral.labels.referralCode")} value={code} />
+            <Row label={t("pages.referral.labels.inviteLink")} value={link} />
+            <Row label={t("pages.referral.labels.tier")} value={t("pages.referral.tiers.gold")} />
+            <Row label={t("pages.referral.labels.activeReferrals")} value="0" />
+            <Row label={t("pages.referral.labels.lifetimeRebate")} value="$0.00" />
           </dl>
         </SpotlightCard>
 
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4 flex items-center gap-2 text-gold">
             <Gift className="h-4 w-4" />
-            <span className="text-[11px] uppercase tracking-[0.2em]">Program Terms</span>
+            <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.referral.programTerms")}</span>
           </div>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li>• 1.0% rebate on first-year management fees per funded referral.</li>
-            <li>• Referred accounts must meet the $25,000 minimum to qualify.</li>
-            <li>• Rebates settle quarterly to your portfolio cash balance.</li>
-            <li>• Contact your advisor to upgrade to Platinum tier.</li>
+            <li>• {t("pages.referral.terms.rebate")}</li>
+            <li>• {t("pages.referral.terms.minimum")}</li>
+            <li>• {t("pages.referral.terms.settle")}</li>
+            <li>• {t("pages.referral.terms.upgrade")}</li>
           </ul>
         </SpotlightCard>
       </div>

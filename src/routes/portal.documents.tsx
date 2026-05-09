@@ -47,7 +47,7 @@ function DocumentsPage() {
               {d.file_url && (
                 <a href={d.file_url} target="_blank" rel="noreferrer"
                   className="inline-flex items-center gap-2 rounded-sm border border-border px-4 py-2 text-xs hover:border-gold hover:text-gold">
-                  <Download className="h-3.5 w-3.5" /> Download
+                  <Download className="h-3.5 w-3.5" /> {t("common.download")}
                 </a>
               )}
             </SpotlightCard>
@@ -59,10 +59,11 @@ function DocumentsPage() {
 }
 
 function Empty() {
+  const { t } = useTranslation();
   return (
     <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
       <FileText className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
-      <p className="text-sm text-muted-foreground">No documents available yet. Your statements will appear here as they are issued.</p>
+      <p className="text-sm text-muted-foreground">{t("pages.documents.empty.noDocuments")}</p>
     </SpotlightCard>
   );
 }

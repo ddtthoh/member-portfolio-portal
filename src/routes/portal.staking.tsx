@@ -42,25 +42,25 @@ function StakingPage() {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-center gap-2 text-gold">
           <Users className="h-4 w-4" />
-          <span className="text-[11px] uppercase tracking-[0.2em]">Active Programs</span>
+          <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.staking.activePrograms")}</span>
         </div>
 
         {rows.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            You currently have no active stakings. New opportunities will appear here when available.
+            {t("pages.staking.empty.noStakings")}
           </p>
         ) : (
           <div className="-mx-6 overflow-x-auto">
             <table className="w-full min-w-[760px] text-sm">
               <thead>
                 <tr className="text-[10px] uppercase tracking-[0.18em] text-gold">
-                  <th className="px-4 py-3 text-left font-medium">Date</th>
-                  <th className="px-4 py-3 text-left font-medium">Package</th>
-                  <th className="px-4 py-3 text-left font-medium">ROI Start Date</th>
-                  <th className="px-4 py-3 text-right font-medium">Staking Amount</th>
-                  <th className="px-4 py-3 text-right font-medium">ROI % Min</th>
-                  <th className="px-4 py-3 text-right font-medium">ROI % Max</th>
-                  <th className="px-4 py-3 text-right font-medium">Status</th>
+                  <th className="px-4 py-3 text-left font-medium">{t("pages.deposit.tableHeaders.date")}</th>
+                  <th className="px-4 py-3 text-left font-medium">{t("pages.staking.tableHeaders.package")}</th>
+                  <th className="px-4 py-3 text-left font-medium">{t("pages.staking.tableHeaders.roiStartDate")}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t("pages.staking.tableHeaders.stakingAmount")}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t("pages.staking.tableHeaders.roiMin")}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t("pages.staking.tableHeaders.roiMax")}</th>
+                  <th className="px-4 py-3 text-right font-medium">{t("pages.withdrawal.tableHeaders.status")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,15 +87,22 @@ function StakingPage() {
 }
 
 function StatusBadge({ status }: { status: Row["status"] }) {
+  const { t } = useTranslation();
   const tone =
     status === "Active"
       ? "border-success/40 bg-success/10 text-success"
       : status === "Pending"
         ? "border-gold/40 bg-gold/10 text-gold"
         : "border-border bg-muted/30 text-muted-foreground";
+        
+  const statusText = 
+    status === "Active" ? t("pages.staking.status.active") :
+    status === "Pending" ? t("pages.withdrawal.filter.statusPending") :
+    t("pages.withdrawal.filter.statusCompleted");
+
   return (
     <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] ${tone}`}>
-      {status}
+      {statusText}
     </span>
   );
 }

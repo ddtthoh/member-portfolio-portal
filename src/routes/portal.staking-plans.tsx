@@ -11,15 +11,15 @@ export const Route = createFileRoute("/portal/staking-plans")({
 type Plan = { name: string; minAmount: string; roi: string };
 
 const plans: Plan[] = [
-  { name: "Standard Lite", minAmount: "$100.00", roi: "0.15% – 0.25%" },
-  { name: "Standard Plus", minAmount: "$300.00", roi: "0.15% – 0.25%" },
-  { name: "Standard Pro", minAmount: "$500.00", roi: "0.15% – 0.25%" },
-  { name: "Advance Lite", minAmount: "$1,000.00", roi: "0.25% – 0.35%" },
-  { name: "Advance Plus", minAmount: "$3,000.00", roi: "0.25% – 0.35%" },
-  { name: "Advance Pro", minAmount: "$5,000.00", roi: "0.25% – 0.35%" },
-  { name: "Premium Lite", minAmount: "$10,000.00", roi: "0.35% – 0.45%" },
-  { name: "Premium Plus", minAmount: "$30,000.00", roi: "0.35% – 0.45%" },
-  { name: "Premium Pro", minAmount: "$50,000.00", roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.standardLite", minAmount: "$100.00", roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.standardPlus", minAmount: "$300.00", roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.standardPro", minAmount: "$500.00", roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.advanceLite", minAmount: "$1,000.00", roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.advancePlus", minAmount: "$3,000.00", roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.advancePro", minAmount: "$5,000.00", roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.premiumLite", minAmount: "$10,000.00", roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.premiumPlus", minAmount: "$30,000.00", roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.premiumPro", minAmount: "$50,000.00", roi: "0.35% – 0.45%" },
 ];
 
 function StakingPlansPage() {
@@ -32,13 +32,13 @@ function StakingPlansPage() {
         {plans.map((plan) => (
           <SpotlightCard key={plan.name} className="liquid-glass rounded-2xl px-5 py-4">
             <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
-              {plan.name}
+              {t(plan.name)}
             </h3>
 
             <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
               <div className="pr-3">
                 <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                  Minimum Staking
+                  {t("pages.stakingPlans.labels.minimumStaking")}
                 </div>
                 <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
                   {plan.minAmount}
@@ -47,7 +47,7 @@ function StakingPlansPage() {
 
               <div className="pl-3">
                 <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                  <TrendingUp className="h-3 w-3" /> Monthly ROI
+                  <TrendingUp className="h-3 w-3" /> {t("pages.stakingPlans.labels.monthlyRoi")}
                 </div>
                 <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
                   {plan.roi.replace(/\s*–\s*/, "\u00A0–\u00A0")}

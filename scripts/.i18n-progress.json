@@ -1,12 +1,96 @@
 {
-  "src/components/portal-shell.tsx": { "keys": 7 },
-  "src/components/command-palette.tsx": { "keys": 16 },
-  "src/components/mobile-fab.tsx": { "keys": 1 },
-  "src/components/total-assets-gauge.tsx": { "keys": 4 },
-  "src/components/pl-calendar.tsx": { "keys": 41 },
-  "src/components/network-constellation.tsx": { "keys": 1 },
-  "src/components/ticker-tape.tsx": { "keys": 1 },
-  "src/components/quiz-test.tsx": { "keys": 11 },
-  "src/components/report-shell.tsx": { "keys": 7 },
-  "src/routes/portal.index.tsx": { "keys": 2 }
+  "src/components/portal-shell.tsx": {
+    "keys": 7
+  },
+  "src/components/command-palette.tsx": {
+    "keys": 16
+  },
+  "src/components/mobile-fab.tsx": {
+    "keys": 1
+  },
+  "src/components/total-assets-gauge.tsx": {
+    "keys": 4
+  },
+  "src/components/pl-calendar.tsx": {
+    "keys": 41
+  },
+  "src/components/network-constellation.tsx": {
+    "keys": 1
+  },
+  "src/components/ticker-tape.tsx": {
+    "keys": 1
+  },
+  "src/components/quiz-test.tsx": {
+    "keys": 11
+  },
+  "src/components/report-shell.tsx": {
+    "keys": 7
+  },
+  "src/routes/portal.index.tsx": {
+    "keys": 2
+  },
+  "src/routes/portal.deposit.tsx": {
+    "keys": 35,
+    "at": "2026-05-09T08:18:55.756Z"
+  },
+  "src/routes/portal.withdrawal.tsx": {
+    "keys": 86,
+    "at": "2026-05-09T08:22:10.422Z"
+  },
+  "src/routes/portal.promotion.tsx": {
+    "keys": 5,
+    "at": "2026-05-09T08:22:59.601Z"
+  },
+  "src/routes/portal.promotion.$promoId.tsx": {
+    "keys": 7,
+    "at": "2026-05-09T08:25:33.047Z"
+  },
+  "src/routes/portal.qna.tsx": {
+    "keys": 0,
+    "at": "2026-05-09T08:25:47.192Z"
+  },
+  "src/routes/portal.qna.index.tsx": {
+    "keys": 0,
+    "at": "2026-05-09T08:25:53.679Z"
+  },
+  "src/routes/portal.qna.company.tsx": {
+    "keys": 0,
+    "at": "2026-05-09T08:26:06.424Z"
+  },
+  "src/routes/portal.qna.marketing.tsx": {
+    "keys": 0,
+    "at": "2026-05-09T08:26:16.869Z"
+  },
+  "src/routes/portal.staking.tsx": {
+    "keys": 8,
+    "at": "2026-05-09T08:27:13.909Z"
+  },
+  "src/routes/portal.staking-plans.tsx": {
+    "keys": 11,
+    "at": "2026-05-09T08:28:28.934Z"
+  },
+  "src/routes/portal.holdings.tsx": {
+    "keys": 15,
+    "at": "2026-05-09T08:29:21.932Z"
+  },
+  "src/routes/portal.asset-analysis.tsx": {
+    "keys": 1,
+    "at": "2026-05-09T08:29:38.276Z"
+  },
+  "src/routes/portal.network.tsx": {
+    "keys": 8,
+    "at": "2026-05-09T08:30:00.934Z"
+  },
+  "src/routes/portal.referral.tsx": {
+    "keys": 12,
+    "at": "2026-05-09T08:30:34.579Z"
+  },
+  "src/routes/portal.transactions.tsx": {
+    "keys": 6,
+    "at": "2026-05-09T08:30:55.247Z"
+  },
+  "src/routes/portal.documents.tsx": {
+    "keys": 1,
+    "at": "2026-05-09T08:31:13.134Z"
+  }
 }

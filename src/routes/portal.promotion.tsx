@@ -8,21 +8,22 @@ export const Route = createFileRoute("/portal/promotion")({
   component: PromotionPage,
 });
 
-const promotions = [
-  {
-    id: "naslab-turkey",
-    title: "Naslab Opening Event At Turkey",
-    subtitle: "Launch Event",
-  },
-  {
-    id: "rcb-tcb-community-ranking",
-    title: "RCB, TCB, Community Ranking Incentive",
-    subtitle: "Ranking Rewards",
-  },
-];
-
 function PromotionPage() {
   const { t } = useTranslation();
+
+  const promotions = [
+    {
+      id: "naslab-turkey",
+      title: t("pages.promotion.promotions.naslabTurkey.title"),
+      subtitle: t("pages.promotion.promotions.naslabTurkey.subtitle"),
+    },
+    {
+      id: "rcb-tcb-community-ranking",
+      title: t("pages.promotion.promotions.rankingIncentive.title"),
+      subtitle: t("pages.promotion.promotions.rankingIncentive.subtitle"),
+    },
+  ];
+
   return (
     <div>
       <PageHeader
@@ -51,7 +52,7 @@ function PromotionPage() {
                   {p.title}
                 </h3>
                 <div className="mt-auto flex items-center justify-end pt-6 text-xs text-gold/70">
-                  <span>View details</span>
+                  <span>{t("pages.promotion.viewDetails")}</span>
                   <ChevronRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </div>
