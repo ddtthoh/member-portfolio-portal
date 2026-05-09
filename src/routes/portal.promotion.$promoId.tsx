@@ -587,6 +587,6 @@ function TierLadder({
           );
         })}
       </div>
-    </SpotlightCard>
+    </div>
   );
 }
