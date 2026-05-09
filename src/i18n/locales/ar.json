@@ -832,6 +832,15 @@
         "profit": "ربح",
         "loss": "خسارة"
       }
+    },
+    "reportShell": {
+      "filter": "تصفية",
+      "date": "التاريخ",
+      "pickADate": "اختر تاريخًا",
+      "memberId": "معرف العضو",
+      "resetAction": "إعادة تعيين",
+      "filterAction": "تصفية",
+      "exportAction": "تصدير"
     }
   }
 }

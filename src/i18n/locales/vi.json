@@ -832,6 +832,15 @@
         "profit": "Lãi",
         "loss": "Lỗ"
       }
+    },
+    "reportShell": {
+      "filter": "Bộ lọc",
+      "date": "Ngày",
+      "pickADate": "Chọn ngày",
+      "memberId": "ID thành viên",
+      "resetAction": "Đặt lại",
+      "filterAction": "Lọc",
+      "exportAction": "Xuất"
     }
   }
 }

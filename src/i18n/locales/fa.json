@@ -832,6 +832,15 @@
         "profit": "سود",
         "loss": "زیان"
       }
+    },
+    "reportShell": {
+      "filter": "فیلتر",
+      "date": "تاریخ",
+      "pickADate": "انتخاب تاریخ",
+      "memberId": "شناسه عضو",
+      "resetAction": "بازنشانی",
+      "filterAction": "فیلتر",
+      "exportAction": "خروجی"
     }
   }
 }

@@ -832,6 +832,15 @@
         "profit": "利益",
         "loss": "損失"
       }
+    },
+    "reportShell": {
+      "filter": "フィルター",
+      "date": "日付",
+      "pickADate": "日付を選択",
+      "memberId": "会員ID",
+      "resetAction": "リセット",
+      "filterAction": "フィルター",
+      "exportAction": "エクスポート"
     }
   }
 }

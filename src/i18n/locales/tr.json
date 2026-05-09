@@ -832,6 +832,15 @@
         "profit": "Kâr",
         "loss": "Zarar"
       }
+    },
+    "reportShell": {
+      "filter": "Filtre",
+      "date": "Tarih",
+      "pickADate": "Tarih seçin",
+      "memberId": "Üye Kimliği",
+      "resetAction": "Sıfırla",
+      "filterAction": "Filtrele",
+      "exportAction": "Dışa Aktar"
     }
   }
 }
