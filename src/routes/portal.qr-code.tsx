@@ -110,9 +110,9 @@ function QrCodePage() {
         <span className="truncate">{t("pages.qrCode.verifiedReferral")}</span>
       </div>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,420px)_1fr]">
+      <div className="mt-4 grid w-full min-w-0 max-w-full gap-4 lg:grid-cols-[minmax(0,420px)_1fr]">
         {/* === Premium QR card === */}
-        <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
+        <SpotlightCard className="liquid-glass w-full min-w-0 max-w-full overflow-hidden rounded-2xl">
           <div ref={cardRef} className="relative">
             {/* Decorative corners */}
             <CornerOrnaments />
@@ -124,7 +124,7 @@ function QrCodePage() {
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="relative mx-auto w-full max-w-[260px] sm:max-w-[300px]"
+                className="relative mx-auto w-full max-w-[min(260px,calc(100vw-80px))] sm:max-w-[300px]"
               >
                 <div className="relative rounded-2xl bg-gradient-to-br from-gold/40 via-gold/20 to-gold/40 p-[1.5px] shadow-[0_20px_60px_-20px_color-mix(in_oklab,var(--gold)_60%,transparent)]">
                   <div className="rounded-2xl bg-white p-3 sm:p-4">
@@ -155,8 +155,8 @@ function QrCodePage() {
         </SpotlightCard>
 
         {/* === Side panel: link + actions === */}
-        <div className="space-y-4">
-          <SpotlightCard className="liquid-glass rounded-2xl">
+        <div className="w-full min-w-0 max-w-full space-y-4">
+          <SpotlightCard className="liquid-glass w-full min-w-0 max-w-full overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-4 py-3 sm:px-5 sm:py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
                 {t("pages.qrCode.referralLink")}
@@ -216,7 +216,7 @@ function QrCodePage() {
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="liquid-glass rounded-2xl">
+          <SpotlightCard className="liquid-glass w-full min-w-0 max-w-full overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-4 py-3 sm:px-5 sm:py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
                 {t("pages.qrCode.howItWorks")}
