@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 type Tick = {
   sym: string;
