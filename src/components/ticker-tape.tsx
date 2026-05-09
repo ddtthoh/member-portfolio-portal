@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 type Tick = {
   sym: string;
@@ -146,37 +147,58 @@ export function TickerTape() {
 
   return (
     <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80">
-      <div className="ticker-track flex gap-8 whitespace-nowrap py-2 text-xs">
-        {items.map((tick, i) => (
-          <a
-            key={i}
-            href={`https://dexscreener.com/${tick.chainId}/${tick.pairAddress}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 transition-colors hover:text-gold"
-            title={t("components.ticker.viewOnDexscreener", { sym: tick.sym, defaultValue: `View ${tick.sym} on Dexscreener` })}
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              {tick.sym}
-            </span>
-            <span
-              className={`font-mono tabular-nums transition-colors duration-500 ${
-                tick.flash ? "text-gold" : "text-foreground"
-              }`}
-            >
-              ${fmt(tick.price)}
-            </span>
-            <span
-              className={`font-mono text-[11px] tabular-nums ${
-                tick.pct >= 0 ? "text-success" : "text-destructive"
-              }`}
-            >
-              {tick.pct >= 0 ? "+" : ""}
-              {tick.pct.toFixed(2)}%
-            </span>
-            <span className="text-border">·</span>
-          </a>
-        ))}
+      {/* Live pill */}
+      <div className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 hidden md:flex items-center gap-1.5 rounded-full border border-gold/40 bg-background/90 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.2em] text-gold backdrop-blur">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-60" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+        </span>
+        Live · DexScreener
+      </div>
+      <div className="ticker-mask">
+        <div className="ticker-track flex gap-3 whitespace-nowrap py-2.5 pl-3 pr-3 md:pl-44">
+          {items.map((tick, i) => {
+            const up = tick.pct >= 0;
+            const Arrow = up ? TrendingUp : TrendingDown;
+            return (
+              <a
+                key={i}
+                href={`https://dexscreener.com/${tick.chainId}/${tick.pairAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={t("components.ticker.viewOnDexscreener", { sym: tick.sym, defaultValue: `View ${tick.sym} on Dexscreener` })}
+                className={`group inline-flex shrink-0 items-center gap-2 rounded-full border bg-card/40 px-3 py-1 backdrop-blur-sm transition-all duration-200 hover:-translate-y-px hover:border-gold/60 hover:shadow-[0_4px_18px_-6px_color-mix(in_oklab,var(--gold)_55%,transparent)] ${
+                  tick.flash ? "border-gold/70 ring-1 ring-gold/40" : "border-border/40"
+                }`}
+              >
+                <Arrow
+                  className={`h-3 w-3 ${up ? "text-success" : "text-destructive"}`}
+                  strokeWidth={2.5}
+                />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground">
+                  {tick.sym}
+                </span>
+                <span
+                  className={`font-mono text-xs tabular-nums transition-colors duration-500 ${
+                    tick.flash ? "text-gold" : "text-foreground"
+                  }`}
+                >
+                  ${fmt(tick.price)}
+                </span>
+                <span
+                  className={`rounded-sm px-1.5 py-0.5 font-mono text-[10px] tabular-nums ${
+                    up
+                      ? "bg-success/10 text-success"
+                      : "bg-destructive/10 text-destructive"
+                  }`}
+                >
+                  {up ? "+" : ""}
+                  {tick.pct.toFixed(2)}%
+                </span>
+              </a>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
