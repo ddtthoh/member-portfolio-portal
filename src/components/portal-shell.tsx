@@ -163,7 +163,7 @@ export function PortalShell() {
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <ThreeBackground fixed />
         <CommandPalette />
-        <MobileFab />
+        
         {/* Backdrop layers */}
         <div
           aria-hidden
