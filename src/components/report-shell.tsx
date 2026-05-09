@@ -38,7 +38,7 @@ export function ReportFilter({
 
   return (
     <CollapsibleFilter title={t("components.reportShell.filter")} defaultOpen={defaultOpen}>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4">
         <div className="min-w-0">
           <FieldLabel>{t("components.reportShell.date")}</FieldLabel>
           <Popover>
@@ -67,16 +67,6 @@ export function ReportFilter({
               />
             </PopoverContent>
           </Popover>
-        </div>
-        <div className="min-w-0">
-          <FieldLabel>{label}</FieldLabel>
-          <Input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            type="text"
-            placeholder={label}
-            className="bg-background/40"
-          />
         </div>
       </div>
       <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
