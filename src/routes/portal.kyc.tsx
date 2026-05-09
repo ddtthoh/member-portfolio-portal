@@ -361,19 +361,26 @@ function DocTypeOption({
 }
 
 /* ---------- Status bar ---------- */
-function StatusBar({ status, note }: { status: KycStatus; note: string | null }) {
-  const step = statusToStep(status);
+function StatusBar({ status, note }: { status: KycStatus | null; note: string | null }) {
+  const step = status ? statusToStep(status) : 0;
   const rejected = status === "rejected";
+  const subtitle = rejected
+    ? "Action required"
+    : status === "approved"
+      ? "Verification complete"
+      : status
+        ? "Tracking your application"
+        : "Awaiting your submission";
 
   return (
     <SectionCard>
-      <SectionHeader title="Verification Status" subtitle={rejected ? "Action required" : "Tracking your application"} />
+      <SectionHeader title="Verification Status" subtitle={subtitle} />
       <SectionBody>
         <div className="relative mx-auto max-w-2xl px-2 pb-2 pt-1">
           <div className="absolute left-[8%] right-[8%] top-[14px] h-[2px] rounded-full bg-border/40" />
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${((step - 1) / 2) * 84}%` }}
+            animate={{ width: `${(Math.max(step - 1, 0) / 2) * 84}%` }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="absolute left-[8%] top-[14px] h-[2px] rounded-full bg-gradient-to-r from-gold to-gold/40"
           />
