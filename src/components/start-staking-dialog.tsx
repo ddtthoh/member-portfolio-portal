@@ -47,8 +47,8 @@ export function StartStakingDialog({ open, onOpenChange, plans }: Props) {
   const maxTier = sorted[sorted.length - 1];
 
   useEffect(() => {
-    if (open) setAmountStr(String(minTier.minAmount));
-  }, [open, minTier.minAmount]);
+    if (open) setAmountStr("");
+  }, [open]);
 
   const amount = Number(amountStr.replace(/[^\d]/g, "")) || 0;
   const maxFromWallet = Math.floor(wallet.usd / STEP) * STEP;
