@@ -178,31 +178,48 @@ function KycPage() {
         <ProfileGate missing={missing} onGo={() => navigate({ to: "/portal/profile" })} />
       ) : (
         <>
-          {submission && <StatusBar status={submission.status} note={submission.reviewer_note} />}
+          <StatusBar status={submission?.status ?? null} note={submission?.reviewer_note ?? null} />
 
           {!locked && (
             <SectionCard>
               <SectionHeader
-                title={submission?.status === "rejected" ? "Resubmit Documents" : "Upload Documents"}
-                subtitle="Choose your document type · JPG / JPEG / PNG / GIF · Max 2 MB each"
+                title={submission?.status === "rejected" ? "Resubmit Document" : "Upload Your Document"}
+                subtitle="Choose ONE document type below · JPG / JPEG / PNG / GIF · Max 2 MB each"
               />
               <SectionBody>
-                {/* Doc-type toggle */}
-                <div className="mb-5 grid gap-3 sm:grid-cols-2">
-                  <DocTypeOption
-                    icon={<BookUser className="h-5 w-5" />}
-                    label="Passport"
-                    hint="Bio page + selfie"
-                    active={docType === "passport"}
-                    onClick={() => setDocType("passport")}
-                  />
-                  <DocTypeOption
-                    icon={<IdCard className="h-5 w-5" />}
-                    label="Identity Card"
-                    hint="Front, back + selfie"
-                    active={docType === "identity_card"}
-                    onClick={() => setDocType("identity_card")}
-                  />
+                {/* Step 1 — choose ONE */}
+                <div className="mb-6">
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gold text-[11px] font-semibold text-background">1</span>
+                    <p className="font-serif text-sm text-gold">Select one document type</p>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <DocTypeOption
+                      icon={<BookUser className="h-5 w-5" />}
+                      label="Passport"
+                      hint="2 photos required"
+                      active={docType === "passport"}
+                      onClick={() => setDocType("passport")}
+                    />
+                    <DocTypeOption
+                      icon={<IdCard className="h-5 w-5" />}
+                      label="Identity Card"
+                      hint="3 photos required"
+                      active={docType === "identity_card"}
+                      onClick={() => setDocType("identity_card")}
+                    />
+                  </div>
+                  <p className="mt-2 text-[11px] text-gold/55">
+                    You only need to provide <span className="font-semibold text-gold/80">one</span> of the above — not both.
+                  </p>
+                </div>
+
+                {/* Step 2 — upload */}
+                <div className="mb-3 flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gold text-[11px] font-semibold text-background">2</span>
+                  <p className="font-serif text-sm text-gold">
+                    Upload {docType === "passport" ? "Passport photos" : "Identity Card photos"}
+                  </p>
                 </div>
 
                 {docType === "passport" ? (
@@ -344,19 +361,26 @@ function DocTypeOption({
 }
 
 /* ---------- Status bar ---------- */
-function StatusBar({ status, note }: { status: KycStatus; note: string | null }) {
-  const step = statusToStep(status);
+function StatusBar({ status, note }: { status: KycStatus | null; note: string | null }) {
+  const step = status ? statusToStep(status) : 0;
   const rejected = status === "rejected";
+  const subtitle = rejected
+    ? "Action required"
+    : status === "approved"
+      ? "Verification complete"
+      : status
+        ? "Tracking your application"
+        : "Awaiting your submission";
 
   return (
     <SectionCard>
-      <SectionHeader title="Verification Status" subtitle={rejected ? "Action required" : "Tracking your application"} />
+      <SectionHeader title="Verification Status" subtitle={subtitle} />
       <SectionBody>
         <div className="relative mx-auto max-w-2xl px-2 pb-2 pt-1">
           <div className="absolute left-[8%] right-[8%] top-[14px] h-[2px] rounded-full bg-border/40" />
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${((step - 1) / 2) * 84}%` }}
+            animate={{ width: `${(Math.max(step - 1, 0) / 2) * 84}%` }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="absolute left-[8%] top-[14px] h-[2px] rounded-full bg-gradient-to-r from-gold to-gold/40"
           />
