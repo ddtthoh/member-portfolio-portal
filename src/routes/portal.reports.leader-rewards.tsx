@@ -15,7 +15,6 @@ function LeaderRewardsPage() {
     "Division staked amount",
     t("pages.reportsTeam.tableHeaders.rate"),
     "Amount",
-    t("pages.reportsLeader.tableHeaders.totalSubscriptionCount"),
   ];
   return (
     <div>
@@ -27,8 +26,8 @@ function LeaderRewardsPage() {
       >
         <DataTable minWidth={760}>
           <colgroup>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <col key={i} className="w-1/5" />
+            {Array.from({ length: 4 }).map((_, i) => (
+              <col key={i} className="w-1/4" />
             ))}
           </colgroup>
           <Thead>
@@ -37,7 +36,7 @@ function LeaderRewardsPage() {
             ))}
           </Thead>
           <tbody>
-            <EmptyRow colSpan={5}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>
+            <EmptyRow colSpan={4}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>
           </tbody>
         </DataTable>
       </ReportShell>
