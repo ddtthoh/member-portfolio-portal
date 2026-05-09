@@ -147,6 +147,12 @@ const PROMOTIONS: Record<string, Promo> = {
       { name: "Partner", reward: "Property Subsidy", valueUsd: 300_000, icon: "partner" },
     ],
     currentRankIndex: 2, // mock: currently at Gold
+    nextRankProgress: {
+      current: 38,
+      target: 50,
+      unit: "leaders",
+      metricLabel: "Qualified Leaders",
+    },
   },
 };
 
