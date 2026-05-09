@@ -178,7 +178,13 @@ function PromotionDetailPage() {
 
       <PageHeader eyebrow={t(promo.subtitle)} title={t(promo.title)} />
 
-      {promo.kind === "event" ? <EventPromotion promo={promo} /> : <GenericPromotion promo={promo} />}
+      {promo.kind === "event" ? (
+        <EventPromotion promo={promo} />
+      ) : promo.kind === "ranking" ? (
+        <RankingPromotion promo={promo} />
+      ) : (
+        <GenericPromotion promo={promo} />
+      )}
     </div>
   );
 }
