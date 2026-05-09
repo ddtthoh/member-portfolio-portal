@@ -48,7 +48,7 @@ function NetworkPage() {
 
       {passed === null ? (
         <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <p className="text-sm text-muted-foreground">{t("common.loading")}</p>
         </SpotlightCard>
       ) : !passed ? (
         <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
@@ -60,23 +60,21 @@ function NetworkPage() {
               </div>
 
               <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-gold">
-                <ShieldCheck className="h-3.5 w-3.5" /> Verification Required
+                <ShieldCheck className="h-3.5 w-3.5" /> {t("pages.network.verificationRequired")}
               </div>
 
               <h2 className="mt-4 font-serif text-2xl font-semibold text-gold">
-                Complete the Marketing Plan Quiz to Unlock Your Network
+                {t("pages.network.unlockTitle")}
               </h2>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                To ensure every member fully understands the marketing plan before
-                building their team, your network view is locked until you pass the
-                quiz once. After you pass, access is permanent.
+                {t("pages.network.unlockDescription")}
               </p>
 
               <ol className="mx-auto mt-6 max-w-sm space-y-2 text-left text-sm">
                 {[
-                  "Take the Marketing Plan Quiz",
-                  "Score at least 7 out of 10 to pass",
-                  "Network unlocks instantly",
+                  t("pages.network.steps.takeQuiz"),
+                  t("pages.network.steps.score"),
+                  t("pages.network.steps.unlock"),
                 ].map((step, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-mono text-[11px] font-semibold text-gold">
@@ -94,7 +92,7 @@ function NetworkPage() {
               >
                 <Link to="/portal/qna/marketing">
                   <GraduationCap className="mr-2 h-4 w-4" />
-                  Take Marketing Plan Quiz
+                  {t("pages.network.actions.takeQuiz")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -104,7 +102,7 @@ function NetworkPage() {
       ) : items.length === 0 ? (
         <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
           <Users className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">Your dedicated team will be listed here shortly.</p>
+          <p className="text-sm text-muted-foreground">{t("pages.network.empty.noTeam")}</p>
         </SpotlightCard>
       ) : (
         <>

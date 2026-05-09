@@ -58,12 +58,12 @@ function HoldingsPage() {
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-              Total Staking Amount
+              {t("pages.holdings.totalStakingAmount")}
             </div>
             <button
               type="button"
               onClick={() => setShowAmount((s) => !s)}
-              aria-label={showAmount ? "Hide amount" : "Show amount"}
+              aria-label={showAmount ? t("common.hideAmount") : t("common.showAmount")}
               className="text-gold transition-colors hover:text-gold/80"
             >
               {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -79,7 +79,7 @@ function HoldingsPage() {
         </SpotlightCard>
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-            Staking Days
+            {t("pages.holdings.stakingDays")}
           </div>
           <div className="mt-2">
             <MetricValue value={54} decimals={0} size="lg" unit="days" />
@@ -100,27 +100,27 @@ function HoldingsPage() {
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
-            Staking Plans
+            {t("palette.items.stakingPlans")}
           </h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[920px] text-sm">
             <thead>
               <tr className="border-b border-border/60 text-[10px] uppercase tracking-[0.18em] text-gold">
-                <th className="px-6 py-3 text-left font-medium">Date</th>
-                <th className="px-6 py-3 text-left font-medium">Staking Plan</th>
-                <th className="px-6 py-3 text-left font-medium">Staking Date</th>
-                <th className="px-6 py-3 text-right font-medium">Staking Amount</th>
-                <th className="px-6 py-3 text-right font-medium">Min Monthly Rate</th>
-                <th className="px-6 py-3 text-right font-medium">Max Monthly Rate</th>
-                <th className="px-6 py-3 text-center font-medium">Status</th>
+                <th className="px-6 py-3 text-left font-medium">{t("pages.holdings.tableHeaders.date")}</th>
+                <th className="px-6 py-3 text-left font-medium">{t("pages.holdings.tableHeaders.stakingPlan")}</th>
+                <th className="px-6 py-3 text-left font-medium">{t("pages.holdings.tableHeaders.stakingDate")}</th>
+                <th className="px-6 py-3 text-right font-medium">{t("pages.holdings.tableHeaders.stakingAmount")}</th>
+                <th className="px-6 py-3 text-right font-medium">{t("pages.holdings.tableHeaders.minMonthlyRate")}</th>
+                <th className="px-6 py-3 text-right font-medium">{t("pages.holdings.tableHeaders.maxMonthlyRate")}</th>
+                <th className="px-6 py-3 text-center font-medium">{t("pages.holdings.tableHeaders.status")}</th>
               </tr>
             </thead>
             <tbody>
               {rows.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-6 py-16 text-center text-sm text-gold">
-                    No staking plan yet.
+                    {t("pages.holdings.empty.noStakingPlan")}
                   </td>
                 </tr>
               )}
@@ -136,7 +136,7 @@ function HoldingsPage() {
                     <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.current_price))}</td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
-                        Active
+                        {t("pages.staking.status.active")}
                       </span>
                     </td>
                   </tr>
@@ -150,20 +150,20 @@ function HoldingsPage() {
       <div className="flex justify-start">
         <Dialog>
           <DialogTrigger asChild>
-            <Button size="sm">Request Full Refund</Button>
+            <Button size="sm">{t("pages.holdings.refund.button")}</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Request Full Refund</DialogTitle>
+              <DialogTitle>{t("pages.holdings.refund.title")}</DialogTitle>
               <DialogDescription>
-                Are you sure you want to request a full refund? Our team will review your request and contact you shortly.
+                {t("pages.holdings.refund.description")}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{t("common.cancel")}</Button>
               </DialogClose>
-              <Button onClick={() => alert("Refund request submitted")}>Confirm Request</Button>
+              <Button onClick={() => alert(t("pages.holdings.refund.submitted"))}>{t("pages.holdings.refund.confirm")}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

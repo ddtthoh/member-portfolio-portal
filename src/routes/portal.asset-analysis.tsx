@@ -24,8 +24,8 @@ function AssetAnalysisPage() {
   return (
     <div>
       <PageHeader
-        title={t("assetAnalysis.title", "Asset Analysis")}
-        description={t("assetAnalysis.subtitle", "Performance, allocation and risk insights for your portfolio.")}
+        title={t("nav.assetAnalysis")}
+        description={t("pages.assetAnalysis.description")}
       />
 
       <motion.div

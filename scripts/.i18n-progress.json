@@ -60,5 +60,37 @@
   "src/routes/portal.qna.marketing.tsx": {
     "keys": 0,
     "at": "2026-05-09T08:26:16.869Z"
+  },
+  "src/routes/portal.staking.tsx": {
+    "keys": 8,
+    "at": "2026-05-09T08:27:13.909Z"
+  },
+  "src/routes/portal.staking-plans.tsx": {
+    "keys": 11,
+    "at": "2026-05-09T08:28:28.934Z"
+  },
+  "src/routes/portal.holdings.tsx": {
+    "keys": 15,
+    "at": "2026-05-09T08:29:21.932Z"
+  },
+  "src/routes/portal.asset-analysis.tsx": {
+    "keys": 1,
+    "at": "2026-05-09T08:29:38.276Z"
+  },
+  "src/routes/portal.network.tsx": {
+    "keys": 8,
+    "at": "2026-05-09T08:30:00.934Z"
+  },
+  "src/routes/portal.referral.tsx": {
+    "keys": 12,
+    "at": "2026-05-09T08:30:34.579Z"
+  },
+  "src/routes/portal.transactions.tsx": {
+    "keys": 6,
+    "at": "2026-05-09T08:30:55.247Z"
+  },
+  "src/routes/portal.documents.tsx": {
+    "keys": 1,
+    "at": "2026-05-09T08:31:13.134Z"
   }
 }

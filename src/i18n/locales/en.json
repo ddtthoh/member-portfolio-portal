@@ -288,7 +288,19 @@
     "transactions": {
       "eyebrow": "Ledger",
       "title": "Transactions",
-      "description": "A complete history of deposits, trades, and withdrawals."
+      "description": "A complete history of deposits, trades, and withdrawals.",
+      "history": {
+        "title": "Transactions History"
+      },
+      "tableHeaders": {
+        "type": "Type",
+        "asset": "Asset",
+        "quantity": "Quantity",
+        "price": "Price"
+      },
+      "empty": {
+        "noTransactions": "No transactions yet."
+      }
     },
     "support": {
       "eyebrow": "Concierge",
@@ -303,12 +315,47 @@
     "network": {
       "eyebrow": "Relationships",
       "title": "Network",
-      "description": "Your trusted circle of advisors, custodians, and partners."
+      "description": "Your trusted circle of advisors, custodians, and partners.",
+      "verificationRequired": "Verification Required",
+      "unlockTitle": "Complete the Marketing Plan Quiz to Unlock Your Network",
+      "unlockDescription": "To ensure every member fully understands the marketing plan before building their team, your network view is locked until you pass the quiz once. After you pass, access is permanent.",
+      "steps": {
+        "takeQuiz": "Take the Marketing Plan Quiz",
+        "score": "Score at least 7 out of 10 to pass",
+        "unlock": "Network unlocks instantly"
+      },
+      "actions": {
+        "takeQuiz": "Take Marketing Plan Quiz"
+      },
+      "empty": {
+        "noTeam": "Your dedicated team will be listed here shortly."
+      }
     },
     "holdings": {
       "eyebrow": "Portfolio",
       "title": "Portfolio Overview",
-      "description": "A summary of your active staking."
+      "description": "A summary of your active staking.",
+      "totalStakingAmount": "Total Staking Amount",
+      "stakingDays": "Staking Days",
+      "tableHeaders": {
+        "date": "Date",
+        "stakingPlan": "Staking Plan",
+        "stakingDate": "Staking Date",
+        "stakingAmount": "Staking Amount",
+        "minMonthlyRate": "Min Monthly Rate",
+        "maxMonthlyRate": "Max Monthly Rate",
+        "status": "Status"
+      },
+      "empty": {
+        "noStakingPlan": "No staking plan yet."
+      },
+      "refund": {
+        "button": "Request Full Refund",
+        "title": "Request Full Refund",
+        "description": "Are you sure you want to request a full refund? Our team will review your request and contact you shortly.",
+        "confirm": "Confirm Request",
+        "submitted": "Refund request submitted"
+      }
     },
     "transferUsd": {
       "eyebrow": "USD Wallet",
@@ -323,7 +370,10 @@
     "documents": {
       "eyebrow": "Library",
       "title": "Documents & Statements",
-      "description": "Statements, tax documents, and legal contracts on file."
+      "description": "Statements, tax documents, and legal contracts on file.",
+      "empty": {
+        "noDocuments": "No documents available yet. Your statements will appear here as they are issued."
+      }
     },
     "creditConversionStatement": {
       "eyebrow": "Statement",
@@ -333,7 +383,22 @@
     "stakingPlans": {
       "eyebrow": "Staking",
       "title": "Staking Plan",
-      "description": "Choose a staking tier that matches your goals."
+      "description": "Choose a staking tier that matches your goals.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Minimum Staking",
+        "monthlyRoi": "Monthly ROI"
+      }
     },
     "convertCredits": {
       "eyebrow": "Statement",
@@ -343,7 +408,25 @@
     "referral": {
       "eyebrow": "Network · Invitation",
       "title": "Referral",
-      "description": "Invite qualified investors to the firm. Earn a structured rebate on every funded account."
+      "description": "Invite qualified investors to the firm. Earn a structured rebate on every funded account.",
+      "yourCode": "Your Code",
+      "labels": {
+        "referralCode": "Referral Code",
+        "inviteLink": "Invite Link",
+        "tier": "Tier",
+        "activeReferrals": "Active Referrals",
+        "lifetimeRebate": "Lifetime Rebate"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Program Terms",
+      "terms": {
+        "rebate": "1.0% rebate on first-year management fees per funded referral.",
+        "minimum": "Referred accounts must meet the $25,000 minimum to qualify.",
+        "settle": "Rebates settle quarterly to your portfolio cash balance.",
+        "upgrade": "Contact your advisor to upgrade to Platinum tier."
+      }
     },
     "reports": {
       "eyebrow": "Curated",
@@ -364,6 +447,25 @@
       "backToPromotions": "Back to promotions",
       "details": "Details",
       "progressDescription": "Your progress for this promotion will appear here."
+    },
+    "staking": {
+      "activePrograms": "Active Programs",
+      "empty": {
+        "noStakings": "You currently have no active stakings. New opportunities will appear here when available."
+      },
+      "tableHeaders": {
+        "package": "Package",
+        "roiStartDate": "ROI Start Date",
+        "stakingAmount": "Staking Amount",
+        "roiMin": "ROI % Min",
+        "roiMax": "ROI % Max"
+      },
+      "status": {
+        "active": "Active"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Performance, allocation and risk insights for your portfolio."
     }
   },
   "palette": {
