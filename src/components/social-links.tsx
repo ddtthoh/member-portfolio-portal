@@ -169,19 +169,19 @@ export function SocialLinks({
             <span
               aria-hidden
               className={cn(
-                "h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent",
+              "h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent dark:via-gold/50",
                 isStack ? "w-6" : "flex-1",
               )}
             />
             {!isStack && (
-              <span className="text-[9px] font-medium uppercase tracking-[0.32em] text-muted-foreground/60">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.32em] text-gold/70">
                 Connect
               </span>
             )}
             {!isStack && (
               <span
                 aria-hidden
-                className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/30 to-transparent"
+                className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent dark:via-gold/50"
               />
             )}
           </div>
