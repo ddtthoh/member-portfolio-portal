@@ -152,12 +152,12 @@ const PROMOTIONS: Record<string, Promo> = {
       { name: "Diamond", reward: "Car Subsidy", valueUsd: 100_000, icon: "diamond" },
       { name: "Partner", reward: "Property Subsidy", valueUsd: 300_000, icon: "partner" },
     ],
-    currentRankIndex: 2, // mock: currently at Gold
+    currentRankIndex: 4, // mock: currently at Diamond (tally with /portal tier card)
     nextRankProgress: {
-      current: 38,
-      target: 50,
-      unit: "leaders",
-      metricLabel: "Qualified Leaders",
+      current: 75,
+      target: 100,
+      unit: "%",
+      metricLabel: "Tier Progress",
     },
   },
 };
@@ -750,7 +750,12 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
     rankingProgress = {
       pct,
       topLeft: `Next rank · ${nextRank.name}`,
-      bottom: (
+      bottom: unit === "%" ? (
+        <>
+          <span className="font-light tabular-nums tracking-tight text-gold">{remaining}%</span>{" "}
+          to unlock <span className="text-gold">{nextRank.reward}</span>
+        </>
+      ) : (
         <>
           <span className="font-light tabular-nums tracking-tight text-gold">{remaining}</span>{" "}
           more {unit} to unlock{" "}
