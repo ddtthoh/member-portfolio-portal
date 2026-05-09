@@ -132,9 +132,9 @@ function HoldingsPage() {
                     <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
                     <td className="px-6 py-4 text-left text-sm font-medium text-gold">{h.asset_name}</td>
                     <td className="px-6 py-4 text-left font-light text-sm tabular-nums tracking-[-0.02em] text-gold">—</td>
-                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(value)}</td>
-                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.avg_cost))}</td>
-                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold">{fmt(Number(h.current_price))}</td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold"><CountUp value={value} prefix="$" decimals={2} /></td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold"><CountUp value={Number(h.avg_cost)} prefix="$" decimals={2} /></td>
+                    <td className="px-6 py-4 text-right font-light text-sm tabular-nums tracking-[-0.02em] text-gold"><CountUp value={Number(h.current_price)} prefix="$" decimals={2} /></td>
                     <td className="px-6 py-4 text-center">
                       <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-success">
                         {t("pages.staking.status.active")}
