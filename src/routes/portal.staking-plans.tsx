@@ -4,6 +4,7 @@ import { Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { MetricValue } from "@/components/metric-value";
 import { Button } from "@/components/ui/button";
 import { StartStakingDialog, type StakingPlanOption } from "@/components/start-staking-dialog";
 
@@ -36,9 +37,6 @@ const tierLabels: Record<Tier, string> = {
   advance: "Advance",
   premium: "Premium",
 };
-
-const fmtUsd = (n: number) =>
-  n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const nbspRange = (s: string) => s.replace(/\s*–\s*/, "\u00A0–\u00A0");
 
@@ -111,8 +109,8 @@ function StakingPlansPage() {
                     <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
                       {t("pages.stakingPlans.labels.minimumStaking")}
                     </div>
-                    <div className="mt-1 font-light text-2xl leading-none tabular-nums tracking-[-0.04em] text-gold sm:text-3xl">
-                      ${fmtUsd(plan.minAmount)}
+                    <div className="mt-1 leading-none">
+                      <MetricValue value={plan.minAmount} prefix="$" decimals={2} size="lg" static />
                     </div>
                   </div>
 
@@ -158,7 +156,7 @@ function Row({ label, value, emphasize = false }: { label: string; value: string
       <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
         {label}
       </span>
-      <span className={`font-mono text-sm tabular-nums whitespace-nowrap ${emphasize ? "font-semibold text-gold" : "text-foreground/90"}`}>
+      <span className={`font-light text-sm tabular-nums tracking-[-0.04em] whitespace-nowrap ${emphasize ? "text-gold" : "text-foreground/90"}`}>
         {value}
       </span>
     </div>
