@@ -1,4 +1,5 @@
 import { Globe } from "lucide-react";
+import { motion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -46,10 +47,10 @@ interface SocialLinksProps {
 export function SocialLinks({ variant = "row", size = 16, className }: SocialLinksProps) {
   const containerClass =
     variant === "stack"
-      ? "flex flex-col items-center gap-3.5"
+      ? "flex flex-col items-center gap-2"
       : variant === "labeled"
         ? "grid grid-cols-4 gap-3"
-        : "flex items-center justify-center gap-4";
+        : "flex items-center justify-center gap-2";
 
   if (variant === "labeled") {
     return (
@@ -78,9 +79,25 @@ export function SocialLinks({ variant = "row", size = 16, className }: SocialLin
     );
   }
 
+  // Plan A: monochrome icon + circular gold hover container + one-time shimmer sweep
+  const buttonSize = size + 16; // circular container
+
   return (
     <TooltipProvider delayDuration={150}>
-      <div className={cn(containerClass, className)}>
+      <div className={cn("relative", containerClass, className)}>
+        {/* One-time gold shimmer sweep on first appearance */}
+        <motion.span
+          aria-hidden
+          initial={{ opacity: 0, x: "-30%" }}
+          animate={{ opacity: [0, 1, 0], x: "130%" }}
+          transition={{ duration: 1.6, delay: 0.6, ease: "easeInOut" }}
+          className="pointer-events-none absolute inset-y-0 w-1/3"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 35%, transparent), transparent)",
+            filter: "blur(6px)",
+          }}
+        />
         {channels.map(({ name, href, Icon }) => (
           <Tooltip key={name}>
             <TooltipTrigger asChild>
@@ -89,10 +106,20 @@ export function SocialLinks({ variant = "row", size = 16, className }: SocialLin
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={name}
-                className="group inline-flex items-center justify-center text-muted-foreground/70 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
-                style={{ width: size + 4, height: size + 4 }}
+                className="group relative inline-flex items-center justify-center rounded-full text-muted-foreground/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold"
+                style={{ width: buttonSize, height: buttonSize }}
               >
-                <Icon className="h-full w-full" />
+                {/* Circular gold ring + glow on hover */}
+                <span
+                  aria-hidden
+                  className="absolute inset-0 rounded-full border border-transparent bg-transparent transition-all duration-300 group-hover:border-gold/40 group-hover:bg-[color-mix(in_oklab,var(--gold)_8%,transparent)] group-hover:[box-shadow:0_0_0_1px_color-mix(in_oklab,var(--gold)_25%,transparent),0_6px_18px_-6px_color-mix(in_oklab,var(--gold)_45%,transparent)]"
+                />
+                <span
+                  className="relative inline-flex items-center justify-center transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
+                  style={{ width: size, height: size }}
+                >
+                  <Icon className="h-full w-full" />
+                </span>
               </a>
             </TooltipTrigger>
             <TooltipContent side={variant === "stack" ? "right" : "top"}>{name}</TooltipContent>
