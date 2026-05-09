@@ -34,7 +34,7 @@ export function ReportFilter({
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [text, setText] = useState("");
 
-  const label = textLabel ?? t("components.reportShell.memberId");
+  void textLabel;
 
   return (
     <CollapsibleFilter title={t("components.reportShell.filter")} defaultOpen={defaultOpen}>
