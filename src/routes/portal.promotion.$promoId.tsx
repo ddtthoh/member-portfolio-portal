@@ -119,11 +119,30 @@ const PROMOTIONS: Record<string, Promo> = {
     referralAmount: 12_500,
   },
   "rcb-tcb-community-ranking": {
-    kind: "generic",
+    kind: "ranking",
     id: "rcb-tcb-community-ranking",
     title: "pages.promotion.promotions.rankingIncentive.title",
     subtitle: "pages.promotion.promotions.rankingIncentive.subtitle",
-    description: "pages.promotionDetail.promotions.rankingIncentive.description",
+    windowLabel: "1 Feb – 30 Jun 2026",
+    intro:
+      "Earn across three parallel tracks during the campaign window: every qualified referral pays out instantly, top performers unlock a share of AUM, and community-wide ranking unlocks signature physical rewards — paid out at the July 2026 Event.",
+    rcbPerReferralUsd: 5,
+    rcbMinStakeUsd: 100,
+    rcbCount: 8,
+    tcbTiers: [
+      { minRcb: 10, minAum: 5_000, pct: 2.5 },
+      { minRcb: 20, minAum: 20_000, pct: 5 },
+    ],
+    currentAum: 8_500,
+    rankingTiers: [
+      { name: "Bronze", reward: "iPhone 17", valueUsd: 1_500, icon: "bronze" },
+      { name: "Silver", reward: "Marketing Support Fund", valueUsd: 3_000, icon: "silver" },
+      { name: "Gold", reward: "Marketing Support Fund", valueUsd: 5_000, icon: "gold" },
+      { name: "Platinum", reward: "Rolex Daytona", valueUsd: 30_000, icon: "platinum" },
+      { name: "Diamond", reward: "Car Subsidy", valueUsd: 100_000, icon: "diamond" },
+      { name: "Partner", reward: "Property Subsidy", valueUsd: 300_000, icon: "partner" },
+    ],
+    currentRankIndex: 2, // mock: currently at Gold
   },
 };
 
