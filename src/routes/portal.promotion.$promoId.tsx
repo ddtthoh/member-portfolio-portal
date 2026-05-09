@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { MetricValue } from "@/components/metric-value";
 import { useTranslation } from "react-i18next";
 
 // ---- Promotion meta ----------------------------------------------------------
@@ -37,7 +38,6 @@ type EventPromo = {
   intro: string;
   personalTiers: Tier[];
   referralTiers: Tier[];
-  // Mocked progress until backend wires real values:
   personalAmount: number;
   referralAmount: number;
 };
@@ -139,12 +139,12 @@ function GenericPromotion({ promo }: { promo: GenericPromo }) {
           {t("pages.promotionDetail.details")}
         </span>
       </div>
-      <p className="text-sm leading-relaxed text-foreground/80">{t(promo.description)}</p>
+      <p className="text-sm leading-relaxed text-gold/80">{t(promo.description)}</p>
     </SpotlightCard>
   );
 }
 
-// ---- Event promotion (Naslab Turkey) -----------------------------------------
+// ---- Event promotion ---------------------------------------------------------
 
 function EventPromotion({ promo }: { promo: EventPromo }) {
   const personal = computeStanding(promo.personalAmount, promo.personalTiers);
@@ -160,7 +160,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
               <Sparkles className="h-4 w-4" />
               <span className="text-[11px] uppercase tracking-[0.2em]">Official Opening</span>
             </div>
-            <p className="max-w-2xl text-sm leading-relaxed text-foreground/80">{promo.intro}</p>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{promo.intro}</p>
           </div>
           <div className="grid grid-cols-3 gap-2 md:gap-4">
             <MetaPill icon={<MapPin className="h-3.5 w-3.5" />} label="Location" value={promo.location} />
@@ -200,8 +200,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
         amount={promo.referralAmount}
       />
 
-      {/* Fine print */}
-      <p className="px-1 pt-1 text-[11px] leading-relaxed text-muted-foreground">
+      <p className="px-1 pt-1 text-[11px] leading-relaxed text-gold/60">
         Rewards are issued during the Official Opening Event in July 2026. Qualification is final at the
         end of the campaign window. Flight reimbursement is paid in USDT against valid travel
         documentation.
@@ -219,7 +218,7 @@ function MetaPill({ icon, label, value }: { icon: React.ReactNode; label: string
         {icon}
         {label}
       </div>
-      <div className="mt-0.5 font-serif text-sm font-semibold text-gold">{value}</div>
+      <div className="mt-0.5 text-sm font-light tabular-nums tracking-tight text-gold">{value}</div>
     </div>
   );
 }
@@ -229,7 +228,7 @@ type Standing = {
   current: Tier | null;
   next: Tier | null;
   remaining: number;
-  progressInTier: number; // 0..100 within current segment
+  progressInTier: number;
   topReached: boolean;
 };
 
@@ -243,7 +242,6 @@ function computeStanding(amount: number, tiers: Tier[]): Standing {
   const next = sorted.find((t) => t.threshold > amount) ?? null;
   const remaining = next ? Math.max(0, next.threshold - amount) : 0;
 
-  // Progress within the current segment (between current.threshold → next.threshold)
   let progressInTier = 0;
   if (next) {
     const floor = current?.threshold ?? 0;
@@ -285,21 +283,23 @@ function TrackCard({
       </div>
 
       <div className="flex items-baseline justify-between gap-3">
-        <h3 className="font-serif text-lg font-semibold text-gold">{title}</h3>
+        <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
         <StatusChip qualified={qualified} top={topReached} />
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
-          <div className="mt-0.5 font-serif text-2xl font-semibold tabular-nums text-gold">
-            {fmtUSDT(amount)}
-          </div>
+          <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
         </div>
         <div className="text-right">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current tier</div>
-          <div className="mt-0.5 font-serif text-lg font-semibold tabular-nums text-foreground">
-            {current ? fmtUSDT(current.threshold) : "—"}
+          <div className="mt-0.5">
+            {current ? (
+              <MetricValue value={current.threshold} suffix=" USDT" decimals={0} size="sm" static />
+            ) : (
+              <span className="text-sm text-gold/60">—</span>
+            )}
           </div>
         </div>
       </div>
@@ -310,13 +310,16 @@ function TrackCard({
           <span>
             {next ? (
               <>
-                Next tier · <span className="tabular-nums text-gold">{fmtUSDT(next.threshold)}</span>
+                Next tier ·{" "}
+                <span className="font-light tabular-nums tracking-tight text-gold">
+                  {next.threshold.toLocaleString()} USDT
+                </span>
               </>
             ) : (
               <>Top tier reached</>
             )}
           </span>
-          <span className="tabular-nums">{Math.round(progressInTier)}%</span>
+          <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
         </div>
         <div className="relative h-1.5 overflow-hidden rounded-full bg-gold/10">
           <div
@@ -324,11 +327,13 @@ function TrackCard({
             style={{ width: `${progressInTier}%` }}
           />
         </div>
-        <div className="mt-2 text-[11px] text-muted-foreground">
+        <div className="mt-2 text-[11px] text-gold/70">
           {next ? (
             <>
-              <span className="tabular-nums text-gold">{fmtUSDT(remaining)}</span> remaining to unlock
-              the next tier of rewards.
+              <span className="font-light tabular-nums tracking-tight text-gold">
+                {remaining.toLocaleString()} USDT
+              </span>{" "}
+              remaining to unlock the next tier of rewards.
             </>
           ) : (
             <>You have unlocked the maximum reward bracket. Congratulations.</>
@@ -353,7 +358,7 @@ function TrackCard({
         <RewardStat
           icon={<Plane className="h-3.5 w-3.5" />}
           label="Flight"
-          value={current && current.flightUsd > 0 ? `${current.flightUsd} USDT` : "—"}
+          value={current && current.flightUsd > 0 ? `${current.flightUsd.toLocaleString()} USDT` : "—"}
           dim={!current || current.flightUsd === 0}
         />
       </div>
@@ -404,8 +409,8 @@ function RewardStat({
         {label}
       </div>
       <div
-        className={`mt-0.5 font-serif text-sm font-semibold tabular-nums ${
-          dim ? "text-foreground/60" : "text-gold"
+        className={`mt-0.5 text-sm font-light tabular-nums tracking-tight ${
+          dim ? "text-muted-foreground" : "text-gold"
         }`}
       >
         {value}
@@ -430,13 +435,13 @@ function TierLadder({
       <div className="mb-4 flex items-end justify-between gap-3">
         <div>
           <div className="text-[11px] uppercase tracking-[0.2em] text-gold">{title}</div>
-          <h3 className="mt-0.5 font-serif text-base font-semibold text-foreground">{subtitle}</h3>
+          <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
+            {subtitle}
+          </h3>
         </div>
         <div className="text-right">
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
-          <div className="font-serif text-base font-semibold tabular-nums text-gold">
-            {fmtUSDT(amount)}
-          </div>
+          <MetricValue value={amount} suffix=" USDT" decimals={0} size="sm" className="mt-0.5" static />
         </div>
       </div>
 
@@ -454,14 +459,15 @@ function TierLadder({
               </tr>
             </thead>
             <tbody>
-              {tiers.map((tier, i) => {
+              {tiers.map((tier) => {
                 const reached = amount >= tier.threshold;
+                const numCls = reached
+                  ? "font-light tabular-nums tracking-tight text-gold"
+                  : "font-light tabular-nums tracking-tight text-muted-foreground";
                 return (
                   <tr
                     key={tier.threshold}
-                    className={`border-t border-gold/10 ${
-                      reached ? "bg-gold/[0.05]" : "bg-transparent"
-                    } ${i === tiers.length - 1 ? "" : ""}`}
+                    className={`border-t border-gold/10 ${reached ? "bg-gold/[0.05]" : "bg-transparent"}`}
                   >
                     <td className="px-4 py-3">
                       {reached ? (
@@ -480,20 +486,18 @@ function TierLadder({
                         </span>
                       )}
                     </td>
-                    <td className={`px-4 py-3 text-right font-serif tabular-nums ${reached ? "text-gold" : "text-foreground/70"}`}>
-                      {fmtUSDT(tier.threshold)}
+                    <td className={`px-4 py-3 text-right ${numCls}`}>
+                      {tier.threshold.toLocaleString()} USDT
                     </td>
-                    <td className={`px-4 py-3 text-center tabular-nums ${reached ? "text-gold" : "text-foreground/70"}`}>
-                      {tier.seats}
-                    </td>
+                    <td className={`px-4 py-3 text-center ${numCls}`}>{tier.seats}</td>
                     <td className="px-4 py-3 text-center">
                       {tier.hotel ? (
-                        <Check className={`mx-auto h-3.5 w-3.5 ${reached ? "text-gold" : "text-foreground/40"}`} />
+                        <Check className={`mx-auto h-3.5 w-3.5 ${reached ? "text-gold" : "text-muted-foreground"}`} />
                       ) : (
-                        <span className="text-foreground/40">—</span>
+                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
-                    <td className={`px-4 py-3 text-right font-serif tabular-nums ${reached ? "text-gold" : "text-foreground/70"}`}>
+                    <td className={`px-4 py-3 text-right ${numCls}`}>
                       {tier.flightUsd > 0 ? tier.flightUsd.toLocaleString() : "—"}
                     </td>
                   </tr>
@@ -508,6 +512,9 @@ function TierLadder({
       <div className="space-y-2 md:hidden">
         {tiers.map((tier) => {
           const reached = amount >= tier.threshold;
+          const numCls = reached
+            ? "font-light tabular-nums tracking-tight text-gold"
+            : "font-light tabular-nums tracking-tight text-muted-foreground";
           return (
             <div
               key={tier.threshold}
@@ -528,27 +535,23 @@ function TierLadder({
                   >
                     {reached ? <Check className="h-3 w-3" /> : <Lock className="h-3 w-3" />}
                   </span>
-                  <span
-                    className={`font-serif text-sm font-semibold tabular-nums ${
-                      reached ? "text-gold" : "text-foreground/70"
-                    }`}
-                  >
-                    {fmtUSDT(tier.threshold)}
+                  <span className={`text-sm ${numCls}`}>
+                    {tier.threshold.toLocaleString()} USDT
                   </span>
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                <span className={`text-[10px] uppercase tracking-[0.18em] ${reached ? "text-gold" : "text-muted-foreground"}`}>
                   {reached ? "Achieved" : "Locked"}
                 </span>
               </div>
               <div className="mt-2 grid grid-cols-3 gap-2 text-[11px]">
-                <div className="flex items-center gap-1 text-foreground/70">
+                <div className={`flex items-center gap-1 ${reached ? "text-gold" : "text-muted-foreground"}`}>
                   <Ticket className="h-3 w-3" /> {tier.seats}
                 </div>
-                <div className="flex items-center gap-1 text-foreground/70">
+                <div className={`flex items-center gap-1 ${reached ? "text-gold" : "text-muted-foreground"}`}>
                   <Hotel className="h-3 w-3" /> {tier.hotel ? "Yes" : "—"}
                 </div>
-                <div className="flex items-center gap-1 text-foreground/70">
-                  <Plane className="h-3 w-3" /> {tier.flightUsd > 0 ? `${tier.flightUsd}` : "—"}
+                <div className={`flex items-center gap-1 ${reached ? "text-gold" : "text-muted-foreground"}`}>
+                  <Plane className="h-3 w-3" /> {tier.flightUsd > 0 ? tier.flightUsd.toLocaleString() : "—"}
                 </div>
               </div>
             </div>
@@ -557,10 +560,4 @@ function TierLadder({
       </div>
     </SpotlightCard>
   );
-}
-
-// ---- Utils -------------------------------------------------------------------
-
-function fmtUSDT(n: number) {
-  return `${n.toLocaleString()} USDT`;
 }
