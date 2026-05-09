@@ -3,23 +3,24 @@ import { TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { CountUp } from "@/components/count-up";
 
 export const Route = createFileRoute("/portal/staking-plans")({
   component: StakingPlansPage,
 });
 
-type Plan = { name: string; minAmount: string; roi: string };
+type Plan = { name: string; minAmount: number; roi: string };
 
 const plans: Plan[] = [
-  { name: "pages.stakingPlans.plans.standardLite", minAmount: "$100.00", roi: "0.15% – 0.25%" },
-  { name: "pages.stakingPlans.plans.standardPlus", minAmount: "$300.00", roi: "0.15% – 0.25%" },
-  { name: "pages.stakingPlans.plans.standardPro", minAmount: "$500.00", roi: "0.15% – 0.25%" },
-  { name: "pages.stakingPlans.plans.advanceLite", minAmount: "$1,000.00", roi: "0.25% – 0.35%" },
-  { name: "pages.stakingPlans.plans.advancePlus", minAmount: "$3,000.00", roi: "0.25% – 0.35%" },
-  { name: "pages.stakingPlans.plans.advancePro", minAmount: "$5,000.00", roi: "0.25% – 0.35%" },
-  { name: "pages.stakingPlans.plans.premiumLite", minAmount: "$10,000.00", roi: "0.35% – 0.45%" },
-  { name: "pages.stakingPlans.plans.premiumPlus", minAmount: "$30,000.00", roi: "0.35% – 0.45%" },
-  { name: "pages.stakingPlans.plans.premiumPro", minAmount: "$50,000.00", roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.standardLite", minAmount: 100, roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.standardPlus", minAmount: 300, roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.standardPro", minAmount: 500, roi: "0.15% – 0.25%" },
+  { name: "pages.stakingPlans.plans.advanceLite", minAmount: 1000, roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.advancePlus", minAmount: 3000, roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.advancePro", minAmount: 5000, roi: "0.25% – 0.35%" },
+  { name: "pages.stakingPlans.plans.premiumLite", minAmount: 10000, roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.premiumPlus", minAmount: 30000, roi: "0.35% – 0.45%" },
+  { name: "pages.stakingPlans.plans.premiumPro", minAmount: 50000, roi: "0.35% – 0.45%" },
 ];
 
 function StakingPlansPage() {
@@ -41,7 +42,7 @@ function StakingPlansPage() {
                   {t("pages.stakingPlans.labels.minimumStaking")}
                 </div>
                 <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
-                  {plan.minAmount}
+                  <CountUp value={plan.minAmount} prefix="$" decimals={2} />
                 </div>
               </div>
 
