@@ -78,14 +78,14 @@ export function StakingOverviewCard({
         )}
       </div>
 
-      {/* Proportion hairline — staking / usd / rewards */}
+      {/* Proportion hairline (replaces decorative gold line) */}
       <div
         aria-hidden
         className="mt-5 flex h-px w-40 overflow-hidden rounded-none bg-border/30 sm:w-48"
       >
-        <div className="h-full" style={{ width: `${(staking / total) * 100}%`, background: "var(--asset-participation)" }} />
-        <div className="h-full" style={{ width: `${(usd / total) * 100}%`, background: "var(--asset-cash)" }} />
-        <div className="h-full" style={{ width: `${(rewards / total) * 100}%`, background: "var(--asset-earnings)" }} />
+        <div className="h-full bg-gold/80" style={{ width: `${(staking / total) * 100}%` }} />
+        <div className="h-full bg-gold/40" style={{ width: `${(usd / total) * 100}%` }} />
+        <div className="h-full bg-gold/20" style={{ width: `${(rewards / total) * 100}%` }} />
       </div>
 
       {/* Sub label */}
