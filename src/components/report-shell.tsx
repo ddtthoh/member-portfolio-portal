@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Filter, RotateCcw, Download } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,26 +14,32 @@ import {
 } from "@/components/ui/popover";
 import { CollapsibleFilter, FieldLabel } from "@/components/portal-ui";
 
+export type ReportFilterValue = { date?: Date; text: string };
+
 /**
  * Standard date + free-text filter used by every Report page.
  */
 export function ReportFilter({
-  textLabel = "Member ID",
+  textLabel,
+  defaultOpen = true,
   onApply,
   onReset,
 }: {
   textLabel?: string;
-  onApply?: (v: { date?: Date; text: string }) => void;
+  defaultOpen?: boolean;
+  onApply?: (v: ReportFilterValue) => void;
   onReset?: () => void;
 }) {
   const { t } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [text, setText] = useState("");
 
+  const label = textLabel ?? t("components.reportShell.memberId");
+
   return (
-    <CollapsibleFilter title={t("components.reportShell.filter")}>
+    <CollapsibleFilter title={t("components.reportShell.filter")} defaultOpen={defaultOpen}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div>
+        <div className="min-w-0">
           <FieldLabel>{t("components.reportShell.date")}</FieldLabel>
           <Popover>
             <PopoverTrigger asChild>
@@ -61,23 +68,18 @@ export function ReportFilter({
             </PopoverContent>
           </Popover>
         </div>
-        <div>
-          <FieldLabel>{textLabel === "Member ID" ? t("components.reportShell.memberId") : textLabel}</FieldLabel>
+        <div className="min-w-0">
+          <FieldLabel>{label}</FieldLabel>
           <Input
             value={text}
             onChange={(e) => setText(e.target.value)}
             type="text"
+            placeholder={label}
             className="bg-background/40"
           />
         </div>
       </div>
-      <div className="mt-5 flex justify-end gap-2">
-        <Button
-          onClick={() => onApply?.({ date, text })}
-          className="bg-gold text-background hover:bg-gold/90"
-        >
-          {t("components.reportShell.filterAction")}
-        </Button>
+      <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
         <Button
           variant="outline"
           onClick={() => {
@@ -86,39 +88,84 @@ export function ReportFilter({
             onReset?.();
           }}
         >
+          <RotateCcw className="mr-2 h-4 w-4" />
           {t("components.reportShell.resetAction")}
+        </Button>
+        <Button
+          onClick={() => onApply?.({ date, text })}
+          className="bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
+        >
+          <Filter className="mr-2 h-4 w-4" />
+          {t("components.reportShell.filterAction")}
         </Button>
       </div>
     </CollapsibleFilter>
   );
 }
 
+export type ExportData = { headers: string[]; rows: (string | number)[][]; filename?: string };
+
+function downloadCsv({ headers, rows, filename = "report" }: ExportData) {
+  const escape = (v: string | number) => {
+    const s = String(v ?? "");
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const csv = [headers.map(escape).join(","), ...rows.map((r) => r.map(escape).join(","))].join("\n");
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  a.href = url;
+  a.download = `${filename}-${stamp}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 export function ReportShell({
   title,
-  exportLabel = "EXPORT",
-  onExport,
+  filterTextLabel,
+  onApply,
+  onReset,
+  getExportRows,
   children,
 }: {
   title: string;
-  exportLabel?: string;
-  onExport?: () => void;
+  filterTextLabel?: string;
+  onApply?: (v: ReportFilterValue) => void;
+  onReset?: () => void;
+  /** Returns the data for CSV export. Return null/undefined or empty rows to trigger the empty toast. */
+  getExportRows?: () => ExportData | null | undefined;
   children: ReactNode;
 }) {
   const { t } = useTranslation();
+
+  const handleExport = () => {
+    const data = getExportRows?.();
+    if (!data || !data.rows.length) {
+      toast.error(t("pages.transactions.empty.noRecordsExport", "No records to export"));
+      return;
+    }
+    downloadCsv(data);
+    toast.success(t("pages.transactions.empty.excelExported", "Exported"));
+  };
+
   return (
     <>
-      <ReportFilter />
+      <ReportFilter textLabel={filterTextLabel} onApply={onApply} onReset={onReset} />
       <section className="mt-4">
         <div className="liquid-glass overflow-hidden rounded-2xl">
-          <div className="flex flex-col items-start justify-between gap-3 border-b border-gold/10 px-5 py-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-stretch justify-between gap-3 border-b border-gold/10 px-5 py-4 sm:flex-row sm:items-center">
             <h3 className="font-serif text-base font-semibold text-gold md:text-lg">
               {title}
             </h3>
             <Button
-              onClick={onExport}
-              className="bg-gold text-background hover:bg-gold/90"
+              onClick={handleExport}
+              className="w-full bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90 sm:w-auto"
             >
-              {exportLabel === "EXPORT" ? t("components.reportShell.exportAction") : exportLabel}
+              <Download className="mr-2 h-4 w-4" />
+              {t("components.reportShell.exportAction")}
             </Button>
           </div>
           {children}
