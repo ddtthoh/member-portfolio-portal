@@ -1,75 +1,88 @@
-## 目标
 
-在已有的"单色 icon + 圆形金色 hover + 一次性流光"基础上，让四个社交 logo（Telegram / Instagram / X / Website）在**静止状态**就更出众、更有"被设计过"的板块感，同时不破坏私行克制美学。
+# Holdings 页"全资产 + Staking 时间"融合方案
 
----
+目标：用一张卡同时讲清楚 5 个数字 —— **Total Staking、Staking Days、Total Assets、USD、Rewards Asset**，且不和 asset-analysis 页的半圆图重复。
 
-## 方案：三层叠加升级
-
-### 层 1：永久细金边框（默认态可见度）
-每个 icon 的圆形容器从"完全透明"改为：
-- 默认：`border-gold/20` + `bg-card/40` + 极轻 inner shadow
-- Hover：升级到 `border-gold/60` + `bg-[gold/10%]` + 外发光（沿用现有效果）
-
-效果：四个 icon 静止时就像四枚嵌在侧栏的小金色勋章，远看一眼能识别。
-
-### 层 2：上方 eyebrow 标题 + 金色细线
-在 icon 行上方加：
-- 一条 `h-px` 渐变线：`from-transparent via-gold/30 to-transparent`
-- 一行 micro 标题：`CONNECT`（10px、letter-spacing 0.3em、`text-muted-foreground/60`）
-- Sidebar 折叠态：标题隐藏，只保留细线
-
-效果：把四个 icon 从"孤儿按钮"升格为一个**有名字的板块**，瞬间有杂志/品牌官网气质。
-
-### 层 3：错位呼吸光晕（Idle pulse）
-四个 icon 在 idle 状态下，金色边框透明度做 4 秒一次的极轻微呼吸（`gold/20 → gold/35 → gold/20`），**每个 icon 延迟 0.4s 依次呼吸**，形成左→右的金色波浪。
-- 用 framer-motion `animate` + `repeat: Infinity`
-- 加 `prefers-reduced-motion` 守护，关闭动画时回到静态
-
-效果：余光会被吸引但完全不打扰阅读，是顶级品牌网站常见的"活着的细节"。
+下面给你 3 个方向，全部用大白话说清楚长什么样、为什么这么排。
 
 ---
 
-## 技术实现
+## 方案 A · 金库总览（Vault Overview）—— 主推
 
-**只改一个文件**：`src/components/social-links.tsx`
+一张大卡，分上下两层：
 
-1. 把每个 `<a>` 内的"圆形容器 span"默认样式从 transparent 改为 `border-gold/20 bg-card/40 shadow-[inset_0_1px_0_color-mix(in_oklab,var(--gold)_8%,transparent)]`，hover 态保留现有金色加强。
-2. 在 `row` / `stack` 变体的 `<div>` 外层包一个新容器：
-   - 上方 `<div>` 渲染细线 + `CONNECT` eyebrow（折叠时只渲染细线）
-   - 通过新增 prop `showEyebrow?: boolean`（默认 true）控制，landing footer 可关掉只保留 icons
-3. 把每个圆形容器 span 换成 `motion.span`，加 `animate={{ boxShadow: [...3 帧...] }}` + `transition={{ duration: 4, repeat: Infinity, delay: index * 0.4 }}`
-4. 用 `useReducedMotion()` 守护，开启 reduce-motion 时跳过呼吸动画
-5. `labeled` 变体（support 页）保持现状不动，那里已经是卡片样式
+**上层（左右结构）**：左边是主角 —— Total Staking 金额（最大字号）+ 下方一行小字 `54 days · since Mar 16`。右边是配角 —— 一个小小的 Total Assets 数字（中等字号）+ 下方写 `total assets`。中间用一根**细金线 + 小金点**做分隔，呼应你之前喜欢的"connect 线"。
 
-**不改的文件**：portal-shell / index / portal.support — 它们只调用组件，自动继承新效果。
-
----
-
-## 视觉草图
+**下层（三列横排）**：USD · Rewards Asset · Staking 三个小数字横着平铺，每个前面一个**对应颜色的小圆点**（沿用 asset-analysis 的 `--asset-cash`、`--asset-earnings`、`--asset-participation` 三色）。下面再压一根极细的**三段式色条**（USD 多宽、Rewards 多宽、Staking 多宽，按比例），相当于把那个半圆图"压扁成一条线"。
 
 ```text
-展开 sidebar：
-─────── CONNECT ───────
-  (TG)  (IG)  (X)  (WEB)   ← 四枚带细金边的圆形勋章
-   ↑↑↑↑ 错位呼吸 ↑↑↑↑
-
-折叠 sidebar：
-   ───
-  (TG)
-  (IG)
-  (X)
-  (WEB)
-
-Landing footer（关 eyebrow）：
-© 2026 ... Private Wealth      (TG) (IG) (X) (WEB)
+ TOTAL STAKING                          │   TOTAL ASSETS
+ $50,000.00                             │   $73,420.00
+ 54 days · since Mar 16                 │   accruing · Premium
+ ─────────────────────●─────────────────┴────────────────
+ ● USD  $12,300    ● REWARDS  $11,120    ● STAKING  $50,000
+ ▰▰▰▰▰▱▱▱▱▱▱▱▱▱▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ```
+
+**好处**：
+- 一张卡讲完所有事，主次分明（Staking 是主角，days 是它的注脚，total assets 是参考，三类资产是构成）
+- 那条横向色条是 asset-analysis 半圆图的"扁平兄弟版"，同信息不同表达，不重复
+- 极简、克制、私行感强
+
+**坏处**：信息密度高，需要严格的字号层级把控。
 
 ---
 
-## 范围之外
+## 方案 B · 时间轴金库（Timeline Vault）
 
-- 不加品牌色小点（已讨论过，会拉低质感）
-- 不加 magnetic / tilt 交互（与克制美学冲突，留作以后 landing 重做时再考虑）
-- 不动 support 页的 labeled 卡片（已经是另一种好设计）
-- 不加 i18n 新 key，"CONNECT" 直接英文写死（属于品牌排版，不翻译）
+把"时间"作为主线索：一根**水平的细金色时间轴**横穿整张卡。
+
+- 时间轴左端是 `since Mar 16`，右端是 `today`，轴上一个金色游标停在 54 天的位置
+- 时间轴**上方**正中浮出 Total Staking 大数字（主角）
+- 时间轴**下方**左侧放 Total Assets，右侧把 USD / Rewards / Staking 三个小数字竖向堆叠（每个带色点）
+
+```text
+       $50,000.00     ← 54 days
+ ●━━━━━━━━━━━━━━━━━━━━●━━━━━━━━━━━━━━━━━━━○
+ since Mar 16                              today
+
+ TOTAL ASSETS              ● USD       $12,300
+ $73,420.00                ● REWARDS   $11,120
+                           ● STAKING   $50,000
+```
+
+**好处**：时间轴是 holdings 页独有的视觉符号，asset-analysis 没有，记忆点强。
+**坏处**：需要 SVG，工程量比 A 大；时间轴在窄屏上需要折叠处理。
+
+---
+
+## 方案 C · 三环嵌套（Concentric Rings）
+
+一张方卡，左侧一个**三环嵌套的小图**（外环 = 总资产构成的三色比例，中环 = stake 时间进度，圆心 = Total Staking 金额）；右侧文字列表列出 5 个数字。
+
+**坏处**：和 asset-analysis 的半圆图视觉相似度太高，**容易撞**，不推荐。列出来只是让你知道我考虑过。
+
+---
+
+## 我的推荐
+
+**方案 A**。原因：
+1. 信息层级最清晰（主-辅-构成三层）
+2. 横向色条 ≠ 半圆图，明确区分两个页面的角色
+3. 改动可控：一个新组件 `staking-overview-card.tsx`，holdings 页删掉原来三块（两张小卡 + TotalAssetsGauge）
+4. 移动端折叠简单：上层左右改上下，下层三列改两行
+
+如果要"更有故事感"选 B；C 不建议。
+
+---
+
+## 实现细节（技术）
+
+- 新组件：`src/components/staking-overview-card.tsx`
+- holdings 页改动：删除当前两张 amount/days 小卡 + 删除 `<TotalAssetsGauge>` 块；插入新组件
+- 数据来源：`useWallet()` 提供 staking/usd/rewards/total，staking amount/days 沿用现有写死的 50000 / 54（或后续接真实数据）
+- 颜色复用：`--asset-cash`、`--asset-earnings`、`--asset-participation`、`--gold`
+- 眼睛图标（隐藏金额）放在右上角，控制 Total Staking 显示
+- i18n keys 新增：`pages.holdings.totalStaking`、`totalAssets`、`since`、`accruing`、`assetBreakdown`
+
+请告诉我选 A / B（或者要我把 A 再调整某个细节），我就出最终方案给你 approve。
