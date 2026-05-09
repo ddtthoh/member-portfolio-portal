@@ -58,16 +58,16 @@ function StakingPlansPage() {
         description={t("pages.stakingPlans.description")}
       />
 
-      {/* Hero CTA — desktop / tablet */}
-      <div className="hidden sm:flex justify-center">
+      {/* Hero CTA — inline, above first tier */}
+      <div className="flex justify-center">
         <Button
           size="lg"
           onClick={() => setOpen(true)}
-          className="cta-premium group relative overflow-hidden rounded-full border-0 px-12 py-6 text-[13px] font-semibold uppercase tracking-[0.32em] transition-transform hover:-translate-y-0.5"
+          className="cta-premium group relative w-full sm:w-auto overflow-hidden rounded-full border-0 px-8 sm:px-12 py-5 sm:py-6 text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.3em] sm:tracking-[0.32em] transition-transform hover:-translate-y-0.5"
         >
-          <Sparkles className="mr-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
+          <Sparkles className="mr-2 sm:mr-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
           <span className="relative z-10">{t("pages.stakingPlans.cta", { defaultValue: "Start Staking" })}</span>
-          <Sparkles className="ml-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
+          <Sparkles className="ml-2 sm:ml-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
         </Button>
       </div>
 
