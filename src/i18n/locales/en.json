@@ -402,8 +402,12 @@
       "totalAssets": "Total Assets",
       "since": "since {{date}}",
       "daysUnit": "days",
+      "daysUnitUpper": "DAYS",
       "accruing": "accruing · {{tier}}",
       "assetBreakdown": "Asset Breakdown",
+      "certificate": "Vault Certificate",
+      "certificateNo": "No. {{no}}",
+      "tierSuffix": "{{tier}} Tier",
       "tableHeaders": {
         "date": "Date",
         "stakingPlan": "Staking Plan",
