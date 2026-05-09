@@ -21,7 +21,7 @@ function makeSpriteTexture(inner = "rgba(255,244,214,1)", mid = "rgba(232,201,12
 
 type Packet = { edge: number; t: number; speed: number; alive: boolean; cascade: number };
 
-function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; interactive: boolean; spreadX: number; spreadY: number }) {
+function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: number; interactive: boolean; spreadX: number; spreadY: number; isPhone: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const nodesRef = useRef<THREE.Points>(null);
   const edgesRef = useRef<THREE.LineSegments>(null);
