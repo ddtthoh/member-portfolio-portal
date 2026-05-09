@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
+import { SocialLinks } from "@/components/social-links";
 
 export const Route = createFileRoute("/portal/support")({
   component: SupportPage,
@@ -364,6 +365,17 @@ function SupportPage() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      {/* Official Channels */}
+      <section className="liquid-glass rounded-2xl border border-border/60 px-6 py-6">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground/80">
+            Official Channels
+          </span>
+          <div className="h-px flex-1 bg-gradient-to-r from-border/60 to-transparent" />
+        </div>
+        <SocialLinks variant="labeled" size={20} />
       </section>
 
       <Dialog open={!!viewing} onOpenChange={(o) => !o && setViewing(null)}>

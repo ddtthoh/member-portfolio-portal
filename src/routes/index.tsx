@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Building2 } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { SocialLinks } from "@/components/social-links";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export const Route = createFileRoute("/")({
@@ -80,8 +81,11 @@ function Landing() {
         </section>
       </main>
 
-      <footer className="relative z-10 border-t border-border py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Ivory &amp; Vale Private Wealth · By invitation only
+      <footer className="relative z-10 border-t border-border py-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 text-center text-xs text-muted-foreground sm:flex-row sm:justify-between sm:text-left lg:px-10">
+          <span>© {new Date().getFullYear()} Ivory &amp; Vale Private Wealth · By invitation only</span>
+          <SocialLinks variant="row" size={18} />
+        </div>
       </footer>
     </div>
   );
