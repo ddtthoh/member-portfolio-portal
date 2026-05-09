@@ -460,7 +460,7 @@ function TierLadder({
   amount: number;
 }) {
   return (
-    <SpotlightCard className="liquid-glass rounded-2xl p-6">
+    <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.015] p-6">
       <div className="mb-4 flex items-end justify-between gap-3">
         <div>
           <div className="text-[11px] uppercase tracking-[0.2em] text-gold">{title}</div>
