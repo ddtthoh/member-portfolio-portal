@@ -443,3 +443,48 @@
     .tap-glow-ring { animation: none; opacity: 0; }
   }
 }
+
+/* ---------------------------------------------------------------
+   Gold glow utilities — premium, slow 6s breathe
+   --------------------------------------------------------------- */
+@layer utilities {
+  @keyframes gold-breathe {
+    0%, 100% { opacity: 0.75; }
+    50%      { opacity: 1; }
+  }
+
+  .gold-glow-sm {
+    box-shadow:
+      0 0 10px color-mix(in oklab, var(--gold) 45%, transparent),
+      0 0 2px color-mix(in oklab, var(--gold) 70%, transparent);
+    animation: gold-breathe 6s ease-in-out infinite;
+  }
+
+  .gold-glow-md {
+    box-shadow:
+      0 0 14px 2px color-mix(in oklab, var(--gold) 55%, transparent),
+      0 0 4px color-mix(in oklab, var(--gold) 80%, transparent);
+    animation: gold-breathe 6s ease-in-out infinite;
+  }
+
+  .gold-glow-bar {
+    box-shadow:
+      0 0 10px color-mix(in oklab, var(--gold) 50%, transparent),
+      inset 0 1px 0 color-mix(in oklab, white 30%, transparent);
+    animation: gold-breathe 6s ease-in-out infinite;
+  }
+
+  /* For TrackCard container — subtle ambient gold edge that breathes */
+  .gold-aura {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--gold) 30%, transparent),
+      0 12px 40px -16px color-mix(in oklab, var(--gold) 45%, transparent),
+      inset 0 1px 0 color-mix(in oklab, white 8%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gold-glow-sm,
+    .gold-glow-md,
+    .gold-glow-bar { animation: none !important; opacity: 1 !important; }
+  }
+}

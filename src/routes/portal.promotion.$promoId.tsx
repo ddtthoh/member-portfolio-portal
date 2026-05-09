@@ -276,18 +276,28 @@ function TrackCard({
   const qualified = !!current;
 
   return (
-    <SpotlightCard className="liquid-glass rounded-2xl p-6">
-      <div className="mb-3 flex items-center gap-2 text-gold">
+    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
+      {/* Ambient gold corner glow to make user's tracking the focal point */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 8%, transparent), transparent 60%)",
+        }}
+      />
+      <div className="relative mb-3 flex items-center gap-2 text-gold">
         {icon}
         <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
+        <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">Your Tracking</span>
       </div>
 
-      <div className="flex items-baseline justify-between gap-3">
+      <div className="relative flex items-baseline justify-between gap-3">
         <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
         <StatusChip qualified={qualified} top={topReached} />
       </div>
 
-      <div className="mt-4 flex items-end justify-between">
+      <div className="relative mt-4 flex items-end justify-between">
         <div>
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
           <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
@@ -305,7 +315,7 @@ function TrackCard({
       </div>
 
       {/* Progress to next */}
-      <div className="mt-5">
+      <div className="relative mt-5">
         <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
           <span>
             {next ? (
@@ -321,11 +331,18 @@ function TrackCard({
           </span>
           <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
         </div>
-        <div className="relative h-1.5 overflow-hidden rounded-full bg-gold/10">
+        <div className="relative h-1.5 rounded-full bg-gold/10">
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold"
+            className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold ${progressInTier > 0 ? "gold-glow-bar" : ""}`}
             style={{ width: `${progressInTier}%` }}
           />
+          {progressInTier > 0 && progressInTier < 100 && (
+            <span
+              aria-hidden
+              className="gold-glow-md absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-gold"
+              style={{ left: `calc(${progressInTier}% - 5px)` }}
+            />
+          )}
         </div>
         <div className="mt-2 text-[11px] text-gold/70">
           {next ? (
@@ -342,7 +359,7 @@ function TrackCard({
       </div>
 
       {/* Currently unlocked rewards */}
-      <div className="mt-5 grid grid-cols-3 gap-2">
+      <div className="relative mt-5 grid grid-cols-3 gap-2">
         <RewardStat
           icon={<Ticket className="h-3.5 w-3.5" />}
           label="Seats"
@@ -472,7 +489,7 @@ function TierLadder({
                     <td className="px-4 py-3">
                       {reached ? (
                         <span className="inline-flex items-center gap-1.5 text-gold">
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
+                          <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
                             <Check className="h-3 w-3" />
                           </span>
                           <span className="text-[11px] uppercase tracking-[0.18em]">Achieved</span>
@@ -529,7 +546,7 @@ function TierLadder({
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full border ${
                       reached
-                        ? "border-gold/50 bg-gold/15 text-gold"
+                        ? "gold-glow-sm border-gold/50 bg-gold/15 text-gold"
                         : "border-foreground/15 bg-foreground/[0.04] text-muted-foreground"
                     }`}
                   >
