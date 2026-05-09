@@ -5,8 +5,8 @@ export function PageHeader({
   eyebrow, title, description, actions,
 }: { eyebrow?: string; title: ReactNode; description?: string; actions?: ReactNode }) {
   return (
-    <div className="liquid-glass mb-5 flex flex-col gap-2 rounded-xl px-5 py-4 md:flex-row md:items-end md:justify-between">
-      <div>
+    <div className="liquid-glass mb-5 flex flex-col gap-2 rounded-xl px-4 py-3.5 sm:px-5 sm:py-4 md:flex-row md:items-end md:justify-between">
+      <div className="min-w-0">
         {eyebrow && (
           <motion.div
             initial={{ opacity: 0, y: 4 }}
@@ -21,7 +21,7 @@ export function PageHeader({
           initial={{ opacity: 0, filter: "blur(8px)", y: 8 }}
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="font-serif text-2xl font-semibold leading-tight tracking-tight text-gold md:text-[28px]"
+          className="font-serif text-xl font-semibold leading-tight tracking-tight text-gold break-words sm:text-2xl md:text-[28px]"
         >
           {title}
         </motion.h1>

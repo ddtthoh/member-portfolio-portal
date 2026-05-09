@@ -92,7 +92,7 @@ function QrCodePage() {
   };
 
   return (
-    <div>
+    <div className="w-full min-w-0 overflow-x-hidden">
       <PageHeader
         eyebrow={t("account.label")}
         title={t("pages.qrCode.title")}
@@ -105,8 +105,9 @@ function QrCodePage() {
       />
 
       {/* Mobile-only verified badge */}
-      <div className="mt-3 flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-gold md:hidden w-fit">
-        <ShieldCheck className="h-3.5 w-3.5" /> {t("pages.qrCode.verifiedReferral")}
+      <div className="mt-3 inline-flex max-w-full items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-gold md:hidden">
+        <ShieldCheck className="h-3 w-3 shrink-0" />
+        <span className="truncate">{t("pages.qrCode.verifiedReferral")}</span>
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,420px)_1fr]">
@@ -227,11 +228,11 @@ function QrCodePage() {
                 t("pages.qrCode.steps.2"),
                 t("pages.qrCode.steps.3"),
               ].map((line, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={i} className="flex min-w-0 items-start gap-3">
                   <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-mono text-[11px] font-semibold text-gold">
                     {i + 1}
                   </span>
-                  <span className="leading-relaxed">{line}</span>
+                  <span className="min-w-0 flex-1 break-words leading-relaxed">{line}</span>
                 </li>
               ))}
             </ol>
