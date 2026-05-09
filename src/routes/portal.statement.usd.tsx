@@ -17,12 +17,12 @@ type UsdRow = {
 };
 
 const columns: { key: keyof UsdRow; label: string }[] = [
-  { key: "date", label: "Date" },
-  { key: "txId", label: "Transaction ID" },
-  { key: "type", label: "Transaction Type" },
-  { key: "credit", label: "Credit" },
-  { key: "debit", label: "Debit" },
-  { key: "remarks", label: "Remarks" },
+  { key: "date", label: "pages.deposit.tableHeaders.date" },
+  { key: "txId", label: "pages.usdStatement.tableHeaders.txId" },
+  { key: "type", label: "pages.usdStatement.tableHeaders.type" },
+  { key: "credit", label: "pages.usdStatement.tableHeaders.credit" },
+  { key: "debit", label: "pages.usdStatement.tableHeaders.debit" },
+  { key: "remarks", label: "pages.usdStatement.tableHeaders.remarks" },
 ];
 
 const rows: UsdRow[] = [];
@@ -40,7 +40,7 @@ function UsdStatementPage() {
               {columns.map((col) => (
                 <div key={col.key} className="px-6 text-center">
                   <div className="whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                    {col.label}
+                    {t(col.label)}
                   </div>
                 </div>
               ))}

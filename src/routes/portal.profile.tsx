@@ -30,6 +30,7 @@ import {
   CheckCircle2,
   Lock as LockIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/profile")({
   component: ProfilePage,
@@ -48,6 +49,7 @@ const COUNTRIES = [
 ];
 
 function ProfilePage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const memberId = useMemo(() => {
     const raw = (user?.id ?? "").replace(/-/g, "");
@@ -103,19 +105,19 @@ function ProfilePage() {
       .update({ full_name: form.full_name, phone: form.mobile_number })
       .eq("id", user.id);
     setSaving(false);
-    if (error) toast.error("Failed to save profile");
-    else toast.success("Profile updated");
+    if (error) toast.error(t("pages.profile.toast.error"));
+    else toast.success(t("pages.profile.toast.success"));
   };
 
   return (
     <div>
       <PageHeader
-        eyebrow="Account"
-        title="Profile Information"
-        description="Manage your personal details, contact information, and account identity."
+        eyebrow={t("account.label")}
+        title={t("pages.profile.title")}
+        description={t("pages.profile.description")}
         actions={
           <div className="hidden items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-gold md:inline-flex">
-            <ShieldCheck className="h-3.5 w-3.5" /> Verified Member
+            <ShieldCheck className="h-3.5 w-3.5" /> {t("pages.profile.verifiedMember")}
           </div>
         }
       />
@@ -139,7 +141,7 @@ function ProfilePage() {
               </motion.div>
               <div>
                 <div className="font-serif text-xl font-semibold text-gold">
-                  {form.full_name || user?.email?.split("@")[0] || "Member"}
+                  {form.full_name || user?.email?.split("@")[0] || t("pages.profile.memberFallback")}
                 </div>
                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.18em] text-gold/70">
                   <span className="inline-flex items-center gap-1">
@@ -149,8 +151,8 @@ function ProfilePage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:flex">
-              <StatPill label="Status" value="Active" className="sm:w-28" />
-              <StatPill label="Tier" value="Gold" className="sm:w-28" />
+              <StatPill label={t("pages.profile.status")} value={t("pages.profile.active")} className="sm:w-28" />
+              <StatPill label={t("pages.profile.tier")} value={t("pages.referral.tiers.gold")} className="sm:w-28" />
             </div>
           </div>
         </div>
@@ -158,32 +160,32 @@ function ProfilePage() {
 
       {/* Form */}
       <form onSubmit={onSubmit} className="mt-4 space-y-4">
-        <SectionCard title="Account Identity" subtitle="Read-only verified credentials">
+        <SectionCard title={t("pages.profile.accountIdentity.title")} subtitle={t("pages.profile.accountIdentity.subtitle")}>
           <Grid>
-            <ReadField icon={IdCard} label="Member ID" value={memberId} />
-            <ReadField icon={ShieldCheck} label="Status" value="Active" badge />
-            <ReadField icon={Mail} label="Email Address" value={user?.email ?? "—"} className="sm:col-span-2" />
+            <ReadField icon={IdCard} label={t("pages.profile.memberId")} value={memberId} />
+            <ReadField icon={ShieldCheck} label={t("pages.profile.status")} value={t("pages.profile.active")} badge />
+            <ReadField icon={Mail} label={t("pages.profile.emailAddress")} value={user?.email ?? "—"} className="sm:col-span-2" />
           </Grid>
         </SectionCard>
 
-        <SectionCard title="Personal Details" subtitle="Your legal identity and date of birth">
+        <SectionCard title={t("pages.profile.personalDetails.title")} subtitle={t("pages.profile.personalDetails.subtitle")}>
           <Grid>
-            <Field label="Name" required>
+            <Field label={t("pages.profile.name")} required>
               <Input
                 value={form.full_name}
                 onChange={(e) => set("full_name")(e.target.value)}
-                placeholder="Full legal name"
+                placeholder={t("pages.profile.namePlaceholder")}
                 disabled={loading}
               />
             </Field>
-            <Field label="National ID">
+            <Field label={t("pages.profile.nationalId")}>
               <Input
                 value={form.national_id}
                 onChange={(e) => set("national_id")(e.target.value)}
-                placeholder="ID / passport number"
+                placeholder={t("pages.profile.nationalIdPlaceholder")}
               />
             </Field>
-            <Field label="Date of Birth">
+            <Field label={t("pages.profile.dob")}>
               <div className="relative">
                 <CalendarDays className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
                 <Input
@@ -194,7 +196,7 @@ function ProfilePage() {
                 />
               </div>
             </Field>
-            <Field label="Sponsor ID">
+            <Field label={t("pages.profile.sponsorId")}>
               <div className="relative">
                 <Users className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
                 <Input
@@ -211,9 +213,9 @@ function ProfilePage() {
           </Grid>
         </SectionCard>
 
-        <SectionCard title="Contact" subtitle="How we reach you">
+        <SectionCard title={t("pages.profile.contact.title")} subtitle={t("pages.profile.contact.subtitle")}>
           <Grid>
-            <Field label="Mobile Prefix">
+            <Field label={t("pages.profile.mobilePrefix")}>
               <Select value={form.mobile_prefix} onValueChange={set("mobile_prefix")}>
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
@@ -222,7 +224,7 @@ function ProfilePage() {
                       <span className="flex w-full items-center justify-between gap-3">
                         <span className="flex items-center gap-2">
                           <span>{c.flag}</span>
-                          <span>{c.name}</span>
+                          <span>{t(`pages.profile.countries.${c.name.replace(/\s+/g, '')}`)}</span>
                         </span>
                         <span className="font-mono text-xs text-gold/80">{c.dial}</span>
                       </span>
@@ -231,13 +233,13 @@ function ProfilePage() {
                 </SelectContent>
               </Select>
             </Field>
-            <Field label="Mobile Number">
+            <Field label={t("pages.profile.mobileNumber")}>
               <div className="relative">
                 <Phone className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
                 <Input
                   value={form.mobile_number}
                   onChange={(e) => set("mobile_number")(e.target.value)}
-                  placeholder="Phone number"
+                  placeholder={t("pages.profile.mobileNumberPlaceholder")}
                   className="pl-9"
                 />
               </div>
@@ -245,39 +247,39 @@ function ProfilePage() {
           </Grid>
         </SectionCard>
 
-        <SectionCard title="Address" subtitle="Residential location">
+        <SectionCard title={t("pages.profile.address.title")} subtitle={t("pages.profile.address.subtitle")}>
           <Grid>
-            <Field label="Country">
+            <Field label={t("pages.profile.country")}>
               <Select value={form.country} onValueChange={set("country")}>
                 <SelectTrigger><SelectValue placeholder="--" /></SelectTrigger>
                 <SelectContent>
                   {COUNTRIES.map((c) => (
                     <SelectItem key={c.name} value={c.name}>
-                      <span className="flex items-center gap-2"><span>{c.flag}</span><span>{c.name}</span></span>
+                      <span className="flex items-center gap-2"><span>{c.flag}</span><span>{t(`pages.profile.countries.${c.name.replace(/\s+/g, '')}`)}</span></span>
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </Field>
-            <Field label="Region">
+            <Field label={t("pages.profile.region")}>
               <div className="relative">
                 <Globe2 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gold/60" />
-                <Input value={form.region} onChange={(e) => set("region")(e.target.value)} placeholder="Region" className="pl-9" />
+                <Input value={form.region} onChange={(e) => set("region")(e.target.value)} placeholder={t("pages.profile.region")} className="pl-9" />
               </div>
             </Field>
-            <Field label="Province">
-              <Input value={form.province} onChange={(e) => set("province")(e.target.value)} placeholder="State / Province" />
+            <Field label={t("pages.profile.province")}>
+              <Input value={form.province} onChange={(e) => set("province")(e.target.value)} placeholder={t("pages.profile.provincePlaceholder")} />
             </Field>
-            <Field label="City">
-              <Input value={form.city} onChange={(e) => set("city")(e.target.value)} placeholder="City" />
+            <Field label={t("pages.profile.city")}>
+              <Input value={form.city} onChange={(e) => set("city")(e.target.value)} placeholder={t("pages.profile.city")} />
             </Field>
-            <Field label="Address" className="sm:col-span-2">
+            <Field label={t("pages.profile.address.title")} className="sm:col-span-2">
               <div className="relative">
                 <MapPin className="pointer-events-none absolute left-3 top-3 h-4 w-4 text-gold/60" />
                 <Input
                   value={form.address}
                   onChange={(e) => set("address")(e.target.value)}
-                  placeholder="Street address"
+                  placeholder={t("pages.profile.addressPlaceholder")}
                   className="pl-9"
                 />
               </div>
@@ -287,7 +289,7 @@ function ProfilePage() {
 
         <div className="flex items-center justify-end gap-3 pt-1">
           <p className="text-[11px] uppercase tracking-[0.18em] text-gold/50">
-            Changes are encrypted & audit-logged
+            {t("pages.profile.auditNotice")}
           </p>
           <Button
             type="submit"
@@ -295,7 +297,7 @@ function ProfilePage() {
             className="bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
           >
             <Save className="mr-2 h-4 w-4" />
-            {saving ? "Saving…" : "Submit"}
+            {saving ? t("pages.profile.saving") : t("common.submit")}
           </Button>
         </div>
       </form>

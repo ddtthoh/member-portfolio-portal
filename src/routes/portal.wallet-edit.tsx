@@ -9,12 +9,14 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Upload, QrCode, FileText, Trash2 } from "lucide-react";
 import { parseQuizText } from "@/lib/quiz-parser";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/wallet-edit")({
   component: WalletEditPage,
 });
 
 function WalletEditPage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [usd, setUsd] = useState("0");
   const [rewards, setRewards] = useState("0");
@@ -70,7 +72,7 @@ function WalletEditPage() {
     );
     setSaving(false);
     if (error) toast.error(error.message);
-    else toast.success("Wallet updated");
+    else toast.success(t("pages.walletEdit.toast.walletUpdated"));
   };
 
   const onPickFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +90,7 @@ function WalletEditPage() {
     const { data } = supabase.storage.from("deposit-qr").getPublicUrl(path);
     setQrUrl(data.publicUrl);
     setUploading(false);
-    toast.success("QR uploaded");
+    toast.success(t("pages.walletEdit.toast.qrUploaded"));
   };
 
   const saveDeposit = async () => {
@@ -107,55 +109,55 @@ function WalletEditPage() {
     );
     setSavingDeposit(false);
     if (error) toast.error(error.message);
-    else toast.success("Deposit settings saved");
+    else toast.success(t("pages.walletEdit.toast.depositSettingsSaved"));
   };
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Edit Wallet" description="Update balances, deposit network, address and QR code." />
+      <PageHeader title={t("pages.walletEdit.title")} description={t("pages.walletEdit.description")} />
 
       <div className="grid gap-6 md:grid-cols-2">
         <div className="liquid-glass space-y-4 rounded-xl p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">Balances</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">{t("pages.walletEdit.balances.title")}</h2>
           <div className="space-y-1.5">
-            <Label htmlFor="usd">USD Wallet</Label>
+            <Label htmlFor="usd">{t("pages.walletEdit.balances.usdWallet")}</Label>
             <Input id="usd" type="number" step="0.01" value={usd} onChange={(e) => setUsd(e.target.value)} />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="rewards">Rewards Wallet</Label>
+            <Label htmlFor="rewards">{t("pages.walletEdit.balances.rewardsWallet")}</Label>
             <Input id="rewards" type="number" step="0.01" value={rewards} onChange={(e) => setRewards(e.target.value)} />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="staking">Staking Amount</Label>
+            <Label htmlFor="staking">{t("pages.walletEdit.balances.stakingAmount")}</Label>
             <Input id="staking" type="number" step="0.01" value={staking} onChange={(e) => setStaking(e.target.value)} />
           </div>
           <Button onClick={save} disabled={saving || !user} className="w-full">
-            {saving ? "Saving…" : "Save Balances"}
+            {saving ? t("pages.walletEdit.actions.saving") : t("pages.walletEdit.actions.saveBalances")}
           </Button>
         </div>
 
         <div className="liquid-glass space-y-4 rounded-xl p-5">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">Deposit Settings</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">{t("pages.walletEdit.depositSettings.title")}</h2>
 
           <div className="space-y-1.5">
-            <Label htmlFor="network">Network</Label>
+            <Label htmlFor="network">{t("pages.walletEdit.depositSettings.network")}</Label>
             <Input id="network" value={network} onChange={(e) => setNetwork(e.target.value)} placeholder="BSC" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="networkLabel">Network Label</Label>
+            <Label htmlFor="networkLabel">{t("pages.walletEdit.depositSettings.networkLabel")}</Label>
             <Input id="networkLabel" value={networkLabel} onChange={(e) => setNetworkLabel(e.target.value)} placeholder="BNB Smart Chain (BEP20)" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="address">Wallet Address</Label>
+            <Label htmlFor="address">{t("pages.walletEdit.depositSettings.walletAddress")}</Label>
             <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x..." className="font-mono" />
           </div>
 
           <div className="space-y-2">
-            <Label>QR Code</Label>
+            <Label>{t("pages.walletEdit.depositSettings.qrCode")}</Label>
             <div className="flex items-center gap-4">
               <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white">
                 {qrUrl ? (
-                  <img src={qrUrl} alt="QR preview" className="h-full w-full object-contain" />
+                  <img src={qrUrl} alt={t("pages.walletEdit.depositSettings.qrPreviewAlt")} className="h-full w-full object-contain" />
                 ) : (
                   <QrCode className="h-8 w-8 text-muted-foreground" />
                 )}
@@ -170,14 +172,14 @@ function WalletEditPage() {
                   className="w-full"
                 >
                   <Upload className="mr-2 h-4 w-4" />
-                  {uploading ? "Uploading…" : qrUrl ? "Replace QR" : "Upload QR"}
+                  {uploading ? t("pages.walletEdit.actions.uploading") : qrUrl ? t("pages.walletEdit.actions.replaceQr") : t("pages.walletEdit.actions.uploadQr")}
                 </Button>
               </div>
             </div>
           </div>
 
           <Button onClick={saveDeposit} disabled={savingDeposit || !user} className="w-full">
-            {savingDeposit ? "Saving…" : "Save Deposit Settings"}
+            {savingDeposit ? t("pages.walletEdit.actions.saving") : t("pages.walletEdit.actions.saveDepositSettings")}
           </Button>
         </div>
       </div>
@@ -188,6 +190,7 @@ function WalletEditPage() {
 }
 
 function QuizUploadSection() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [counts, setCounts] = useState<{ company: number; marketing: number }>({ company: 0, marketing: 0 });
   const [parsing, setParsing] = useState(false);
@@ -216,16 +219,16 @@ function QuizUploadSection() {
       const result = await mammoth.extractRawText({ arrayBuffer: buf });
       const parsed = parseQuizText(result.value || "");
       if (parsed.length === 0) {
-        toast.error("No questions detected. Check formatting (see hint below).");
+        toast.error(t("pages.walletEdit.toast.noQuestions"));
         return;
       }
       const rows = parsed.map((q) => ({ ...q, created_by: user.id }));
       const { error } = await supabase.from("quiz_questions").insert(rows);
       if (error) throw error;
-      toast.success(`Imported ${parsed.length} questions`);
+      toast.success(t("pages.walletEdit.toast.importedQuestions", { count: parsed.length }));
       await refresh();
     } catch (err: any) {
-      toast.error(err?.message ?? "Failed to import");
+      toast.error(err?.message ?? t("pages.walletEdit.toast.failedToImport"));
     } finally {
       setParsing(false);
       if (docxRef.current) docxRef.current.value = "";
@@ -234,14 +237,15 @@ function QuizUploadSection() {
 
   const clearCategory = async (category: "company" | "marketing") => {
     if (!user) return;
-    if (!confirm(`Delete all your uploaded ${category} questions?`)) return;
+    const categoryName = category === "company" ? t("nav.qnaCompany") : t("nav.qnaMarketing");
+    if (!confirm(t("pages.walletEdit.confirm.deleteCategory", { category: categoryName }))) return;
     const { error } = await supabase
       .from("quiz_questions")
       .delete()
       .eq("category", category)
       .eq("created_by", user.id);
     if (error) return toast.error(error.message);
-    toast.success("Cleared");
+    toast.success(t("pages.walletEdit.toast.cleared"));
     refresh();
   };
 
@@ -250,19 +254,18 @@ function QuizUploadSection() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">
-            Q&amp;A Question Bank
+            {t("pages.walletEdit.quiz.title")}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Upload a .docx file containing multiple-choice questions. The system will randomly
-            pick 10 each time the client takes the test.
+            {t("pages.walletEdit.quiz.description")}
           </p>
         </div>
         <div className="flex shrink-0 gap-2 text-xs">
           <span className="rounded-md border border-border px-2 py-1">
-            Company: <b className="text-gold">{counts.company}</b>
+            {t("pages.walletEdit.quiz.company")}<b className="text-gold">{counts.company}</b>
           </span>
           <span className="rounded-md border border-border px-2 py-1">
-            Marketing: <b className="text-gold">{counts.marketing}</b>
+            {t("pages.walletEdit.quiz.marketing")}<b className="text-gold">{counts.marketing}</b>
           </span>
         </div>
       </div>
@@ -276,19 +279,19 @@ function QuizUploadSection() {
           className="bg-gold text-gold-foreground hover:bg-gold/90"
         >
           <Upload className="mr-2 h-4 w-4" />
-          {parsing ? "Parsing…" : "Upload .docx"}
+          {parsing ? t("pages.walletEdit.actions.parsing") : t("pages.walletEdit.actions.uploadDocx")}
         </Button>
         <Button type="button" variant="outline" onClick={() => clearCategory("company")} disabled={!user}>
-          <Trash2 className="mr-2 h-4 w-4" /> Clear Company
+          <Trash2 className="mr-2 h-4 w-4" /> {t("pages.walletEdit.actions.clearCompany")}
         </Button>
         <Button type="button" variant="outline" onClick={() => clearCategory("marketing")} disabled={!user}>
-          <Trash2 className="mr-2 h-4 w-4" /> Clear Marketing
+          <Trash2 className="mr-2 h-4 w-4" /> {t("pages.walletEdit.actions.clearMarketing")}
         </Button>
       </div>
 
       <details className="rounded-md border border-border p-3 text-xs">
         <summary className="cursor-pointer font-medium text-foreground">
-          <FileText className="mr-1 inline h-3.5 w-3.5" /> Expected .docx format
+          <FileText className="mr-1 inline h-3.5 w-3.5" /> {t("pages.walletEdit.quiz.expectedFormat")}
         </summary>
         <pre className="mt-2 whitespace-pre-wrap text-muted-foreground">
 {`[Company]
@@ -315,9 +318,8 @@ D) 20%
 Answer: B`}
         </pre>
         <p className="mt-2 text-muted-foreground">
-          Use <b>[Company]</b> or <b>[Marketing plan]</b> headers to switch category. Questions
-          start with a number, options use <b>A)</b> / <b>B)</b> etc., and <b>Answer: X</b>{" "}
-          marks the correct letter.
+          {t("pages.walletEdit.quiz.hint.part1")}<b>[Company]</b>{t("pages.walletEdit.quiz.hint.part2")}<b>[Marketing plan]</b>{t("pages.walletEdit.quiz.hint.part3")}<b>A)</b>{t("pages.walletEdit.quiz.hint.part4")}<b>B)</b>{t("pages.walletEdit.quiz.hint.part5")}<b>Answer: X</b>{" "}
+          {t("pages.walletEdit.quiz.hint.part6")}
         </p>
       </details>
     </div>

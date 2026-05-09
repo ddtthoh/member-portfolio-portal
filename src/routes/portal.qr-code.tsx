@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import {
   QrCode as QrCodeIcon,
   Copy,
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/portal/qr-code")({
 const REFERRAL_BASE = "https://member.naslabtec.com/register";
 
 function QrCodePage() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const cardRef = useRef<HTMLDivElement | null>(null);
 
@@ -46,14 +48,14 @@ function QrCodePage() {
   const copyLink = async () => {
     await navigator.clipboard.writeText(referralUrl);
     setCopiedLink(true);
-    toast.success("Referral link copied");
+    toast.success(t("pages.qrCode.toast.linkCopied"));
     setTimeout(() => setCopiedLink(false), 1800);
   };
 
   const copyId = async () => {
     await navigator.clipboard.writeText(memberId);
     setCopiedId(true);
-    toast.success("Member ID copied");
+    toast.success(t("pages.qrCode.toast.idCopied"));
     setTimeout(() => setCopiedId(false), 1800);
   };
 
@@ -69,9 +71,9 @@ function QrCodePage() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      toast.success("QR code downloaded");
+      toast.success(t("pages.qrCode.toast.qrDownloaded"));
     } catch {
-      toast.error("Download failed");
+      toast.error(t("pages.qrCode.toast.downloadFailed"));
     }
   };
 
@@ -79,8 +81,8 @@ function QrCodePage() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Join via my referral",
-          text: `Register using my member ID ${memberId}`,
+          title: t("pages.qrCode.share.title"),
+          text: t("pages.qrCode.share.text", { memberId }),
           url: referralUrl,
         });
       } catch {
@@ -94,12 +96,12 @@ function QrCodePage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Account"
-        title="My Referral QR Code"
-        description="Your unique invitation card. Share with prospective clients to register under your account."
+        eyebrow={t("account.label")}
+        title={t("pages.qrCode.title")}
+        description={t("pages.qrCode.description")}
         actions={
           <div className="hidden items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-gold md:inline-flex">
-            <ShieldCheck className="h-3.5 w-3.5" /> Verified Referral
+            <ShieldCheck className="h-3.5 w-3.5" /> {t("pages.qrCode.verifiedReferral")}
           </div>
         }
       />
@@ -127,7 +129,7 @@ function QrCodePage() {
                   <div className="rounded-2xl bg-white p-4">
                     <img
                       src={qrSrc}
-                      alt={`Referral QR for member ${memberId}`}
+                      alt={t("pages.qrCode.qrAlt", { memberId })}
                       className="h-auto w-full select-none"
                       draggable={false}
                     />
@@ -144,7 +146,7 @@ function QrCodePage() {
               {/* Footer */}
               <div className="mt-5 border-t border-gold/15 pt-3 text-center">
                 <p className="text-[10px] uppercase tracking-[0.24em] text-gold/55">
-                  Scan to register under this advisor
+                  {t("pages.qrCode.scanToRegister")}
                 </p>
               </div>
             </div>
@@ -156,7 +158,7 @@ function QrCodePage() {
           <SpotlightCard className="liquid-glass rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
-                Referral Link
+                {t("pages.qrCode.referralLink")}
               </h3>
             </div>
             <div className="space-y-4 px-5 py-5">
@@ -180,14 +182,14 @@ function QrCodePage() {
                   ) : (
                     <Copy className="mr-2 h-4 w-4" />
                   )}
-                  {copiedLink ? "Copied" : "Copy Link"}
+                  {copiedLink ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyLink")}
                 </Button>
                 <Button
                   onClick={downloadQR}
                   className="bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Download QR
+                  {t("pages.qrCode.downloadQr")}
                 </Button>
                 <Button
                   variant="outline"
@@ -195,7 +197,7 @@ function QrCodePage() {
                   className="border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   <Share2 className="mr-2 h-4 w-4" />
-                  Share
+                  {t("pages.qrCode.shareBtn")}
                 </Button>
                 <Button
                   variant="outline"
@@ -207,7 +209,7 @@ function QrCodePage() {
                   ) : (
                     <IdCard className="mr-2 h-4 w-4" />
                   )}
-                  {copiedId ? "Copied" : "Copy Member ID"}
+                  {copiedId ? t("pages.deposit.toast.copied") : t("pages.qrCode.copyMemberId")}
                 </Button>
               </div>
             </div>
@@ -216,14 +218,14 @@ function QrCodePage() {
           <SpotlightCard className="liquid-glass rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
-                How it works
+                {t("pages.qrCode.howItWorks")}
               </h3>
             </div>
             <ol className="space-y-3 px-5 py-5 text-sm text-foreground/85">
               {[
-                "Send your QR code or referral link to your client.",
-                "They scan or click — and land on the registration page pre-filled with your member tag.",
-                "Once they complete sign-up, they are permanently linked to your network.",
+                t("pages.qrCode.steps.1"),
+                t("pages.qrCode.steps.2"),
+                t("pages.qrCode.steps.3"),
               ].map((line, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-mono text-[11px] font-semibold text-gold">
