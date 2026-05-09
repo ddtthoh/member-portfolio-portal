@@ -91,17 +91,189 @@
     "deposit": {
       "eyebrow": "Funds · Inbound",
       "title": "Deposit",
-      "description": "Please be Informed you will have to deposit at least 10 Usdt Bep20 amount."
+      "description": "Please be Informed you will have to deposit at least 10 Usdt Bep20 amount.",
+      "toast": {
+        "addressCopied": "Address copied",
+        "copied": "Copied",
+        "referenceCopied": "Reference copied",
+        "hashCopied": "Hash copied"
+      },
+      "importantReminder": {
+        "title": "Important Reminder",
+        "sendOnly": "Send only ",
+        "viaThe": " via the ",
+        "networkSuffix": " network.",
+        "otherTokens": "Other tokens or networks will result in ",
+        "permanentLoss": "permanent loss",
+        "confirmation": "Deposits credit after on-chain confirmation (usually 1–3 minutes)."
+      },
+      "qr": {
+        "alt": "Deposit QR code",
+        "empty": "No QR uploaded"
+      },
+      "address": {
+        "label": "Deposit Address",
+        "empty": "No address set. Use Edit to configure.",
+        "copyAria": "Copy address"
+      },
+      "filter": {
+        "title": "Filter Transactions",
+        "date": "Date",
+        "reference": "Reference Number",
+        "refPlaceholder": "TXN…",
+        "hash": "Transaction Hash",
+        "hashPlaceholder": "0x…",
+        "showing": "Showing ",
+        "of": " of ",
+        "records": " records",
+        "reset": "Reset",
+        "apply": "Apply Filter"
+      },
+      "history": {
+        "title": "Deposit History",
+        "live": "Live"
+      },
+      "tableHeaders": {
+        "date": "Date",
+        "reference": "Reference Number",
+        "hash": "Transaction Hash"
+      },
+      "empty": {
+        "title": "No deposits found",
+        "noDeposits": "Your confirmed deposits will appear here once received.",
+        "filtered": "Try adjusting your filters or reset to see all records."
+      }
     },
     "withdrawal": {
       "eyebrow": "Funds · Outbound",
       "title": "Withdrawal",
-      "description": "Request a payout to your verified bank account. Funds typically arrive within 1–2 business days."
+      "description": "Request a payout to your verified bank account. Funds typically arrive within 1–2 business days.",
+      "pageDescription": "Withdraw USDT to your saved BEP20 wallet addresses.",
+      "importantReminder": {
+        "title": "Important Reminder",
+        "supportOnly": "Withdrawals only support ",
+        "viaThe": " via the ",
+        "networkSuffix": " network.",
+        "wrongAddress": "Wrong address or network will result in ",
+        "permanentLoss": "permanent loss",
+        "processingTime": "Requests are processed after admin approval — typically within minutes."
+      },
+      "newRequest": {
+        "title": "New Withdrawal Request",
+        "creditType": "Credit Type *",
+        "walletAddress": "Withdrawal Wallet Address *",
+        "noWallets": "No wallets saved. ",
+        "addOneFirst": "Add one first →",
+        "selectWallet": "-- Select a saved wallet --",
+        "amount": "Amount *",
+        "minAmount": "Min {{min}} USDT",
+        "available": "Available: ",
+        "exceedsBalance": "Exceeds available balance",
+        "submit": "Request Withdrawal"
+      },
+      "summary": {
+        "usdCredit": "USD Credit",
+        "withdrawalAmount": "Withdrawal Amount",
+        "adminFee": "Admin Fee (2%)",
+        "receiveAmount": "You'll Receive"
+      },
+      "wallets": {
+        "title": "Withdrawal Wallets",
+        "subtitle": "Saved BEP20 addresses",
+        "addWallet": "Add Wallet",
+        "noWalletsTitle": "No wallets yet",
+        "noWalletsDesc": "Add a BEP20 wallet to start withdrawing."
+      },
+      "tableHeaders": {
+        "date": "Date",
+        "walletName": "Wallet Name",
+        "walletAddress": "Wallet Address",
+        "action": "Action",
+        "reference": "Reference Number",
+        "recipientAddress": "Recipient Address",
+        "chain": "USDT Chain",
+        "withdrawalAmt": "Withdrawal Amt",
+        "adminFee": "Admin Fee",
+        "receiveAmount": "You'll Receive",
+        "status": "Status",
+        "remark": "Remark",
+        "hash": "Transaction Hash"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "filter": {
+        "recipientAddress": "Recipient Address",
+        "status": "Status",
+        "statusAll": "All",
+        "statusPending": "Pending",
+        "statusProcessing": "Processing",
+        "statusCompleted": "Completed",
+        "statusRejected": "Rejected"
+      },
+      "history": {
+        "title": "Withdrawal History",
+        "subtitle": "All requests",
+        "exportExcel": "Export Excel"
+      },
+      "empty": {
+        "title": "No withdrawals found",
+        "noRequests": "Your requests will appear here.",
+        "filtered": "Try adjusting your filters."
+      },
+      "dialog": {
+        "editWallet": "Edit Wallet",
+        "addWallet": "Add New Wallet",
+        "walletDesc": "USDT BEP20 withdrawal address.",
+        "walletName": "Wallet Name *",
+        "walletNamePlaceholder": "e.g. Personal",
+        "walletAddress": "Wallet Address *",
+        "walletAddressHint": "Must be a valid BEP20 address starting with 0x.",
+        "saving": "Saving…",
+        "update": "Update"
+      },
+      "confirm": {
+        "title": "Confirm Withdrawal",
+        "desc": "Please review the details before submitting.",
+        "wallet": "Wallet",
+        "address": "Address",
+        "chain": "Chain",
+        "amount": "Amount",
+        "adminFee": "Admin Fee",
+        "receiveAmount": "You'll Receive",
+        "submitting": "Submitting…",
+        "confirmBtn": "Confirm",
+        "deleteWallet": "Delete wallet \"{{name}}\"?"
+      },
+      "toast": {
+        "walletNameRequired": "Wallet name is required",
+        "invalidAddress": "Invalid wallet address (must start with 0x and be 42 chars)",
+        "walletUpdated": "Wallet updated",
+        "walletAdded": "Wallet added",
+        "walletDeleted": "Wallet deleted",
+        "selectWallet": "Select a wallet",
+        "invalidAmount": "Invalid amount",
+        "requestSubmitted": "Withdrawal request submitted",
+        "noRecordsExport": "No records to export",
+        "excelExported": "Excel exported"
+      }
     },
     "promotion": {
       "eyebrow": "Funds · Bonus",
       "title": "Promotion",
-      "description": "Limited-time founders' promotion for qualifying deposits."
+      "description": "Limited-time founders' promotion for qualifying deposits.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Naslab Opening Event At Turkey",
+          "subtitle": "Launch Event"
+        },
+        "rankingIncentive": {
+          "title": "RCB, TCB, Community Ranking Incentive",
+          "subtitle": "Ranking Rewards"
+        }
+      },
+      "viewDetails": "View details"
     },
     "qna": {
       "eyebrow": "Knowledge Test",
@@ -177,6 +349,21 @@
       "eyebrow": "Curated",
       "title": "Quarterly Reports",
       "description": "Letters and analysis prepared by your advisory team."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "Promotion details coming soon. Update this section with the full event description, qualifying criteria, rewards and timeline."
+        },
+        "rankingIncentive": {
+          "description": "Promotion details coming soon. Update this section with the ranking tiers, payout structure and how community contributions are measured."
+        }
+      },
+      "progressLabel": "Your progress",
+      "notFound": "Promotion not found.",
+      "backToPromotions": "Back to promotions",
+      "details": "Details",
+      "progressDescription": "Your progress for this promotion will appear here."
     }
   },
   "palette": {

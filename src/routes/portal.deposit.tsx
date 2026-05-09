@@ -98,11 +98,11 @@ function DepositPage() {
     if (!addr) return;
     await navigator.clipboard.writeText(addr);
     setCopied(true);
-    toast.success("Address copied");
+    toast.success(t("pages.deposit.toast.addressCopied"));
     setTimeout(() => setCopied(false), 1600);
   };
 
-  const copyValue = async (val: string, label = "Copied") => {
+  const copyValue = async (val: string, label = t("pages.deposit.toast.copied")) => {
     await navigator.clipboard.writeText(val);
     toast.success(label);
   };
@@ -121,25 +121,25 @@ function DepositPage() {
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-300">
-                Important Reminder
+                {t("pages.deposit.importantReminder.title")}
               </div>
               <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/90">
                 <li className="flex gap-2">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
                   <span className="flex-1">
-                    Send only <span className="font-semibold text-gold">USDT</span> via the{" "}
-                    <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span> network.
+                    {t("pages.deposit.importantReminder.sendOnly")}<span className="font-semibold text-gold">USDT</span>{t("pages.deposit.importantReminder.viaThe")}{" "}
+                    <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span>{t("pages.deposit.importantReminder.networkSuffix")}
                   </span>
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
                   <span className="flex-1">
-                    Other tokens or networks will result in <span className="font-semibold text-amber-300">permanent loss</span>.
+                    {t("pages.deposit.importantReminder.otherTokens")}<span className="font-semibold text-amber-300">{t("pages.deposit.importantReminder.permanentLoss")}</span>.
                   </span>
                 </li>
                 <li className="flex gap-2">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
-                  <span className="flex-1">Deposits credit after on-chain confirmation (usually 1–3 minutes).</span>
+                  <span className="flex-1">{t("pages.deposit.importantReminder.confirmation")}</span>
                 </li>
               </ul>
             </div>
@@ -151,11 +151,11 @@ function DepositPage() {
         <div className="flex flex-col items-center">
           <div className="rounded-2xl bg-white p-4 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] ring-1 ring-gold/30">
             {settings?.qr_url ? (
-              <img src={settings.qr_url} alt="Deposit QR code" className="h-56 w-56 rounded-lg object-contain" />
+              <img src={settings.qr_url} alt={t("pages.deposit.qr.alt")} className="h-56 w-56 rounded-lg object-contain" />
             ) : (
               <div className="flex h-56 w-56 flex-col items-center justify-center gap-2 rounded-lg bg-muted/40 text-muted-foreground">
                 <QrCode className="h-10 w-10" />
-                <span className="text-[11px] uppercase tracking-[0.2em]">No QR uploaded</span>
+                <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.deposit.qr.empty")}</span>
               </div>
             )}
           </div>
@@ -163,7 +163,7 @@ function DepositPage() {
 
         <div className="mt-8 space-y-5">
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Network</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{t("nav.network")}</div>
             <div className="mt-1.5 text-xl font-semibold tracking-tight text-foreground">{settings?.network ?? "—"}</div>
             <div className="text-xs text-muted-foreground">{settings?.network_label ?? ""}</div>
           </div>
@@ -172,7 +172,7 @@ function DepositPage() {
 
           <div>
             <div className="flex items-center gap-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-              Deposit Address <ChevronRight className="h-3 w-3" />
+              {t("pages.deposit.address.label")} <ChevronRight className="h-3 w-3" />
             </div>
             <div className="mt-2 flex items-start gap-3">
               <div className="min-w-0 flex-1 break-all font-mono text-[15px] leading-relaxed text-foreground/80">
@@ -183,7 +183,7 @@ function DepositPage() {
                     <span className="font-semibold text-gold">{tail}</span>
                   </>
                 ) : (
-                  <span className="text-muted-foreground">No address set. Use Edit to configure.</span>
+                  <span className="text-muted-foreground">{t("pages.deposit.address.empty")}</span>
                 )}
               </div>
               <button
@@ -191,7 +191,7 @@ function DepositPage() {
                 onClick={copy}
                 disabled={!addr}
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition hover:border-gold/50 hover:text-gold disabled:opacity-40"
-                aria-label="Copy address"
+                aria-label={t("pages.deposit.address.copyAria")}
               >
                 {copied ? <Check className="h-4 w-4 text-gold" /> : <Copy className="h-4 w-4" />}
               </button>
@@ -215,7 +215,7 @@ function DepositPage() {
                 <FilterIcon className="h-4 w-4" />
               </div>
               <div>
-                <div className="text-sm font-semibold tracking-tight text-gold">Filter Transactions</div>
+                <div className="text-sm font-semibold tracking-tight text-gold">{t("pages.deposit.filter.title")}</div>
               </div>
             </div>
             <ChevronDown
@@ -236,7 +236,7 @@ function DepositPage() {
                   <div className="grid gap-4 md:grid-cols-3">
                     <div className="space-y-1.5">
                       <label className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                        <CalendarIcon className="h-3 w-3" /> Date
+                        <CalendarIcon className="h-3 w-3" /> {t("pages.deposit.filter.date")}
                       </label>
                       <Input
                         type="date"
@@ -247,10 +247,10 @@ function DepositPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                        Reference Number
+                        {t("pages.deposit.filter.reference")}
                       </label>
                       <Input
-                        placeholder="TXN…"
+                        placeholder={t("pages.deposit.filter.refPlaceholder")}
                         value={fRef}
                         onChange={(e) => setFRef(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && apply()}
@@ -259,10 +259,10 @@ function DepositPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                        Transaction Hash
+                        {t("pages.deposit.filter.hash")}
                       </label>
                       <Input
-                        placeholder="0x…"
+                        placeholder={t("pages.deposit.filter.hashPlaceholder")}
                         value={fHash}
                         onChange={(e) => setFHash(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && apply()}
@@ -273,7 +273,7 @@ function DepositPage() {
 
                   <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                     <div className="text-[11px] text-muted-foreground">
-                      Showing <span className="font-semibold text-gold">{filtered.length}</span> of {deposits.length} records
+                      {t("pages.deposit.filter.showing")}<span className="font-semibold text-gold">{filtered.length}</span>{t("pages.deposit.filter.of")}{deposits.length}{t("pages.deposit.filter.records")}
                     </div>
                     <div className="flex gap-2">
                       <Button
@@ -281,13 +281,13 @@ function DepositPage() {
                         onClick={reset}
                         className="h-9 gap-2 border-border/60 bg-transparent text-muted-foreground hover:border-gold/40 hover:text-gold"
                       >
-                        <RotateCcw className="h-3.5 w-3.5" /> Reset
+                        <RotateCcw className="h-3.5 w-3.5" /> {t("pages.deposit.filter.reset")}
                       </Button>
                       <Button
                         onClick={apply}
                         className="h-9 gap-2 bg-gradient-to-r from-gold to-amber-400 font-semibold text-black shadow-[0_8px_24px_-8px_rgba(212,175,55,0.6)] hover:opacity-95"
                       >
-                        <Search className="h-3.5 w-3.5" /> Apply Filter
+                        <Search className="h-3.5 w-3.5" /> {t("pages.deposit.filter.apply")}
                       </Button>
                     </div>
                   </div>
@@ -306,12 +306,12 @@ function DepositPage() {
               </div>
               <div>
                 
-                <div className="font-serif text-base font-semibold text-gold md:text-lg">Deposit History</div>
+                <div className="font-serif text-base font-semibold text-gold md:text-lg">{t("pages.deposit.history.title")}</div>
               </div>
             </div>
             <div className="hidden items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/5 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-300 sm:flex">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-              Live
+              {t("pages.deposit.history.live")}
             </div>
           </div>
 
@@ -319,9 +319,9 @@ function DepositPage() {
             <div className="min-w-max px-6 py-6 sm:px-8">
               {/* Header row — always visible */}
               <div className="grid grid-cols-[16ch_24ch_minmax(68ch,1fr)] gap-x-12 pb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
-                <div>Date</div>
-                <div>Reference Number</div>
-                <div>Transaction Hash</div>
+                <div>{t("pages.deposit.tableHeaders.date")}</div>
+                <div>{t("pages.deposit.tableHeaders.reference")}</div>
+                <div>{t("pages.deposit.tableHeaders.hash")}</div>
               </div>
 
               {/* Gold gradient underline */}
@@ -338,11 +338,11 @@ function DepositPage() {
                   <div className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-card/40 text-muted-foreground">
                     <Inbox className="h-6 w-6" />
                   </div>
-                  <div className="text-sm font-medium text-foreground">No deposits found</div>
+                  <div className="text-sm font-medium text-foreground">{t("pages.deposit.empty.title")}</div>
                   <div className="max-w-xs text-xs text-muted-foreground">
                     {deposits.length === 0
-                      ? "Your confirmed deposits will appear here once received."
-                      : "Try adjusting your filters or reset to see all records."}
+                      ? t("pages.deposit.empty.noDeposits")
+                      : t("pages.deposit.empty.filtered")}
                   </div>
                 </div>
               ) : (
@@ -359,7 +359,7 @@ function DepositPage() {
                         {new Date(d.received_at).toLocaleString("sv-SE", { hour12: false }).slice(0, 19)}
                       </div>
                       <button
-                        onClick={() => copyValue(d.reference_number, "Reference copied")}
+                        onClick={() => copyValue(d.reference_number, t("pages.deposit.toast.referenceCopied"))}
                         className="inline-flex items-center gap-2 truncate text-left font-mono text-sm text-foreground/85 transition hover:text-gold"
                         title={d.reference_number}
                       >
@@ -367,7 +367,7 @@ function DepositPage() {
                         <Copy className="h-3 w-3 shrink-0 opacity-0 transition group-hover:opacity-60" />
                       </button>
                       <button
-                        onClick={() => copyValue(d.transaction_hash, "Hash copied")}
+                        onClick={() => copyValue(d.transaction_hash, t("pages.deposit.toast.hashCopied"))}
                         className="inline-flex items-center gap-2 text-left font-mono text-sm text-foreground/75 transition hover:text-gold"
                         title={d.transaction_hash}
                       >
