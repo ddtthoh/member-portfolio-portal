@@ -28,7 +28,6 @@ function PromotionPage() {
     <div>
       <PageHeader
         title={t("pages.promotion.title")}
-        description={t("pages.promotion.description")}
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
