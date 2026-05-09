@@ -832,6 +832,15 @@
         "profit": "กำไร",
         "loss": "ขาดทุน"
       }
+    },
+    "reportShell": {
+      "filter": "ตัวกรอง",
+      "date": "วันที่",
+      "pickADate": "เลือกวันที่",
+      "memberId": "รหัสสมาชิก",
+      "resetAction": "รีเซ็ต",
+      "filterAction": "กรอง",
+      "exportAction": "ส่งออก"
     }
   }
 }

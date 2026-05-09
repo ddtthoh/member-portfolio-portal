@@ -832,6 +832,15 @@
         "profit": "수익",
         "loss": "손실"
       }
+    },
+    "reportShell": {
+      "filter": "필터",
+      "date": "날짜",
+      "pickADate": "날짜 선택",
+      "memberId": "회원 ID",
+      "resetAction": "초기화",
+      "filterAction": "필터",
+      "exportAction": "내보내기"
     }
   }
 }

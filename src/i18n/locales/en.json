@@ -832,6 +832,15 @@
         "profit": "Profit",
         "loss": "Loss"
       }
+    },
+    "reportShell": {
+      "filter": "Filter",
+      "date": "Date",
+      "pickADate": "Pick a date",
+      "memberId": "Member ID",
+      "resetAction": "Reset",
+      "filterAction": "Filter",
+      "exportAction": "Export"
     }
   }
 }

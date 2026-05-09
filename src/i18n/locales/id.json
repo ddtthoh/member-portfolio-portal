@@ -832,6 +832,15 @@
         "profit": "Keuntungan",
         "loss": "Kerugian"
       }
+    },
+    "reportShell": {
+      "filter": "Filter",
+      "date": "Tanggal",
+      "pickADate": "Pilih tanggal",
+      "memberId": "ID Anggota",
+      "resetAction": "Atur Ulang",
+      "filterAction": "Filter",
+      "exportAction": "Ekspor"
     }
   }
 }

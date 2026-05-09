@@ -832,6 +832,15 @@
         "profit": "लाभ",
         "loss": "हानि"
       }
+    },
+    "reportShell": {
+      "filter": "फ़िल्टर",
+      "date": "दिनांक",
+      "pickADate": "दिनांक चुनें",
+      "memberId": "सदस्य आईडी",
+      "resetAction": "रीसेट",
+      "filterAction": "फ़िल्टर",
+      "exportAction": "निर्यात"
     }
   }
 }

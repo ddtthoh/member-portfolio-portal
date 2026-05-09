@@ -832,6 +832,15 @@
         "profit": "盈利",
         "loss": "亏损"
       }
+    },
+    "reportShell": {
+      "filter": "筛选",
+      "date": "日期",
+      "pickADate": "选择日期",
+      "memberId": "会员编号",
+      "resetAction": "重置",
+      "filterAction": "筛选",
+      "exportAction": "导出"
     }
   }
 }
