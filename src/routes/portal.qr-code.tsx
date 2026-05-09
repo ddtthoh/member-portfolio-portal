@@ -8,13 +8,11 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import {
-  QrCode as QrCodeIcon,
   Copy,
   Check,
   Download,
   Share2,
   Link2,
-  Sparkles,
   ShieldCheck,
   IdCard,
 } from "lucide-react";
@@ -106,6 +104,11 @@ function QrCodePage() {
         }
       />
 
+      {/* Mobile-only verified badge */}
+      <div className="mt-3 flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-gold md:hidden w-fit">
+        <ShieldCheck className="h-3.5 w-3.5" /> {t("pages.qrCode.verifiedReferral")}
+      </div>
+
       <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,420px)_1fr]">
         {/* === Premium QR card === */}
         <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
@@ -114,19 +117,16 @@ function QrCodePage() {
             <CornerOrnaments />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_-20%,color-mix(in_oklab,var(--gold)_18%,transparent),transparent_60%)]" />
 
-            <div className="relative px-6 pt-6 pb-5">
-
-
-
+            <div className="relative px-4 pt-5 pb-4 sm:px-6 sm:pt-6 sm:pb-5">
               {/* QR */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="relative mx-auto mt-5 w-full max-w-[300px]"
+                className="relative mx-auto w-full max-w-[260px] sm:max-w-[300px]"
               >
                 <div className="relative rounded-2xl bg-gradient-to-br from-gold/40 via-gold/20 to-gold/40 p-[1.5px] shadow-[0_20px_60px_-20px_color-mix(in_oklab,var(--gold)_60%,transparent)]">
-                  <div className="rounded-2xl bg-white p-4">
+                  <div className="rounded-2xl bg-white p-3 sm:p-4">
                     <img
                       src={qrSrc}
                       alt={t("pages.qrCode.qrAlt", { memberId })}
@@ -137,14 +137,14 @@ function QrCodePage() {
                 </div>
                 {/* Center monogram badge */}
                 <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-background ring-2 ring-gold shadow-[0_0_18px_color-mix(in_oklab,var(--gold)_55%,transparent)]">
-                    <span className="font-serif text-lg font-bold text-gold">N</span>
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-background ring-2 ring-gold shadow-[0_0_18px_color-mix(in_oklab,var(--gold)_55%,transparent)] sm:h-12 sm:w-12">
+                    <span className="font-serif text-base font-bold text-gold sm:text-lg">N</span>
                   </div>
                 </div>
               </motion.div>
 
               {/* Footer */}
-              <div className="mt-5 border-t border-gold/15 pt-3 text-center">
+              <div className="mt-4 border-t border-gold/15 pt-3 text-center sm:mt-5">
                 <p className="text-[10px] uppercase tracking-[0.24em] text-gold/55">
                   {t("pages.qrCode.scanToRegister")}
                 </p>
@@ -156,26 +156,26 @@ function QrCodePage() {
         {/* === Side panel: link + actions === */}
         <div className="space-y-4">
           <SpotlightCard className="liquid-glass rounded-2xl">
-            <div className="border-b border-gold/10 px-5 py-3.5">
+            <div className="border-b border-gold/10 px-4 py-3 sm:px-5 sm:py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
                 {t("pages.qrCode.referralLink")}
               </h3>
             </div>
-            <div className="space-y-4 px-5 py-5">
+            <div className="space-y-4 px-4 py-4 sm:px-5 sm:py-5">
               <div className="group relative overflow-hidden rounded-lg border border-gold/20 bg-background/40">
-                <div className="flex items-center gap-2 px-3 py-2.5">
+                <div className="flex min-w-0 items-center gap-2 px-3 py-2.5">
                   <Link2 className="h-4 w-4 shrink-0 text-gold/70" />
-                  <span className="truncate font-mono text-[13px] text-foreground/90">
+                  <span className="min-w-0 flex-1 truncate font-mono text-[12px] text-foreground/90 sm:text-[13px]">
                     {referralUrl}
                   </span>
                 </div>
               </div>
 
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <Button
                   variant="outline"
                   onClick={copyLink}
-                  className="border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   {copiedLink ? (
                     <Check className="mr-2 h-4 w-4" />
@@ -186,7 +186,7 @@ function QrCodePage() {
                 </Button>
                 <Button
                   onClick={downloadQR}
-                  className="bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
+                  className="w-full bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t("pages.qrCode.downloadQr")}
@@ -194,7 +194,7 @@ function QrCodePage() {
                 <Button
                   variant="outline"
                   onClick={share}
-                  className="border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   <Share2 className="mr-2 h-4 w-4" />
                   {t("pages.qrCode.shareBtn")}
@@ -202,7 +202,7 @@ function QrCodePage() {
                 <Button
                   variant="outline"
                   onClick={copyId}
-                  className="border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
+                  className="w-full border-gold/30 text-gold hover:bg-gold/10 hover:text-gold"
                 >
                   {copiedId ? (
                     <Check className="mr-2 h-4 w-4" />
@@ -216,12 +216,12 @@ function QrCodePage() {
           </SpotlightCard>
 
           <SpotlightCard className="liquid-glass rounded-2xl">
-            <div className="border-b border-gold/10 px-5 py-3.5">
+            <div className="border-b border-gold/10 px-4 py-3 sm:px-5 sm:py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">
                 {t("pages.qrCode.howItWorks")}
               </h3>
             </div>
-            <ol className="space-y-3 px-5 py-5 text-sm text-foreground/85">
+            <ol className="space-y-3 px-4 py-4 text-sm text-foreground/85 sm:px-5 sm:py-5">
               {[
                 t("pages.qrCode.steps.1"),
                 t("pages.qrCode.steps.2"),
