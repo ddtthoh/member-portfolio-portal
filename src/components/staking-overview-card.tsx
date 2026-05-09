@@ -130,9 +130,6 @@ export function StakingOverviewCard({
               </span>
             )}
           </div>
-          <div className="mt-2 text-[11px] tracking-[0.08em] text-muted-foreground">
-            {t("pages.holdings.accruing", { tier })}
-          </div>
         </div>
       </div>
 
