@@ -640,3 +640,560 @@ function TierLadder({
     </SpotlightCard>
   );
 }
+
+// ---- Ranking promotion (RCB / TCB / Community Ranking) ----------------------
+
+function RankingPromotion({ promo }: { promo: RankingPromo }) {
+  const rcbEarned = promo.rcbCount * promo.rcbPerReferralUsd;
+
+  // TCB standing: highest tier where both minRcb and minAum are satisfied
+  const tcbSorted = [...promo.tcbTiers].sort((a, b) => a.pct - b.pct);
+  let currentTcb: TcbTier | null = null;
+  for (const t of tcbSorted) {
+    if (promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum) currentTcb = t;
+  }
+  const nextTcb = tcbSorted.find(
+    (t) => !(promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum),
+  ) ?? null;
+  const tcbPayout = currentTcb ? (promo.currentAum * currentTcb.pct) / 100 : 0;
+
+  const currentRank =
+    promo.currentRankIndex >= 0 ? promo.rankingTiers[promo.currentRankIndex] : null;
+  const nextRank =
+    promo.currentRankIndex + 1 < promo.rankingTiers.length
+      ? promo.rankingTiers[promo.currentRankIndex + 1]
+      : null;
+
+  return (
+    <div className="space-y-4">
+      {/* Window meta */}
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 text-gold">
+              <Sparkles className="h-4 w-4" />
+              <span className="text-[11px] uppercase tracking-[0.2em]">Three Tracks · One Window</span>
+            </div>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{promo.intro}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-2 md:gap-4">
+            <MetaPill
+              icon={<CalendarDays className="h-3.5 w-3.5" />}
+              label="Window"
+              value={promo.windowLabel}
+            />
+            <MetaPill
+              icon={<TrendingUp className="h-3.5 w-3.5" />}
+              label="Payout"
+              value="July Event"
+            />
+          </div>
+        </div>
+      </SpotlightCard>
+
+      {/* Three tracker cards */}
+      <div className="grid gap-4 lg:grid-cols-3">
+        {/* RCB */}
+        <RankingTrackCard
+          icon={<UserPlus className="h-4 w-4" />}
+          eyebrow="Track 01 · RCB"
+          title="Rapid Community Builder"
+          status={promo.rcbCount > 0 ? "qualified" : "pending"}
+          primaryLabel="Qualified Referrals"
+          primaryValue={promo.rcbCount}
+          primarySuffix=""
+          secondaryLabel="Reward earned"
+          secondaryValue={rcbEarned}
+          secondaryPrefix="$"
+          footnote={`USD ${promo.rcbPerReferralUsd} per referral · min stake ${promo.rcbMinStakeUsd} USDT`}
+        />
+
+        {/* TCB */}
+        <RankingTrackCard
+          icon={<Wallet className="h-4 w-4" />}
+          eyebrow="Track 02 · TCB"
+          title="Top Community Builder"
+          status={currentTcb ? "qualified" : "pending"}
+          primaryLabel="Your AUM"
+          primaryValue={promo.currentAum}
+          primarySuffix=" USDT"
+          secondaryLabel={currentTcb ? `Reward · ${currentTcb.pct}% AUM` : "Reward"}
+          secondaryValue={tcbPayout}
+          secondarySuffix=" USDT"
+          footnote={
+            nextTcb
+              ? `Next tier: ${nextTcb.pct}% AUM · need ${Math.max(0, nextTcb.minRcb - promo.rcbCount)} more RCB & ${Math.max(0, nextTcb.minAum - promo.currentAum).toLocaleString()} USDT AUM`
+              : "Top TCB tier reached."
+          }
+        />
+
+        {/* Ranking */}
+        <RankingTrackCard
+          icon={<Trophy className="h-4 w-4" />}
+          eyebrow="Track 03 · Ranking"
+          title="Community Ranking"
+          status={currentRank ? (nextRank ? "qualified" : "apex") : "pending"}
+          primaryLabel="Current rank"
+          primaryText={currentRank ? currentRank.name : "—"}
+          secondaryLabel={currentRank ? "Reward value" : "—"}
+          secondaryValue={currentRank ? currentRank.valueUsd : 0}
+          secondarySuffix=" USDT"
+          footnote={
+            nextRank
+              ? `Next rank: ${nextRank.name} · ${nextRank.reward}`
+              : "Apex rank achieved — Partner tier."
+          }
+        />
+      </div>
+
+      {/* RCB ladder (linear payout examples) */}
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">RCB Payout Ladder</div>
+            <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
+              USD {promo.rcbPerReferralUsd} for every referral with a minimum stake of {promo.rcbMinStakeUsd} USDT
+            </h3>
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">You earned</div>
+            <MetricValue
+              value={rcbEarned}
+              prefix="$"
+              decimals={0}
+              size="sm"
+              className="mt-0.5"
+              static
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+          {[1, 5, 10, 20, 50, 100].map((n) => {
+            const reached = promo.rcbCount >= n;
+            return (
+              <div
+                key={n}
+                className={`rounded-xl border px-3 py-3 text-center ${
+                  reached
+                    ? "border-gold/40 bg-gold/[0.06]"
+                    : "border-foreground/10 bg-foreground/[0.02]"
+                }`}
+              >
+                <div
+                  className={`text-[10px] uppercase tracking-[0.2em] ${
+                    reached ? "text-gold/80" : "text-muted-foreground"
+                  }`}
+                >
+                  {n} REFERRALS
+                </div>
+                <div
+                  className={`mt-1 font-light tabular-nums tracking-tight ${
+                    reached ? "text-gold" : "text-muted-foreground"
+                  }`}
+                >
+                  ${(n * promo.rcbPerReferralUsd).toLocaleString()}
+                </div>
+                <div className="mt-1.5 flex items-center justify-center">
+                  {reached ? (
+                    <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15 text-gold">
+                      <Check className="h-3 w-3" />
+                    </span>
+                  ) : (
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04] text-muted-foreground">
+                      <Lock className="h-3 w-3" />
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </SpotlightCard>
+
+      {/* TCB ladder */}
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">TCB Tier Structure</div>
+            <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
+              Earn a percentage of your Asset Under Management
+            </h3>
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Projected reward</div>
+            <MetricValue
+              value={tcbPayout}
+              suffix=" USDT"
+              decimals={0}
+              size="sm"
+              className="mt-0.5"
+              static
+            />
+          </div>
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden md:block">
+          <div className="overflow-hidden rounded-xl border border-gold/15">
+            <table className="w-full text-sm">
+              <thead className="bg-gold/[0.04] text-[10px] uppercase tracking-[0.18em] text-gold/80">
+                <tr>
+                  <th className="px-4 py-2.5 text-left font-medium">Status</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Min RCB</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Min AUM</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Reward</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tcbSorted.map((tier) => {
+                  const reached =
+                    promo.rcbCount >= tier.minRcb && promo.currentAum >= tier.minAum;
+                  const numCls = reached
+                    ? "font-light tabular-nums tracking-tight text-gold"
+                    : "font-light tabular-nums tracking-tight text-muted-foreground";
+                  return (
+                    <tr
+                      key={tier.pct}
+                      className={`border-t border-gold/10 ${reached ? "bg-gold/[0.05]" : ""}`}
+                    >
+                      <td className="px-4 py-3">
+                        {reached ? (
+                          <span className="inline-flex items-center gap-1.5 text-gold">
+                            <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
+                              <Check className="h-3 w-3" />
+                            </span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">Achieved</span>
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04]">
+                              <Lock className="h-3 w-3" />
+                            </span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">Locked</span>
+                          </span>
+                        )}
+                      </td>
+                      <td className={`px-4 py-3 text-right ${numCls}`}>{tier.minRcb}</td>
+                      <td className={`px-4 py-3 text-right ${numCls}`}>
+                        {tier.minAum.toLocaleString()} USDT
+                      </td>
+                      <td className={`px-4 py-3 text-right ${numCls}`}>{tier.pct}% of AUM</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Mobile */}
+        <div className="space-y-2 md:hidden">
+          {tcbSorted.map((tier) => {
+            const reached =
+              promo.rcbCount >= tier.minRcb && promo.currentAum >= tier.minAum;
+            return (
+              <div
+                key={tier.pct}
+                className={`rounded-xl border px-3 py-3 ${
+                  reached
+                    ? "border-gold/40 bg-gold/[0.06]"
+                    : "border-foreground/10 bg-foreground/[0.02]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`text-sm font-light tabular-nums tracking-tight ${
+                      reached ? "text-gold" : "text-muted-foreground"
+                    }`}
+                  >
+                    {tier.pct}% of AUM
+                  </span>
+                  <span
+                    className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                      reached
+                        ? "gold-glow-sm border-gold/50 bg-gold/15 text-gold"
+                        : "border-foreground/15 bg-foreground/[0.04] text-muted-foreground"
+                    }`}
+                  >
+                    {reached ? <Check className="h-3 w-3" /> : <Lock className="h-3 w-3" />}
+                  </span>
+                </div>
+                <div
+                  className={`mt-1 text-[11px] ${
+                    reached ? "text-gold/80" : "text-muted-foreground"
+                  }`}
+                >
+                  Need {tier.minRcb} RCB · {tier.minAum.toLocaleString()} USDT AUM
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </SpotlightCard>
+
+      {/* Community Ranking ladder */}
+      <SpotlightCard className="liquid-glass rounded-2xl p-6">
+        <div className="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">Community Ranking</div>
+            <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
+              Attain the rank during 1 Feb – 30 Jun 2026 to claim its signature reward
+            </h3>
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current rank</div>
+            <div
+              className={`mt-0.5 text-base font-light tracking-tight ${
+                currentRank ? "text-gold" : "text-muted-foreground"
+              }`}
+            >
+              {currentRank ? currentRank.name : "—"}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden md:block">
+          <div className="overflow-hidden rounded-xl border border-gold/15">
+            <table className="w-full text-sm">
+              <thead className="bg-gold/[0.04] text-[10px] uppercase tracking-[0.18em] text-gold/80">
+                <tr>
+                  <th className="px-4 py-2.5 text-left font-medium">Status</th>
+                  <th className="px-4 py-2.5 text-left font-medium">Rank</th>
+                  <th className="px-4 py-2.5 text-left font-medium">Reward</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Approx. Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {promo.rankingTiers.map((tier, i) => {
+                  const reached = i <= promo.currentRankIndex;
+                  const isCurrent = i === promo.currentRankIndex;
+                  const numCls = reached
+                    ? "font-light tabular-nums tracking-tight text-gold"
+                    : "font-light tabular-nums tracking-tight text-muted-foreground";
+                  return (
+                    <tr
+                      key={tier.name}
+                      className={`border-t border-gold/10 ${
+                        isCurrent ? "bg-gold/[0.08]" : reached ? "bg-gold/[0.04]" : ""
+                      }`}
+                    >
+                      <td className="px-4 py-3">
+                        {reached ? (
+                          <span className="inline-flex items-center gap-1.5 text-gold">
+                            <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
+                              {isCurrent ? <Crown className="h-3 w-3" /> : <Check className="h-3 w-3" />}
+                            </span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">
+                              {isCurrent ? "Current" : "Achieved"}
+                            </span>
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04]">
+                              <Lock className="h-3 w-3" />
+                            </span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">Locked</span>
+                          </span>
+                        )}
+                      </td>
+                      <td
+                        className={`px-4 py-3 text-sm font-light tracking-tight ${
+                          reached ? "text-gold" : "text-muted-foreground"
+                        }`}
+                      >
+                        {tier.name}
+                      </td>
+                      <td
+                        className={`px-4 py-3 text-sm ${
+                          reached ? "text-gold/90" : "text-muted-foreground"
+                        }`}
+                      >
+                        <span className="inline-flex items-center gap-1.5">
+                          <Gift className="h-3.5 w-3.5 opacity-70" />
+                          {tier.reward}
+                        </span>
+                      </td>
+                      <td className={`px-4 py-3 text-right ${numCls}`}>
+                        {tier.valueUsd.toLocaleString()} USDT
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Mobile */}
+        <div className="space-y-2 md:hidden">
+          {promo.rankingTiers.map((tier, i) => {
+            const reached = i <= promo.currentRankIndex;
+            const isCurrent = i === promo.currentRankIndex;
+            return (
+              <div
+                key={tier.name}
+                className={`rounded-xl border px-3 py-3 ${
+                  isCurrent
+                    ? "border-gold/50 bg-gold/[0.08]"
+                    : reached
+                      ? "border-gold/30 bg-gold/[0.04]"
+                      : "border-foreground/10 bg-foreground/[0.02]"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                        reached
+                          ? "gold-glow-sm border-gold/50 bg-gold/15 text-gold"
+                          : "border-foreground/15 bg-foreground/[0.04] text-muted-foreground"
+                      }`}
+                    >
+                      {reached ? (
+                        isCurrent ? (
+                          <Crown className="h-3 w-3" />
+                        ) : (
+                          <Check className="h-3 w-3" />
+                        )
+                      ) : (
+                        <Lock className="h-3 w-3" />
+                      )}
+                    </span>
+                    <span
+                      className={`text-sm font-light tracking-tight ${
+                        reached ? "text-gold" : "text-muted-foreground"
+                      }`}
+                    >
+                      {tier.name}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-sm font-light tabular-nums tracking-tight ${
+                      reached ? "text-gold" : "text-muted-foreground"
+                    }`}
+                  >
+                    {tier.valueUsd.toLocaleString()} USDT
+                  </span>
+                </div>
+                <div
+                  className={`mt-1.5 flex items-center gap-1.5 text-[11px] ${
+                    reached ? "text-gold/80" : "text-muted-foreground"
+                  }`}
+                >
+                  <Gift className="h-3 w-3 opacity-70" />
+                  {tier.reward}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </SpotlightCard>
+
+      <p className="px-1 pt-1 text-[11px] leading-relaxed text-gold/60">
+        All three tracks are calculated from 1 February to 30 June 2026 and paid out at the July 2026
+        Event. Final rankings are verified against official system data.
+      </p>
+    </div>
+  );
+}
+
+// ---- Ranking track card -----------------------------------------------------
+
+function RankingTrackCard({
+  icon,
+  eyebrow,
+  title,
+  status,
+  primaryLabel,
+  primaryValue,
+  primaryText,
+  primaryPrefix = "",
+  primarySuffix = "",
+  secondaryLabel,
+  secondaryValue,
+  secondaryPrefix = "",
+  secondarySuffix = "",
+  footnote,
+}: {
+  icon: React.ReactNode;
+  eyebrow: string;
+  title: string;
+  status: "qualified" | "pending" | "apex";
+  primaryLabel: string;
+  primaryValue?: number;
+  primaryText?: string;
+  primaryPrefix?: string;
+  primarySuffix?: string;
+  secondaryLabel: string;
+  secondaryValue?: number;
+  secondaryPrefix?: string;
+  secondarySuffix?: string;
+  footnote: string;
+}) {
+  const top = status === "apex";
+  const qualified = status === "qualified" || top;
+
+  return (
+    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 8%, transparent), transparent 60%)",
+        }}
+      />
+      <div className="relative mb-3 flex items-center gap-2 text-gold">
+        {icon}
+        <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
+        <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">
+          Your Tracking
+        </span>
+      </div>
+
+      <div className="relative flex items-baseline justify-between gap-3">
+        <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
+        <StatusChip qualified={qualified} top={top} />
+      </div>
+
+      <div className="relative mt-4 flex items-end justify-between gap-3">
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{primaryLabel}</div>
+          {primaryText !== undefined ? (
+            <div className="mt-0.5 text-xl font-light tabular-nums tracking-[-0.04em] text-gold sm:text-2xl">
+              {primaryText}
+            </div>
+          ) : (
+            <MetricValue
+              value={primaryValue ?? 0}
+              prefix={primaryPrefix}
+              suffix={primarySuffix}
+              decimals={0}
+              size="md"
+              className="mt-0.5"
+            />
+          )}
+        </div>
+        <div className="text-right">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{secondaryLabel}</div>
+          <div className="mt-0.5">
+            <MetricValue
+              value={secondaryValue ?? 0}
+              prefix={secondaryPrefix}
+              suffix={secondarySuffix}
+              decimals={0}
+              size="sm"
+              static
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="relative mt-4 border-t border-gold/10 pt-3 text-[11px] text-gold/70">
+        {footnote}
+      </div>
+    </SpotlightCard>
+  );
+}
