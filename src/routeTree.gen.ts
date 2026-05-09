@@ -31,6 +31,7 @@ import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalAssetAnalysisRouteImport } from './routes/portal.asset-analysis'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
+import { Route as PortalPromotionIndexRouteImport } from './routes/portal.promotion.index'
 import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
 import { Route as PortalStatementTransferUsdRouteImport } from './routes/portal.statement.transfer-usd'
 import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
@@ -155,6 +156,11 @@ const PortalQnaIndexRoute = PortalQnaIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PortalQnaRoute,
 } as any)
+const PortalPromotionIndexRoute = PortalPromotionIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalPromotionRoute,
+} as any)
 const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
   id: '/statement/usd',
   path: '/statement/usd',
@@ -262,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
 }
@@ -274,7 +281,6 @@ export interface FileRoutesByTo {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
-  '/portal/promotion': typeof PortalPromotionRouteWithChildren
   '/portal/qr-code': typeof PortalQrCodeRoute
   '/portal/referral': typeof PortalReferralRoute
   '/portal/staking': typeof PortalStakingRoute
@@ -297,6 +303,7 @@ export interface FileRoutesByTo {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/promotion': typeof PortalPromotionIndexRoute
   '/portal/qna': typeof PortalQnaIndexRoute
   '/portal/reports': typeof PortalReportsIndexRoute
 }
@@ -335,6 +342,7 @@ export interface FileRoutesById {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
 }
@@ -374,6 +382,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
   fileRoutesByTo: FileRoutesByTo
@@ -386,7 +395,6 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/network'
     | '/portal/profile'
-    | '/portal/promotion'
     | '/portal/qr-code'
     | '/portal/referral'
     | '/portal/staking'
@@ -409,6 +417,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/promotion'
     | '/portal/qna'
     | '/portal/reports'
   id:
@@ -446,6 +455,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
   fileRoutesById: FileRoutesById
@@ -612,6 +622,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalQnaIndexRouteImport
       parentRoute: typeof PortalQnaRoute
     }
+    '/portal/promotion/': {
+      id: '/portal/promotion/'
+      path: '/'
+      fullPath: '/portal/promotion/'
+      preLoaderRoute: typeof PortalPromotionIndexRouteImport
+      parentRoute: typeof PortalPromotionRoute
+    }
     '/portal/statement/usd': {
       id: '/portal/statement/usd'
       path: '/statement/usd'
@@ -708,10 +725,12 @@ declare module '@tanstack/react-router' {
 
 interface PortalPromotionRouteChildren {
   PortalPromotionPromoIdRoute: typeof PortalPromotionPromoIdRoute
+  PortalPromotionIndexRoute: typeof PortalPromotionIndexRoute
 }
 
 const PortalPromotionRouteChildren: PortalPromotionRouteChildren = {
   PortalPromotionPromoIdRoute: PortalPromotionPromoIdRoute,
+  PortalPromotionIndexRoute: PortalPromotionIndexRoute,
 }
 
 const PortalPromotionRouteWithChildren = PortalPromotionRoute._addFileChildren(
