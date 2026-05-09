@@ -94,7 +94,7 @@ function ChangePasswordPage() {
     <div className="w-full min-w-0 overflow-x-hidden">
       <PageHeader
         eyebrow={t("account.label")}
-        title={t("pages.changePassword.title", "Change Primary Password")}
+        title={t("pages.changePassword.title", "Change Password")}
         description={t(
           "pages.changePassword.description",
           "Update the login password used to access your portal account.",
@@ -119,10 +119,10 @@ function ChangePasswordPage() {
         {/* === Form card === */}
         <SpotlightCard className="liquid-glass w-full min-w-0 max-w-full overflow-hidden rounded-2xl">
           <div className="border-b border-gold/10 px-4 py-3 sm:px-5 sm:py-3.5">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
               <KeyRound className="h-4 w-4 text-gold" />
               <h3 className="font-serif text-[15px] font-semibold text-gold">
-                {t("pages.changePassword.title", "Change Primary Password")}
+                {t("pages.changePassword.title", "Change Password")}
               </h3>
             </div>
           </div>
