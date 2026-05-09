@@ -91,17 +91,189 @@
     "deposit": {
       "eyebrow": "الأموال · واردة",
       "title": "إيداع",
-      "description": "قم بتمويل حسابك عبر التحويل البنكي. تكتمل التسوية عادةً خلال يوم عمل واحد."
+      "description": "قم بتمويل حسابك عبر التحويل البنكي. تكتمل التسوية عادةً خلال يوم عمل واحد.",
+      "toast": {
+        "addressCopied": "تم نسخ العنوان",
+        "copied": "تم النسخ",
+        "referenceCopied": "تم نسخ المرجع",
+        "hashCopied": "تم نسخ التجزئة (Hash)"
+      },
+      "importantReminder": {
+        "title": "تذكير هام",
+        "sendOnly": "أرسل فقط ",
+        "viaThe": " عبر شبكة ",
+        "networkSuffix": ".",
+        "otherTokens": "سيؤدي إرسال رموز أو شبكات أخرى إلى ",
+        "permanentLoss": "خسارة دائمة",
+        "confirmation": "تُضاف الإيداعات بعد التأكيد على الشبكة (عادة من 1 إلى 3 دقائق)."
+      },
+      "qr": {
+        "alt": "رمز الاستجابة السريعة (QR) للإيداع",
+        "empty": "لم يتم رفع رمز QR"
+      },
+      "address": {
+        "label": "عنوان الإيداع",
+        "empty": "لم يتم تعيين عنوان. استخدم تعديل لتهيئته.",
+        "copyAria": "نسخ العنوان"
+      },
+      "filter": {
+        "title": "تصفية المعاملات",
+        "date": "التاريخ",
+        "reference": "الرقم المرجعي",
+        "refPlaceholder": "TXN…",
+        "hash": "تجزئة المعاملة (Hash)",
+        "hashPlaceholder": "0x…",
+        "showing": "عرض ",
+        "of": " من ",
+        "records": " سجلات",
+        "reset": "إعادة ضبط",
+        "apply": "تطبيق التصفية"
+      },
+      "history": {
+        "title": "سجل الإيداعات",
+        "live": "مباشر"
+      },
+      "tableHeaders": {
+        "date": "التاريخ",
+        "reference": "الرقم المرجعي",
+        "hash": "تجزئة المعاملة (Hash)"
+      },
+      "empty": {
+        "title": "لم يتم العثور على إيداعات",
+        "noDeposits": "ستظهر إيداعاتك المؤكدة هنا بمجرد استلامها.",
+        "filtered": "حاول تعديل الفلاتر أو إعادة الضبط لرؤية جميع السجلات."
+      }
     },
     "withdrawal": {
       "eyebrow": "الأموال · صادرة",
       "title": "سحب",
-      "description": "اطلب الدفع إلى حسابك البنكي المعتمد. تصل الأموال عادةً خلال 1-2 يوم عمل."
+      "description": "اطلب الدفع إلى حسابك البنكي المعتمد. تصل الأموال عادةً خلال 1-2 يوم عمل.",
+      "pageDescription": "قم بسحب USDT إلى عناوين محافظ BEP20 المحفوظة الخاصة بك.",
+      "importantReminder": {
+        "title": "تذكير هام",
+        "supportOnly": "تدعم عمليات السحب فقط ",
+        "viaThe": " عبر شبكة ",
+        "networkSuffix": ".",
+        "wrongAddress": "سيؤدي إدخال عنوان أو شبكة خاطئة إلى ",
+        "permanentLoss": "خسارة دائمة",
+        "processingTime": "تتم معالجة الطلبات بعد موافقة الإدارة — عادةً في غضون دقائق."
+      },
+      "newRequest": {
+        "title": "طلب سحب جديد",
+        "creditType": "نوع الرصيد *",
+        "walletAddress": "عنوان محفظة السحب *",
+        "noWallets": "لا توجد محافظ محفوظة. ",
+        "addOneFirst": "أضف واحدة أولاً ←",
+        "selectWallet": "-- اختر محفظة محفوظة --",
+        "amount": "المبلغ *",
+        "minAmount": "الحد الأدنى {{min}} USDT",
+        "available": "المتاح: ",
+        "exceedsBalance": "يتجاوز الرصيد المتاح",
+        "submit": "تقديم طلب السحب"
+      },
+      "summary": {
+        "usdCredit": "رصيد USD",
+        "withdrawalAmount": "مبلغ السحب",
+        "adminFee": "رسوم الإدارة (2%)",
+        "receiveAmount": "سوف تتلقى"
+      },
+      "wallets": {
+        "title": "محافظ السحب",
+        "subtitle": "عناوين BEP20 المحفوظة",
+        "addWallet": "إضافة محفظة",
+        "noWalletsTitle": "لا توجد محافظ حتى الآن",
+        "noWalletsDesc": "أضف محفظة BEP20 لبدء السحب."
+      },
+      "tableHeaders": {
+        "date": "التاريخ",
+        "walletName": "اسم المحفظة",
+        "walletAddress": "عنوان المحفظة",
+        "action": "الإجراء",
+        "reference": "الرقم المرجعي",
+        "recipientAddress": "عنوان المستلم",
+        "chain": "شبكة USDT",
+        "withdrawalAmt": "مبلغ السحب",
+        "adminFee": "رسوم الإدارة",
+        "receiveAmount": "سوف تتلقى",
+        "status": "الحالة",
+        "remark": "ملاحظة",
+        "hash": "تجزئة المعاملة (Hash)"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "filter": {
+        "recipientAddress": "عنوان المستلم",
+        "status": "الحالة",
+        "statusAll": "الكل",
+        "statusPending": "قيد الانتظار",
+        "statusProcessing": "قيد المعالجة",
+        "statusCompleted": "مكتمل",
+        "statusRejected": "مرفوض"
+      },
+      "history": {
+        "title": "سجل السحوبات",
+        "subtitle": "جميع الطلبات",
+        "exportExcel": "تصدير إلى Excel"
+      },
+      "empty": {
+        "title": "لم يتم العثور على سحوبات",
+        "noRequests": "ستظهر طلباتك هنا.",
+        "filtered": "حاول تعديل الفلاتر."
+      },
+      "dialog": {
+        "editWallet": "تعديل المحفظة",
+        "addWallet": "إضافة محفظة جديدة",
+        "walletDesc": "عنوان سحب USDT شبكة BEP20.",
+        "walletName": "اسم المحفظة *",
+        "walletNamePlaceholder": "مثال: شخصي",
+        "walletAddress": "عنوان المحفظة *",
+        "walletAddressHint": "يجب أن يكون عنوان BEP20 صالحاً يبدأ بـ 0x.",
+        "saving": "جاري الحفظ…",
+        "update": "تحديث"
+      },
+      "confirm": {
+        "title": "تأكيد السحب",
+        "desc": "يرجى مراجعة التفاصيل قبل التقديم.",
+        "wallet": "المحفظة",
+        "address": "العنوان",
+        "chain": "الشبكة",
+        "amount": "المبلغ",
+        "adminFee": "رسوم الإدارة",
+        "receiveAmount": "سوف تتلقى",
+        "submitting": "جاري التقديم…",
+        "confirmBtn": "تأكيد",
+        "deleteWallet": "هل تريد حذف المحفظة \"{{name}}\"؟"
+      },
+      "toast": {
+        "walletNameRequired": "اسم المحفظة مطلوب",
+        "invalidAddress": "عنوان المحفظة غير صالح (يجب أن يبدأ بـ 0x ويتكون من 42 حرفاً)",
+        "walletUpdated": "تم تحديث المحفظة",
+        "walletAdded": "تمت إضافة المحفظة",
+        "walletDeleted": "تم حذف المحفظة",
+        "selectWallet": "يرجى اختيار محفظة",
+        "invalidAmount": "مبلغ غير صالح",
+        "requestSubmitted": "تم تقديم طلب السحب",
+        "noRecordsExport": "لا توجد سجلات للتصدير",
+        "excelExported": "تم تصدير ملف Excel"
+      }
     },
     "promotion": {
       "eyebrow": "الأموال · مكافأة",
       "title": "العرض الترويجي",
-      "description": "عرض المؤسسين لفترة محدودة للإيداعات المؤهلة."
+      "description": "عرض المؤسسين لفترة محدودة للإيداعات المؤهلة.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "فعالية افتتاح Naslab في تركيا",
+          "subtitle": "حدث الإطلاق"
+        },
+        "rankingIncentive": {
+          "title": "حافز تصنيف RCB، TCB والمجتمع",
+          "subtitle": "مكافآت التصنيف"
+        }
+      },
+      "viewDetails": "عرض التفاصيل"
     },
     "qna": {
       "eyebrow": "محادثة",
@@ -116,32 +288,154 @@
     "transactions": {
       "eyebrow": "السجل",
       "title": "المعاملات",
-      "description": "سجل كامل للإيداعات والصفقات والسحوبات."
+      "description": "سجل كامل للإيداعات والصفقات والسحوبات.",
+      "history": {
+        "title": "سجل المعاملات"
+      },
+      "tableHeaders": {
+        "type": "النوع",
+        "asset": "الأصل",
+        "quantity": "الكمية",
+        "price": "السعر"
+      },
+      "empty": {
+        "noTransactions": "لا توجد معاملات حتى الآن."
+      }
     },
     "support": {
       "eyebrow": "خدمة مميزة",
       "title": "الدعم",
-      "description": "افتح تذكرة خاصة — يرد فريقنا بسرعة."
+      "description": "افتح تذكرة خاصة — يرد فريقنا بسرعة.",
+      "categories": {
+        "general": "عام",
+        "account": "الحساب",
+        "deposit": "إيداع",
+        "withdrawal": "سحب",
+        "technical": "الدعم الفني",
+        "other": "أخرى"
+      },
+      "status": {
+        "open": "مفتوح",
+        "pending": "قيد الانتظار",
+        "resolved": "تم الحل",
+        "closed": "مغلق"
+      },
+      "toast": {
+        "created": "تم إنشاء تذكرة الدعم",
+        "fileSizeExceeded": "تجاوزت بعض الملفات الحد الأقصى (2MB) وتم تخطيها."
+      },
+      "filter": {
+        "title": "تصفية",
+        "ticketNumber": "رقم التذكرة",
+        "category": "الفئة",
+        "apply": "تطبيق"
+      },
+      "list": {
+        "title": "قائمة تذاكر الدعم",
+        "newTicket": "تذكرة دعم جديدة"
+      },
+      "dialog": {
+        "newTicket": "تذكرة دعم جديدة",
+        "category": "الفئة",
+        "subject": "الموضوع",
+        "message": "الرسالة",
+        "attachments": "المرفقات",
+        "chooseFile": "اختر ملفاً",
+        "noFileChosen": "لم يتم اختيار ملف",
+        "filesSelected": "{{count}} ملف{{s}} محددة",
+        "removeFile": "إزالة الملف",
+        "fileLimit": "الحد الأقصى للملف 2MB، أنواع الصور Jpg/png/gif، يمكن رفع أكثر من ملف واحد",
+        "proceed": "متابعة",
+        "categoryLabel": "الفئة:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "رقم التذكرة",
+        "category": "الفئة",
+        "subject": "الموضوع"
+      },
+      "empty": {
+        "noTickets": "لم يتم العثور على تذاكر."
+      },
+      "actions": {
+        "view": "عرض"
+      }
     },
     "usdStatement": {
       "eyebrow": "كشف الحساب",
       "title": "كشف الدولار",
-      "description": "ملخص نشاط حسابك بالدولار."
+      "description": "ملخص نشاط حسابك بالدولار.",
+      "tableHeaders": {
+        "txId": "معرف المعاملة",
+        "type": "نوع المعاملة",
+        "credit": "دائن",
+        "debit": "مدين",
+        "remarks": "ملاحظات"
+      }
     },
     "network": {
       "eyebrow": "العلاقات",
       "title": "الشبكة",
-      "description": "دائرتك الموثوقة من المستشارين والأمناء والشركاء."
+      "description": "دائرتك الموثوقة من المستشارين والأمناء والشركاء.",
+      "verificationRequired": "مطلوب التحقق",
+      "unlockTitle": "أكمل اختبار خطة التسويق لفتح شبكتك",
+      "unlockDescription": "لضمان فهم كل عضو لخطة التسويق بالكامل قبل بناء فريقه، يتم قفل عرض الشبكة الخاص بك حتى تنجح في الاختبار مرة واحدة. بعد اجتيازك له، يصبح الوصول دائماً.",
+      "steps": {
+        "takeQuiz": "ابدأ اختبار خطة التسويق",
+        "score": "احصل على درجة 7 من 10 على الأقل للنجاح",
+        "unlock": "تُفتح الشبكة على الفور"
+      },
+      "actions": {
+        "takeQuiz": "ابدأ اختبار خطة التسويق"
+      },
+      "empty": {
+        "noTeam": "سيتم إدراج فريقك المخصص هنا قريباً."
+      }
     },
     "holdings": {
       "eyebrow": "المحفظة",
       "title": "نظرة عامة على المحفظة",
-      "description": "ملخص لمشاركتك النشطة في الرهن."
+      "description": "ملخص لمشاركتك النشطة في الرهن.",
+      "totalStakingAmount": "إجمالي مبلغ الستاكينغ",
+      "stakingDays": "أيام الستاكينغ",
+      "tableHeaders": {
+        "date": "التاريخ",
+        "stakingPlan": "خطة الستاكينغ",
+        "stakingDate": "تاريخ الستاكينغ",
+        "stakingAmount": "مبلغ الستاكينغ",
+        "minMonthlyRate": "الحد الأدنى للمعدل الشهري",
+        "maxMonthlyRate": "الحد الأقصى للمعدل الشهري",
+        "status": "الحالة"
+      },
+      "empty": {
+        "noStakingPlan": "لا توجد خطة ستاكينغ حتى الآن."
+      },
+      "refund": {
+        "button": "طلب استرداد كامل",
+        "title": "طلب استرداد كامل",
+        "description": "هل أنت متأكد من أنك تريد طلب استرداد نقدي كامل؟ سيقوم فريقنا بمراجعة طلبك والاتصال بك قريباً.",
+        "confirm": "تأكيد الطلب",
+        "submitted": "تم تقديم طلب الاسترداد"
+      }
     },
     "transferUsd": {
       "eyebrow": "محفظة الدولار",
       "title": "تحويل الدولار",
-      "description": "حول الدولار إلى حساب عضو آخر."
+      "description": "حول الدولار إلى حساب عضو آخر.",
+      "toast": {
+        "fillRequired": "يرجى تعبئة جميع الحقول المطلوبة",
+        "submitted": "تم تقديم طلب التحويل"
+      },
+      "details": {
+        "title": "تفاصيل التحويل"
+      },
+      "form": {
+        "usdTransfer": "تحويل USD",
+        "transferTo": "تحويل إلى معرف العضو",
+        "memberIdPlaceholder": "أدخل معرف العضو",
+        "transferAmount": "مبلغ التحويل",
+        "remarks": "ملاحظات",
+        "remarksPlaceholder": "ملاحظات اختيارية"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "كشف الحساب",
@@ -151,32 +445,393 @@
     "documents": {
       "eyebrow": "المكتبة",
       "title": "المستندات والكشوفات",
-      "description": "الكشوفات والمستندات الضريبية والعقود القانونية المحفوظة."
+      "description": "الكشوفات والمستندات الضريبية والعقود القانونية المحفوظة.",
+      "empty": {
+        "noDocuments": "لا توجد مستندات متاحة حتى الآن. ستظهر كشوف حساباتك هنا بمجرد إصدارها."
+      }
     },
     "creditConversionStatement": {
       "eyebrow": "كشف الحساب",
       "title": "كشف تحويل الأرصدة",
-      "description": "راجع سجل وأرصدة تحويل الأرصدة."
+      "description": "راجع سجل وأرصدة تحويل الأرصدة.",
+      "tableHeaders": {
+        "date": "التاريخ",
+        "source": "رصيد المصدر",
+        "destination": "رصيد الوجهة",
+        "amount": "المبلغ المحول",
+        "status": "الحالة"
+      }
     },
     "stakingPlans": {
       "eyebrow": "الرهن",
       "title": "خطة المشاركة",
-      "description": "اختر مستوى المشاركة الذي يناسب أهدافك."
+      "description": "اختر مستوى المشاركة الذي يناسب أهدافك.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "الحد الأدنى للستاكينغ",
+        "monthlyRoi": "العائد الشهري (ROI)"
+      }
     },
     "convertCredits": {
       "eyebrow": "كشف الحساب",
       "title": "تحويل الأرصدة",
-      "description": "حول الأرصدة بين الأرصدة."
+      "description": "حول الأرصدة بين الأرصدة.",
+      "usdWallet": "محفظة USD",
+      "rewardsWallet": "محفظة المكافآت",
+      "convertDetails": "تفاصيل التحويل",
+      "sourceCredit": "رصيد المصدر",
+      "rewardsCredit": "رصيد المكافآت",
+      "destinationCredit": "رصيد الوجهة",
+      "sourceAmount": "مبلغ المصدر"
     },
     "referral": {
       "eyebrow": "الشبكة · دعوة",
       "title": "الإحالة",
-      "description": "ادعُ المستثمرين المؤهلين. اربح خصمًا منظمًا على كل حساب ممول."
+      "description": "ادعُ المستثمرين المؤهلين. اربح خصمًا منظمًا على كل حساب ممول.",
+      "yourCode": "الرمز الخاص بك",
+      "labels": {
+        "referralCode": "رمز الإحالة",
+        "inviteLink": "رابط الدعوة",
+        "tier": "المستوى",
+        "activeReferrals": "الإحالات النشطة",
+        "lifetimeRebate": "استرداد نقدي مدى الحياة"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "شروط البرنامج",
+      "terms": {
+        "rebate": "استرداد نقدي بنسبة 1.0% على رسوم الإدارة للسنة الأولى لكل إحالة ممولة.",
+        "minimum": "يجب أن تستوفي الحسابات المُحالة الحد الأدنى البالغ 25,000$ للتأهل.",
+        "settle": "تُسوى الاستردادات النقدية بشكل ربع سنوي في الرصيد النقدي لمحفظتك.",
+        "upgrade": "تواصل مع مستشارك للترقية إلى مستوى Platinum."
+      }
     },
     "reports": {
       "eyebrow": "مختارة",
       "title": "التقارير الفصلية",
       "description": "رسائل وتحليلات يعدها فريق المستشارين."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "تفاصيل العرض الترويجي قريباً. سيتم تحديث هذا القسم بالوصف الكامل للحدث، معايير التأهل، المكافآت والجدول الزمني."
+        },
+        "rankingIncentive": {
+          "description": "تفاصيل العرض الترويجي قريباً. سيتم تحديث هذا القسم بمستويات التصنيف، هيكل العوائد وكيفية قياس مساهمات المجتمع."
+        }
+      },
+      "progressLabel": "التقدم الخاص بك",
+      "notFound": "لم يتم العثور على العرض الترويجي.",
+      "backToPromotions": "العودة إلى العروض الترويجية",
+      "details": "التفاصيل",
+      "progressDescription": "سيظهر هنا التقدم الخاص بك لهذا العرض الترويجي."
+    },
+    "staking": {
+      "activePrograms": "البرامج النشطة",
+      "empty": {
+        "noStakings": "ليس لديك أي عمليات ستاكينغ نشطة حالياً. ستظهر الفرص الجديدة هنا عند توفرها."
+      },
+      "tableHeaders": {
+        "package": "الباقة",
+        "roiStartDate": "تاريخ بدء العائد (ROI)",
+        "stakingAmount": "مبلغ الستاكينغ",
+        "roiMin": "الحد الأدنى للعائد (ROI) %",
+        "roiMax": "الحد الأقصى للعائد (ROI) %"
+      },
+      "status": {
+        "active": "نشط"
+      }
+    },
+    "assetAnalysis": {
+      "description": "رؤى وتوزيع الأصول والمخاطر وأداء محفظتك."
+    },
+    "profile": {
+      "title": "معلومات الملف الشخصي",
+      "description": "إدارة بياناتك الشخصية، معلومات الاتصال، وهوية الحساب.",
+      "verifiedMember": "عضو تم التحقق منه",
+      "memberFallback": "عضو",
+      "status": "الحالة",
+      "active": "نشط",
+      "tier": "المستوى",
+      "accountIdentity": {
+        "title": "هوية الحساب",
+        "subtitle": "بيانات اعتماد موثقة للقراءة فقط"
+      },
+      "memberId": "معرف العضو",
+      "emailAddress": "البريد الإلكتروني",
+      "personalDetails": {
+        "title": "البيانات الشخصية",
+        "subtitle": "هويتك القانونية وتاريخ ميلادك"
+      },
+      "name": "الاسم",
+      "namePlaceholder": "الاسم القانوني بالكامل",
+      "nationalId": "الهوية الوطنية",
+      "nationalIdPlaceholder": "رقم الهوية / جواز السفر",
+      "dob": "تاريخ الميلاد",
+      "sponsorId": "معرف الراعي",
+      "contact": {
+        "title": "جهات الاتصال",
+        "subtitle": "كيف يمكننا التواصل معك"
+      },
+      "mobilePrefix": "مفتاح الدولة",
+      "mobileNumber": "رقم الهاتف",
+      "mobileNumberPlaceholder": "رقم الهاتف",
+      "address": {
+        "title": "العنوان",
+        "subtitle": "عنوان الإقامة"
+      },
+      "country": "الدولة",
+      "region": "المنطقة",
+      "province": "الولاية / المقاطعة",
+      "provincePlaceholder": "الولاية / المقاطعة",
+      "city": "المدينة",
+      "addressPlaceholder": "عنوان الشارع",
+      "auditNotice": "جميع التغييرات مشفرة وموثقة في السجلات",
+      "saving": "جاري الحفظ…",
+      "toast": {
+        "error": "فشل في حفظ الملف الشخصي",
+        "success": "تم تحديث الملف الشخصي"
+      },
+      "countries": {
+        "UnitedStates": "الولايات المتحدة",
+        "China": "الصين",
+        "Indonesia": "إندونيسيا",
+        "Iran": "إيران",
+        "SaudiArabia": "المملكة العربية السعودية",
+        "Spain": "إسبانيا",
+        "Germany": "ألمانيا",
+        "Turkey": "تركيا"
+      }
+    },
+    "qrCode": {
+      "title": "رمز الاستجابة السريعة (QR) للإحالة",
+      "description": "بطاقة دعوتك الفريدة. شاركها مع العملاء المحتملين للتسجيل تحت حسابك.",
+      "verifiedReferral": "إحالة موثقة",
+      "toast": {
+        "linkCopied": "تم نسخ رابط الإحالة",
+        "idCopied": "تم نسخ معرف العضو",
+        "qrDownloaded": "تم تحميل رمز QR",
+        "downloadFailed": "فشل التحميل"
+      },
+      "share": {
+        "title": "انضم عبر إحالتي",
+        "text": "سجّل باستخدام معرف العضو الخاص بي {{memberId}}"
+      },
+      "qrAlt": "رمز إحالة QR للعضو {{memberId}}",
+      "scanToRegister": "قم بالمسح الضوئي للتسجيل تحت هذا المستشار",
+      "referralLink": "رابط الإحالة",
+      "copyLink": "نسخ الرابط",
+      "downloadQr": "تحميل QR",
+      "shareBtn": "مشاركة",
+      "copyMemberId": "نسخ معرف العضو",
+      "howItWorks": "كيف تعمل الخطوات",
+      "steps": {
+        "1": "أرسل رمز QR أو رابط الإحالة الخاص بك إلى عميلك.",
+        "2": "سيقوم بالمسح الضوئي أو النقر — وسيتم توجيهه إلى صفحة التسجيل المعبأة مسبقاً بمعرف عضويتك.",
+        "3": "بمجرد إكمال التسجيل، سيتم ربطهم بشبكتك بشكل دائم."
+      }
+    },
+    "walletEdit": {
+      "title": "تعديل المحفظة",
+      "description": "تحديث الأرصدة، شبكة الإيداع، العنوان ورمز QR.",
+      "balances": {
+        "title": "الأرصدة",
+        "usdWallet": "محفظة USD",
+        "rewardsWallet": "محفظة المكافآت",
+        "stakingAmount": "مبلغ الستاكينغ"
+      },
+      "actions": {
+        "saving": "جاري الحفظ…",
+        "saveBalances": "حفظ الأرصدة",
+        "uploading": "جاري الرفع…",
+        "replaceQr": "استبدال QR",
+        "uploadQr": "رفع QR",
+        "saveDepositSettings": "حفظ إعدادات الإيداع",
+        "parsing": "جاري التحليل…",
+        "uploadDocx": "رفع .docx",
+        "clearCompany": "مسح الشركة",
+        "clearMarketing": "مسح التسويق"
+      },
+      "toast": {
+        "walletUpdated": "تم تحديث المحفظة",
+        "qrUploaded": "تم رفع رمز QR",
+        "depositSettingsSaved": "تم حفظ إعدادات الإيداع",
+        "noQuestions": "لم يتم العثور على أسئلة. تحقق من التنسيق (راجع الملاحظة أدناه).",
+        "importedQuestions": "تم استيراد {{count}} أسئلة",
+        "failedToImport": "فشل الاستيراد",
+        "cleared": "تم المسح"
+      },
+      "depositSettings": {
+        "title": "إعدادات الإيداع",
+        "network": "الشبكة",
+        "networkLabel": "تسمية الشبكة",
+        "walletAddress": "عنوان المحفظة",
+        "qrCode": "رمز QR",
+        "qrPreviewAlt": "معاينة QR"
+      },
+      "quiz": {
+        "title": "بنك أسئلة وأجوبة (Q&A)",
+        "description": "قم برفع ملف .docx يحتوي على أسئلة اختيار من متعدد. سيقوم النظام باختيار 10 أسئلة عشوائياً في كل مرة يجري فيها العميل الاختبار.",
+        "company": "الشركة: ",
+        "marketing": "التسويق: ",
+        "expectedFormat": "تنسيق .docx المتوقع",
+        "hint": {
+          "part1": "استخدم عناوين ",
+          "part2": " أو ",
+          "part3": " للتبديل بين الفئات. تبدأ الأسئلة برقم، وتستخدم الخيارات ",
+          "part4": " / ",
+          "part5": " وما إلى ذلك، و",
+          "part6": "يمثل الحرف الصحيح."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "هل تريد حذف جميع الأسئلة المرفوعة الخاصة بـ {{category}}؟"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "معاملات الستاكينغ",
+      "tableHeaders": {
+        "transactionNumber": "رقم المعاملة",
+        "amount": "المبلغ",
+        "stakingPlan": "خطة الستاكينغ"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "معاملات مكافآت الإحالة",
+      "tableHeaders": {
+        "referralRate": "معدل الإحالة"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "تقرير مكافآت الفريق",
+      "tableHeaders": {
+        "date": "التاريخ",
+        "memberId": "معرف العضو",
+        "level": "المستوى",
+        "divisionRoi": "عائد القسم",
+        "rate": "المعدل",
+        "amount": "المبلغ"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "معاملات مكافآت القائد",
+      "tableHeaders": {
+        "contributedBy": "تمت المساهمة بواسطة معرف العضو",
+        "totalSubscriptionCount": "إجمالي عدد الاشتراكات"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "معاملات مكافآت Par Rank",
+      "tableHeaders": {
+        "rank": "الرتبة"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "لوحة المعلومات",
+      "holdings": "الممتلكات",
+      "stakingPlans": "خطط Staking",
+      "rewards": "المكافآت",
+      "creditConversion": "تحويل الرصيد",
+      "referral": "الإحالة",
+      "promotion": "العروض الترويجية",
+      "stakingRewards": "مكافآت Staking",
+      "quiz": "اختبار",
+      "qrCode": "رمز QR"
+    },
+    "groups": {
+      "wallet": "المحفظة",
+      "funds": "الأموال",
+      "learn": "التعلّم"
+    },
+    "searchPortal": "البحث في البوابة...",
+    "typeToNavigate": "اكتب أمراً أو ابحث...",
+    "empty": {
+      "noResults": "لا توجد نتائج."
+    }
+  },
+  "fab": {
+    "searchLabel": "بحث"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "إجمالي الأصول (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "أصول المكافآت"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "يناير",
+        "february": "فبراير",
+        "march": "مارس",
+        "april": "أبريل",
+        "may": "مايو",
+        "june": "يونيو",
+        "july": "يوليو",
+        "august": "أغسطس",
+        "september": "سبتمبر",
+        "october": "أكتوبر",
+        "november": "نوفمبر",
+        "december": "ديسمبر"
+      },
+      "monthsShort": {
+        "jan": "يناير",
+        "feb": "فبراير",
+        "mar": "مارس",
+        "apr": "أبريل",
+        "may": "مايو",
+        "jun": "يونيو",
+        "jul": "يوليو",
+        "aug": "أغسطس",
+        "sep": "سبتمبر",
+        "oct": "أكتوبر",
+        "nov": "نوفمبر",
+        "dec": "ديسمبر"
+      },
+      "weekdaysShort": {
+        "sun": "الأحد",
+        "mon": "الاثنين",
+        "tue": "الثلاثاء",
+        "wed": "الأربعاء",
+        "thu": "الخميس",
+        "fri": "الجمعة",
+        "sat": "السبت"
+      },
+      "title": "تقويم P&L",
+      "view": {
+        "list": "قائمة",
+        "calendar": "التقويم"
+      },
+      "filters": {
+        "month": "الشهر",
+        "year": "السنة"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "العائد"
+      },
+      "empty": {
+        "noData": "لا توجد بيانات"
+      },
+      "status": {
+        "profit": "ربح",
+        "loss": "خسارة"
+      }
     }
   }
 }

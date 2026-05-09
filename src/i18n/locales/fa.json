@@ -6,20 +6,35 @@
     "overview": "نمای کلی",
     "stakingPlan": "طرح مشارکت",
     "portfolio": "سبد سرمایه",
+    "assetAnalysis": "تحلیل دارایی",
     "statement": "صورتحساب",
     "creditConversionStatement": "صورتحساب تبدیل اعتبار",
     "usdStatement": "صورتحساب دلاری",
     "rewardsStatement": "صورتحساب پاداش",
+    "deposit": "واریز",
+    "withdrawal": "برداشت",
     "usdCreditsTransfer": "انتقال دلار و اعتبار",
     "convertCredits": "تبدیل اعتبار",
     "transferUsd": "انتقال دلار",
     "transactions": "تراکنش‌ها",
     "documents": "اسناد",
     "reports": "گزارش‌ها",
+    "reportsParticipation": "استیکینگ",
+    "reportsReferral": "پاداش‌های معرفی",
+    "reportsTeam": "پاداش‌های تیمی",
+    "reportsLeader": "پاداش‌های رهبری",
+    "reportsParRank": "پاداش‌های رتبه Par",
     "network": "شبکه",
     "qna": "پرسش و پاسخ",
+    "qnaCompany": "شرکت",
+    "qnaMarketing": "طرح بازاریابی",
     "support": "پشتیبانی",
-    "signOut": "خروج"
+    "signOut": "خروج",
+    "sections": {
+      "overview": "نمای کلی",
+      "operations": "عملیات",
+      "support": "حساب کاربری و پشتیبانی"
+    }
   },
   "account": {
     "label": "حساب کاربری",
@@ -49,6 +64,7 @@
   "overview": {
     "estTotalValue": "ارزش کل تخمینی (دلار)",
     "todaysPnl": "سود/زیان امروز",
+    "totalPnl": "کل سود/زیان",
     "participatedDay": "روزهای مشارکت :",
     "stakingAmount": "مبلغ مشارکت :",
     "diamond": "الماس",
@@ -69,24 +85,195 @@
       "referral": "معرفی",
       "participation": "مشارکت",
       "promotion": "تبلیغات"
-    },
-    "totalPnl": "کل سود/زیان"
+    }
   },
   "pages": {
     "deposit": {
       "eyebrow": "وجوه · ورودی",
       "title": "واریز",
-      "description": "حساب خود را از طریق حواله بانکی شارژ کنید. تسویه معمولاً ظرف ۱ روز کاری انجام می‌شود."
+      "description": "حساب خود را از طریق حواله بانکی شارژ کنید. تسویه معمولاً ظرف ۱ روز کاری انجام می‌شود.",
+      "toast": {
+        "addressCopied": "آدرس کپی شد",
+        "copied": "کپی شد",
+        "referenceCopied": "شماره پیگیری کپی شد",
+        "hashCopied": "هش کپی شد"
+      },
+      "importantReminder": {
+        "title": "یادآوری مهم",
+        "sendOnly": "فقط ",
+        "viaThe": " را از طریق شبکه ",
+        "networkSuffix": " ارسال کنید.",
+        "otherTokens": "استفاده از شبکه‌ها یا توکن‌های دیگر منجر به ",
+        "permanentLoss": "از دست رفتن دائمی",
+        "confirmation": "واریزی‌ها پس از تایید در شبکه بلاک‌چین (معمولاً ۱ تا ۳ دقیقه) منظور می‌شوند."
+      },
+      "qr": {
+        "alt": "کد QR واریز",
+        "empty": "هیچ کد QR آپلود نشده است"
+      },
+      "address": {
+        "label": "آدرس واریز",
+        "empty": "هیچ آدرسی تنظیم نشده است. از بخش ویرایش برای پیکربندی استفاده کنید.",
+        "copyAria": "کپی آدرس"
+      },
+      "filter": {
+        "title": "فیلتر تراکنش‌ها",
+        "date": "تاریخ",
+        "reference": "شماره پیگیری",
+        "refPlaceholder": "TXN…",
+        "hash": "هش تراکنش",
+        "hashPlaceholder": "0x…",
+        "showing": "نمایش ",
+        "of": " از ",
+        "records": " رکورد",
+        "reset": "بازنشانی",
+        "apply": "اعمال فیلتر"
+      },
+      "history": {
+        "title": "تاریخچه واریزها",
+        "live": "زنده"
+      },
+      "tableHeaders": {
+        "date": "تاریخ",
+        "reference": "شماره پیگیری",
+        "hash": "هش تراکنش"
+      },
+      "empty": {
+        "title": "هیچ واریزی یافت نشد",
+        "noDeposits": "واریزی‌های تاییدشده شما پس از دریافت، در اینجا ظاهر می‌شوند.",
+        "filtered": "لطفاً فیلترهای خود را تغییر دهید یا برای مشاهده همه رکوردها آن‌ها را بازنشانی کنید."
+      }
     },
     "withdrawal": {
       "eyebrow": "وجوه · خروجی",
       "title": "برداشت",
-      "description": "درخواست پرداخت به حساب بانکی تأییدشده. وجوه معمولاً ظرف ۱ تا ۲ روز کاری دریافت می‌شود."
+      "description": "درخواست پرداخت به حساب بانکی تأییدشده. وجوه معمولاً ظرف ۱ تا ۲ روز کاری دریافت می‌شود.",
+      "pageDescription": "توکن‌های USDT خود را به آدرس‌های ذخیره‌شده کیف پول BEP20 برداشت کنید.",
+      "importantReminder": {
+        "title": "یادآوری مهم",
+        "supportOnly": "برداشت‌ها تنها از طریق ",
+        "viaThe": " در شبکه ",
+        "networkSuffix": " پشتیبانی می‌شوند.",
+        "wrongAddress": "استفاده از آدرس یا شبکه اشتباه منجر به ",
+        "permanentLoss": "از دست رفتن دائمی",
+        "processingTime": "درخواست‌ها پس از تایید مدیریت رسیدگی می‌شوند — معمولاً ظرف چند دقیقه."
+      },
+      "newRequest": {
+        "title": "درخواست برداشت جدید",
+        "creditType": "نوع اعتبار *",
+        "walletAddress": "آدرس کیف پول برداشت *",
+        "noWallets": "کیف پولی ذخیره نشده است. ",
+        "addOneFirst": "ابتدا یک کیف پول اضافه کنید ←",
+        "selectWallet": "-- یک کیف پول ذخیره‌شده انتخاب کنید --",
+        "amount": "مبلغ *",
+        "minAmount": "حداقل {{min}} USDT",
+        "available": "موجودی در دسترس: ",
+        "exceedsBalance": "مبلغ بیش از موجودی در دسترس است",
+        "submit": "ثبت درخواست برداشت"
+      },
+      "summary": {
+        "usdCredit": "اعتبار USD",
+        "withdrawalAmount": "مبلغ برداشت",
+        "adminFee": "کارمزد مدیریت (۲٪)",
+        "receiveAmount": "مبلغ دریافتی شما"
+      },
+      "wallets": {
+        "title": "کیف پول‌های برداشت",
+        "subtitle": "آدرس‌های ذخیره‌شده BEP20",
+        "addWallet": "افزودن کیف پول",
+        "noWalletsTitle": "هنوز کیف پولی ذخیره نشده",
+        "noWalletsDesc": "برای شروع برداشت، یک کیف پول BEP20 اضافه کنید."
+      },
+      "tableHeaders": {
+        "date": "تاریخ",
+        "walletName": "نام کیف پول",
+        "walletAddress": "آدرس کیف پول",
+        "action": "عملیات",
+        "reference": "شماره پیگیری",
+        "recipientAddress": "آدرس گیرنده",
+        "chain": "شبکه USDT",
+        "withdrawalAmt": "مبلغ برداشت",
+        "adminFee": "کارمزد مدیریت",
+        "receiveAmount": "مبلغ دریافتی شما",
+        "status": "وضعیت",
+        "remark": "ملاحظات",
+        "hash": "هش تراکنش"
+      },
+      "actions": {
+        "edit": "ویرایش",
+        "delete": "حذف"
+      },
+      "filter": {
+        "recipientAddress": "آدرس گیرنده",
+        "status": "وضعیت",
+        "statusAll": "همه",
+        "statusPending": "در انتظار بررسی",
+        "statusProcessing": "در حال پردازش",
+        "statusCompleted": "تکمیل شده",
+        "statusRejected": "رد شده"
+      },
+      "history": {
+        "title": "تاریخچه برداشت‌ها",
+        "subtitle": "همه درخواست‌ها",
+        "exportExcel": "خروجی اکسل"
+      },
+      "empty": {
+        "title": "هیچ برداشتی یافت نشد",
+        "noRequests": "درخواست‌های برداشت شما در اینجا نمایش داده خواهند شد.",
+        "filtered": "لطفاً فیلترهای خود را تغییر دهید."
+      },
+      "dialog": {
+        "editWallet": "ویرایش کیف پول",
+        "addWallet": "افزودن کیف پول جدید",
+        "walletDesc": "آدرس برداشت توکن USDT شبکه BEP20.",
+        "walletName": "نام کیف پول *",
+        "walletNamePlaceholder": "مثلاً: حساب شخصی",
+        "walletAddress": "آدرس کیف پول *",
+        "walletAddressHint": "باید یک آدرس معتبر BEP20 باشد که با 0x شروع می‌شود.",
+        "saving": "در حال ذخیره…",
+        "update": "بروزرسانی"
+      },
+      "confirm": {
+        "title": "تایید برداشت",
+        "desc": "لطفاً قبل از ارسال درخواست، جزئیات را بررسی کنید.",
+        "wallet": "کیف پول",
+        "address": "آدرس",
+        "chain": "شبکه",
+        "amount": "مبلغ",
+        "adminFee": "کارمزد مدیریت",
+        "receiveAmount": "مبلغ دریافتی شما",
+        "submitting": "در حال ارسال…",
+        "confirmBtn": "تایید",
+        "deleteWallet": "کیف پول \"{{name}}\" حذف شود؟"
+      },
+      "toast": {
+        "walletNameRequired": "نام کیف پول الزامی است",
+        "invalidAddress": "آدرس کیف پول نامعتبر است (باید ۴۲ کاراکتر باشد و با 0x شروع شود)",
+        "walletUpdated": "کیف پول بروزرسانی شد",
+        "walletAdded": "کیف پول اضافه شد",
+        "walletDeleted": "کیف پول حذف شد",
+        "selectWallet": "یک کیف پول را انتخاب کنید",
+        "invalidAmount": "مبلغ نامعتبر است",
+        "requestSubmitted": "درخواست برداشت ثبت شد",
+        "noRecordsExport": "رکوردی برای خروجی گرفتن وجود ندارد",
+        "excelExported": "اکسل صادر شد"
+      }
     },
     "promotion": {
       "eyebrow": "وجوه · پاداش",
       "title": "تبلیغات",
-      "description": "پیشنهاد محدود بنیان‌گذاران برای واریزهای واجد شرایط."
+      "description": "پیشنهاد محدود بنیان‌گذاران برای واریزهای واجد شرایط.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "رویداد افتتاحیه Naslab در ترکیه",
+          "subtitle": "رویداد راه‌اندازی"
+        },
+        "rankingIncentive": {
+          "title": "پاداش‌های رتبه‌بندی جامعه (RCB و TCB)",
+          "subtitle": "جوایز رتبه‌بندی"
+        }
+      },
+      "viewDetails": "مشاهده جزئیات"
     },
     "qna": {
       "eyebrow": "گفتگو",
@@ -101,32 +288,154 @@
     "transactions": {
       "eyebrow": "دفتر کل",
       "title": "تراکنش‌ها",
-      "description": "تاریخچه کامل واریزها، معاملات و برداشت‌ها."
+      "description": "تاریخچه کامل واریزها، معاملات و برداشت‌ها.",
+      "history": {
+        "title": "تاریخچه تراکنش‌ها"
+      },
+      "tableHeaders": {
+        "type": "نوع",
+        "asset": "دارایی",
+        "quantity": "تعداد/مقدار",
+        "price": "قیمت"
+      },
+      "empty": {
+        "noTransactions": "هنوز هیچ تراکنشی ثبت نشده است."
+      }
     },
     "support": {
       "eyebrow": "خدمات اختصاصی",
       "title": "پشتیبانی",
-      "description": "یک تیکت خصوصی باز کنید — تیم ما به سرعت پاسخ می‌دهد."
+      "description": "یک تیکت خصوصی باز کنید — تیم ما به سرعت پاسخ می‌دهد.",
+      "categories": {
+        "general": "عمومی",
+        "account": "حساب کاربری",
+        "deposit": "واریز",
+        "withdrawal": "برداشت",
+        "technical": "فنی",
+        "other": "سایر موارد"
+      },
+      "status": {
+        "open": "باز",
+        "pending": "در انتظار",
+        "resolved": "حل شده",
+        "closed": "بسته شده"
+      },
+      "toast": {
+        "created": "تیکت پشتیبانی با موفقیت ایجاد شد",
+        "fileSizeExceeded": "حجم بعضی از فایل‌ها بیش از ۲ مگابایت بود و نادیده گرفته شدند."
+      },
+      "filter": {
+        "title": "فیلتر",
+        "ticketNumber": "شماره تیکت",
+        "category": "دسته‌بندی",
+        "apply": "اعمال فیلتر"
+      },
+      "list": {
+        "title": "لیست تیکت‌های پشتیبانی",
+        "newTicket": "ثبت تیکت پشتیبانی جدید"
+      },
+      "dialog": {
+        "newTicket": "تیکت پشتیبانی جدید",
+        "category": "دسته‌بندی",
+        "subject": "موضوع",
+        "message": "پیام",
+        "attachments": "پیوست‌ها",
+        "chooseFile": "انتخاب فایل",
+        "noFileChosen": "فایلی انتخاب نشده",
+        "filesSelected": "{{count}} فایل{{s}} انتخاب شد",
+        "removeFile": "حذف فایل",
+        "fileLimit": "محدودیت حجم ۲ مگابایت، فرمت‌های مجاز Jpg/png/gif، امکان آپلود بیش از ۱ فایل",
+        "proceed": "ادامه",
+        "categoryLabel": "دسته‌بندی:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "شماره تیکت",
+        "category": "دسته‌بندی",
+        "subject": "موضوع"
+      },
+      "empty": {
+        "noTickets": "هیچ تیکتی یافت نشد."
+      },
+      "actions": {
+        "view": "مشاهده"
+      }
     },
     "usdStatement": {
       "eyebrow": "صورتحساب",
       "title": "صورتحساب دلاری",
-      "description": "خلاصه‌ای از فعالیت حساب دلاری شما."
+      "description": "خلاصه‌ای از فعالیت حساب دلاری شما.",
+      "tableHeaders": {
+        "txId": "شناسه تراکنش",
+        "type": "نوع تراکنش",
+        "credit": "بستانکار (واریز)",
+        "debit": "بدهکار (برداشت)",
+        "remarks": "ملاحظات"
+      }
     },
     "network": {
       "eyebrow": "روابط",
       "title": "شبکه",
-      "description": "حلقه قابل اعتماد شما از مشاوران، نگهدارندگان و شرکا."
+      "description": "حلقه قابل اعتماد شما از مشاوران، نگهدارندگان و شرکا.",
+      "verificationRequired": "نیاز به تایید ایمنی",
+      "unlockTitle": "برای باز شدن دسترسی به شبکه خود، آزمون طرح بازاریابی را تکمیل کنید",
+      "unlockDescription": "جهت اطمینان از درک کامل طرح بازاریابی توسط همه اعضا پیش از شبکه‌سازی، قابلیت مشاهده شبکه شما قفل است تا زمانی که یک بار در آزمون مربوطه قبول شوید. پس از قبولی، دسترسی شما برای همیشه باز خواهد شد.",
+      "steps": {
+        "takeQuiz": "شرکت در آزمون طرح بازاریابی",
+        "score": "کسب نمره حداقل ۷ از ۱۰ برای قبولی",
+        "unlock": "باز شدن فوری دسترسی به شبکه"
+      },
+      "actions": {
+        "takeQuiz": "شرکت در آزمون طرح بازاریابی"
+      },
+      "empty": {
+        "noTeam": "تیم اختصاصی شما به زودی در اینجا نمایش داده خواهد شد."
+      }
     },
     "holdings": {
       "eyebrow": "سبد",
       "title": "نمای کلی سبد",
-      "description": "خلاصه‌ای از مشارکت فعال استیکینگ شما."
+      "description": "خلاصه‌ای از مشارکت فعال استیکینگ شما.",
+      "totalStakingAmount": "مجموع مبلغ استیکینگ",
+      "stakingDays": "تعداد روزهای استیکینگ",
+      "tableHeaders": {
+        "date": "تاریخ",
+        "stakingPlan": "طرح استیکینگ",
+        "stakingDate": "تاریخ شروع استیکینگ",
+        "stakingAmount": "مبلغ استیکینگ",
+        "minMonthlyRate": "حداقل نرخ سود ماهانه",
+        "maxMonthlyRate": "حداکثر نرخ سود ماهانه",
+        "status": "وضعیت"
+      },
+      "empty": {
+        "noStakingPlan": "هنوز هیچ طرح استیکینگی وجود ندارد."
+      },
+      "refund": {
+        "button": "درخواست استرداد کامل",
+        "title": "درخواست استرداد وجه کامل",
+        "description": "آیا مطمئن هستید که می‌خواهید درخواست استرداد کامل وجه را ثبت کنید؟ تیم ما درخواست شما را بررسی کرده و در اسرع وقت با شما تماس خواهد گرفت.",
+        "confirm": "تایید درخواست",
+        "submitted": "درخواست استرداد وجه با موفقیت ثبت شد"
+      }
     },
     "transferUsd": {
       "eyebrow": "کیف پول دلاری",
       "title": "انتقال دلار",
-      "description": "انتقال دلار به حساب عضو دیگر."
+      "description": "انتقال دلار به حساب عضو دیگر.",
+      "toast": {
+        "fillRequired": "لطفاً تمامی فیلدهای الزامی را پر کنید",
+        "submitted": "درخواست انتقال با موفقیت ثبت شد"
+      },
+      "details": {
+        "title": "جزئیات انتقال"
+      },
+      "form": {
+        "usdTransfer": "انتقال USD",
+        "transferTo": "انتقال به شناسه عضو",
+        "memberIdPlaceholder": "شناسه عضو را وارد کنید",
+        "transferAmount": "مبلغ انتقال",
+        "remarks": "ملاحظات",
+        "remarksPlaceholder": "یادداشت‌های اختیاری"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "صورتحساب",
@@ -136,32 +445,393 @@
     "documents": {
       "eyebrow": "کتابخانه",
       "title": "اسناد و صورتحساب‌ها",
-      "description": "صورتحساب‌ها، اسناد مالیاتی و قراردادهای حقوقی موجود."
+      "description": "صورتحساب‌ها، اسناد مالیاتی و قراردادهای حقوقی موجود.",
+      "empty": {
+        "noDocuments": "هنوز هیچ سندی وجود ندارد. صورت‌حساب‌های شما به‌محض صدور در اینجا نمایش داده خواهند شد."
+      }
     },
     "creditConversionStatement": {
       "eyebrow": "صورتحساب",
       "title": "صورتحساب تبدیل اعتبار",
-      "description": "تاریخچه و موجودی تبدیل اعتبار خود را مرور کنید."
+      "description": "تاریخچه و موجودی تبدیل اعتبار خود را مرور کنید.",
+      "tableHeaders": {
+        "date": "تاریخ",
+        "source": "اعتبار مبدأ",
+        "destination": "اعتبار مقصد",
+        "amount": "مبلغ تبدیل‌شده",
+        "status": "وضعیت"
+      }
     },
     "stakingPlans": {
       "eyebrow": "استیکینگ",
       "title": "طرح مشارکت",
-      "description": "سطح مشارکتی متناسب با اهداف خود انتخاب کنید."
+      "description": "سطح مشارکتی متناسب با اهداف خود انتخاب کنید.",
+      "plans": {
+        "standardLite": "استاندارد لایت",
+        "standardPlus": "استاندارد پلاس",
+        "standardPro": "استاندارد پرو",
+        "advanceLite": "پیشرفته لایت",
+        "advancePlus": "پیشرفته پلاس",
+        "advancePro": "پیشرفته پرو",
+        "premiumLite": "پریمیوم لایت",
+        "premiumPlus": "پریمیوم پلاس",
+        "premiumPro": "پریمیوم پرو"
+      },
+      "labels": {
+        "minimumStaking": "حداقل استیکینگ",
+        "monthlyRoi": "سود ماهانه (ROI)"
+      }
     },
     "convertCredits": {
       "eyebrow": "صورتحساب",
       "title": "تبدیل اعتبار",
-      "description": "اعتبار را بین موجودی‌ها تبدیل کنید."
+      "description": "اعتبار را بین موجودی‌ها تبدیل کنید.",
+      "usdWallet": "کیف پول USD",
+      "rewardsWallet": "کیف پول پاداش‌ها",
+      "convertDetails": "جزئیات تبدیل",
+      "sourceCredit": "اعتبار مبدأ",
+      "rewardsCredit": "اعتبار پاداش",
+      "destinationCredit": "اعتبار مقصد",
+      "sourceAmount": "مبلغ مبدأ"
     },
     "referral": {
       "eyebrow": "شبکه · دعوت",
       "title": "معرفی",
-      "description": "سرمایه‌گذاران واجد شرایط را دعوت کنید. برای هر حساب فعال شده، تخفیف ساختاریافته دریافت کنید."
+      "description": "سرمایه‌گذاران واجد شرایط را دعوت کنید. برای هر حساب فعال شده، تخفیف ساختاریافته دریافت کنید.",
+      "yourCode": "کد شما",
+      "labels": {
+        "referralCode": "کد معرف",
+        "inviteLink": "لینک دعوت",
+        "tier": "سطح کاربری",
+        "activeReferrals": "زیرمجموعه‌های فعال",
+        "lifetimeRebate": "مجموع پاداش (ریبیت) دریافتی"
+      },
+      "tiers": {
+        "gold": "طلایی"
+      },
+      "programTerms": "شرایط و ضوابط برنامه",
+      "terms": {
+        "rebate": "۱.۰٪ پاداش از کارمزد سالانه مدیریت پورتفولیو به ازای هر زیرمجموعه سرمایه‌گذار.",
+        "minimum": "حساب‌های معرفی شده برای واجد شرایط شدن باید حداقل موجودی ۲۵,۰۰۰ دلاری را داشته باشند.",
+        "settle": "پاداش‌ها به صورت سه‌ماهه به موجودی نقدی پورتفولیوی شما واریز می‌شوند.",
+        "upgrade": "جهت دریافت اطلاعات برای ارتقاء به سطح پلاتینوم، با مشاور خود تماس بگیرید."
+      }
     },
     "reports": {
       "eyebrow": "منتخب",
       "title": "گزارش‌های فصلی",
       "description": "نامه‌ها و تحلیل‌های آماده‌شده توسط تیم مشاوره شما."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "جزئیات پروموشن به‌زودی اعلام می‌شود. این بخش با توضیحات کامل رویداد، شرایط واجدین شرایط شدن، جوایز و جدول زمانی بروزرسانی خواهد شد."
+        },
+        "rankingIncentive": {
+          "description": "جزئیات پروموشن به‌زودی اعلام می‌شود. این بخش با ساختار سطوح رتبه‌بندی، نحوه پرداخت پاداش و نحوه ارزیابی مشارکت‌های جامعه بروزرسانی خواهد شد."
+        }
+      },
+      "progressLabel": "میزان پیشرفت شما",
+      "notFound": "پروموشن مورد نظر یافت نشد.",
+      "backToPromotions": "بازگشت به پروموشن‌ها",
+      "details": "جزئیات",
+      "progressDescription": "میزان پیشرفت شما در این پروموشن در اینجا نمایش داده خواهد شد."
+    },
+    "staking": {
+      "activePrograms": "برنامه‌های فعال",
+      "empty": {
+        "noStakings": "شما در حال حاضر هیچ استیکینگ فعالی ندارید. فرصت‌های جدید در صورت دردسترس بودن در اینجا نمایان می‌شوند."
+      },
+      "tableHeaders": {
+        "package": "بسته",
+        "roiStartDate": "تاریخ شروع اعمال سود (ROI)",
+        "stakingAmount": "مبلغ استیکینگ",
+        "roiMin": "حداقل ٪ سود",
+        "roiMax": "حداکثر ٪ سود"
+      },
+      "status": {
+        "active": "فعال"
+      }
+    },
+    "assetAnalysis": {
+      "description": "عملکرد، نحوه تخصیص و تحلیل‌های مربوط به ریسک پورتفولیوی شما."
+    },
+    "profile": {
+      "title": "اطلاعات پروفایل",
+      "description": "مشخصات فردی، اطلاعات تماس و هویت حساب کاربری خود را مدیریت کنید.",
+      "verifiedMember": "عضو تایید شده",
+      "memberFallback": "عضو",
+      "status": "وضعیت",
+      "active": "فعال",
+      "tier": "سطح کاربری",
+      "accountIdentity": {
+        "title": "هویت حساب کاربری",
+        "subtitle": "اعتبارنامه‌های تأیید شده (فقط خواندنی)"
+      },
+      "memberId": "شناسه عضو",
+      "emailAddress": "آدرس ایمیل",
+      "personalDetails": {
+        "title": "مشخصات فردی",
+        "subtitle": "هویت قانونی و تاریخ تولد شما"
+      },
+      "name": "نام",
+      "namePlaceholder": "نام کامل قانونی",
+      "nationalId": "کد ملی / شناسه ملی",
+      "nationalIdPlaceholder": "شماره شناسنامه / گذرنامه",
+      "dob": "تاریخ تولد",
+      "sponsorId": "شناسه معرف (اسپانسر)",
+      "contact": {
+        "title": "اطلاعات ارتباط",
+        "subtitle": "راه‌های دسترسی ما به شما"
+      },
+      "mobilePrefix": "پیش‌شماره موبایل",
+      "mobileNumber": "شماره موبایل",
+      "mobileNumberPlaceholder": "شماره تلفن",
+      "address": {
+        "title": "آدرس",
+        "subtitle": "محل سکونت فعلی"
+      },
+      "country": "کشور",
+      "region": "منطقه",
+      "province": "استان / ایالت",
+      "provincePlaceholder": "استان / ایالت",
+      "city": "شهر",
+      "addressPlaceholder": "آدرس کامل خیابان",
+      "auditNotice": "تغییرات شما در یک سیستم رمزنگاری‌شده ثبت شده و قابل پیگیری می‌باشند",
+      "saving": "در حال ذخیره…",
+      "toast": {
+        "error": "ذخیره پروفایل با خطا مواجه شد",
+        "success": "پروفایل با موفقیت بروزرسانی شد"
+      },
+      "countries": {
+        "UnitedStates": "ایالات متحده",
+        "China": "چین",
+        "Indonesia": "اندونزی",
+        "Iran": "ایران",
+        "SaudiArabia": "عربستان سعودی",
+        "Spain": "اسپانیا",
+        "Germany": "آلمان",
+        "Turkey": "ترکیه"
+      }
+    },
+    "qrCode": {
+      "title": "کد QR دعوت من",
+      "description": "کارت دعوت اختصاصی شما. آن را برای ثبت‌نام مشتریان جدید تحت حساب کاربری خود به اشتراک بگذارید.",
+      "verifiedReferral": "معرف تایید شده",
+      "toast": {
+        "linkCopied": "لینک دعوت کپی شد",
+        "idCopied": "شناسه عضو کپی شد",
+        "qrDownloaded": "کد QR با موفقیت دانلود شد",
+        "downloadFailed": "دانلود با خطا مواجه شد"
+      },
+      "share": {
+        "title": "ثبت‌نام از طریق دعوت من",
+        "text": "با استفاده از شناسه عضو من {{memberId}} ثبت‌نام کنید"
+      },
+      "qrAlt": "کد QR دعوت برای عضو {{memberId}}",
+      "scanToRegister": "برای ثبت‌نام تحت نظر این مشاور بارکد را اسکن کنید",
+      "referralLink": "لینک دعوت",
+      "copyLink": "کپی لینک",
+      "downloadQr": "دانلود کد QR",
+      "shareBtn": "اشتراک‌گذاری",
+      "copyMemberId": "کپی شناسه عضو",
+      "howItWorks": "چگونه کار می‌کند",
+      "steps": {
+        "1": "کد QR یا لینک دعوت خود را برای مشتری ارسال نمایید.",
+        "2": "مشتری کد را اسکن کرده یا روی لینک کلیک می‌کند و به صفحه ثبت‌نام با عنوان معرف شما هدایت می‌شود.",
+        "3": "پس از اتمام ثبت‌نام، شخص مربوطه به‌طور دائمی به شبکه شما متصل خواهد شد."
+      }
+    },
+    "walletEdit": {
+      "title": "ویرایش کیف پول",
+      "description": "بروزرسانی موجودی‌ها، شبکه واریز، آدرس و کد QR.",
+      "balances": {
+        "title": "موجودی‌ها",
+        "usdWallet": "کیف پول USD",
+        "rewardsWallet": "کیف پول پاداش‌ها",
+        "stakingAmount": "مبلغ استیکینگ"
+      },
+      "actions": {
+        "saving": "در حال ذخیره…",
+        "saveBalances": "ذخیره موجودی‌ها",
+        "uploading": "در حال آپلود…",
+        "replaceQr": "جایگزین کردن QR",
+        "uploadQr": "آپلود QR",
+        "saveDepositSettings": "ذخیره تنظیمات واریز",
+        "parsing": "در حال پردازش…",
+        "uploadDocx": "آپلود فایل .docx",
+        "clearCompany": "پاک کردن موارد مربوط به شرکت",
+        "clearMarketing": "پاک کردن موارد مربوط به بازاریابی"
+      },
+      "toast": {
+        "walletUpdated": "کیف پول با موفقیت بروزرسانی شد",
+        "qrUploaded": "کد QR آپلود شد",
+        "depositSettingsSaved": "تنظیمات واریز ذخیره شد",
+        "noQuestions": "هیچ سوالی یافت نشد. لطفاً قالب‌بندی را طبق راهنما بررسی کنید.",
+        "importedQuestions": "{{count}} سوال وارد شد",
+        "failedToImport": "وارد کردن فایل با خطا مواجه شد",
+        "cleared": "پاک شد"
+      },
+      "depositSettings": {
+        "title": "تنظیمات واریز",
+        "network": "شبکه",
+        "networkLabel": "برچسب شبکه",
+        "walletAddress": "آدرس کیف پول",
+        "qrCode": "کد QR",
+        "qrPreviewAlt": "پیش‌نمایش کد QR"
+      },
+      "quiz": {
+        "title": "بانک سوالات و پرسش‌نامه",
+        "description": "یک فایل با فرمت .docx حاوی سوالات چندگزینه‌ای آپلود کنید. سیستم در هر بار آزمون، ۱۰ سوال را به‌صورت تصادفی برای مشتری انتخاب خواهد کرد.",
+        "company": "شرکت: ",
+        "marketing": "بازاریابی: ",
+        "expectedFormat": "قالب مورد انتظار برای فایل .docx",
+        "hint": {
+          "part1": "از تیترهای ",
+          "part2": " یا ",
+          "part3": " برای تغییر دسته‌بندی استفاده کنید. سوالات با یک عدد شروع شده و گزینه‌ها نیز با حروف ",
+          "part4": " / ",
+          "part5": " و غیره مشخص می‌شوند و ",
+          "part6": "نشان‌دهنده گزینه صحیح است."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "آیا تمام سوالات آپلود شده از دسته‌بندی {{category}} حذف شوند؟"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "تراکنش‌های استیکینگ",
+      "tableHeaders": {
+        "transactionNumber": "شماره تراکنش",
+        "amount": "مبلغ",
+        "stakingPlan": "طرح استیکینگ"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "تراکنش‌های پاداش معرفی",
+      "tableHeaders": {
+        "referralRate": "نرخ معرفی"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "گزارش پاداش‌های تیمی",
+      "tableHeaders": {
+        "date": "تاریخ",
+        "memberId": "شناسه عضو",
+        "level": "سطح",
+        "divisionRoi": "سود بخش (ROI)",
+        "rate": "نرخ",
+        "amount": "مبلغ"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "تراکنش‌های پاداش‌ راهبردی (Leader)",
+      "tableHeaders": {
+        "contributedBy": "مشارکت توسط شناسه عضو",
+        "totalSubscriptionCount": "مجموع تعداد اشتراک‌ها"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "تراکنش‌های پاداش‌های Par Rank",
+      "tableHeaders": {
+        "rank": "رتبه"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "داشبورد",
+      "holdings": "دارایی‌ها",
+      "stakingPlans": "طرح‌های استیکینگ",
+      "rewards": "پاداش‌ها",
+      "creditConversion": "تبدیل اعتبار",
+      "referral": "ارجاع",
+      "promotion": "طرح‌های تشویقی",
+      "stakingRewards": "پاداش‌های استیکینگ",
+      "quiz": "آزمون",
+      "qrCode": "QR کد"
+    },
+    "groups": {
+      "wallet": "کیف پول",
+      "funds": "وجوه",
+      "learn": "آموزش"
+    },
+    "searchPortal": "جستجو در پورتال...",
+    "typeToNavigate": "دستوری تایپ کنید یا جستجو کنید...",
+    "empty": {
+      "noResults": "هیچ نتیجه‌ای یافت نشد."
+    }
+  },
+  "fab": {
+    "searchLabel": "جستجو"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "کل دارایی‌ها (USD)",
+      "labels": {
+        "staking": "استیکینگ",
+        "usd": "USD",
+        "rewardsAsset": "دارایی پاداش"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "ژانویه",
+        "february": "فوریه",
+        "march": "مارس",
+        "april": "آوریل",
+        "may": "می",
+        "june": "ژوئن",
+        "july": "جولای",
+        "august": "آگوست",
+        "september": "سپتامبر",
+        "october": "اکتبر",
+        "november": "نوامبر",
+        "december": "دسامبر"
+      },
+      "monthsShort": {
+        "jan": "ژانویه",
+        "feb": "فوریه",
+        "mar": "مارس",
+        "apr": "آوریل",
+        "may": "می",
+        "jun": "ژوئن",
+        "jul": "جولای",
+        "aug": "آگوست",
+        "sep": "سپتامبر",
+        "oct": "اکتبر",
+        "nov": "نوامبر",
+        "dec": "دسامبر"
+      },
+      "weekdaysShort": {
+        "sun": "یک‌شنبه",
+        "mon": "دوشنبه",
+        "tue": "سه‌شنبه",
+        "wed": "چهارشنبه",
+        "thu": "پنج‌شنبه",
+        "fri": "جمعه",
+        "sat": "شنبه"
+      },
+      "title": "تقویم P&L",
+      "view": {
+        "list": "لیست",
+        "calendar": "تقویم"
+      },
+      "filters": {
+        "month": "ماه",
+        "year": "سال"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "بازدهی"
+      },
+      "empty": {
+        "noData": "داده‌ای وجود ندارد"
+      },
+      "status": {
+        "profit": "سود",
+        "loss": "زیان"
+      }
     }
   }
 }

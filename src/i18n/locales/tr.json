@@ -6,20 +6,35 @@
     "overview": "Genel Bakış",
     "stakingPlan": "Katılım Planı",
     "portfolio": "Portföy",
+    "assetAnalysis": "Varlık Analizi",
     "statement": "Hesap Özeti",
     "creditConversionStatement": "Kredi Dönüşüm Özeti",
     "usdStatement": "USD Hesap Özeti",
     "rewardsStatement": "Ödül Hesap Özeti",
+    "deposit": "Para Yatırma",
+    "withdrawal": "Para Çekme",
     "usdCreditsTransfer": "USD ve Kredi Transferi",
     "convertCredits": "Kredi Dönüştür",
     "transferUsd": "USD Transfer Et",
     "transactions": "İşlemler",
     "documents": "Belgeler",
     "reports": "Raporlar",
+    "reportsParticipation": "Staking",
+    "reportsReferral": "Referans Ödülleri",
+    "reportsTeam": "Ekip Ödülleri",
+    "reportsLeader": "Lider Ödülleri",
+    "reportsParRank": "Par Rank Ödülleri",
     "network": "Ağ",
     "qna": "Soru & Cevap",
+    "qnaCompany": "Şirket",
+    "qnaMarketing": "Pazarlama Planı",
     "support": "Destek",
-    "signOut": "Çıkış Yap"
+    "signOut": "Çıkış Yap",
+    "sections": {
+      "overview": "Genel Bakış",
+      "operations": "İşlemler",
+      "support": "Hesap ve Destek"
+    }
   },
   "account": {
     "label": "Hesap",
@@ -49,6 +64,7 @@
   "overview": {
     "estTotalValue": "Tahmini Toplam Değer (USD)",
     "todaysPnl": "Bugünkü Kâr/Zarar",
+    "totalPnl": "Toplam Kâr/Zarar",
     "participatedDay": "Katılım günü:",
     "stakingAmount": "Katılım tutarı:",
     "diamond": "Elmas",
@@ -69,24 +85,195 @@
       "referral": "Tavsiye",
       "participation": "Katılım",
       "promotion": "Promosyon"
-    },
-    "totalPnl": "Toplam Kâr/Zarar"
+    }
   },
   "pages": {
     "deposit": {
       "eyebrow": "Fonlar · Gelen",
       "title": "Para Yatır",
-      "description": "Hesabınızı havale ile yükleyin. Mutabakat genellikle 1 iş günü içinde tamamlanır."
+      "description": "Hesabınızı havale ile yükleyin. Mutabakat genellikle 1 iş günü içinde tamamlanır.",
+      "toast": {
+        "addressCopied": "Adres kopyalandı",
+        "copied": "Kopyalandı",
+        "referenceCopied": "Referans kopyalandı",
+        "hashCopied": "Hash kopyalandı"
+      },
+      "importantReminder": {
+        "title": "Önemli Hatırlatma",
+        "sendOnly": "Sadece ",
+        "viaThe": " gönderin, kullanılacak ağ: ",
+        "networkSuffix": " ağı.",
+        "otherTokens": "Farklı token veya ağların kullanılması şuna yol açar: ",
+        "permanentLoss": "kalıcı kayıp",
+        "confirmation": "Yatırma işlemleri, zincir onayı alındıktan sonra (genellikle 1–3 dakika) hesaba geçer."
+      },
+      "qr": {
+        "alt": "Yatırma QR kodu",
+        "empty": "QR yüklenmedi"
+      },
+      "address": {
+        "label": "Yatırma Adresi",
+        "empty": "Adres ayarlanmamış. Yapılandırmak için Düzenle'yi kullanın.",
+        "copyAria": "Adresi kopyala"
+      },
+      "filter": {
+        "title": "İşlemleri Filtrele",
+        "date": "Tarih",
+        "reference": "Referans Numarası",
+        "refPlaceholder": "TXN…",
+        "hash": "İşlem Hash'i",
+        "hashPlaceholder": "0x…",
+        "showing": "Gösterilen: ",
+        "of": " / ",
+        "records": " kayıt",
+        "reset": "Sıfırla",
+        "apply": "Filtreyi Uygula"
+      },
+      "history": {
+        "title": "Yatırma Geçmişi",
+        "live": "Canlı"
+      },
+      "tableHeaders": {
+        "date": "Tarih",
+        "reference": "Referans Numarası",
+        "hash": "İşlem Hash'i"
+      },
+      "empty": {
+        "title": "Yatırma işlemi bulunamadı",
+        "noDeposits": "Onaylanmış yatırma işlemleriniz ulaştığında burada görünecektir.",
+        "filtered": "Filtrelerinizi ayarlamayı veya tüm kayıtları görmek için sıfırlamayı deneyin."
+      }
     },
     "withdrawal": {
       "eyebrow": "Fonlar · Giden",
       "title": "Para Çek",
-      "description": "Doğrulanmış banka hesabınıza ödeme talep edin. Fonlar genellikle 1-2 iş günü içinde ulaşır."
+      "description": "Doğrulanmış banka hesabınıza ödeme talep edin. Fonlar genellikle 1-2 iş günü içinde ulaşır.",
+      "pageDescription": "Kaydedilmiş BEP20 cüzdan adreslerinize USDT çekin.",
+      "importantReminder": {
+        "title": "Önemli Hatırlatma",
+        "supportOnly": "Çekim işlemleri için sadece ",
+        "viaThe": " desteklenir, kullanılacak ağ: ",
+        "networkSuffix": " ağı.",
+        "wrongAddress": "Yanlış adres veya ağ kullanılması şuna yol açar: ",
+        "permanentLoss": "kalıcı kayıp",
+        "processingTime": "Talepler yönetici onayından sonra işlenir (genellikle birkaç dakika içinde)."
+      },
+      "newRequest": {
+        "title": "Yeni Çekme Talebi",
+        "creditType": "Kredi Tipi *",
+        "walletAddress": "Çekim Cüzdanı Adresi *",
+        "noWallets": "Kaydedilmiş cüzdan yok. ",
+        "addOneFirst": "Önce bir cüzdan ekleyin →",
+        "selectWallet": "-- Kayıtlı bir cüzdan seçin --",
+        "amount": "Miktar *",
+        "minAmount": "Min {{min}} USDT",
+        "available": "Kullanılabilir: ",
+        "exceedsBalance": "Kullanılabilir bakiye aşıldı",
+        "submit": "Çekme Talebi Oluştur"
+      },
+      "summary": {
+        "usdCredit": "USD Kredisi",
+        "withdrawalAmount": "Çekilecek Miktar",
+        "adminFee": "Yönetici Ücreti (%2)",
+        "receiveAmount": "Alacağınız Miktar"
+      },
+      "wallets": {
+        "title": "Çekim Cüzdanları",
+        "subtitle": "Kaydedilmiş BEP20 adresleri",
+        "addWallet": "Cüzdan Ekle",
+        "noWalletsTitle": "Henüz cüzdan yok",
+        "noWalletsDesc": "Çekme işlemlerine başlamak için bir BEP20 cüzdanı ekleyin."
+      },
+      "tableHeaders": {
+        "date": "Tarih",
+        "walletName": "Cüzdan Adı",
+        "walletAddress": "Cüzdan Adresi",
+        "action": "İşlem",
+        "reference": "Referans Numarası",
+        "recipientAddress": "Alıcı Adresi",
+        "chain": "USDT Ağı",
+        "withdrawalAmt": "Çekim Miktarı",
+        "adminFee": "Yönetici Ücreti",
+        "receiveAmount": "Alacağınız Miktar",
+        "status": "Durum",
+        "remark": "Açıklama",
+        "hash": "İşlem Hash'i"
+      },
+      "actions": {
+        "edit": "Düzenle",
+        "delete": "Sil"
+      },
+      "filter": {
+        "recipientAddress": "Alıcı Adresi",
+        "status": "Durum",
+        "statusAll": "Tümü",
+        "statusPending": "Bekliyor",
+        "statusProcessing": "İşleniyor",
+        "statusCompleted": "Tamamlandı",
+        "statusRejected": "Reddedildi"
+      },
+      "history": {
+        "title": "Çekim Geçmişi",
+        "subtitle": "Tüm talepler",
+        "exportExcel": "Excel'e Aktar"
+      },
+      "empty": {
+        "title": "Çekim işlemi bulunamadı",
+        "noRequests": "Talepleriniz burada görünecektir.",
+        "filtered": "Filtrelerinizi ayarlamayı deneyin."
+      },
+      "dialog": {
+        "editWallet": "Cüzdanı Düzenle",
+        "addWallet": "Yeni Cüzdan Ekle",
+        "walletDesc": "USDT BEP20 çekim adresi.",
+        "walletName": "Cüzdan Adı *",
+        "walletNamePlaceholder": "örn. Kişisel Cüzdan",
+        "walletAddress": "Cüzdan Adresi *",
+        "walletAddressHint": "0x ile başlayan geçerli bir BEP20 adresi olmalıdır.",
+        "saving": "Kaydediliyor…",
+        "update": "Güncelle"
+      },
+      "confirm": {
+        "title": "Çekim İşlemini Onayla",
+        "desc": "Göndermeden önce lütfen detayları kontrol edin.",
+        "wallet": "Cüzdan",
+        "address": "Adres",
+        "chain": "Ağ",
+        "amount": "Miktar",
+        "adminFee": "Yönetici Ücreti",
+        "receiveAmount": "Alacağınız Miktar",
+        "submitting": "Gönderiliyor…",
+        "confirmBtn": "Onayla",
+        "deleteWallet": "\"{{name}}\" cüzdanı silinsin mi?"
+      },
+      "toast": {
+        "walletNameRequired": "Cüzdan adı gereklidir",
+        "invalidAddress": "Geçersiz cüzdan adresi (0x ile başlamalı ve 42 karakter olmalıdır)",
+        "walletUpdated": "Cüzdan güncellendi",
+        "walletAdded": "Cüzdan eklendi",
+        "walletDeleted": "Cüzdan silindi",
+        "selectWallet": "Bir cüzdan seçin",
+        "invalidAmount": "Geçersiz miktar",
+        "requestSubmitted": "Çekme talebi gönderildi",
+        "noRecordsExport": "Dışa aktarılacak kayıt yok",
+        "excelExported": "Excel'e aktarıldı"
+      }
     },
     "promotion": {
       "eyebrow": "Fonlar · Bonus",
       "title": "Promosyon",
-      "description": "Uygun yatırımlar için sınırlı süreli kurucu promosyonu."
+      "description": "Uygun yatırımlar için sınırlı süreli kurucu promosyonu.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Naslab Türkiye Açılış Etkinliği",
+          "subtitle": "Lansman Etkinliği"
+        },
+        "rankingIncentive": {
+          "title": "RCB, TCB, Topluluk Sıralama Teşviki",
+          "subtitle": "Sıralama Ödülleri"
+        }
+      },
+      "viewDetails": "Detayları görüntüle"
     },
     "qna": {
       "eyebrow": "Sohbet",
@@ -101,32 +288,154 @@
     "transactions": {
       "eyebrow": "Defter",
       "title": "İşlemler",
-      "description": "Para yatırma, işlem ve para çekme işlemlerinin tam geçmişi."
+      "description": "Para yatırma, işlem ve para çekme işlemlerinin tam geçmişi.",
+      "history": {
+        "title": "İşlem Geçmişi"
+      },
+      "tableHeaders": {
+        "type": "Tip",
+        "asset": "Varlık",
+        "quantity": "Miktar",
+        "price": "Fiyat"
+      },
+      "empty": {
+        "noTransactions": "Henüz işlem yok."
+      }
     },
     "support": {
       "eyebrow": "Concierge",
       "title": "Destek",
-      "description": "Özel bir destek talebi açın — ekibimiz hızla yanıt verir."
+      "description": "Özel bir destek talebi açın — ekibimiz hızla yanıt verir.",
+      "categories": {
+        "general": "Genel",
+        "account": "Hesap",
+        "deposit": "Yatırma",
+        "withdrawal": "Çekme",
+        "technical": "Teknik",
+        "other": "Diğer"
+      },
+      "status": {
+        "open": "açık",
+        "pending": "bekliyor",
+        "resolved": "çözüldü",
+        "closed": "kapalı"
+      },
+      "toast": {
+        "created": "Destek talebi oluşturuldu",
+        "fileSizeExceeded": "Bazı dosyalar 2MB sınırını aştığı için atlandı."
+      },
+      "filter": {
+        "title": "Filtre",
+        "ticketNumber": "Talep Numarası",
+        "category": "Kategori",
+        "apply": "Filtrele"
+      },
+      "list": {
+        "title": "Destek Talepleri Listesi",
+        "newTicket": "Yeni Destek Talebi"
+      },
+      "dialog": {
+        "newTicket": "Yeni Destek Talebi",
+        "category": "Kategori",
+        "subject": "Konu",
+        "message": "Mesaj",
+        "attachments": "Ekler",
+        "chooseFile": "Dosya Seç",
+        "noFileChosen": "Dosya Seçilmedi",
+        "filesSelected": "{{count}} dosya seçildi",
+        "removeFile": "Dosyayı kaldır",
+        "fileLimit": "2 MB dosya sınırı. JPG/PNG/GIF formatları geçerlidir, birden fazla dosya yüklenebilir.",
+        "proceed": "Devam Et",
+        "categoryLabel": "Kategori:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Talep Numarası",
+        "category": "Kategori",
+        "subject": "Konu"
+      },
+      "empty": {
+        "noTickets": "Talep bulunamadı."
+      },
+      "actions": {
+        "view": "Görüntüle"
+      }
     },
     "usdStatement": {
       "eyebrow": "Hesap Özeti",
       "title": "USD Hesap Özeti",
-      "description": "USD hesap etkinliğinizin özeti."
+      "description": "USD hesap etkinliğinizin özeti.",
+      "tableHeaders": {
+        "txId": "İşlem Kimliği (TxID)",
+        "type": "İşlem Tipi",
+        "credit": "Alacak",
+        "debit": "Borç",
+        "remarks": "Açıklamalar"
+      }
     },
     "network": {
       "eyebrow": "İlişkiler",
       "title": "Ağ",
-      "description": "Güvenilir danışman, kustodyan ve ortaklarınızdan oluşan çevreniz."
+      "description": "Güvenilir danışman, kustodyan ve ortaklarınızdan oluşan çevreniz.",
+      "verificationRequired": "Doğrulama Gerekiyor",
+      "unlockTitle": "Ağınızın Kilidini Açmak için Pazarlama Planı Sınavını Tamamlayın",
+      "unlockDescription": "Ekibini oluşturmadan önce her üyenin pazarlama planını tam olarak anladığından emin olmak için, sınavı geçene kadar ağ görünümünüz kilitlidir. Sınavı geçtikten sonra erişim kalıcı olacaktır.",
+      "steps": {
+        "takeQuiz": "Pazarlama Planı Sınavını Çöz",
+        "score": "Geçmek için 10 üzerinden en az 7 puan alın",
+        "unlock": "Ağ anında açılır"
+      },
+      "actions": {
+        "takeQuiz": "Pazarlama Planı Sınavına Gir"
+      },
+      "empty": {
+        "noTeam": "Özel ekibiniz kısa süre içinde burada listelenecektir."
+      }
     },
     "holdings": {
       "eyebrow": "Portföy",
       "title": "Portföy Genel Bakışı",
-      "description": "Aktif katılımınızın özeti."
+      "description": "Aktif katılımınızın özeti.",
+      "totalStakingAmount": "Toplam Staking Miktarı",
+      "stakingDays": "Staking Gün Sayısı",
+      "tableHeaders": {
+        "date": "Tarih",
+        "stakingPlan": "Staking Planı",
+        "stakingDate": "Staking Tarihi",
+        "stakingAmount": "Staking Miktarı",
+        "minMonthlyRate": "Min Aylık Oran",
+        "maxMonthlyRate": "Maks Aylık Oran",
+        "status": "Durum"
+      },
+      "empty": {
+        "noStakingPlan": "Henüz staking planı yok."
+      },
+      "refund": {
+        "button": "Tam İade Talep Et",
+        "title": "Tam İade Talep Et",
+        "description": "Tam para iadesi talep etmek istediğinize emin misiniz? Ekibimiz talebinizi inceleyecek ve kısa süre içinde sizinle iletişime geçecektir.",
+        "confirm": "Talebi Onayla",
+        "submitted": "İade talebi gönderildi"
+      }
     },
     "transferUsd": {
       "eyebrow": "USD Cüzdanı",
       "title": "USD Transfer Et",
-      "description": "Başka bir üyenin hesabına USD transfer edin."
+      "description": "Başka bir üyenin hesabına USD transfer edin.",
+      "toast": {
+        "fillRequired": "Lütfen tüm gerekli alanları doldurun",
+        "submitted": "Aktarım talebi gönderildi"
+      },
+      "details": {
+        "title": "Transfer Detayları"
+      },
+      "form": {
+        "usdTransfer": "USD Transferi",
+        "transferTo": "Alıcı Üye Kimliği (ID)",
+        "memberIdPlaceholder": "Üye ID'sini girin",
+        "transferAmount": "Transfer Miktarı",
+        "remarks": "Açıklamalar",
+        "remarksPlaceholder": "İsteğe bağlı notlar"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "Hesap Özeti",
@@ -136,32 +445,393 @@
     "documents": {
       "eyebrow": "Kütüphane",
       "title": "Belgeler & Hesap Özetleri",
-      "description": "Dosyadaki hesap özetleri, vergi belgeleri ve hukuki sözleşmeler."
+      "description": "Dosyadaki hesap özetleri, vergi belgeleri ve hukuki sözleşmeler.",
+      "empty": {
+        "noDocuments": "Henüz belge bulunmamaktadır. Ekstreleriniz oluşturuldukça burada görünecektir."
+      }
     },
     "creditConversionStatement": {
       "eyebrow": "Hesap Özeti",
       "title": "Kredi Dönüşüm Özeti",
-      "description": "Kredi dönüşüm geçmişinizi ve bakiyelerinizi inceleyin."
+      "description": "Kredi dönüşüm geçmişinizi ve bakiyelerinizi inceleyin.",
+      "tableHeaders": {
+        "date": "Tarih",
+        "source": "Kaynak Kredisi",
+        "destination": "Hedef Kredisi",
+        "amount": "Dönüştürülen Miktar",
+        "status": "Durum"
+      }
     },
     "stakingPlans": {
       "eyebrow": "Katılım",
       "title": "Katılım Planı",
-      "description": "Hedeflerinize uygun bir katılım seviyesi seçin."
+      "description": "Hedeflerinize uygun bir katılım seviyesi seçin.",
+      "plans": {
+        "standardLite": "Standart Lite",
+        "standardPlus": "Standart Plus",
+        "standardPro": "Standart Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Minimum Staking",
+        "monthlyRoi": "Aylık ROI"
+      }
     },
     "convertCredits": {
       "eyebrow": "Hesap Özeti",
       "title": "Kredi Dönüştür",
-      "description": "Bakiyeler arasında kredi dönüştürün."
+      "description": "Bakiyeler arasında kredi dönüştürün.",
+      "usdWallet": "USD Cüzdanı",
+      "rewardsWallet": "Ödül Cüzdanı",
+      "convertDetails": "Dönüşüm Detayları",
+      "sourceCredit": "Kaynak Kredi",
+      "rewardsCredit": "Ödül Kredisi",
+      "destinationCredit": "Hedef Kredi",
+      "sourceAmount": "Kaynak Miktar"
     },
     "referral": {
       "eyebrow": "Ağ · Davet",
       "title": "Tavsiye",
-      "description": "Nitelikli yatırımcıları davet edin. Fonlanan her hesap için yapılandırılmış iade kazanın."
+      "description": "Nitelikli yatırımcıları davet edin. Fonlanan her hesap için yapılandırılmış iade kazanın.",
+      "yourCode": "Kodunuz",
+      "labels": {
+        "referralCode": "Referans Kodu",
+        "inviteLink": "Davet Bağlantısı",
+        "tier": "Seviye",
+        "activeReferrals": "Aktif Referanslar",
+        "lifetimeRebate": "Ömür Boyu İade"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Program Şartları",
+      "terms": {
+        "rebate": "Fonlanmış her referans için ilk yıl yönetim ücretlerinden %1,0 komisyon iadesi.",
+        "minimum": "Yönlendirilen hesapların hak kazanması için minimum 25.000 $ tutarını karşılaması gerekir.",
+        "settle": "İadeler üç ayda bir portföyünüzün nakit bakiyesine yatırılır.",
+        "upgrade": "Platinum seviyesine yükseltmek için danışmanınızla iletişime geçin."
+      }
     },
     "reports": {
       "eyebrow": "Seçilmiş",
       "title": "Üç Aylık Raporlar",
       "description": "Danışman ekibinizin hazırladığı mektuplar ve analizler."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "Promosyon detayları yakında açıklanacaktır. Bu bölümü tam etkinlik açıklaması, katılım kriterleri, ödüller ve zaman çizelgesi ile güncelleyin."
+        },
+        "rankingIncentive": {
+          "description": "Promosyon detayları yakında açıklanacaktır. Bu bölümü sıralama seviyeleri, ödeme yapısı ve topluluk katkılarının nasıl ölçüldüğü ile güncelleyin."
+        }
+      },
+      "progressLabel": "İlerleme durumunuz",
+      "notFound": "Promosyon bulunamadı.",
+      "backToPromotions": "Promosyonlara dön",
+      "details": "Detaylar",
+      "progressDescription": "Bu promosyon için ilerleme durumunuz burada görünecektir."
+    },
+    "staking": {
+      "activePrograms": "Aktif Programlar",
+      "empty": {
+        "noStakings": "Şu anda aktif bir staking işleminiz bulunmamaktadır. Yeni fırsatlar mevcut olduğunda burada yer alacaktır."
+      },
+      "tableHeaders": {
+        "package": "Paket",
+        "roiStartDate": "ROI Başlangıç Tarihi",
+        "stakingAmount": "Staking Miktarı",
+        "roiMin": "ROI % Min",
+        "roiMax": "ROI % Maks"
+      },
+      "status": {
+        "active": "Aktif"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Portföyünüz için performans, tahsis ve risk öngörüleri."
+    },
+    "profile": {
+      "title": "Profil Bilgileri",
+      "description": "Kişisel bilgilerinizi, iletişim bilgilerinizi ve hesap kimliğinizi yönetin.",
+      "verifiedMember": "Doğrulanmış Üye",
+      "memberFallback": "Üye",
+      "status": "Durum",
+      "active": "Aktif",
+      "tier": "Seviye",
+      "accountIdentity": {
+        "title": "Hesap Kimliği",
+        "subtitle": "Salt okunur doğrulanmış kimlik bilgileri"
+      },
+      "memberId": "Üye ID",
+      "emailAddress": "E-posta Adresi",
+      "personalDetails": {
+        "title": "Kişisel Bilgiler",
+        "subtitle": "Yasal kimliğiniz ve doğum tarihiniz"
+      },
+      "name": "İsim",
+      "namePlaceholder": "Tam yasal ad",
+      "nationalId": "Kimlik Numarası",
+      "nationalIdPlaceholder": "Kimlik / Pasaport Numarası",
+      "dob": "Doğum Tarihi",
+      "sponsorId": "Sponsor ID",
+      "contact": {
+        "title": "İletişim",
+        "subtitle": "Size nasıl ulaşacağız"
+      },
+      "mobilePrefix": "Alan Kodu",
+      "mobileNumber": "Cep Telefonu",
+      "mobileNumberPlaceholder": "Telefon numarası",
+      "address": {
+        "title": "Adres",
+        "subtitle": "İkamet adresi"
+      },
+      "country": "Ülke",
+      "region": "Bölge",
+      "province": "İl / Eyalet",
+      "provincePlaceholder": "İl / Eyalet",
+      "city": "Şehir",
+      "addressPlaceholder": "Sokak adresi",
+      "auditNotice": "Değişiklikler şifrelenir ve denetim amacıyla günlüğe kaydedilir",
+      "saving": "Kaydediliyor…",
+      "toast": {
+        "error": "Profil kaydedilemedi",
+        "success": "Profil güncellendi"
+      },
+      "countries": {
+        "UnitedStates": "Amerika Birleşik Devletleri",
+        "China": "Çin",
+        "Indonesia": "Endonezya",
+        "Iran": "İran",
+        "SaudiArabia": "Suudi Arabistan",
+        "Spain": "İspanya",
+        "Germany": "Almanya",
+        "Turkey": "Türkiye"
+      }
+    },
+    "qrCode": {
+      "title": "Referans QR Kodum",
+      "description": "Size özel davetiyeniz. Potansiyel müşterilerinizin sizin hesabınız altında kayıt olması için paylaşın.",
+      "verifiedReferral": "Doğrulanmış Referans",
+      "toast": {
+        "linkCopied": "Referans bağlantısı kopyalandı",
+        "idCopied": "Üye ID kopyalandı",
+        "qrDownloaded": "QR kodu indirildi",
+        "downloadFailed": "İndirme başarısız oldu"
+      },
+      "share": {
+        "title": "Benim referansımla katıl",
+        "text": "{{memberId}} üye kimliğimi kullanarak kayıt ol"
+      },
+      "qrAlt": "{{memberId}} numaralı üye için referans QR kodu",
+      "scanToRegister": "Bu danışman altında kayıt olmak için tarayın",
+      "referralLink": "Referans Bağlantısı",
+      "copyLink": "Bağlantıyı Kopyala",
+      "downloadQr": "QR İndir",
+      "shareBtn": "Paylaş",
+      "copyMemberId": "Üye ID Kopyala",
+      "howItWorks": "Nasıl çalışır?",
+      "steps": {
+        "1": "QR kodunuzu veya referans bağlantınızı müşterinize gönderin.",
+        "2": "Tarar veya tıklarlar — üye etiketinizin önceden doldurulmuş olduğu kayıt sayfasına yönlendirilirler.",
+        "3": "Kayıt işlemini tamamladıklarında, ağınıza kalıcı olarak bağlanırlar."
+      }
+    },
+    "walletEdit": {
+      "title": "Cüzdanı Düzenle",
+      "description": "Bakiyeleri, yatırma ağını, adres ve QR kodunu güncelleyin.",
+      "balances": {
+        "title": "Bakiyeler",
+        "usdWallet": "USD Cüzdanı",
+        "rewardsWallet": "Ödül Cüzdanı",
+        "stakingAmount": "Staking Miktarı"
+      },
+      "actions": {
+        "saving": "Kaydediliyor…",
+        "saveBalances": "Bakiyeleri Kaydet",
+        "uploading": "Yükleniyor…",
+        "replaceQr": "QR'ı Değiştir",
+        "uploadQr": "QR Yükle",
+        "saveDepositSettings": "Yatırma Ayarlarını Kaydet",
+        "parsing": "Ayrıştırılıyor…",
+        "uploadDocx": ".docx Yükle",
+        "clearCompany": "Şirketi Temizle",
+        "clearMarketing": "Pazarlamayı Temizle"
+      },
+      "toast": {
+        "walletUpdated": "Cüzdan güncellendi",
+        "qrUploaded": "QR yüklendi",
+        "depositSettingsSaved": "Yatırma ayarları kaydedildi",
+        "noQuestions": "Soru tespit edilemedi. Biçimlendirmeyi kontrol edin (aşağıdaki ipucuna bakın).",
+        "importedQuestions": "{{count}} soru içe aktarıldı",
+        "failedToImport": "İçe aktarılamadı",
+        "cleared": "Temizlendi"
+      },
+      "depositSettings": {
+        "title": "Yatırma Ayarları",
+        "network": "Ağ",
+        "networkLabel": "Ağ Etiketi",
+        "walletAddress": "Cüzdan Adresi",
+        "qrCode": "QR Kodu",
+        "qrPreviewAlt": "QR önizlemesi"
+      },
+      "quiz": {
+        "title": "Soru - Cevap Bankası",
+        "description": "Çoktan seçmeli sorular içeren bir .docx dosyası yükleyin. Sistem, müşteri her teste girdiğinde rastgele 10 adet soru seçecektir.",
+        "company": "Şirket: ",
+        "marketing": "Pazarlama: ",
+        "expectedFormat": "Beklenen .docx formatı",
+        "hint": {
+          "part1": "Kategori değiştirmek için ",
+          "part2": " veya ",
+          "part3": " başlıklarını kullanın. Sorular bir numara ile başlar, seçeneklerde ",
+          "part4": " / ",
+          "part5": " vb. kullanılır ve ",
+          "part6": "doğru olan harfi işaretler."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "Yüklediğiniz tüm {{category}} soruları silinsin mi?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Staking İşlemleri",
+      "tableHeaders": {
+        "transactionNumber": "İşlem Numarası",
+        "amount": "Miktar",
+        "stakingPlan": "Staking Planı"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Referans Ödül İşlemleri",
+      "tableHeaders": {
+        "referralRate": "Referans Oranı"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Ekip Ödül Raporu",
+      "tableHeaders": {
+        "date": "Tarih",
+        "memberId": "Üye ID",
+        "level": "Seviye",
+        "divisionRoi": "Bölüm ROI",
+        "rate": "Oran",
+        "amount": "Miktar"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Lider Ödül İşlemleri",
+      "tableHeaders": {
+        "contributedBy": "Katkı Sağlayan Üye ID",
+        "totalSubscriptionCount": "Toplam Katılım Sayısı"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Par Rank Ödül İşlemleri",
+      "tableHeaders": {
+        "rank": "Rütbe"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Kontrol Paneli",
+      "holdings": "Varlıklar",
+      "stakingPlans": "Staking Planları",
+      "rewards": "Ödüller",
+      "creditConversion": "Kredi Dönüştürme",
+      "referral": "Referans",
+      "promotion": "Promosyon",
+      "stakingRewards": "Staking Ödülleri",
+      "quiz": "Test",
+      "qrCode": "QR Kod"
+    },
+    "groups": {
+      "wallet": "Cüzdan",
+      "funds": "Fonlar",
+      "learn": "Öğren"
+    },
+    "searchPortal": "Portalda ara...",
+    "typeToNavigate": "Bir komut yazın veya arama yapın...",
+    "empty": {
+      "noResults": "Sonuç bulunamadı."
+    }
+  },
+  "fab": {
+    "searchLabel": "Ara"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Toplam Varlıklar (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Ödül Varlığı"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "Ocak",
+        "february": "Şubat",
+        "march": "Mart",
+        "april": "Nisan",
+        "may": "Mayıs",
+        "june": "Haziran",
+        "july": "Temmuz",
+        "august": "Ağustos",
+        "september": "Eylül",
+        "october": "Ekim",
+        "november": "Kasım",
+        "december": "Aralık"
+      },
+      "monthsShort": {
+        "jan": "Oca",
+        "feb": "Şub",
+        "mar": "Mar",
+        "apr": "Nis",
+        "may": "May",
+        "jun": "Haz",
+        "jul": "Tem",
+        "aug": "Ağu",
+        "sep": "Eyl",
+        "oct": "Eki",
+        "nov": "Kas",
+        "dec": "Ara"
+      },
+      "weekdaysShort": {
+        "sun": "Paz",
+        "mon": "Pzt",
+        "tue": "Sal",
+        "wed": "Çar",
+        "thu": "Per",
+        "fri": "Cum",
+        "sat": "Cmt"
+      },
+      "title": "P&L Takvimi",
+      "view": {
+        "list": "Liste",
+        "calendar": "Takvim"
+      },
+      "filters": {
+        "month": "Ay",
+        "year": "Yıl"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Getiri"
+      },
+      "empty": {
+        "noData": "Veri yok"
+      },
+      "status": {
+        "profit": "Kâr",
+        "loss": "Zarar"
+      }
     }
   }
 }
