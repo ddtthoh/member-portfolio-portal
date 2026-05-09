@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "Participant Portal" },
+  "brand": {
+    "portal": "Participant Portal"
+  },
   "nav": {
     "overview": "Overview",
     "stakingPlan": "Staking Plan",
@@ -43,7 +45,9 @@
     "network": "Network",
     "logout": "Logout"
   },
-  "language": { "switch": "Switch language" },
+  "language": {
+    "switch": "Switch language"
+  },
   "common": {
     "submit": "Submit",
     "cancel": "Cancel",
@@ -84,23 +88,191 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "Funds · Inbound", "title": "Deposit", "description": "Please be Informed you will have to deposit at least 10 Usdt Bep20 amount." },
-    "withdrawal": { "eyebrow": "Funds · Outbound", "title": "Withdrawal", "description": "Request a payout to your verified bank account. Funds typically arrive within 1–2 business days." },
-    "promotion": { "eyebrow": "Funds · Bonus", "title": "Promotion", "description": "Limited-time founders' promotion for qualifying deposits." },
-    "qna": { "eyebrow": "Knowledge Test", "title": "Education", "description": "Answer 7 out of 10 questions correctly to pass. You can retake the test as many times as you want." },
-    "participation": { "eyebrow": "Programs · Engagement", "title": "Staking", "description": "Track your active staking across firm programs, initiatives, and allocations." },
-    "transactions": { "eyebrow": "Ledger", "title": "Transactions", "description": "A complete history of deposits, trades, and withdrawals." },
-    "support": { "eyebrow": "Concierge", "title": "Support", "description": "Open a private ticket — our concierge team responds promptly." },
-    "usdStatement": { "eyebrow": "Statement", "title": "USD Statement", "description": "A summary of your USD account activity." },
-    "network": { "eyebrow": "Relationships", "title": "Network", "description": "Your trusted circle of advisors, custodians, and partners." },
-    "holdings": { "eyebrow": "Portfolio", "title": "Portfolio Overview", "description": "A summary of your active staking." },
-    "transferUsd": { "eyebrow": "USD Wallet", "title": "Transfer USD", "description": "Transfer USD to another member's account." },
-    "rewardsStatement": { "eyebrow": "Statement", "title": "Rewards Statement", "description": "A summary of your rewards activity." },
-    "documents": { "eyebrow": "Library", "title": "Documents & Statements", "description": "Statements, tax documents, and legal contracts on file." },
-    "creditConversionStatement": { "eyebrow": "Statement", "title": "Credit Conversion Statement", "description": "Review your credit conversion history and balances." },
-    "stakingPlans": { "eyebrow": "Staking", "title": "Staking Plan", "description": "Choose a staking tier that matches your goals." },
-    "convertCredits": { "eyebrow": "Statement", "title": "Convert Credits", "description": "Convert credits between balances." },
-    "referral": { "eyebrow": "Network · Invitation", "title": "Referral", "description": "Invite qualified investors to the firm. Earn a structured rebate on every funded account." },
-    "reports": { "eyebrow": "Curated", "title": "Quarterly Reports", "description": "Letters and analysis prepared by your advisory team." }
+    "deposit": {
+      "eyebrow": "Funds · Inbound",
+      "title": "Deposit",
+      "description": "Please be Informed you will have to deposit at least 10 Usdt Bep20 amount."
+    },
+    "withdrawal": {
+      "eyebrow": "Funds · Outbound",
+      "title": "Withdrawal",
+      "description": "Request a payout to your verified bank account. Funds typically arrive within 1–2 business days."
+    },
+    "promotion": {
+      "eyebrow": "Funds · Bonus",
+      "title": "Promotion",
+      "description": "Limited-time founders' promotion for qualifying deposits."
+    },
+    "qna": {
+      "eyebrow": "Knowledge Test",
+      "title": "Education",
+      "description": "Answer 7 out of 10 questions correctly to pass. You can retake the test as many times as you want."
+    },
+    "participation": {
+      "eyebrow": "Programs · Engagement",
+      "title": "Staking",
+      "description": "Track your active staking across firm programs, initiatives, and allocations."
+    },
+    "transactions": {
+      "eyebrow": "Ledger",
+      "title": "Transactions",
+      "description": "A complete history of deposits, trades, and withdrawals."
+    },
+    "support": {
+      "eyebrow": "Concierge",
+      "title": "Support",
+      "description": "Open a private ticket — our concierge team responds promptly."
+    },
+    "usdStatement": {
+      "eyebrow": "Statement",
+      "title": "USD Statement",
+      "description": "A summary of your USD account activity."
+    },
+    "network": {
+      "eyebrow": "Relationships",
+      "title": "Network",
+      "description": "Your trusted circle of advisors, custodians, and partners."
+    },
+    "holdings": {
+      "eyebrow": "Portfolio",
+      "title": "Portfolio Overview",
+      "description": "A summary of your active staking."
+    },
+    "transferUsd": {
+      "eyebrow": "USD Wallet",
+      "title": "Transfer USD",
+      "description": "Transfer USD to another member's account."
+    },
+    "rewardsStatement": {
+      "eyebrow": "Statement",
+      "title": "Rewards Statement",
+      "description": "A summary of your rewards activity."
+    },
+    "documents": {
+      "eyebrow": "Library",
+      "title": "Documents & Statements",
+      "description": "Statements, tax documents, and legal contracts on file."
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Statement",
+      "title": "Credit Conversion Statement",
+      "description": "Review your credit conversion history and balances."
+    },
+    "stakingPlans": {
+      "eyebrow": "Staking",
+      "title": "Staking Plan",
+      "description": "Choose a staking tier that matches your goals."
+    },
+    "convertCredits": {
+      "eyebrow": "Statement",
+      "title": "Convert Credits",
+      "description": "Convert credits between balances."
+    },
+    "referral": {
+      "eyebrow": "Network · Invitation",
+      "title": "Referral",
+      "description": "Invite qualified investors to the firm. Earn a structured rebate on every funded account."
+    },
+    "reports": {
+      "eyebrow": "Curated",
+      "title": "Quarterly Reports",
+      "description": "Letters and analysis prepared by your advisory team."
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Dashboard",
+      "holdings": "Holdings",
+      "stakingPlans": "Staking Plans",
+      "rewards": "Rewards",
+      "creditConversion": "Credit Conversion",
+      "referral": "Referral",
+      "promotion": "Promotion",
+      "stakingRewards": "Staking Rewards",
+      "quiz": "Quiz",
+      "qrCode": "QR Code"
+    },
+    "groups": {
+      "wallet": "Wallet",
+      "funds": "Funds",
+      "learn": "Learn"
+    },
+    "searchPortal": "Search portal...",
+    "typeToNavigate": "Type a command or search...",
+    "empty": {
+      "noResults": "No results found."
+    }
+  },
+  "fab": {
+    "searchLabel": "Search"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Total Assets (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Rewards Asset"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "monthsShort": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
+      },
+      "weekdaysShort": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
+      "title": "P&L Calendar",
+      "view": {
+        "list": "List",
+        "calendar": "Calendar"
+      },
+      "filters": {
+        "month": "Month",
+        "year": "Year"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Return"
+      },
+      "empty": {
+        "noData": "No data"
+      },
+      "status": {
+        "profit": "Profit",
+        "loss": "Loss"
+      }
+    }
   }
 }

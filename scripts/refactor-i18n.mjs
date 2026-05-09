@@ -146,22 +146,30 @@ function unflatten(flat) {
 
 async function main() {
   const enPath = path.join(ROOT, "src/i18n/locales/en.json");
+  const progressPath = path.join(ROOT, "scripts/.i18n-progress.json");
   const enRaw = JSON.parse(await fs.readFile(enPath, "utf8"));
   let enFlat = flatten(enRaw);
 
+  let done = {};
+  try { done = JSON.parse(await fs.readFile(progressPath, "utf8")); } catch {}
+
+  const BATCH_LIMIT = parseInt(process.env.BATCH_LIMIT || "8", 10);
   const accumulated = {};
   let processed = 0;
+  let inThisRun = 0;
+
   for (const [rel, ns] of TARGETS) {
+    processed++;
+    if (done[rel]) continue;
+    if (inThisRun >= BATCH_LIMIT) {
+      console.log(`Stopped after ${BATCH_LIMIT} files in this run. Re-run to continue.`);
+      break;
+    }
     const abs = path.join(ROOT, rel);
     let source;
-    try {
-      source = await fs.readFile(abs, "utf8");
-    } catch {
-      console.log(`SKIP missing: ${rel}`);
-      continue;
-    }
+    try { source = await fs.readFile(abs, "utf8"); } catch { console.log(`SKIP missing: ${rel}`); continue; }
 
-    process.stdout.write(`[${++processed}/${TARGETS.length}] ${rel} ... `);
+    process.stdout.write(`[${processed}/${TARGETS.length}] ${rel} ... `);
     try {
       const content = await callAI([
         { role: "system", content: SYSTEM },
@@ -174,6 +182,11 @@ async function main() {
       await fs.writeFile(abs, parsed.code, "utf8");
       Object.assign(enFlat, parsed.newKeys);
       Object.assign(accumulated, parsed.newKeys);
+      done[rel] = { keys: Object.keys(parsed.newKeys).length, at: new Date().toISOString() };
+      // checkpoint after every file
+      await fs.writeFile(enPath, JSON.stringify(unflatten(enFlat), null, 2) + "\n", "utf8");
+      await fs.writeFile(progressPath, JSON.stringify(done, null, 2) + "\n", "utf8");
+      inThisRun++;
       console.log(`+${Object.keys(parsed.newKeys).length} keys`);
     } catch (err) {
       console.log(`FAIL: ${err.message}`);

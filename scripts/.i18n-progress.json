@@ -1,0 +1,12 @@
+{
+  "src/components/portal-shell.tsx": { "keys": 7 },
+  "src/components/command-palette.tsx": { "keys": 16 },
+  "src/components/mobile-fab.tsx": { "keys": 1 },
+  "src/components/total-assets-gauge.tsx": { "keys": 4 },
+  "src/components/pl-calendar.tsx": { "keys": 41 },
+  "src/components/network-constellation.tsx": { "keys": 1 },
+  "src/components/ticker-tape.tsx": { "keys": 1 },
+  "src/components/quiz-test.tsx": { "keys": 11 },
+  "src/components/report-shell.tsx": { "keys": 7 },
+  "src/routes/portal.index.tsx": { "keys": 2 }
+}
