@@ -160,6 +160,8 @@ export type Database = {
       }
       kyc_submissions: {
         Row: {
+          back_url: string | null
+          doc_type: string
           id: string
           passport_url: string
           reviewer_note: string | null
@@ -170,6 +172,8 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          back_url?: string | null
+          doc_type?: string
           id?: string
           passport_url: string
           reviewer_note?: string | null
@@ -180,6 +184,8 @@ export type Database = {
           user_id: string
         }
         Update: {
+          back_url?: string | null
+          doc_type?: string
           id?: string
           passport_url?: string
           reviewer_note?: string | null

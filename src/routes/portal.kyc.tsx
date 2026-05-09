@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ShieldCheck, Upload, FileImage, CheckCircle2, AlertTriangle, Lock, Camera, IdCard } from "lucide-react";
+import { ShieldCheck, Upload, FileImage, CheckCircle2, AlertTriangle, Lock, Camera, IdCard, BookUser } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/page-header";
@@ -16,10 +16,13 @@ export const Route = createFileRoute("/portal/kyc")({
 });
 
 type KycStatus = "submitted" | "pending" | "approved" | "rejected";
+type DocType = "identity_card" | "passport";
 type KycRow = {
   id: string;
   status: KycStatus;
+  doc_type: DocType;
   passport_url: string;
+  back_url: string | null;
   selfie_url: string;
   reviewer_note: string | null;
   submitted_at: string;
@@ -43,10 +46,13 @@ const STEPS: { key: Exclude<KycStatus, "rejected">; label: string }[] = [
   { key: "approved", label: "Approved" },
 ];
 
+const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/gif"];
+const MAX_BYTES = 2 * 1024 * 1024;
+
 function statusToStep(s: KycStatus): number {
   if (s === "approved") return 3;
   if (s === "pending") return 2;
-  return 1; // submitted or rejected
+  return 1;
 }
 
 function KycPage() {
@@ -57,7 +63,10 @@ function KycPage() {
   const [loading, setLoading] = useState(true);
   const [missing, setMissing] = useState<string[]>([]);
   const [submission, setSubmission] = useState<KycRow | null>(null);
-  const [passportFile, setPassportFile] = useState<File | null>(null);
+
+  const [docType, setDocType] = useState<DocType>("passport");
+  const [frontFile, setFrontFile] = useState<File | null>(null);
+  const [backFile, setBackFile] = useState<File | null>(null);
   const [selfieFile, setSelfieFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -94,27 +103,44 @@ function KycPage() {
     };
   }, [user]);
 
+  // Reset files when switching doc type
+  useEffect(() => {
+    setFrontFile(null);
+    setBackFile(null);
+    setSelfieFile(null);
+  }, [docType]);
+
   const profileComplete = missing.length === 0;
   const locked = !!submission && (submission.status === "submitted" || submission.status === "pending" || submission.status === "approved");
 
+  const filesReady =
+    docType === "passport"
+      ? !!frontFile && !!selfieFile
+      : !!frontFile && !!backFile && !!selfieFile;
+
   async function onSubmit() {
-    if (!user || !passportFile || !selfieFile) return;
+    if (!user || !filesReady) return;
     setSubmitting(true);
     try {
       const stamp = Date.now();
-      const passportPath = `${user.id}/passport-${stamp}-${safeExt(passportFile.name)}`;
-      const selfiePath = `${user.id}/selfie-${stamp}-${safeExt(selfieFile.name)}`;
+      const uploadOne = async (file: File, label: string) => {
+        const path = `${user.id}/${label}-${stamp}-${safeExt(file.name)}`;
+        const { error } = await supabase.storage.from("kyc-documents").upload(path, file, { upsert: false });
+        if (error) throw error;
+        return path;
+      };
 
-      const up1 = await supabase.storage.from("kyc-documents").upload(passportPath, passportFile, { upsert: false });
-      if (up1.error) throw up1.error;
-      const up2 = await supabase.storage.from("kyc-documents").upload(selfiePath, selfieFile, { upsert: false });
-      if (up2.error) throw up2.error;
+      const frontPath = await uploadOne(frontFile!, docType === "passport" ? "passport" : "id-front");
+      const backPath = docType === "identity_card" ? await uploadOne(backFile!, "id-back") : null;
+      const selfiePath = await uploadOne(selfieFile!, "selfie");
 
       const { data, error } = await supabase
         .from("kyc_submissions")
         .insert({
           user_id: user.id,
-          passport_url: passportPath,
+          doc_type: docType,
+          passport_url: frontPath,
+          back_url: backPath,
           selfie_url: selfiePath,
           status: "submitted",
         })
@@ -123,7 +149,8 @@ function KycPage() {
       if (error) throw error;
 
       setSubmission(data as KycRow);
-      setPassportFile(null);
+      setFrontFile(null);
+      setBackFile(null);
       setSelfieFile(null);
       toast.success("KYC submitted for review");
     } catch (e: any) {
@@ -138,7 +165,7 @@ function KycPage() {
       <PageHeader
         eyebrow="Compliance"
         title="Identity Verification"
-        description="Verify your identity by uploading a clear photo of your passport and a selfie holding your passport. Required for withdrawals and full account access."
+        description="Verify your identity by uploading your government-issued document and a selfie holding it. Required for withdrawals and full account access."
       />
 
       {loading ? (
@@ -157,25 +184,69 @@ function KycPage() {
             <SectionCard>
               <SectionHeader
                 title={submission?.status === "rejected" ? "Resubmit Documents" : "Upload Documents"}
-                subtitle="Step 1 of 1 · Both files required"
+                subtitle="Choose your document type · JPG / JPEG / PNG / GIF · Max 2 MB each"
               />
               <SectionBody>
-                <div className="grid gap-5 md:grid-cols-2">
-                  <UploadTile
-                    icon={<IdCard className="h-5 w-5" />}
-                    title="Passport"
-                    hint="Full passport bio page · clear, no glare"
-                    file={passportFile}
-                    onFile={setPassportFile}
+                {/* Doc-type toggle */}
+                <div className="mb-5 grid gap-3 sm:grid-cols-2">
+                  <DocTypeOption
+                    icon={<BookUser className="h-5 w-5" />}
+                    label="Passport"
+                    hint="Bio page + selfie"
+                    active={docType === "passport"}
+                    onClick={() => setDocType("passport")}
                   />
-                  <UploadTile
-                    icon={<Camera className="h-5 w-5" />}
-                    title="Selfie with Passport"
-                    hint="Hold passport next to your face · both visible"
-                    file={selfieFile}
-                    onFile={setSelfieFile}
+                  <DocTypeOption
+                    icon={<IdCard className="h-5 w-5" />}
+                    label="Identity Card"
+                    hint="Front, back + selfie"
+                    active={docType === "identity_card"}
+                    onClick={() => setDocType("identity_card")}
                   />
                 </div>
+
+                {docType === "passport" ? (
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <UploadTile
+                      icon={<BookUser className="h-5 w-5" />}
+                      title="Passport"
+                      hint="Bio page · clear, no glare"
+                      file={frontFile}
+                      onFile={setFrontFile}
+                    />
+                    <UploadTile
+                      icon={<Camera className="h-5 w-5" />}
+                      title="Selfie with Passport"
+                      hint="Hold passport next to your face"
+                      file={selfieFile}
+                      onFile={setSelfieFile}
+                    />
+                  </div>
+                ) : (
+                  <div className="grid gap-5 md:grid-cols-3">
+                    <UploadTile
+                      icon={<IdCard className="h-5 w-5" />}
+                      title="ID Card — Front"
+                      hint="Front side · all details visible"
+                      file={frontFile}
+                      onFile={setFrontFile}
+                    />
+                    <UploadTile
+                      icon={<IdCard className="h-5 w-5" />}
+                      title="ID Card — Back"
+                      hint="Back side · clear, no glare"
+                      file={backFile}
+                      onFile={setBackFile}
+                    />
+                    <UploadTile
+                      icon={<Camera className="h-5 w-5" />}
+                      title="Selfie with ID Card"
+                      hint="Hold card next to your face"
+                      file={selfieFile}
+                      onFile={setSelfieFile}
+                    />
+                  </div>
+                )}
 
                 <div className="mt-6 flex flex-col gap-3 border-t border-gold/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs text-gold/55">
@@ -183,7 +254,7 @@ function KycPage() {
                   </p>
                   <Button
                     onClick={onSubmit}
-                    disabled={!passportFile || !selfieFile || submitting}
+                    disabled={!filesReady || submitting}
                     className="bg-gradient-to-r from-gold to-gold/70 text-background hover:from-gold hover:to-gold disabled:opacity-50"
                   >
                     <Upload className="mr-2 h-4 w-4" />
@@ -228,6 +299,50 @@ function safeExt(name: string) {
   return `file.${ext.replace(/[^a-z0-9]/g, "") || "jpg"}`;
 }
 
+/* ---------- Doc type option ---------- */
+function DocTypeOption({
+  icon,
+  label,
+  hint,
+  active,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  hint: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all",
+        active
+          ? "border-gold/60 bg-gold/10 ring-1 ring-gold/40"
+          : "border-gold/15 bg-background/40 hover:border-gold/30 hover:bg-background/60",
+      )}
+    >
+      <span
+        className={cn(
+          "flex h-9 w-9 items-center justify-center rounded-full border",
+          active ? "border-gold bg-gold text-background" : "border-gold/30 text-gold",
+        )}
+      >
+        {icon}
+      </span>
+      <span className="flex-1">
+        <span className={cn("block font-serif text-base font-semibold", active ? "text-gold" : "text-foreground/90")}>
+          {label}
+        </span>
+        <span className="block text-[11px] uppercase tracking-[0.16em] text-gold/55">{hint}</span>
+      </span>
+      {active && <CheckCircle2 className="h-4 w-4 text-gold" />}
+    </button>
+  );
+}
+
 /* ---------- Status bar ---------- */
 function StatusBar({ status, note }: { status: KycStatus; note: string | null }) {
   const step = statusToStep(status);
@@ -238,7 +353,6 @@ function StatusBar({ status, note }: { status: KycStatus; note: string | null })
       <SectionHeader title="Verification Status" subtitle={rejected ? "Action required" : "Tracking your application"} />
       <SectionBody>
         <div className="relative mx-auto max-w-2xl px-2 pb-2 pt-1">
-          {/* Track */}
           <div className="absolute left-[8%] right-[8%] top-[14px] h-[2px] rounded-full bg-border/40" />
           <motion.div
             initial={{ width: 0 }}
@@ -356,12 +470,12 @@ function UploadTile({
 
   function handleSelect(f: File | undefined | null) {
     if (!f) return;
-    if (f.size > 5 * 1024 * 1024) {
-      toast.error("File is too large (max 5 MB)");
+    if (!ACCEPTED_TYPES.includes(f.type)) {
+      toast.error("Only JPG, JPEG, PNG, or GIF allowed");
       return;
     }
-    if (!["image/jpeg", "image/png", "image/webp"].includes(f.type)) {
-      toast.error("Only JPG, PNG, or WEBP allowed");
+    if (f.size > MAX_BYTES) {
+      toast.error("File is too large (max 2 MB)");
       return;
     }
     onFile(f);
@@ -411,7 +525,7 @@ function UploadTile({
       <input
         ref={inputRef}
         type="file"
-        accept="image/jpeg,image/png,image/webp"
+        accept="image/jpeg,image/png,image/gif"
         className="hidden"
         onChange={(e) => handleSelect(e.target.files?.[0])}
       />
