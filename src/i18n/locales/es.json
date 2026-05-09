@@ -1,23 +1,40 @@
 {
-  "brand": { "portal": "Portal del Participante" },
+  "brand": {
+    "portal": "Portal del Participante"
+  },
   "nav": {
     "overview": "Resumen",
     "stakingPlan": "Plan de Participación",
     "portfolio": "Cartera",
+    "assetAnalysis": "Análisis de activos",
     "statement": "Estado de cuenta",
     "creditConversionStatement": "Estado de conversión de créditos",
     "usdStatement": "Estado en USD",
     "rewardsStatement": "Estado de recompensas",
+    "deposit": "Depósito",
+    "withdrawal": "Retiro",
     "usdCreditsTransfer": "Transferencia de USD y créditos",
     "convertCredits": "Convertir créditos",
     "transferUsd": "Transferir USD",
     "transactions": "Transacciones",
     "documents": "Documentos",
     "reports": "Informes",
+    "reportsParticipation": "Staking",
+    "reportsReferral": "Recompensas por referidos",
+    "reportsTeam": "Recompensas de equipo",
+    "reportsLeader": "Recompensas de líder",
+    "reportsParRank": "Recompensas de rango Par",
     "network": "Red",
     "qna": "Preguntas y respuestas",
+    "qnaCompany": "Empresa",
+    "qnaMarketing": "Plan de marketing",
     "support": "Soporte",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "sections": {
+      "overview": "Resumen",
+      "operations": "Operaciones",
+      "support": "Cuenta y soporte"
+    }
   },
   "account": {
     "label": "Cuenta",
@@ -28,7 +45,9 @@
     "network": "Red",
     "logout": "Cerrar sesión"
   },
-  "language": { "switch": "Cambiar idioma" },
+  "language": {
+    "switch": "Cambiar idioma"
+  },
   "common": {
     "submit": "Enviar",
     "cancel": "Cancelar",
@@ -69,23 +88,750 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "Fondos · Entrada", "title": "Depositar", "description": "Financia tu cuenta mediante transferencia bancaria. La liquidación suele completarse en 1 día hábil." },
-    "withdrawal": { "eyebrow": "Fondos · Salida", "title": "Retirar", "description": "Solicita un pago a tu cuenta bancaria verificada. Los fondos suelen llegar en 1-2 días hábiles." },
-    "promotion": { "eyebrow": "Fondos · Bono", "title": "Promoción", "description": "Promoción de fundadores por tiempo limitado para depósitos elegibles." },
-    "qna": { "eyebrow": "Conversación", "title": "Preguntas y respuestas", "description": "Envía una pregunta — tu asesor responde en un día hábil." },
-    "participation": { "eyebrow": "Programas · Participación", "title": "Participación", "description": "Sigue tu participación activa en programas, iniciativas y asignaciones de la firma." },
-    "transactions": { "eyebrow": "Libro mayor", "title": "Transacciones", "description": "Historial completo de depósitos, operaciones y retiros." },
-    "support": { "eyebrow": "Conserjería", "title": "Soporte", "description": "Abre un ticket privado — nuestro equipo responde con prontitud." },
-    "usdStatement": { "eyebrow": "Estado de cuenta", "title": "Estado en USD", "description": "Resumen de la actividad de tu cuenta en USD." },
-    "network": { "eyebrow": "Relaciones", "title": "Red", "description": "Tu círculo de confianza de asesores, custodios y socios." },
-    "holdings": { "eyebrow": "Cartera", "title": "Resumen de cartera", "description": "Resumen de tu participación activa." },
-    "transferUsd": { "eyebrow": "Billetera USD", "title": "Transferir USD", "description": "Transfiere USD a la cuenta de otro miembro." },
-    "rewardsStatement": { "eyebrow": "Estado de cuenta", "title": "Estado de recompensas", "description": "Resumen de la actividad de tus recompensas." },
-    "documents": { "eyebrow": "Biblioteca", "title": "Documentos y estados", "description": "Estados, documentos fiscales y contratos legales archivados." },
-    "creditConversionStatement": { "eyebrow": "Estado de cuenta", "title": "Estado de conversión de créditos", "description": "Revisa tu historial y saldos de conversión de créditos." },
-    "stakingPlans": { "eyebrow": "Participación", "title": "Plan de Participación", "description": "Elige un nivel de participación que se ajuste a tus objetivos." },
-    "convertCredits": { "eyebrow": "Estado de cuenta", "title": "Convertir créditos", "description": "Convierte créditos entre saldos." },
-    "referral": { "eyebrow": "Red · Invitación", "title": "Referidos", "description": "Invita a inversores cualificados. Gana un reembolso estructurado por cada cuenta financiada." },
-    "reports": { "eyebrow": "Selección", "title": "Informes trimestrales", "description": "Cartas y análisis preparados por tu equipo asesor." }
+    "deposit": {
+      "eyebrow": "Fondos · Entrada",
+      "title": "Depositar",
+      "description": "Financia tu cuenta mediante transferencia bancaria. La liquidación suele completarse en 1 día hábil.",
+      "toast": {
+        "addressCopied": "Dirección copiada",
+        "copied": "Copiado",
+        "referenceCopied": "Referencia copiada",
+        "hashCopied": "Hash copiado"
+      },
+      "importantReminder": {
+        "title": "Recordatorio importante",
+        "sendOnly": "Envíe únicamente ",
+        "viaThe": " a través de la ",
+        "networkSuffix": " red.",
+        "otherTokens": "El uso de otros tokens o redes resultará en una ",
+        "permanentLoss": "pérdida permanente",
+        "confirmation": "Los depósitos se acreditan tras la confirmación en la cadena (por lo general, en 1–3 minutos)."
+      },
+      "qr": {
+        "alt": "Código QR de depósito",
+        "empty": "No se ha subido ningún QR"
+      },
+      "address": {
+        "label": "Dirección de depósito",
+        "empty": "No hay dirección configurada. Use Editar para configurar.",
+        "copyAria": "Copiar dirección"
+      },
+      "filter": {
+        "title": "Filtrar transacciones",
+        "date": "Fecha",
+        "reference": "Número de referencia",
+        "refPlaceholder": "TXN…",
+        "hash": "Hash de transacción",
+        "hashPlaceholder": "0x…",
+        "showing": "Mostrando ",
+        "of": " de ",
+        "records": " registros",
+        "reset": "Restablecer",
+        "apply": "Aplicar filtro"
+      },
+      "history": {
+        "title": "Historial de depósitos",
+        "live": "En vivo"
+      },
+      "tableHeaders": {
+        "date": "Fecha",
+        "reference": "Número de referencia",
+        "hash": "Hash de transacción"
+      },
+      "empty": {
+        "title": "No se encontraron depósitos",
+        "noDeposits": "Sus depósitos confirmados aparecerán aquí una vez recibidos.",
+        "filtered": "Intente ajustar sus filtros o restablecerlos para ver todos los registros."
+      }
+    },
+    "withdrawal": {
+      "eyebrow": "Fondos · Salida",
+      "title": "Retirar",
+      "description": "Solicita un pago a tu cuenta bancaria verificada. Los fondos suelen llegar en 1-2 días hábiles.",
+      "pageDescription": "Retire USDT a sus direcciones de billetera BEP20 guardadas.",
+      "importantReminder": {
+        "title": "Recordatorio importante",
+        "supportOnly": "Los retiros solo son compatibles con ",
+        "viaThe": " a través de la ",
+        "networkSuffix": " red.",
+        "wrongAddress": "Una dirección o red incorrecta resultará en una ",
+        "permanentLoss": "pérdida permanente",
+        "processingTime": "Las solicitudes se procesan tras la aprobación del administrador (generalmente en cuestión de minutos)."
+      },
+      "newRequest": {
+        "title": "Nueva solicitud de retiro",
+        "creditType": "Tipo de crédito *",
+        "walletAddress": "Dirección de billetera de retiro *",
+        "noWallets": "No hay billeteras guardadas. ",
+        "addOneFirst": "Agregue una primero →",
+        "selectWallet": "-- Seleccione una billetera guardada --",
+        "amount": "Monto *",
+        "minAmount": "Mín. {{min}} USDT",
+        "available": "Disponible: ",
+        "exceedsBalance": "Excede el saldo disponible",
+        "submit": "Solicitar retiro"
+      },
+      "summary": {
+        "usdCredit": "Crédito en USD",
+        "withdrawalAmount": "Monto de retiro",
+        "adminFee": "Tarifa administrativa (2%)",
+        "receiveAmount": "Usted recibirá"
+      },
+      "wallets": {
+        "title": "Billeteras de retiro",
+        "subtitle": "Direcciones BEP20 guardadas",
+        "addWallet": "Agregar billetera",
+        "noWalletsTitle": "Aún no hay billeteras",
+        "noWalletsDesc": "Agregue una billetera BEP20 para comenzar a retirar."
+      },
+      "tableHeaders": {
+        "date": "Fecha",
+        "walletName": "Nombre de la billetera",
+        "walletAddress": "Dirección de la billetera",
+        "action": "Acción",
+        "reference": "Número de referencia",
+        "recipientAddress": "Dirección del destinatario",
+        "chain": "Red USDT",
+        "withdrawalAmt": "Monto de retiro",
+        "adminFee": "Tarifa administrativa",
+        "receiveAmount": "Usted recibirá",
+        "status": "Estado",
+        "remark": "Nota",
+        "hash": "Hash de transacción"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "filter": {
+        "recipientAddress": "Dirección del destinatario",
+        "status": "Estado",
+        "statusAll": "Todos",
+        "statusPending": "Pendiente",
+        "statusProcessing": "Procesando",
+        "statusCompleted": "Completado",
+        "statusRejected": "Rechazado"
+      },
+      "history": {
+        "title": "Historial de retiros",
+        "subtitle": "Todas las solicitudes",
+        "exportExcel": "Exportar a Excel"
+      },
+      "empty": {
+        "title": "No se encontraron retiros",
+        "noRequests": "Sus solicitudes aparecerán aquí.",
+        "filtered": "Intente ajustar sus filtros."
+      },
+      "dialog": {
+        "editWallet": "Editar billetera",
+        "addWallet": "Agregar nueva billetera",
+        "walletDesc": "Dirección de retiro USDT BEP20.",
+        "walletName": "Nombre de la billetera *",
+        "walletNamePlaceholder": "Ej. Personal",
+        "walletAddress": "Dirección de la billetera *",
+        "walletAddressHint": "Debe ser una dirección BEP20 válida que comience con 0x.",
+        "saving": "Guardando…",
+        "update": "Actualizar"
+      },
+      "confirm": {
+        "title": "Confirmar retiro",
+        "desc": "Revise los detalles antes de enviar.",
+        "wallet": "Billetera",
+        "address": "Dirección",
+        "chain": "Red",
+        "amount": "Monto",
+        "adminFee": "Tarifa administrativa",
+        "receiveAmount": "Usted recibirá",
+        "submitting": "Enviando…",
+        "confirmBtn": "Confirmar",
+        "deleteWallet": "¿Eliminar la billetera \"{{name}}\"?"
+      },
+      "toast": {
+        "walletNameRequired": "El nombre de la billetera es obligatorio",
+        "invalidAddress": "Dirección de billetera inválida (debe comenzar con 0x y tener 42 caracteres)",
+        "walletUpdated": "Billetera actualizada",
+        "walletAdded": "Billetera agregada",
+        "walletDeleted": "Billetera eliminada",
+        "selectWallet": "Seleccione una billetera",
+        "invalidAmount": "Monto inválido",
+        "requestSubmitted": "Solicitud de retiro enviada",
+        "noRecordsExport": "No hay registros para exportar",
+        "excelExported": "Excel exportado"
+      }
+    },
+    "promotion": {
+      "eyebrow": "Fondos · Bono",
+      "title": "Promoción",
+      "description": "Promoción de fundadores por tiempo limitado para depósitos elegibles.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Evento de apertura de Naslab en Turquía",
+          "subtitle": "Evento de lanzamiento"
+        },
+        "rankingIncentive": {
+          "title": "Incentivo de clasificación de comunidad, RCB, TCB",
+          "subtitle": "Recompensas de clasificación"
+        }
+      },
+      "viewDetails": "Ver detalles"
+    },
+    "qna": {
+      "eyebrow": "Conversación",
+      "title": "Preguntas y respuestas",
+      "description": "Envía una pregunta — tu asesor responde en un día hábil."
+    },
+    "participation": {
+      "eyebrow": "Programas · Participación",
+      "title": "Participación",
+      "description": "Sigue tu participación activa en programas, iniciativas y asignaciones de la firma."
+    },
+    "transactions": {
+      "eyebrow": "Libro mayor",
+      "title": "Transacciones",
+      "description": "Historial completo de depósitos, operaciones y retiros.",
+      "history": {
+        "title": "Historial de transacciones"
+      },
+      "tableHeaders": {
+        "type": "Tipo",
+        "asset": "Activo",
+        "quantity": "Cantidad",
+        "price": "Precio"
+      },
+      "empty": {
+        "noTransactions": "Aún no hay transacciones."
+      }
+    },
+    "support": {
+      "eyebrow": "Conserjería",
+      "title": "Soporte",
+      "description": "Abre un ticket privado — nuestro equipo responde con prontitud.",
+      "categories": {
+        "general": "General",
+        "account": "Cuenta",
+        "deposit": "Depósito",
+        "withdrawal": "Retiro",
+        "technical": "Técnico",
+        "other": "Otro"
+      },
+      "status": {
+        "open": "abierto",
+        "pending": "pendiente",
+        "resolved": "resuelto",
+        "closed": "cerrado"
+      },
+      "toast": {
+        "created": "Ticket de soporte creado",
+        "fileSizeExceeded": "Algunos archivos excedían los 2 MB y fueron omitidos."
+      },
+      "filter": {
+        "title": "Filtro",
+        "ticketNumber": "Número de ticket",
+        "category": "Categoría",
+        "apply": "Filtrar"
+      },
+      "list": {
+        "title": "Lista de tickets de soporte",
+        "newTicket": "Nuevo ticket de soporte"
+      },
+      "dialog": {
+        "newTicket": "Nuevo ticket de soporte",
+        "category": "Categoría",
+        "subject": "Asunto",
+        "message": "Mensaje",
+        "attachments": "Adjuntos",
+        "chooseFile": "Elegir archivo",
+        "noFileChosen": "Ningún archivo elegido",
+        "filesSelected": "{{count}} archivo{{s}} seleccionado{{s}}",
+        "removeFile": "Eliminar archivo",
+        "fileLimit": "Límite de 2 MB por archivo, formatos JPG/PNG/GIF, se puede subir más de 1 archivo",
+        "proceed": "Continuar",
+        "categoryLabel": "Categoría:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Número de ticket",
+        "category": "Categoría",
+        "subject": "Asunto"
+      },
+      "empty": {
+        "noTickets": "No se encontraron tickets."
+      },
+      "actions": {
+        "view": "Ver"
+      }
+    },
+    "usdStatement": {
+      "eyebrow": "Estado de cuenta",
+      "title": "Estado en USD",
+      "description": "Resumen de la actividad de tu cuenta en USD.",
+      "tableHeaders": {
+        "txId": "ID de transacción",
+        "type": "Tipo de transacción",
+        "credit": "Crédito",
+        "debit": "Débito",
+        "remarks": "Notas"
+      }
+    },
+    "network": {
+      "eyebrow": "Relaciones",
+      "title": "Red",
+      "description": "Tu círculo de confianza de asesores, custodios y socios.",
+      "verificationRequired": "Verificación requerida",
+      "unlockTitle": "Complete el cuestionario del plan de marketing para desbloquear su red",
+      "unlockDescription": "Para asegurar que cada miembro comprenda completamente el plan de marketing antes de construir su equipo, la vista de su red estará bloqueada hasta que apruebe el cuestionario. Una vez aprobado, el acceso es permanente.",
+      "steps": {
+        "takeQuiz": "Realice el cuestionario del plan de marketing",
+        "score": "Obtenga al menos 7 de 10 aciertos para aprobar",
+        "unlock": "La red se desbloquea al instante"
+      },
+      "actions": {
+        "takeQuiz": "Realizar cuestionario del plan de marketing"
+      },
+      "empty": {
+        "noTeam": "Su equipo dedicado se mostrará aquí en breve."
+      }
+    },
+    "holdings": {
+      "eyebrow": "Cartera",
+      "title": "Resumen de cartera",
+      "description": "Resumen de tu participación activa.",
+      "totalStakingAmount": "Monto total de staking",
+      "stakingDays": "Días de staking",
+      "tableHeaders": {
+        "date": "Fecha",
+        "stakingPlan": "Plan de staking",
+        "stakingDate": "Fecha de staking",
+        "stakingAmount": "Monto de staking",
+        "minMonthlyRate": "Tasa mensual mín.",
+        "maxMonthlyRate": "Tasa mensual máx.",
+        "status": "Estado"
+      },
+      "empty": {
+        "noStakingPlan": "Aún no hay plan de staking."
+      },
+      "refund": {
+        "button": "Solicitar reembolso total",
+        "title": "Solicitar reembolso total",
+        "description": "¿Confirma que desea solicitar un reembolso total? Nuestro equipo revisará su solicitud y lo contactará en breve.",
+        "confirm": "Confirmar solicitud",
+        "submitted": "Solicitud de reembolso enviada"
+      }
+    },
+    "transferUsd": {
+      "eyebrow": "Billetera USD",
+      "title": "Transferir USD",
+      "description": "Transfiere USD a la cuenta de otro miembro.",
+      "toast": {
+        "fillRequired": "Por favor, complete todos los campos obligatorios",
+        "submitted": "Solicitud de transferencia enviada"
+      },
+      "details": {
+        "title": "Detalles de transferencia"
+      },
+      "form": {
+        "usdTransfer": "Transferencia de USD",
+        "transferTo": "Transferir a ID de miembro",
+        "memberIdPlaceholder": "Ingrese ID de miembro",
+        "transferAmount": "Monto de transferencia",
+        "remarks": "Notas",
+        "remarksPlaceholder": "Notas opcionales"
+      }
+    },
+    "rewardsStatement": {
+      "eyebrow": "Estado de cuenta",
+      "title": "Estado de recompensas",
+      "description": "Resumen de la actividad de tus recompensas."
+    },
+    "documents": {
+      "eyebrow": "Biblioteca",
+      "title": "Documentos y estados",
+      "description": "Estados, documentos fiscales y contratos legales archivados.",
+      "empty": {
+        "noDocuments": "Aún no hay documentos disponibles. Sus estados de cuenta aparecerán aquí a medida que se emitan."
+      }
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Estado de cuenta",
+      "title": "Estado de conversión de créditos",
+      "description": "Revisa tu historial y saldos de conversión de créditos.",
+      "tableHeaders": {
+        "date": "Fecha",
+        "source": "Crédito de origen",
+        "destination": "Crédito de destino",
+        "amount": "Monto convertido",
+        "status": "Estado"
+      }
+    },
+    "stakingPlans": {
+      "eyebrow": "Participación",
+      "title": "Plan de Participación",
+      "description": "Elige un nivel de participación que se ajuste a tus objetivos.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Staking mínimo",
+        "monthlyRoi": "ROI mensual"
+      }
+    },
+    "convertCredits": {
+      "eyebrow": "Estado de cuenta",
+      "title": "Convertir créditos",
+      "description": "Convierte créditos entre saldos.",
+      "usdWallet": "Billetera USD",
+      "rewardsWallet": "Billetera de recompensas",
+      "convertDetails": "Detalles de conversión",
+      "sourceCredit": "Crédito de origen",
+      "rewardsCredit": "Crédito de recompensas",
+      "destinationCredit": "Crédito de destino",
+      "sourceAmount": "Monto de origen"
+    },
+    "referral": {
+      "eyebrow": "Red · Invitación",
+      "title": "Referidos",
+      "description": "Invita a inversores cualificados. Gana un reembolso estructurado por cada cuenta financiada.",
+      "yourCode": "Su código",
+      "labels": {
+        "referralCode": "Código de referido",
+        "inviteLink": "Enlace de invitación",
+        "tier": "Nivel",
+        "activeReferrals": "Referidos activos",
+        "lifetimeRebate": "Reembolso vitalicio"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Términos del programa",
+      "terms": {
+        "rebate": "Reembolso del 1,0 % sobre comisiones de gestión del primer año por referido que haya depositado fondos.",
+        "minimum": "Las cuentas referidas deben cumplir el mínimo de $25.000 para calificar.",
+        "settle": "Los reembolsos se liquidan trimestralmente en el saldo en efectivo de su portafolio.",
+        "upgrade": "Contacte a su asesor para ascender al nivel Platinum."
+      }
+    },
+    "reports": {
+      "eyebrow": "Selección",
+      "title": "Informes trimestrales",
+      "description": "Cartas y análisis preparados por tu equipo asesor."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "Detalles de la promoción muy pronto. Actualice esta sección con la descripción completa del evento, criterios de calificación, recompensas y cronograma."
+        },
+        "rankingIncentive": {
+          "description": "Detalles de la promoción muy pronto. Actualice esta sección con los niveles de clasificación, estructura de pagos y cómo se miden las contribuciones de la comunidad."
+        }
+      },
+      "progressLabel": "Su progreso",
+      "notFound": "Promoción no encontrada.",
+      "backToPromotions": "Volver a promociones",
+      "details": "Detalles",
+      "progressDescription": "Su progreso para esta promoción aparecerá aquí."
+    },
+    "staking": {
+      "activePrograms": "Programas activos",
+      "empty": {
+        "noStakings": "Actualmente no tiene operaciones de staking activas. Las nuevas oportunidades aparecerán aquí cuando estén disponibles."
+      },
+      "tableHeaders": {
+        "package": "Paquete",
+        "roiStartDate": "Fecha de inicio del ROI",
+        "stakingAmount": "Monto de staking",
+        "roiMin": "ROI % mín.",
+        "roiMax": "ROI % máx."
+      },
+      "status": {
+        "active": "Activo"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Información sobre rendimiento, asignación y riesgo de su portafolio."
+    },
+    "profile": {
+      "title": "Información del perfil",
+      "description": "Gestione sus datos personales, información de contacto e identidad de su cuenta.",
+      "verifiedMember": "Miembro verificado",
+      "memberFallback": "Miembro",
+      "status": "Estado",
+      "active": "Activo",
+      "tier": "Nivel",
+      "accountIdentity": {
+        "title": "Identidad de la cuenta",
+        "subtitle": "Credenciales verificadas de solo lectura"
+      },
+      "memberId": "ID de miembro",
+      "emailAddress": "Dirección de correo electrónico",
+      "personalDetails": {
+        "title": "Datos personales",
+        "subtitle": "Su identidad legal y fecha de nacimiento"
+      },
+      "name": "Nombre",
+      "namePlaceholder": "Nombre legal completo",
+      "nationalId": "Identificación nacional",
+      "nationalIdPlaceholder": "Número de ID / pasaporte",
+      "dob": "Fecha de nacimiento",
+      "sponsorId": "ID de patrocinador",
+      "contact": {
+        "title": "Contacto",
+        "subtitle": "Cómo comunicarnos con usted"
+      },
+      "mobilePrefix": "Prefijo móvil",
+      "mobileNumber": "Número de móvil",
+      "mobileNumberPlaceholder": "Número de teléfono",
+      "address": {
+        "title": "Dirección",
+        "subtitle": "Ubicación residencial"
+      },
+      "country": "País",
+      "region": "Región",
+      "province": "Provincia",
+      "provincePlaceholder": "Estado / Provincia",
+      "city": "Ciudad",
+      "addressPlaceholder": "Dirección de la calle",
+      "auditNotice": "Los cambios están cifrados y registrados en auditoría",
+      "saving": "Guardando…",
+      "toast": {
+        "error": "Error al guardar el perfil",
+        "success": "Perfil actualizado"
+      },
+      "countries": {
+        "UnitedStates": "Estados Unidos",
+        "China": "China",
+        "Indonesia": "Indonesia",
+        "Iran": "Irán",
+        "SaudiArabia": "Arabia Saudita",
+        "Spain": "España",
+        "Germany": "Alemania",
+        "Turkey": "Turquía"
+      }
+    },
+    "qrCode": {
+      "title": "Mi código QR de referido",
+      "description": "Su tarjeta de invitación única. Compártala con posibles clientes para que se registren bajo su cuenta.",
+      "verifiedReferral": "Referido verificado",
+      "toast": {
+        "linkCopied": "Enlace de referido copiado",
+        "idCopied": "ID de miembro copiado",
+        "qrDownloaded": "Código QR descargado",
+        "downloadFailed": "Error en la descarga"
+      },
+      "share": {
+        "title": "Únete a través de mi referido",
+        "text": "Regístrate utilizando mi ID de miembro {{memberId}}"
+      },
+      "qrAlt": "QR de referido para el miembro {{memberId}}",
+      "scanToRegister": "Escanea para registrarte bajo este asesor",
+      "referralLink": "Enlace de referido",
+      "copyLink": "Copiar enlace",
+      "downloadQr": "Descargar QR",
+      "shareBtn": "Compartir",
+      "copyMemberId": "Copiar ID de miembro",
+      "howItWorks": "Cómo funciona",
+      "steps": {
+        "1": "Envíe su código QR o enlace de referido a su cliente.",
+        "2": "Ellos escanean o hacen clic, y acceden a la página de registro con su etiqueta de miembro precompletada.",
+        "3": "Una vez que completan el registro, quedan enlazados permanentemente a su red."
+      }
+    },
+    "walletEdit": {
+      "title": "Editar billetera",
+      "description": "Actualice saldos, red de depósito, dirección y código QR.",
+      "balances": {
+        "title": "Saldos",
+        "usdWallet": "Billetera USD",
+        "rewardsWallet": "Billetera de recompensas",
+        "stakingAmount": "Monto de staking"
+      },
+      "actions": {
+        "saving": "Guardando…",
+        "saveBalances": "Guardar saldos",
+        "uploading": "Subiendo…",
+        "replaceQr": "Reemplazar QR",
+        "uploadQr": "Subir QR",
+        "saveDepositSettings": "Guardar configuración de depósito",
+        "parsing": "Procesando…",
+        "uploadDocx": "Subir .docx",
+        "clearCompany": "Borrar empresa",
+        "clearMarketing": "Borrar marketing"
+      },
+      "toast": {
+        "walletUpdated": "Billetera actualizada",
+        "qrUploaded": "QR subido",
+        "depositSettingsSaved": "Configuración de depósito guardada",
+        "noQuestions": "No se detectaron preguntas. Revise el formato (vea la sugerencia abajo).",
+        "importedQuestions": "{{count}} preguntas importadas",
+        "failedToImport": "Error al importar",
+        "cleared": "Borrado"
+      },
+      "depositSettings": {
+        "title": "Configuración de depósito",
+        "network": "Red",
+        "networkLabel": "Etiqueta de red",
+        "walletAddress": "Dirección de la billetera",
+        "qrCode": "Código QR",
+        "qrPreviewAlt": "Vista previa de QR"
+      },
+      "quiz": {
+        "title": "Banco de preguntas y respuestas",
+        "description": "Suba un archivo .docx que contenga preguntas de opción múltiple. El sistema seleccionará aleatoriamente 10 cada vez que el cliente realice la prueba.",
+        "company": "Empresa: ",
+        "marketing": "Marketing: ",
+        "expectedFormat": "Formato .docx esperado",
+        "hint": {
+          "part1": "Utilice encabezados ",
+          "part2": " o ",
+          "part3": " para cambiar de categoría. Las preguntas inician con un número, las opciones usan ",
+          "part4": " / ",
+          "part5": " etc., y ",
+          "part6": "marca la letra correcta."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "¿Desea eliminar todas las preguntas subidas de {{category}}?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Transacciones de staking",
+      "tableHeaders": {
+        "transactionNumber": "número de transacción",
+        "amount": "monto",
+        "stakingPlan": "plan de staking"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Transacciones de recompensas por referido",
+      "tableHeaders": {
+        "referralRate": "tasa de referido"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Informe de recompensas del equipo",
+      "tableHeaders": {
+        "date": "Fecha",
+        "memberId": "ID de miembro",
+        "level": "Nivel",
+        "divisionRoi": "roi de división",
+        "rate": "tasa",
+        "amount": "monto"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Transacciones de recompensas de líder",
+      "tableHeaders": {
+        "contributedBy": "contribuido por id de miembro",
+        "totalSubscriptionCount": "Recuento total de suscripciones"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Transacciones de recompensas de rango par",
+      "tableHeaders": {
+        "rank": "rango"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Panel de control",
+      "holdings": "Tenencias",
+      "stakingPlans": "Planes de Staking",
+      "rewards": "Recompensas",
+      "creditConversion": "Conversión de crédito",
+      "referral": "Referidos",
+      "promotion": "Promoción",
+      "stakingRewards": "Recompensas de Staking",
+      "quiz": "Cuestionario",
+      "qrCode": "Código QR"
+    },
+    "groups": {
+      "wallet": "Billetera",
+      "funds": "Fondos",
+      "learn": "Aprender"
+    },
+    "searchPortal": "Buscar en el portal...",
+    "typeToNavigate": "Escriba un comando o busque...",
+    "empty": {
+      "noResults": "No se encontraron resultados."
+    }
+  },
+  "fab": {
+    "searchLabel": "Buscar"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Activos totales (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Activo de recompensa"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "Enero",
+        "february": "Febrero",
+        "march": "Marzo",
+        "april": "Abril",
+        "may": "Mayo",
+        "june": "Junio",
+        "july": "Julio",
+        "august": "Agosto",
+        "september": "Septiembre",
+        "october": "Octubre",
+        "november": "Noviembre",
+        "december": "Diciembre"
+      },
+      "monthsShort": {
+        "jan": "Ene",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Abr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Ago",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dic"
+      },
+      "weekdaysShort": {
+        "sun": "Dom",
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mié",
+        "thu": "Jue",
+        "fri": "Vie",
+        "sat": "Sáb"
+      },
+      "title": "Calendario de P&L",
+      "view": {
+        "list": "Lista",
+        "calendar": "Calendario"
+      },
+      "filters": {
+        "month": "Mes",
+        "year": "Año"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Rendimiento"
+      },
+      "empty": {
+        "noData": "Sin datos"
+      },
+      "status": {
+        "profit": "Ganancia",
+        "loss": "Pérdida"
+      }
+    }
   }
 }

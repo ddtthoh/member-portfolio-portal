@@ -5,22 +5,36 @@
   "nav": {
     "overview": "Übersicht",
     "stakingPlan": "Teilnahmeplan",
-   "portfolio": "Portfolio",
-   "assetAnalysis": "Vermögensanalyse",
+    "portfolio": "Portfolio",
+    "assetAnalysis": "Vermögensanalyse",
     "statement": "Kontoauszug",
     "creditConversionStatement": "Kontoauszug Guthabenumtausch",
     "usdStatement": "USD-Kontoauszug",
     "rewardsStatement": "Belohnungs-Kontoauszug",
+    "deposit": "Einzahlung",
+    "withdrawal": "Auszahlung",
     "usdCreditsTransfer": "USD- & Guthabenüberweisung",
     "convertCredits": "Guthaben umtauschen",
     "transferUsd": "USD überweisen",
     "transactions": "Transaktionen",
     "documents": "Dokumente",
     "reports": "Berichte",
+    "reportsParticipation": "Staking",
+    "reportsReferral": "Empfehlungsprämien",
+    "reportsTeam": "Teamprämien",
+    "reportsLeader": "Leader-Prämien",
+    "reportsParRank": "Par-Rang-Prämien",
     "network": "Netzwerk",
     "qna": "Fragen & Antworten",
+    "qnaCompany": "Unternehmen",
+    "qnaMarketing": "Marketingplan",
     "support": "Support",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "sections": {
+      "overview": "Übersicht",
+      "operations": "Transaktionen",
+      "support": "Konto & Support"
+    }
   },
   "account": {
     "label": "Konto",
@@ -50,6 +64,7 @@
   "overview": {
     "estTotalValue": "Geschätzter Gesamtwert (USD)",
     "todaysPnl": "Heutiger G/V",
+    "totalPnl": "Gesamt G/V",
     "participatedDay": "Teilnahmetage:",
     "stakingAmount": "Teilnahmebetrag:",
     "diamond": "Diamant",
@@ -70,24 +85,195 @@
       "referral": "Empfehlung",
       "participation": "Teilnahme",
       "promotion": "Aktion"
-    },
-    "totalPnl": "Gesamt G/V"
+    }
   },
   "pages": {
     "deposit": {
       "eyebrow": "Mittel · Eingang",
       "title": "Einzahlung",
-      "description": "Laden Sie Ihr Konto per Überweisung auf. Die Abwicklung erfolgt in der Regel innerhalb eines Werktags."
+      "description": "Laden Sie Ihr Konto per Überweisung auf. Die Abwicklung erfolgt in der Regel innerhalb eines Werktags.",
+      "toast": {
+        "addressCopied": "Adresse kopiert",
+        "copied": "Kopiert",
+        "referenceCopied": "Referenz kopiert",
+        "hashCopied": "Hash kopiert"
+      },
+      "importantReminder": {
+        "title": "Wichtiger Hinweis",
+        "sendOnly": "Senden Sie nur ",
+        "viaThe": " über das ",
+        "networkSuffix": "-Netzwerk.",
+        "otherTokens": "Andere Token oder Netzwerke führen zu einem ",
+        "permanentLoss": "dauerhaften Verlust",
+        "confirmation": "Einzahlungen werden nach Bestätigung auf der Blockchain (in der Regel 1–3 Minuten) gutgeschrieben."
+      },
+      "qr": {
+        "alt": "Einzahlungs-QR-Code",
+        "empty": "Kein QR hochgeladen"
+      },
+      "address": {
+        "label": "Einzahlungsadresse",
+        "empty": "Keine Adresse konfiguriert. Verwenden Sie „Bearbeiten“, um sie einzurichten.",
+        "copyAria": "Adresse kopieren"
+      },
+      "filter": {
+        "title": "Transaktionen filtern",
+        "date": "Datum",
+        "reference": "Referenznummer",
+        "refPlaceholder": "TXN…",
+        "hash": "Transaktions-Hash",
+        "hashPlaceholder": "0x…",
+        "showing": "Zeige ",
+        "of": " von ",
+        "records": " Einträgen",
+        "reset": "Zurücksetzen",
+        "apply": "Filter anwenden"
+      },
+      "history": {
+        "title": "Einzahlungsverlauf",
+        "live": "Live"
+      },
+      "tableHeaders": {
+        "date": "Datum",
+        "reference": "Referenznummer",
+        "hash": "Transaktions-Hash"
+      },
+      "empty": {
+        "title": "Keine Einzahlungen gefunden",
+        "noDeposits": "Ihre bestätigten Einzahlungen werden hier nach Eingang angezeigt.",
+        "filtered": "Passen Sie Ihre Filter an oder setzen Sie diese zurück, um alle Einträge zu sehen."
+      }
     },
     "withdrawal": {
       "eyebrow": "Mittel · Ausgang",
       "title": "Auszahlung",
-      "description": "Beantragen Sie eine Auszahlung auf Ihr verifiziertes Bankkonto. Geld trifft meist in 1–2 Werktagen ein."
+      "description": "Beantragen Sie eine Auszahlung auf Ihr verifiziertes Bankkonto. Geld trifft meist in 1–2 Werktagen ein.",
+      "pageDescription": "Veranlassen Sie Auszahlungen von USDT an Ihre gespeicherten BEP20-Wallet-Adressen.",
+      "importantReminder": {
+        "title": "Wichtiger Hinweis",
+        "supportOnly": "Auszahlungen werden nur ",
+        "viaThe": " über das ",
+        "networkSuffix": "-Netzwerk unterstützt.",
+        "wrongAddress": "Eine falsche Adresse oder ein falsches Netzwerk führt zu einem ",
+        "permanentLoss": "dauerhaften Verlust",
+        "processingTime": "Anfragen werden nach Freigabe durch den Administrator bearbeitet — in der Regel innerhalb weniger Minuten."
+      },
+      "newRequest": {
+        "title": "Neue Auszahlungsanfrage",
+        "creditType": "Guthaben-Typ *",
+        "walletAddress": "Auszahlungsadresse (Wallet) *",
+        "noWallets": "Keine Wallets gespeichert. ",
+        "addOneFirst": "Fügen Sie zuerst eins hinzu →",
+        "selectWallet": "-- Gespeichertes Wallet auswählen --",
+        "amount": "Betrag *",
+        "minAmount": "Min. {{min}} USDT",
+        "available": "Verfügbar: ",
+        "exceedsBalance": "Übersteigt verfügbares Guthaben",
+        "submit": "Auszahlung anfordern"
+      },
+      "summary": {
+        "usdCredit": "USD-Guthaben",
+        "withdrawalAmount": "Auszahlungsbetrag",
+        "adminFee": "Bearbeitungsgebühr (2%)",
+        "receiveAmount": "Sie erhalten"
+      },
+      "wallets": {
+        "title": "Auszahlungs-Wallets",
+        "subtitle": "Gespeicherte BEP20-Adressen",
+        "addWallet": "Wallet hinzufügen",
+        "noWalletsTitle": "Noch keine Wallets",
+        "noWalletsDesc": "Fügen Sie ein BEP20-Wallet hinzu, um Auszahlungen anzufordern."
+      },
+      "tableHeaders": {
+        "date": "Datum",
+        "walletName": "Wallet-Name",
+        "walletAddress": "Wallet-Adresse",
+        "action": "Aktion",
+        "reference": "Referenznummer",
+        "recipientAddress": "Empfängeradresse",
+        "chain": "USDT-Chain",
+        "withdrawalAmt": "Auszahlungsbetrag",
+        "adminFee": "Bearbeitungsgebühr",
+        "receiveAmount": "Sie erhalten",
+        "status": "Status",
+        "remark": "Anmerkung",
+        "hash": "Transaktions-Hash"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "filter": {
+        "recipientAddress": "Empfängeradresse",
+        "status": "Status",
+        "statusAll": "Alle",
+        "statusPending": "Ausstehend",
+        "statusProcessing": "In Bearbeitung",
+        "statusCompleted": "Abgeschlossen",
+        "statusRejected": "Abgelehnt"
+      },
+      "history": {
+        "title": "Auszahlungsverlauf",
+        "subtitle": "Alle Anfragen",
+        "exportExcel": "Nach Excel exportieren"
+      },
+      "empty": {
+        "title": "Keine Auszahlungen gefunden",
+        "noRequests": "Ihre Anfragen werden hier angezeigt.",
+        "filtered": "Versuchen Sie, Ihre Filter anzupassen."
+      },
+      "dialog": {
+        "editWallet": "Wallet bearbeiten",
+        "addWallet": "Neues Wallet hinzufügen",
+        "walletDesc": "USDT BEP20 Auszahlungsadresse.",
+        "walletName": "Wallet-Name *",
+        "walletNamePlaceholder": "z. B. Privat",
+        "walletAddress": "Wallet-Adresse *",
+        "walletAddressHint": "Muss eine gültige BEP20-Adresse sein, die mit 0x beginnt.",
+        "saving": "Speichern…",
+        "update": "Aktualisieren"
+      },
+      "confirm": {
+        "title": "Auszahlung bestätigen",
+        "desc": "Bitte überprüfen Sie die Details vor der Übermittlung.",
+        "wallet": "Wallet",
+        "address": "Adresse",
+        "chain": "Chain",
+        "amount": "Betrag",
+        "adminFee": "Bearbeitungsgebühr",
+        "receiveAmount": "Sie erhalten",
+        "submitting": "Wird gesendet…",
+        "confirmBtn": "Bestätigen",
+        "deleteWallet": "Wallet \"{{name}}\" löschen?"
+      },
+      "toast": {
+        "walletNameRequired": "Wallet-Name ist erforderlich",
+        "invalidAddress": "Ungültige Wallet-Adresse (muss mit 0x beginnen und 42 Zeichen lang sein)",
+        "walletUpdated": "Wallet aktualisiert",
+        "walletAdded": "Wallet hinzugefügt",
+        "walletDeleted": "Wallet gelöscht",
+        "selectWallet": "Wählen Sie ein Wallet aus",
+        "invalidAmount": "Ungültiger Betrag",
+        "requestSubmitted": "Auszahlungsanfrage gesendet",
+        "noRecordsExport": "Keine Datensätze zu exportieren",
+        "excelExported": "Excel-Datei exportiert"
+      }
     },
     "promotion": {
       "eyebrow": "Mittel · Bonus",
       "title": "Aktion",
-      "description": "Zeitlich begrenzte Gründer-Aktion für qualifizierende Einzahlungen."
+      "description": "Zeitlich begrenzte Gründer-Aktion für qualifizierende Einzahlungen.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Naslab Launch-Event in der Türkei",
+          "subtitle": "Launch-Event"
+        },
+        "rankingIncentive": {
+          "title": "RCB, TCB, Community-Ranking-Incentive",
+          "subtitle": "Ranking-Belohnungen"
+        }
+      },
+      "viewDetails": "Details ansehen"
     },
     "qna": {
       "eyebrow": "Gespräch",
@@ -102,32 +288,154 @@
     "transactions": {
       "eyebrow": "Hauptbuch",
       "title": "Transaktionen",
-      "description": "Vollständige Historie von Einzahlungen, Trades und Auszahlungen."
+      "description": "Vollständige Historie von Einzahlungen, Trades und Auszahlungen.",
+      "history": {
+        "title": "Transaktionsverlauf"
+      },
+      "tableHeaders": {
+        "type": "Typ",
+        "asset": "Asset",
+        "quantity": "Menge",
+        "price": "Preis"
+      },
+      "empty": {
+        "noTransactions": "Noch keine Transaktionen."
+      }
     },
     "support": {
       "eyebrow": "Concierge",
       "title": "Support",
-      "description": "Eröffnen Sie ein privates Ticket — unser Team antwortet zeitnah."
+      "description": "Eröffnen Sie ein privates Ticket — unser Team antwortet zeitnah.",
+      "categories": {
+        "general": "Allgemein",
+        "account": "Konto",
+        "deposit": "Einzahlung",
+        "withdrawal": "Auszahlung",
+        "technical": "Technik",
+        "other": "Sonstiges"
+      },
+      "status": {
+        "open": "offen",
+        "pending": "ausstehend",
+        "resolved": "gelöst",
+        "closed": "geschlossen"
+      },
+      "toast": {
+        "created": "Support-Ticket erstellt",
+        "fileSizeExceeded": "Einige Dateien waren größer als 2 MB und wurden übersprungen."
+      },
+      "filter": {
+        "title": "Filter",
+        "ticketNumber": "Ticketnummer",
+        "category": "Kategorie",
+        "apply": "Filter anwenden"
+      },
+      "list": {
+        "title": "Support-Ticket-Liste",
+        "newTicket": "Neues Support-Ticket"
+      },
+      "dialog": {
+        "newTicket": "Neues Support-Ticket",
+        "category": "Kategorie",
+        "subject": "Betreff",
+        "message": "Nachricht",
+        "attachments": "Anhänge",
+        "chooseFile": "Datei auswählen",
+        "noFileChosen": "Keine Datei ausgewählt",
+        "filesSelected": "{{count}} Datei(en) ausgewählt",
+        "removeFile": "Datei entfernen",
+        "fileLimit": "2 MB Dateilimit, JPG/PNG/GIF Formate, mehr als 1 Datei möglich",
+        "proceed": "Fortfahren",
+        "categoryLabel": "Kategorie:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Ticketnummer",
+        "category": "Kategorie",
+        "subject": "Betreff"
+      },
+      "empty": {
+        "noTickets": "Keine Tickets gefunden."
+      },
+      "actions": {
+        "view": "Ansehen"
+      }
     },
     "usdStatement": {
       "eyebrow": "Kontoauszug",
       "title": "USD-Kontoauszug",
-      "description": "Zusammenfassung Ihrer USD-Kontoaktivität."
+      "description": "Zusammenfassung Ihrer USD-Kontoaktivität.",
+      "tableHeaders": {
+        "txId": "Transaktions-ID",
+        "type": "Transaktionstyp",
+        "credit": "Gutschrift",
+        "debit": "Belastung",
+        "remarks": "Anmerkungen"
+      }
     },
     "network": {
       "eyebrow": "Beziehungen",
       "title": "Netzwerk",
-      "description": "Ihr vertrauenswürdiger Kreis aus Beratern, Verwahrern und Partnern."
+      "description": "Ihr vertrauenswürdiger Kreis aus Beratern, Verwahrern und Partnern.",
+      "verificationRequired": "Verifizierung erforderlich",
+      "unlockTitle": "Absolvieren Sie das Marketingplan-Quiz, um Ihr Netzwerk freizuschalten",
+      "unlockDescription": "Um sicherzustellen, dass jedes Mitglied den Marketingplan vollständig verstanden hat, bevor es ein Team aufbaut, bleibt Ihre Netzwerkansicht gesperrt, bis Sie das Quiz einmal erfolgreich bestanden haben. Danach ist der Zugriff dauerhaft.",
+      "steps": {
+        "takeQuiz": "Nehmen Sie am Marketingplan-Quiz teil",
+        "score": "Erreichen Sie mindestens 7 von 10 Punkten zum Bestehen",
+        "unlock": "Das Netzwerk wird sofort freigeschaltet"
+      },
+      "actions": {
+        "takeQuiz": "Zum Marketingplan-Quiz"
+      },
+      "empty": {
+        "noTeam": "Ihr Support-Team wird hier in Kürze angezeigt."
+      }
     },
     "holdings": {
       "eyebrow": "Portfolio",
       "title": "Portfolio-Übersicht",
-      "description": "Zusammenfassung Ihrer aktiven Teilnahme."
+      "description": "Zusammenfassung Ihrer aktiven Teilnahme.",
+      "totalStakingAmount": "Gesamter Staking-Betrag",
+      "stakingDays": "Staking-Tage",
+      "tableHeaders": {
+        "date": "Datum",
+        "stakingPlan": "Staking-Plan",
+        "stakingDate": "Staking-Datum",
+        "stakingAmount": "Staking-Betrag",
+        "minMonthlyRate": "Min. monatliche Rate",
+        "maxMonthlyRate": "Max. monatliche Rate",
+        "status": "Status"
+      },
+      "empty": {
+        "noStakingPlan": "Noch kein Staking-Plan eingerichtet."
+      },
+      "refund": {
+        "button": "Vollständige Rückerstattung anfordern",
+        "title": "Vollständige Rückerstattung anfordern",
+        "description": "Sind Sie sicher, dass Sie eine vollständige Rückerstattung anfordern möchten? Unser Team wird Ihre Anfrage prüfen und sich in Kürze mit Ihnen in Verbindung setzen.",
+        "confirm": "Anfrage bestätigen",
+        "submitted": "Rückerstattungsanfrage eingereicht"
+      }
     },
     "transferUsd": {
       "eyebrow": "USD-Wallet",
       "title": "USD überweisen",
-      "description": "Überweisen Sie USD auf das Konto eines anderen Mitglieds."
+      "description": "Überweisen Sie USD auf das Konto eines anderen Mitglieds.",
+      "toast": {
+        "fillRequired": "Bitte füllen Sie alle erforderlichen Felder aus",
+        "submitted": "Transferanfrage eingereicht"
+      },
+      "details": {
+        "title": "Transferdetails"
+      },
+      "form": {
+        "usdTransfer": "USD-Transfer",
+        "transferTo": "Transfer an Mitglieds-ID",
+        "memberIdPlaceholder": "Mitglieds-ID eingeben",
+        "transferAmount": "Transferbetrag",
+        "remarks": "Anmerkungen",
+        "remarksPlaceholder": "Optionale Notizen"
+      }
     },
     "rewardsStatement": {
       "eyebrow": "Kontoauszug",
@@ -137,32 +445,393 @@
     "documents": {
       "eyebrow": "Bibliothek",
       "title": "Dokumente & Auszüge",
-      "description": "Auszüge, Steuerdokumente und Verträge in Ihrer Akte."
+      "description": "Auszüge, Steuerdokumente und Verträge in Ihrer Akte.",
+      "empty": {
+        "noDocuments": "Noch keine Dokumente verfügbar. Ihre Kontoauszüge werden hier angezeigt, sobald sie ausgestellt sind."
+      }
     },
     "creditConversionStatement": {
       "eyebrow": "Kontoauszug",
       "title": "Kontoauszug Guthabenumtausch",
-      "description": "Überprüfen Sie Verlauf und Salden des Guthabenumtauschs."
+      "description": "Überprüfen Sie Verlauf und Salden des Guthabenumtauschs.",
+      "tableHeaders": {
+        "date": "Datum",
+        "source": "Quellguthaben",
+        "destination": "Zielguthaben",
+        "amount": "Umgewandelter Betrag",
+        "status": "Status"
+      }
     },
     "stakingPlans": {
       "eyebrow": "Teilnahme",
       "title": "Teilnahmeplan",
-      "description": "Wählen Sie eine Teilnahmestufe, die zu Ihren Zielen passt."
+      "description": "Wählen Sie eine Teilnahmestufe, die zu Ihren Zielen passt.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Mindest-Staking",
+        "monthlyRoi": "Monatlicher ROI"
+      }
     },
     "convertCredits": {
       "eyebrow": "Kontoauszug",
       "title": "Guthaben umtauschen",
-      "description": "Tauschen Sie Guthaben zwischen Salden um."
+      "description": "Tauschen Sie Guthaben zwischen Salden um.",
+      "usdWallet": "USD-Wallet",
+      "rewardsWallet": "Rewards-Wallet",
+      "convertDetails": "Konvertierungsdetails",
+      "sourceCredit": "Quellguthaben",
+      "rewardsCredit": "Rewards-Guthaben",
+      "destinationCredit": "Zielguthaben",
+      "sourceAmount": "Quellbetrag"
     },
     "referral": {
       "eyebrow": "Netzwerk · Einladung",
       "title": "Empfehlung",
-      "description": "Laden Sie qualifizierte Investoren ein. Erhalten Sie strukturierte Rückvergütung für jedes finanzierte Konto."
+      "description": "Laden Sie qualifizierte Investoren ein. Erhalten Sie strukturierte Rückvergütung für jedes finanzierte Konto.",
+      "yourCode": "Ihr Code",
+      "labels": {
+        "referralCode": "Empfehlungscode",
+        "inviteLink": "Einladungslink",
+        "tier": "Stufe",
+        "activeReferrals": "Aktive Empfehlungen",
+        "lifetimeRebate": "Lebenslanger Rabatt"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Programmbedingungen",
+      "terms": {
+        "rebate": "1,0 % Rückvergütung auf die Verwaltungsgebühren des ersten Jahres pro kapitalisierter Empfehlung.",
+        "minimum": "Empfohlene Konten müssen das Minimum von 25.000 $ erfüllen, um sich zu qualifizieren.",
+        "settle": "Rückvergütungen werden vierteljährlich auf den liquiden Bestand Ihres Portfolios abgerechnet.",
+        "upgrade": "Kontaktieren Sie Ihren Berater, um auf die Platin-Stufe aufzusteigen."
+      }
     },
     "reports": {
       "eyebrow": "Kuratiert",
       "title": "Quartalsberichte",
       "description": "Briefe und Analysen Ihres Beraterteams."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "Details zur Promotion folgen in Kürze. Dieser Bereich wird mit einer vollständigen Event-Beschreibung, den Qualifikationskriterien, Belohnungen und dem Zeitplan aktualisiert."
+        },
+        "rankingIncentive": {
+          "description": "Details zur Promotion folgen in Kürze. Dieser Bereich wird mit den Ranking-Stufen, der Auszahlungsstruktur und der Messmethode von Community-Beiträgen aktualisiert."
+        }
+      },
+      "progressLabel": "Ihr Fortschritt",
+      "notFound": "Promotion nicht gefunden.",
+      "backToPromotions": "Zurück zu den Aktionen",
+      "details": "Details",
+      "progressDescription": "Ihr Fortschritt für diese Aktion wird hier angezeigt."
+    },
+    "staking": {
+      "activePrograms": "Aktive Programme",
+      "empty": {
+        "noStakings": "Sie haben derzeit keine aktiven Stakings. Neue Investment-Möglichkeiten werden hier bei Verfügbarkeit angezeigt."
+      },
+      "tableHeaders": {
+        "package": "Paket",
+        "roiStartDate": "ROI-Startdatum",
+        "stakingAmount": "Staking-Betrag",
+        "roiMin": "ROI % Min.",
+        "roiMax": "ROI % Max."
+      },
+      "status": {
+        "active": "Aktiv"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Einblicke in Performance, Allokation und Risiko für Ihr Portfolio."
+    },
+    "profile": {
+      "title": "Profilinformationen",
+      "description": "Verwalten Sie Ihre persönlichen Details, Kontaktinformationen und die Kontoidentität.",
+      "verifiedMember": "Verifiziertes Mitglied",
+      "memberFallback": "Mitglied",
+      "status": "Status",
+      "active": "Aktiv",
+      "tier": "Stufe",
+      "accountIdentity": {
+        "title": "Kontoidentität",
+        "subtitle": "Schreibgeschützte verifizierte Anmeldedaten"
+      },
+      "memberId": "Mitglieds-ID",
+      "emailAddress": "E-Mail-Adresse",
+      "personalDetails": {
+        "title": "Persönliche Details",
+        "subtitle": "Ihre rechtliche Identität und Ihr Geburtsdatum"
+      },
+      "name": "Name",
+      "namePlaceholder": "Vollständiger rechtlicher Name",
+      "nationalId": "Nationale ID",
+      "nationalIdPlaceholder": "ID- / Passnummer",
+      "dob": "Geburtsdatum",
+      "sponsorId": "Sponsor-ID",
+      "contact": {
+        "title": "Kontakt",
+        "subtitle": "Wie wir Sie erreichen"
+      },
+      "mobilePrefix": "Ländervorwahl",
+      "mobileNumber": "Handynummer",
+      "mobileNumberPlaceholder": "Telefonnummer",
+      "address": {
+        "title": "Adresse",
+        "subtitle": "Wohnort"
+      },
+      "country": "Land",
+      "region": "Region",
+      "province": "Provinz",
+      "provincePlaceholder": "Bundesland / Provinz",
+      "city": "Stadt",
+      "addressPlaceholder": "Straße und Hausnummer",
+      "auditNotice": "Änderungen werden verschlüsselt & revisionssicher protokolliert",
+      "saving": "Speichern…",
+      "toast": {
+        "error": "Profil konnte nicht gespeichert werden",
+        "success": "Profil aktualisiert"
+      },
+      "countries": {
+        "UnitedStates": "Vereinigte Staaten",
+        "China": "China",
+        "Indonesia": "Indonesien",
+        "Iran": "Iran",
+        "SaudiArabia": "Saudi-Arabien",
+        "Spain": "Spanien",
+        "Germany": "Deutschland",
+        "Turkey": "Türkei"
+      }
+    },
+    "qrCode": {
+      "title": "Mein Empfehlungs-QR-Code",
+      "description": "Ihre personalisierte Einladungskarte. Teilen Sie diese mit potenziellen Neukunden für eine Registrierung unter Ihrem Konto.",
+      "verifiedReferral": "Verifizierte Empfehlung",
+      "toast": {
+        "linkCopied": "Empfehlungslink kopiert",
+        "idCopied": "Mitglieds-ID kopiert",
+        "qrDownloaded": "QR-Code heruntergeladen",
+        "downloadFailed": "Download fehlgeschlagen"
+      },
+      "share": {
+        "title": "Über meine Empfehlung beitreten",
+        "text": "Registrieren Sie sich mit meiner Mitglieds-ID {{memberId}}"
+      },
+      "qrAlt": "Empfehlungs-QR für Mitglied {{memberId}}",
+      "scanToRegister": "Scannen für die Registrierung unter diesem Berater",
+      "referralLink": "Empfehlungslink",
+      "copyLink": "Link kopieren",
+      "downloadQr": "QR herunterladen",
+      "shareBtn": "Teilen",
+      "copyMemberId": "Mitglieds-ID kopieren",
+      "howItWorks": "Wie es funktioniert",
+      "steps": {
+        "1": "Senden Sie den QR-Code oder Empfehlungslink an Ihren Kunden.",
+        "2": "Dieser scannt oder klickt – und landet auf der Registrierungsseite, in der Ihr Mitglieds-Tag bereits vorausgefüllt ist.",
+        "3": "Sobald die Anmeldung abgeschlossen ist, ist er dauerhaft mit Ihrem Netzwerk verbunden."
+      }
+    },
+    "walletEdit": {
+      "title": "Wallet bearbeiten",
+      "description": "Aktualisieren Sie Guthaben, Einzahlungsnetzwerk, Adresse und den QR-Code.",
+      "balances": {
+        "title": "Guthaben",
+        "usdWallet": "USD-Wallet",
+        "rewardsWallet": "Rewards-Wallet",
+        "stakingAmount": "Staking-Betrag"
+      },
+      "actions": {
+        "saving": "Speichern…",
+        "saveBalances": "Guthaben speichern",
+        "uploading": "Wird hochgeladen…",
+        "replaceQr": "QR ersetzen",
+        "uploadQr": "QR hochladen",
+        "saveDepositSettings": "Einzahlungseinstellungen speichern",
+        "parsing": "Wird geparst…",
+        "uploadDocx": ".docx hochladen",
+        "clearCompany": "Unternehmen leeren",
+        "clearMarketing": "Marketing leeren"
+      },
+      "toast": {
+        "walletUpdated": "Wallet aktualisiert",
+        "qrUploaded": "QR-Code hochgeladen",
+        "depositSettingsSaved": "Einzahlungseinstellungen gespeichert",
+        "noQuestions": "Keine Fragen erkannt. Bitte die Formatierung prüfen (siehe Hinweis unten).",
+        "importedQuestions": "{{count}} Fragen importiert",
+        "failedToImport": "Import fehlgeschlagen",
+        "cleared": "Geleert"
+      },
+      "depositSettings": {
+        "title": "Einzahlungseinstellungen",
+        "network": "Netzwerk",
+        "networkLabel": "Netzwerk-Bezeichnung",
+        "walletAddress": "Wallet-Adresse",
+        "qrCode": "QR-Code",
+        "qrPreviewAlt": "QR-Vorschau"
+      },
+      "quiz": {
+        "title": "Q&A-Fragenkatalog",
+        "description": "Laden Sie eine .docx-Datei hoch, die Multiple-Choice-Fragen enthält. Das System wählt zufällig 10 Fragen aus, jedes Mal wenn der Kunde den Test ablegt.",
+        "company": "Unternehmen: ",
+        "marketing": "Marketing: ",
+        "expectedFormat": "Erwartetes .docx-Format",
+        "hint": {
+          "part1": "Verwenden Sie ",
+          "part2": " oder ",
+          "part3": " Überschriften, um die Kategorie zu wechseln. Fragen beginnen mit einer Zahl, Optionen nutzen ",
+          "part4": " / ",
+          "part5": " usw., und ",
+          "part6": "kennzeichnet den richtigen Lösungsbuchstaben."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "Alle Ihre hochgeladenen {{category}}-Fragen löschen?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Staking-Transaktionen",
+      "tableHeaders": {
+        "transactionNumber": "Transaktionsnummer",
+        "amount": "Betrag",
+        "stakingPlan": "Staking-Plan"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Empfehlungsprämien-Transaktionen",
+      "tableHeaders": {
+        "referralRate": "Empfehlungsrate"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Team-Prämien-Bericht",
+      "tableHeaders": {
+        "date": "Datum",
+        "memberId": "Mitglieds-ID",
+        "level": "Ebene",
+        "divisionRoi": "Division-ROI",
+        "rate": "Rate",
+        "amount": "Betrag"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Führungskräfte-Prämien-Transaktionen",
+      "tableHeaders": {
+        "contributedBy": "Beigetragen von Mitglieds-ID",
+        "totalSubscriptionCount": "Gesamte Anzahl Abonnements"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Par-Rank-Prämien-Transaktionen",
+      "tableHeaders": {
+        "rank": "Rang"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Dashboard",
+      "holdings": "Bestände",
+      "stakingPlans": "Staking-Pläne",
+      "rewards": "Belohnungen",
+      "creditConversion": "Guthaben-Umwandlung",
+      "referral": "Empfehlungen",
+      "promotion": "Aktionen",
+      "stakingRewards": "Staking-Belohnungen",
+      "quiz": "Quiz",
+      "qrCode": "QR-Code"
+    },
+    "groups": {
+      "wallet": "Wallet",
+      "funds": "Guthaben",
+      "learn": "Lernen"
+    },
+    "searchPortal": "Portal durchsuchen...",
+    "typeToNavigate": "Einen Befehl eingeben oder suchen...",
+    "empty": {
+      "noResults": "Keine Ergebnisse gefunden."
+    }
+  },
+  "fab": {
+    "searchLabel": "Suche"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Gesamtvermögen (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Belohnungs-Asset"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "Januar",
+        "february": "Februar",
+        "march": "März",
+        "april": "April",
+        "may": "Mai",
+        "june": "Juni",
+        "july": "Juli",
+        "august": "August",
+        "september": "September",
+        "october": "Oktober",
+        "november": "November",
+        "december": "Dezember"
+      },
+      "monthsShort": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mär",
+        "apr": "Apr",
+        "may": "Mai",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Okt",
+        "nov": "Nov",
+        "dec": "Dez"
+      },
+      "weekdaysShort": {
+        "sun": "So",
+        "mon": "Mo",
+        "tue": "Di",
+        "wed": "Mi",
+        "thu": "Do",
+        "fri": "Fr",
+        "sat": "Sa"
+      },
+      "title": "P&L-Kalender",
+      "view": {
+        "list": "Liste",
+        "calendar": "Kalender"
+      },
+      "filters": {
+        "month": "Monat",
+        "year": "Jahr"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Rendite"
+      },
+      "empty": {
+        "noData": "Keine Daten"
+      },
+      "status": {
+        "profit": "Gewinn",
+        "loss": "Verlust"
+      }
     }
   }
 }
