@@ -1,17 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Eye, EyeOff } from "lucide-react";
-import { MetricValue } from "@/components/metric-value";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
-import { PageHeader } from "@/components/page-header";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { TotalAssetsGauge } from "@/components/total-assets-gauge";
+import { StakingOverviewCard } from "@/components/staking-overview-card";
 import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
 
@@ -24,79 +19,29 @@ type Holding = {
   quantity: number; avg_cost: number; current_price: number; currency: string;
 };
 
-const COLORS = ["oklch(0.78 0.13 80)", "oklch(0.55 0.13 155)", "oklch(0.6 0.1 250)", "oklch(0.65 0.15 30)", "oklch(0.5 0.05 280)"];
-
-function fmt(n: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
-}
-
 function HoldingsPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
   const { wallet } = useWallet();
-  const [showAmount, setShowAmount] = useState(true);
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
       .then(({ data }) => setRows((data ?? []) as Holding[]));
   }, [user]);
 
-  const allocation = useMemo(() => {
-    const map: Record<string, number> = {};
-    rows.forEach((h) => {
-      const v = Number(h.quantity) * Number(h.current_price);
-      map[h.asset_class] = (map[h.asset_class] ?? 0) + v;
-    });
-    return Object.entries(map).map(([name, value]) => ({ name, value }));
-  }, [rows]);
-
   return (
     <div className="space-y-6">
-      
-
-      <div className="mb-3 grid grid-cols-2 gap-3">
-        <SpotlightCard className="liquid-glass rounded-2xl p-6">
-          <div className="flex items-center justify-between">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-              {t("pages.holdings.totalStakingAmount")}
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowAmount((s) => !s)}
-              aria-label={showAmount ? t("common.hideAmount") : t("common.showAmount")}
-              className="text-gold transition-colors hover:text-gold/80"
-            >
-              {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-            </button>
-          </div>
-          <div className="mt-2 text-3xl">
-            {showAmount ? (
-              <MetricValue value={50000} prefix="$" decimals={0} size="lg" />
-            ) : (
-              <span className="font-light tabular-nums tracking-[-0.04em] text-gold">******</span>
-            )}
-          </div>
-        </SpotlightCard>
-        <SpotlightCard className="liquid-glass rounded-2xl p-6">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold">
-            {t("pages.holdings.stakingDays")}
-          </div>
-          <div className="mt-2">
-            <MetricValue value={54} decimals={0} size="lg" unit="days" />
-          </div>
-        </SpotlightCard>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <SpotlightCard className="liquid-glass rounded-2xl p-6">
-          <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
-        </SpotlightCard>
-      </motion.div>
+      <StakingOverviewCard
+        stakingAmount={50000}
+        stakingDays={54}
+        sinceDate="Mar 16"
+        tier="Premium"
+        totalAssets={wallet.total}
+        usd={wallet.usd}
+        rewards={wallet.rewards}
+        staking={wallet.staking}
+      />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
