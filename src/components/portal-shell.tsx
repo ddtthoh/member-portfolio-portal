@@ -18,7 +18,7 @@ import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { CommandPalette } from "@/components/command-palette";
-import { MobileFab } from "@/components/mobile-fab";
+
 import { ThreeBackground } from "@/components/three-background";
 
 import { useTranslation } from "react-i18next";
@@ -163,7 +163,7 @@ export function PortalShell() {
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
         <ThreeBackground fixed />
         <CommandPalette />
-        <MobileFab />
+        
         {/* Backdrop layers */}
         <div
           aria-hidden
