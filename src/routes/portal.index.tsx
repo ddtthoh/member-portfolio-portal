@@ -119,7 +119,7 @@ function Overview() {
                 <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                   <span className="inline-flex items-center gap-0.5 rounded-md bg-emerald-500/10 px-2 py-0.5 text-sm font-medium tabular-nums text-emerald-400 ring-1 ring-emerald-500/20">
                     <ArrowUpRight className="h-3 w-3" />
-                    {hideBalance ? "******" : "$960.20"}
+                    {hideBalance ? "******" : <CountUp value={960.20} prefix="$" decimals={2} />}
                   </span>
                   {!hideBalance && (
                     <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-[10px] tabular-nums text-emerald-400 ring-1 ring-emerald-500/20">
