@@ -55,7 +55,39 @@ type GenericPromo = {
   description: string;
 };
 
-type Promo = EventPromo | GenericPromo;
+type RankingTier = {
+  name: string;
+  reward: string;
+  valueUsd: number;
+  icon: "bronze" | "silver" | "gold" | "platinum" | "diamond" | "partner";
+};
+
+type TcbTier = {
+  minRcb: number;
+  minAum: number;
+  pct: number;
+};
+
+type RankingPromo = {
+  kind: "ranking";
+  id: string;
+  title: string;
+  subtitle: string;
+  windowLabel: string;
+  intro: string;
+  // RCB: $5 per qualifying referral
+  rcbPerReferralUsd: number;
+  rcbMinStakeUsd: number;
+  rcbCount: number; // current
+  // TCB: tiered % of AUM
+  tcbTiers: TcbTier[];
+  currentAum: number;
+  // Community ranking ladder
+  rankingTiers: RankingTier[];
+  currentRankIndex: number; // -1 if none reached
+};
+
+type Promo = EventPromo | GenericPromo | RankingPromo;
 
 const PROMOTIONS: Record<string, Promo> = {
   "naslab-turkey": {
