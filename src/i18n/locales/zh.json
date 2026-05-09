@@ -398,11 +398,6 @@
       "description": "您当前活跃质押参与的摘要。",
       "totalStakingAmount": "总质押金额",
       "stakingDays": "质押天数",
-      "totalStaking": "总质押",
-      "daysUnit": "天",
-      "since": "起始于 {{date}}",
-      "accruing": "累计中",
-      "tierLabel": "{{tier}} 等级",
       "tableHeaders": {
         "date": "日期",
         "stakingPlan": "质押计划",
