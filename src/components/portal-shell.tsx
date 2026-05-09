@@ -284,7 +284,7 @@ export function PortalShell() {
         {/* Main */}
         <div className="flex min-w-0 flex-1 flex-col opacity-95">
           <header
-            className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/90 px-4 lg:px-8"
+            className="sticky top-0 z-30 flex h-16 items-center justify-between gap-2 border-b border-border bg-background/90 px-3 sm:px-4 lg:px-8"
             style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
           >
             <div className="flex items-center gap-3">
@@ -312,7 +312,7 @@ export function PortalShell() {
                 <img src={participantPortalLogo} alt={t("brand.portal")} className="h-12 w-12 object-contain" />
               </Link>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <Link
                 to="/portal/promotion"
                 aria-label={t("nav.promotion", "Promotion")}
@@ -381,7 +381,7 @@ export function PortalShell() {
           </header>
           <TickerTape />
           <main
-            className="min-w-0 flex-1 px-4 pb-[calc(24px+env(safe-area-inset-bottom,0px))] pt-3 lg:px-10 lg:pb-8"
+            className="min-w-0 w-full flex-1 overflow-x-hidden px-3 pb-[calc(24px+env(safe-area-inset-bottom,0px))] pt-3 sm:px-4 lg:px-10 lg:pb-8"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -390,6 +390,7 @@ export function PortalShell() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.28, ease: "easeOut" }}
+                className="min-w-0 w-full"
               >
                 <Outlet />
               </motion.div>
