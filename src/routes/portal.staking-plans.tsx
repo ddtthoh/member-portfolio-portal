@@ -42,7 +42,7 @@ function StakingPlansPage() {
                   {t("pages.stakingPlans.labels.minimumStaking")}
                 </div>
                 <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
-                  <CountUp value={plan.minAmount} prefix="$" decimals={2} />
+                  ${plan.minAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
               </div>
 
