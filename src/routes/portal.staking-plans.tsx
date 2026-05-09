@@ -82,14 +82,14 @@ function StakingPlansPage() {
               <h2 className="font-serif text-lg tracking-tight text-foreground sm:text-xl">
                 {tierLabels[tier]}
               </h2>
-              <div className="flex items-baseline gap-4 font-mono text-[11px] tabular-nums text-muted-foreground">
+              <div className="flex items-baseline gap-4 text-sm tabular-nums tracking-[-0.04em] text-muted-foreground">
                 <span>
                   <span className="mr-1.5 text-[9px] uppercase tracking-[0.22em] text-muted-foreground/70">Daily</span>
-                  <span className="text-foreground/90">{nbspRange(sample.dailyRoi)}</span>
+                  <span className="font-light text-foreground/90">{nbspRange(sample.dailyRoi)}</span>
                 </span>
                 <span>
                   <span className="mr-1.5 text-[9px] uppercase tracking-[0.22em] text-muted-foreground/70">Monthly</span>
-                  <span className="text-gold">{nbspRange(sample.monthlyRoi)}</span>
+                  <span className="font-light text-gold">{nbspRange(sample.monthlyRoi)}</span>
                 </span>
               </div>
             </div>
