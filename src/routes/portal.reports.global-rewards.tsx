@@ -12,7 +12,7 @@ function GlobalRewardsPage() {
   const { t } = useTranslation();
   const headers = [
     t("pages.reportsTeam.tableHeaders.date"),
-    t("pages.reportsTeam.tableHeaders.amount"),
+    "Rank",
     t("pages.reportsTeam.tableHeaders.rate"),
   ];
   return (
