@@ -1,5 +1,7 @@
 {
-  "brand": { "portal": "Portale Partecipanti" },
+  "brand": {
+    "portal": "Portale Partecipanti"
+  },
   "nav": {
     "overview": "Panoramica",
     "stakingPlan": "Piano di Staking",
@@ -9,6 +11,8 @@
     "creditConversionStatement": "Estratto Conversione Crediti",
     "usdStatement": "Estratto USD",
     "rewardsStatement": "Estratto Premi",
+    "deposit": "Deposito",
+    "withdrawal": "Prelievo",
     "usdCreditsTransfer": "Trasferimento USD e Crediti",
     "convertCredits": "Converti Crediti",
     "transferUsd": "Trasferisci USD",
@@ -41,7 +45,9 @@
     "network": "Rete",
     "logout": "Disconnetti"
   },
-  "language": { "switch": "Cambia lingua" },
+  "language": {
+    "switch": "Cambia lingua"
+  },
   "common": {
     "submit": "Invia",
     "cancel": "Annulla",
@@ -82,23 +88,750 @@
     }
   },
   "pages": {
-    "deposit": { "eyebrow": "Fondi · In entrata", "title": "Deposito", "description": "Si prega di notare che è necessario depositare almeno 10 USDT BEP20." },
-    "withdrawal": { "eyebrow": "Fondi · In uscita", "title": "Prelievo", "description": "Richiedi un pagamento al tuo conto bancario verificato. I fondi arrivano in genere entro 1-2 giorni lavorativi." },
-    "promotion": { "eyebrow": "Fondi · Bonus", "title": "Promozione", "description": "Promozione fondatori a tempo limitato per depositi qualificati." },
-    "qna": { "eyebrow": "Test di Conoscenza", "title": "Formazione", "description": "Rispondi correttamente a 7 domande su 10 per superare. Puoi ripetere il test illimitatamente." },
-    "participation": { "eyebrow": "Programmi", "title": "Staking", "description": "Monitora il tuo staking attivo nei programmi dell'azienda." },
-    "transactions": { "eyebrow": "Registro", "title": "Transazioni", "description": "Cronologia completa di depositi, scambi e prelievi." },
-    "support": { "eyebrow": "Concierge", "title": "Supporto", "description": "Apri un ticket privato — il nostro team risponde rapidamente." },
-    "usdStatement": { "eyebrow": "Estratto", "title": "Estratto USD", "description": "Riepilogo dell'attività del tuo conto USD." },
-    "network": { "eyebrow": "Relazioni", "title": "Rete", "description": "Il tuo cerchio di consulenti, custodi e partner di fiducia." },
-    "holdings": { "eyebrow": "Portafoglio", "title": "Panoramica Portafoglio", "description": "Riepilogo del tuo staking attivo." },
-    "transferUsd": { "eyebrow": "Wallet USD", "title": "Trasferisci USD", "description": "Trasferisci USD all'account di un altro membro." },
-    "rewardsStatement": { "eyebrow": "Estratto", "title": "Estratto Premi", "description": "Riepilogo della tua attività premi." },
-    "documents": { "eyebrow": "Libreria", "title": "Documenti ed Estratti", "description": "Estratti, documenti fiscali e contratti legali." },
-    "creditConversionStatement": { "eyebrow": "Estratto", "title": "Estratto Conversione Crediti", "description": "Rivedi cronologia e saldi di conversione crediti." },
-    "stakingPlans": { "eyebrow": "Staking", "title": "Piano di Staking", "description": "Scegli un livello di staking adatto ai tuoi obiettivi." },
-    "convertCredits": { "eyebrow": "Estratto", "title": "Converti Crediti", "description": "Converti crediti tra saldi." },
-    "referral": { "eyebrow": "Rete · Invito", "title": "Referral", "description": "Invita investitori qualificati. Guadagna un rimborso strutturato su ogni conto finanziato." },
-    "reports": { "eyebrow": "Curato", "title": "Report Trimestrali", "description": "Lettere e analisi preparate dal tuo team di consulenza." }
+    "deposit": {
+      "eyebrow": "Fondi · In entrata",
+      "title": "Deposito",
+      "description": "Si prega di notare che è necessario depositare almeno 10 USDT BEP20.",
+      "toast": {
+        "addressCopied": "Indirizzo copiato",
+        "copied": "Copiato",
+        "referenceCopied": "Riferimento copiato",
+        "hashCopied": "Hash copiato"
+      },
+      "importantReminder": {
+        "title": "Promemoria importante",
+        "sendOnly": "Invia solo ",
+        "viaThe": " tramite la rete ",
+        "networkSuffix": ".",
+        "otherTokens": "L'invio di altri token o reti comporterà la ",
+        "permanentLoss": "perdita permanente",
+        "confirmation": "I depositi vengono accreditati dopo la conferma on-chain (di solito 1–3 minuti)."
+      },
+      "qr": {
+        "alt": "Codice QR di deposito",
+        "empty": "Nessun QR caricato"
+      },
+      "address": {
+        "label": "Indirizzo di deposito",
+        "empty": "Nessun indirizzo impostato. Usa Modifica per configurare.",
+        "copyAria": "Copia indirizzo"
+      },
+      "filter": {
+        "title": "Filtra transazioni",
+        "date": "Data",
+        "reference": "Numero di riferimento",
+        "refPlaceholder": "TXN…",
+        "hash": "Hash della transazione",
+        "hashPlaceholder": "0x…",
+        "showing": "Visualizzazione di ",
+        "of": " su ",
+        "records": " record",
+        "reset": "Reimposta",
+        "apply": "Applica filtro"
+      },
+      "history": {
+        "title": "Cronologia depositi",
+        "live": "Live"
+      },
+      "tableHeaders": {
+        "date": "Data",
+        "reference": "Numero di riferimento",
+        "hash": "Hash della transazione"
+      },
+      "empty": {
+        "title": "Nessun deposito trovato",
+        "noDeposits": "I tuoi depositi confermati appariranno qui una volta ricevuti.",
+        "filtered": "Prova a regolare i filtri o reimposta per vedere tutti i record."
+      }
+    },
+    "withdrawal": {
+      "eyebrow": "Fondi · In uscita",
+      "title": "Prelievo",
+      "description": "Richiedi un pagamento al tuo conto bancario verificato. I fondi arrivano in genere entro 1-2 giorni lavorativi.",
+      "pageDescription": "Preleva USDT verso i tuoi indirizzi wallet BEP20 salvati.",
+      "importantReminder": {
+        "title": "Promemoria importante",
+        "supportOnly": "I prelievi supportano solo ",
+        "viaThe": " tramite la rete ",
+        "networkSuffix": ".",
+        "wrongAddress": "Un indirizzo o una rete errati comporteranno la ",
+        "permanentLoss": "perdita permanente",
+        "processingTime": "Le richieste vengono elaborate dopo l'approvazione dell'amministratore, in genere entro pochi minuti."
+      },
+      "newRequest": {
+        "title": "Nuova richiesta di prelievo",
+        "creditType": "Tipo di credito *",
+        "walletAddress": "Indirizzo wallet di prelievo *",
+        "noWallets": "Nessun wallet salvato. ",
+        "addOneFirst": "Aggiungine prima uno →",
+        "selectWallet": "-- Seleziona un wallet salvato --",
+        "amount": "Importo *",
+        "minAmount": "Min {{min}} USDT",
+        "available": "Disponibile: ",
+        "exceedsBalance": "Supera il saldo disponibile",
+        "submit": "Richiedi prelievo"
+      },
+      "summary": {
+        "usdCredit": "Credito USD",
+        "withdrawalAmount": "Importo del prelievo",
+        "adminFee": "Commissione amministrativa (2%)",
+        "receiveAmount": "Riceverai"
+      },
+      "wallets": {
+        "title": "Wallet di prelievo",
+        "subtitle": "Indirizzi BEP20 salvati",
+        "addWallet": "Aggiungi wallet",
+        "noWalletsTitle": "Ancora nessun wallet",
+        "noWalletsDesc": "Aggiungi un wallet BEP20 per iniziare a prelevare."
+      },
+      "tableHeaders": {
+        "date": "Data",
+        "walletName": "Nome del wallet",
+        "walletAddress": "Indirizzo del wallet",
+        "action": "Azione",
+        "reference": "Numero di riferimento",
+        "recipientAddress": "Indirizzo del destinatario",
+        "chain": "Catena USDT",
+        "withdrawalAmt": "Importo prelievo",
+        "adminFee": "Commissione amministrativa",
+        "receiveAmount": "Riceverai",
+        "status": "Stato",
+        "remark": "Nota",
+        "hash": "Hash transazione"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "filter": {
+        "recipientAddress": "Indirizzo destinatario",
+        "status": "Stato",
+        "statusAll": "Tutti",
+        "statusPending": "In attesa",
+        "statusProcessing": "In elaborazione",
+        "statusCompleted": "Completato",
+        "statusRejected": "Rifiutato"
+      },
+      "history": {
+        "title": "Cronologia prelievi",
+        "subtitle": "Tutte le richieste",
+        "exportExcel": "Esporta Excel"
+      },
+      "empty": {
+        "title": "Nessun prelievo trovato",
+        "noRequests": "Le tue richieste appariranno qui.",
+        "filtered": "Prova a regolare i filtri."
+      },
+      "dialog": {
+        "editWallet": "Modifica wallet",
+        "addWallet": "Aggiungi nuovo wallet",
+        "walletDesc": "Indirizzo di prelievo USDT BEP20.",
+        "walletName": "Nome del wallet *",
+        "walletNamePlaceholder": "es. Personale",
+        "walletAddress": "Indirizzo del wallet *",
+        "walletAddressHint": "Deve essere un indirizzo BEP20 valido che inizia con 0x.",
+        "saving": "Salvataggio…",
+        "update": "Aggiorna"
+      },
+      "confirm": {
+        "title": "Conferma prelievo",
+        "desc": "Ti preghiamo di rivedere i dettagli prima di inviare.",
+        "wallet": "Wallet",
+        "address": "Indirizzo",
+        "chain": "Catena",
+        "amount": "Importo",
+        "adminFee": "Commissione amministrativa",
+        "receiveAmount": "Riceverai",
+        "submitting": "Invio in corso…",
+        "confirmBtn": "Conferma",
+        "deleteWallet": "Eliminare il wallet \"{{name}}\"?"
+      },
+      "toast": {
+        "walletNameRequired": "Il nome del wallet è obbligatorio",
+        "invalidAddress": "Indirizzo wallet non valido (deve iniziare con 0x ed essere di 42 caratteri)",
+        "walletUpdated": "Wallet aggiornato",
+        "walletAdded": "Wallet aggiunto",
+        "walletDeleted": "Wallet eliminato",
+        "selectWallet": "Seleziona un wallet",
+        "invalidAmount": "Importo non valido",
+        "requestSubmitted": "Richiesta di prelievo inviata",
+        "noRecordsExport": "Nessun record da esportare",
+        "excelExported": "Excel esportato"
+      }
+    },
+    "promotion": {
+      "eyebrow": "Fondi · Bonus",
+      "title": "Promozione",
+      "description": "Promozione fondatori a tempo limitato per depositi qualificati.",
+      "promotions": {
+        "naslabTurkey": {
+          "title": "Evento di apertura Naslab in Turchia",
+          "subtitle": "Evento di lancio"
+        },
+        "rankingIncentive": {
+          "title": "Incentivo di classifica RCB, TCB, Community",
+          "subtitle": "Premi di classifica"
+        }
+      },
+      "viewDetails": "Visualizza dettagli"
+    },
+    "qna": {
+      "eyebrow": "Test di Conoscenza",
+      "title": "Formazione",
+      "description": "Rispondi correttamente a 7 domande su 10 per superare. Puoi ripetere il test illimitatamente."
+    },
+    "participation": {
+      "eyebrow": "Programmi",
+      "title": "Staking",
+      "description": "Monitora il tuo staking attivo nei programmi dell'azienda."
+    },
+    "transactions": {
+      "eyebrow": "Registro",
+      "title": "Transazioni",
+      "description": "Cronologia completa di depositi, scambi e prelievi.",
+      "history": {
+        "title": "Cronologia transazioni"
+      },
+      "tableHeaders": {
+        "type": "Tipo",
+        "asset": "Asset",
+        "quantity": "Quantità",
+        "price": "Prezzo"
+      },
+      "empty": {
+        "noTransactions": "Ancora nessuna transazione."
+      }
+    },
+    "support": {
+      "eyebrow": "Concierge",
+      "title": "Supporto",
+      "description": "Apri un ticket privato — il nostro team risponde rapidamente.",
+      "categories": {
+        "general": "Generale",
+        "account": "Account",
+        "deposit": "Deposito",
+        "withdrawal": "Prelievo",
+        "technical": "Tecnico",
+        "other": "Altro"
+      },
+      "status": {
+        "open": "aperto",
+        "pending": "in attesa",
+        "resolved": "risolto",
+        "closed": "chiuso"
+      },
+      "toast": {
+        "created": "Ticket di supporto creato",
+        "fileSizeExceeded": "Alcuni file superavano i 2 MB e sono stati ignorati."
+      },
+      "filter": {
+        "title": "Filtro",
+        "ticketNumber": "Numero ticket",
+        "category": "Categoria",
+        "apply": "Filtra"
+      },
+      "list": {
+        "title": "Elenco ticket di supporto",
+        "newTicket": "Nuovo ticket di supporto"
+      },
+      "dialog": {
+        "newTicket": "Nuovo ticket di supporto",
+        "category": "Categoria",
+        "subject": "Oggetto",
+        "message": "Messaggio",
+        "attachments": "Allegati",
+        "chooseFile": "Scegli file",
+        "noFileChosen": "Nessun file scelto",
+        "filesSelected": "{{count}} file selezionato/i",
+        "removeFile": "Rimuovi file",
+        "fileLimit": "Limite file 2 MB, tipi Jpg/png/gif, è possibile caricare più di 1 file",
+        "proceed": "Procedi",
+        "categoryLabel": "Categoria:"
+      },
+      "tableHeaders": {
+        "ticketNumber": "Numero ticket",
+        "category": "Categoria",
+        "subject": "Oggetto"
+      },
+      "empty": {
+        "noTickets": "Nessun ticket trovato."
+      },
+      "actions": {
+        "view": "Visualizza"
+      }
+    },
+    "usdStatement": {
+      "eyebrow": "Estratto",
+      "title": "Estratto USD",
+      "description": "Riepilogo dell'attività del tuo conto USD.",
+      "tableHeaders": {
+        "txId": "ID transazione",
+        "type": "Tipo di transazione",
+        "credit": "Credito",
+        "debit": "Addebito",
+        "remarks": "Note"
+      }
+    },
+    "network": {
+      "eyebrow": "Relazioni",
+      "title": "Rete",
+      "description": "Il tuo cerchio di consulenti, custodi e partner di fiducia.",
+      "verificationRequired": "Verifica richiesta",
+      "unlockTitle": "Completa il quiz sul piano marketing per sbloccare la tua rete",
+      "unlockDescription": "Per garantire che ogni membro comprenda appieno il piano marketing prima di creare il proprio team, la visualizzazione della rete è bloccata finché non superi il quiz una volta. Dopo averlo superato, l'accesso sarà permanente.",
+      "steps": {
+        "takeQuiz": "Fai il quiz sul piano marketing",
+        "score": "Ottieni almeno 7 su 10 per superarlo",
+        "unlock": "La rete si sblocca all'istante"
+      },
+      "actions": {
+        "takeQuiz": "Fai quiz sul piano marketing"
+      },
+      "empty": {
+        "noTeam": "Il tuo team dedicato verrà elencato qui a breve."
+      }
+    },
+    "holdings": {
+      "eyebrow": "Portafoglio",
+      "title": "Panoramica Portafoglio",
+      "description": "Riepilogo del tuo staking attivo.",
+      "totalStakingAmount": "Importo totale di staking",
+      "stakingDays": "Giorni di staking",
+      "tableHeaders": {
+        "date": "Data",
+        "stakingPlan": "Piano di staking",
+        "stakingDate": "Data di staking",
+        "stakingAmount": "Importo di staking",
+        "minMonthlyRate": "Tasso mensile min",
+        "maxMonthlyRate": "Tasso mensile max",
+        "status": "Stato"
+      },
+      "empty": {
+        "noStakingPlan": "Ancora nessun piano di staking."
+      },
+      "refund": {
+        "button": "Richiedi rimborso completo",
+        "title": "Richiedi rimborso completo",
+        "description": "Sei sicuro di voler richiedere un rimborso completo? Il nostro team esaminerà la tua richiesta e ti contatterà a breve.",
+        "confirm": "Conferma richiesta",
+        "submitted": "Richiesta di rimborso inviata"
+      }
+    },
+    "transferUsd": {
+      "eyebrow": "Wallet USD",
+      "title": "Trasferisci USD",
+      "description": "Trasferisci USD all'account di un altro membro.",
+      "toast": {
+        "fillRequired": "Compila tutti i campi obbligatori",
+        "submitted": "Richiesta di trasferimento inviata"
+      },
+      "details": {
+        "title": "Dettagli trasferimento"
+      },
+      "form": {
+        "usdTransfer": "Trasferimento USD",
+        "transferTo": "Trasferisci all'ID membro",
+        "memberIdPlaceholder": "Inserisci l'ID membro",
+        "transferAmount": "Importo del trasferimento",
+        "remarks": "Note",
+        "remarksPlaceholder": "Note opzionali"
+      }
+    },
+    "rewardsStatement": {
+      "eyebrow": "Estratto",
+      "title": "Estratto Premi",
+      "description": "Riepilogo della tua attività premi."
+    },
+    "documents": {
+      "eyebrow": "Libreria",
+      "title": "Documenti ed Estratti",
+      "description": "Estratti, documenti fiscali e contratti legali.",
+      "empty": {
+        "noDocuments": "Nessun documento ancora disponibile. I tuoi estratti conto appariranno qui non appena verranno emessi."
+      }
+    },
+    "creditConversionStatement": {
+      "eyebrow": "Estratto",
+      "title": "Estratto Conversione Crediti",
+      "description": "Rivedi cronologia e saldi di conversione crediti.",
+      "tableHeaders": {
+        "date": "Data",
+        "source": "Credito di origine",
+        "destination": "Credito di destinazione",
+        "amount": "Importo convertito",
+        "status": "Stato"
+      }
+    },
+    "stakingPlans": {
+      "eyebrow": "Staking",
+      "title": "Piano di Staking",
+      "description": "Scegli un livello di staking adatto ai tuoi obiettivi.",
+      "plans": {
+        "standardLite": "Standard Lite",
+        "standardPlus": "Standard Plus",
+        "standardPro": "Standard Pro",
+        "advanceLite": "Advance Lite",
+        "advancePlus": "Advance Plus",
+        "advancePro": "Advance Pro",
+        "premiumLite": "Premium Lite",
+        "premiumPlus": "Premium Plus",
+        "premiumPro": "Premium Pro"
+      },
+      "labels": {
+        "minimumStaking": "Staking minimo",
+        "monthlyRoi": "ROI mensile"
+      }
+    },
+    "convertCredits": {
+      "eyebrow": "Estratto",
+      "title": "Converti Crediti",
+      "description": "Converti crediti tra saldi.",
+      "usdWallet": "Wallet USD",
+      "rewardsWallet": "Wallet dei premi",
+      "convertDetails": "Dettagli della conversione",
+      "sourceCredit": "Credito di origine",
+      "rewardsCredit": "Credito dei premi",
+      "destinationCredit": "Credito di destinazione",
+      "sourceAmount": "Importo di origine"
+    },
+    "referral": {
+      "eyebrow": "Rete · Invito",
+      "title": "Referral",
+      "description": "Invita investitori qualificati. Guadagna un rimborso strutturato su ogni conto finanziato.",
+      "yourCode": "Il tuo codice",
+      "labels": {
+        "referralCode": "Codice referral",
+        "inviteLink": "Link di invito",
+        "tier": "Livello",
+        "activeReferrals": "Referral attivi",
+        "lifetimeRebate": "Rimborso a vita"
+      },
+      "tiers": {
+        "gold": "Gold"
+      },
+      "programTerms": "Termini del programma",
+      "terms": {
+        "rebate": "Rimborso del 1,0% sulle commissioni di gestione del primo anno per ogni referral finanziato.",
+        "minimum": "I conti dei referral devono soddisfare il minimo di $ 25.000 per qualificarsi.",
+        "settle": "I rimborsi vengono liquidati trimestralmente sul saldo in contanti del tuo portafoglio.",
+        "upgrade": "Contatta il tuo consulente per passare al livello Platinum."
+      }
+    },
+    "reports": {
+      "eyebrow": "Curato",
+      "title": "Report Trimestrali",
+      "description": "Lettere e analisi preparate dal tuo team di consulenza."
+    },
+    "promotionDetail": {
+      "promotions": {
+        "naslabTurkey": {
+          "description": "I dettagli della promozione saranno presto disponibili. Aggiorna questa sezione con l'intera descrizione dell'evento, i criteri di qualificazione, i premi e le tempistiche."
+        },
+        "rankingIncentive": {
+          "description": "I dettagli della promozione saranno presto disponibili. Aggiorna questa sezione con i livelli di classifica, la struttura dei pagamenti e come vengono misurati i contributi della community."
+        }
+      },
+      "progressLabel": "I tuoi progressi",
+      "notFound": "Promozione non trovata.",
+      "backToPromotions": "Torna alle promozioni",
+      "details": "Dettagli",
+      "progressDescription": "I tuoi progressi per questa promozione appariranno qui."
+    },
+    "staking": {
+      "activePrograms": "Programmi attivi",
+      "empty": {
+        "noStakings": "Al momento non hai alcuno staking attivo. Le nuove opportunità appariranno qui quando saranno disponibili."
+      },
+      "tableHeaders": {
+        "package": "Pacchetto",
+        "roiStartDate": "Data di inizio ROI",
+        "stakingAmount": "Importo di staking",
+        "roiMin": "% ROI Min",
+        "roiMax": "% ROI Max"
+      },
+      "status": {
+        "active": "Attivo"
+      }
+    },
+    "assetAnalysis": {
+      "description": "Prestazioni, allocazione e analisi dei rischi per il tuo portafoglio."
+    },
+    "profile": {
+      "title": "Informazioni sul profilo",
+      "description": "Gestisci i tuoi dati personali, le informazioni di contatto e l'identità dell'account.",
+      "verifiedMember": "Membro verificato",
+      "memberFallback": "Membro",
+      "status": "Stato",
+      "active": "Attivo",
+      "tier": "Livello",
+      "accountIdentity": {
+        "title": "Identità dell'account",
+        "subtitle": "Credenziali verificate in sola lettura"
+      },
+      "memberId": "ID membro",
+      "emailAddress": "Indirizzo email",
+      "personalDetails": {
+        "title": "Dettagli personali",
+        "subtitle": "La tua identità legale e data di nascita"
+      },
+      "name": "Nome",
+      "namePlaceholder": "Nome legale completo",
+      "nationalId": "ID nazionale",
+      "nationalIdPlaceholder": "Numero di carta d'identità / passaporto",
+      "dob": "Data di nascita",
+      "sponsorId": "ID sponsor",
+      "contact": {
+        "title": "Contatto",
+        "subtitle": "Come ti contattiamo"
+      },
+      "mobilePrefix": "Prefisso mobile",
+      "mobileNumber": "Numero di cellulare",
+      "mobileNumberPlaceholder": "Numero di telefono",
+      "address": {
+        "title": "Indirizzo",
+        "subtitle": "Luogo di residenza"
+      },
+      "country": "Paese",
+      "region": "Regione",
+      "province": "Provincia",
+      "provincePlaceholder": "Stato / Provincia",
+      "city": "Città",
+      "addressPlaceholder": "Indirizzo stradale",
+      "auditNotice": "Le modifiche sono crittografate e registrate per l'audit",
+      "saving": "Salvataggio…",
+      "toast": {
+        "error": "Salvataggio del profilo non riuscito",
+        "success": "Profilo aggiornato"
+      },
+      "countries": {
+        "UnitedStates": "Stati Uniti",
+        "China": "Cina",
+        "Indonesia": "Indonesia",
+        "Iran": "Iran",
+        "SaudiArabia": "Arabia Saudita",
+        "Spain": "Spagna",
+        "Germany": "Germania",
+        "Turkey": "Turchia"
+      }
+    },
+    "qrCode": {
+      "title": "Il mio codice QR referral",
+      "description": "Il tuo biglietto d'invito unico. Condividilo con i potenziali clienti per farli registrare sotto il tuo account.",
+      "verifiedReferral": "Referral verificato",
+      "toast": {
+        "linkCopied": "Link di referral copiato",
+        "idCopied": "ID membro copiato",
+        "qrDownloaded": "Codice QR scaricato",
+        "downloadFailed": "Download fallito"
+      },
+      "share": {
+        "title": "Registrati tramite il mio referral",
+        "text": "Registrati utilizzando il mio ID membro {{memberId}}"
+      },
+      "qrAlt": "QR di referral per il membro {{memberId}}",
+      "scanToRegister": "Scansiona per registrarti con questo consulente",
+      "referralLink": "Link del referral",
+      "copyLink": "Copia link",
+      "downloadQr": "Scarica QR",
+      "shareBtn": "Condividi",
+      "copyMemberId": "Copia ID membro",
+      "howItWorks": "Come funziona",
+      "steps": {
+        "1": "Invia il tuo codice QR o il tuo link di referral al tuo cliente.",
+        "2": "Il cliente scansiona o clicca, atterrando sulla pagina di registrazione precompilata con il tuo tag membro.",
+        "3": "Una volta completata la registrazione, sarà permanentemente collegato alla tua rete."
+      }
+    },
+    "walletEdit": {
+      "title": "Modifica wallet",
+      "description": "Aggiorna i saldi, la rete di deposito, l'indirizzo e il codice QR.",
+      "balances": {
+        "title": "Saldi",
+        "usdWallet": "Wallet USD",
+        "rewardsWallet": "Wallet dei premi",
+        "stakingAmount": "Importo di staking"
+      },
+      "actions": {
+        "saving": "Salvataggio…",
+        "saveBalances": "Salva saldi",
+        "uploading": "Caricamento in corso…",
+        "replaceQr": "Sostituisci QR",
+        "uploadQr": "Carica QR",
+        "saveDepositSettings": "Salva impostazioni di deposito",
+        "parsing": "Analisi in corso…",
+        "uploadDocx": "Carica .docx",
+        "clearCompany": "Cancella azienda",
+        "clearMarketing": "Cancella marketing"
+      },
+      "toast": {
+        "walletUpdated": "Wallet aggiornato",
+        "qrUploaded": "QR caricato",
+        "depositSettingsSaved": "Impostazioni di deposito salvate",
+        "noQuestions": "Nessuna domanda rilevata. Controlla la formattazione (vedi suggerimento di seguito).",
+        "importedQuestions": "Importate {{count}} domande",
+        "failedToImport": "Importazione non riuscita",
+        "cleared": "Cancellato"
+      },
+      "depositSettings": {
+        "title": "Impostazioni di deposito",
+        "network": "Rete",
+        "networkLabel": "Etichetta della rete",
+        "walletAddress": "Indirizzo del wallet",
+        "qrCode": "Codice QR",
+        "qrPreviewAlt": "Anteprima QR"
+      },
+      "quiz": {
+        "title": "Banca delle domande e risposte",
+        "description": "Carica un file .docx contenente domande a risposta multipla. Il sistema ne sceglierà casualmente 10 ogni volta che il cliente effettuerà il test.",
+        "company": "Azienda: ",
+        "marketing": "Marketing: ",
+        "expectedFormat": "Formato .docx previsto",
+        "hint": {
+          "part1": "Usa le intestazioni ",
+          "part2": " o ",
+          "part3": " per cambiare categoria. Le domande iniziano con un numero, le opzioni usano ",
+          "part4": " / ",
+          "part5": " ecc., e ",
+          "part6": " indica la lettera corretta."
+        }
+      },
+      "confirm": {
+        "deleteCategory": "Eliminare tutte le tue domande caricate di {{category}}?"
+      }
+    },
+    "reportsStaking": {
+      "transactionsTitle": "Transazioni di staking",
+      "tableHeaders": {
+        "transactionNumber": "Numero transazione",
+        "amount": "Importo",
+        "stakingPlan": "Piano di staking"
+      }
+    },
+    "reportsReferral": {
+      "transactionsTitle": "Transazioni premi referral",
+      "tableHeaders": {
+        "referralRate": "Tasso di referral"
+      }
+    },
+    "reportsTeam": {
+      "reportTitle": "Report dei premi di team",
+      "tableHeaders": {
+        "date": "Data",
+        "memberId": "ID membro",
+        "level": "Livello",
+        "divisionRoi": "ROI di divisione",
+        "rate": "Tasso",
+        "amount": "Importo"
+      }
+    },
+    "reportsLeader": {
+      "transactionsTitle": "Transazioni premi leader",
+      "tableHeaders": {
+        "contributedBy": "Contribuito dall'ID membro",
+        "totalSubscriptionCount": "Conteggio totale abbonamenti"
+      }
+    },
+    "reportsParRank": {
+      "transactionsTitle": "Transazioni dei premi di livello Par",
+      "tableHeaders": {
+        "rank": "Livello"
+      }
+    }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Dashboard",
+      "holdings": "Portafoglio",
+      "stakingPlans": "Piani di Staking",
+      "rewards": "Ricompense",
+      "creditConversion": "Conversione Crediti",
+      "referral": "Referral",
+      "promotion": "Promozioni",
+      "stakingRewards": "Ricompense Staking",
+      "quiz": "Quiz",
+      "qrCode": "QR Code"
+    },
+    "groups": {
+      "wallet": "Wallet",
+      "funds": "Fondi",
+      "learn": "Formazione"
+    },
+    "searchPortal": "Cerca nel portale...",
+    "typeToNavigate": "Digita un comando o cerca...",
+    "empty": {
+      "noResults": "Nessun risultato trovato."
+    }
+  },
+  "fab": {
+    "searchLabel": "Cerca"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Totale Asset (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Asset Ricompense"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "Gennaio",
+        "february": "Febbraio",
+        "march": "Marzo",
+        "april": "Aprile",
+        "may": "Maggio",
+        "june": "Giugno",
+        "july": "Luglio",
+        "august": "Agosto",
+        "september": "Settembre",
+        "october": "Ottobre",
+        "november": "Novembre",
+        "december": "Dicembre"
+      },
+      "monthsShort": {
+        "jan": "Gen",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "Mag",
+        "jun": "Giu",
+        "jul": "Lug",
+        "aug": "Ago",
+        "sep": "Set",
+        "oct": "Ott",
+        "nov": "Nov",
+        "dec": "Dic"
+      },
+      "weekdaysShort": {
+        "sun": "Dom",
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mer",
+        "thu": "Gio",
+        "fri": "Ven",
+        "sat": "Sab"
+      },
+      "title": "Calendario P&L",
+      "view": {
+        "list": "Elenco",
+        "calendar": "Calendario"
+      },
+      "filters": {
+        "month": "Mese",
+        "year": "Anno"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Rendimento"
+      },
+      "empty": {
+        "noData": "Nessun dato"
+      },
+      "status": {
+        "profit": "Profitto",
+        "loss": "Perdita"
+      }
+    }
   }
 }
