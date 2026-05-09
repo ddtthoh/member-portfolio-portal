@@ -14,7 +14,7 @@ function LeaderRewardsPage() {
     t("pages.reportsTeam.tableHeaders.date"),
     "Division staked amount",
     t("pages.reportsTeam.tableHeaders.rate"),
-    t("pages.reportsLeader.tableHeaders.contributedBy"),
+    "Amount",
     t("pages.reportsLeader.tableHeaders.totalSubscriptionCount"),
   ];
   return (
