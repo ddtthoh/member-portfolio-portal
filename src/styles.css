@@ -482,9 +482,35 @@
       inset 0 1px 0 color-mix(in oklab, white 8%, transparent);
   }
 
+  /* CTA breathing glow — for hero buttons (Start Staking etc.) */
+  @keyframes cta-gold-breathe {
+    0%, 100% {
+      box-shadow:
+        0 0 18px -6px color-mix(in oklab, var(--gold) 35%, transparent),
+        inset 0 0 12px color-mix(in oklab, var(--gold) 8%, transparent);
+    }
+    50% {
+      box-shadow:
+        0 0 38px -4px color-mix(in oklab, var(--gold) 70%, transparent),
+        0 0 80px -10px color-mix(in oklab, var(--gold) 35%, transparent),
+        inset 0 0 22px color-mix(in oklab, var(--gold) 18%, transparent);
+    }
+  }
+  .cta-gold-breathe {
+    animation: cta-gold-breathe 2.8s ease-in-out infinite;
+  }
+  .cta-gold-breathe:hover {
+    animation-play-state: paused;
+    box-shadow:
+      0 0 42px -4px color-mix(in oklab, var(--gold) 78%, transparent),
+      0 0 90px -10px color-mix(in oklab, var(--gold) 40%, transparent),
+      inset 0 0 24px color-mix(in oklab, var(--gold) 22%, transparent);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .gold-glow-sm,
     .gold-glow-md,
     .gold-glow-bar { animation: none !important; opacity: 1 !important; }
+    .cta-gold-breathe { animation: none !important; }
   }
 }

@@ -36,15 +36,11 @@ function StakingPlansPage() {
         <Button
           size="lg"
           onClick={() => setOpen(true)}
-          className="group relative overflow-hidden rounded-full border border-gold/40 bg-gradient-to-r from-gold/15 via-gold/25 to-gold/15 px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold backdrop-blur transition-all hover:-translate-y-0.5 hover:border-gold/70 hover:from-gold/25 hover:to-gold/25"
-          style={{
-            boxShadow:
-              "0 0 30px -8px color-mix(in oklab, var(--gold) 55%, transparent), inset 0 0 18px color-mix(in oklab, var(--gold) 12%, transparent)",
-          }}
+          className="cta-gold-breathe group relative overflow-hidden rounded-full border border-gold/55 bg-[linear-gradient(135deg,#070707_0%,#161208_50%,#070707_100%)] px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold transition-all hover:-translate-y-0.5 hover:border-gold/80"
         >
-          <Sparkles className="mr-2 h-4 w-4" />
+          <Sparkles className="mr-2 h-4 w-4 opacity-80 transition-opacity group-hover:opacity-100" />
           Start Staking
-          <Sparkles className="ml-2 h-4 w-4" />
+          <Sparkles className="ml-2 h-4 w-4 opacity-80 transition-opacity group-hover:opacity-100" />
         </Button>
       </div>
 

@@ -1,93 +1,83 @@
 ## 目标
 
-在 `/portal/staking-plans` 页面 plans grid 下方加一个 **"Start Staking"** 按钮，点击弹出一个高级感的 Dialog，让客户选择 plan + 输入金额，提交后显示 toast。
+让 `/portal/staking-plans` 顶部的 **Start Staking** 按钮：
+1. **加深底色** — 不再被背景光透过去，金字看得清清楚楚
+2. **保持高级感** — 黑金质感，不要俗气
+3. **加 breathing glow** — 金色光晕周期性呼吸，抢眼但不闪烁刺眼
 
 ---
 
-## UI 设计
-
-### 1. 触发按钮（plans grid 下方）
-
-居中、金色描边的大号 CTA：
+## 视觉方向
 
 ```text
-                  ┌─────────────────────────────┐
-                  │   ✦  Start Staking  ✦       │
-                  └─────────────────────────────┘
+       ╭──────────────────────────────────────╮
+  · ✦ ·│   ✦   START   STAKING   ✦           │· ✦ ·
+       ╰──────────────────────────────────────╯
+       ↑ 深黑底 + 金色描边 + 呼吸金光 ↑
 ```
 
-- 用 `liquid-glass` + 金色渐变 ring，hover 微微上浮
-- 文案: "Start Staking"
-
-### 2. Dialog 内容
-
-```text
-┌─────────────────────────────────────────────┐
-│  Start Staking                              │
-│  Choose your plan and enter staking amount  │
-├─────────────────────────────────────────────┤
-│  PLAN                                       │
-│  [ Standard Lite ▾ ]  ← Select 下拉         │
-│  Min $100  •  ROI 0.15% – 0.25% / month    │
-│                                             │
-│  AMOUNT (USD)                               │
-│  ┌─────────────────────────────┐  Wallet:  │
-│  │ $ 1,000.00                  │  $5,000   │
-│  └─────────────────────────────┘  [Max]    │
-│  Must be a multiple of $100, min $100       │
-│                                             │
-│  [ Min ] [ +$500 ] [ +$1,000 ] [ Max ]     │
-│                                             │
-│  ─────────────────────────────────────────  │
-│  Est. monthly reward                        │
-│  $1.50 – $2.50                              │
-│                                             │
-│  [ Cancel ]              [ Confirm Stake ] │
-└─────────────────────────────────────────────┘
-```
-
-**字段细节:**
-- **Plan 选择**: shadcn `Select`，默认选当前页第一个 plan；用户也可以从外部点击某张 plan card 直接预选（card 也变成可点击）
-- **Wallet 余额**: 从 `useWallet().wallet.usd` 读取，右上角显示 `Wallet: $X.XX`
-- **Max 按钮**: 把余额取整到 $100 倍数填入
-- **快捷键**: Min（=plan.minAmount）、+$500、+$1000、Max
-- **预估月收益**: 实时计算 `amount × ROI 下限` 到 `amount × ROI 上限`
-- **Confirm**: 显示 `toast.success("Staking submitted", { description: "..." })`，关闭 Dialog
-
-### 3. 校验规则
-
-提交按钮 disabled 当：
-- 金额 < plan.minAmount
-- 金额 % 100 !== 0
-- 金额为空 / NaN
-
-错误时输入框下方显示红色 hint，例如 "Amount must be a multiple of $100" 或 "Minimum for this plan is $1,000"。
+- **底色**：深黑 / 近乎纯黑的 surface（`bg-background` 之上叠一层 `bg-black/60`），加一点点金色微渐变让它不死板
+- **描边**：金色 1px ring，hover 时变粗到 1.5px
+- **文字**：保持 gold，但因为底色变深，对比度立刻拉满
+- **呼吸光晕**：按钮外圈 `box-shadow` 在 2.8s 周期内从弱到强再回弱，循环。强度上限不超过现在 hover 状态，避免刺眼
+- **Sparkles 图标**：保留两侧，呼吸时图标轻微 opacity 起伏（0.7 → 1）增加仪式感
+- Hover：呼吸暂停定格在最亮，按钮微微上浮（保留现有 `-translate-y-0.5`）
 
 ---
 
-## 技术实现（开发参考）
+## 技术实现
 
-### 文件改动
-- **修改** `src/routes/portal.staking-plans.tsx`：
-  - 把 `plans` 数组里的 `roi` 字符串拆成结构化 `roiMin: 0.0015, roiMax: 0.0025`，方便计算预估收益（保留原 `roi` 字符串用于卡片展示）
-  - 给每张 plan card 加 `onClick` 触发打开 Dialog 并预选该 plan
-  - 在 grid 下方加 `<Button>` 触发 Dialog
-- **新建** `src/components/start-staking-dialog.tsx`：
-  - Props: `open, onOpenChange, plans, defaultPlanIndex`
-  - 使用 `Dialog`, `Select`, `Input`, `Button` from shadcn
-  - `useWallet()` 拿 USD 余额
-  - `toast` from `sonner`
+### 1. 在 `src/styles.css` 加一个 keyframes
 
-### 关键交互
-- 输入框用 `inputMode="numeric"`，过滤非数字
-- 显示金额用 `toLocaleString("en-US", { minimumFractionDigits: 2 })`
-- Wallet < min plan 时禁用 Max，提示 "Insufficient balance"
+```css
+@keyframes gold-breathe {
+  0%, 100% {
+    box-shadow:
+      0 0 18px -6px color-mix(in oklab, var(--gold) 35%, transparent),
+      inset 0 0 12px color-mix(in oklab, var(--gold) 8%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 38px -4px color-mix(in oklab, var(--gold) 70%, transparent),
+      0 0 80px -10px color-mix(in oklab, var(--gold) 35%, transparent),
+      inset 0 0 22px color-mix(in oklab, var(--gold) 18%, transparent);
+  }
+}
 
-### 暂不做
-- 不写入数据库（提交后只 `toast.success`）
-- 不扣减钱包余额
-- 不创建 holdings 记录
+.animate-gold-breathe {
+  animation: gold-breathe 2.8s ease-in-out infinite;
+}
+.animate-gold-breathe:hover {
+  animation-play-state: paused;
+}
+```
+
+### 2. `src/routes/portal.staking-plans.tsx` 里改按钮 className
+
+把现在的 `bg-gradient-to-r from-gold/15 via-gold/25 to-gold/15` 替换为深黑底 + 极弱金色叠加：
+
+```tsx
+className="
+  group relative overflow-hidden rounded-full
+  border border-gold/50
+  bg-[linear-gradient(135deg,#0a0a0a_0%,#141414_50%,#0a0a0a_100%)]
+  px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold
+  backdrop-blur transition-all
+  hover:-translate-y-0.5 hover:border-gold/80
+  animate-gold-breathe
+"
+```
+
+去掉原本写死的 `style={{ boxShadow: ... }}`（因为 keyframe 接管了 box-shadow），保留 Sparkles 图标。
+
+### 3. 可选小细节
+- 按钮内部加一层 `::before` 或额外 `<span>` 做金色高光斜扫（hover 时 translate-x），不强制，先看呼吸效果是否够。
 
 ---
+
+## 不动的部分
+- 按钮位置（plans 上方）不变
+- 文案 "Start Staking" 不变
+- Dialog 内容不变
 
 准备好就点 **Implement plan** 让我开做。
