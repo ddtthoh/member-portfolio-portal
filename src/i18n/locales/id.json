@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Transaksi Hadiah Pemimpin",
       "tableHeaders": {
-        "contributedBy": "dikontribusikan oleh id anggota",
+        "contributedBy": "id anggota",
         "totalSubscriptionCount": "Total Jumlah Berlangganan"
       }
     },

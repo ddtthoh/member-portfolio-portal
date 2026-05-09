@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "リーダー報酬トランザクション",
       "tableHeaders": {
-        "contributedBy": "貢献メンバーID",
+        "contributedBy": "会員id",
         "totalSubscriptionCount": "合計サブスクリプション数"
       }
     },

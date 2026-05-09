@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Giao dịch Thưởng cho Lãnh đạo",
       "tableHeaders": {
-        "contributedBy": "Người Đóng góp (ID Thành viên)",
+        "contributedBy": "id thành viên",
         "totalSubscriptionCount": "Tổng Lượt Tham gia"
       }
     },

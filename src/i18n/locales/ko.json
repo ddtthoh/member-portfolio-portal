@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "리더 리워드 거래",
       "tableHeaders": {
-        "contributedBy": "기여한 회원 ID",
+        "contributedBy": "회원 id",
         "totalSubscriptionCount": "총 구독 수"
       }
     },

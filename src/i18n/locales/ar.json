@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "معاملات مكافآت القائد",
       "tableHeaders": {
-        "contributedBy": "تمت المساهمة بواسطة معرف العضو",
+        "contributedBy": "معرف العضو",
         "totalSubscriptionCount": "إجمالي عدد الاشتراكات"
       }
     },

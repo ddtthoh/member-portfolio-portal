@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Transacciones de recompensas de líder",
       "tableHeaders": {
-        "contributedBy": "contribuido por id de miembro",
+        "contributedBy": "id de miembro",
         "totalSubscriptionCount": "Recuento total de suscripciones"
       }
     },

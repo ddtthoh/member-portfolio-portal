@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "Führungskräfte-Prämien-Transaktionen",
       "tableHeaders": {
-        "contributedBy": "Beigetragen von Mitglieds-ID",
+        "contributedBy": "mitglieds-id",
         "totalSubscriptionCount": "Gesamte Anzahl Abonnements"
       }
     },

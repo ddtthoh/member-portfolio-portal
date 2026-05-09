@@ -727,7 +727,7 @@
     "reportsLeader": {
       "transactionsTitle": "领导奖励记录",
       "tableHeaders": {
-        "contributedBy": "贡献来源 (会员 ID)",
+        "contributedBy": "会员编号",
         "totalSubscriptionCount": "总认购数"
       }
     },
