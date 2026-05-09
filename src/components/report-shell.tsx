@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,14 +25,15 @@ export function ReportFilter({
   onApply?: (v: { date?: Date; text: string }) => void;
   onReset?: () => void;
 }) {
+  const { t } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [text, setText] = useState("");
 
   return (
-    <CollapsibleFilter title="Filter">
+    <CollapsibleFilter title={t("components.reportShell.filter")}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-          <FieldLabel>Date</FieldLabel>
+          <FieldLabel>{t("components.reportShell.date")}</FieldLabel>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -42,7 +44,7 @@ export function ReportFilter({
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4 text-gold" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                {date ? format(date, "PPP") : <span>{t("components.reportShell.pickADate")}</span>}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -60,7 +62,7 @@ export function ReportFilter({
           </Popover>
         </div>
         <div>
-          <FieldLabel>{textLabel}</FieldLabel>
+          <FieldLabel>{textLabel === "Member ID" ? t("components.reportShell.memberId") : textLabel}</FieldLabel>
           <Input
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -74,7 +76,7 @@ export function ReportFilter({
           onClick={() => onApply?.({ date, text })}
           className="bg-gold text-background hover:bg-gold/90"
         >
-          FILTER
+          {t("components.reportShell.filterAction")}
         </Button>
         <Button
           variant="outline"
@@ -84,7 +86,7 @@ export function ReportFilter({
             onReset?.();
           }}
         >
-          RESET
+          {t("components.reportShell.resetAction")}
         </Button>
       </div>
     </CollapsibleFilter>
@@ -102,6 +104,7 @@ export function ReportShell({
   onExport?: () => void;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <>
       <ReportFilter />
@@ -115,7 +118,7 @@ export function ReportShell({
               onClick={onExport}
               className="bg-gold text-background hover:bg-gold/90"
             >
-              {exportLabel}
+              {exportLabel === "EXPORT" ? t("components.reportShell.exportAction") : exportLabel}
             </Button>
           </div>
           {children}

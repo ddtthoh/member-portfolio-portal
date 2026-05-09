@@ -156,7 +156,7 @@ export function PortalShell() {
 
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) ?? SUPPORTED_LANGUAGES[0];
   const sidebarWidth = collapsed ? "w-[68px]" : "w-64";
-  const userName = user.email?.split("@")[0] ?? "Member";
+  const userName = user.email?.split("@")[0] ?? t("shell.member");
 
   return (
     <TooltipProvider delayDuration={120}>
@@ -200,7 +200,7 @@ export function PortalShell() {
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[13px] font-semibold leading-tight text-foreground">{userName}</div>
                   <div className="mt-0.5 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.18em] text-gold/90">
-                    <ShieldCheck className="h-2.5 w-2.5" /> Verified
+                    <ShieldCheck className="h-2.5 w-2.5" /> {t("shell.verified")}
                   </div>
                 </div>
               )}
@@ -208,7 +208,7 @@ export function PortalShell() {
             <button
               onClick={() => setOpen(false)}
               className="lg:hidden text-muted-foreground hover:text-foreground"
-              aria-label="Close menu"
+              aria-label={t("shell.closeMenu")}
             >
               <X className="h-5 w-5" />
             </button>
@@ -268,13 +268,13 @@ export function PortalShell() {
                   <button
                     onClick={() => setCollapsed((v) => !v)}
                     className="hidden lg:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                    aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                    aria-label={collapsed ? t("shell.expandSidebar") : t("shell.collapseSidebar")}
                   >
                     {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  {collapsed ? "Expand" : "Collapse"} <span className="ml-1 text-[10px] opacity-60">⌘B</span>
+                  {collapsed ? t("shell.expand") : t("shell.collapse")} <span className="ml-1 text-[10px] opacity-60">⌘B</span>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -296,7 +296,7 @@ export function PortalShell() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                    aria-label={collapsed ? t("shell.expandSidebar") : t("shell.collapseSidebar")}
                     onClick={() => setCollapsed((v) => !v)}
                     className="hidden md:inline-flex rounded-full border border-gold/60 text-gold/90 shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_30%,transparent),0_0_12px_-2px_color-mix(in_oklab,var(--gold)_45%,transparent)] hover:border-gold hover:text-gold hover:shadow-[0_0_0_1px_var(--gold),0_0_16px_-2px_color-mix(in_oklab,var(--gold)_70%,transparent)] transition-all"
                   >
@@ -304,7 +304,7 @@ export function PortalShell() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  {collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                  {collapsed ? t("shell.expandSidebar") : t("shell.collapseSidebar")}
                   <span className="ml-1.5 rounded border border-border/60 bg-muted/40 px-1 py-0.5 text-[9px] opacity-80">⌘B</span>
                 </TooltipContent>
               </Tooltip>

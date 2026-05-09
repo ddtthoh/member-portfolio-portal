@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
+import { useTranslation } from "react-i18next";
 
 type Question = {
   id: string;
@@ -24,6 +25,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function QuizTest({ category, title }: { category: "company" | "marketing"; title: string }) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [pool, setPool] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,15 +69,14 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
   const passed = score >= PASS;
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading…</p>;
+    return <p className="text-sm text-muted-foreground">{t("common.loading")}</p>;
   }
   if (pool.length < TOTAL) {
     return (
       <div className="liquid-glass rounded-xl p-6 text-center">
         <p className="text-sm text-muted-foreground">
-          Not enough questions yet for {title}. Need at least {TOTAL} questions in the bank
-          (currently {pool.length}). Upload a .docx file at{" "}
-          <span className="text-gold">/portal/wallet-edit</span> to add more.
+          {t("components.quiz.notEnoughQuestionsPart1", { title, total: TOTAL, current: pool.length })}
+          <span className="text-gold">/portal/wallet-edit</span> {t("components.quiz.notEnoughQuestionsPart2")}
         </p>
       </div>
     );
@@ -87,11 +88,11 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
         <div>
           <div className="text-[10px] uppercase tracking-[0.25em] text-gold">{title}</div>
           <div className="text-xs text-muted-foreground">
-            Answer {PASS} of {TOTAL} correctly to pass. You can retake at any time.
+            {t("components.quiz.instructions", { pass: PASS, total: TOTAL })}
           </div>
         </div>
         <Button variant="outline" size="sm" onClick={() => pickQuestions(pool)}>
-          New 10 Questions
+          {t("components.quiz.newQuestions")}
         </Button>
       </div>
 
@@ -133,20 +134,20 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
           <>
             <div>
               <div className={`text-lg font-semibold ${passed ? "text-emerald-500" : "text-destructive"}`}>
-                {passed ? "Passed" : "Failed"} — {score}/{TOTAL}
+                {passed ? t("components.quiz.passed") : t("components.quiz.failed")} — {score}/{TOTAL}
               </div>
               <div className="text-xs text-muted-foreground">
-                {passed ? "Great job!" : `You need ${PASS} correct to pass.`}
+                {passed ? t("components.quiz.greatJob") : t("components.quiz.needCorrectToPass", { pass: PASS })}
               </div>
             </div>
             <Button onClick={() => pickQuestions(pool)} className="bg-gold text-gold-foreground hover:bg-gold/90">
-              Retake Test
+              {t("components.quiz.retakeTest")}
             </Button>
           </>
         ) : (
           <>
             <div className="text-xs text-muted-foreground">
-              Answered {Object.keys(answers).length}/{questions.length}
+              {t("components.quiz.answeredProgress", { answered: Object.keys(answers).length, total: questions.length })}
             </div>
             <Button
               disabled={Object.keys(answers).length < questions.length}
@@ -167,7 +168,7 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
               }}
               className="bg-gold text-gold-foreground hover:bg-gold/90"
             >
-              Submit Answers
+              {t("components.quiz.submitAnswers")}
             </Button>
           </>
         )}

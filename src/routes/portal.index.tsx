@@ -69,7 +69,7 @@ function Overview() {
               <button
                 type="button"
                 onClick={() => setHideBalance((v) => !v)}
-                aria-label={hideBalance ? "Show balance" : "Hide balance"}
+                aria-label={hideBalance ? t("common.showBalance") : t("common.hideBalance")}
                 className="text-muted-foreground transition-colors hover:text-gold"
               >
                 {hideBalance ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -147,7 +147,7 @@ function Overview() {
             </div>
 
             <div className="mt-4 flex items-center justify-end text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
-              <span>Updated just now</span>
+              <span>{t("pages.overview.updatedJustNow")}</span>
             </div>
           </SpotlightCard>
         </div>
@@ -191,7 +191,7 @@ function Overview() {
                       {t("overview.assetAnalysis", "Asset Analysis")}
                     </span>
                     <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                      Insights · Trends
+                      {t("pages.overview.insightsTrends")}
                     </span>
                   </div>
                 </div>
