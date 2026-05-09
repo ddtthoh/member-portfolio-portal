@@ -10,10 +10,20 @@ export const Route = createFileRoute("/portal/reports/par-rank-rewards")({
 
 function ParRankRewardsPage() {
   const { t } = useTranslation();
+  const headers = [
+    t("pages.deposit.tableHeaders.date"),
+    t("pages.reportsTeam.tableHeaders.amount"),
+    t("pages.reportsTeam.tableHeaders.rate"),
+    t("pages.reportsParRank.tableHeaders.rank"),
+  ];
   return (
     <div>
       <PageHeader title={t("nav.reportsParRank")} />
-      <ReportShell title={t("pages.reportsParRank.transactionsTitle")}>
+      <ReportShell
+        title={t("pages.reportsParRank.transactionsTitle")}
+        filterTextLabel={t("pages.reportsParRank.tableHeaders.rank")}
+        getExportRows={() => ({ headers, rows: [], filename: "par-rank-rewards" })}
+      >
         <DataTable minWidth={640}>
           <colgroup>
             <col className="w-1/4" />
@@ -22,10 +32,9 @@ function ParRankRewardsPage() {
             <col className="w-1/4" />
           </colgroup>
           <Thead>
-            <Th>{t("pages.deposit.tableHeaders.date")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.amount")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.rate")}</Th>
-            <Th>{t("pages.reportsParRank.tableHeaders.rank")}</Th>
+            {headers.map((h) => (
+              <Th key={h}>{h}</Th>
+            ))}
           </Thead>
           <tbody>
             <EmptyRow colSpan={4}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>

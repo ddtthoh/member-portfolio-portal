@@ -11,10 +11,20 @@ export const Route = createFileRoute("/portal/reports/referral-rewards")({
 function ReferralRewardsPage() {
   const { t } = useTranslation();
 
+  const headers = [
+    t("pages.deposit.tableHeaders.date"),
+    t("pages.profile.memberId"),
+    t("pages.reportsReferral.tableHeaders.referralRate"),
+    t("pages.withdrawal.confirm.amount"),
+  ];
   return (
     <div>
       <PageHeader title={t("nav.reportsReferral")} />
-      <ReportShell title={t("pages.reportsReferral.transactionsTitle")}>
+      <ReportShell
+        title={t("pages.reportsReferral.transactionsTitle")}
+        filterTextLabel={t("pages.profile.memberId")}
+        getExportRows={() => ({ headers, rows: [], filename: "referral-rewards" })}
+      >
         <DataTable minWidth={640}>
           <colgroup>
             <col className="w-1/4" />
@@ -23,10 +33,9 @@ function ReferralRewardsPage() {
             <col className="w-1/4" />
           </colgroup>
           <Thead>
-            <Th>{t("pages.deposit.tableHeaders.date")}</Th>
-            <Th>{t("pages.profile.memberId")}</Th>
-            <Th>{t("pages.reportsReferral.tableHeaders.referralRate")}</Th>
-            <Th>{t("pages.withdrawal.confirm.amount")}</Th>
+            {headers.map((h) => (
+              <Th key={h}>{h}</Th>
+            ))}
           </Thead>
           <tbody>
             <EmptyRow colSpan={4}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>

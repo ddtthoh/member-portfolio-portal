@@ -11,10 +11,22 @@ export const Route = createFileRoute("/portal/reports/team-rewards")({
 function TeamRewardsPage() {
   const { t } = useTranslation();
 
+  const headers = [
+    t("pages.reportsTeam.tableHeaders.date"),
+    t("pages.reportsTeam.tableHeaders.memberId"),
+    t("pages.reportsTeam.tableHeaders.level"),
+    t("pages.reportsTeam.tableHeaders.divisionRoi"),
+    t("pages.reportsTeam.tableHeaders.rate"),
+    t("pages.reportsTeam.tableHeaders.amount"),
+  ];
   return (
     <div>
       <PageHeader title={t("nav.reportsTeam")} />
-      <ReportShell title={t("pages.reportsTeam.reportTitle")}>
+      <ReportShell
+        title={t("pages.reportsTeam.reportTitle")}
+        filterTextLabel={t("components.reportShell.memberId")}
+        getExportRows={() => ({ headers, rows: [], filename: "team-rewards" })}
+      >
         <DataTable minWidth={960}>
           <colgroup>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -22,12 +34,9 @@ function TeamRewardsPage() {
             ))}
           </colgroup>
           <Thead>
-            <Th>{t("pages.reportsTeam.tableHeaders.date")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.memberId")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.level")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.divisionRoi")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.rate")}</Th>
-            <Th>{t("pages.reportsTeam.tableHeaders.amount")}</Th>
+            {headers.map((h) => (
+              <Th key={h}>{h}</Th>
+            ))}
           </Thead>
           <tbody>
             <EmptyRow colSpan={6}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>

@@ -11,10 +11,20 @@ export const Route = createFileRoute("/portal/reports/staking")({
 function StakingReportPage() {
   const { t } = useTranslation();
 
+  const headers = [
+    t("pages.deposit.tableHeaders.date"),
+    t("pages.reportsStaking.tableHeaders.transactionNumber"),
+    t("pages.reportsStaking.tableHeaders.amount"),
+    t("pages.reportsStaking.tableHeaders.stakingPlan"),
+  ];
   return (
     <div>
       <PageHeader title={t("nav.reportsParticipation")} />
-      <ReportShell title={t("pages.reportsStaking.transactionsTitle")}>
+      <ReportShell
+        title={t("pages.reportsStaking.transactionsTitle")}
+        filterTextLabel={t("pages.reportsStaking.tableHeaders.transactionNumber")}
+        getExportRows={() => ({ headers, rows: [], filename: "staking" })}
+      >
         <DataTable minWidth={760}>
           <colgroup>
             <col className="w-[22%]" />
@@ -23,10 +33,9 @@ function StakingReportPage() {
             <col className="w-[22%]" />
           </colgroup>
           <Thead>
-            <Th>{t("pages.deposit.tableHeaders.date")}</Th>
-            <Th>{t("pages.reportsStaking.tableHeaders.transactionNumber")}</Th>
-            <Th>{t("pages.reportsStaking.tableHeaders.amount")}</Th>
-            <Th>{t("pages.reportsStaking.tableHeaders.stakingPlan")}</Th>
+            {headers.map((h) => (
+              <Th key={h}>{h}</Th>
+            ))}
           </Thead>
           <tbody>
             <EmptyRow colSpan={4}>{t("pages.transactions.empty.noTransactions")}</EmptyRow>
