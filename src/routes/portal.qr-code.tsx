@@ -8,13 +8,11 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import {
-  QrCode as QrCodeIcon,
   Copy,
   Check,
   Download,
   Share2,
   Link2,
-  Sparkles,
   ShieldCheck,
   IdCard,
 } from "lucide-react";
