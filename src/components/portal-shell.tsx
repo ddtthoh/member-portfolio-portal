@@ -18,6 +18,7 @@ import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { CommandPalette } from "@/components/command-palette";
+import { SocialLinks } from "@/components/social-links";
 
 import { ThreeBackground } from "@/components/three-background";
 
