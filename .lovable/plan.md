@@ -1,59 +1,65 @@
-## Goal
+## 方案：三张 Tracking 卡统一加进度条
 
-Make the entire portal — every page, sub-page, tab, card, pill, button, table header, empty state, tooltip, sidebar item, command palette entry, mobile FAB, etc. — fully translated in all 14 languages, not just the page header.
+文件：`src/routes/portal.promotion.$promoId.tsx`
 
-## Best translation approach (your question)
+### Track 1 · RCB（线性里程碑）
 
-For professional, non-Google-Translate quality without you writing them yourself, the best option is:
+- **进度条逻辑**：找到下一个里程碑（1 / 5 / 10 / 20 / 50 / 100），显示从上一个里程碑到下一个里程碑的进度百分比
+- **示例**：当前 8 单 → 下一档 10 单 → 进度 = (8-5)/(10-5) = 60%
+- **底部文案**：`Next milestone · 10 referrals · $50` + `2 more to unlock $50`
+- 已填充段加 `gold-glow-bar`，末端金色光点呼吸（与 Naslab 卡完全一致）
 
-**Lovable AI with `google/gemini-3.1-pro-preview` (or `openai/gpt-5.2`), driven by a one-shot script that translates the whole `en.json` file at once with:**
-1. A **domain glossary** locked in the system prompt (e.g. "Staking", "Par Rank", "Rewards Wallet", "USDT", "BEP20", "Promotion", "KYC", brand name, tier names like Diamond/Platinum) — these stay in English or use a fixed translation per language so terminology is consistent across pages.
-2. A **tone instruction** ("formal financial-services portal, concise, professional, native-speaker phrasing — never literal").
-3. **Whole-file context** (model sees all keys at once → understands "Submit" in deposit context vs. "Submit" in support context).
-4. **JSON-mode output** so structure is preserved 1:1.
+### Track 2 · TCB（双门槛合并）
 
-This is dramatically better than Google Translate because the model sees the surrounding keys + glossary + tone instruction. Quality is publication-grade for ~95% of strings; you can spot-edit any locale later by just editing its JSON file.
+- **进度条逻辑**：取 RCB 完成度 与 AUM 完成度 的**最小值**作为单条进度（哪个慢算哪个，符合"两个都要满足"的语义）
+- **示例**：当前 8 RCB / 8,500 USDT，目标 10 RCB / 5,000 USDT → RCB 进度 80%、AUM 已达 100% → 取 80%
+- **底部文案**：`Next tier · 2.5% AUM` + 双行小字 `Need 2 more RCB · AUM ✓`（已达成的那个打钩，未达成的显示还差多少）
+- 这样保留了"双门槛"语义，不丢信息
 
-Cost is small — roughly 13 model calls of ~3–5K tokens each.
+### Track 3 · Ranking（待后端"还差 X"指标）
 
-## Scope of extraction
+- **数据扩展**：`RankingPromo` 增加 `nextRankProgress?: { current: number; target: number; unit: string; metricLabel: string }`
+- **进度条逻辑**：用 `current / target` 算百分比，目前先 mock（例如：`current: 38, target: 50, unit: "leaders", metricLabel: "Qualified Leaders"`），后端接入时替换数值即可
+- **底部文案**：`Next rank · Platinum · Rolex Daytona` + `12 more qualified leaders to unlock`
+- 在 `currentRankIndex === lastIndex` 时不显示进度条，改为"Apex rank achieved"
 
-I'll extract strings from:
+### 共用进度条组件
 
-**Routes (~30 files)**
-`portal.index`, `portal.deposit`, `portal.withdrawal`, `portal.promotion` (+ `$promoId`), `portal.qna` (+ company / marketing / index), `portal.staking`, `portal.staking-plans`, `portal.holdings`, `portal.asset-analysis`, `portal.network`, `portal.referral`, `portal.transactions`, `portal.documents`, `portal.support`, `portal.profile`, `portal.qr-code`, `portal.wallet-edit`, `portal.statement.*` (5 files), `portal.reports.*` (6 files).
+抽出一个内联的 `<TrackProgress>` 子组件，放在 `RankingTrackCard` 内部，三张卡公用同一套样式：
 
-**Shared chrome / components**
-`portal-shell` (sidebar, header, account menu), `command-palette`, `mobile-fab`, `total-assets-gauge`, `pl-calendar`, `network-constellation`, `ticker-tape`, `quiz-test`, `report-shell`, `count-up`/`count-value` labels, KPI tiles, empty-state strings, toast messages, form validation copy.
+```text
+Next: <name>                              <pct>%
+████████████░░░░░░░░░ • ← 末端光点呼吸
+<X> more to unlock <reward/threshold>
+```
 
-**What stays untranslated** (per your answer)
-User data, currency amounts, transaction IDs, dates, names, hashes, promo codes, numbers.
+样式与 Naslab 的 `TrackCard` 进度条完全一致：
+- 背景 `bg-gold/10`，已填充段 `bg-gradient-to-r from-gold/70 to-gold` + `gold-glow-bar`
+- 末端 `gold-glow-md` 光点
+- 顶部小字两端对齐：左边写"下一目标"，右边写百分比
+- 底部小字："还差 X 才到下一档"
 
-## How I'll execute (one pass)
+### 不动的部分
 
-1. **Audit & extract** — Walk every portal file, replace hardcoded strings with `t("namespace.key")`, and build a fully-namespaced `en.json` (e.g. `pages.deposit.history.title`, `pages.deposit.table.date`, `shell.sidebar.signOut`, `common.empty.noResults`). Existing keys stay where they are; new keys get organized namespaces per page.
+- 不改下面三张 Ladder 表格（RCB Payout Ladder / TCB Tier / Ranking 表格）
+- 不改顶部 meta 卡 / 底部 fine print
+- TrackCard 的 `gold-aura` 边框 + 角落柔光保留
 
-2. **Build glossary** — One-time `glossary.json` with locked brand + finance terms per language (e.g. zh: Staking → 质押, Rewards Wallet → 奖励钱包, Diamond → 钻石；ja: Staking → ステーキング, etc.). Used by the translation script and by you later for consistency.
+### 后端集成预留
 
-3. **Run translation script** — `scripts/translate-locales.ts` using Lovable AI Gateway. For each of the 13 locales: send `en.json` + glossary + tone instruction to `google/gemini-3.1-pro-preview` in JSON mode, write result to `src/i18n/locales/{lang}.json`. Preserves keys exactly; only values change.
+为 Ranking 进度预留接口形状，后端只需补 4 个字段：
 
-4. **RTL polish** — Verify `fa` and `ar` render correctly (we already set `dir="rtl"` on `<html>`). Spot-check icon directions in sidebar/breadcrumbs.
+```ts
+nextRankProgress: {
+  current: number;       // 例如已合格 leader 数
+  target: number;        // 下一段位门槛
+  unit: string;          // "leaders" / "USDT" / "RCB"
+  metricLabel: string;   // "Qualified Leaders"
+}
+```
 
-5. **Verification** — Build, then visually switch through 4 sample languages (zh, ja, ar, de) on Overview, Deposit, Reports, Promotion to confirm nothing leaked as raw English.
+---
 
-## Technical details
+## 给非技术用户的话
 
-- Translation script runs server-side via `code--exec` using `LOVABLE_API_KEY`; output JSONs are committed to `src/i18n/locales/`. No runtime AI calls — all translation happens at build time, so app stays fast and works offline.
-- Keys use dot-notation grouped by surface: `shell.*`, `pages.{routeName}.*`, `common.*`, `forms.*`, `tables.*`, `empty.*`, `actions.*`. Components reference `useTranslation()` and call `t("…")`.
-- Plural/interpolation: any string with counts (e.g. "3 items") will use i18next's `{{count}}` interpolation so each language can pluralize correctly.
-- Files I will NOT touch: `src/integrations/supabase/*`, `src/i18n/index.ts` (already correct), `routeTree.gen.ts`.
-
-## Deliverable
-
-After this pass, switching any language in the language picker translates every visible string everywhere in the portal — sidebar, page headers, tables, tabs, buttons, empty states, command palette, mobile FAB, the lot — in professional, finance-appropriate phrasing for all 13 non-English locales.
-
-## Caveats
-
-- ~500–700 strings is a large diff (~30 files touched + 14 JSON files rewritten). Big PR but low logic risk — text-only changes.
-- After delivery you can edit any locale's JSON directly to refine wording; no code changes needed.
-- If a translation feels off in one language, tell me the page + screenshot and I'll fix that specific key (or re-run the script with an updated glossary entry so it propagates everywhere).
+简单说：**三张 Tracking 卡都会加上和 Naslab 那张一模一样的金色进度条**。RCB 显示离下一个里程碑还差几单；TCB 显示两个条件里慢的那个的进度（哪个拖后腿就算哪个）；Ranking 卡先 mock 出"还差多少 qualified leader 到下一段位"，等后端把真实指标接上就能直接显示。
