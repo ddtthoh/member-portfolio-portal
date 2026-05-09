@@ -1,54 +1,60 @@
-## Goals
+## Goal
 
-1. Slow the ticker scroll for a calmer, more premium feel.
-2. Upgrade the visual presentation from "plain text + dots" to a Bloomberg-terminal / private-bank-grade ticker that fits the gold-on-dark Ivory & Vale aesthetic.
+Add the four official channels — **Telegram**, **Instagram**, **X**, **Website** — across the app in a quietly premium way that matches the gold accent / private-banking aesthetic.
 
-## Speed change
+## Links
 
-`src/styles.css` — `.ticker-track` animation:
-- From `60s linear infinite` → `180s linear infinite` (3× slower).
-- Keep `:hover` pause and `prefers-reduced-motion` override.
+- Telegram → https://t.me/NaslabMiddleEast
+- Instagram → https://www.instagram.com/naslab_tec/
+- X → https://x.com/NaslabTec
+- Website → https://www.naslabtec.com
 
-## Visual upgrade
+## Design (high-end, minimal)
 
-Each ticker item becomes a compact **"chip"** instead of inline text-with-dots:
+A reusable `<SocialLinks />` component rendered as a horizontal row of 4 brand-accurate icons.
 
-```text
-┌──────────────────────────────┐
-│ ▲ PEPE   $0.00000431  +2.53% │
-└──────────────────────────────┘
-```
+**Visual language:**
+- **Brand-accurate SVG icons** for Telegram / Instagram / X (Lucide doesn't ship faithful versions of these). Website uses Lucide `Globe`. Inline SVGs (no extra dependency), `currentColor` so they adapt to theme.
+- **Icon size:** 16px (sidebar) / 18px (footer & support).
+- **Default state:** `text-muted-foreground/70`, no background, no border — pure icon.
+- **Hover state:** smooth 250ms transition to `text-gold`, with a soft gold halo via `drop-shadow(0 0 6px color-mix(in oklab, var(--gold) 55%, transparent))` and a subtle `-translate-y-0.5` lift.
+- **Spacing:** `gap-4` between icons (sidebar `gap-3.5` when collapsed allows vertical stack).
+- **Accessibility:** each link has `aria-label`, `target="_blank"`, `rel="noopener noreferrer"`, and a tooltip showing the channel name (sidebar variant).
+- **Optional thin top divider** (`h-px bg-gradient-to-r from-transparent via-border to-transparent`) above the row in the sidebar to separate it from Sign Out.
 
-Per-chip styling:
-- Subtle border `border-border/40`, soft `bg-card/40`, `backdrop-blur-sm`, `rounded-full`, `px-3 py-1`.
-- Tiny up/down triangle (▲ ▼) in success/destructive color, replacing the `·` separators.
-- Symbol in uppercase tracking-wide muted-foreground.
-- Price in mono tabular-nums.
-- 24h % in success/destructive with a faint colored background tint (`bg-success/10` / `bg-destructive/10`).
-- On hover: border lifts to `border-gold/60`, soft gold glow shadow, subtle `translate-y-[-1px]`.
-- Flash on price change: brief gold ring + gold text (already present, keep but soften).
+This avoids colored brand fills (which would look cheap next to gold-on-charcoal) and instead reads as discreet, editorial — the same restraint as the rest of the portal.
 
-Container changes (`src/components/ticker-tape.tsx`):
-- Replace `gap-8` text row with `gap-3` chip row, `py-2.5`.
-- Remove the `·` separator spans.
-- Wrapper gets a thin top + bottom hairline already present; add **left/right edge fade masks** so chips fade into the background instead of getting clipped:
-  ```css
-  mask-image: linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
-  ```
-- Add a tiny "LIVE · DEXSCREENER" pill anchored to the left edge (absolute positioned, non-scrolling) for that terminal feel — optional, can skip if it crowds mobile.
+## Placement (3 spots)
 
-## Files to change
+1. **Portal sidebar footer** (`src/components/portal-shell.tsx`)
+   - Inserted just **above** the existing Sign Out / collapse-toggle row.
+   - Expanded sidebar: horizontal row, centered, with the thin divider above.
+   - Collapsed sidebar (68px): icons stack vertically, centered, tooltips on hover.
 
-1. `src/styles.css`
-   - Bump `.ticker-track` animation duration to 180s.
-   - Add `.ticker-mask` utility for left/right edge fade.
-2. `src/components/ticker-tape.tsx`
-   - Restyle each `<a>` chip as described.
-   - Drop the `·` separator span.
-   - Add edge-fade mask class to the scrolling container.
-   - Add up/down triangle from `lucide-react` (`TrendingUp` / `TrendingDown`, size 10).
+2. **Landing page footer** (`src/routes/index.tsx`)
+   - In the existing `<footer>`, change layout to two rows or a flex row: copyright on the left, social icons on the right. 18px icons, same hover behavior.
+
+3. **Support page** (`src/routes/portal.support.tsx`)
+   - New "Official Channels" card: small eyebrow label + 4 icons with channel names below each (icon + label vertical micro-stack), so users can clearly identify them in a support context.
+
+## Technical Details
+
+**New file:** `src/components/social-links.tsx`
+- Exports `<SocialLinks variant="row" | "stack" | "labeled" size={16|18} />`.
+- Holds the link constants and inline SVG icon components: `TelegramIcon`, `InstagramIcon`, `XIcon`, plus Lucide `Globe` for the website.
+- Uses `Tooltip` from `@/components/ui/tooltip` only when `variant !== "labeled"`.
+
+**Edits:**
+- `src/components/portal-shell.tsx` — render `<SocialLinks variant={collapsed ? "stack" : "row"} />` inside the sidebar footer block above the Sign Out row.
+- `src/routes/index.tsx` — add `<SocialLinks variant="row" size={18} />` to the footer.
+- `src/routes/portal.support.tsx` — add an "Official Channels" section using `<SocialLinks variant="labeled" />`.
+
+**i18n:** add keys `social.telegram`, `social.instagram`, `social.x`, `social.website`, `social.officialChannels` to `src/i18n/locales/en.json` (other locales fall back to English; translation script can be run later).
+
+**No new dependencies.** No business-logic changes. Pure presentation.
 
 ## Out of scope
 
-- No data-source change — still top 50 boosted tokens from Dexscreener with link to the exact pair page.
-- No layout/position change of the ticker on the page.
+- Login page socials (can be added later if you want).
+- Header icon (intentionally avoided to keep top bar clean).
+- Animated logo marks or full-color brand fills.
