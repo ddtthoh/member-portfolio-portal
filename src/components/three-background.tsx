@@ -551,7 +551,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={0.9}
+          opacity={isPhone ? 0.35 : 0.9}
         />
       </lineSegments>
 
