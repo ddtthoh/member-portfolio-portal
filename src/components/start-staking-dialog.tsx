@@ -165,12 +165,15 @@ export function StartStakingDialog({ open, onOpenChange, plans }: Props) {
             </div>
             <div className="text-right">
               <div className="inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.22em] text-gold/70">
-                <TrendingUp className="h-3 w-3" /> Est. monthly ROI
+                <TrendingUp className="h-3 w-3" /> Est. daily ROI
               </div>
               <div className="mt-1 font-light tabular-nums tracking-tight text-gold">
                 <span className="text-lg">{pct(matchedTier.roiMin)}</span>
                 <span className="mx-1.5 text-muted-foreground">–</span>
                 <span className="text-lg">{pct(matchedTier.roiMax)}</span>
+              </div>
+              <div className="mt-1 text-[10px] text-muted-foreground">
+                Monthly: {pct(matchedTier.roiMin * 30)} – {pct(matchedTier.roiMax * 30)}
               </div>
             </div>
           </div>
