@@ -480,8 +480,10 @@
       },
       "labels": {
         "minimumStaking": "Minimum Staking",
+        "dailyRoi": "Daily ROI",
         "monthlyRoi": "Monthly ROI"
-      }
+      },
+      "cta": "Start Staking"
     },
     "convertCredits": {
       "eyebrow": "Statement",
