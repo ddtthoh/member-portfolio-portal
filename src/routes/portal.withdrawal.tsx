@@ -25,8 +25,8 @@ export const Route = createFileRoute("/portal/withdrawal")({
   component: WithdrawalPage,
 });
 
-const ADMIN_FEE_RATE = 0.02;
-const ADMIN_FEE_MIN = 1;
+const ADMIN_FEE_RATE = 0.03;
+const ADMIN_FEE_MIN = 3;
 const MIN_AMOUNT = 10;
 const ADDR_RE = /^0x[a-fA-F0-9]{40}$/;
 

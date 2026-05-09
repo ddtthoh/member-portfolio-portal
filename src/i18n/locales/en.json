@@ -175,7 +175,7 @@
       "summary": {
         "usdCredit": "USD Credit",
         "withdrawalAmount": "Withdrawal Amount",
-        "adminFee": "Admin Fee (2%)",
+        "adminFee": "Admin Fee (3% or $3, whichever higher)",
         "receiveAmount": "You'll Receive"
       },
       "wallets": {
