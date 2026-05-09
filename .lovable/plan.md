@@ -1,83 +1,90 @@
-## 目标
+## 问题诊断
 
-让 `/portal/staking-plans` 顶部的 **Start Staking** 按钮：
-1. **加深底色** — 不再被背景光透过去，金字看得清清楚楚
-2. **保持高级感** — 黑金质感，不要俗气
-3. **加 breathing glow** — 金色光晕周期性呼吸，抢眼但不闪烁刺眼
-
----
-
-## 视觉方向
+手机上看起来像蜘蛛网的根本原因：
 
 ```text
-       ╭──────────────────────────────────────╮
-  · ✦ ·│   ✦   START   STAKING   ✦           │· ✦ ·
-       ╰──────────────────────────────────────╯
-       ↑ 深黑底 + 金色描边 + 呼吸金光 ↑
+55 个节点 × 每个最多 6 条连线 ÷ 小屏幕面积
+= 密密麻麻的金线交叉 → 蜘蛛网视觉
 ```
 
-- **底色**：深黑 / 近乎纯黑的 surface（`bg-background` 之上叠一层 `bg-black/60`），加一点点金色微渐变让它不死板
-- **描边**：金色 1px ring，hover 时变粗到 1.5px
-- **文字**：保持 gold，但因为底色变深，对比度立刻拉满
-- **呼吸光晕**：按钮外圈 `box-shadow` 在 2.8s 周期内从弱到强再回弱，循环。强度上限不超过现在 hover 状态，避免刺眼
-- **Sparkles 图标**：保留两侧，呼吸时图标轻微 opacity 起伏（0.7 → 1）增加仪式感
-- Hover：呼吸暂停定格在最亮，按钮微微上浮（保留现有 `-translate-y-0.5`）
+加上线条颜色恒定（不闪、不流动），整张图是**静态的网**，不像**流动的数据网络**。
+
+科技/未来感的关键不是"节点 + 连线"，而是：
+- **稀疏 + 高对比** — 几个发光节点比一堆灰线高级
+- **节点是主角，线只是暗示** — 线条压到很弱
+- **流动感** — 偶尔有数据包/光迹掠过，让网络"活着"
+- **景深** — 远近分层，不是一张平面网
 
 ---
 
-## 技术实现
+## 方案（仅手机端，桌面/平板不动）
 
-### 1. 在 `src/styles.css` 加一个 keyframes
+### 1. 大幅减少节点和连线密度
+
+```text
+              桌面            手机（现在）       手机（改后）
+节点数        100             55                 28
+每节点最大连线 6              6                  2
+连接距离      avgSpacing×1.9  ×1.9               ×1.35（只连最近邻）
+```
+
+视觉效果：从"蜘蛛网"变成"星座 + 极少量牵引线"。
+
+### 2. 线条退到背景层
+
+手机端：
+- edge 颜色亮度从 `0.6` → `0.22`
+- edge opacity 整体压到 `0.35`
+- 线条变成"几乎看不见的引导线"，只在数据包经过时短暂亮起
+
+### 3. 节点变成主角
+
+手机端：
+- 节点 size 从 `0.18` → `0.28`（更大更亮的光点）
+- 节点 sprite glow 加强（外圈 halo 更柔）
+- 让人感觉像"漂浮的星辰"而不是"网孔交点"
+
+### 4. 加强遮罩，防止边缘密集
+
+现在的 mask 是上→下渐隐。手机端额外加**左右径向遮罩**，让屏幕边缘的节点/线条 fade out，避免边缘密集堆积制造蜘蛛网边。
 
 ```css
-@keyframes gold-breathe {
-  0%, 100% {
-    box-shadow:
-      0 0 18px -6px color-mix(in oklab, var(--gold) 35%, transparent),
-      inset 0 0 12px color-mix(in oklab, var(--gold) 8%, transparent);
-  }
-  50% {
-    box-shadow:
-      0 0 38px -4px color-mix(in oklab, var(--gold) 70%, transparent),
-      0 0 80px -10px color-mix(in oklab, var(--gold) 35%, transparent),
-      inset 0 0 22px color-mix(in oklab, var(--gold) 18%, transparent);
-  }
-}
-
-.animate-gold-breathe {
-  animation: gold-breathe 2.8s ease-in-out infinite;
-}
-.animate-gold-breathe:hover {
-  animation-play-state: paused;
-}
+mask-image:
+  radial-gradient(120% 100% at 50% 30%, black 30%, transparent 90%),
+  linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+mask-composite: intersect;
 ```
 
-### 2. `src/routes/portal.staking-plans.tsx` 里改按钮 className
+### 5. 整体 opacity 微调
 
-把现在的 `bg-gradient-to-r from-gold/15 via-gold/25 to-gold/15` 替换为深黑底 + 极弱金色叠加：
-
-```tsx
-className="
-  group relative overflow-hidden rounded-full
-  border border-gold/50
-  bg-[linear-gradient(135deg,#0a0a0a_0%,#141414_50%,#0a0a0a_100%)]
-  px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold
-  backdrop-blur transition-all
-  hover:-translate-y-0.5 hover:border-gold/80
-  animate-gold-breathe
-"
-```
-
-去掉原本写死的 `style={{ boxShadow: ... }}`（因为 keyframe 接管了 box-shadow），保留 Sparkles 图标。
-
-### 3. 可选小细节
-- 按钮内部加一层 `::before` 或额外 `<span>` 做金色高光斜扫（hover 时 translate-x），不强制，先看呼吸效果是否够。
+手机端从现在的 `0.55` 调到 `0.45`，让背景更"远"，前景内容更突出。
 
 ---
 
-## 不动的部分
-- 按钮位置（plans 上方）不变
-- 文案 "Start Staking" 不变
-- Dialog 内容不变
+## 技术改动清单
 
-准备好就点 **Implement plan** 让我开做。
+**只动一个文件**：`src/components/three-background.tsx`
+
+1. `ThreeBackground` 组件：
+   - 手机：`count` 从 `55` → `28`
+   - 手机：opacity `0.55` → `0.45`
+   - 手机加 `maskStyle` 的径向遮罩
+
+2. `NodeWeb` 组件：
+   - 接收新 prop `isPhone`
+   - 手机：`maxEdgesPerNode = 2`（桌面保持 6）
+   - 手机：`proximity` 系数从 `1.9` → `1.35`
+   - 手机：edge color 0.6 → 0.22，edge material opacity 加 `0.35`
+   - 手机：node `sizes[i]` 从 `0.18` → `0.28`
+
+桌面 / 平板视觉**完全不变**。
+
+---
+
+## 不做的部分
+
+- 不改桌面背景
+- 不改 `/portal/network` 页面里的 `NetworkConstellation`（那是另一个组件）
+- 不动 packet/sparkle 动画逻辑（已经够流动）
+
+准备好就点 **Implement plan**。

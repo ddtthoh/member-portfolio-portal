@@ -21,7 +21,7 @@ function makeSpriteTexture(inner = "rgba(255,244,214,1)", mid = "rgba(232,201,12
 
 type Packet = { edge: number; t: number; speed: number; alive: boolean; cascade: number };
 
-function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; interactive: boolean; spreadX: number; spreadY: number }) {
+function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: number; interactive: boolean; spreadX: number; spreadY: number; isPhone: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const nodesRef = useRef<THREE.Points>(null);
   const edgesRef = useRef<THREE.LineSegments>(null);
@@ -57,15 +57,15 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
       colors[i * 3] = 0.96;
       colors[i * 3 + 1] = 0.82;
       colors[i * 3 + 2] = 0.5;
-      sizes[i] = 0.18;
+      sizes[i] = isPhone ? 0.28 : 0.18;
       seeds[i] = Math.random() * Math.PI * 2;
     }
 
-    // Build edges by proximity, max ~6 per node — proximity scales with average node spacing
-    const maxEdgesPerNode = 6;
+    // Build edges by proximity — far sparser on phone to avoid spider-web look
+    const maxEdgesPerNode = isPhone ? 2 : 6;
     const volume = spreadX * spreadY * 6;
     const avgSpacing = Math.cbrt(volume / Math.max(count, 1));
-    const proximity = avgSpacing * 1.9;
+    const proximity = avgSpacing * (isPhone ? 1.35 : 1.9);
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
@@ -378,7 +378,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
       const ig = data.ignite[i];
 
       // size
-      data.sizes[i] = 0.18 * (1 + ig * 1.2);
+      data.sizes[i] = (isPhone ? 0.28 : 0.18) * (1 + ig * 1.2);
 
       // color: gold base -> bright cream when ignited
       const r = 0.96 + ig * 0.04;
@@ -551,7 +551,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY }: { count: number; inte
           transparent
           depthWrite={false}
           blending={THREE.AdditiveBlending}
-          opacity={0.9}
+          opacity={isPhone ? 0.35 : 0.9}
         />
       </lineSegments>
 
@@ -694,7 +694,7 @@ export function ThreeBackground({
         return;
       }
       setEnabled(true);
-      setCount(phone ? 55 : tablet ? 70 : 100);
+      setCount(phone ? 28 : tablet ? 70 : 100);
       setInteractive(true);
     };
     apply();
@@ -704,13 +704,21 @@ export function ThreeBackground({
 
   if (!enabled) return null;
 
+  const phoneMask =
+    "radial-gradient(115% 95% at 50% 35%, rgba(0,0,0,1) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 95%)";
+  const fadeMask =
+    "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)";
+
   const maskStyle = fade
-    ? {
-        WebkitMaskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
-        maskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
-      }
+    ? isPhone
+      ? {
+          WebkitMaskImage: phoneMask,
+          maskImage: phoneMask,
+        }
+      : {
+          WebkitMaskImage: fadeMask,
+          maskImage: fadeMask,
+        }
     : undefined;
 
   const defaultClass = fixed
@@ -721,7 +729,7 @@ export function ThreeBackground({
     <div
       aria-hidden
       className={className ?? defaultClass}
-      style={{ opacity: isPhone ? 0.55 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
+      style={{ opacity: isPhone ? 0.45 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
@@ -733,7 +741,7 @@ export function ThreeBackground({
         }}
         frameloop={reduceMotion ? "demand" : "always"}
       >
-        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} />
+        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
       </Canvas>
     </div>
   );
