@@ -3,7 +3,7 @@ import { TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { CountUp } from "@/components/count-up";
+
 
 export const Route = createFileRoute("/portal/staking-plans")({
   component: StakingPlansPage,
