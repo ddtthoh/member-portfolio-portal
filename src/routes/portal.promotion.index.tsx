@@ -27,7 +27,6 @@ function PromotionPage() {
   return (
     <div>
       <PageHeader
-        eyebrow={t("pages.promotion.eyebrow")}
         title={t("pages.promotion.title")}
         description={t("pages.promotion.description")}
       />
