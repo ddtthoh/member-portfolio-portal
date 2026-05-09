@@ -78,14 +78,6 @@ export function StakingOverviewCard({
         )}
       </div>
 
-      {/* Decorative hairline */}
-      <div aria-hidden className="mt-5 h-px w-16 bg-gold/40" />
-
-      {/* Sub label */}
-      <div className="mt-3 text-[11px] tracking-[0.08em] text-muted-foreground">
-        {t("pages.holdings.tierSuffix", { tier })}
-      </div>
-
       {/* Footnote breakdown */}
       <div className="mt-8 border-t border-border/40 pt-5 sm:mt-10 sm:pt-6">
         <div className="grid grid-cols-1 gap-y-5 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-0">
