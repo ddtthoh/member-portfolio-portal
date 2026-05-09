@@ -34,7 +34,8 @@
       "overview": "개요",
       "operations": "운영",
       "support": "계정 및 지원"
-    }
+    },
+    "reportsGlobal": "글로벌 보상"
   },
   "account": {
     "label": "계정",

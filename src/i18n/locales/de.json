@@ -34,7 +34,8 @@
       "overview": "Übersicht",
       "operations": "Transaktionen",
       "support": "Konto & Support"
-    }
+    },
+    "reportsGlobal": "Globale Belohnungen"
   },
   "account": {
     "label": "Konto",
