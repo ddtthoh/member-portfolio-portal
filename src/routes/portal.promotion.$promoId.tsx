@@ -558,7 +558,7 @@ function TierLadder({
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full border ${
                       reached
-                        ? "border-gold/50 bg-gold/15 text-gold"
+                        ? "gold-glow-sm border-gold/50 bg-gold/15 text-gold"
                         : "border-foreground/15 bg-foreground/[0.04] text-muted-foreground"
                     }`}
                   >
