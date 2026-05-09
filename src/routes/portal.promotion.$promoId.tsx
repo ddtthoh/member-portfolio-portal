@@ -750,7 +750,12 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
     rankingProgress = {
       pct,
       topLeft: `Next rank · ${nextRank.name}`,
-      bottom: (
+      bottom: unit === "%" ? (
+        <>
+          <span className="font-light tabular-nums tracking-tight text-gold">{remaining}%</span>{" "}
+          to unlock <span className="text-gold">{nextRank.reward}</span>
+        </>
+      ) : (
         <>
           <span className="font-light tabular-nums tracking-tight text-gold">{remaining}</span>{" "}
           more {unit} to unlock{" "}
