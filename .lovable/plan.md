@@ -1,90 +1,29 @@
-## 问题诊断
+## Problem
 
-手机上看起来像蜘蛛网的根本原因：
+The ticker isn't moving because `src/styles.css` has two bugs in the ticker block (lines 192–198):
 
-```text
-55 个节点 × 每个最多 6 条连线 ÷ 小屏幕面积
-= 密密麻麻的金线交叉 → 蜘蛛网视觉
-```
+1. `.ticker-track { animation: none; }` — animation is explicitly disabled, so the marquee never runs.
+2. The `.ticker-wrap:hover .ticker-track { animation-play-state: paused;` rule is missing its closing `}`. This silently swallows the next rule (`.portal-backdrop`) and breaks the cascade for the dark portal background too.
 
-加上线条颜色恒定（不闪、不流动），整张图是**静态的网**，不像**流动的数据网络**。
+## Fix
 
-科技/未来感的关键不是"节点 + 连线"，而是：
-- **稀疏 + 高对比** — 几个发光节点比一堆灰线高级
-- **节点是主角，线只是暗示** — 线条压到很弱
-- **流动感** — 偶尔有数据包/光迹掠过，让网络"活着"
-- **景深** — 远近分层，不是一张平面网
-
----
-
-## 方案（仅手机端，桌面/平板不动）
-
-### 1. 大幅减少节点和连线密度
-
-```text
-              桌面            手机（现在）       手机（改后）
-节点数        100             55                 28
-每节点最大连线 6              6                  2
-连接距离      avgSpacing×1.9  ×1.9               ×1.35（只连最近邻）
-```
-
-视觉效果：从"蜘蛛网"变成"星座 + 极少量牵引线"。
-
-### 2. 线条退到背景层
-
-手机端：
-- edge 颜色亮度从 `0.6` → `0.22`
-- edge opacity 整体压到 `0.35`
-- 线条变成"几乎看不见的引导线"，只在数据包经过时短暂亮起
-
-### 3. 节点变成主角
-
-手机端：
-- 节点 size 从 `0.18` → `0.28`（更大更亮的光点）
-- 节点 sprite glow 加强（外圈 halo 更柔）
-- 让人感觉像"漂浮的星辰"而不是"网孔交点"
-
-### 4. 加强遮罩，防止边缘密集
-
-现在的 mask 是上→下渐隐。手机端额外加**左右径向遮罩**，让屏幕边缘的节点/线条 fade out，避免边缘密集堆积制造蜘蛛网边。
+In `src/styles.css`, replace the broken block with:
 
 ```css
-mask-image:
-  radial-gradient(120% 100% at 50% 30%, black 30%, transparent 90%),
-  linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-mask-composite: intersect;
+.ticker-track {
+  animation: ticker-marquee 60s linear infinite;
+  width: max-content;
+}
+.ticker-wrap:hover .ticker-track {
+  animation-play-state: paused;
+}
 ```
 
-### 5. 整体 opacity 微调
+- 60s gives a slow, readable scroll across 50 tokens (×2 for the duplicated loop). Adjustable.
+- Restores the missing `}` so `.portal-backdrop` becomes its own rule again.
+- The existing `prefers-reduced-motion` override that sets `animation: none` is kept for accessibility.
 
-手机端从现在的 `0.55` 调到 `0.45`，让背景更"远"，前景内容更突出。
+## Out of scope
 
----
-
-## 技术改动清单
-
-**只动一个文件**：`src/components/three-background.tsx`
-
-1. `ThreeBackground` 组件：
-   - 手机：`count` 从 `55` → `28`
-   - 手机：opacity `0.55` → `0.45`
-   - 手机加 `maskStyle` 的径向遮罩
-
-2. `NodeWeb` 组件：
-   - 接收新 prop `isPhone`
-   - 手机：`maxEdgesPerNode = 2`（桌面保持 6）
-   - 手机：`proximity` 系数从 `1.9` → `1.35`
-   - 手机：edge color 0.6 → 0.22，edge material opacity 加 `0.35`
-   - 手机：node `sizes[i]` 从 `0.18` → `0.28`
-
-桌面 / 平板视觉**完全不变**。
-
----
-
-## 不做的部分
-
-- 不改桌面背景
-- 不改 `/portal/network` 页面里的 `NetworkConstellation`（那是另一个组件）
-- 不动 packet/sparkle 动画逻辑（已经够流动）
-
-准备好就点 **Implement plan**。
+- No changes to `ticker-tape.tsx` — data fetching and click-through to Dexscreener already work.
+- No other CSS rules touched.

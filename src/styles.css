@@ -190,11 +190,12 @@
     100% { transform: translateX(-50%); }
   }
   .ticker-track {
-    animation: none;
+    animation: ticker-marquee 60s linear infinite;
     width: max-content;
   }
   .ticker-wrap:hover .ticker-track {
     animation-play-state: paused;
+  }
 
   .portal-backdrop {
     background: #ffffff;
