@@ -26,59 +26,16 @@ const plans: StakingPlanOption[] = [
 function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [defaultIdx, setDefaultIdx] = useState(0);
-
-  const openWithPlan = (i: number) => {
-    setDefaultIdx(i);
-    setOpen(true);
-  };
 
   return (
     <div className="space-y-5">
       <PageHeader eyebrow={t("pages.stakingPlans.eyebrow")} title={t("pages.stakingPlans.title")} description={t("pages.stakingPlans.description")} />
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {plans.map((plan, i) => (
-          <button
-            key={plan.name}
-            type="button"
-            onClick={() => openWithPlan(i)}
-            className="text-left transition-transform hover:-translate-y-0.5"
-          >
-            <SpotlightCard className="liquid-glass rounded-2xl px-5 py-4 h-full">
-              <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
-                {t(plan.name)}
-              </h3>
-
-              <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
-                <div className="pr-3">
-                  <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                    {t("pages.stakingPlans.labels.minimumStaking")}
-                  </div>
-                  <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
-                    ${plan.minAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </div>
-                </div>
-
-                <div className="pl-3">
-                  <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
-                    <TrendingUp className="h-3 w-3" /> {t("pages.stakingPlans.labels.monthlyRoi")}
-                  </div>
-                  <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
-                    {plan.roi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                  </div>
-                </div>
-              </div>
-            </SpotlightCard>
-          </button>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <div className="flex justify-center pt-2">
+      {/* CTA — above the plans grid */}
+      <div className="flex justify-center">
         <Button
           size="lg"
-          onClick={() => openWithPlan(0)}
+          onClick={() => setOpen(true)}
           className="group relative overflow-hidden rounded-full border border-gold/40 bg-gradient-to-r from-gold/15 via-gold/25 to-gold/15 px-10 py-6 text-base font-medium uppercase tracking-[0.25em] text-gold backdrop-blur transition-all hover:-translate-y-0.5 hover:border-gold/70 hover:from-gold/25 hover:to-gold/25"
           style={{
             boxShadow:
@@ -91,12 +48,37 @@ function StakingPlansPage() {
         </Button>
       </div>
 
-      <StartStakingDialog
-        open={open}
-        onOpenChange={setOpen}
-        plans={plans}
-        defaultPlanIndex={defaultIdx}
-      />
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {plans.map((plan) => (
+          <SpotlightCard key={plan.name} className="liquid-glass rounded-2xl px-5 py-4 h-full">
+            <h3 className="font-serif text-lg font-semibold leading-tight tracking-tight text-gold">
+              {t(plan.name)}
+            </h3>
+
+            <div className="mt-3 grid grid-cols-2 divide-x divide-gold/40">
+              <div className="pr-3">
+                <div className="text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
+                  {t("pages.stakingPlans.labels.minimumStaking")}
+                </div>
+                <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
+                  ${plan.minAmount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+              </div>
+
+              <div className="pl-3">
+                <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.22em] text-gold/70">
+                  <TrendingUp className="h-3 w-3" /> {t("pages.stakingPlans.labels.monthlyRoi")}
+                </div>
+                <div className="mt-0.5 font-light text-xl lg:text-[1.35rem] leading-none tabular-nums tracking-[-0.04em] text-gold whitespace-nowrap">
+                  {plan.roi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
+                </div>
+              </div>
+            </div>
+          </SpotlightCard>
+        ))}
+      </div>
+
+      <StartStakingDialog open={open} onOpenChange={setOpen} plans={plans} />
     </div>
   );
 }
