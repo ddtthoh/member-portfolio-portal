@@ -18,7 +18,7 @@ import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { CommandPalette } from "@/components/command-palette";
-import { MobileFab } from "@/components/mobile-fab";
+
 import { ThreeBackground } from "@/components/three-background";
 
 import { useTranslation } from "react-i18next";
