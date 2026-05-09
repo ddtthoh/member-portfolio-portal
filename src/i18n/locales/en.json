@@ -398,6 +398,11 @@
       "description": "A summary of your active staking.",
       "totalStakingAmount": "Total Staking Amount",
       "stakingDays": "Staking Days",
+      "totalStaking": "Total Staking",
+      "daysUnit": "days",
+      "since": "since {{date}}",
+      "accruing": "accruing",
+      "tierLabel": "{{tier}} tier",
       "tableHeaders": {
         "date": "Date",
         "stakingPlan": "Staking Plan",
