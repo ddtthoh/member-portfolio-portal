@@ -276,10 +276,20 @@ function TrackCard({
   const qualified = !!current;
 
   return (
-    <SpotlightCard className="liquid-glass rounded-2xl p-6">
-      <div className="mb-3 flex items-center gap-2 text-gold">
+    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
+      {/* Ambient gold corner glow to make user's tracking the focal point */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-px rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 8%, transparent), transparent 60%)",
+        }}
+      />
+      <div className="relative mb-3 flex items-center gap-2 text-gold">
         {icon}
         <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
+        <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">Your Tracking</span>
       </div>
 
       <div className="flex items-baseline justify-between gap-3">
