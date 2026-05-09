@@ -704,13 +704,21 @@ export function ThreeBackground({
 
   if (!enabled) return null;
 
+  const phoneMask =
+    "radial-gradient(115% 95% at 50% 35%, rgba(0,0,0,1) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 95%)";
+  const fadeMask =
+    "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)";
+
   const maskStyle = fade
-    ? {
-        WebkitMaskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
-        maskImage:
-          "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)",
-      }
+    ? isPhone
+      ? {
+          WebkitMaskImage: phoneMask,
+          maskImage: phoneMask,
+        }
+      : {
+          WebkitMaskImage: fadeMask,
+          maskImage: fadeMask,
+        }
     : undefined;
 
   const defaultClass = fixed
@@ -721,7 +729,7 @@ export function ThreeBackground({
     <div
       aria-hidden
       className={className ?? defaultClass}
-      style={{ opacity: isPhone ? 0.55 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
+      style={{ opacity: isPhone ? 0.45 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
@@ -733,7 +741,7 @@ export function ThreeBackground({
         }}
         frameloop={reduceMotion ? "demand" : "always"}
       >
-        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} />
+        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
       </Canvas>
     </div>
   );
