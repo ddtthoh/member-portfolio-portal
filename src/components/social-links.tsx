@@ -63,9 +63,12 @@ export function SocialLinks({ variant = "row", size = 16, className }: SocialLin
             aria-label={name}
             className="group flex flex-col items-center gap-2 rounded-xl border border-border/40 bg-card/30 px-3 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40 hover:bg-card/60"
           >
-            <Icon
-              className="text-muted-foreground/80 transition-all duration-300 group-hover:text-gold group-hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
-            />
+            <span
+              className="inline-flex items-center justify-center text-muted-foreground/80 transition-all duration-300 group-hover:text-gold group-hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
+              style={{ width: size, height: size }}
+            >
+              <Icon className="h-full w-full" />
+            </span>
             <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground transition-colors group-hover:text-gold">
               {name}
             </span>
