@@ -398,13 +398,13 @@ function TrackCard({
 function StatusChip({ qualified, top }: { qualified: boolean; top: boolean }) {
   if (top) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
+      <span className="gold-glow-sm inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
         <Sparkles className="h-3 w-3" /> Apex
       </span>
     );
   }
   return qualified ? (
-    <span className="inline-flex items-center gap-1 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
+    <span className="gold-glow-sm inline-flex items-center gap-1 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
       <Check className="h-3 w-3" /> Qualified
     </span>
   ) : (
