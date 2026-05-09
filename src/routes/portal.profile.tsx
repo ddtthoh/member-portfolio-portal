@@ -78,7 +78,7 @@ function ProfilePage() {
     if (!user) return;
     supabase
       .from("profiles")
-      .select("full_name, phone")
+      .select("full_name, phone, national_id, dob, country, region, city, address")
       .eq("id", user.id)
       .maybeSingle()
       .then(({ data }) => {
@@ -87,6 +87,12 @@ function ProfilePage() {
             ...f,
             full_name: data.full_name ?? "",
             mobile_number: data.phone ?? "",
+            national_id: (data as any).national_id ?? "",
+            dob: (data as any).dob ?? "",
+            country: (data as any).country ?? "",
+            region: (data as any).region ?? "",
+            city: (data as any).city ?? "",
+            address: (data as any).address ?? "",
           }));
         }
         setLoading(false);
@@ -102,7 +108,16 @@ function ProfilePage() {
     setSaving(true);
     const { error } = await supabase
       .from("profiles")
-      .update({ full_name: form.full_name, phone: form.mobile_number })
+      .update({
+        full_name: form.full_name,
+        phone: form.mobile_number,
+        national_id: form.national_id || null,
+        dob: form.dob || null,
+        country: form.country || null,
+        region: form.region || null,
+        city: form.city || null,
+        address: form.address || null,
+      })
       .eq("id", user.id);
     setSaving(false);
     if (error) toast.error(t("pages.profile.toast.error"));

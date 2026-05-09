@@ -158,6 +158,39 @@ export type Database = {
         }
         Relationships: []
       }
+      kyc_submissions: {
+        Row: {
+          id: string
+          passport_url: string
+          reviewer_note: string | null
+          selfie_url: string
+          status: string
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          passport_url: string
+          reviewer_note?: string | null
+          selfie_url: string
+          status?: string
+          submitted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          passport_url?: string
+          reviewer_note?: string | null
+          selfie_url?: string
+          status?: string
+          submitted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       network_contacts: {
         Row: {
           avatar_url: string | null
@@ -197,35 +230,53 @@ export type Database = {
       profiles: {
         Row: {
           account_number: string | null
+          address: string | null
           advisor_name: string | null
           avatar_url: string | null
+          city: string | null
+          country: string | null
           created_at: string
+          dob: string | null
           full_name: string | null
           id: string
           member_since: string | null
+          national_id: string | null
           phone: string | null
+          region: string | null
           updated_at: string
         }
         Insert: {
           account_number?: string | null
+          address?: string | null
           advisor_name?: string | null
           avatar_url?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
+          dob?: string | null
           full_name?: string | null
           id: string
           member_since?: string | null
+          national_id?: string | null
           phone?: string | null
+          region?: string | null
           updated_at?: string
         }
         Update: {
           account_number?: string | null
+          address?: string | null
           advisor_name?: string | null
           avatar_url?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
+          dob?: string | null
           full_name?: string | null
           id?: string
           member_since?: string | null
+          national_id?: string | null
           phone?: string | null
+          region?: string | null
           updated_at?: string
         }
         Relationships: []

@@ -363,7 +363,7 @@ export function PortalShell() {
                   <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" as any })}>
                     <KeyRound className="h-4 w-4" /> {t("account.changePassword")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" as any })}>
+                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" })}>
                     <ShieldCheck className="h-4 w-4" /> {t("account.myKyc")}
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
