@@ -378,7 +378,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       const ig = data.ignite[i];
 
       // size
-      data.sizes[i] = 0.18 * (1 + ig * 1.2);
+      data.sizes[i] = (isPhone ? 0.28 : 0.18) * (1 + ig * 1.2);
 
       // color: gold base -> bright cream when ignited
       const r = 0.96 + ig * 0.04;
