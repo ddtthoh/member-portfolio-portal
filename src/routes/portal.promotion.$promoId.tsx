@@ -656,23 +656,104 @@ function TierLadder({
 function RankingPromotion({ promo }: { promo: RankingPromo }) {
   const rcbEarned = promo.rcbCount * promo.rcbPerReferralUsd;
 
-  // TCB standing: highest tier where both minRcb and minAum are satisfied
+  // ---- RCB progress: linear milestones --------------------------------------
+  const rcbMilestones = [1, 5, 10, 20, 50, 100];
+  const rcbNext = rcbMilestones.find((m) => promo.rcbCount < m) ?? null;
+  const rcbPrev = [...rcbMilestones].reverse().find((m) => promo.rcbCount >= m) ?? 0;
+  const rcbPct = rcbNext
+    ? Math.min(100, Math.max(0, ((promo.rcbCount - rcbPrev) / (rcbNext - rcbPrev)) * 100))
+    : 100;
+  const rcbProgress: TrackProgressData | null = rcbNext
+    ? {
+        pct: rcbPct,
+        topLeft: `Next milestone · ${rcbNext} referrals`,
+        bottom: (
+          <>
+            <span className="font-light tabular-nums tracking-tight text-gold">
+              {rcbNext - promo.rcbCount}
+            </span>{" "}
+            more to unlock{" "}
+            <span className="font-light tabular-nums tracking-tight text-gold">
+              ${(rcbNext * promo.rcbPerReferralUsd).toLocaleString()}
+            </span>
+            .
+          </>
+        ),
+      }
+    : null;
+
+  // ---- TCB progress: min(rcbPct, aumPct) of next tier ----------------------
   const tcbSorted = [...promo.tcbTiers].sort((a, b) => a.pct - b.pct);
   let currentTcb: TcbTier | null = null;
   for (const t of tcbSorted) {
     if (promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum) currentTcb = t;
   }
-  const nextTcb = tcbSorted.find(
-    (t) => !(promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum),
-  ) ?? null;
+  const nextTcb =
+    tcbSorted.find((t) => !(promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum)) ?? null;
   const tcbPayout = currentTcb ? (promo.currentAum * currentTcb.pct) / 100 : 0;
 
+  let tcbProgress: TrackProgressData | null = null;
+  if (nextTcb) {
+    const rcbDone = Math.min(100, (promo.rcbCount / nextTcb.minRcb) * 100);
+    const aumDone = Math.min(100, (promo.currentAum / nextTcb.minAum) * 100);
+    const pct = Math.min(rcbDone, aumDone);
+    const rcbGap = Math.max(0, nextTcb.minRcb - promo.rcbCount);
+    const aumGap = Math.max(0, nextTcb.minAum - promo.currentAum);
+    tcbProgress = {
+      pct,
+      topLeft: `Next tier · ${nextTcb.pct}% AUM`,
+      bottom: (
+        <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="inline-flex items-center gap-1">
+            {rcbGap === 0 ? (
+              <Check className="h-3 w-3 text-gold" />
+            ) : (
+              <span className="font-light tabular-nums tracking-tight text-gold">{rcbGap}</span>
+            )}
+            <span>{rcbGap === 0 ? "RCB" : "more RCB"}</span>
+          </span>
+          <span className="text-gold/30">·</span>
+          <span className="inline-flex items-center gap-1">
+            {aumGap === 0 ? (
+              <Check className="h-3 w-3 text-gold" />
+            ) : (
+              <span className="font-light tabular-nums tracking-tight text-gold">
+                {aumGap.toLocaleString()}
+              </span>
+            )}
+            <span>{aumGap === 0 ? "AUM" : "more USDT AUM"}</span>
+          </span>
+        </span>
+      ),
+    };
+  }
+
+  // ---- Ranking progress: backend-supplied "X more" -------------------------
   const currentRank =
     promo.currentRankIndex >= 0 ? promo.rankingTiers[promo.currentRankIndex] : null;
   const nextRank =
     promo.currentRankIndex + 1 < promo.rankingTiers.length
       ? promo.rankingTiers[promo.currentRankIndex + 1]
       : null;
+
+  let rankingProgress: TrackProgressData | null = null;
+  if (nextRank && promo.nextRankProgress) {
+    const { current, target, unit, metricLabel } = promo.nextRankProgress;
+    const pct = Math.min(100, Math.max(0, (current / target) * 100));
+    const remaining = Math.max(0, target - current);
+    rankingProgress = {
+      pct,
+      topLeft: `Next rank · ${nextRank.name}`,
+      bottom: (
+        <>
+          <span className="font-light tabular-nums tracking-tight text-gold">{remaining}</span>{" "}
+          more {unit} to unlock{" "}
+          <span className="text-gold">{nextRank.reward}</span>
+          <span className="ml-1 text-gold/50">({metricLabel.toLowerCase()})</span>
+        </>
+      ),
+    };
+  }
 
   return (
     <div className="space-y-4">
@@ -703,7 +784,6 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
 
       {/* Three tracker cards */}
       <div className="grid gap-4 lg:grid-cols-3">
-        {/* RCB */}
         <RankingTrackCard
           icon={<UserPlus className="h-4 w-4" />}
           eyebrow="Track 01 · RCB"
@@ -711,14 +791,13 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
           status={promo.rcbCount > 0 ? "qualified" : "pending"}
           primaryLabel="Qualified Referrals"
           primaryValue={promo.rcbCount}
-          primarySuffix=""
           secondaryLabel="Reward earned"
           secondaryValue={rcbEarned}
           secondaryPrefix="$"
-          footnote={`USD ${promo.rcbPerReferralUsd} per referral · min stake ${promo.rcbMinStakeUsd} USDT`}
+          progress={rcbProgress}
+          fallbackFootnote={`USD ${promo.rcbPerReferralUsd} per referral · min stake ${promo.rcbMinStakeUsd} USDT`}
         />
 
-        {/* TCB */}
         <RankingTrackCard
           icon={<Wallet className="h-4 w-4" />}
           eyebrow="Track 02 · TCB"
@@ -730,14 +809,10 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
           secondaryLabel={currentTcb ? `Reward · ${currentTcb.pct}% AUM` : "Reward"}
           secondaryValue={tcbPayout}
           secondarySuffix=" USDT"
-          footnote={
-            nextTcb
-              ? `Next tier: ${nextTcb.pct}% AUM · need ${Math.max(0, nextTcb.minRcb - promo.rcbCount)} more RCB & ${Math.max(0, nextTcb.minAum - promo.currentAum).toLocaleString()} USDT AUM`
-              : "Top TCB tier reached."
-          }
+          progress={tcbProgress}
+          fallbackFootnote="Top TCB tier reached."
         />
 
-        {/* Ranking */}
         <RankingTrackCard
           icon={<Trophy className="h-4 w-4" />}
           eyebrow="Track 03 · Ranking"
@@ -748,7 +823,8 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
           secondaryLabel={currentRank ? "Reward value" : "—"}
           secondaryValue={currentRank ? currentRank.valueUsd : 0}
           secondarySuffix=" USDT"
-          footnote={
+          progress={rankingProgress}
+          fallbackFootnote={
             nextRank
               ? `Next rank: ${nextRank.name} · ${nextRank.reward}`
               : "Apex rank achieved — Partner tier."
