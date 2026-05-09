@@ -25,6 +25,7 @@ import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
+import { Route as PortalKycRouteImport } from './routes/portal.kyc'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
@@ -126,6 +127,11 @@ const PortalProfileRoute = PortalProfileRouteImport.update({
 const PortalNetworkRoute = PortalNetworkRouteImport.update({
   id: '/network',
   path: '/network',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalKycRoute = PortalKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalHoldingsRoute = PortalHoldingsRouteImport.update({
@@ -256,6 +262,7 @@ export interface FileRoutesByFullPath {
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/qr-code': typeof PortalQrCodeRoute
@@ -334,6 +342,7 @@ export interface FileRoutesById {
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
+  '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -376,6 +385,7 @@ export interface FileRouteTypes {
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
+    | '/portal/kyc'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -415,6 +425,7 @@ export interface FileRouteTypes {
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
+    | '/portal/kyc'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/qr-code'
@@ -453,6 +464,7 @@ export interface FileRouteTypes {
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
+    | '/portal/kyc'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -603,6 +615,13 @@ declare module '@tanstack/react-router' {
       path: '/network'
       fullPath: '/portal/network'
       preLoaderRoute: typeof PortalNetworkRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/kyc': {
+      id: '/portal/kyc'
+      path: '/kyc'
+      fullPath: '/portal/kyc'
+      preLoaderRoute: typeof PortalKycRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/holdings': {
@@ -798,6 +817,7 @@ interface PortalRouteChildren {
   PortalDepositRoute: typeof PortalDepositRoute
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
+  PortalKycRoute: typeof PortalKycRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalProfileRoute: typeof PortalProfileRoute
   PortalPromotionRoute: typeof PortalPromotionRouteWithChildren
@@ -831,6 +851,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalDepositRoute: PortalDepositRoute,
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,
+  PortalKycRoute: PortalKycRoute,
   PortalNetworkRoute: PortalNetworkRoute,
   PortalProfileRoute: PortalProfileRoute,
   PortalPromotionRoute: PortalPromotionRouteWithChildren,
