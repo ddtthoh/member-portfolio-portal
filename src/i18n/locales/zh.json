@@ -34,7 +34,8 @@
       "overview": "概览",
       "operations": "操作",
       "support": "账户与支持"
-    }
+    },
+    "reportsGlobal": "全球奖励"
   },
   "account": {
     "label": "账户",

@@ -43,6 +43,7 @@ import { Route as PortalReportsStakingRouteImport } from './routes/portal.report
 import { Route as PortalReportsReferralRewardsRouteImport } from './routes/portal.reports.referral-rewards'
 import { Route as PortalReportsParRankRewardsRouteImport } from './routes/portal.reports.par-rank-rewards'
 import { Route as PortalReportsLeaderRewardsRouteImport } from './routes/portal.reports.leader-rewards'
+import { Route as PortalReportsGlobalRewardsRouteImport } from './routes/portal.reports.global-rewards'
 import { Route as PortalQnaMarketingRouteImport } from './routes/portal.qna.marketing'
 import { Route as PortalQnaCompanyRouteImport } from './routes/portal.qna.company'
 import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.promotion.$promoId'
@@ -224,6 +225,12 @@ const PortalReportsLeaderRewardsRoute =
     path: '/reports/leader-rewards',
     getParentRoute: () => PortalRoute,
   } as any)
+const PortalReportsGlobalRewardsRoute =
+  PortalReportsGlobalRewardsRouteImport.update({
+    id: '/reports/global-rewards',
+    path: '/reports/global-rewards',
+    getParentRoute: () => PortalRoute,
+  } as any)
 const PortalQnaMarketingRoute = PortalQnaMarketingRouteImport.update({
   id: '/marketing',
   path: '/marketing',
@@ -265,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
+  '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -301,6 +309,7 @@ export interface FileRoutesByTo {
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
+  '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -341,6 +350,7 @@ export interface FileRoutesById {
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
+  '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
   '/portal/reports/leader-rewards': typeof PortalReportsLeaderRewardsRoute
   '/portal/reports/par-rank-rewards': typeof PortalReportsParRankRewardsRoute
   '/portal/reports/referral-rewards': typeof PortalReportsReferralRewardsRoute
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
+    | '/portal/reports/global-rewards'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -418,6 +429,7 @@ export interface FileRouteTypes {
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
+    | '/portal/reports/global-rewards'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -457,6 +469,7 @@ export interface FileRouteTypes {
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
+    | '/portal/reports/global-rewards'
     | '/portal/reports/leader-rewards'
     | '/portal/reports/par-rank-rewards'
     | '/portal/reports/referral-rewards'
@@ -718,6 +731,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalReportsLeaderRewardsRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/reports/global-rewards': {
+      id: '/portal/reports/global-rewards'
+      path: '/reports/global-rewards'
+      fullPath: '/portal/reports/global-rewards'
+      preLoaderRoute: typeof PortalReportsGlobalRewardsRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/qna/marketing': {
       id: '/portal/qna/marketing'
       path: '/marketing'
@@ -791,6 +811,7 @@ interface PortalRouteChildren {
   PortalWalletEditRoute: typeof PortalWalletEditRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
+  PortalReportsGlobalRewardsRoute: typeof PortalReportsGlobalRewardsRoute
   PortalReportsLeaderRewardsRoute: typeof PortalReportsLeaderRewardsRoute
   PortalReportsParRankRewardsRoute: typeof PortalReportsParRankRewardsRoute
   PortalReportsReferralRewardsRoute: typeof PortalReportsReferralRewardsRoute
@@ -823,6 +844,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalWalletEditRoute: PortalWalletEditRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
+  PortalReportsGlobalRewardsRoute: PortalReportsGlobalRewardsRoute,
   PortalReportsLeaderRewardsRoute: PortalReportsLeaderRewardsRoute,
   PortalReportsParRankRewardsRoute: PortalReportsParRankRewardsRoute,
   PortalReportsReferralRewardsRoute: PortalReportsReferralRewardsRoute,
