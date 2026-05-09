@@ -1,5 +1,5 @@
 import { Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -42,19 +42,21 @@ interface SocialLinksProps {
   variant?: Variant;
   size?: number;
   className?: string;
+  /** Show "CONNECT" eyebrow + gold hairline above icons (row/stack only). */
+  showEyebrow?: boolean;
 }
 
-export function SocialLinks({ variant = "row", size = 16, className }: SocialLinksProps) {
-  const containerClass =
-    variant === "stack"
-      ? "flex flex-col items-center gap-2"
-      : variant === "labeled"
-        ? "grid grid-cols-4 gap-3"
-        : "flex items-center justify-center gap-2";
+export function SocialLinks({
+  variant = "row",
+  size = 16,
+  className,
+  showEyebrow = true,
+}: SocialLinksProps) {
+  const reduceMotion = useReducedMotion();
 
   if (variant === "labeled") {
     return (
-      <div className={cn(containerClass, className)}>
+      <div className={cn("grid grid-cols-4 gap-3", className)}>
         {channels.map(({ name, href, Icon }) => (
           <a
             key={name}
@@ -79,52 +81,112 @@ export function SocialLinks({ variant = "row", size = 16, className }: SocialLin
     );
   }
 
-  // Plan A: monochrome icon + circular gold hover container + one-time shimmer sweep
-  const buttonSize = size + 16; // circular container
+  const isStack = variant === "stack";
+  const buttonSize = size + 16;
+
+  // Subtle breathing ring (idle pulse), staggered per icon. Disabled if user prefers reduced motion.
+  const idleAnimate = reduceMotion
+    ? undefined
+    : {
+        boxShadow: [
+          "0 0 0 1px color-mix(in oklab, var(--gold) 18%, transparent), 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent)",
+          "0 0 0 1px color-mix(in oklab, var(--gold) 32%, transparent), 0 0 10px 0 color-mix(in oklab, var(--gold) 18%, transparent)",
+          "0 0 0 1px color-mix(in oklab, var(--gold) 18%, transparent), 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent)",
+        ],
+      };
+
+  const iconRow = (
+    <div
+      className={cn(
+        "relative",
+        isStack ? "flex flex-col items-center gap-2" : "flex items-center justify-center gap-2",
+      )}
+    >
+      {/* One-time gold shimmer sweep on first appearance */}
+      <motion.span
+        aria-hidden
+        initial={{ opacity: 0, x: "-30%" }}
+        animate={{ opacity: [0, 1, 0], x: "130%" }}
+        transition={{ duration: 1.6, delay: 0.6, ease: "easeInOut" }}
+        className="pointer-events-none absolute inset-y-0 w-1/3"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 35%, transparent), transparent)",
+          filter: "blur(6px)",
+        }}
+      />
+      {channels.map(({ name, href, Icon }, index) => (
+        <Tooltip key={name}>
+          <TooltipTrigger asChild>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={name}
+              className="group relative inline-flex items-center justify-center text-muted-foreground/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold"
+              style={{ width: buttonSize, height: buttonSize }}
+            >
+              {/* Permanent gold ring + idle breathing pulse + hover amplification */}
+              <motion.span
+                aria-hidden
+                animate={idleAnimate}
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.4,
+                      }
+                }
+                className="absolute inset-0 rounded-full border border-gold/25 bg-card/40 transition-all duration-300 [box-shadow:inset_0_1px_0_color-mix(in_oklab,var(--gold)_10%,transparent)] group-hover:!border-gold/60 group-hover:bg-[color-mix(in_oklab,var(--gold)_10%,transparent)] group-hover:![box-shadow:0_0_0_1px_color-mix(in_oklab,var(--gold)_45%,transparent),0_8px_22px_-6px_color-mix(in_oklab,var(--gold)_55%,transparent)]"
+              />
+              <span
+                className="relative inline-flex items-center justify-center transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
+                style={{ width: size, height: size }}
+              >
+                <Icon className="h-full w-full" />
+              </span>
+            </a>
+          </TooltipTrigger>
+          <TooltipContent side={isStack ? "right" : "top"}>{name}</TooltipContent>
+        </Tooltip>
+      ))}
+    </div>
+  );
 
   return (
     <TooltipProvider delayDuration={150}>
-      <div className={cn("relative", containerClass, className)}>
-        {/* One-time gold shimmer sweep on first appearance */}
-        <motion.span
-          aria-hidden
-          initial={{ opacity: 0, x: "-30%" }}
-          animate={{ opacity: [0, 1, 0], x: "130%" }}
-          transition={{ duration: 1.6, delay: 0.6, ease: "easeInOut" }}
-          className="pointer-events-none absolute inset-y-0 w-1/3"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 35%, transparent), transparent)",
-            filter: "blur(6px)",
-          }}
-        />
-        {channels.map(({ name, href, Icon }) => (
-          <Tooltip key={name}>
-            <TooltipTrigger asChild>
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={name}
-                className="group relative inline-flex items-center justify-center rounded-full text-muted-foreground/85 transition-all duration-300 hover:-translate-y-0.5 hover:text-gold"
-                style={{ width: buttonSize, height: buttonSize }}
-              >
-                {/* Circular gold ring + glow on hover */}
-                <span
-                  aria-hidden
-                  className="absolute inset-0 rounded-full border border-transparent bg-transparent transition-all duration-300 group-hover:border-gold/40 group-hover:bg-[color-mix(in_oklab,var(--gold)_8%,transparent)] group-hover:[box-shadow:0_0_0_1px_color-mix(in_oklab,var(--gold)_25%,transparent),0_6px_18px_-6px_color-mix(in_oklab,var(--gold)_45%,transparent)]"
-                />
-                <span
-                  className="relative inline-flex items-center justify-center transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_6px_color-mix(in_oklab,var(--gold)_55%,transparent))]"
-                  style={{ width: size, height: size }}
-                >
-                  <Icon className="h-full w-full" />
-                </span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side={variant === "stack" ? "right" : "top"}>{name}</TooltipContent>
-          </Tooltip>
-        ))}
+      <div className={cn("flex flex-col items-center gap-2", className)}>
+        {showEyebrow && (
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              isStack ? "flex-col" : "w-full",
+            )}
+          >
+            <span
+              aria-hidden
+              className={cn(
+                "h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent",
+                isStack ? "w-6" : "flex-1",
+              )}
+            />
+            {!isStack && (
+              <span className="text-[9px] font-medium uppercase tracking-[0.32em] text-muted-foreground/60">
+                Connect
+              </span>
+            )}
+            {!isStack && (
+              <span
+                aria-hidden
+                className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/30 to-transparent"
+              />
+            )}
+          </div>
+        )}
+        {iconRow}
       </div>
     </TooltipProvider>
   );
