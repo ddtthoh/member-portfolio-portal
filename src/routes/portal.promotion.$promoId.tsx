@@ -152,11 +152,11 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
 
   return (
     <div className="space-y-4">
-      {/* Event meta */}
-      <SpotlightCard className="liquid-glass rounded-2xl p-6">
+      {/* Event meta — quieted */}
+      <div className="rounded-2xl border border-foreground/[0.06] bg-foreground/[0.015] p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-gold">
+            <div className="mb-2 flex items-center gap-2 text-gold/80">
               <Sparkles className="h-4 w-4" />
               <span className="text-[11px] uppercase tracking-[0.2em]">Official Opening</span>
             </div>
@@ -168,7 +168,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
             <MetaPill icon={<TrendingUp className="h-3.5 w-3.5" />} label="Window" value={promo.windowLabel} />
           </div>
         </div>
-      </SpotlightCard>
+      </div>
 
       {/* Two qualification tracks */}
       <div className="grid gap-4 lg:grid-cols-2">
