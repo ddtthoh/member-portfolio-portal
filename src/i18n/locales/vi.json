@@ -737,5 +737,101 @@
         "rank": "Hạng"
       }
     }
+  },
+  "palette": {
+    "items": {
+      "dashboard": "Bảng điều khiển",
+      "holdings": "Tài sản nắm giữ",
+      "stakingPlans": "Các gói Staking",
+      "rewards": "Phần thưởng",
+      "creditConversion": "Chuyển đổi tín dụng",
+      "referral": "Giới thiệu",
+      "promotion": "Khuyến mãi",
+      "stakingRewards": "Phần thưởng Staking",
+      "quiz": "Bài trắc nghiệm",
+      "qrCode": "Mã QR"
+    },
+    "groups": {
+      "wallet": "Ví",
+      "funds": "Quỹ",
+      "learn": "Kiến thức"
+    },
+    "searchPortal": "Tìm kiếm trên cổng...",
+    "typeToNavigate": "Nhập lệnh hoặc tìm kiếm...",
+    "empty": {
+      "noResults": "Không tìm thấy kết quả."
+    }
+  },
+  "fab": {
+    "searchLabel": "Tìm kiếm"
+  },
+  "components": {
+    "totalAssets": {
+      "totalAssetsUsd": "Tổng tài sản (USD)",
+      "labels": {
+        "staking": "Staking",
+        "usd": "USD",
+        "rewardsAsset": "Tài sản thưởng"
+      }
+    },
+    "plCalendar": {
+      "months": {
+        "january": "Tháng 1",
+        "february": "Tháng 2",
+        "march": "Tháng 3",
+        "april": "Tháng 4",
+        "may": "Tháng 5",
+        "june": "Tháng 6",
+        "july": "Tháng 7",
+        "august": "Tháng 8",
+        "september": "Tháng 9",
+        "october": "Tháng 10",
+        "november": "Tháng 11",
+        "december": "Tháng 12"
+      },
+      "monthsShort": {
+        "jan": "Thg 1",
+        "feb": "Thg 2",
+        "mar": "Thg 3",
+        "apr": "Thg 4",
+        "may": "Thg 5",
+        "jun": "Thg 6",
+        "jul": "Thg 7",
+        "aug": "Thg 8",
+        "sep": "Thg 9",
+        "oct": "Thg 10",
+        "nov": "Thg 11",
+        "dec": "Thg 12"
+      },
+      "weekdaysShort": {
+        "sun": "CN",
+        "mon": "T2",
+        "tue": "T3",
+        "wed": "T4",
+        "thu": "T5",
+        "fri": "T6",
+        "sat": "T7"
+      },
+      "title": "Lịch P&L",
+      "view": {
+        "list": "Danh sách",
+        "calendar": "Lịch"
+      },
+      "filters": {
+        "month": "Tháng",
+        "year": "Năm"
+      },
+      "totals": {
+        "pl": "P&L",
+        "return": "Lợi nhuận"
+      },
+      "empty": {
+        "noData": "Không có dữ liệu"
+      },
+      "status": {
+        "profit": "Lãi",
+        "loss": "Lỗ"
+      }
+    }
   }
 }

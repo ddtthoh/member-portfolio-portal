@@ -6,20 +6,35 @@
     "overview": "نظرة عامة",
     "stakingPlan": "خطة المشاركة",
     "portfolio": "المحفظة",
+    "assetAnalysis": "تحليل الأصول",
     "statement": "كشف الحساب",
     "creditConversionStatement": "كشف تحويل الأرصدة",
     "usdStatement": "كشف الدولار",
     "rewardsStatement": "كشف المكافآت",
+    "deposit": "إيداع",
+    "withdrawal": "سحب",
     "usdCreditsTransfer": "تحويل الدولار والأرصدة",
     "convertCredits": "تحويل الأرصدة",
     "transferUsd": "تحويل الدولار",
     "transactions": "المعاملات",
     "documents": "المستندات",
     "reports": "التقارير",
+    "reportsParticipation": "التحصيص",
+    "reportsReferral": "مكافآت الإحالة",
+    "reportsTeam": "مكافآت الفريق",
+    "reportsLeader": "مكافآت القادة",
+    "reportsParRank": "مكافآت رتبة Par",
     "network": "الشبكة",
     "qna": "الأسئلة والأجوبة",
+    "qnaCompany": "الشركة",
+    "qnaMarketing": "خطة التسويق",
     "support": "الدعم",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "sections": {
+      "overview": "نظرة عامة",
+      "operations": "العمليات",
+      "support": "الحساب والدعم"
+    }
   },
   "account": {
     "label": "الحساب",
@@ -49,6 +64,7 @@
   "overview": {
     "estTotalValue": "القيمة الإجمالية التقديرية (دولار)",
     "todaysPnl": "الربح/الخسارة اليوم",
+    "totalPnl": "إجمالي الربح/الخسارة",
     "participatedDay": "أيام المشاركة:",
     "stakingAmount": "مبلغ المشاركة:",
     "diamond": "ماسي",
@@ -69,8 +85,7 @@
       "referral": "الإحالة",
       "participation": "المشاركة",
       "promotion": "العرض الترويجي"
-    },
-    "totalPnl": "إجمالي الربح/الخسارة"
+    }
   },
   "pages": {
     "deposit": {
