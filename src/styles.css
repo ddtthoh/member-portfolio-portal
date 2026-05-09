@@ -482,35 +482,79 @@
       inset 0 1px 0 color-mix(in oklab, white 8%, transparent);
   }
 
-  /* CTA breathing glow — for hero buttons (Start Staking etc.) */
-  @keyframes cta-gold-breathe {
+  /* Premium CTA — polished gold "metal plate" with shimmer + breathing aura */
+  @keyframes cta-aura-breathe {
     0%, 100% {
       box-shadow:
-        0 0 18px -6px color-mix(in oklab, var(--gold) 35%, transparent),
-        inset 0 0 12px color-mix(in oklab, var(--gold) 8%, transparent);
+        0 0 0 1px color-mix(in oklab, var(--gold) 55%, transparent),
+        0 0 22px -4px color-mix(in oklab, var(--gold) 38%, transparent),
+        0 14px 40px -18px color-mix(in oklab, var(--gold) 55%, transparent);
     }
     50% {
       box-shadow:
-        0 0 38px -4px color-mix(in oklab, var(--gold) 70%, transparent),
-        0 0 80px -10px color-mix(in oklab, var(--gold) 35%, transparent),
-        inset 0 0 22px color-mix(in oklab, var(--gold) 18%, transparent);
+        0 0 0 1px color-mix(in oklab, var(--gold) 75%, transparent),
+        0 0 44px -2px color-mix(in oklab, var(--gold) 65%, transparent),
+        0 0 90px -10px color-mix(in oklab, var(--gold) 35%, transparent),
+        0 18px 50px -18px color-mix(in oklab, var(--gold) 70%, transparent);
     }
   }
-  .cta-gold-breathe {
-    animation: cta-gold-breathe 2.8s ease-in-out infinite;
+  @keyframes cta-shimmer-sweep {
+    0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+    20%  { opacity: 0.55; }
+    60%  { opacity: 0.55; }
+    100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
   }
-  .cta-gold-breathe:hover {
+  .cta-premium {
+    position: relative;
+    background:
+      linear-gradient(180deg,
+        color-mix(in oklab, var(--gold) 92%, white 8%) 0%,
+        color-mix(in oklab, var(--gold) 100%, transparent) 45%,
+        color-mix(in oklab, var(--gold) 78%, black 12%) 100%);
+    color: oklch(0.16 0.02 60);
+    text-shadow: 0 1px 0 color-mix(in oklab, white 35%, transparent);
+    animation: cta-aura-breathe 3s ease-in-out infinite;
+  }
+  .cta-premium::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg,
+      color-mix(in oklab, white 35%, transparent) 0%,
+      transparent 45%,
+      color-mix(in oklab, black 12%, transparent) 100%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  .cta-premium::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0;
+    width: 35%;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in oklab, white 70%, transparent) 50%,
+      transparent 100%);
+    filter: blur(2px);
+    pointer-events: none;
+    animation: cta-shimmer-sweep 4.2s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .cta-premium:hover {
     animation-play-state: paused;
     box-shadow:
-      0 0 42px -4px color-mix(in oklab, var(--gold) 78%, transparent),
-      0 0 90px -10px color-mix(in oklab, var(--gold) 40%, transparent),
-      inset 0 0 24px color-mix(in oklab, var(--gold) 22%, transparent);
+      0 0 0 1px color-mix(in oklab, var(--gold) 90%, transparent),
+      0 0 50px -2px color-mix(in oklab, var(--gold) 75%, transparent),
+      0 22px 60px -16px color-mix(in oklab, var(--gold) 80%, transparent);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .gold-glow-sm,
     .gold-glow-md,
     .gold-glow-bar { animation: none !important; opacity: 1 !important; }
-    .cta-gold-breathe { animation: none !important; }
+    .cta-premium { animation: none !important; }
+    .cta-premium::after { animation: none !important; opacity: 0 !important; }
   }
 }
