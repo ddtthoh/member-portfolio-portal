@@ -276,91 +276,120 @@ function TrackCard({
   const qualified = !!current;
 
   return (
-    <SpotlightCard className="liquid-glass rounded-2xl p-6">
-      <div className="mb-3 flex items-center gap-2 text-gold">
-        {icon}
-        <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
-      </div>
+    <SpotlightCard className="liquid-glass gold-halo group relative overflow-hidden rounded-2xl border border-gold/40 p-6 transition-transform duration-300 hover:-translate-y-0.5">
+      {/* Top gold ribbon */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 80%, transparent) 50%, transparent)",
+        }}
+      />
+      {/* Ambient gold glow background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-2xl"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 9%, transparent), transparent 55%)",
+        }}
+      />
 
-      <div className="flex items-baseline justify-between gap-3">
-        <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
-        <StatusChip qualified={qualified} top={topReached} />
-      </div>
-
-      <div className="mt-4 flex items-end justify-between">
-        <div>
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
-          <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
+      <div className="relative">
+        <div className="mb-3 flex items-center gap-2 text-gold">
+          {icon}
+          <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
         </div>
-        <div className="text-right">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current tier</div>
-          <div className="mt-0.5">
-            {current ? (
-              <MetricValue value={current.threshold} suffix=" USDT" decimals={0} size="sm" static />
+
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
+          <StatusChip qualified={qualified} top={topReached} />
+        </div>
+
+        <div className="mt-4 flex items-end justify-between">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
+            <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current tier</div>
+            <div className="mt-0.5">
+              {current ? (
+                <MetricValue value={current.threshold} suffix=" USDT" decimals={0} size="sm" static />
+              ) : (
+                <span className="text-sm text-gold/60">—</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Progress to next */}
+        <div className="mt-5">
+          <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
+            <span>
+              {next ? (
+                <>
+                  Next tier ·{" "}
+                  <span className="font-light tabular-nums tracking-tight text-gold">
+                    {next.threshold.toLocaleString()} USDT
+                  </span>
+                </>
+              ) : (
+                <>Top tier reached</>
+              )}
+            </span>
+            <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
+          </div>
+          <div className="relative h-1.5 overflow-visible rounded-full bg-gold/10">
+            <div
+              className="gold-glow-bar absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold"
+              style={{ width: `${progressInTier}%` }}
+            />
+            {/* End-of-bar glow dot */}
+            {progressInTier > 0 && progressInTier < 100 && (
+              <span
+                aria-hidden
+                className="gold-glow-md absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold"
+                style={{ left: `${progressInTier}%` }}
+              />
+            )}
+          </div>
+          <div className="mt-2 text-[11px] text-gold/70">
+            {next ? (
+              <>
+                <span className="font-light tabular-nums tracking-tight text-gold">
+                  {remaining.toLocaleString()} USDT
+                </span>{" "}
+                remaining to unlock the next tier of rewards.
+              </>
             ) : (
-              <span className="text-sm text-gold/60">—</span>
+              <>You have unlocked the maximum reward bracket. Congratulations.</>
             )}
           </div>
         </div>
-      </div>
 
-      {/* Progress to next */}
-      <div className="mt-5">
-        <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
-          <span>
-            {next ? (
-              <>
-                Next tier ·{" "}
-                <span className="font-light tabular-nums tracking-tight text-gold">
-                  {next.threshold.toLocaleString()} USDT
-                </span>
-              </>
-            ) : (
-              <>Top tier reached</>
-            )}
-          </span>
-          <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
-        </div>
-        <div className="relative h-1.5 overflow-hidden rounded-full bg-gold/10">
-          <div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold"
-            style={{ width: `${progressInTier}%` }}
+        {/* Currently unlocked rewards */}
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <RewardStat
+            icon={<Ticket className="h-3.5 w-3.5" />}
+            label="Seats"
+            value={current ? String(current.seats) : "0"}
+            dim={!current}
+          />
+          <RewardStat
+            icon={<Hotel className="h-3.5 w-3.5" />}
+            label="Hotel"
+            value={current ? (current.hotel ? "Included" : "—") : "—"}
+            dim={!current?.hotel}
+          />
+          <RewardStat
+            icon={<Plane className="h-3.5 w-3.5" />}
+            label="Flight"
+            value={current && current.flightUsd > 0 ? `${current.flightUsd.toLocaleString()} USDT` : "—"}
+            dim={!current || current.flightUsd === 0}
           />
         </div>
-        <div className="mt-2 text-[11px] text-gold/70">
-          {next ? (
-            <>
-              <span className="font-light tabular-nums tracking-tight text-gold">
-                {remaining.toLocaleString()} USDT
-              </span>{" "}
-              remaining to unlock the next tier of rewards.
-            </>
-          ) : (
-            <>You have unlocked the maximum reward bracket. Congratulations.</>
-          )}
-        </div>
-      </div>
-
-      {/* Currently unlocked rewards */}
-      <div className="mt-5 grid grid-cols-3 gap-2">
-        <RewardStat
-          icon={<Ticket className="h-3.5 w-3.5" />}
-          label="Seats"
-          value={current ? String(current.seats) : "0"}
-          dim={!current}
-        />
-        <RewardStat
-          icon={<Hotel className="h-3.5 w-3.5" />}
-          label="Hotel"
-          value={current ? (current.hotel ? "Included" : "—") : "—"}
-          dim={!current?.hotel}
-        />
-        <RewardStat
-          icon={<Plane className="h-3.5 w-3.5" />}
-          label="Flight"
-          value={current && current.flightUsd > 0 ? `${current.flightUsd.toLocaleString()} USDT` : "—"}
-          dim={!current || current.flightUsd === 0}
-        />
       </div>
     </SpotlightCard>
   );
