@@ -57,15 +57,15 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       colors[i * 3] = 0.96;
       colors[i * 3 + 1] = 0.82;
       colors[i * 3 + 2] = 0.5;
-      sizes[i] = 0.18;
+      sizes[i] = isPhone ? 0.28 : 0.18;
       seeds[i] = Math.random() * Math.PI * 2;
     }
 
-    // Build edges by proximity, max ~6 per node — proximity scales with average node spacing
-    const maxEdgesPerNode = 6;
+    // Build edges by proximity — far sparser on phone to avoid spider-web look
+    const maxEdgesPerNode = isPhone ? 2 : 6;
     const volume = spreadX * spreadY * 6;
     const avgSpacing = Math.cbrt(volume / Math.max(count, 1));
-    const proximity = avgSpacing * 1.9;
+    const proximity = avgSpacing * (isPhone ? 1.35 : 1.9);
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
