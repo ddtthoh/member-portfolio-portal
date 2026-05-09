@@ -292,12 +292,12 @@ function TrackCard({
         <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">Your Tracking</span>
       </div>
 
-      <div className="flex items-baseline justify-between gap-3">
+      <div className="relative flex items-baseline justify-between gap-3">
         <h3 className="text-lg font-light tracking-tight text-gold">{title}</h3>
         <StatusChip qualified={qualified} top={topReached} />
       </div>
 
-      <div className="mt-4 flex items-end justify-between">
+      <div className="relative mt-4 flex items-end justify-between">
         <div>
           <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
           <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
@@ -315,7 +315,7 @@ function TrackCard({
       </div>
 
       {/* Progress to next */}
-      <div className="mt-5">
+      <div className="relative mt-5">
         <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
           <span>
             {next ? (
@@ -331,11 +331,18 @@ function TrackCard({
           </span>
           <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
         </div>
-        <div className="relative h-1.5 overflow-hidden rounded-full bg-gold/10">
+        <div className="relative h-1.5 rounded-full bg-gold/10">
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold"
+            className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold ${progressInTier > 0 ? "gold-glow-bar" : ""}`}
             style={{ width: `${progressInTier}%` }}
           />
+          {progressInTier > 0 && progressInTier < 100 && (
+            <span
+              aria-hidden
+              className="gold-glow-md absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-gold"
+              style={{ left: `calc(${progressInTier}% - 5px)` }}
+            />
+          )}
         </div>
         <div className="mt-2 text-[11px] text-gold/70">
           {next ? (
