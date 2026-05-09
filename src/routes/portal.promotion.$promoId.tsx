@@ -767,10 +767,6 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-gold">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-[11px] uppercase tracking-[0.2em]">Three Tracks · One Window</span>
-            </div>
             <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{promo.intro}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 md:gap-4">
