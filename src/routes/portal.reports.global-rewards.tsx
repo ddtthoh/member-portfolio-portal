@@ -13,7 +13,7 @@ function GlobalRewardsPage() {
   const headers = [
     t("pages.reportsTeam.tableHeaders.date"),
     "Rank",
-    t("pages.reportsTeam.tableHeaders.rate"),
+    "Share count",
   ];
   return (
     <div>
