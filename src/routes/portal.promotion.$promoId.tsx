@@ -1207,7 +1207,8 @@ function RankingTrackCard({
   secondaryValue,
   secondaryPrefix = "",
   secondarySuffix = "",
-  footnote,
+  progress,
+  fallbackFootnote,
 }: {
   icon: React.ReactNode;
   eyebrow: string;
@@ -1222,7 +1223,8 @@ function RankingTrackCard({
   secondaryValue?: number;
   secondaryPrefix?: string;
   secondarySuffix?: string;
-  footnote: string;
+  progress?: TrackProgressData | null;
+  fallbackFootnote: React.ReactNode;
 }) {
   const top = status === "apex";
   const qualified = status === "qualified" || top;
@@ -1283,9 +1285,32 @@ function RankingTrackCard({
         </div>
       </div>
 
-      <div className="relative mt-4 border-t border-gold/10 pt-3 text-[11px] text-gold/70">
-        {footnote}
-      </div>
+      {progress ? (
+        <div className="relative mt-5">
+          <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
+            <span>{progress.topLeft}</span>
+            <span className="tabular-nums text-gold">{Math.round(progress.pct)}%</span>
+          </div>
+          <div className="relative h-1.5 rounded-full bg-gold/10">
+            <div
+              className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-gold/70 to-gold ${progress.pct > 0 ? "gold-glow-bar" : ""}`}
+              style={{ width: `${progress.pct}%` }}
+            />
+            {progress.pct > 0 && progress.pct < 100 && (
+              <span
+                aria-hidden
+                className="gold-glow-md absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-gold"
+                style={{ left: `calc(${progress.pct}% - 5px)` }}
+              />
+            )}
+          </div>
+          <div className="mt-2 text-[11px] text-gold/70">{progress.bottom}</div>
+        </div>
+      ) : (
+        <div className="relative mt-4 border-t border-gold/10 pt-3 text-[11px] text-gold/70">
+          {fallbackFootnote}
+        </div>
+      )}
     </SpotlightCard>
   );
 }
