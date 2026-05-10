@@ -21,6 +21,7 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { useWallet } from "@/hooks/use-wallet";
+import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 const RANGES: { key: 7 | 30 | 90; label: string }[] = [
   { key: 7, label: "7D" },
