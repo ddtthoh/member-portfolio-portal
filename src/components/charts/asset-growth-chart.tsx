@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,7 +21,6 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { useWallet } from "@/hooks/use-wallet";
-import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 const RANGES: { key: 7 | 30 | 90; label: string }[] = [
   { key: 7, label: "7D" },
@@ -32,38 +31,12 @@ const RANGES: { key: 7 | 30 | 90; label: string }[] = [
 const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
-// 0 → 1 ramp triggered when `enabled` is true; restarts whenever `key` changes.
-function useCountProgress(key: unknown, enabled: boolean, duration = 1500) {
-  const [p, setP] = useState(0);
-  const raf = useRef<number | null>(null);
-  useEffect(() => {
-    if (!enabled) {
-      setP(0);
-      return;
-    }
-    setP(0);
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setP(eased);
-      if (t < 1) raf.current = requestAnimationFrame(tick);
-    };
-    raf.current = requestAnimationFrame(tick);
-    return () => {
-      if (raf.current != null) cancelAnimationFrame(raf.current);
-    };
-  }, [key, duration, enabled]);
-  return p;
-}
-
 export function AssetGrowthChart() {
   const { t } = useTranslation();
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
   const { wallet } = useWallet();
-  const { ref: viewRef, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.2 });
-  const progress = useCountProgress(`${range}-${data.length}`, inView);
+  const progress = 1;
 
   const stakingBase = wallet.staking || 0;
   const hasBase = stakingBase > 0;
@@ -155,7 +128,6 @@ export function AssetGrowthChart() {
 
   return (
     <motion.div
-      ref={viewRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -188,7 +160,7 @@ export function AssetGrowthChart() {
 
         {/* ===== Main chart: Total only ===== */}
         <div className="h-52 w-full">
-          {hasData && inView ? (
+          {hasData ? (
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={data} margin={{ top: 12, right: 110, left: 0, bottom: 0 }}>
                 <defs>
@@ -221,8 +193,8 @@ export function AssetGrowthChart() {
                   stroke="none"
                   fill="url(#grad-total)"
                   isAnimationActive
-                  animationDuration={1500}
-                  animationEasing="ease-out"
+                  animationDuration={0}
+                  animationEasing="linear"
                 />
                 <Line
                   key={`line-${range}`}
@@ -232,10 +204,7 @@ export function AssetGrowthChart() {
                   strokeWidth={2.5}
                   dot={renderTotalDot as never}
                   activeDot={{ r: 4, fill: "var(--gold)" }}
-                  isAnimationActive
-                  animationDuration={1500}
-                  animationEasing="ease-out"
-                  className="gold-line-breathe"
+                  isAnimationActive={false}
                 >
                   <LabelList dataKey="total" content={renderTotalEndLabel as never} />
                 </Line>
