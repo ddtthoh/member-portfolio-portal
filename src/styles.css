@@ -632,5 +632,24 @@
       transition: none !important;
     }
   }
+
+  /* While the user is actively scrolling, suspend expensive CSS effects so
+     the main thread / GPU can focus on scroll. Animations and shadow/filter
+     transitions resume ~150ms after scroll stops. */
+  html.is-scrolling .liquid-glass,
+  html.is-scrolling .liquid-glass::before,
+  html.is-scrolling .liquid-glass::after {
+    transition: none !important;
+  }
+  html.is-scrolling .gold-glow-sm,
+  html.is-scrolling .gold-glow-md,
+  html.is-scrolling .gold-glow-bar,
+  html.is-scrolling .cta-premium,
+  html.is-scrolling .cta-premium::after,
+  html.is-scrolling .ring-pulse,
+  html.is-scrolling .gold-line-breathe .recharts-line-curve,
+  html.is-scrolling .ticker-track {
+    animation-play-state: paused !important;
+  }
 }
 
