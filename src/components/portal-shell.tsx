@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { usePortalReveal } from "@/hooks/use-portal-reveal";
 import { AnimatePresence, motion } from "framer-motion";
@@ -117,7 +117,8 @@ export function PortalShell() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  usePortalReveal(location.pathname);
+  const mainRef = useRef<HTMLElement | null>(null);
+  usePortalReveal(location.pathname, mainRef);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
@@ -391,6 +392,7 @@ export function PortalShell() {
           </header>
           <TickerTape />
           <main
+            ref={mainRef}
             className="min-w-0 w-full flex-1 overflow-x-hidden px-3 pb-[calc(24px+env(safe-area-inset-bottom,0px))] pt-3 sm:px-4 lg:px-10 lg:pb-8"
           >
             <AnimatePresence mode="wait">
