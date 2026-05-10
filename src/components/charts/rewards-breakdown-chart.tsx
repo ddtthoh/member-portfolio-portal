@@ -186,26 +186,28 @@ export function RewardsBreakdownChart() {
                 cursor={{ fill: "hsl(var(--accent) / 0.08)" }}
                 content={renderTooltip as never}
               />
-              <Bar
-                key={`bar-${inView ? "in" : "out"}`}
-                dataKey="value"
-                radius={[0, 4, 4, 0]}
-                barSize={10}
-                isAnimationActive={inView}
-                animationDuration={2200}
-                animationEasing="ease-out"
-              >
-                {chartData.map((entry) => (
-                  <Cell
-                    key={entry.key}
-                    fill={`url(#grad-rewards-${entry.key})`}
-                    style={{
-                      filter: `drop-shadow(0 0 6px color-mix(in oklab, ${REWARD_COLORS[entry.key]} 50%, transparent))`,
-                    }}
-                  />
-                ))}
-                <LabelList dataKey="value" content={renderValueLabel as never} />
-              </Bar>
+              {inView && (
+                <Bar
+                  key={`bar-in-${data.length}`}
+                  dataKey="value"
+                  radius={[0, 4, 4, 0]}
+                  barSize={10}
+                  isAnimationActive
+                  animationDuration={2200}
+                  animationEasing="ease-out"
+                >
+                  {chartData.map((entry) => (
+                    <Cell
+                      key={entry.key}
+                      fill={`url(#grad-rewards-${entry.key})`}
+                      style={{
+                        filter: `drop-shadow(0 0 6px color-mix(in oklab, ${REWARD_COLORS[entry.key]} 50%, transparent))`,
+                      }}
+                    />
+                  ))}
+                  <LabelList dataKey="value" content={renderValueLabel as never} />
+                </Bar>
+              )}
             </BarChart>
           </ResponsiveContainer>
         </div>
