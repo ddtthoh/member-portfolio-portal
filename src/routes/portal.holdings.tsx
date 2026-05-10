@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { StakingOverviewCard } from "@/components/staking-overview-card";
+import { PortfolioDonutCard } from "@/components/portfolio-donut-card";
 import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
 
@@ -32,14 +32,13 @@ function HoldingsPage() {
 
   return (
     <div className="space-y-6">
-      <StakingOverviewCard
+      <PortfolioDonutCard
         totalAssets={wallet.total}
         usd={wallet.usd}
         rewards={wallet.rewards}
         staking={wallet.staking}
         stakingDays={54}
         sinceDate="Mar 16"
-        tier="Premium"
       />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
