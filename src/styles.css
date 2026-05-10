@@ -206,6 +206,10 @@
     animation: ticker-marquee 180s linear infinite;
     width: max-content;
   }
+  html.initial-scroll-safe .ticker-track {
+    animation: none !important;
+    transform: none !important;
+  }
   .ticker-wrap:hover .ticker-track {
     animation-play-state: paused;
   }
@@ -262,7 +266,6 @@
     filter: blur(60px) saturate(140%);
     opacity: 0.55;
     pointer-events: none;
-    will-change: transform;
     transform: translateZ(0);
   }
   :root:not(.dark) .aurora-bg::before { opacity: 0.18; filter: blur(80px) saturate(120%); }
@@ -281,7 +284,6 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 0%, transparent 75%);
     opacity: 0.35;
     pointer-events: none;
-    will-change: transform;
     transform: translateZ(0);
   }
 
