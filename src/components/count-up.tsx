@@ -46,7 +46,11 @@ export function CountUp({
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          setInView(entry.isIntersecting);
+          if (entry.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+            break;
+          }
         }
       },
       { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
