@@ -470,6 +470,18 @@
     50%      { opacity: 1; }
   }
 
+  @keyframes gold-line-breathe {
+    0%, 100% {
+      filter: drop-shadow(0 0 4px color-mix(in oklab, var(--gold) 45%, transparent));
+    }
+    50% {
+      filter: drop-shadow(0 0 10px color-mix(in oklab, var(--gold) 80%, transparent));
+    }
+  }
+  .gold-line-breathe path.recharts-curve {
+    animation: gold-line-breathe 4.5s ease-in-out infinite;
+  }
+
   .gold-glow-sm {
     box-shadow:
       0 0 10px color-mix(in oklab, var(--gold) 45%, transparent),

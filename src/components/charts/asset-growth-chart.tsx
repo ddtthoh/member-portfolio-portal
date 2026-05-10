@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -31,11 +31,33 @@ const RANGES: { key: 7 | 30 | 90; label: string }[] = [
 const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
+// 0 → 1 ramp triggered on mount and whenever `key` changes (e.g. range switch).
+function useCountProgress(key: unknown, duration = 1100) {
+  const [p, setP] = useState(0);
+  const raf = useRef<number | null>(null);
+  useEffect(() => {
+    setP(0);
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setP(eased);
+      if (t < 1) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => {
+      if (raf.current != null) cancelAnimationFrame(raf.current);
+    };
+  }, [key, duration]);
+  return p;
+}
+
 export function AssetGrowthChart() {
   const { t } = useTranslation();
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
   const { wallet } = useWallet();
+  const progress = useCountProgress(`${range}-${data.length}`);
 
   const stakingBase = wallet.staking || 0;
   const hasBase = stakingBase > 0;
@@ -99,7 +121,7 @@ export function AssetGrowthChart() {
   const renderTotalEndLabel = (props: { x?: number; y?: number; index?: number; value?: number }) => {
     const { x = 0, y = 0, index = 0, value = 0 } = props;
     if (index !== data.length - 1) return null;
-    const v = Number(value) || 0;
+    const v = (Number(value) || 0) * progress;
     const text = `${fmtMoney(v)}  ${roiLabel(v)}`;
     const padX = 6;
     const charW = 5.6;
@@ -204,7 +226,7 @@ export function AssetGrowthChart() {
                   isAnimationActive
                   animationDuration={1100}
                   animationEasing="ease-out"
-                  style={{ filter: "drop-shadow(0 0 8px color-mix(in oklab, var(--gold) 65%, transparent))" }}
+                  className="gold-line-breathe"
                 >
                   <LabelList dataKey="total" content={renderTotalEndLabel as never} />
                 </Line>
@@ -247,11 +269,11 @@ export function AssetGrowthChart() {
                       border: `1px solid color-mix(in oklab, ${c} 35%, transparent)`,
                     }}
                   >
-                    {hasBase ? `${roi(v).toFixed(2)}%` : "—"}
+                    {hasBase ? `${(roi(v) * progress).toFixed(2)}%` : "—"}
                   </span>
                 </div>
                 <div className="mt-1 font-light tabular-nums" style={{ color: c, fontSize: 16 }}>
-                  {fmtMoney(v)}
+                  {fmtMoney(v * progress)}
                 </div>
                 <div className="mt-1 h-7 w-full">
                   {hasData && (
@@ -269,7 +291,9 @@ export function AssetGrowthChart() {
                           stroke={c}
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
-                          isAnimationActive={false}
+                          isAnimationActive
+                          animationDuration={1100}
+                          animationEasing="ease-out"
                         />
                       </AreaChart>
                     </ResponsiveContainer>
