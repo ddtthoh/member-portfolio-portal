@@ -121,25 +121,25 @@ function DepositPage() {
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-300">
+              <div className="text-[11px] font-bold uppercase tracking-[0.24em] text-amber-700 dark:text-amber-300">
                 {t("pages.deposit.importantReminder.title")}
               </div>
               <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-foreground/90">
                 <li className="flex gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" />
                   <span className="flex-1">
-                    {t("pages.deposit.importantReminder.sendOnly")}<span className="font-semibold text-gold">USDT</span>{t("pages.deposit.importantReminder.viaThe")}{" "}
-                    <span className="font-semibold text-gold">{settings?.network ?? "BSC"} (BEP20)</span>{t("pages.deposit.importantReminder.networkSuffix")}
+                    {t("pages.deposit.importantReminder.sendOnly")}<span className="font-semibold text-amber-700 dark:text-gold">USDT</span>{t("pages.deposit.importantReminder.viaThe")}{" "}
+                    <span className="font-semibold text-amber-700 dark:text-gold">{settings?.network ?? "BSC"} (BEP20)</span>{t("pages.deposit.importantReminder.networkSuffix")}
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" />
                   <span className="flex-1">
-                    {t("pages.deposit.importantReminder.otherTokens")}<span className="font-semibold text-amber-300">{t("pages.deposit.importantReminder.permanentLoss")}</span>.
+                    {t("pages.deposit.importantReminder.otherTokens")}<span className="font-semibold text-amber-700 dark:text-amber-300">{t("pages.deposit.importantReminder.permanentLoss")}</span>.
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" />
                   <span className="flex-1">{t("pages.deposit.importantReminder.confirmation")}</span>
                 </li>
               </ul>
