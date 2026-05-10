@@ -16,6 +16,9 @@ export function usePortalReveal(
     if (typeof window === "undefined") return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")) {
+      return;
+    }
     const revealSelector = [
       "[data-reveal]",
       ".portal-reveal-target",
