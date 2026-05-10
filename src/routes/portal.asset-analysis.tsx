@@ -37,6 +37,14 @@ function AssetAnalysisPage() {
         className="mb-4"
       >
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
+          <div className="mb-4">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-gold/80">
+              {t("charts.totalAssets.eyebrow", "Assets")}
+            </div>
+            <h3 className="mt-1 font-serif text-lg font-semibold text-gold">
+              {t("charts.totalAssets.title", "总资产构成")}
+            </h3>
+          </div>
           <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
         </SpotlightCard>
       </motion.div>

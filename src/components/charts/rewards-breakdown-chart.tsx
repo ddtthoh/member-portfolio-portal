@@ -76,27 +76,45 @@ export function RewardsBreakdownChart() {
           </ResponsiveContainer>
         </div>
 
-        <div className="mt-4 flex items-baseline justify-between border-t border-border/30 pt-3">
-          <div className="text-[10px] uppercase tracking-[0.18em] text-gold/80">
-            {t("charts.rewardsBreakdown.total", "累计奖励")}
+        <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
+          {REWARD_TYPES.map((k) => {
+            const row = data.find((d) => d.key === k);
+            const amount = row?.value ?? 0;
+            const pct = total > 0 ? (amount / total) * 100 : 0;
+            const color = REWARD_COLORS[k];
+            return (
+              <div key={k} className="flex items-center justify-between py-2.5">
+                <div className="flex min-w-0 items-center gap-2.5">
+                  <span
+                    className="h-2 w-2 shrink-0 rounded-full"
+                    style={{ background: color, boxShadow: `0 0 8px ${color}` }}
+                  />
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-gold">
+                    {t(`charts.rewardTypes.${k}`, k)}
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className="text-sm font-light tabular-nums tracking-[-0.02em]"
+                    style={{ color }}
+                  >
+                    <CountUp value={amount} prefix="$" decimals={2} />
+                  </span>
+                  <span className="w-14 text-right text-[10px] tabular-nums text-muted-foreground/70">
+                    <CountUp value={pct} decimals={2} suffix="%" />
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+          <div className="flex items-center justify-between py-2.5">
+            <span className="text-[11px] uppercase tracking-[0.18em] text-gold/80">
+              {t("charts.rewardsBreakdown.total", "累计奖励")}
+            </span>
+            <span className="text-sm font-light tabular-nums text-gold">
+              <CountUp value={total} prefix="$" decimals={2} />
+            </span>
           </div>
-          <div className="font-light tabular-nums text-gold text-base">
-            <CountUp value={total} prefix="$" decimals={2} />
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
-          {REWARD_TYPES.map((k) => (
-            <div key={k} className="flex items-center gap-1.5">
-              <span
-                className="h-2 w-2 shrink-0 rounded-full"
-                style={{ background: REWARD_COLORS[k], boxShadow: `0 0 8px ${REWARD_COLORS[k]}` }}
-              />
-              <span className="text-[10px] uppercase tracking-[0.14em] text-gold">
-                {t(`charts.rewardTypes.${k}`, k)}
-              </span>
-            </div>
-          ))}
         </div>
       </SpotlightCard>
     </motion.div>
