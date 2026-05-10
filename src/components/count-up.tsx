@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 type Props = {
   value: number;
@@ -25,10 +24,9 @@ export function CountUp({
   className,
   triggerInView = true,
 }: Props) {
-  const { ref, inView } = useInViewOnce<HTMLSpanElement>({ amount: 0.2 });
+  void triggerInView;
   void duration;
-  const armed = !triggerInView || inView;
-  const display = armed && Number.isFinite(value) ? value : 0;
+  const display = Number.isFinite(value) ? value : 0;
 
   const text = useMemo(
     () => prefix + display.toLocaleString("en-US", {
@@ -38,5 +36,5 @@ export function CountUp({
     [decimals, display, prefix, suffix],
   );
 
-  return <span ref={ref} className={className}>{text}</span>;
+  return <span className={className}>{text}</span>;
 }
