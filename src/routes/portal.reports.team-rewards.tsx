@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
-import { RewardsOverviewPanel } from "@/components/rewards-overview-panel";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
 
@@ -23,7 +22,6 @@ function TeamRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsTeam")} />
-      <RewardsOverviewPanel />
       <ReportShell
         title={t("pages.reportsTeam.reportTitle")}
         filterTextLabel={t("components.reportShell.memberId")}

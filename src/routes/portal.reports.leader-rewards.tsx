@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
-import { RewardsOverviewPanel } from "@/components/rewards-overview-panel";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
 import { useTranslation } from "react-i18next";
@@ -20,7 +19,6 @@ function LeaderRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsLeader")} />
-      <RewardsOverviewPanel />
       <ReportShell
         title={t("pages.reportsLeader.transactionsTitle")}
         filterTextLabel={t("pages.reportsLeader.tableHeaders.contributedBy")}
