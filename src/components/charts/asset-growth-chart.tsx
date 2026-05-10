@@ -32,11 +32,15 @@ const RANGES: { key: 7 | 30 | 90; label: string }[] = [
 const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
-// 0 → 1 ramp triggered on mount and whenever `key` changes (e.g. range switch).
-function useCountProgress(key: unknown, duration = 1100) {
+// 0 → 1 ramp triggered when `enabled` is true; restarts whenever `key` changes.
+function useCountProgress(key: unknown, enabled: boolean, duration = 2200) {
   const [p, setP] = useState(0);
   const raf = useRef<number | null>(null);
   useEffect(() => {
+    if (!enabled) {
+      setP(0);
+      return;
+    }
     setP(0);
     const start = performance.now();
     const tick = (now: number) => {
@@ -49,7 +53,7 @@ function useCountProgress(key: unknown, duration = 1100) {
     return () => {
       if (raf.current != null) cancelAnimationFrame(raf.current);
     };
-  }, [key, duration]);
+  }, [key, duration, enabled]);
   return p;
 }
 
@@ -58,7 +62,8 @@ export function AssetGrowthChart() {
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
   const { wallet } = useWallet();
-  const progress = useCountProgress(`${range}-${data.length}`);
+  const { ref: viewRef, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.2 });
+  const progress = useCountProgress(`${range}-${data.length}`, inView);
 
   const stakingBase = wallet.staking || 0;
   const hasBase = stakingBase > 0;
