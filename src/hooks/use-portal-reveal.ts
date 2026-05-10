@@ -22,11 +22,7 @@ export function usePortalReveal(
     const revealSelector = [
       "[data-reveal]",
       ".portal-reveal-target",
-      ".liquid-glass",
-      ".portal-page > section",
-      ".portal-page > article",
-      ".portal-page > form",
-      ".portal-page > div",
+      ".portal-page > .liquid-glass",
     ].join(", ");
 
     let main = mainRef?.current ?? document.querySelector("main");
