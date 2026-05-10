@@ -47,10 +47,13 @@ export function RewardsBreakdownChart() {
     return () => { if (raf.current != null) cancelAnimationFrame(raf.current); };
   }, [data.length, inView]);
 
-  // Sort bars by value (largest at top) for stronger visual hierarchy.
-  const sortedData = [...data].sort((a, b) => b.value - a.value);
+  // Bars follow REWARD_TYPES canonical order (top → bottom).
+  const orderedData = REWARD_TYPES.map((k) => {
+    const row = data.find((d) => d.key === k);
+    return { key: k, value: row?.value ?? 0 };
+  });
 
-  const chartData = sortedData.map((d, i) => ({
+  const chartData = orderedData.map((d, i) => ({
     name: t(`charts.rewardTypes.${d.key}`, d.key).toUpperCase(),
     key: d.key,
     value: d.value,
