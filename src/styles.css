@@ -641,6 +641,22 @@
   html.is-scrolling .liquid-glass::after {
     transition: none !important;
   }
+  /* Suppress hover-driven shadow/transform repaints while scrolling */
+  html.is-scrolling .liquid-glass:hover {
+    transform: none !important;
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 14%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, black 50%, transparent),
+      inset 0 0 0 1px color-mix(in oklab, var(--gold) 6%, transparent),
+      0 1px 0 color-mix(in oklab, white 4%, transparent),
+      0 10px 40px -20px rgba(0,0,0,0.4),
+      0 0 24px -16px color-mix(in oklab, var(--gold) 35%, transparent) !important;
+  }
+  html.is-scrolling .glass-spotlight > .spotlight-layer,
+  html.is-scrolling .glass-shimmer > .shimmer-streak {
+    opacity: 0 !important;
+    animation: none !important;
+  }
   html.is-scrolling .gold-glow-sm,
   html.is-scrolling .gold-glow-md,
   html.is-scrolling .gold-glow-bar,

@@ -14,6 +14,7 @@ export function SpotlightCard({ children, className = "font-normal", intensity =
 
   function handleMove(e: MouseEvent<HTMLDivElement>) {
     if (!ref.current) return;
+    if (typeof document !== "undefined" && document.documentElement.classList.contains("is-scrolling")) return;
     const r = ref.current.getBoundingClientRect();
     mouseX.set(e.clientX - r.left);
     mouseY.set(e.clientY - r.top);
