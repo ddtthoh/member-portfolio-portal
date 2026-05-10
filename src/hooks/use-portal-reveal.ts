@@ -41,6 +41,9 @@ export function usePortalReveal(
         main.querySelectorAll<HTMLElement>(revealSelector)
       ).filter((el) => {
         if (el.hidden || el.closest("[data-radix-portal]")) return false;
+        if (el.tagName === "STYLE" || el.tagName === "SCRIPT") return false;
+        const pos = getComputedStyle(el).position;
+        if (pos === "sticky" || pos === "fixed") return false;
         const nestedReveal = el.parentElement?.closest(".reveal-on-scroll");
         return !nestedReveal;
       });
