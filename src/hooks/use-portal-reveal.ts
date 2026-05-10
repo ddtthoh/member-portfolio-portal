@@ -1,12 +1,12 @@
 import { useEffect, type RefObject } from "react";
 
 /**
- * Editorial cinematic scroll-reveal for the portal.
+ * Bidirectional scroll reveal for the portal.
  *
- * Scans the portal page on mount, route changes and DOM mutations. Top-level
- * content blocks and explicit card targets get a clear book-like fade/lift as
- * they enter the viewport. The implementation is idempotent so React StrictMode
- * cannot leave off-screen elements initialized but unobserved.
+ * Top-level portal blocks fade/lift into view, and fade/lift back out when
+ * they leave the viewport, so the user can scroll up and down repeatedly
+ * and see the effect every time. No blur — nothing on the page should
+ * ever look shrouded or foggy.
  */
 export function usePortalReveal(
   scopeKey = "",
@@ -16,13 +16,9 @@ export function usePortalReveal(
     if (typeof window === "undefined") return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")) {
-      return;
-    }
     const revealSelector = [
       "[data-reveal]",
       ".portal-reveal-target",
-      ".liquid-glass",
       ".portal-page > section",
       ".portal-page > article",
       ".portal-page > form",
@@ -33,81 +29,80 @@ export function usePortalReveal(
     let mo: MutationObserver | null = null;
     let io: IntersectionObserver | null = null;
     let rescanTimer: ReturnType<typeof setTimeout> | null = null;
-    let initialBatchIndex = 0;
+    let firstPass = true;
 
-    function reveal(el: HTMLElement, delay: number) {
-      el.style.setProperty("--reveal-delay", `${delay}ms`);
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => el.classList.add("is-revealed"))
-      );
-    }
-
-    function processNewElements() {
+    function scan() {
       if (!main) return;
-      const vh = window.innerHeight;
       const els = Array.from(
         main.querySelectorAll<HTMLElement>(revealSelector)
       ).filter((el) => {
         if (el.hidden || el.closest("[data-radix-portal]")) return false;
-        const nestedReveal = el.parentElement?.closest(".reveal-on-scroll");
-        return !nestedReveal;
+        // Avoid nested reveal targets — only animate the outer block.
+        const parent = el.parentElement?.closest(".reveal-on-scroll");
+        return !parent;
       });
 
-      if (els.length === 0) return;
-
+      let initialIndex = 0;
       els.forEach((el) => {
-        if (el.dataset.revealInit !== "1") {
-          el.dataset.revealInit = "1";
-          el.classList.add("reveal-on-scroll");
-        }
+        if (el.dataset.revealInit === "1") return;
+        el.dataset.revealInit = "1";
+        el.classList.add("reveal-on-scroll");
 
         if (reduce) {
           el.classList.add("is-revealed");
           return;
         }
 
-        if (el.classList.contains("is-revealed")) return;
-
+        // First-screen content: reveal immediately with a small stagger so
+        // the page doesn't sit in a half-faded state on load.
         const rect = el.getBoundingClientRect();
-        const inView = rect.top < vh * 0.92 && rect.bottom > 0;
-        if (inView) {
-          reveal(el, 180 + initialBatchIndex * 150);
-          initialBatchIndex++;
-        } else if (io) {
-          io.observe(el);
+        const inViewNow = rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+        if (firstPass && inViewNow) {
+          const delay = 80 + initialIndex * 110;
+          el.style.setProperty("--reveal-delay", `${delay}ms`);
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => el.classList.add("is-revealed"))
+          );
+          initialIndex++;
         }
+
+        io?.observe(el);
       });
+      firstPass = false;
     }
 
     function setup() {
       main = mainRef?.current ?? document.querySelector("main");
       if (!main) return false;
 
-      io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const el = entry.target as HTMLElement;
-            if (el.classList.contains("is-revealed")) return;
-            reveal(el, 60);
-            io!.unobserve(el);
-          });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -90px 0px" }
-      );
+      if (!reduce) {
+        io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const el = entry.target as HTMLElement;
+              if (entry.isIntersecting) {
+                el.style.setProperty("--reveal-delay", "0ms");
+                el.classList.add("is-revealed");
+              } else {
+                el.classList.remove("is-revealed");
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+      }
 
-      processNewElements();
+      scan();
 
       mo = new MutationObserver(() => {
         if (rescanTimer) clearTimeout(rescanTimer);
-        rescanTimer = setTimeout(processNewElements, 30);
+        rescanTimer = setTimeout(scan, 30);
       });
       mo.observe(main, { childList: true, subtree: true });
       return true;
     }
 
     if (!setup()) {
-      // <main> may not be mounted yet (auth loading). Poll briefly.
       const start = Date.now();
       const poll = setInterval(() => {
         if (setup() || Date.now() - start > 5000) clearInterval(poll);
