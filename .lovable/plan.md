@@ -1,27 +1,25 @@
-## Why the bars don't animate left→right
+## 问题诊断
 
-Currently the `BarChart` / `ComposedChart` mounts on first render (when `inView` is still `false`), and only the `<Bar>` / `<Line>` / `<Area>` children are gated behind `{inView && ...}`. When `inView` later flips to `true`, those children get added into an already-mounted chart — and Recharts only fires its entrance animation when the **whole chart** mounts. The result: bars appear at full width with no left→right animation.
+`<Bar>` 在 vertical layout + `<Cell>` 子元素 + 自定义 `<LabelList>` 内容的组合下,Recharts 的 `isAnimationActive` 经常不真正动画化 rect 的 `width`,而是直接渲染最终宽度。所以你只看到数字 slide(因为 `renderValueLabel` 用我们自己的 `progress * width` 计算位置),但 bar 本身一上来就是满宽。
 
-The numbers slide because they use our own `progress` ramp, not Recharts' animation.
+## 修复方案
 
-## Fix
-
-Gate the entire chart on `inView` so the whole `<ResponsiveContainer>` mounts fresh when the card scrolls into view. That guarantees Recharts runs its built-in 0→actual animation for bars/lines/areas.
+不再依赖 Recharts 内置 Bar 动画,改用我们已有的 `progress`(0→1,1.5s)同时驱动 bar 的宽度,保证 bar 一定从左→右生长。
 
 ### `src/components/charts/rewards-breakdown-chart.tsx`
-- Wrap the contents of `<div className="h-64 w-full">` so the entire `<ResponsiveContainer>` only renders when `inView` is true.
-- Remove the `{inView && ...}` wrapper around `<Bar>` (the parent gate replaces it).
-- Keep `isAnimationActive` and `animationDuration={2200}` on the `<Bar>`.
-- While `inView` is false, render an empty placeholder of the same height so layout doesn't jump.
 
-### `src/components/charts/asset-growth-chart.tsx`
-- Same pattern for the main chart `<div className="h-52 w-full">`: gate the whole `<ResponsiveContainer>` / `<ComposedChart>` on `inView`. Remove the `{inView && ...}` wrappers around `<Area>` and `<Line>`.
-- For the 6 sparkline cards, gate each card's `<ResponsiveContainer>` block on `inView` (remove the per-`<Area>` `{inView && ...}`). Keep the height so the card layout is stable.
-- Keep the existing `useCountProgress` ramp for the end-label numbers and the sparkline value labels.
+1. 在 `<Bar>` 上加 `shape={...}` prop,自定义 rect 渲染:
+   - 接收 Recharts 提供的 `x, y, width, height, fill`
+   - 渲染 `<rect>`,`width={width * progress}`,其余位置/高度/圆角/filter 保持现状
+   - 圆角用 `rx={2} ry={2}`(替代原来的 `radius={[0, 4, 4, 0]}`,因为 shape 接管后 radius prop 不生效)
+2. `isAnimationActive={false}`,`animationDuration` 移除(由 progress 接管)。
+3. `<Cell>` 仍然保留(Recharts 会把每个 cell 的 `fill` 传给 shape 函数),drop-shadow filter 移到 shape rect 上。
+4. `LabelList` 的 `renderValueLabel` 已经在用 `progress`,不变。
 
-### Not changing
-- `useInViewOnce` thresholds (working as intended).
-- `CountUp` behavior, durations, breathing glow CSS.
-- Any business logic, data hooks, or styling.
+### 不动的部分
+- `useInViewOnce` 触发 / progress ramp / 1.5s 时长
+- `asset-growth-chart`(用户已确认 line/area 动画工作正常)
+- 其他动画 / 数据 / 样式
 
-After this, scrolling into either chart will mount the chart fresh and Recharts will animate all bars/lines/areas from 0 over 2.2s, in sync with the count-up numbers.
+### 预期效果
+滚动到卡片 → ResponsiveContainer mount → progress 从 0 ramp 到 1 共 1.5s → 6 条 bar 同步从左边 0 宽度长到实际宽度,数字也同步从 0 跳到实际值。
