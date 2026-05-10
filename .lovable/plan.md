@@ -1,91 +1,76 @@
+## Goal
 
-# Holdings · Portfolio Hero 重新设计
+Redesign the **Portfolio total-asset card** on `/portal/holdings` to match the uploaded reference: a large **full-circle segmented donut** with the total in the center, an eye/hide toggle, and a breakdown list below — adapted to the existing dark/gold liquid-glass design system. Add a **glowing arc effect** and a **rotating draw-in animation** that sweeps the segments out starting from the left.
 
-## 一句话定位
+## Visual mapping
 
-把 Holdings 页头部改成"**一张 portfolio 凭证**"：**Total Assets** 是唯一的英雄数字，Staking 退成左下副信息，三资产拆分排在底部一行作脚注，右上角一个眼睛图标统一遮蔽全部金额。
+| Reference | Our version |
+|---|---|
+| Big donut, 3 colored arcs | Full-circle donut, 3 arcs using `--asset-participation` (Staking), `--asset-cash` (USD), `--asset-earnings` (Rewards) |
+| "Total savings RM 425,688.44" | "Portfolio" label + animated `$total` in gold (`CountUp`) |
+| "Balance as of 10 May 2026" | "Balance as of {today}" subline |
+| Eye + "Hide Amount" under total | Eye toggle moved under the total number |
+| "Hide All Accounts" + colored dots + chevron | Collapsible "Breakdown" row with stacked dots + chevron |
+| 3 account rows | Staking / USD / Rewards rows: dot, label, amount, % share |
 
-## 为什么这样排
+Card stays `liquid-glass` on dark; we keep our gold/teal/violet palette (do **not** copy the reference's literal blue/red/orange).
 
-- **逻辑顺序**：这是 portfolio 页 → 用户第一眼想看"我总共有多少钱"。Total Assets 当主角才符合 holdings 页定位（Staking 主角属于 staking 详情页）。
-- **专业感来源**：单一英雄数字 + 极端字号对比（~6:1）+ 大量留白 + 全部金色字号统一 hairline weight。这是 private banking 的视觉语言（瑞银、JP Morgan Wealth、Mercury），不是 retail trading dashboard。
-- **去对称 = 去廉价**：当前版本两个大数字并排互抢，删掉中间金线 + 删掉右侧大数字 + 删掉底部三色进度条。专业排版靠**对齐和留白**，不靠装饰线。
-- **遮蔽金额**：右上角一个眼睛图标 → 切换后**所有**金额（Total Assets / Staking / USD / Rewards / Staking 拆分）同步变 `••••••`，不是只遮一个。
+## Layout
 
-## 视觉结构（ASCII 草图）
-
-```text
-┌──────────────────────────────────────────────────────────────┐
-│  PORTFOLIO · TOTAL ASSETS                              👁    │
-│                                                              │
-│  $ 73,420.00                                                 │
-│  ─────────────────────                                       │
-│  Premium Tier  ·  updated just now                           │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │                                                       │    │
-│  │  STAKING            USD            REWARDS           │    │
-│  │  $50,000.00         $12,300.00     $11,120.00        │    │
-│  │  68.1%              16.8%          15.1%             │    │
-│  │  54 days · since Mar 16    —             —           │    │
-│  │                                                       │    │
-│  └─────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────┘
+```
+┌─────────────────────────────────────┐
+│ PORTFOLIO                           │
+│        ╭───────────────╮            │
+│       │   ◯ donut     │             │
+│       │  Total Assets │             │
+│       │  $50,000.00   │             │
+│       │   ◉ Hide      │             │
+│        ╰───────────────╯            │
+│  Balance as of 10 May 2026          │
+│ ─────────────────────────────       │
+│ ◉◉◉  Breakdown              [⌄]    │
+│  ● Staking   $30,000   60%          │
+│    54 days · since Mar 16           │
+│  ● USD        $5,000   10%          │
+│  ● Rewards   $15,000   30%          │
+└─────────────────────────────────────┘
 ```
 
-要点：
-- **顶部小标签** `PORTFOLIO · TOTAL ASSETS`：10px、tracking 0.2em、uppercase、gold。建立"凭证抬头"语感。
-- **主数字** `$73,420.00`：text-6xl/7xl、font-light、tabular-nums、tracking-[-0.04em]、gold。下方一根 ~64px 的金色 hairline（h-px、不是分隔线、是装饰线），呼应支票/凭证。
-- **副标签**：`Premium Tier · updated just now`，11px、muted。
-- **底部三栏脚注**：横排 3 列对齐排版，每列：标签（10px uppercase muted）→ 金额（text-xl light gold）→ 占比（10px tabular muted）→ 可选的辅助行（Staking 列显示 `54 days · since Mar 16`，其它两列 `—` 或留空）。**不要色块、不要色点、不要进度条**。
-- **去掉**：当前的左右两栏布局、中间金线+小金点、底部三色 segmented bar。
+## Donut animation — "rotate-out from the left" + glow
 
-## 响应式
+- SVG `<circle>` with `pathLength={1}`, starting at the **9 o'clock** position by applying `transform="rotate(-180 cx cy)"` to the segment group (so segment 0 begins at the left edge of the circle and sweeps clockwise).
+- Each segment uses `strokeDasharray="<len> 1"` and `strokeDashoffset` for cumulative position. On mount (gated by `useInView`, `once: true`), framer-motion `animate(0, len, { duration: 1.2, ease: [0.16, 1, 0.3, 1] })` grows each segment in sequence with a 0.2–0.25s stagger — visually a single arc unrolling clockwise from the left.
+- **Glow:** each colored arc gets `filter: drop-shadow(0 0 8px color-mix(in oklab, <color> 65%, transparent)) drop-shadow(0 0 18px color-mix(in oklab, <color> 35%, transparent))` for a soft outer halo. A faint full-circle track sits underneath at low opacity.
+- Center number (`CountUp`) starts at the same time as the draw, so the total counts up while the arc sweeps.
+- Respects `prefers-reduced-motion` (snap to final state).
 
-- 桌面（≥640px）：底部三栏 grid-cols-3。
-- 移动（<640px）：底部三栏改成 grid-cols-1，每行左对齐 label / 右对齐金额，垂直堆叠。主数字降一档到 text-5xl。
+## Technical changes
 
-## 眼睛遮蔽行为
+1. **New component** `src/components/portfolio-donut-card.tsx`
+   - Props: `{ totalAssets, usd, rewards, staking, stakingDays, sinceDate, showAmount toggle internal }`
+   - Wrapped in `SpotlightCard` + `liquid-glass`
+   - Full-circle SVG (≈220×220), 3 segments, glow filters, framer-motion draw-in starting from 9 o'clock
+   - Center stack: label · `<CountUp>` total in gold · eye/hide button
+   - Below: "Balance as of {date}" + collapsible breakdown list (framer-motion height + chevron rotate)
 
-- 单一 state `showAmount`，控制：主 Total Assets、底部 Staking/USD/Rewards 三个金额。
-- 隐藏态展示 `••••••`（U+2022 圆点 6 个），保持 tabular-nums 字符宽度，避免布局抖动。
-- 占比百分比和 `54 days · since Mar 16` 这类**非金额信息**不遮蔽。
-- 图标位置：卡片右上角 absolute、gold 颜色、hover 透明度变化。
+2. **Replace usage** in `src/routes/portal.holdings.tsx`
+   - Swap `<StakingOverviewCard …/>` → `<PortfolioDonutCard …/>` with the same `useWallet()` props
+   - `staking-overview-card.tsx` stays in repo unused (delete in a follow-up if confirmed)
 
-## 颜色与字重纪律
+3. **i18n** (English first; other locales fall back):
+   - `pages.holdings.balanceAsOf`
+   - `pages.holdings.breakdown`
+   - `pages.holdings.hideAccounts` / `showAccounts`
 
-- 所有金额一律 `text-gold` + `font-light` + `tabular-nums` + `tracking-[-0.04em]`（小字号用 -0.02em）。
-- 标签一律 `text-muted-foreground` + `uppercase` + `tracking-[0.18em]` + 10-11px。
-- **不再使用**资产三色（cash/earnings/participation）作为高亮色 —— 那是 asset-analysis 页 gauge 的语言。Holdings 页保持纯金色 + muted 二色系，专业克制。
+4. **Design tokens only**: arcs/dots use `--asset-*` tokens; text uses `text-gold` / `text-muted-foreground`; card uses `liquid-glass`. No new hex colors.
 
-## 改动文件
+5. **No backend / wallet / RLS changes.**
 
-1. **`src/components/staking-overview-card.tsx`** —— 重写。改名为 `PortfolioHeroCard` 或保留文件名但内部彻底替换。
-2. **`src/routes/portal.holdings.tsx`** —— props 重命名以匹配新组件（主从对换：`totalAssets` 当主，`stakingAmount/days/since` 当副）。
-3. **`src/i18n/locales/en.json`** —— 新增/调整 keys：
-   - `pages.holdings.portfolioLabel` = "Portfolio · Total Assets"
-   - `pages.holdings.tierSuffix` = "{{tier}} Tier · updated just now"
-   - 复用已有的 `totalStaking` / `daysUnit` / `since` / `assetBreakdown` 标签。
-   - 删除 `accruing` key（已不再使用）。
+## Out of scope
 
-## 不改动的部分
+- The half-arc `TotalAssetsGauge` on `/portal/asset-analysis` is left untouched.
+- No literal blue/red/orange palette from the screenshot.
 
-- `useWallet()` hook 和数据流不变。
-- 下方 staking plans 表格、Refund dialog 不变。
-- asset-analysis 页 `TotalAssetsGauge` 不动（那是另一种语言，分工清楚）。
+## Confirm before I build
 
-## 实现细节
-
-- 主数字行使用 `<MetricValue size="xl">`，移动端通过 className 覆盖到 text-5xl。
-- 装饰金线：`<div className="mt-4 h-px w-16 bg-gold/40" />`，仅装饰，无语义。
-- 底部三栏分隔：用 `border-t border-border/40 pt-5 mt-6` 与上方主区分隔，**不用** SpotlightCard 嵌套。
-- 三栏内部不用 flex gap，用 `grid grid-cols-3 gap-x-8` 保证字段顶对齐。
-- 眼睛 toggle 用 `useState` 本地态，不持久化（刷新恢复显示）；如要持久化可后续接 localStorage。
-
-## 验收标准
-
-1. 一眼锁定 Total Assets，Staking 不抢戏。
-2. 卡片整体只有金色 + muted 两个色温，无色块/色条/色点装饰。
-3. 眼睛点击：4 个金额位同步切换 `••••••`，布局零抖动。
-4. 888px 视口下底部三栏整齐对齐，主数字不换行。
-5. 移动端 <640px 三栏改竖排，主数字降一档不溢出。
+- Breakdown list **collapsible with chevron** (matches reference) or **always expanded** like today?
