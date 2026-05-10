@@ -672,28 +672,6 @@ export function ThreeBackground({
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [spread, setSpread] = useState({ x: 16, y: 10 });
-  const [renderMode, setRenderMode] = useState<"always" | "demand">("demand");
-
-  // Keep WebGL in demand mode until the user is idle. This prevents the very
-  // first scroll from competing with shader/program warm-up and buffer updates.
-  useEffect(() => {
-    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
-    let idleTimer: ReturnType<typeof setTimeout> | null = null;
-    const enableAlways = () => setRenderMode("always");
-    const onScroll = () => {
-      setRenderMode("demand");
-      if (idleTimer) clearTimeout(idleTimer);
-      if (scrollTimer) clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(enableAlways, 320);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
-    idleTimer = setTimeout(enableAlways, 1800);
-    return () => {
-      window.removeEventListener("scroll", onScroll, { capture: true } as any);
-      if (scrollTimer) clearTimeout(scrollTimer);
-      if (idleTimer) clearTimeout(idleTimer);
-    };
-  }, []);
 
   useEffect(() => {
     const apply = () => {
@@ -761,7 +739,7 @@ export function ThreeBackground({
           alpha: true,
           powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
         }}
-        frameloop={reduceMotion ? "demand" : renderMode}
+        frameloop="demand"
       >
         <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
       </Canvas>
