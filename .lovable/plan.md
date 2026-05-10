@@ -1,29 +1,34 @@
-我查到目前不是你操作问题：代码里确实加了滚动 reveal，但现在实现太依赖 `.liquid-glass`，而且会把已经在首屏的元素立刻 reveal 掉；所以你肉眼几乎看不到“往下滑像读书一样渐变出来”。另外预览日志里还有一次 `Invalid hook call`，需要一起排掉，不能再继续靠猜。
+我已经定位到两个问题的来源：
 
-计划：
+1. **页面下面发蒙**：现在的 scroll reveal 同时用了 `filter: blur(...)` 和原生 `animation-timeline: view()`，元素还没进入触发范围时会保持模糊/透明，所以页面下方看起来像被蒙住了。
+2. **不能上下重复渐出/渐入**：JS fallback 里元素一旦出现就 `unobserve`，所以只能执行一次；同时原生 CSS scroll animation 和 JS fallback 行为不一致，导致有些浏览器看不到重复效果。
 
-1. 让动画作用范围变明确
-   - 不只扫 `.liquid-glass`，改成 portal 主内容里的主要 section/card/list/table/chart 都能被识别。
-   - 对 holdings 页面和其他 portal 子页面统一生效，不需要每个页面手动加 class。
+修复计划：
 
-2. 做成明显的“读书式 scroll reveal”
-   - 元素进入视窗前：透明、下移、轻微模糊。
-   - 滑到时：渐亮、上浮归位、模糊清掉。
-   - 同一屏多个卡片按顺序 stagger，而不是同时出现。
-   - 首屏保留轻微入场延迟，避免一加载就瞬间结束。
+1. **彻底去掉“蒙/糊”的视觉原因**
+   - 移除 scroll reveal 里的 `filter: blur(...)`。
+   - 不再让未进入视口的内容处于模糊状态。
+   - 所有页面下方内容保持清晰，只允许透明度和轻微位移动画。
 
-3. 修正现在可能看不见的关键原因
-   - `PortalShell` 现在外层还有 route transition，可能盖过子元素 scroll reveal 的视觉差异；我会让 page transition 和 scroll reveal 不互相抵消。
-   - 检查并消除 `Invalid hook call` 的真实来源，确保 hook 没有在错误位置/重复 React 环境下触发。
+2. **禁用当前原生 `animation-timeline: view()` 方案**
+   - 它在不同浏览器表现不稳定，也容易造成下方内容一直处于半透明/模糊状态。
+   - 改为统一使用 JS 控制，保证 preview、Safari/Chrome、live 后行为一致。
 
-4. 加一个临时诊断确认，完成后移除
-   - 确认页面上实际有多少个元素被标记为 reveal。
-   - 确认滚动时 class 从 hidden 状态变成 revealed 状态。
-   - 确认不是浏览器开启了 reduced motion 导致动画被关闭。
+3. **改成真正双向重复 scroll effect**
+   - 元素进入视口：添加 `is-revealed`，淡入 + 上移。
+   - 元素离开视口：移除 `is-revealed`，回到淡出 + 下移状态。
+   - 不再 `unobserve`，所以可以无限次上下滚动重复。
 
-5. 验证
-   - 用当前 `/portal/holdings` 视口测试。
-   - 再测试 `/portal` 和 `/portal/staking-plans`。
-   - 只在确认滚动时肉眼可见后再回复你。
+4. **把效果调明显但不 heavy**
+   - 不用 blur，不会发蒙，也更省性能。
+   - 使用 `opacity + translateY + scale`，这是相对轻量且专业的做法。
+   - 动画强度建议：`opacity 0.18 → 1`、`translateY 56px → 0`、`scale 0.985 → 1`，明显但不会像页面坏掉。
 
-说明：这类前端改动在 Lovable 预览里会马上看到；如果要正式 live 给外部用户，还需要点 Publish/Update。现在你看到没变化，核心是实现没有真正产生可见效果，不是你不会看。
+5. **保护首屏可读性**
+   - 首屏已经在视口内的内容直接显示或只做很短延迟，避免打开页面时一片空/蒙。
+   - 只有滚动进入/离开视口的块反复做动画。
+
+6. **验证**
+   - 在 `/portal/holdings` 慢慢向下、向上、再向下滚动，确认卡片和表格会重复淡入/淡出。
+   - 检查页面下方没有任何 blur、蒙层、灰雾感。
+   - 检查其他 portal 页面也不会发蒙。

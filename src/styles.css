@@ -611,53 +611,24 @@
   }
 
   /* ===== Editorial scroll reveal (portal) =====
-     Applied by usePortalReveal() to top-level portal blocks and explicit targets. */
+     JS-controlled bidirectional reveal — no blur, no animation-timeline,
+     so nothing on the page ever appears foggy or "shrouded". */
   .reveal-on-scroll {
-    opacity: 0;
-    transform: translate3d(0, 82px, 0) scale(0.965);
-    filter: blur(18px);
-    will-change: opacity, transform, filter;
+    opacity: 0.18;
+    transform: translate3d(0, 56px, 0) scale(0.985);
+    will-change: opacity, transform;
     transition:
-      opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      filter 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
   }
   .reveal-on-scroll.is-revealed {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
-  }
-  @keyframes portal-scroll-read {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 92px, 0) scale(0.96);
-      filter: blur(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-      filter: blur(0);
-    }
-  }
-  @supports (animation-timeline: view()) {
-    .portal-page > :where(div, section, article, form),
-    .portal-page :where(.liquid-glass, [data-reveal], .portal-reveal-target) {
-      animation: portal-scroll-read both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 48%;
-    }
-    .portal-page > :nth-child(1) { animation-range: entry 0% cover 54%; }
-    .portal-page > :nth-child(2) { animation-range: entry 8% cover 56%; }
-    .portal-page > :nth-child(3) { animation-range: entry 12% cover 58%; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .reveal-on-scroll,
-    .portal-page > :where(div, section, article, form),
-    .portal-page :where(.liquid-glass, [data-reveal], .portal-reveal-target) {
+    .reveal-on-scroll {
       opacity: 1 !important;
       transform: none !important;
-      filter: none !important;
-      animation: none !important;
       transition: none !important;
     }
   }
