@@ -189,20 +189,29 @@ export function RewardsBreakdownChart() {
                 />
                 <Bar
                   dataKey="value"
-                  radius={[0, 4, 4, 0]}
                   barSize={10}
-                  isAnimationActive
-                  animationDuration={1500}
-                  animationEasing="ease-out"
+                  isAnimationActive={false}
+                  shape={(props: { x?: number; y?: number; width?: number; height?: number; fill?: string; payload?: { key: RewardType } }) => {
+                    const { x = 0, y = 0, width = 0, height = 0, fill, payload } = props;
+                    const c = payload ? REWARD_COLORS[payload.key] : "var(--gold)";
+                    return (
+                      <rect
+                        x={x}
+                        y={y}
+                        width={Math.max(0, width * progress)}
+                        height={height}
+                        rx={2}
+                        ry={2}
+                        fill={fill}
+                        style={{
+                          filter: `drop-shadow(0 0 6px color-mix(in oklab, ${c} 50%, transparent))`,
+                        }}
+                      />
+                    );
+                  }}
                 >
                   {chartData.map((entry) => (
-                    <Cell
-                      key={entry.key}
-                      fill={`url(#grad-rewards-${entry.key})`}
-                      style={{
-                        filter: `drop-shadow(0 0 6px color-mix(in oklab, ${REWARD_COLORS[entry.key]} 50%, transparent))`,
-                      }}
-                    />
+                    <Cell key={entry.key} fill={`url(#grad-rewards-${entry.key})`} />
                   ))}
                   <LabelList dataKey="value" content={renderValueLabel as never} />
                 </Bar>
