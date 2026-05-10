@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   ComposedChart,
-  Area,
   Line,
   XAxis,
   YAxis,
@@ -20,7 +19,6 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { useWallet } from "@/hooks/use-wallet";
-import { CountUp } from "@/components/count-up";
 
 const RANGES: { key: 7 | 30 | 90; label: string }[] = [
   { key: 7, label: "7D" },
