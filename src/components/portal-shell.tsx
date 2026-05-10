@@ -192,8 +192,12 @@ export function PortalShell() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
-        <ThreeBackground fixed />
-        <CommandPalette />
+        {!deferHeavyChrome && (
+          <Suspense fallback={null}>
+            <LazyThreeBackground fixed />
+            <LazyCommandPalette />
+          </Suspense>
+        )}
         
         {/* Backdrop layers */}
         <div
@@ -416,23 +420,20 @@ export function PortalShell() {
               </DropdownMenu>
             </div>
           </header>
-          <TickerTape />
+          {deferHeavyChrome ? (
+            <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80 py-2" aria-hidden />
+          ) : (
+            <Suspense fallback={<div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80 py-2" aria-hidden />}>
+              <LazyTickerTape />
+            </Suspense>
+          )}
           <main
             ref={mainRef}
             className="min-w-0 w-full flex-1 overflow-x-hidden px-3 pb-[calc(24px+env(safe-area-inset-bottom,0px))] pt-3 sm:px-4 lg:px-10 lg:pb-8"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.28, ease: "easeOut" }}
-                className="portal-page min-w-0 w-full"
-              >
-                <Outlet />
-              </motion.div>
-            </AnimatePresence>
+            <div className="portal-page min-w-0 w-full">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>
