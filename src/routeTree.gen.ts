@@ -24,9 +24,9 @@ import { Route as PortalQrCodeRouteImport } from './routes/portal.qr-code'
 import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
+import { Route as PortalPortfolioRouteImport } from './routes/portal.portfolio'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
 import { Route as PortalKycRouteImport } from './routes/portal.kyc'
-import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
@@ -124,6 +124,11 @@ const PortalProfileRoute = PortalProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalPortfolioRoute = PortalPortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalNetworkRoute = PortalNetworkRouteImport.update({
   id: '/network',
   path: '/network',
@@ -132,11 +137,6 @@ const PortalNetworkRoute = PortalNetworkRouteImport.update({
 const PortalKycRoute = PortalKycRouteImport.update({
   id: '/kyc',
   path: '/kyc',
-  getParentRoute: () => PortalRoute,
-} as any)
-const PortalHoldingsRoute = PortalHoldingsRouteImport.update({
-  id: '/holdings',
-  path: '/holdings',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalDocumentsRoute = PortalDocumentsRouteImport.update({
@@ -261,9 +261,9 @@ export interface FileRoutesByFullPath {
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
-  '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/portfolio': typeof PortalPortfolioRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
   '/portal/qna': typeof PortalQnaRouteWithChildren
@@ -301,9 +301,9 @@ export interface FileRoutesByTo {
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
-  '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/portfolio': typeof PortalPortfolioRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/qr-code': typeof PortalQrCodeRoute
   '/portal/referral': typeof PortalReferralRoute
@@ -341,9 +341,9 @@ export interface FileRoutesById {
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
-  '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/network': typeof PortalNetworkRoute
+  '/portal/portfolio': typeof PortalPortfolioRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
   '/portal/qna': typeof PortalQnaRouteWithChildren
@@ -384,9 +384,9 @@ export interface FileRouteTypes {
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
-    | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/network'
+    | '/portal/portfolio'
     | '/portal/profile'
     | '/portal/promotion'
     | '/portal/qna'
@@ -424,9 +424,9 @@ export interface FileRouteTypes {
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
-    | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/network'
+    | '/portal/portfolio'
     | '/portal/profile'
     | '/portal/qr-code'
     | '/portal/referral'
@@ -463,9 +463,9 @@ export interface FileRouteTypes {
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
-    | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/network'
+    | '/portal/portfolio'
     | '/portal/profile'
     | '/portal/promotion'
     | '/portal/qna'
@@ -610,6 +610,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalProfileRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/portfolio': {
+      id: '/portal/portfolio'
+      path: '/portfolio'
+      fullPath: '/portal/portfolio'
+      preLoaderRoute: typeof PortalPortfolioRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/network': {
       id: '/portal/network'
       path: '/network'
@@ -622,13 +629,6 @@ declare module '@tanstack/react-router' {
       path: '/kyc'
       fullPath: '/portal/kyc'
       preLoaderRoute: typeof PortalKycRouteImport
-      parentRoute: typeof PortalRoute
-    }
-    '/portal/holdings': {
-      id: '/portal/holdings'
-      path: '/holdings'
-      fullPath: '/portal/holdings'
-      preLoaderRoute: typeof PortalHoldingsRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/documents': {
@@ -816,9 +816,9 @@ interface PortalRouteChildren {
   PortalChangePasswordRoute: typeof PortalChangePasswordRoute
   PortalDepositRoute: typeof PortalDepositRoute
   PortalDocumentsRoute: typeof PortalDocumentsRoute
-  PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalKycRoute: typeof PortalKycRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
+  PortalPortfolioRoute: typeof PortalPortfolioRoute
   PortalProfileRoute: typeof PortalProfileRoute
   PortalPromotionRoute: typeof PortalPromotionRouteWithChildren
   PortalQnaRoute: typeof PortalQnaRouteWithChildren
@@ -850,9 +850,9 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalChangePasswordRoute: PortalChangePasswordRoute,
   PortalDepositRoute: PortalDepositRoute,
   PortalDocumentsRoute: PortalDocumentsRoute,
-  PortalHoldingsRoute: PortalHoldingsRoute,
   PortalKycRoute: PortalKycRoute,
   PortalNetworkRoute: PortalNetworkRoute,
+  PortalPortfolioRoute: PortalPortfolioRoute,
   PortalProfileRoute: PortalProfileRoute,
   PortalPromotionRoute: PortalPromotionRouteWithChildren,
   PortalQnaRoute: PortalQnaRouteWithChildren,
@@ -890,3 +890,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
