@@ -638,7 +638,8 @@
      transitions resume ~150ms after scroll stops. */
   html.is-scrolling .liquid-glass,
   html.is-scrolling .liquid-glass::before,
-  html.is-scrolling .liquid-glass::after {
+  html.is-scrolling .liquid-glass::after,
+  html.is-scrolling .reveal-on-scroll {
     transition: none !important;
   }
   /* Suppress hover-driven shadow/transform repaints while scrolling */

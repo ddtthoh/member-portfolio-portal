@@ -11,7 +11,6 @@ import { useWallet } from "@/hooks/use-wallet";
 import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
 import { AssetGrowthChart } from "@/components/charts/asset-growth-chart";
-import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -36,11 +35,7 @@ function HoldingsPage() {
 
   return (
     <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <div>
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <div className="mb-4">
             <div className="text-[10px] uppercase tracking-[0.22em] text-gold/80">
@@ -52,7 +47,7 @@ function HoldingsPage() {
           </div>
           <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
         </SpotlightCard>
-      </motion.div>
+      </div>
 
       <RewardsBreakdownChart />
 
