@@ -48,14 +48,12 @@ export function usePortalReveal(
           return;
         }
 
-        // First-pass: anything already in view should reveal immediately so
-        // there's no stutter on the user's first scroll.
+        // First-pass: anything already in view is marked synchronously so the
+        // first scroll doesn't inherit queued animation-frame work.
         const rect = el.getBoundingClientRect();
         const inViewNow = rect.top < window.innerHeight && rect.bottom > 0;
         if (firstPass && inViewNow) {
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => el.classList.add("is-revealed"))
-          );
+          el.classList.add("is-revealed");
         }
 
         io?.observe(el);
