@@ -2,8 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
-  ComposedChart,
+  AreaChart,
+  Area,
   Line,
+  ComposedChart,
   XAxis,
   YAxis,
   Tooltip,
@@ -44,7 +46,6 @@ export function AssetGrowthChart() {
   const lastPoint = data[data.length - 1];
   const lastTotal = lastPoint?.total ?? 0;
 
-  // Type ROI shares (for legend + label hiding rule)
   const typeShare: Record<RewardType, number> = {
     staking: 0, referral: 0, team: 0, leader: 0, global: 0, par_rank: 0,
   };
@@ -52,45 +53,21 @@ export function AssetGrowthChart() {
     typeShare[k] = lastPoint ? (Number(lastPoint[k]) || 0) : 0;
   });
 
-  // ---------- Tooltip ----------
+  // ---------- Main tooltip (Total) ----------
   const renderTooltip = ({ active, payload, label }: {
     active?: boolean;
     label?: string;
     payload?: Array<{ dataKey: string; value: number }>;
   }) => {
     if (!active || !payload?.length) return null;
-    const areaRows = payload.filter((p) => p.dataKey !== "total");
-    const total = areaRows.reduce((s, p) => s + (Number(p.value) || 0), 0);
-    const ordered = [...areaRows].reverse();
+    const totalRow = payload.find((p) => p.dataKey === "total");
+    const total = Number(totalRow?.value) || 0;
     return (
-      <div className="liquid-glass rounded-lg border border-border/60 px-3 py-2.5 text-xs shadow-xl" style={{ minWidth: 220 }}>
+      <div className="liquid-glass rounded-lg border border-border/60 px-3 py-2 text-xs shadow-xl" style={{ minWidth: 180 }}>
         <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</div>
-        <div className="mt-1.5 space-y-1">
-          {ordered.map((p) => {
-            const k = p.dataKey as RewardType;
-            const color = REWARD_COLORS[k];
-            const v = Number(p.value) || 0;
-            return (
-              <div key={k} className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: color, boxShadow: `0 0 6px ${color}` }} />
-                  <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground/90">
-                    {t(`charts.rewardTypes.${k}`, k)}
-                  </span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="tabular-nums" style={{ color }}>{fmtMoney(v)}</span>
-                  <span className="w-14 text-right text-[10px] tabular-nums text-muted-foreground/70">
-                    {hasBase ? `${roi(v).toFixed(2)}%` : "—"}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="mt-2 flex items-center justify-between border-t border-border/40 pt-1.5">
+        <div className="mt-1.5 flex items-baseline justify-between gap-3">
           <span className="text-[10px] uppercase tracking-[0.18em] text-gold/80">
-            {t("charts.assetGrowth.totalRoi", "Total ROI")}
+            {t("charts.assetGrowth.totalRoi", "Total")}
           </span>
           <div className="flex items-baseline gap-2">
             <span className="tabular-nums text-gold">{fmtMoney(total)}</span>
@@ -103,58 +80,18 @@ export function AssetGrowthChart() {
     );
   };
 
-  // ---------- End-point label for each Area ----------
-  const renderAreaEndLabel = (typeKey: RewardType) =>
-    (props: { x?: number; y?: number; index?: number; value?: number }) => {
-      const { x = 0, y = 0, index = 0, value = 0 } = props;
-      if (index !== data.length - 1) return null;
-      const v = Number(value) || 0;
-      const share = lastTotal > 0 ? (typeShare[typeKey] / lastTotal) * 100 : 0;
-      // Hide tiny slivers to avoid overlap, keep just a color dot
-      if (share < 6) {
-        return (
-          <circle cx={x + 4} cy={y} r={2} fill={REWARD_COLORS[typeKey]} />
-        );
-      }
-      return (
-        <g>
-          <circle cx={x + 4} cy={y} r={2.2} fill={REWARD_COLORS[typeKey]} />
-          <text
-            x={x + 10}
-            y={y}
-            dy={3}
-            fontSize={9}
-            fontWeight={500}
-            fill={REWARD_COLORS[typeKey]}
-            style={{ fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}
-          >
-            ${Math.round(v).toLocaleString()}
-          </text>
-        </g>
-      );
-    };
-
-  // ---------- Total line end-point pulse + pill label ----------
+  // ---------- Total line end-point pulse ----------
   const renderTotalDot = (props: { cx?: number; cy?: number; index?: number }) => {
     const { cx = 0, cy = 0, index = 0 } = props;
-    if (index !== data.length - 1) {
-      return <g key={`td-${index}`} />;
-    }
+    if (index !== data.length - 1) return <g key={`td-${index}`} />;
     return (
       <g key={`td-${index}`}>
-        {/* outer pulsing halo */}
         <circle cx={cx} cy={cy} r={4} fill="var(--gold)" opacity={0.35}>
           <animate attributeName="r" values="4;12;4" dur="2s" repeatCount="indefinite" />
           <animate attributeName="opacity" values="0.45;0;0.45" dur="2s" repeatCount="indefinite" />
         </circle>
-        {/* solid core */}
-        <circle
-          cx={cx}
-          cy={cy}
-          r={3.5}
-          fill="var(--gold)"
-          style={{ filter: "drop-shadow(0 0 6px var(--gold))" }}
-        />
+        <circle cx={cx} cy={cy} r={3.5} fill="var(--gold)"
+          style={{ filter: "drop-shadow(0 0 6px var(--gold))" }} />
       </g>
     );
   };
@@ -171,24 +108,15 @@ export function AssetGrowthChart() {
     return (
       <g>
         <rect
-          x={x + 10}
-          y={y - h / 2}
-          rx={8}
-          ry={8}
-          width={w}
-          height={h}
+          x={x + 10} y={y - h / 2} rx={8} ry={8} width={w} height={h}
           fill="color-mix(in oklab, var(--gold) 18%, transparent)"
           stroke="color-mix(in oklab, var(--gold) 60%, transparent)"
           strokeWidth={1}
           style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--gold) 50%, transparent))" }}
         />
         <text
-          x={x + 10 + padX}
-          y={y}
-          dy={3.5}
-          fontSize={10}
-          fontWeight={600}
-          fill="var(--gold)"
+          x={x + 10 + padX} y={y} dy={3.5}
+          fontSize={10} fontWeight={600} fill="var(--gold)"
           style={{ fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}
         >
           {text}
@@ -229,20 +157,16 @@ export function AssetGrowthChart() {
           </div>
         </div>
 
-        <div className="h-60 w-full">
+        {/* ===== Main chart: Total only ===== */}
+        <div className="h-52 w-full">
           {hasData ? (
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={data} margin={{ top: 12, right: 96, left: 0, bottom: 0 }}>
+              <ComposedChart data={data} margin={{ top: 12, right: 110, left: 0, bottom: 0 }}>
                 <defs>
-                  {REWARD_TYPES.map((k) => {
-                    const c = REWARD_COLORS[k];
-                    return (
-                      <linearGradient key={k} id={`grad-cum-${k}`} x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={c} stopOpacity={0.55} />
-                        <stop offset="100%" stopColor={c} stopOpacity={0.05} />
-                      </linearGradient>
-                    );
-                  })}
+                  <linearGradient id="grad-total" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="var(--gold)" stopOpacity={0.22} />
+                    <stop offset="100%" stopColor="var(--gold)" stopOpacity={0} />
+                  </linearGradient>
                 </defs>
                 <CartesianGrid stroke="hsl(var(--border) / 0.2)" vertical={false} />
                 <XAxis
@@ -260,24 +184,16 @@ export function AssetGrowthChart() {
                   width={52}
                   tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
                 />
-                <Tooltip content={renderTooltip as never} />
-                {REWARD_TYPES.map((k) => (
-                  <Line
-                    key={k}
-                    type="monotone"
-                    dataKey={k}
-                    stroke={REWARD_COLORS[k]}
-                    strokeWidth={1.5}
-                    dot={false}
-                    activeDot={{ r: 3, fill: REWARD_COLORS[k] }}
-                    isAnimationActive
-                    animationDuration={900}
-                    animationEasing="ease-out"
-                  >
-                    <LabelList dataKey={k} content={renderAreaEndLabel(k) as never} />
-                  </Line>
-                ))}
-                {/* Total Sum highlight line */}
+                <Tooltip content={renderTooltip as never} cursor={{ stroke: "var(--gold)", strokeOpacity: 0.3, strokeWidth: 1 }} />
+                <Area
+                  type="monotone"
+                  dataKey="total"
+                  stroke="none"
+                  fill="url(#grad-total)"
+                  isAnimationActive
+                  animationDuration={1100}
+                  animationEasing="ease-out"
+                />
                 <Line
                   type="monotone"
                   dataKey="total"
@@ -301,25 +217,68 @@ export function AssetGrowthChart() {
           )}
         </div>
 
-        {/* legend with per-type ROI */}
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+        {/* ===== 6 reward sparkline cards ===== */}
+        <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
           {REWARD_TYPES.map((k) => {
             const c = REWARD_COLORS[k];
             const v = typeShare[k];
+            const gradId = `mini-grad-${k}`;
             return (
-              <div key={k} className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ background: c, boxShadow: `0 0 6px ${c}` }} />
-                <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground/80">
-                  {t(`charts.rewardTypes.${k}`, k)}
-                </span>
-                <span className="text-[9px] tabular-nums text-muted-foreground/60">
-                  {hasBase ? `${roi(v).toFixed(1)}%` : "—"}
-                </span>
+              <div
+                key={k}
+                className="group relative overflow-hidden rounded-xl border border-border/40 bg-background/30 p-3 transition-all hover:border-[color:var(--c)] hover:bg-background/50"
+                style={{ ["--c" as never]: c }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ background: c, boxShadow: `0 0 6px ${c}` }}
+                    />
+                    <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground/85">
+                      {t(`charts.rewardTypes.${k}`, k)}
+                    </span>
+                  </div>
+                  <span
+                    className="rounded-full px-1.5 py-0.5 text-[9px] tabular-nums"
+                    style={{
+                      color: c,
+                      background: `color-mix(in oklab, ${c} 12%, transparent)`,
+                      border: `1px solid color-mix(in oklab, ${c} 35%, transparent)`,
+                    }}
+                  >
+                    {hasBase ? `${roi(v).toFixed(2)}%` : "—"}
+                  </span>
+                </div>
+                <div className="mt-1 font-light tabular-nums" style={{ color: c, fontSize: 16 }}>
+                  {fmtMoney(v)}
+                </div>
+                <div className="mt-1 h-7 w-full">
+                  {hasData && (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={data} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={c} stopOpacity={0.5} />
+                            <stop offset="100%" stopColor={c} stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="monotone"
+                          dataKey={k}
+                          stroke={c}
+                          strokeWidth={1.5}
+                          fill={`url(#${gradId})`}
+                          isAnimationActive={false}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  )}
+                </div>
               </div>
             );
           })}
         </div>
-
       </SpotlightCard>
     </motion.div>
   );
