@@ -614,15 +614,18 @@
      Applied by usePortalReveal() to .liquid-glass and [data-reveal] elements. */
   .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(24px);
-    will-change: opacity, transform;
+    transform: translateY(36px);
+    filter: blur(6px);
+    will-change: opacity, transform, filter;
     transition:
-      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
   }
   .reveal-on-scroll.is-revealed {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll {
