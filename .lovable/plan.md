@@ -1,21 +1,18 @@
-排查结果：scrolling effect 不是“加不到”，也不是太 heavy，主要是当前实现的目标选择器不对，导致效果几乎看不见。
+问题：每页第一次滚动会卡一下，之后顺畅。
+原因：浏览器在首次滚动那一刻才一次性"激活"所有还没显示的卡片图层，同时多个动画一起启动，抢了一帧。
 
-原因：
-1. `/portal/holdings` 页面最外层是：`<div className="space-y-6">...整页内容...</div>`。
-2. 当前 hook 的选择器包含 `.portal-page > div`，所以它只把这个“整页大容器”加上 `reveal-on-scroll`。
-3. 这个大容器高度超过一屏，IntersectionObserver 会认为它一直在视口里，因此 `is-revealed` 基本不会在每个卡片滚动进/出时切换。
-4. 页面里的真正视觉区块，比如 Total Assets、Rewards Breakdown、Asset Growth、table card，并没有各自成为 reveal target，所以滚动到它们时没有单独渐入/渐出。
-5. holdings 第一张卡片还有自己的 `motion.div initial/animate`，它只在页面加载时播放一次，和滚动重复动画不是同一个机制。
+修复方案（视觉效果完全不变）：
 
-计划修复：
-1. 修改 `usePortalReveal` 的扫描逻辑：不要把 `.portal-page > div` 这种整页 wrapper 当作唯一动画目标。
-2. 让 hook 自动选择页面 wrapper 的直接子元素作为 reveal targets，例如 `.portal-page > div > *`，这样每个卡片/图表/表格块都会独立触发。
-3. 保留无 blur 的 CSS，避免任何页面再出现“蒙”的感觉。
-4. 让进入视口时加 `is-revealed`、离开视口时移除 `is-revealed`，从而上下滚动都能重复看到淡入/淡出。
-5. 处理 framer-motion 冲突：避免 holdings 首屏 `motion.div` 的一次性动画吞掉/覆盖滚动 reveal，必要时给其外层或子区块明确 data-reveal。
-6. 验证 `/portal/holdings`：确认 reveal target 数量不再是 1 个整页容器，而是多个独立区块；滚动下去、再滚动上来时 class 会重复切换。
+1. **页面加载后预热一次**：在 `usePortalReveal` 里，页面 mount 后用 `requestIdleCallback` 提前让浏览器把所有 reveal 元素的图层准备好，这样第一次滚动就不用临时准备了。
+
+2. **只在需要时加 `will-change`**：现在所有 reveal 元素一直挂着 `will-change: opacity, transform`，等于一直占着 GPU 资源。改成只在元素接近视口时才加，离开后移除。
+
+3. **错开同时启动的动画**：第一次滚动如果有多个元素同时进入视口，给它们加一个非常小的 stagger（比如每个 +20ms），避免同一帧启动一堆 transition。
+
+4. **减少 MutationObserver 的工作**：图表/表格 mount 后触发的 rescan 只扫新加入的节点，不重新扫整个 main。
 
 涉及文件：
-- `src/hooks/use-portal-reveal.ts`
-- 如有必要，小幅调整 `src/routes/portal.holdings.tsx` 的 reveal 标记
-- `src/styles.css` 只在需要增强明显度时微调，不恢复 blur
+- `src/hooks/use-portal-reveal.ts`（主要改动）
+- `src/styles.css`（移除常驻 `will-change`，改用 hook 动态加）
+
+预期结果：第一次滚动也顺，淡入淡出效果不变。
