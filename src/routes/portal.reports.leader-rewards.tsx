@@ -21,6 +21,9 @@ function LeaderRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsLeader")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Leader Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsLeader.transactionsTitle")}
         filterTextLabel={t("pages.reportsLeader.tableHeaders.contributedBy")}
