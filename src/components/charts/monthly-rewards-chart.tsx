@@ -1,13 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { useMonthlyRewards, REWARD_TYPES, REWARD_COLORS } from "@/hooks/use-rewards-data";
+import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 export function MonthlyRewardsChart() {
   const { t } = useTranslation();
   const { data } = useMonthlyRewards();
+  const { ref, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.25 });
 
   return (
-    <div>
+    <div ref={ref}>
       <div className="mb-2 text-[10px] uppercase tracking-[0.18em] text-gold/80">
         {t("charts.monthlyRewards.title", "月度奖励 · 近6个月")}
       </div>
@@ -54,12 +56,14 @@ export function MonthlyRewardsChart() {
             />
             {REWARD_TYPES.map((k) => (
               <Bar
-                key={k}
+                key={`${k}-${inView ? "in" : "out"}`}
                 dataKey={k}
                 stackId="r"
                 fill={REWARD_COLORS[k]}
                 radius={[4, 4, 0, 0]}
                 style={{ filter: `url(#mglow-${k}) drop-shadow(0 0 6px ${REWARD_COLORS[k]})` }}
+                isAnimationActive={inView}
+                animationDuration={2200}
               />
             ))}
           </BarChart>
