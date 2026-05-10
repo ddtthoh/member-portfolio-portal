@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type RefObject } from "react";
 
 /**
  * Editorial cinematic scroll-reveal for the portal.
@@ -8,7 +8,10 @@ import { useEffect } from "react";
  * they enter the viewport. The implementation is idempotent so React StrictMode
  * cannot leave off-screen elements initialized but unobserved.
  */
-export function usePortalReveal(scopeKey = "") {
+export function usePortalReveal(
+  scopeKey = "",
+  mainRef?: RefObject<HTMLElement | null>,
+) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -23,7 +26,7 @@ export function usePortalReveal(scopeKey = "") {
       ".portal-page > div",
     ].join(", ");
 
-    let main = document.querySelector("main");
+    let main = mainRef?.current ?? document.querySelector("main");
     let mo: MutationObserver | null = null;
     let io: IntersectionObserver | null = null;
     let rescanTimer: ReturnType<typeof setTimeout> | null = null;
@@ -74,7 +77,7 @@ export function usePortalReveal(scopeKey = "") {
     }
 
     function setup() {
-      main = document.querySelector("main");
+      main = mainRef?.current ?? document.querySelector("main");
       if (!main) return false;
 
       io = new IntersectionObserver(
