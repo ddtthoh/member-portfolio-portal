@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   ComposedChart,
-  Area,
   Line,
   XAxis,
   YAxis,
@@ -20,7 +19,6 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { useWallet } from "@/hooks/use-wallet";
-import { CountUp } from "@/components/count-up";
 
 const RANGES: { key: 7 | 30 | 90; label: string }[] = [
   { key: 7, label: "7D" },
@@ -264,20 +262,20 @@ export function AssetGrowthChart() {
                 />
                 <Tooltip content={renderTooltip as never} />
                 {REWARD_TYPES.map((k) => (
-                  <Area
+                  <Line
                     key={k}
                     type="monotone"
                     dataKey={k}
-                    stackId="1"
                     stroke={REWARD_COLORS[k]}
-                    strokeWidth={1.25}
-                    fill={`url(#grad-cum-${k})`}
+                    strokeWidth={1.5}
+                    dot={false}
+                    activeDot={{ r: 3, fill: REWARD_COLORS[k] }}
                     isAnimationActive
                     animationDuration={900}
                     animationEasing="ease-out"
                   >
                     <LabelList dataKey={k} content={renderAreaEndLabel(k) as never} />
-                  </Area>
+                  </Line>
                 ))}
                 {/* Total Sum highlight line */}
                 <Line
@@ -322,29 +320,6 @@ export function AssetGrowthChart() {
           })}
         </div>
 
-        <div className="mt-4 border-t border-border/30 pt-3">
-          <div className="flex items-baseline justify-between">
-            <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              {t("charts.assetGrowth.current", "当前累计")}
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="font-light tabular-nums text-gold text-base">
-                <CountUp value={lastTotal} prefix="$" decimals={2} />
-              </div>
-              <span
-                className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-medium tabular-nums text-gold"
-                style={{ boxShadow: "0 0 10px color-mix(in oklab, var(--gold) 25%, transparent)" }}
-              >
-                {roiLabel(lastTotal)} {hasBase ? "ROI" : ""}
-              </span>
-            </div>
-          </div>
-          <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
-            {hasBase
-              ? `${t("charts.assetGrowth.basis", "vs")} ${fmtMoney(stakingBase)} ${t("charts.assetGrowth.basisSuffix", "staking 本金")}`
-              : t("charts.assetGrowth.noBase", "暂无 staking 本金，无法计算 ROI")}
-          </div>
-        </div>
       </SpotlightCard>
     </motion.div>
   );
