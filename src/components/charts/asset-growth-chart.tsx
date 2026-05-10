@@ -215,23 +215,25 @@ export function AssetGrowthChart() {
                 />
                 <Tooltip content={renderTooltip as never} cursor={{ stroke: "var(--gold)", strokeOpacity: 0.3, strokeWidth: 1 }} />
                 <Area
+                  key={`area-${inView ? "in" : "out"}-${range}`}
                   type="monotone"
                   dataKey="total"
                   stroke="none"
                   fill="url(#grad-total)"
-                  isAnimationActive
-                  animationDuration={1100}
+                  isAnimationActive={inView}
+                  animationDuration={2200}
                   animationEasing="ease-out"
                 />
                 <Line
+                  key={`line-${inView ? "in" : "out"}-${range}`}
                   type="monotone"
                   dataKey="total"
                   stroke="var(--gold)"
                   strokeWidth={2.5}
                   dot={renderTotalDot as never}
                   activeDot={{ r: 4, fill: "var(--gold)" }}
-                  isAnimationActive
-                  animationDuration={1100}
+                  isAnimationActive={inView}
+                  animationDuration={2200}
                   animationEasing="ease-out"
                   className="gold-line-breathe"
                 >
