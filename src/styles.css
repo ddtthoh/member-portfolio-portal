@@ -380,7 +380,7 @@
     70%  { box-shadow: 0 0 0 8px color-mix(in oklab, var(--gold) 0%, transparent); }
     100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent); }
   }
-  .ring-pulse { animation: ring-pulse 2.2s ease-out infinite; border-radius: 9999px; }
+  .ring-pulse { animation: ring-pulse 1.5s ease-out infinite; border-radius: 9999px; }
 
   /* 9. Page enter */
   @keyframes page-enter {
