@@ -398,6 +398,16 @@
       "description": "आपकी सक्रिय स्टेकिंग का सारांश।",
       "totalStakingAmount": "कुल स्टेकिंग राशि",
       "stakingDays": "स्टेकिंग के दिन",
+      "totalStaking": "कुल स्टेकिंग",
+      "totalAssets": "कुल संपत्ति",
+      "since": "{{date}} से",
+      "daysUnit": "दिन",
+      "assetBreakdown": "संपत्ति का विवरण",
+      "portfolioLabel": "पोर्टफोलियो · कुल संपत्ति",
+      "tierSuffix": "{{tier}} टियर · अभी अपडेट किया गया",
+      "masked": "••••••",
+      "hideAccounts": "सभी खाते छिपाएं",
+      "showAccounts": "सभी खाते दिखाएं",
       "tableHeaders": {
         "date": "दिनांक",
         "stakingPlan": "स्टेकिंग प्लान",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "न्यूनतम स्टेकिंग",
+        "dailyRoi": "दैनिक ROI",
         "monthlyRoi": "मासिक ROI"
-      }
+      },
+      "cta": "स्टेकिंग शुरू करें"
     },
     "convertCredits": {
       "eyebrow": "विवरण",

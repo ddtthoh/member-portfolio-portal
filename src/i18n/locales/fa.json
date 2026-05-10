@@ -398,6 +398,16 @@
       "description": "خلاصه‌ای از مشارکت فعال استیکینگ شما.",
       "totalStakingAmount": "مجموع مبلغ استیکینگ",
       "stakingDays": "تعداد روزهای استیکینگ",
+      "totalStaking": "کل استیکینگ",
+      "totalAssets": "کل دارایی‌ها",
+      "since": "از {{date}}",
+      "daysUnit": "روز",
+      "assetBreakdown": "تفکیک دارایی‌ها",
+      "portfolioLabel": "سبد سرمایه‌گذاری · کل دارایی‌ها",
+      "tierSuffix": "سطح {{tier}} · همین الان به‌روز شد",
+      "masked": "••••••",
+      "hideAccounts": "مخفی کردن تمام حساب‌ها",
+      "showAccounts": "نمایش تمام حساب‌ها",
       "tableHeaders": {
         "date": "تاریخ",
         "stakingPlan": "طرح استیکینگ",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "حداقل استیکینگ",
+        "dailyRoi": "بازده روزانه (ROI)",
         "monthlyRoi": "سود ماهانه (ROI)"
-      }
+      },
+      "cta": "شروع استیکینگ"
     },
     "convertCredits": {
       "eyebrow": "صورتحساب",

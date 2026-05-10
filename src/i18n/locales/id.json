@@ -398,6 +398,16 @@
       "description": "Ringkasan partisipasi aktif Anda.",
       "totalStakingAmount": "Total Jumlah Staking",
       "stakingDays": "Hari Staking",
+      "totalStaking": "Total Staking",
+      "totalAssets": "Total Aset",
+      "since": "sejak {{date}}",
+      "daysUnit": "hari",
+      "assetBreakdown": "Rincian Aset",
+      "portfolioLabel": "Portofolio · Total Aset",
+      "tierSuffix": "Tier {{tier}} · baru saja diperbarui",
+      "masked": "••••••",
+      "hideAccounts": "Sembunyikan Semua Akun",
+      "showAccounts": "Tampilkan Semua Akun",
       "tableHeaders": {
         "date": "Tanggal",
         "stakingPlan": "Paket Staking",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "Staking Minimum",
+        "dailyRoi": "ROI Harian",
         "monthlyRoi": "ROI Bulanan"
-      }
+      },
+      "cta": "Mulai Staking"
     },
     "convertCredits": {
       "eyebrow": "Laporan",

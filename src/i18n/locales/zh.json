@@ -398,6 +398,16 @@
       "description": "您当前活跃质押参与的摘要。",
       "totalStakingAmount": "总质押金额",
       "stakingDays": "质押天数",
+      "totalStaking": "质押总额",
+      "totalAssets": "总资产",
+      "since": "自 {{date}} 起",
+      "daysUnit": "天",
+      "assetBreakdown": "资产分布",
+      "portfolioLabel": "投资组合 · 总资产",
+      "tierSuffix": "{{tier}} 等级 · 刚刚更新",
+      "masked": "••••••",
+      "hideAccounts": "隐藏所有账户",
+      "showAccounts": "显示所有账户",
       "tableHeaders": {
         "date": "日期",
         "stakingPlan": "质押计划",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "最低质押金额",
+        "dailyRoi": "日化收益率",
         "monthlyRoi": "月均收益率 (ROI)"
-      }
+      },
+      "cta": "开始质押"
     },
     "convertCredits": {
       "eyebrow": "账单",
