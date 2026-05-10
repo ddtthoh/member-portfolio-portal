@@ -24,6 +24,7 @@ import { SUPPORTED_LANGUAGES } from "@/i18n";
 const LazyTickerTape = lazy(() => import("@/components/ticker-tape").then((m) => ({ default: m.TickerTape })));
 const LazyCommandPalette = lazy(() => import("@/components/command-palette").then((m) => ({ default: m.CommandPalette })));
 const LazyThreeBackground = lazy(() => import("@/components/three-background").then((m) => ({ default: m.ThreeBackground })));
+const ENABLE_AMBIENT_PORTAL_CHROME = false;
 
 type NavChild = { to: string; labelKey: string; icon: typeof LayoutDashboard };
 type NavLeaf = { to: string; labelKey: string; icon: typeof LayoutDashboard; children?: undefined };
@@ -148,12 +149,8 @@ export function PortalShell() {
       if (done) return;
       done = true;
       root.classList.remove("initial-scroll-safe");
-      const loadHeavyChrome = () => setDeferHeavyChrome(false);
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(loadHeavyChrome, { timeout: 1600 });
-      } else {
-        globalThis.setTimeout(loadHeavyChrome, 900);
-      }
+      if (!ENABLE_AMBIENT_PORTAL_CHROME) return;
+      globalThis.setTimeout(() => setDeferHeavyChrome(false), 3000);
     };
 
     const onScroll = () => {
@@ -197,7 +194,7 @@ export function PortalShell() {
   return (
     <TooltipProvider delayDuration={120}>
       <div className="aurora-bg grid-floor relative flex min-h-screen overflow-x-hidden bg-transparent">
-        {!deferHeavyChrome && (
+        {ENABLE_AMBIENT_PORTAL_CHROME && !deferHeavyChrome && (
           <Suspense fallback={null}>
             <LazyThreeBackground fixed />
             <LazyCommandPalette />
@@ -425,7 +422,7 @@ export function PortalShell() {
               </DropdownMenu>
             </div>
           </header>
-          {deferHeavyChrome ? (
+          {!ENABLE_AMBIENT_PORTAL_CHROME || deferHeavyChrome ? (
             <div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80 py-2" aria-hidden />
           ) : (
             <Suspense fallback={<div className="ticker-wrap relative overflow-hidden border-y border-border bg-background/80 py-2" aria-hidden />}>
