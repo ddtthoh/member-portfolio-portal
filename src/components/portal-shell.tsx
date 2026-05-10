@@ -38,7 +38,7 @@ const sections: NavSection[] = [
     items: [
       { to: "/portal", labelKey: "nav.overview", icon: LayoutDashboard },
       { to: "/portal/staking-plans", labelKey: "nav.stakingPlan", icon: Layers },
-      { to: "/portal/portfolio", labelKey: "nav.portfolio", icon: Wallet },
+      { to: "/portal/holdings", labelKey: "nav.portfolio", icon: Wallet },
       { to: "/portal/asset-analysis", labelKey: "nav.assetAnalysis", icon: FileBarChart },
     ],
   },
