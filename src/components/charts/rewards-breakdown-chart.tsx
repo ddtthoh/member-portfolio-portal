@@ -34,7 +34,7 @@ export function RewardsBreakdownChart() {
 
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
+            <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }} barCategoryGap="45%">
               <XAxis
                 type="number"
                 tick={{ fill: "var(--gold)", fontSize: 10 }}
@@ -60,7 +60,7 @@ export function RewardsBreakdownChart() {
                 }}
                 formatter={(v: number) => [`$${Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`, ""]}
               />
-              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+              <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={10}>
                 {chartData.map((entry) => {
                   const c = REWARD_COLORS[entry.key as RewardType];
                   return (
