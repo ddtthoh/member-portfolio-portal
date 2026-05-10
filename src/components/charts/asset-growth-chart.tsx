@@ -254,7 +254,7 @@ export function AssetGrowthChart() {
                   {fmtMoney(v * progress)}
                 </div>
                 <div className="mt-1 h-7 w-full">
-                  {hasData && inView && (
+                  {hasData && (
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={data} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
                         <defs>
@@ -270,9 +270,7 @@ export function AssetGrowthChart() {
                           stroke={c}
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
-                          isAnimationActive
-                          animationDuration={1500}
-                          animationEasing="ease-out"
+                          isAnimationActive={false}
                         />
                       </AreaChart>
                     </ResponsiveContainer>
