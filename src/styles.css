@@ -357,7 +357,7 @@
   }
   .num-tick {
     font-variant-numeric: tabular-nums;
-    animation: num-tick 1.8s cubic-bezier(.2,.8,.2,1) both;
+    animation: num-tick 1.5s cubic-bezier(.2,.8,.2,1) both;
   }
 
   /* 7. Row scan line on hover */
@@ -387,7 +387,7 @@
     0%   { opacity: 0; transform: translateY(10px) scale(0.992); filter: blur(6px); }
     100% { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0); }
   }
-  .page-enter { animation: page-enter 1.8s cubic-bezier(.2,.8,.2,1) both; }
+  .page-enter { animation: page-enter 1.5s cubic-bezier(.2,.8,.2,1) both; }
 
   /* 10. Cursor glow */
   .cursor-glow {
@@ -618,8 +618,8 @@
     transform: translate3d(0, 56px, 0) scale(0.985);
     will-change: opacity, transform;
     transition:
-      opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      transform 1.8s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+      opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
   }
   .reveal-on-scroll.is-revealed {
     opacity: 1;

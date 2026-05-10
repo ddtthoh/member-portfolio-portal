@@ -21,7 +21,7 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export function CountUp({
   value,
-  duration = 1800,
+  duration = 1500,
   decimals = 2,
   prefix = "",
   suffix = "",

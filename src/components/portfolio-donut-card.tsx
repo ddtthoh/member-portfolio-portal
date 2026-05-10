@@ -64,9 +64,9 @@ export function PortfolioDonutCard({
       return;
     }
     const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
-    const a0 = animate(0, sLen, { duration: 1.8, ease, onUpdate: setSDraw });
-    const a1 = animate(0, cLen, { duration: 1.8, delay: 0, ease, onUpdate: setCDraw });
-    const a2 = animate(0, eLen, { duration: 1.8, delay: 0, ease, onUpdate: setEDraw });
+    const a0 = animate(0, sLen, { duration: 1.5, ease, onUpdate: setSDraw });
+    const a1 = animate(0, cLen, { duration: 1.5, delay: 0, ease, onUpdate: setCDraw });
+    const a2 = animate(0, eLen, { duration: 1.5, delay: 0, ease, onUpdate: setEDraw });
     return () => { a0.stop(); a1.stop(); a2.stop(); };
   }, [inView, sLen, cLen, eLen]);
 

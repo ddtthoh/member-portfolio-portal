@@ -146,7 +146,7 @@ function ProfilePage() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1.8 }}
+                transition={{ duration: 1.5 }}
                 className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-gold/30 to-gold/5 ring-1 ring-gold/40"
               >
                 <UserCircle2 className="h-9 w-9 text-gold" />

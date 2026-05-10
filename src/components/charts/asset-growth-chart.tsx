@@ -158,7 +158,7 @@ export function AssetGrowthChart() {
       ref={viewRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.8, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.5, delay: 0, ease: [0.16, 1, 0.3, 1] }}
       className="mb-4"
     >
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
