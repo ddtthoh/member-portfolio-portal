@@ -672,21 +672,26 @@ export function ThreeBackground({
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [spread, setSpread] = useState({ x: 16, y: 10 });
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [renderMode, setRenderMode] = useState<"always" | "demand">("demand");
 
-  // Pause the WebGL render loop while the user is scrolling so it doesn't
-  // fight scroll for the main thread / GPU. Resumes ~150ms after scroll stops.
+  // Keep WebGL in demand mode until the user is idle. This prevents the very
+  // first scroll from competing with shader/program warm-up and buffer updates.
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | null = null;
+    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
+    let idleTimer: ReturnType<typeof setTimeout> | null = null;
+    const enableAlways = () => setRenderMode("always");
     const onScroll = () => {
-      setIsScrolling(true);
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => setIsScrolling(false), 160);
+      setRenderMode("demand");
+      if (idleTimer) clearTimeout(idleTimer);
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(enableAlways, 320);
     };
     window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    idleTimer = setTimeout(enableAlways, 1800);
     return () => {
       window.removeEventListener("scroll", onScroll, { capture: true } as any);
-      if (timer) clearTimeout(timer);
+      if (scrollTimer) clearTimeout(scrollTimer);
+      if (idleTimer) clearTimeout(idleTimer);
     };
   }, []);
 
@@ -756,7 +761,7 @@ export function ThreeBackground({
           alpha: true,
           powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
         }}
-        frameloop={reduceMotion || isScrolling ? "demand" : "always"}
+        frameloop={reduceMotion ? "demand" : renderMode}
       >
         <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
       </Canvas>
