@@ -118,6 +118,74 @@ export function useAssetGrowth(days: 7 | 30 | 90) {
   }, [rows, loading, days]);
 }
 
+// Cumulative rewards-by-type over N days.
+// Each point has { date, staking, referral, team, leader, global, par_rank, total }
+// where each reward field is the running total up to that date.
+// Falls back to deterministic mock that sums to MOCK_REWARD_TOTALS at the end.
+export function useRewardsCumulative(days: 7 | 30 | 90) {
+  const { rows, loading } = useTransactions();
+  return useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = today.getTime() - (days - 1) * 24 * 3600 * 1000;
+
+    // per-day delta per reward type
+    const dayKeys: string[] = [];
+    const deltas: Record<string, Record<RewardType, number>> = {};
+    for (let i = 0; i < days; i++) {
+      const d = new Date(start + i * 24 * 3600 * 1000);
+      const k = d.toISOString().slice(0, 10);
+      dayKeys.push(k);
+      deltas[k] = { staking: 0, referral: 0, team: 0, leader: 0, global: 0, par_rank: 0 };
+    }
+
+    let real = false;
+    rows.forEach((r) => {
+      const k = classifyReward(r.type);
+      if (!k) return;
+      const t = new Date(r.occurred_at).getTime();
+      if (t < start) return;
+      const key = new Date(r.occurred_at).toISOString().slice(0, 10);
+      if (deltas[key]) {
+        deltas[key][k] += Number(r.amount ?? 0);
+        real = true;
+      }
+    });
+
+    if (!real) {
+      // Deterministic distribution so each type's last cumulative == MOCK_REWARD_TOTALS[type]
+      const rng = seeded(0xA11CE ^ days);
+      REWARD_TYPES.forEach((type) => {
+        const weights = dayKeys.map(() => (rng() < 0.3 ? 0 : 0.2 + rng()));
+        const wsum = weights.reduce((a, b) => a + b, 0) || 1;
+        dayKeys.forEach((k, i) => {
+          deltas[k][type] = (MOCK_REWARD_TOTALS[type] * weights[i]) / wsum;
+        });
+      });
+    }
+
+    const cum: Record<RewardType, number> = {
+      staking: 0, referral: 0, team: 0, leader: 0, global: 0, par_rank: 0,
+    };
+    const data = dayKeys.map((date) => {
+      REWARD_TYPES.forEach((k) => { cum[k] += deltas[date][k]; });
+      const total = REWARD_TYPES.reduce((s, k) => s + cum[k], 0);
+      return {
+        date,
+        staking: Math.round(cum.staking * 100) / 100,
+        referral: Math.round(cum.referral * 100) / 100,
+        team: Math.round(cum.team * 100) / 100,
+        leader: Math.round(cum.leader * 100) / 100,
+        global: Math.round(cum.global * 100) / 100,
+        par_rank: Math.round(cum.par_rank * 100) / 100,
+        total: Math.round(total * 100) / 100,
+      };
+    });
+
+    return { data, loading, hasData: true, isMock: !real };
+  }, [rows, loading, days]);
+}
+
 // Total per reward bucket — falls back to MOCK_REWARD_TOTALS when empty.
 export function useRewardsBreakdown() {
   const { rows, loading } = useTransactions();
