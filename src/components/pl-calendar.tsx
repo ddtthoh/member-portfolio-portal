@@ -156,7 +156,6 @@ export function PLCalendar({
           <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
             {title ?? t("components.plCalendar.title")}
           </h3>
-          <Info className="h-3.5 w-3.5 text-muted-foreground/60" />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
