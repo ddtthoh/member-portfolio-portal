@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 
 export const Route = createFileRoute("/portal/reports/team-rewards")({
   component: TeamRewardsPage,
@@ -22,6 +24,9 @@ function TeamRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsTeam")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Team Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsTeam.reportTitle")}
         filterTextLabel={t("components.reportShell.memberId")}

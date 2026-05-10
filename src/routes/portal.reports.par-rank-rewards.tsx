@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/reports/par-rank-rewards")({
@@ -19,6 +21,9 @@ function ParRankRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsParRank")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="PAR Rank Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsParRank.transactionsTitle")}
         filterTextLabel={t("pages.reportsParRank.tableHeaders.rank")}

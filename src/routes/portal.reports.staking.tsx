@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/reports/staking")({
@@ -20,6 +22,9 @@ function StakingReportPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsParticipation")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Staking Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsStaking.transactionsTitle")}
         filterTextLabel={t("pages.reportsStaking.tableHeaders.transactionNumber")}

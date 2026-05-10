@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/reports/global-rewards")({
@@ -18,6 +20,9 @@ function GlobalRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsGlobal", "Global Rewards")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Global Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("nav.reportsGlobal", "Global Rewards")}
         getExportRows={() => ({ headers, rows: [], filename: "global-rewards" })}
