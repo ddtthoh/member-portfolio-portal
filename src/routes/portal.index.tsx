@@ -26,7 +26,7 @@ function Overview() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [hideBalance, setHideBalance] = useState(false);
-  const { wallet } = useWallet();
+  const { wallet, loading: walletLoading } = useWallet();
 
   useEffect(() => {
     if (!user) return;
