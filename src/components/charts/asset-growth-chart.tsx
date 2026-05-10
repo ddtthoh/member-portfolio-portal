@@ -52,9 +52,12 @@ function useCountProgress(key: unknown, duration = 1100) {
   return p;
 }
   const { t } = useTranslation();
+export function AssetGrowthChart() {
+  const { t } = useTranslation();
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
   const { wallet } = useWallet();
+  const progress = useCountProgress(`${range}-${data.length}`);
 
   const stakingBase = wallet.staking || 0;
   const hasBase = stakingBase > 0;
