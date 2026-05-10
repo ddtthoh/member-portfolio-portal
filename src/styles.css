@@ -611,20 +611,20 @@
   }
 
   /* ===== Editorial scroll reveal (portal) =====
-     Applied by usePortalReveal() to .liquid-glass and [data-reveal] elements. */
+     Applied by usePortalReveal() to top-level portal blocks and explicit targets. */
   .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(36px);
-    filter: blur(6px);
+    transform: translate3d(0, 58px, 0) scale(0.985);
+    filter: blur(12px);
     will-change: opacity, transform, filter;
     transition:
-      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
-      filter 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+      opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      filter 1.05s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
   }
   .reveal-on-scroll.is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale(1);
     filter: blur(0);
   }
   @media (prefers-reduced-motion: reduce) {
