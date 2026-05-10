@@ -20,11 +20,6 @@ import {
 } from "@/hooks/use-rewards-data";
 import { CountUp } from "@/components/count-up";
 
-type TooltipPayload = {
-  active?: boolean;
-  payload?: Array<{ payload: { key: RewardType; name: string; value: number } }>;
-};
-
 export function RewardsBreakdownChart() {
   const { t } = useTranslation();
   const { data } = useRewardsBreakdown();
@@ -32,7 +27,6 @@ export function RewardsBreakdownChart() {
 
   // Sort bars by value (largest at top) for stronger visual hierarchy.
   const sortedData = [...data].sort((a, b) => b.value - a.value);
-  const maxValue = sortedData[0]?.value ?? 0;
 
   const chartData = sortedData.map((d, i) => ({
     name: t(`charts.rewardTypes.${d.key}`, d.key).toUpperCase(),
@@ -41,7 +35,7 @@ export function RewardsBreakdownChart() {
     rank: i + 1,
   }));
 
-  const renderTooltip = ({ active, payload }: TooltipPayload) => {
+  const renderTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: typeof chartData[number] }> }) => {
     if (!active || !payload?.length) return null;
     const row = payload[0].payload;
     const pct = total > 0 ? (row.value / total) * 100 : 0;
