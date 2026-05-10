@@ -9,8 +9,8 @@ export const REWARD_TYPES: RewardType[] = [
   "referral",
   "team",
   "leader",
-  "global",
   "par_rank",
+  "global",
 ];
 
 // Distinct color per reward type — referenced everywhere so colors tally.
