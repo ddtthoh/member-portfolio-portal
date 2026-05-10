@@ -56,12 +56,14 @@ export function MonthlyRewardsChart() {
             />
             {REWARD_TYPES.map((k) => (
               <Bar
-                key={k}
+                key={`${k}-${inView ? "in" : "out"}`}
                 dataKey={k}
                 stackId="r"
                 fill={REWARD_COLORS[k]}
                 radius={[4, 4, 0, 0]}
                 style={{ filter: `url(#mglow-${k}) drop-shadow(0 0 6px ${REWARD_COLORS[k]})` }}
+                isAnimationActive={inView}
+                animationDuration={2200}
               />
             ))}
           </BarChart>
