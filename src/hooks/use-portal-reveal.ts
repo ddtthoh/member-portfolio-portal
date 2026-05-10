@@ -19,7 +19,15 @@ export function usePortalReveal(
     if (typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")) {
       return;
     }
-    const revealSelector = ".portal-page > *:not([data-no-reveal])";
+    const revealSelector = [
+      "[data-reveal]",
+      ".portal-reveal-target",
+      ".liquid-glass",
+      ".portal-page > section",
+      ".portal-page > article",
+      ".portal-page > form",
+      ".portal-page > div",
+    ].join(", ");
 
     let main = mainRef?.current ?? document.querySelector("main");
     let mo: MutationObserver | null = null;
@@ -41,9 +49,6 @@ export function usePortalReveal(
         main.querySelectorAll<HTMLElement>(revealSelector)
       ).filter((el) => {
         if (el.hidden || el.closest("[data-radix-portal]")) return false;
-        if (el.tagName === "STYLE" || el.tagName === "SCRIPT") return false;
-        const pos = getComputedStyle(el).position;
-        if (pos === "sticky" || pos === "fixed") return false;
         const nestedReveal = el.parentElement?.closest(".reveal-on-scroll");
         return !nestedReveal;
       });
@@ -81,16 +86,14 @@ export function usePortalReveal(
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
             const el = entry.target as HTMLElement;
-            if (entry.isIntersecting && entry.intersectionRatio > 0.12) {
-              if (!el.classList.contains("is-revealed")) reveal(el, 60);
-            } else {
-              // Bidirectional: hide again when leaving viewport so re-entering replays
-              el.classList.remove("is-revealed");
-            }
+            if (el.classList.contains("is-revealed")) return;
+            reveal(el, 60);
+            io!.unobserve(el);
           });
         },
-        { threshold: [0, 0.12, 0.5], rootMargin: "-10% 0px -10% 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -90px 0px" }
       );
 
       processNewElements();
