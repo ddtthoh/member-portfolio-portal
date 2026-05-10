@@ -12,6 +12,8 @@ type Props = {
   staking: number;
   stakingDays: number;
   sinceDate: string;
+  stakingEarned?: number;
+  stakingRoi?: number;
 };
 
 const MASK = "••••••";
@@ -24,6 +26,8 @@ export function PortfolioDonutCard({
   staking,
   stakingDays,
   sinceDate,
+  stakingEarned = 0,
+  stakingRoi = 0,
 }: Props) {
   const { t } = useTranslation();
   const [showAmount, setShowAmount] = useState(true);
