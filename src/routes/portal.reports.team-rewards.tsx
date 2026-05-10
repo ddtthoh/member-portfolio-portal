@@ -24,6 +24,9 @@ function TeamRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsTeam")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Team Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsTeam.reportTitle")}
         filterTextLabel={t("components.reportShell.memberId")}
