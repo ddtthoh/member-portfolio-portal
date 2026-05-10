@@ -191,7 +191,7 @@ function Overview() {
                       {t("overview.portfolioOverview", "Portfolio Overview")}
                     </span>
                     <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                      {t("overview.holdingsAndStaking", "Holdings & staking plans")}
+                      {t("overview.holdingsAndRewards", "Holdings & rewards")}
                     </span>
                   </div>
                 </div>
