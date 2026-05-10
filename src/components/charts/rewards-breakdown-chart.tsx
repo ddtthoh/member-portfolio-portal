@@ -109,7 +109,7 @@ export function RewardsBreakdownChart() {
           })}
           <div className="flex items-center justify-between py-2.5">
             <span className="text-[11px] uppercase tracking-[0.18em] text-gold/80">
-              {t("charts.rewardsBreakdown.total", "累计奖励")}
+              {t("charts.rewardsBreakdown.total", "Total Rewards")}
             </span>
             <span className="text-sm font-light tabular-nums text-gold">
               <CountUp value={total} prefix="$" decimals={2} />
