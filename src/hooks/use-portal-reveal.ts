@@ -86,14 +86,16 @@ export function usePortalReveal(
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
             const el = entry.target as HTMLElement;
-            if (el.classList.contains("is-revealed")) return;
-            reveal(el, 60);
-            io!.unobserve(el);
+            if (entry.isIntersecting && entry.intersectionRatio > 0.12) {
+              if (!el.classList.contains("is-revealed")) reveal(el, 60);
+            } else {
+              // Bidirectional: hide again when leaving viewport so re-entering replays
+              el.classList.remove("is-revealed");
+            }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -90px 0px" }
+        { threshold: [0, 0.12, 0.5], rootMargin: "-10% 0px -10% 0px" }
       );
 
       processNewElements();
