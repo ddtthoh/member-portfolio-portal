@@ -13,7 +13,7 @@ import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-cha
 import { AssetGrowthChart } from "@/components/charts/asset-growth-chart";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/portal/holdings")({
+export const Route = createFileRoute("/portal/portfolio")({
   component: HoldingsPage,
 });
 
