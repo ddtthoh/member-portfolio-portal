@@ -148,7 +148,12 @@ export function PortalShell() {
       if (done) return;
       done = true;
       root.classList.remove("initial-scroll-safe");
-      setDeferHeavyChrome(false);
+      const loadHeavyChrome = () => setDeferHeavyChrome(false);
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(loadHeavyChrome, { timeout: 1600 });
+      } else {
+        window.setTimeout(loadHeavyChrome, 900);
+      }
     };
 
     const onScroll = () => {
