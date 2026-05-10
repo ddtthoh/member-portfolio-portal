@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
+import { usePortalReveal } from "@/hooks/use-portal-reveal";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
@@ -116,6 +117,7 @@ export function PortalShell() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  usePortalReveal(location.pathname);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
