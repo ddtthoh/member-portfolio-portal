@@ -123,7 +123,7 @@ function QrCodePage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 1.8, ease: "easeOut" }}
                 className="relative mx-auto w-full max-w-[min(260px,calc(100vw-80px))] sm:max-w-[300px]"
               >
                 <div className="relative rounded-2xl bg-gradient-to-br from-gold/40 via-gold/20 to-gold/40 p-[1.5px] shadow-[0_20px_60px_-20px_color-mix(in_oklab,var(--gold)_60%,transparent)]">

@@ -11,7 +11,7 @@ export function PageHeader({
           <motion.div
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 1.8 }}
             className="mb-1.5 text-[10px] font-medium uppercase tracking-[0.28em] text-gold"
           >
             {eyebrow}
@@ -20,7 +20,7 @@ export function PageHeader({
         <motion.h1
           initial={{ opacity: 0, filter: "blur(8px)", y: 8 }}
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
           className="font-serif text-xl font-semibold leading-tight tracking-tight text-gold break-words sm:text-2xl md:text-[28px]"
         >
           {title}
@@ -29,7 +29,7 @@ export function PageHeader({
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 1.8, delay: 0 }}
             className="mt-1.5 max-w-2xl text-[13px] leading-relaxed text-gold/70"
           >
             {description}
