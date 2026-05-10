@@ -322,29 +322,6 @@ export function AssetGrowthChart() {
           })}
         </div>
 
-        <div className="mt-4 border-t border-border/30 pt-3">
-          <div className="flex items-baseline justify-between">
-            <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              {t("charts.assetGrowth.current", "当前累计")}
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="font-light tabular-nums text-gold text-base">
-                <CountUp value={lastTotal} prefix="$" decimals={2} />
-              </div>
-              <span
-                className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-medium tabular-nums text-gold"
-                style={{ boxShadow: "0 0 10px color-mix(in oklab, var(--gold) 25%, transparent)" }}
-              >
-                {roiLabel(lastTotal)} {hasBase ? "ROI" : ""}
-              </span>
-            </div>
-          </div>
-          <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
-            {hasBase
-              ? `${t("charts.assetGrowth.basis", "vs")} ${fmtMoney(stakingBase)} ${t("charts.assetGrowth.basisSuffix", "staking 本金")}`
-              : t("charts.assetGrowth.noBase", "暂无 staking 本金，无法计算 ROI")}
-          </div>
-        </div>
       </SpotlightCard>
     </motion.div>
   );
