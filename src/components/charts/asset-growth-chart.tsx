@@ -121,7 +121,7 @@ export function AssetGrowthChart() {
   const renderTotalEndLabel = (props: { x?: number; y?: number; index?: number; value?: number }) => {
     const { x = 0, y = 0, index = 0, value = 0 } = props;
     if (index !== data.length - 1) return null;
-    const v = Number(value) || 0;
+    const v = (Number(value) || 0) * progress;
     const text = `${fmtMoney(v)}  ${roiLabel(v)}`;
     const padX = 6;
     const charW = 5.6;
