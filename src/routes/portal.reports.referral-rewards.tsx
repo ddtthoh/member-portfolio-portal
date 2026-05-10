@@ -22,6 +22,9 @@ function ReferralRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsReferral")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Referral Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsReferral.transactionsTitle")}
         filterTextLabel={t("pages.profile.memberId")}
