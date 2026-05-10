@@ -171,14 +171,14 @@ export function AssetGrowthChart() {
                 <CartesianGrid stroke="hsl(var(--border) / 0.2)" vertical={false} />
                 <XAxis
                   dataKey="date"
-                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tick={{ fill: "var(--gold)", fontSize: 10, opacity: 0.75 }}
                   tickFormatter={(v) => v.slice(5)}
                   axisLine={false}
                   tickLine={false}
                   minTickGap={24}
                 />
                 <YAxis
-                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                  tick={{ fill: "var(--gold)", fontSize: 10, opacity: 0.75 }}
                   axisLine={false}
                   tickLine={false}
                   width={52}
