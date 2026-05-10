@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { PortfolioDonutCard } from "@/components/portfolio-donut-card";
 import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
-import { useStakingEarnings } from "@/hooks/use-rewards-data";
+import { TotalAssetsGauge } from "@/components/total-assets-gauge";
+import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -25,7 +26,7 @@ function HoldingsPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
   const { wallet } = useWallet();
-  const { earned: stakingEarned, roi: stakingRoi } = useStakingEarnings(wallet.staking);
+  
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
@@ -34,16 +35,25 @@ function HoldingsPage() {
 
   return (
     <div className="space-y-6">
-      <PortfolioDonutCard
-        totalAssets={wallet.total}
-        usd={wallet.usd}
-        rewards={wallet.rewards}
-        staking={wallet.staking}
-        stakingDays={54}
-        sinceDate="Mar 16"
-        stakingEarned={stakingEarned}
-        stakingRoi={stakingRoi}
-      />
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <SpotlightCard className="liquid-glass rounded-2xl p-6">
+          <div className="mb-4">
+            <div className="text-[10px] uppercase tracking-[0.22em] text-gold/80">
+              {t("charts.totalAssets.eyebrow", "Assets")}
+            </div>
+            <h3 className="mt-1 font-serif text-lg font-semibold text-gold">
+              {t("charts.totalAssets.title", "Total Assets")}
+            </h3>
+          </div>
+          <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
+        </SpotlightCard>
+      </motion.div>
+
+      <RewardsBreakdownChart />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
