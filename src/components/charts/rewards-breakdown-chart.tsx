@@ -98,3 +98,7 @@ export function RewardsBreakdownChart() {
             </div>
           ))}
         </div>
+      </SpotlightCard>
+    </motion.div>
+  );
+}
