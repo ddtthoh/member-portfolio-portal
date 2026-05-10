@@ -188,7 +188,7 @@ export function AssetGrowthChart() {
 
         {/* ===== Main chart: Total only ===== */}
         <div className="h-52 w-full">
-          {hasData ? (
+          {hasData && inView ? (
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={data} margin={{ top: 12, right: 110, left: 0, bottom: 0 }}>
                 <defs>
@@ -214,42 +214,38 @@ export function AssetGrowthChart() {
                   tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
                 />
                 <Tooltip content={renderTooltip as never} cursor={{ stroke: "var(--gold)", strokeOpacity: 0.3, strokeWidth: 1 }} />
-                {inView && (
-                  <Area
-                    key={`area-in-${range}`}
-                    type="monotone"
-                    dataKey="total"
-                    stroke="none"
-                    fill="url(#grad-total)"
-                    isAnimationActive
-                    animationDuration={2200}
-                    animationEasing="ease-out"
-                  />
-                )}
-                {inView && (
-                  <Line
-                    key={`line-in-${range}`}
-                    type="monotone"
-                    dataKey="total"
-                    stroke="var(--gold)"
-                    strokeWidth={2.5}
-                    dot={renderTotalDot as never}
-                    activeDot={{ r: 4, fill: "var(--gold)" }}
-                    isAnimationActive
-                    animationDuration={2200}
-                    animationEasing="ease-out"
-                    className="gold-line-breathe"
-                  >
-                    <LabelList dataKey="total" content={renderTotalEndLabel as never} />
-                  </Line>
-                )}
+                <Area
+                  key={`area-${range}`}
+                  type="monotone"
+                  dataKey="total"
+                  stroke="none"
+                  fill="url(#grad-total)"
+                  isAnimationActive
+                  animationDuration={2200}
+                  animationEasing="ease-out"
+                />
+                <Line
+                  key={`line-${range}`}
+                  type="monotone"
+                  dataKey="total"
+                  stroke="var(--gold)"
+                  strokeWidth={2.5}
+                  dot={renderTotalDot as never}
+                  activeDot={{ r: 4, fill: "var(--gold)" }}
+                  isAnimationActive
+                  animationDuration={2200}
+                  animationEasing="ease-out"
+                  className="gold-line-breathe"
+                >
+                  <LabelList dataKey="total" content={renderTotalEndLabel as never} />
+                </Line>
               </ComposedChart>
             </ResponsiveContainer>
-          ) : (
+          ) : !hasData ? (
             <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
               {t("charts.empty", "暂无数据")}
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* ===== 6 reward sparkline cards ===== */}
@@ -289,7 +285,7 @@ export function AssetGrowthChart() {
                   {fmtMoney(v * progress)}
                 </div>
                 <div className="mt-1 h-7 w-full">
-                  {hasData && (
+                  {hasData && inView && (
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={data} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>
                         <defs>
@@ -298,19 +294,17 @@ export function AssetGrowthChart() {
                             <stop offset="100%" stopColor={c} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        {inView && (
-                          <Area
-                            key={`mini-${k}-in-${range}`}
-                            type="monotone"
-                            dataKey={k}
-                            stroke={c}
-                            strokeWidth={1.5}
-                            fill={`url(#${gradId})`}
-                            isAnimationActive
-                            animationDuration={2200}
-                            animationEasing="ease-out"
-                          />
-                        )}
+                        <Area
+                          key={`mini-${k}-${range}`}
+                          type="monotone"
+                          dataKey={k}
+                          stroke={c}
+                          strokeWidth={1.5}
+                          fill={`url(#${gradId})`}
+                          isAnimationActive
+                          animationDuration={2200}
+                          animationEasing="ease-out"
+                        />
                       </AreaChart>
                     </ResponsiveContainer>
                   )}

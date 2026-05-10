@@ -133,62 +133,61 @@ export function RewardsBreakdownChart() {
         </div>
 
         <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              layout="vertical"
-              margin={{ top: 4, right: 56, left: 0, bottom: 0 }}
-              barCategoryGap="45%"
-            >
-              <defs>
-                {chartData.map((entry) => {
-                  const c = REWARD_COLORS[entry.key];
-                  return (
-                    <linearGradient
-                      key={entry.key}
-                      id={`grad-rewards-${entry.key}`}
-                      x1="0"
-                      y1="0"
-                      x2="1"
-                      y2="0"
-                    >
-                      <stop
-                        offset="0%"
-                        stopColor={`color-mix(in oklab, ${c} 60%, transparent)`}
-                      />
-                      <stop offset="100%" stopColor={c} />
-                    </linearGradient>
-                  );
-                })}
-              </defs>
-              <CartesianGrid
-                horizontal={false}
-                stroke="hsl(var(--border))"
-                strokeOpacity={0.12}
-                strokeDasharray="2 4"
-              />
-              <XAxis
-                type="number"
-                tick={{ fill: "var(--gold)", fontSize: 9, opacity: 0.6 }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
-              />
-              <YAxis
-                type="category"
-                dataKey="name"
-                tick={{ fill: "var(--gold)", fontSize: 10, opacity: 0.75, letterSpacing: "0.08em" }}
-                axisLine={false}
-                tickLine={false}
-                width={92}
-              />
-              <Tooltip
-                cursor={{ fill: "hsl(var(--accent) / 0.08)" }}
-                content={renderTooltip as never}
-              />
-              {inView && (
+          {inView && (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                layout="vertical"
+                margin={{ top: 4, right: 56, left: 0, bottom: 0 }}
+                barCategoryGap="45%"
+              >
+                <defs>
+                  {chartData.map((entry) => {
+                    const c = REWARD_COLORS[entry.key];
+                    return (
+                      <linearGradient
+                        key={entry.key}
+                        id={`grad-rewards-${entry.key}`}
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor={`color-mix(in oklab, ${c} 60%, transparent)`}
+                        />
+                        <stop offset="100%" stopColor={c} />
+                      </linearGradient>
+                    );
+                  })}
+                </defs>
+                <CartesianGrid
+                  horizontal={false}
+                  stroke="hsl(var(--border))"
+                  strokeOpacity={0.12}
+                  strokeDasharray="2 4"
+                />
+                <XAxis
+                  type="number"
+                  tick={{ fill: "var(--gold)", fontSize: 9, opacity: 0.6 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  tick={{ fill: "var(--gold)", fontSize: 10, opacity: 0.75, letterSpacing: "0.08em" }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={92}
+                />
+                <Tooltip
+                  cursor={{ fill: "hsl(var(--accent) / 0.08)" }}
+                  content={renderTooltip as never}
+                />
                 <Bar
-                  key={`bar-in-${data.length}`}
                   dataKey="value"
                   radius={[0, 4, 4, 0]}
                   barSize={10}
@@ -207,9 +206,9 @@ export function RewardsBreakdownChart() {
                   ))}
                   <LabelList dataKey="value" content={renderValueLabel as never} />
                 </Bar>
-              )}
-            </BarChart>
-          </ResponsiveContainer>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
         <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
