@@ -159,7 +159,7 @@ export function RewardsBreakdownChart() {
               />
               <Tooltip
                 cursor={{ fill: "hsl(var(--accent) / 0.08)" }}
-                content={renderTooltip}
+                content={renderTooltip as never}
               />
               <Bar
                 dataKey="value"
@@ -178,7 +178,7 @@ export function RewardsBreakdownChart() {
                     }}
                   />
                 ))}
-                <LabelList dataKey="value" content={renderValueLabel} />
+                <LabelList dataKey="value" content={renderValueLabel as never} />
               </Bar>
             </BarChart>
           </ResponsiveContainer>
