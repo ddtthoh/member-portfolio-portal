@@ -478,7 +478,7 @@
       filter: drop-shadow(0 0 10px color-mix(in oklab, var(--gold) 80%, transparent));
     }
   }
-  .gold-line-breathe path.recharts-curve {
+  .gold-line-breathe .recharts-line-curve {
     animation: gold-line-breathe 4.5s ease-in-out infinite;
   }
 

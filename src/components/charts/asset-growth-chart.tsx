@@ -21,6 +21,7 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { useWallet } from "@/hooks/use-wallet";
+import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 const RANGES: { key: 7 | 30 | 90; label: string }[] = [
   { key: 7, label: "7D" },
@@ -31,11 +32,15 @@ const RANGES: { key: 7 | 30 | 90; label: string }[] = [
 const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
-// 0 → 1 ramp triggered on mount and whenever `key` changes (e.g. range switch).
-function useCountProgress(key: unknown, duration = 1100) {
+// 0 → 1 ramp triggered when `enabled` is true; restarts whenever `key` changes.
+function useCountProgress(key: unknown, enabled: boolean, duration = 2200) {
   const [p, setP] = useState(0);
   const raf = useRef<number | null>(null);
   useEffect(() => {
+    if (!enabled) {
+      setP(0);
+      return;
+    }
     setP(0);
     const start = performance.now();
     const tick = (now: number) => {
@@ -48,7 +53,7 @@ function useCountProgress(key: unknown, duration = 1100) {
     return () => {
       if (raf.current != null) cancelAnimationFrame(raf.current);
     };
-  }, [key, duration]);
+  }, [key, duration, enabled]);
   return p;
 }
 
@@ -57,7 +62,8 @@ export function AssetGrowthChart() {
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
   const { wallet } = useWallet();
-  const progress = useCountProgress(`${range}-${data.length}`);
+  const { ref: viewRef, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.2 });
+  const progress = useCountProgress(`${range}-${data.length}`, inView);
 
   const stakingBase = wallet.staking || 0;
   const hasBase = stakingBase > 0;
@@ -149,6 +155,7 @@ export function AssetGrowthChart() {
 
   return (
     <motion.div
+      ref={viewRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -208,23 +215,25 @@ export function AssetGrowthChart() {
                 />
                 <Tooltip content={renderTooltip as never} cursor={{ stroke: "var(--gold)", strokeOpacity: 0.3, strokeWidth: 1 }} />
                 <Area
+                  key={`area-${inView ? "in" : "out"}-${range}`}
                   type="monotone"
                   dataKey="total"
                   stroke="none"
                   fill="url(#grad-total)"
-                  isAnimationActive
-                  animationDuration={1100}
+                  isAnimationActive={inView}
+                  animationDuration={2200}
                   animationEasing="ease-out"
                 />
                 <Line
+                  key={`line-${inView ? "in" : "out"}-${range}`}
                   type="monotone"
                   dataKey="total"
                   stroke="var(--gold)"
                   strokeWidth={2.5}
                   dot={renderTotalDot as never}
                   activeDot={{ r: 4, fill: "var(--gold)" }}
-                  isAnimationActive
-                  animationDuration={1100}
+                  isAnimationActive={inView}
+                  animationDuration={2200}
                   animationEasing="ease-out"
                   className="gold-line-breathe"
                 >
@@ -286,13 +295,14 @@ export function AssetGrowthChart() {
                           </linearGradient>
                         </defs>
                         <Area
+                          key={`mini-${k}-${inView ? "in" : "out"}-${range}`}
                           type="monotone"
                           dataKey={k}
                           stroke={c}
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
-                          isAnimationActive
-                          animationDuration={1100}
+                          isAnimationActive={inView}
+                          animationDuration={2200}
                           animationEasing="ease-out"
                         />
                       </AreaChart>

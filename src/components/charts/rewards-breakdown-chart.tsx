@@ -20,26 +20,32 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { CountUp } from "@/components/count-up";
+import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 export function RewardsBreakdownChart() {
   const { t } = useTranslation();
   const { data } = useRewardsBreakdown();
   const total = data.reduce((s, d) => s + d.value, 0);
+  const { ref: viewRef, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.2 });
 
-  // 0 → 1 ramp on mount, matches Recharts bar animation
+  // 0 → 1 ramp; only starts once the card scrolls into view
   const [progress, setProgress] = useState(0);
   const raf = useRef<number | null>(null);
   useEffect(() => {
+    if (!inView) {
+      setProgress(0);
+      return;
+    }
     setProgress(0);
     const start = performance.now();
     const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / 1100);
+      const t = Math.min(1, (now - start) / 2200);
       setProgress(1 - Math.pow(1 - t, 3));
       if (t < 1) raf.current = requestAnimationFrame(tick);
     };
     raf.current = requestAnimationFrame(tick);
     return () => { if (raf.current != null) cancelAnimationFrame(raf.current); };
-  }, [data.length]);
+  }, [data.length, inView]);
 
   // Sort bars by value (largest at top) for stronger visual hierarchy.
   const sortedData = [...data].sort((a, b) => b.value - a.value);
@@ -111,6 +117,7 @@ export function RewardsBreakdownChart() {
 
   return (
     <motion.div
+      ref={viewRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -180,11 +187,12 @@ export function RewardsBreakdownChart() {
                 content={renderTooltip as never}
               />
               <Bar
+                key={`bar-${inView ? "in" : "out"}`}
                 dataKey="value"
                 radius={[0, 4, 4, 0]}
                 barSize={10}
-                isAnimationActive
-                animationDuration={1100}
+                isAnimationActive={inView}
+                animationDuration={2200}
                 animationEasing="ease-out"
               >
                 {chartData.map((entry) => (
