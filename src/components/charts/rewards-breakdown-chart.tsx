@@ -34,7 +34,7 @@ export function RewardsBreakdownChart() {
 
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
+            <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }} barCategoryGap="45%">
               <XAxis
                 type="number"
                 tick={{ fill: "var(--gold)", fontSize: 10 }}
