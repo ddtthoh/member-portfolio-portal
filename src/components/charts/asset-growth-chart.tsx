@@ -51,7 +51,7 @@ function useCountProgress(key: unknown, duration = 1100) {
   }, [key, duration]);
   return p;
 }
-  const { t } = useTranslation();
+
 export function AssetGrowthChart() {
   const { t } = useTranslation();
   const [range, setRange] = useState<7 | 30 | 90>(30);
