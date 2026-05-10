@@ -1,25 +1,63 @@
-## 问题诊断
+## 现状
 
-`<Bar>` 在 vertical layout + `<Cell>` 子元素 + 自定义 `<LabelList>` 内容的组合下,Recharts 的 `isAnimationActive` 经常不真正动画化 rect 的 `width`,而是直接渲染最终宽度。所以你只看到数字 slide(因为 `renderValueLabel` 用我们自己的 `progress * width` 计算位置),但 bar 本身一上来就是满宽。
+我上一次确实写了 reveal 程式（`src/hooks/use-portal-reveal.ts` + `src/styles.css` 加了 `.reveal-on-scroll` / `.is-revealed` CSS），并在 `PortalShell` 内呼叫 `usePortalReveal(location.pathname)`。
+
+但视觉上没有任何变化，原因是 **时序错位**：
+
+1. `PortalShell` 用 `<AnimatePresence mode="wait">` 包住 `<Outlet />`，配 `key={location.pathname}` 做页面过渡。
+2. `mode="wait"` 会**先等旧页面 exit 动画跑完，再 mount 新页面**。
+3. 我的 hook 跟着 `location.pathname` 重跑：cleanup → 立刻执行 effect → `requestAnimationFrame` 一帧后查 `.liquid-glass`。
+4. 但这一刻，新页面的 DOM 根本还没 mount（旧页面还在 exit）。`querySelectorAll` 找到的是**旧页面的卡片**，给旧卡加 class、然后旧卡又被卸载了。
+5. 新页面 mount 时，hook 不会再触发（依赖没变），新卡永远不会拿到 `reveal-on-scroll` class，所以**完全没有动画**。
+
+另外我的 cleanup 只删 `dataset.revealInit` 标记，没有把已经加上的 class 清掉，所以即使时序对了，第二次访问同一页也会因为 `data-reveal-init` 已存在而被跳过。
 
 ## 修复方案
 
-不再依赖 Recharts 内置 Bar 动画,改用我们已有的 `progress`(0→1,1.5s)同时驱动 bar 的宽度,保证 bar 一定从左→右生长。
+改成「**用 MutationObserver 监听 `<main>` 内子节点变动**，一旦看到没初始化过的 `.liquid-glass` / `[data-reveal]` 就立刻挂上 reveal」。这样跟 AnimatePresence 时序完全脱钩，不管什么时候 mount 都会被抓到。
 
-### `src/components/charts/rewards-breakdown-chart.tsx`
+### 改 `src/hooks/use-portal-reveal.ts`
 
-1. 在 `<Bar>` 上加 `shape={...}` prop,自定义 rect 渲染:
-   - 接收 Recharts 提供的 `x, y, width, height, fill`
-   - 渲染 `<rect>`,`width={width * progress}`,其余位置/高度/圆角/filter 保持现状
-   - 圆角用 `rx={2} ry={2}`(替代原来的 `radius={[0, 4, 4, 0]}`,因为 shape 接管后 radius prop 不生效)
-2. `isAnimationActive={false}`,`animationDuration` 移除(由 progress 接管)。
-3. `<Cell>` 仍然保留(Recharts 会把每个 cell 的 `fill` 传给 shape 函数),drop-shadow filter 移到 shape rect 上。
-4. `LabelList` 的 `renderValueLabel` 已经在用 `progress`,不变。
+逻辑改成：
 
-### 不动的部分
-- `useInViewOnce` 触发 / progress ramp / 1.5s 时长
-- `asset-growth-chart`(用户已确认 line/area 动画工作正常)
-- 其他动画 / 数据 / 样式
+```text
+mount:
+  找到 <main>
+  建立 IntersectionObserver（threshold 0.12, rootMargin "0px 0px -40px 0px"）
+    -> 元素进入 viewport 时 add .is-revealed
+  
+  function processNewElements():
+    main 里所有 .liquid-glass, [data-reveal]
+    过滤掉已经标记 data-reveal-init 的
+    每个新元素：
+      标记 data-reveal-init
+      add .reveal-on-scroll
+      若已经在 viewport 内（首屏卡片）→ 算 stagger delay (index * 80ms) → 下一帧 add .is-revealed
+      否则 → io.observe(el)
+  
+  processNewElements()  // 处理首次 mount
+  
+  MutationObserver(main, { childList: true, subtree: true })
+    -> 任何子节点变动时 processNewElements()
 
-### 预期效果
-滚动到卡片 → ResponsiveContainer mount → progress 从 0 ramp 到 1 共 1.5s → 6 条 bar 同步从左边 0 宽度长到实际宽度,数字也同步从 0 跳到实际值。
+unmount (整个 portal 卸载时才会发生):
+  断开两个 observer
+```
+
+不再依赖 `location.pathname`；hook 改成无参数版本。
+
+### 改 `src/components/portal-shell.tsx`
+
+把 `usePortalReveal(location.pathname)` 改成 `usePortalReveal()`。
+
+### CSS 不用改
+
+`src/styles.css` 里的 `.reveal-on-scroll` / `.is-revealed` / `prefers-reduced-motion` 已经写好，可以原样保留。
+
+## 验证方式
+
+修完后在 `/portal/staking-plans`：
+- 首屏 plan 卡片会从下往上 24px 淡入，每张错开 80ms 像翻书一样。
+- 往下 scroll 时，画面下方还没出现的 plan 卡片在进入 viewport 那一刻才淡入。
+- 切到 `/portal`、`/portal/holdings` 等页面也一样有效。
+- 系统偏好 reduce motion 时全部直接显示，不会卡。
