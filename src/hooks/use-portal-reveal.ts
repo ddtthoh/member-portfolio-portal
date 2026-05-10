@@ -19,11 +19,7 @@ export function usePortalReveal(
     if (typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")) {
       return;
     }
-    const revealSelector = [
-      "[data-reveal]",
-      ".portal-reveal-target",
-      ".portal-page > .liquid-glass",
-    ].join(", ");
+    const revealSelector = ".portal-page > *:not([data-no-reveal])";
 
     let main = mainRef?.current ?? document.querySelector("main");
     let mo: MutationObserver | null = null;
@@ -45,6 +41,9 @@ export function usePortalReveal(
         main.querySelectorAll<HTMLElement>(revealSelector)
       ).filter((el) => {
         if (el.hidden || el.closest("[data-radix-portal]")) return false;
+        if (el.tagName === "STYLE" || el.tagName === "SCRIPT") return false;
+        const pos = getComputedStyle(el).position;
+        if (pos === "sticky" || pos === "fixed") return false;
         const nestedReveal = el.parentElement?.closest(".reveal-on-scroll");
         return !nestedReveal;
       });
