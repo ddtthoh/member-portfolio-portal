@@ -49,7 +49,7 @@ export function MonthlyRewardsChart() {
               />
               <Legend
                 wrapperStyle={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.14em" }}
-                formatter={(value) => t(`charts.rewardTypes.${value}`, value)}
+                formatter={(value) => String(t(`charts.rewardTypes.${value}`, String(value)))}
               />
               {REWARD_TYPES.map((k) => (
                 <Bar key={k} dataKey={k} stackId="r" fill={COLORS[k]} radius={[4, 4, 0, 0]} />
