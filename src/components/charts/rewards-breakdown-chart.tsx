@@ -2,21 +2,12 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { useRewardsBreakdown, REWARD_TYPES, type RewardType } from "@/hooks/use-rewards-data";
+import { useRewardsBreakdown, REWARD_TYPES, REWARD_COLORS, type RewardType } from "@/hooks/use-rewards-data";
 import { CountUp } from "@/components/count-up";
-
-const COLORS: Record<RewardType, string> = {
-  staking: "var(--asset-participation)",
-  referral: "var(--asset-cash)",
-  team: "var(--asset-earnings)",
-  leader: "var(--gold)",
-  global: "var(--asset-cash)",
-  par_rank: "var(--asset-earnings)",
-};
 
 export function RewardsBreakdownChart() {
   const { t } = useTranslation();
-  const { data, hasData } = useRewardsBreakdown();
+  const { data } = useRewardsBreakdown();
   const total = data.reduce((s, d) => s + d.value, 0);
 
   const chartData = data.map((d) => ({
@@ -41,47 +32,56 @@ export function RewardsBreakdownChart() {
           </h3>
         </div>
 
-        <div className="h-56 w-full">
-          {hasData ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
-                <XAxis
-                  type="number"
-                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
-                />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  width={80}
-                />
-                <Tooltip
-                  cursor={{ fill: "hsl(var(--accent) / 0.1)" }}
-                  contentStyle={{
-                    background: "hsl(var(--popover))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: 8,
-                    fontSize: 12,
-                  }}
-                  formatter={(v: number) => [`$${Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`, ""]}
-                />
-                <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                  {chartData.map((entry) => (
-                    <Cell key={entry.key} fill={COLORS[entry.key as RewardType]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="flex h-full items-center justify-center text-xs uppercase tracking-[0.18em] text-muted-foreground/70">
-              {t("charts.empty", "暂无数据")}
-            </div>
-          )}
+        <div className="h-64 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
+              <defs>
+                {REWARD_TYPES.map((k) => (
+                  <filter key={k} id={`glow-${k}`} x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3.5" result="b" />
+                    <feMerge>
+                      <feMergeNode in="b" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                ))}
+              </defs>
+              <XAxis
+                type="number"
+                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
+                axisLine={false}
+                tickLine={false}
+                width={86}
+              />
+              <Tooltip
+                cursor={{ fill: "hsl(var(--accent) / 0.1)" }}
+                contentStyle={{
+                  background: "hsl(var(--popover))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: 8,
+                  fontSize: 12,
+                }}
+                formatter={(v: number) => [`$${Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`, ""]}
+              />
+              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+                {chartData.map((entry) => (
+                  <Cell
+                    key={entry.key}
+                    fill={REWARD_COLORS[entry.key as RewardType]}
+                    style={{ filter: `url(#glow-${entry.key}) drop-shadow(0 0 8px ${REWARD_COLORS[entry.key as RewardType]})` }}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="mt-4 flex items-baseline justify-between border-t border-border/30 pt-3">
@@ -93,13 +93,12 @@ export function RewardsBreakdownChart() {
           </div>
         </div>
 
-        {/* legend dots */}
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
           {REWARD_TYPES.map((k) => (
             <div key={k} className="flex items-center gap-1.5">
               <span
-                className="h-2 w-2 rounded-full"
-                style={{ background: COLORS[k], boxShadow: `0 0 6px ${COLORS[k]}` }}
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ background: REWARD_COLORS[k], boxShadow: `0 0 8px ${REWARD_COLORS[k]}, 0 0 14px ${REWARD_COLORS[k]}` }}
               />
               <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                 {t(`charts.rewardTypes.${k}`, k)}
