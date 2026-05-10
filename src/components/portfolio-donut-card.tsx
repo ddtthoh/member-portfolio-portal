@@ -122,7 +122,7 @@ export function PortfolioDonutCard({
           <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             {t("pages.holdings.totalAssets")}
           </div>
-          <div className="font-light tabular-nums tracking-[-0.04em] text-gold text-3xl sm:text-4xl">
+          <div className="font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
             {showAmount ? <CountUp value={totalAssets} prefix="$" decimals={2} /> : <span>{MASK}</span>}
           </div>
           <button
@@ -188,15 +188,6 @@ export function PortfolioDonutCard({
                         {row.sub && (
                           <div className="mt-0.5 text-[10px] tracking-[0.04em] text-muted-foreground/60">
                             {row.sub}
-                          </div>
-                        )}
-                        {row.key === "staking" && (
-                          <div className="mt-0.5 text-[10px] tabular-nums tracking-[0.04em] text-gold">
-                            {t("pages.holdings.earnedSoFar", "已赚")}{" "}
-                            {stakingEarned >= 0 ? "+" : ""}
-                            <CountUp value={stakingEarned} prefix="$" decimals={2} />
-                            {" "}({stakingRoi >= 0 ? "+" : ""}
-                            <CountUp value={stakingRoi} decimals={2} suffix="%" />)
                           </div>
                         )}
                       </div>
