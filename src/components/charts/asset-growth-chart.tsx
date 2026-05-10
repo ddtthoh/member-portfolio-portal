@@ -269,11 +269,11 @@ export function AssetGrowthChart() {
                       border: `1px solid color-mix(in oklab, ${c} 35%, transparent)`,
                     }}
                   >
-                    {hasBase ? `${roi(v).toFixed(2)}%` : "—"}
+                    {hasBase ? `${(roi(v) * progress).toFixed(2)}%` : "—"}
                   </span>
                 </div>
                 <div className="mt-1 font-light tabular-nums" style={{ color: c, fontSize: 16 }}>
-                  {fmtMoney(v)}
+                  {fmtMoney(v * progress)}
                 </div>
                 <div className="mt-1 h-7 w-full">
                   {hasData && (
