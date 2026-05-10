@@ -528,37 +528,28 @@ function NavGroup({
           className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            role="group"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <div className="ml-4 mt-1 space-y-0.5 border-l border-border/40 pl-2">
-              {item.children.map((child) => {
-                const ChildIcon = child.icon;
-                return (
-                  <Link
-                    key={child.to}
-                    to={child.to}
-                    activeProps={{
-                      className: "text-foreground bg-accent/40 [&_svg]:text-gold",
-                    }}
-                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
-                  >
-                    <ChildIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                    <span className="truncate">{t(child.labelKey)}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div role="group" className="overflow-hidden">
+          <div className="ml-4 mt-1 space-y-0.5 border-l border-border/40 pl-2">
+            {item.children.map((child) => {
+              const ChildIcon = child.icon;
+              return (
+                <Link
+                  key={child.to}
+                  to={child.to}
+                  activeProps={{
+                    className: "text-foreground bg-accent/40 [&_svg]:text-gold",
+                  }}
+                  className="group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                >
+                  <ChildIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  <span className="truncate">{t(child.labelKey)}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
