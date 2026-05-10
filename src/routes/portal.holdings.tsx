@@ -9,6 +9,7 @@ import { SpotlightCard } from "@/components/spotlight-card";
 import { PortfolioDonutCard } from "@/components/portfolio-donut-card";
 import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
+import { useStakingEarnings } from "@/hooks/use-rewards-data";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
@@ -24,6 +25,7 @@ function HoldingsPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
   const { wallet } = useWallet();
+  const { earned: stakingEarned, roi: stakingRoi } = useStakingEarnings(wallet.staking);
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
@@ -39,6 +41,8 @@ function HoldingsPage() {
         staking={wallet.staking}
         stakingDays={54}
         sinceDate="Mar 16"
+        stakingEarned={stakingEarned}
+        stakingRoi={stakingRoi}
       />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">

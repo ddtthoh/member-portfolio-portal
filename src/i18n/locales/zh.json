@@ -426,7 +426,8 @@
         "description": "您确定要申请全额退款吗？我们的团队将审核您的请求并尽快与您联系。",
         "confirm": "确认申请",
         "submitted": "退款申请已提交"
-      }
+      },
+      "earnedSoFar": "已赚"
     },
     "transferUsd": {
       "eyebrow": "美元钱包",
@@ -854,6 +855,39 @@
       "resetAction": "重置",
       "filterAction": "筛选",
       "exportAction": "导出"
+    }
+  },
+  "charts": {
+    "empty": "暂无数据",
+    "assetGrowth": {
+      "eyebrow": "资产增长",
+      "title": "资产增长趋势",
+      "current": "当前累计"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "奖励",
+      "title": "奖励来源对比",
+      "total": "累计奖励"
+    },
+    "overview": {
+      "eyebrow": "总览",
+      "title": "奖励总览"
+    },
+    "monthlyRewards": {
+      "title": "月度奖励 · 近6个月"
+    },
+    "rewardsHeatmap": {
+      "title": "每日奖励热力图 · 近90天",
+      "less": "少",
+      "more": "多"
+    },
+    "rewardTypes": {
+      "staking": "质押",
+      "referral": "推荐",
+      "team": "团队",
+      "leader": "领袖",
+      "global": "全球",
+      "par_rank": "平级"
     }
   }
 }

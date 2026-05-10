@@ -426,7 +426,8 @@
         "description": "Are you sure you want to request a full refund? Our team will review your request and contact you shortly.",
         "confirm": "Confirm Request",
         "submitted": "Refund request submitted"
-      }
+      },
+      "earnedSoFar": "Earned"
     },
     "transferUsd": {
       "eyebrow": "USD Wallet",
@@ -854,6 +855,39 @@
       "resetAction": "Reset",
       "filterAction": "Filter",
       "exportAction": "Export"
+    }
+  },
+  "charts": {
+    "empty": "No data yet",
+    "assetGrowth": {
+      "eyebrow": "Asset Growth",
+      "title": "Asset Growth Trend",
+      "current": "Current Total"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Rewards",
+      "title": "Rewards Breakdown",
+      "total": "Total Rewards"
+    },
+    "overview": {
+      "eyebrow": "Overview",
+      "title": "Rewards Overview"
+    },
+    "monthlyRewards": {
+      "title": "Monthly Rewards · Last 6 Months"
+    },
+    "rewardsHeatmap": {
+      "title": "Daily Rewards Heatmap · Last 90 Days",
+      "less": "Less",
+      "more": "More"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Referral",
+      "team": "Team",
+      "leader": "Leader",
+      "global": "Global",
+      "par_rank": "Par Rank"
     }
   }
 }

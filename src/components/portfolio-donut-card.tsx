@@ -12,6 +12,8 @@ type Props = {
   staking: number;
   stakingDays: number;
   sinceDate: string;
+  stakingEarned?: number;
+  stakingRoi?: number;
 };
 
 const MASK = "••••••";
@@ -24,6 +26,8 @@ export function PortfolioDonutCard({
   staking,
   stakingDays,
   sinceDate,
+  stakingEarned = 0,
+  stakingRoi = 0,
 }: Props) {
   const { t } = useTranslation();
   const [showAmount, setShowAmount] = useState(true);
@@ -184,6 +188,15 @@ export function PortfolioDonutCard({
                         {row.sub && (
                           <div className="mt-0.5 text-[10px] tracking-[0.04em] text-muted-foreground/60">
                             {row.sub}
+                          </div>
+                        )}
+                        {row.key === "staking" && (
+                          <div className="mt-0.5 text-[10px] tabular-nums tracking-[0.04em] text-gold">
+                            {t("pages.holdings.earnedSoFar", "已赚")}{" "}
+                            {stakingEarned >= 0 ? "+" : ""}
+                            <CountUp value={stakingEarned} prefix="$" decimals={2} />
+                            {" "}({stakingRoi >= 0 ? "+" : ""}
+                            <CountUp value={stakingRoi} decimals={2} suffix="%" />)
                           </div>
                         )}
                       </div>
