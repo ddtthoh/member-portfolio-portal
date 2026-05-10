@@ -60,11 +60,17 @@ function formatUSD(n: number, decimals = 2) {
   });
 }
 
-export function PLCalendar({ participation = 250000 }: { participation?: number }) {
+export function PLCalendar({
+  participation = 250000,
+  title,
+}: {
+  participation?: number;
+  title?: string;
+}) {
   const { t } = useTranslation();
   const [month, setMonth] = useState(4);
   const [year, setYear] = useState(2026);
-  const [view, setView] = useState<"calendar" | "list">("list");
+  const [view, setView] = useState<"calendar" | "list">("calendar");
 
   const months = [
     t("components.plCalendar.months.january"),
