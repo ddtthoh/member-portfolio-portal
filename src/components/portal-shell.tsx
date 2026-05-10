@@ -117,6 +117,7 @@ export function PortalShell() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  usePortalReveal(location.pathname);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
