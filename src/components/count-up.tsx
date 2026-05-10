@@ -36,6 +36,13 @@ export function CountUp({
       return;
     }
 
+    // Skip animating to a 0 placeholder — wait for the real value so all
+    // CountUps on the page animate together once their data resolves.
+    if (value === 0 && fromRef.current === 0) {
+      setDisplay(0);
+      return;
+    }
+
     const start = performance.now();
     const from = fromRef.current;
     const to = value;
