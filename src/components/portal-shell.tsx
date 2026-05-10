@@ -117,7 +117,7 @@ export function PortalShell() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  usePortalReveal();
+  usePortalReveal(location.pathname);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
@@ -400,7 +400,7 @@ export function PortalShell() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.28, ease: "easeOut" }}
-                className="min-w-0 w-full"
+                className="portal-page min-w-0 w-full"
               >
                 <Outlet />
               </motion.div>
