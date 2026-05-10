@@ -26,7 +26,7 @@ function HoldingsPage() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Holding[]>([]);
   const { wallet } = useWallet();
-  const { earned: stakingEarned, roi: stakingRoi } = useStakingEarnings(wallet.staking);
+  
   useEffect(() => {
     if (!user) return;
     supabase.from("holdings").select("*").eq("user_id", user.id).order("asset_name")
