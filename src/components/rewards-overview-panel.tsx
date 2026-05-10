@@ -10,7 +10,7 @@ export function RewardsOverviewPanel() {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
       className="mb-5"
     >
       <SpotlightCard className="liquid-glass rounded-2xl p-5 sm:p-6">

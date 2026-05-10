@@ -4,7 +4,7 @@ export function CountValue({
   value,
   prefix = "$",
   decimals = 0,
-  duration = 1.8,
+  duration = 1.5,
 }: {
   value: number;
   prefix?: string;
