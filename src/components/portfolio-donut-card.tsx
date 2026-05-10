@@ -190,6 +190,15 @@ export function PortfolioDonutCard({
                             {row.sub}
                           </div>
                         )}
+                        {row.key === "staking" && (
+                          <div className="mt-0.5 text-[10px] tabular-nums tracking-[0.04em] text-gold">
+                            {t("pages.holdings.earnedSoFar", "已赚")}{" "}
+                            {stakingEarned >= 0 ? "+" : ""}
+                            <CountUp value={stakingEarned} prefix="$" decimals={2} />
+                            {" "}({stakingRoi >= 0 ? "+" : ""}
+                            <CountUp value={stakingRoi} decimals={2} suffix="%" />)
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="text-right">
