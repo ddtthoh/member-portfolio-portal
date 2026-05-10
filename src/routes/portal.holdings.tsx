@@ -10,6 +10,7 @@ import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
 import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
+import { AssetGrowthChart } from "@/components/charts/asset-growth-chart";
 import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portal/holdings")({
@@ -54,6 +55,8 @@ function HoldingsPage() {
       </motion.div>
 
       <RewardsBreakdownChart />
+
+      <AssetGrowthChart />
 
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
