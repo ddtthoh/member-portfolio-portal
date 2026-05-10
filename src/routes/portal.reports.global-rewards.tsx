@@ -20,6 +20,9 @@ function GlobalRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsGlobal", "Global Rewards")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Global Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("nav.reportsGlobal", "Global Rewards")}
         getExportRows={() => ({ headers, rows: [], filename: "global-rewards" })}
