@@ -214,31 +214,35 @@ export function AssetGrowthChart() {
                   tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
                 />
                 <Tooltip content={renderTooltip as never} cursor={{ stroke: "var(--gold)", strokeOpacity: 0.3, strokeWidth: 1 }} />
-                <Area
-                  key={`area-${inView ? "in" : "out"}-${range}`}
-                  type="monotone"
-                  dataKey="total"
-                  stroke="none"
-                  fill="url(#grad-total)"
-                  isAnimationActive={inView}
-                  animationDuration={2200}
-                  animationEasing="ease-out"
-                />
-                <Line
-                  key={`line-${inView ? "in" : "out"}-${range}`}
-                  type="monotone"
-                  dataKey="total"
-                  stroke="var(--gold)"
-                  strokeWidth={2.5}
-                  dot={renderTotalDot as never}
-                  activeDot={{ r: 4, fill: "var(--gold)" }}
-                  isAnimationActive={inView}
-                  animationDuration={2200}
-                  animationEasing="ease-out"
-                  className="gold-line-breathe"
-                >
-                  <LabelList dataKey="total" content={renderTotalEndLabel as never} />
-                </Line>
+                {inView && (
+                  <Area
+                    key={`area-in-${range}`}
+                    type="monotone"
+                    dataKey="total"
+                    stroke="none"
+                    fill="url(#grad-total)"
+                    isAnimationActive
+                    animationDuration={2200}
+                    animationEasing="ease-out"
+                  />
+                )}
+                {inView && (
+                  <Line
+                    key={`line-in-${range}`}
+                    type="monotone"
+                    dataKey="total"
+                    stroke="var(--gold)"
+                    strokeWidth={2.5}
+                    dot={renderTotalDot as never}
+                    activeDot={{ r: 4, fill: "var(--gold)" }}
+                    isAnimationActive
+                    animationDuration={2200}
+                    animationEasing="ease-out"
+                    className="gold-line-breathe"
+                  >
+                    <LabelList dataKey="total" content={renderTotalEndLabel as never} />
+                  </Line>
+                )}
               </ComposedChart>
             </ResponsiveContainer>
           ) : (
@@ -294,17 +298,19 @@ export function AssetGrowthChart() {
                             <stop offset="100%" stopColor={c} stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        <Area
-                          key={`mini-${k}-${inView ? "in" : "out"}-${range}`}
-                          type="monotone"
-                          dataKey={k}
-                          stroke={c}
-                          strokeWidth={1.5}
-                          fill={`url(#${gradId})`}
-                          isAnimationActive={inView}
-                          animationDuration={2200}
-                          animationEasing="ease-out"
-                        />
+                        {inView && (
+                          <Area
+                            key={`mini-${k}-in-${range}`}
+                            type="monotone"
+                            dataKey={k}
+                            stroke={c}
+                            strokeWidth={1.5}
+                            fill={`url(#${gradId})`}
+                            isAnimationActive
+                            animationDuration={2200}
+                            animationEasing="ease-out"
+                          />
+                        )}
                       </AreaChart>
                     </ResponsiveContainer>
                   )}
