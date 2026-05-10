@@ -1,34 +1,21 @@
-我已经定位到两个问题的来源：
+排查结果：scrolling effect 不是“加不到”，也不是太 heavy，主要是当前实现的目标选择器不对，导致效果几乎看不见。
 
-1. **页面下面发蒙**：现在的 scroll reveal 同时用了 `filter: blur(...)` 和原生 `animation-timeline: view()`，元素还没进入触发范围时会保持模糊/透明，所以页面下方看起来像被蒙住了。
-2. **不能上下重复渐出/渐入**：JS fallback 里元素一旦出现就 `unobserve`，所以只能执行一次；同时原生 CSS scroll animation 和 JS fallback 行为不一致，导致有些浏览器看不到重复效果。
+原因：
+1. `/portal/holdings` 页面最外层是：`<div className="space-y-6">...整页内容...</div>`。
+2. 当前 hook 的选择器包含 `.portal-page > div`，所以它只把这个“整页大容器”加上 `reveal-on-scroll`。
+3. 这个大容器高度超过一屏，IntersectionObserver 会认为它一直在视口里，因此 `is-revealed` 基本不会在每个卡片滚动进/出时切换。
+4. 页面里的真正视觉区块，比如 Total Assets、Rewards Breakdown、Asset Growth、table card，并没有各自成为 reveal target，所以滚动到它们时没有单独渐入/渐出。
+5. holdings 第一张卡片还有自己的 `motion.div initial/animate`，它只在页面加载时播放一次，和滚动重复动画不是同一个机制。
 
-修复计划：
+计划修复：
+1. 修改 `usePortalReveal` 的扫描逻辑：不要把 `.portal-page > div` 这种整页 wrapper 当作唯一动画目标。
+2. 让 hook 自动选择页面 wrapper 的直接子元素作为 reveal targets，例如 `.portal-page > div > *`，这样每个卡片/图表/表格块都会独立触发。
+3. 保留无 blur 的 CSS，避免任何页面再出现“蒙”的感觉。
+4. 让进入视口时加 `is-revealed`、离开视口时移除 `is-revealed`，从而上下滚动都能重复看到淡入/淡出。
+5. 处理 framer-motion 冲突：避免 holdings 首屏 `motion.div` 的一次性动画吞掉/覆盖滚动 reveal，必要时给其外层或子区块明确 data-reveal。
+6. 验证 `/portal/holdings`：确认 reveal target 数量不再是 1 个整页容器，而是多个独立区块；滚动下去、再滚动上来时 class 会重复切换。
 
-1. **彻底去掉“蒙/糊”的视觉原因**
-   - 移除 scroll reveal 里的 `filter: blur(...)`。
-   - 不再让未进入视口的内容处于模糊状态。
-   - 所有页面下方内容保持清晰，只允许透明度和轻微位移动画。
-
-2. **禁用当前原生 `animation-timeline: view()` 方案**
-   - 它在不同浏览器表现不稳定，也容易造成下方内容一直处于半透明/模糊状态。
-   - 改为统一使用 JS 控制，保证 preview、Safari/Chrome、live 后行为一致。
-
-3. **改成真正双向重复 scroll effect**
-   - 元素进入视口：添加 `is-revealed`，淡入 + 上移。
-   - 元素离开视口：移除 `is-revealed`，回到淡出 + 下移状态。
-   - 不再 `unobserve`，所以可以无限次上下滚动重复。
-
-4. **把效果调明显但不 heavy**
-   - 不用 blur，不会发蒙，也更省性能。
-   - 使用 `opacity + translateY + scale`，这是相对轻量且专业的做法。
-   - 动画强度建议：`opacity 0.18 → 1`、`translateY 56px → 0`、`scale 0.985 → 1`，明显但不会像页面坏掉。
-
-5. **保护首屏可读性**
-   - 首屏已经在视口内的内容直接显示或只做很短延迟，避免打开页面时一片空/蒙。
-   - 只有滚动进入/离开视口的块反复做动画。
-
-6. **验证**
-   - 在 `/portal/holdings` 慢慢向下、向上、再向下滚动，确认卡片和表格会重复淡入/淡出。
-   - 检查页面下方没有任何 blur、蒙层、灰雾感。
-   - 检查其他 portal 页面也不会发蒙。
+涉及文件：
+- `src/hooks/use-portal-reveal.ts`
+- 如有必要，小幅调整 `src/routes/portal.holdings.tsx` 的 reveal 标记
+- `src/styles.css` 只在需要增强明显度时微调，不恢复 blur
