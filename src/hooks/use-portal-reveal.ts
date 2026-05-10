@@ -3,54 +3,43 @@ import { useEffect } from "react";
 /**
  * Editorial cinematic scroll-reveal for the portal.
  *
- * Watches the <main> subtree with a MutationObserver so it picks up cards
- * mounted by AnimatePresence's `mode="wait"` page transitions (which mount
- * the new route AFTER the old one finishes exiting). Any `.liquid-glass`
- * card or `[data-reveal]` element gets a 24px lift + opacity fade with
- * luxury easing the moment it enters the viewport. Cards already in view
- * on first paint stagger by 80ms each.
+ * Scans <main> on mount and on every DOM mutation. Any `.liquid-glass` card
+ * or `[data-reveal]` element gets a fade + lift + subtle blur clear when it
+ * enters the viewport. First-screen cards stagger by 110ms so the initial
+ * paint feels like pages turning.
  */
 export function usePortalReveal() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const main = document.querySelector("main");
-    if (!main) return;
-
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          if (el.dataset.revealed === "1") return;
-          el.dataset.revealed = "1";
-          el.style.setProperty("--reveal-delay", "0ms");
-          el.classList.add("is-revealed");
-          io.unobserve(el);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
+    let main = document.querySelector("main");
+    let mo: MutationObserver | null = null;
+    let io: IntersectionObserver | null = null;
+    let rescanTimer: ReturnType<typeof setTimeout> | null = null;
+    let batchResetTimer: ReturnType<typeof setTimeout> | null = null;
     let initialBatchIndex = 0;
-    let initialBatchTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function reveal(el: HTMLElement, delay: number) {
+      el.style.setProperty("--reveal-delay", `${delay}ms`);
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => el.classList.add("is-revealed"))
+      );
+    }
 
     function processNewElements() {
+      if (!main) return;
       const vh = window.innerHeight;
       const els = Array.from(
-        main!.querySelectorAll<HTMLElement>(".liquid-glass, [data-reveal]")
+        main.querySelectorAll<HTMLElement>(".liquid-glass, [data-reveal]")
       ).filter((el) => el.dataset.revealInit !== "1");
 
       if (els.length === 0) return;
 
-      // Reset stagger counter for each fresh batch (e.g. new route mount).
-      // We debounce so multiple mutations within a tick share the same batch.
-      if (initialBatchTimer) clearTimeout(initialBatchTimer);
-      initialBatchTimer = setTimeout(() => {
-        initialBatchIndex = 0;
-      }, 50);
+      // Reset stagger counter for each fresh batch (route mount, late content).
+      if (batchResetTimer) clearTimeout(batchResetTimer);
+      batchResetTimer = setTimeout(() => { initialBatchIndex = 0; }, 80);
 
       els.forEach((el) => {
         el.dataset.revealInit = "1";
@@ -58,36 +47,67 @@ export function usePortalReveal() {
 
         if (reduce) {
           el.classList.add("is-revealed");
-          el.dataset.revealed = "1";
           return;
         }
 
         const rect = el.getBoundingClientRect();
         const inView = rect.top < vh * 0.95 && rect.bottom > 0;
         if (inView) {
-          el.dataset.revealed = "1";
-          el.style.setProperty("--reveal-delay", `${initialBatchIndex * 80}ms`);
+          reveal(el, initialBatchIndex * 110);
           initialBatchIndex++;
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() => el.classList.add("is-revealed"))
-          );
-        } else {
+        } else if (io) {
           io.observe(el);
         }
       });
     }
 
-    processNewElements();
+    function setup() {
+      main = document.querySelector("main");
+      if (!main) return false;
 
-    const mo = new MutationObserver(() => {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            if (el.classList.contains("is-revealed")) return;
+            reveal(el, 0);
+            io!.unobserve(el);
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      );
+
       processNewElements();
-    });
-    mo.observe(main, { childList: true, subtree: true });
+
+      mo = new MutationObserver(() => {
+        if (rescanTimer) clearTimeout(rescanTimer);
+        rescanTimer = setTimeout(processNewElements, 30);
+      });
+      mo.observe(main, { childList: true, subtree: true });
+      return true;
+    }
+
+    if (!setup()) {
+      // <main> may not be mounted yet (auth loading). Poll briefly.
+      const start = Date.now();
+      const poll = setInterval(() => {
+        if (setup() || Date.now() - start > 5000) clearInterval(poll);
+      }, 100);
+      return () => {
+        clearInterval(poll);
+        if (rescanTimer) clearTimeout(rescanTimer);
+        if (batchResetTimer) clearTimeout(batchResetTimer);
+        mo?.disconnect();
+        io?.disconnect();
+      };
+    }
 
     return () => {
-      if (initialBatchTimer) clearTimeout(initialBatchTimer);
-      mo.disconnect();
-      io.disconnect();
+      if (rescanTimer) clearTimeout(rescanTimer);
+      if (batchResetTimer) clearTimeout(batchResetTimer);
+      mo?.disconnect();
+      io?.disconnect();
     };
   }, []);
 }

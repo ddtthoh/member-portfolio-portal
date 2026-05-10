@@ -1,63 +1,37 @@
-## 现状
+结论先说：你没有看错，现在确实很难/几乎看不到变化；代码已经写进 preview 代码里了，但还没有发布成正式 live。正式线上要点右上角 Publish / Update 才会 live。
 
-我上一次确实写了 reveal 程式（`src/hooks/use-portal-reveal.ts` + `src/styles.css` 加了 `.reveal-on-scroll` / `.is-revealed` CSS），并在 `PortalShell` 内呼叫 `usePortalReveal(location.pathname)`。
+我刚检查到两个关键点：
 
-但视觉上没有任何变化，原因是 **时序错位**：
+1. `src/hooks/use-portal-reveal.ts`、`portal-shell.tsx`、`styles.css` 里确实已经有 scroll reveal 代码。
+2. 但当前 preview 检测时，portal 内容没有进入可动画状态，页面还显示 loading，并且开发服务器日志里有 `Invalid hook call`，所以效果没有稳定跑起来。
 
-1. `PortalShell` 用 `<AnimatePresence mode="wait">` 包住 `<Outlet />`，配 `key={location.pathname}` 做页面过渡。
-2. `mode="wait"` 会**先等旧页面 exit 动画跑完，再 mount 新页面**。
-3. 我的 hook 跟着 `location.pathname` 重跑：cleanup → 立刻执行 effect → `requestAnimationFrame` 一帧后查 `.liquid-glass`。
-4. 但这一刻，新页面的 DOM 根本还没 mount（旧页面还在 exit）。`querySelectorAll` 找到的是**旧页面的卡片**，给旧卡加 class、然后旧卡又被卸载了。
-5. 新页面 mount 时，hook 不会再触发（依赖没变），新卡永远不会拿到 `reveal-on-scroll` class，所以**完全没有动画**。
+为什么你看不到：
+- 目前效果做得太细，只有 24px 位移 + 透明度，第一屏内容又几乎马上 reveal，所以肉眼会像“没变”。
+- 更重要的是，当前 preview 有 hook 报错/加载状态问题，需要先修正触发方式，否则 scroll observer 就算写了也可能没有稳定绑定到实际内容。
 
-另外我的 cleanup 只删 `dataset.revealInit` 标记，没有把已经加上的 class 清掉，所以即使时序对了，第二次访问同一页也会因为 `data-reveal-init` 已存在而被跳过。
+修复计划：
 
-## 修复方案
+1. 把 `usePortalReveal` 的触发方式改得更稳
+   - 不只依赖第一次 mount。
+   - 页面 route 切换、内容延迟出现、AnimatePresence 动画结束后，都重新扫描一次。
+   - 确保 `.liquid-glass` 卡片真的拿到 `reveal-on-scroll` 和 `is-revealed`。
 
-改成「**用 MutationObserver 监听 `<main>` 内子节点变动**，一旦看到没初始化过的 `.liquid-glass` / `[data-reveal]` 就立刻挂上 reveal」。这样跟 AnimatePresence 时序完全脱钩，不管什么时候 mount 都会被抓到。
+2. 把效果调明显一点，但保持高级
+   - 初始：opacity 0、translateY 36px、轻微 blur 6px。
+   - 出现：opacity 1、translateY 0、blur 0。
+   - 时间：0.85s，像读书翻到下一段内容那样慢慢浮出来。
+   - 卡片之间 stagger 100ms，让你滚下去时能明显看到一层一层出现。
 
-### 改 `src/hooks/use-portal-reveal.ts`
+3. 避免第一屏“瞬间结束”导致看不见
+   - 第一屏也延迟一点点出现。
+   - 屏幕下面的新内容只在滚到接近它时才 reveal。
 
-逻辑改成：
+4. 修复/排查当前 hook 报错
+   - 检查 `PortalShell` 和相关 hooks 的调用顺序。
+   - 确保没有任何 hook 在非组件函数或条件分支里执行。
 
-```text
-mount:
-  找到 <main>
-  建立 IntersectionObserver（threshold 0.12, rootMargin "0px 0px -40px 0px"）
-    -> 元素进入 viewport 时 add .is-revealed
-  
-  function processNewElements():
-    main 里所有 .liquid-glass, [data-reveal]
-    过滤掉已经标记 data-reveal-init 的
-    每个新元素：
-      标记 data-reveal-init
-      add .reveal-on-scroll
-      若已经在 viewport 内（首屏卡片）→ 算 stagger delay (index * 80ms) → 下一帧 add .is-revealed
-      否则 → io.observe(el)
-  
-  processNewElements()  // 处理首次 mount
-  
-  MutationObserver(main, { childList: true, subtree: true })
-    -> 任何子节点变动时 processNewElements()
+5. 验证
+   - 在 `/portal` 和 `/portal/staking-plans` 手动检查：往下滑时卡片应该明显渐变浮现。
+   - 检查元素数量：页面里应出现 `reveal-on-scroll`，进入视窗后出现 `is-revealed`。
 
-unmount (整个 portal 卸载时才会发生):
-  断开两个 observer
-```
-
-不再依赖 `location.pathname`；hook 改成无参数版本。
-
-### 改 `src/components/portal-shell.tsx`
-
-把 `usePortalReveal(location.pathname)` 改成 `usePortalReveal()`。
-
-### CSS 不用改
-
-`src/styles.css` 里的 `.reveal-on-scroll` / `.is-revealed` / `prefers-reduced-motion` 已经写好，可以原样保留。
-
-## 验证方式
-
-修完后在 `/portal/staking-plans`：
-- 首屏 plan 卡片会从下往上 24px 淡入，每张错开 80ms 像翻书一样。
-- 往下 scroll 时，画面下方还没出现的 plan 卡片在进入 viewport 那一刻才淡入。
-- 切到 `/portal`、`/portal/holdings` 等页面也一样有效。
-- 系统偏好 reduce motion 时全部直接显示，不会卡。
+说明：这次会是“真正看得出来”的版本，不是只加很轻微的动画。
