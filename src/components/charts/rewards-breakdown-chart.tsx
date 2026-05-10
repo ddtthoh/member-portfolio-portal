@@ -28,7 +28,7 @@ export function RewardsBreakdownChart() {
             {t("charts.rewardsBreakdown.eyebrow", "Rewards")}
           </div>
           <h3 className="mt-1 font-serif text-lg font-semibold text-gold">
-            {t("charts.rewardsBreakdown.title", "奖励来源对比")}
+            {t("charts.rewardsBreakdown.title", "Rewards Breakdown")}
           </h3>
         </div>
 
