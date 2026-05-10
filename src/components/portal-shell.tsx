@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { usePortalReveal } from "@/hooks/use-portal-reveal";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, GraduationCap, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
@@ -17,14 +16,14 @@ import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import participantPortalLogo from "@/assets/participant-portal-logo.png";
 import { Button } from "@/components/ui/button";
-import { TickerTape } from "@/components/ticker-tape";
-import { CommandPalette } from "@/components/command-palette";
 import { SocialLinks } from "@/components/social-links";
-
-import { ThreeBackground } from "@/components/three-background";
 
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/i18n";
+
+const LazyTickerTape = lazy(() => import("@/components/ticker-tape").then((m) => ({ default: m.TickerTape })));
+const LazyCommandPalette = lazy(() => import("@/components/command-palette").then((m) => ({ default: m.CommandPalette })));
+const LazyThreeBackground = lazy(() => import("@/components/three-background").then((m) => ({ default: m.ThreeBackground })));
 
 type NavChild = { to: string; labelKey: string; icon: typeof LayoutDashboard };
 type NavLeaf = { to: string; labelKey: string; icon: typeof LayoutDashboard; children?: undefined };
@@ -125,6 +124,7 @@ export function PortalShell() {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(COLLAPSE_KEY) === "1";
   });
+  const [deferHeavyChrome, setDeferHeavyChrome] = useState(true);
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/login" });
@@ -137,6 +137,32 @@ export function PortalShell() {
       window.localStorage.setItem(COLLAPSE_KEY, collapsed ? "1" : "0");
     }
   }, [collapsed]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add("initial-scroll-safe");
+    let done = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const release = () => {
+      if (done) return;
+      done = true;
+      root.classList.remove("initial-scroll-safe");
+      setDeferHeavyChrome(false);
+    };
+
+    const onScroll = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(release, 220);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll, { capture: true } as any);
+      root.classList.remove("initial-scroll-safe");
+    };
+  }, []);
 
   // Cmd/Ctrl+B toggles collapse on desktop
   useEffect(() => {
