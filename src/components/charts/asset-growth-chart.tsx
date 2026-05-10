@@ -33,7 +33,7 @@ const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
 // 0 → 1 ramp triggered when `enabled` is true; restarts whenever `key` changes.
-function useCountProgress(key: unknown, enabled: boolean, duration = 2200) {
+function useCountProgress(key: unknown, enabled: boolean, duration = 1500) {
   const [p, setP] = useState(0);
   const raf = useRef<number | null>(null);
   useEffect(() => {
@@ -221,7 +221,7 @@ export function AssetGrowthChart() {
                   stroke="none"
                   fill="url(#grad-total)"
                   isAnimationActive
-                  animationDuration={2200}
+                  animationDuration={1500}
                   animationEasing="ease-out"
                 />
                 <Line
@@ -233,7 +233,7 @@ export function AssetGrowthChart() {
                   dot={renderTotalDot as never}
                   activeDot={{ r: 4, fill: "var(--gold)" }}
                   isAnimationActive
-                  animationDuration={2200}
+                  animationDuration={1500}
                   animationEasing="ease-out"
                   className="gold-line-breathe"
                 >
@@ -302,7 +302,7 @@ export function AssetGrowthChart() {
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
                           isAnimationActive
-                          animationDuration={2200}
+                          animationDuration={1500}
                           animationEasing="ease-out"
                         />
                       </AreaChart>
