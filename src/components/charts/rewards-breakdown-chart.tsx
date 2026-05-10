@@ -28,7 +28,7 @@ export function RewardsBreakdownChart() {
             {t("charts.rewardsBreakdown.eyebrow", "Rewards")}
           </div>
           <h3 className="mt-1 font-serif text-lg font-semibold text-gold">
-            {t("charts.rewardsBreakdown.title", "奖励来源对比")}
+            {t("charts.rewardsBreakdown.title", "Rewards Breakdown")}
           </h3>
         </div>
 
@@ -109,7 +109,7 @@ export function RewardsBreakdownChart() {
           })}
           <div className="flex items-center justify-between py-2.5">
             <span className="text-[11px] uppercase tracking-[0.18em] text-gold/80">
-              {t("charts.rewardsBreakdown.total", "累计奖励")}
+              {t("charts.rewardsBreakdown.total", "Total Rewards")}
             </span>
             <span className="text-sm font-light tabular-nums text-gold">
               <CountUp value={total} prefix="$" decimals={2} />

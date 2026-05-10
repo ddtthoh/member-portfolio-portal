@@ -864,6 +864,10 @@
       "title": "Asset Growth Trend",
       "current": "Current Total"
     },
+    "totalAssets": {
+      "eyebrow": "Assets",
+      "title": "Total Assets"
+    },
     "rewardsBreakdown": {
       "eyebrow": "Rewards",
       "title": "Rewards Breakdown",
