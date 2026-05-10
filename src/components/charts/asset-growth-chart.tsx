@@ -295,13 +295,14 @@ export function AssetGrowthChart() {
                           </linearGradient>
                         </defs>
                         <Area
+                          key={`mini-${k}-${inView ? "in" : "out"}-${range}`}
                           type="monotone"
                           dataKey={k}
                           stroke={c}
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
-                          isAnimationActive
-                          animationDuration={1100}
+                          isAnimationActive={inView}
+                          animationDuration={2200}
                           animationEasing="ease-out"
                         />
                       </AreaChart>
