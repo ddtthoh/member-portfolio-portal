@@ -26,6 +26,21 @@ export function RewardsBreakdownChart() {
   const { data } = useRewardsBreakdown();
   const total = data.reduce((s, d) => s + d.value, 0);
 
+  // 0 → 1 ramp on mount, matches Recharts bar animation
+  const [progress, setProgress] = useState(0);
+  const raf = useRef<number | null>(null);
+  useEffect(() => {
+    setProgress(0);
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / 1100);
+      setProgress(1 - Math.pow(1 - t, 3));
+      if (t < 1) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => { if (raf.current != null) cancelAnimationFrame(raf.current); };
+  }, [data.length]);
+
   // Sort bars by value (largest at top) for stronger visual hierarchy.
   const sortedData = [...data].sort((a, b) => b.value - a.value);
 
