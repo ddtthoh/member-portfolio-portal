@@ -19,7 +19,7 @@ export function usePortalReveal(
     if (typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()")) {
       return;
     }
-    const revealSelector = ".portal-page > *:not([data-no-reveal])";
+    const revealSelector = ".portal-page > * > *:not([data-no-reveal])";
 
     let main = mainRef?.current ?? document.querySelector("main");
     let mo: MutationObserver | null = null;
