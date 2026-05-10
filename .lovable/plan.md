@@ -1,29 +1,47 @@
-我查到目前不是你操作问题：代码里确实加了滚动 reveal，但现在实现太依赖 `.liquid-glass`，而且会把已经在首屏的元素立刻 reveal 掉；所以你肉眼几乎看不到“往下滑像读书一样渐变出来”。另外预览日志里还有一次 `Invalid hook call`，需要一起排掉，不能再继续靠猜。
+## 目标
 
-计划：
+1. **更明显**：把进入幅度、模糊、缩放都加大，再加一点点横向"翻页"感，让"读书式"揭开效果一眼可见。
+2. **双向、可重复**：往下滚出现，往上滚回去会重新隐藏，再滚下来再次出现 —— 不是只触发一次。
 
-1. 让动画作用范围变明确
-   - 不只扫 `.liquid-glass`，改成 portal 主内容里的主要 section/card/list/table/chart 都能被识别。
-   - 对 holdings 页面和其他 portal 子页面统一生效，不需要每个页面手动加 class。
+## 当前问题
 
-2. 做成明显的“读书式 scroll reveal”
-   - 元素进入视窗前：透明、下移、轻微模糊。
-   - 滑到时：渐亮、上浮归位、模糊清掉。
-   - 同一屏多个卡片按顺序 stagger，而不是同时出现。
-   - 首屏保留轻微入场延迟，避免一加载就瞬间结束。
+- 现在的实现一旦元素被标记 `is-revealed`，IntersectionObserver 就 `unobserve` 了，所以**往上滚再下来不会再播**。
+- 原生 `animation-timeline: view()` 本来天然就是"双向的"（你滚回去它会反向播放），但 Safari / 部分浏览器不支持，会回落到一次性 JS 版本 —— 这就是你看到的"只往下有，往上没有"。
+- 强度上：当前 translateY 82px / blur 18px / scale 0.965 —— 在大屏 + 内容已经很大很深色的卡片上确实偏含蓄。
 
-3. 修正现在可能看不见的关键原因
-   - `PortalShell` 现在外层还有 route transition，可能盖过子元素 scroll reveal 的视觉差异；我会让 page transition 和 scroll reveal 不互相抵消。
-   - 检查并消除 `Invalid hook call` 的真实来源，确保 hook 没有在错误位置/重复 React 环境下触发。
+## 实施计划
 
-4. 加一个临时诊断确认，完成后移除
-   - 确认页面上实际有多少个元素被标记为 reveal。
-   - 确认滚动时 class 从 hidden 状态变成 revealed 状态。
-   - 确认不是浏览器开启了 reduced motion 导致动画被关闭。
+### 1. CSS（`src/styles.css`）—— 加大效果 + 让原生方案双向化
 
-5. 验证
-   - 用当前 `/portal/holdings` 视口测试。
-   - 再测试 `/portal` 和 `/portal/staking-plans`。
-   - 只在确认滚动时肉眼可见后再回复你。
+- **加大关键帧强度**（`portal-scroll-read`）：
+  - `translateY`: 92px → **140px**
+  - `blur`: 20px → **28px**
+  - `scale`: 0.96 → **0.92**
+  - 加一点点 `rotateX(6deg)` 让它有"页面翻起来"的微透视感（perspective 在父级 `.portal-page` 上设 1200px）
+- **改 `animation-range`**：从 `entry 0% cover 48%`（只在进入时播）改为 `entry 10% cover 55%`，配合 `animation-direction` 默认行为 —— scroll-driven animation 本身就跟随滚动位置双向变化，所以**自动获得"上滚反向、下滚正向"**。
+- 同样的 `is-revealed` 类样式调强一致。
 
-说明：这类前端改动在 Lovable 预览里会马上看到；如果要正式 live 给外部用户，还需要点 Publish/Update。现在你看到没变化，核心是实现没有真正产生可见效果，不是你不会看。
+### 2. JS Fallback Hook（`src/hooks/use-portal-reveal.ts`）—— 双向触发
+
+把 IntersectionObserver 从"出现就 unobserve"改成**持续观察**：
+
+- 元素进入视口（`isIntersecting === true` 且 `intersectionRatio > 0.12`）→ 加 `is-revealed`
+- 元素离开视口（往上滚出去）→ 移除 `is-revealed`，回到隐藏态
+- 不再调用 `unobserve`，所以可无限次往返
+
+加一个 `rootMargin: "-10% 0px -10% 0px"`，让重新隐藏的临界点离屏幕边缘留点距离，避免在 viewport 边缘抖动。
+
+### 3. 验证
+
+在浏览器里打开 `/portal` 和 `/portal/holdings`：
+- 慢速滚下 → 卡片明显从下方 + 模糊 + 略小，渐入到位
+- 滚回顶部 → 卡片重新模糊、下沉、淡出
+- 再滚下 → 再次出现
+- 检查不同浏览器（原生 scroll-timeline 走 CSS 路径，Safari 走 JS 路径），两条路径都要双向
+
+### 涉及文件
+
+- `src/styles.css`（关键帧 + range + reveal-on-scroll 类）
+- `src/hooks/use-portal-reveal.ts`（IntersectionObserver 双向逻辑）
+
+不动业务代码、不动数据层。
