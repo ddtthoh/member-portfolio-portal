@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { ReportShell } from "@/components/report-shell";
 import { DataTable, Thead, Th, EmptyRow } from "@/components/portal-ui";
+import { SpotlightCard } from "@/components/spotlight-card";
+import { PLCalendar } from "@/components/pl-calendar";
 
 export const Route = createFileRoute("/portal/reports/team-rewards")({
   component: TeamRewardsPage,
