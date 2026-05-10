@@ -345,8 +345,8 @@ function Overview() {
         {[
           { label: t("overview.usdtWallet"), value: wallet.usd },
           { label: t("overview.rewardsWallet"), value: wallet.rewards },
-        ].map((w, i) => (
-          <div >
+        ].map((w) => (
+          <div key={w.label}>
             <SpotlightCard className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
               <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
               <div className="text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
@@ -358,7 +358,7 @@ function Overview() {
       </div>
 
       <div className="mb-3 grid grid-cols-4 gap-3">
-        {actionTiles.map((t, i) => (
+        {actionTiles.map((t) => (
           <div key={t.to}>
             <Link to={t.to} className="group flex flex-col items-center gap-2">
               <TiltCard>
