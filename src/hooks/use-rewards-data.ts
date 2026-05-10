@@ -13,6 +13,31 @@ export const REWARD_TYPES: RewardType[] = [
   "par_rank",
 ];
 
+// Distinct color per reward type — referenced everywhere so colors tally.
+export const REWARD_COLORS: Record<RewardType, string> = {
+  staking: "var(--reward-staking)",
+  referral: "var(--reward-referral)",
+  team: "var(--reward-team)",
+  leader: "var(--reward-leader)",
+  global: "var(--reward-global)",
+  par_rank: "var(--reward-par_rank)",
+};
+
+// Deterministic PRNG — same seed → same numbers across asset-analysis & reports.
+function seeded(seed: number) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 0xffffffff;
+  };
+}
+const MOCK_RNG = seeded(0xC0FFEE);
+// Each reward type gets a fixed total in [1000, 8000] — generated once.
+export const MOCK_REWARD_TOTALS: Record<RewardType, number> = REWARD_TYPES.reduce((acc, k) => {
+  acc[k] = Math.round(1000 + MOCK_RNG() * 7000);
+  return acc;
+}, {} as Record<RewardType, number>);
+
 // Map a transaction.type string to one of our reward buckets, or null if not a reward.
 function classifyReward(type: string | null | undefined): RewardType | null {
   if (!type) return null;
