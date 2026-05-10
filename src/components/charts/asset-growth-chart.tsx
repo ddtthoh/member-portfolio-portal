@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { SpotlightCard } from "@/components/spotlight-card";
 import {
@@ -67,12 +66,7 @@ export function AssetGrowthChart() {
   });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-      className="mb-4"
-    >
+    <div className="mb-4">
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
@@ -192,6 +186,6 @@ export function AssetGrowthChart() {
           })}
         </div>
       </SpotlightCard>
-    </motion.div>
+    </div>
   );
 }
