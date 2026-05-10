@@ -398,6 +398,16 @@
       "description": "Resumen de tu participación activa.",
       "totalStakingAmount": "Monto total de staking",
       "stakingDays": "Días de staking",
+      "totalStaking": "Staking total",
+      "totalAssets": "Activos totales",
+      "since": "desde {{date}}",
+      "daysUnit": "días",
+      "assetBreakdown": "Desglose de activos",
+      "portfolioLabel": "Portafolio · Activos totales",
+      "tierSuffix": "Nivel {{tier}} · actualizado ahora mismo",
+      "masked": "••••••",
+      "hideAccounts": "Ocultar todas las cuentas",
+      "showAccounts": "Mostrar todas las cuentas",
       "tableHeaders": {
         "date": "Fecha",
         "stakingPlan": "Plan de staking",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "Staking mínimo",
+        "dailyRoi": "ROI diario",
         "monthlyRoi": "ROI mensual"
-      }
+      },
+      "cta": "Iniciar Staking"
     },
     "convertCredits": {
       "eyebrow": "Estado de cuenta",

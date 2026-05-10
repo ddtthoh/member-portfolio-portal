@@ -398,6 +398,16 @@
       "description": "ملخص لمشاركتك النشطة في الرهن.",
       "totalStakingAmount": "إجمالي مبلغ الستاكينغ",
       "stakingDays": "أيام الستاكينغ",
+      "totalStaking": "إجمالي التحصيص",
+      "totalAssets": "إجمالي الأصول",
+      "since": "منذ {{date}}",
+      "daysUnit": "أيام",
+      "assetBreakdown": "توزيع الأصول",
+      "portfolioLabel": "المحفظة · إجمالي الأصول",
+      "tierSuffix": "مستوى {{tier}} · تم التحديث للتو",
+      "masked": "••••••",
+      "hideAccounts": "إخفاء جميع الحسابات",
+      "showAccounts": "عرض جميع الحسابات",
       "tableHeaders": {
         "date": "التاريخ",
         "stakingPlan": "خطة الستاكينغ",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "الحد الأدنى للستاكينغ",
+        "dailyRoi": "عائد الاستثمار اليومي",
         "monthlyRoi": "العائد الشهري (ROI)"
-      }
+      },
+      "cta": "بدء التحصيص"
     },
     "convertCredits": {
       "eyebrow": "كشف الحساب",

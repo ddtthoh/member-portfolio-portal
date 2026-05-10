@@ -398,6 +398,16 @@
       "description": "สรุปสเตกกิ้งที่ใช้งานอยู่",
       "totalStakingAmount": "ยอด Staking รวม",
       "stakingDays": "จำนวนวัน Staking",
+      "totalStaking": "ยอด Staking รวม",
+      "totalAssets": "สินทรัพย์รวม",
+      "since": "ตั้งแต่ {{date}}",
+      "daysUnit": "วัน",
+      "assetBreakdown": "สัดส่วนสินทรัพย์",
+      "portfolioLabel": "พอร์ตโฟลิโอ · สินทรัพย์รวม",
+      "tierSuffix": "ระดับ {{tier}} · เพิ่งอัปเดต",
+      "masked": "••••••",
+      "hideAccounts": "ซ่อนบัญชีทั้งหมด",
+      "showAccounts": "แสดงบัญชีทั้งหมด",
       "tableHeaders": {
         "date": "วันที่",
         "stakingPlan": "แผน Staking",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "ยอด Staking ขั้นต่ำ",
+        "dailyRoi": "ROI รายวัน",
         "monthlyRoi": "ROI ต่อเดือน"
-      }
+      },
+      "cta": "เริ่ม Staking"
     },
     "convertCredits": {
       "eyebrow": "ใบแจ้งยอด",

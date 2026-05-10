@@ -398,6 +398,16 @@
       "description": "활성 스테이킹 요약.",
       "totalStakingAmount": "총 스테이킹 수량",
       "stakingDays": "스테이킹 기간(일)",
+      "totalStaking": "총 스테이킹",
+      "totalAssets": "총 자산",
+      "since": "{{date}}부터",
+      "daysUnit": "일",
+      "assetBreakdown": "자산 구성",
+      "portfolioLabel": "포트폴리오 · 총 자산",
+      "tierSuffix": "{{tier}} 티어 · 방금 업데이트됨",
+      "masked": "••••••",
+      "hideAccounts": "모든 계좌 숨기기",
+      "showAccounts": "모든 계좌 보기",
       "tableHeaders": {
         "date": "날짜",
         "stakingPlan": "스테이킹 플랜",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "최소 스테이킹",
+        "dailyRoi": "일일 ROI",
         "monthlyRoi": "월별 ROI"
-      }
+      },
+      "cta": "스테이킹 시작하기"
     },
     "convertCredits": {
       "eyebrow": "내역서",

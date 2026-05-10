@@ -398,6 +398,16 @@
       "description": "Riepilogo del tuo staking attivo.",
       "totalStakingAmount": "Importo totale di staking",
       "stakingDays": "Giorni di staking",
+      "totalStaking": "Staking Totale",
+      "totalAssets": "Asset Totali",
+      "since": "dal {{date}}",
+      "daysUnit": "giorni",
+      "assetBreakdown": "Ripartizione Asset",
+      "portfolioLabel": "Portafoglio · Asset Totali",
+      "tierSuffix": "Livello {{tier}} · aggiornato ora",
+      "masked": "••••••",
+      "hideAccounts": "Nascondi tutti i conti",
+      "showAccounts": "Mostra tutti i conti",
       "tableHeaders": {
         "date": "Data",
         "stakingPlan": "Piano di staking",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "Staking minimo",
+        "dailyRoi": "ROI Giornaliero",
         "monthlyRoi": "ROI mensile"
-      }
+      },
+      "cta": "Inizia lo Staking"
     },
     "convertCredits": {
       "eyebrow": "Estratto",

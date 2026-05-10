@@ -398,6 +398,16 @@
       "description": "Aktif katılımınızın özeti.",
       "totalStakingAmount": "Toplam Staking Miktarı",
       "stakingDays": "Staking Gün Sayısı",
+      "totalStaking": "Toplam Staking",
+      "totalAssets": "Toplam Varlıklar",
+      "since": "{{date}} tarihinden beri",
+      "daysUnit": "gün",
+      "assetBreakdown": "Varlık Dağılımı",
+      "portfolioLabel": "Portföy · Toplam Varlıklar",
+      "tierSuffix": "{{tier}} Seviyesi · az önce güncellendi",
+      "masked": "••••••",
+      "hideAccounts": "Tüm Hesapları Gizle",
+      "showAccounts": "Tüm Hesapları Göster",
       "tableHeaders": {
         "date": "Tarih",
         "stakingPlan": "Staking Planı",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "Minimum Staking",
+        "dailyRoi": "Günlük ROI",
         "monthlyRoi": "Aylık ROI"
-      }
+      },
+      "cta": "Staking'e Başla"
     },
     "convertCredits": {
       "eyebrow": "Hesap Özeti",

@@ -398,6 +398,16 @@
       "description": "Tóm tắt staking đang hoạt động.",
       "totalStakingAmount": "Tổng Tiền Staking",
       "stakingDays": "Số ngày Staking",
+      "totalStaking": "Tổng Staking",
+      "totalAssets": "Tổng tài sản",
+      "since": "từ {{date}}",
+      "daysUnit": "ngày",
+      "assetBreakdown": "Phân bổ tài sản",
+      "portfolioLabel": "Danh mục đầu tư · Tổng tài sản",
+      "tierSuffix": "Hạng {{tier}} · vừa cập nhật",
+      "masked": "••••••",
+      "hideAccounts": "Ẩn tất cả tài khoản",
+      "showAccounts": "Hiển thị tất cả tài khoản",
       "tableHeaders": {
         "date": "Ngày",
         "stakingPlan": "Gói Staking",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "Mức Staking Tối thiểu",
+        "dailyRoi": "ROI hàng ngày",
         "monthlyRoi": "ROI Hàng tháng"
-      }
+      },
+      "cta": "Bắt đầu Staking"
     },
     "convertCredits": {
       "eyebrow": "Sao kê",

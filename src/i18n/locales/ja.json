@@ -398,6 +398,16 @@
       "description": "アクティブなステーキングの概要。",
       "totalStakingAmount": "ステーキング総額",
       "stakingDays": "ステーキング日数",
+      "totalStaking": "ステーキング総額",
+      "totalAssets": "総資産",
+      "since": "{{date}}以降",
+      "daysUnit": "日間",
+      "assetBreakdown": "資産内訳",
+      "portfolioLabel": "ポートフォリオ・総資産",
+      "tierSuffix": "{{tier}}ティア・たった今更新",
+      "masked": "••••••",
+      "hideAccounts": "すべてのアカウントを非表示",
+      "showAccounts": "すべてのアカウントを表示",
       "tableHeaders": {
         "date": "日付",
         "stakingPlan": "ステーキングプラン",
@@ -480,8 +490,10 @@
       },
       "labels": {
         "minimumStaking": "最小ステーキング",
+        "dailyRoi": "日次ROI",
         "monthlyRoi": "月間ROI"
-      }
+      },
+      "cta": "ステーキングを開始"
     },
     "convertCredits": {
       "eyebrow": "明細書",
