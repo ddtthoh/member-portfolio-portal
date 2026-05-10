@@ -6,6 +6,8 @@ import { useWallet } from "@/hooks/use-wallet";
 import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { PLCalendar } from "@/components/pl-calendar";
+import { AssetGrowthChart } from "@/components/charts/asset-growth-chart";
+import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
 
 export const Route = createFileRoute("/portal/asset-analysis")({
   head: () => ({
@@ -43,11 +45,15 @@ function AssetAnalysisPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-4"
       >
         <SpotlightCard className="liquid-glass rounded-2xl p-6">
           <PLCalendar participation={wallet.staking} />
         </SpotlightCard>
       </motion.div>
+
+      <AssetGrowthChart />
+      <RewardsBreakdownChart />
     </div>
   );
 }
