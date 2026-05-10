@@ -92,9 +92,11 @@ export function RewardsBreakdownChart() {
     const { x = 0, y = 0, width = 0, height = 0, value = 0, index = 0 } = props;
     const key = chartData[index]?.key as RewardType | undefined;
     const color = key ? REWARD_COLORS[key] : "var(--gold)";
+    const animatedValue = (Number(value) || 0) * progress;
+    const animatedWidth = width * progress;
     return (
       <text
-        x={x + width + 6}
+        x={x + animatedWidth + 6}
         y={y + height / 2}
         dy={3}
         fontSize={10}
@@ -102,7 +104,7 @@ export function RewardsBreakdownChart() {
         fill={color}
         style={{ fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}
       >
-        ${Math.round(value).toLocaleString()}
+        ${Math.round(animatedValue).toLocaleString()}
       </text>
     );
   };
