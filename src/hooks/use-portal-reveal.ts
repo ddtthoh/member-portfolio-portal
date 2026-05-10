@@ -16,13 +16,17 @@ export function usePortalReveal(
     if (typeof window === "undefined") return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Target the actual visual blocks inside each page, not the page wrapper itself.
+    // The wrapper is taller than the viewport, so it would never trigger
+    // intersection on/off as the user scrolls. We animate its children instead.
     const revealSelector = [
       "[data-reveal]",
       ".portal-reveal-target",
       ".portal-page > section",
       ".portal-page > article",
       ".portal-page > form",
-      ".portal-page > div",
+      ".portal-page > div > *",
+      ".portal-page > section > *",
     ].join(", ");
 
     let main = mainRef?.current ?? document.querySelector("main");
