@@ -31,7 +31,26 @@ const RANGES: { key: 7 | 30 | 90; label: string }[] = [
 const fmtMoney = (n: number) =>
   `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
-export function AssetGrowthChart() {
+// 0 → 1 ramp triggered on mount and whenever `key` changes (e.g. range switch).
+function useCountProgress(key: unknown, duration = 1100) {
+  const [p, setP] = useState(0);
+  const raf = useRef<number | null>(null);
+  useEffect(() => {
+    setP(0);
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setP(eased);
+      if (t < 1) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => {
+      if (raf.current != null) cancelAnimationFrame(raf.current);
+    };
+  }, [key, duration]);
+  return p;
+}
   const { t } = useTranslation();
   const [range, setRange] = useState<7 | 30 | 90>(30);
   const { data, hasData } = useRewardsCumulative(range);
