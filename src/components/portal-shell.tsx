@@ -152,7 +152,7 @@ export function PortalShell() {
       if ("requestIdleCallback" in window) {
         window.requestIdleCallback(loadHeavyChrome, { timeout: 1600 });
       } else {
-        window.setTimeout(loadHeavyChrome, 900);
+        globalThis.setTimeout(loadHeavyChrome, 900);
       }
     };
 
