@@ -634,15 +634,15 @@
     }
   }
   @supports (animation-timeline: view()) {
-    .portal-page > * > *:not([data-no-reveal]) {
+    .portal-page > *:not([data-no-reveal]) {
       animation: portal-scroll-read both;
       animation-timeline: view();
-      animation-range: entry 0% cover 20%;
+      animation-range: entry 0% cover 25%;
     }
   }
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll,
-    .portal-page > * > * {
+    .portal-page > * {
       opacity: 1 !important;
       transform: none !important;
       animation: none !important;
