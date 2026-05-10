@@ -125,7 +125,7 @@ export function PortalShell() {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(COLLAPSE_KEY) === "1";
   });
-  const [deferHeavyChrome, setDeferHeavyChrome] = useState(true);
+  const [deferHeavyChrome, setDeferHeavyChrome] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/login" });
@@ -149,8 +149,7 @@ export function PortalShell() {
       if (done) return;
       done = true;
       root.classList.remove("initial-scroll-safe");
-      if (!ENABLE_AMBIENT_PORTAL_CHROME) return;
-      globalThis.setTimeout(() => setDeferHeavyChrome(false), 3000);
+      if (!ENABLE_AMBIENT_PORTAL_CHROME) setDeferHeavyChrome(false);
     };
 
     const onScroll = () => {
