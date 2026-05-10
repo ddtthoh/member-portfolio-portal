@@ -49,8 +49,10 @@ export function useWallet(): { wallet: Wallet; loading: boolean } {
 
     load();
 
+    const channelName = `wallet-${user.id}-${crypto.randomUUID()}`;
+
     const channel = supabase
-      .channel(`wallet-${user.id}`)
+      .channel(channelName)
       .on(
         "postgres_changes",
         {
