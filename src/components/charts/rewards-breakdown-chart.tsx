@@ -187,11 +187,12 @@ export function RewardsBreakdownChart() {
                 content={renderTooltip as never}
               />
               <Bar
+                key={`bar-${inView ? "in" : "out"}`}
                 dataKey="value"
                 radius={[0, 4, 4, 0]}
                 barSize={10}
-                isAnimationActive
-                animationDuration={1100}
+                isAnimationActive={inView}
+                animationDuration={2200}
                 animationEasing="ease-out"
               >
                 {chartData.map((entry) => (
