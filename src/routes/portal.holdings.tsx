@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { PortfolioDonutCard } from "@/components/portfolio-donut-card";
 import { CountUp } from "@/components/count-up";
 import { useWallet } from "@/hooks/use-wallet";
-import { useStakingEarnings } from "@/hooks/use-rewards-data";
+import { TotalAssetsGauge } from "@/components/total-assets-gauge";
+import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
