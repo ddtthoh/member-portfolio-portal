@@ -234,10 +234,11 @@ export function useDailyRewards() {
 export function useStakingEarnings(stakingBase: number) {
   const { rows, loading } = useTransactions();
   return useMemo(() => {
-    const earned = rows
+    const realEarned = rows
       .filter((r) => classifyReward(r.type) === "staking")
       .reduce((s, r) => s + Number(r.amount ?? 0), 0);
+    const earned = realEarned > 0 ? realEarned : MOCK_REWARD_TOTALS.staking;
     const roi = stakingBase > 0 ? (earned / stakingBase) * 100 : 0;
-    return { earned, roi, loading };
+    return { earned, roi, loading, isMock: realEarned === 0 };
   }, [rows, loading, stakingBase]);
 }
