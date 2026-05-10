@@ -22,6 +22,9 @@ function StakingReportPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsParticipation")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="Staking Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsStaking.transactionsTitle")}
         filterTextLabel={t("pages.reportsStaking.tableHeaders.transactionNumber")}
