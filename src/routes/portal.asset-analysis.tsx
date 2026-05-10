@@ -42,7 +42,7 @@ function AssetAnalysisPage() {
               {t("charts.totalAssets.eyebrow", "Assets")}
             </div>
             <h3 className="mt-1 font-serif text-lg font-semibold text-gold">
-              {t("charts.totalAssets.title", "总资产构成")}
+              {t("charts.totalAssets.title", "Total Assets")}
             </h3>
           </div>
           <TotalAssetsGauge staking={wallet.staking} usd={wallet.usd} rewards={wallet.rewards} />
