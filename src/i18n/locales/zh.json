@@ -864,6 +864,10 @@
       "title": "资产增长趋势",
       "current": "当前累计"
     },
+    "totalAssets": {
+      "eyebrow": "资产",
+      "title": "总资产构成"
+    },
     "rewardsBreakdown": {
       "eyebrow": "奖励",
       "title": "奖励来源对比",
