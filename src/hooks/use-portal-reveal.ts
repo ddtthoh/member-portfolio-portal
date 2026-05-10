@@ -3,22 +3,30 @@ import { useEffect } from "react";
 /**
  * Editorial cinematic scroll-reveal for the portal.
  *
- * Scans <main> on mount and on every DOM mutation. Any `.liquid-glass` card
- * or `[data-reveal]` element gets a fade + lift + subtle blur clear when it
- * enters the viewport. First-screen cards stagger by 110ms so the initial
- * paint feels like pages turning.
+ * Scans the portal page on mount, route changes and DOM mutations. Top-level
+ * content blocks and explicit card targets get a clear book-like fade/lift as
+ * they enter the viewport. The implementation is idempotent so React StrictMode
+ * cannot leave off-screen elements initialized but unobserved.
  */
-export function usePortalReveal() {
+export function usePortalReveal(scopeKey = "") {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealSelector = [
+      "[data-reveal]",
+      ".portal-reveal-target",
+      ".liquid-glass",
+      ".portal-page > section",
+      ".portal-page > article",
+      ".portal-page > form",
+      ".portal-page > div",
+    ].join(", ");
 
     let main = document.querySelector("main");
     let mo: MutationObserver | null = null;
     let io: IntersectionObserver | null = null;
     let rescanTimer: ReturnType<typeof setTimeout> | null = null;
-    let batchResetTimer: ReturnType<typeof setTimeout> | null = null;
     let initialBatchIndex = 0;
 
     function reveal(el: HTMLElement, delay: number) {
@@ -32,28 +40,32 @@ export function usePortalReveal() {
       if (!main) return;
       const vh = window.innerHeight;
       const els = Array.from(
-        main.querySelectorAll<HTMLElement>(".liquid-glass, [data-reveal]")
-      ).filter((el) => el.dataset.revealInit !== "1");
+        main.querySelectorAll<HTMLElement>(revealSelector)
+      ).filter((el) => {
+        if (el.hidden || el.closest("[data-radix-portal]")) return false;
+        const nestedReveal = el.parentElement?.closest(".reveal-on-scroll");
+        return !nestedReveal;
+      });
 
       if (els.length === 0) return;
 
-      // Reset stagger counter for each fresh batch (route mount, late content).
-      if (batchResetTimer) clearTimeout(batchResetTimer);
-      batchResetTimer = setTimeout(() => { initialBatchIndex = 0; }, 80);
-
       els.forEach((el) => {
-        el.dataset.revealInit = "1";
-        el.classList.add("reveal-on-scroll");
+        if (el.dataset.revealInit !== "1") {
+          el.dataset.revealInit = "1";
+          el.classList.add("reveal-on-scroll");
+        }
 
         if (reduce) {
           el.classList.add("is-revealed");
           return;
         }
 
+        if (el.classList.contains("is-revealed")) return;
+
         const rect = el.getBoundingClientRect();
-        const inView = rect.top < vh * 0.95 && rect.bottom > 0;
+        const inView = rect.top < vh * 0.92 && rect.bottom > 0;
         if (inView) {
-          reveal(el, initialBatchIndex * 110);
+          reveal(el, 180 + initialBatchIndex * 150);
           initialBatchIndex++;
         } else if (io) {
           io.observe(el);
@@ -71,11 +83,11 @@ export function usePortalReveal() {
             if (!entry.isIntersecting) return;
             const el = entry.target as HTMLElement;
             if (el.classList.contains("is-revealed")) return;
-            reveal(el, 0);
+            reveal(el, 60);
             io!.unobserve(el);
           });
         },
-        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -90px 0px" }
       );
 
       processNewElements();
@@ -97,7 +109,6 @@ export function usePortalReveal() {
       return () => {
         clearInterval(poll);
         if (rescanTimer) clearTimeout(rescanTimer);
-        if (batchResetTimer) clearTimeout(batchResetTimer);
         mo?.disconnect();
         io?.disconnect();
       };
@@ -105,9 +116,8 @@ export function usePortalReveal() {
 
     return () => {
       if (rescanTimer) clearTimeout(rescanTimer);
-      if (batchResetTimer) clearTimeout(batchResetTimer);
       mo?.disconnect();
       io?.disconnect();
     };
-  }, []);
+  }, [scopeKey]);
 }
