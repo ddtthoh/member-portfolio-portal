@@ -73,9 +73,9 @@
   --glass-sheen-top: 55%;
   --glass-sheen-bottom: 10%;
   --glass-border-strength: 85%;
-  --asset-participation: oklch(0.6 0.12 80);
-  --asset-cash: oklch(0.6 0.13 200);
-  --asset-earnings: oklch(0.55 0.16 310);
+  --asset-participation: oklch(0.78 0.13 80);
+  --asset-cash: oklch(0.74 0.13 200);
+  --asset-earnings: oklch(0.72 0.16 310);
 }
 
 .dark {
