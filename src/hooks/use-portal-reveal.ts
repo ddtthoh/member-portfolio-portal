@@ -1,12 +1,12 @@
 import { useEffect, type RefObject } from "react";
 
 /**
- * Lightweight bidirectional scroll reveal.
- * - One IntersectionObserver toggles `is-revealed` on/off.
- * - No inline `will-change`, no per-element setTimeout, no rescan stagger.
- *   CSS handles the transition; we don't write styles during scroll.
- * - Tracks scroll state on <html> via `is-scrolling` class so heavy CSS
- *   effects (shadows, glows, transitions) can be paused while scrolling.
+ * Bidirectional scroll reveal for the portal.
+ *
+ * Top-level portal blocks fade/lift into view, and fade/lift back out when
+ * they leave the viewport, so the user can scroll up and down repeatedly
+ * and see the effect every time. No blur — nothing on the page should
+ * ever look shrouded or foggy.
  */
 export function usePortalReveal(
   scopeKey = "",
@@ -22,8 +22,7 @@ export function usePortalReveal(
       ".portal-page > section",
       ".portal-page > article",
       ".portal-page > form",
-      ".portal-page > div > *",
-      ".portal-page > section > *",
+      ".portal-page > div",
     ].join(", ");
 
     let main = mainRef?.current ?? document.querySelector("main");
@@ -34,12 +33,18 @@ export function usePortalReveal(
 
     function scan() {
       if (!main) return;
-      const all = main.querySelectorAll<HTMLElement>(revealSelector);
-      all.forEach((el) => {
-        if (el.dataset.revealInit === "1") return;
-        if (el.hidden || el.closest("[data-radix-portal]")) return;
-        if (el.parentElement?.closest(".reveal-on-scroll")) return;
+      const els = Array.from(
+        main.querySelectorAll<HTMLElement>(revealSelector)
+      ).filter((el) => {
+        if (el.hidden || el.closest("[data-radix-portal]")) return false;
+        // Avoid nested reveal targets — only animate the outer block.
+        const parent = el.parentElement?.closest(".reveal-on-scroll");
+        return !parent;
+      });
 
+      let initialIndex = 0;
+      els.forEach((el) => {
+        if (el.dataset.revealInit === "1") return;
         el.dataset.revealInit = "1";
         el.classList.add("reveal-on-scroll");
 
@@ -48,14 +53,17 @@ export function usePortalReveal(
           return;
         }
 
-        // First-pass: anything already in view should reveal immediately so
-        // there's no stutter on the user's first scroll.
+        // First-screen content: reveal immediately with a small stagger so
+        // the page doesn't sit in a half-faded state on load.
         const rect = el.getBoundingClientRect();
-        const inViewNow = rect.top < window.innerHeight && rect.bottom > 0;
+        const inViewNow = rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
         if (firstPass && inViewNow) {
+          const delay = 80 + initialIndex * 110;
+          el.style.setProperty("--reveal-delay", `${delay}ms`);
           requestAnimationFrame(() =>
             requestAnimationFrame(() => el.classList.add("is-revealed"))
           );
+          initialIndex++;
         }
 
         io?.observe(el);
@@ -73,13 +81,14 @@ export function usePortalReveal(
             entries.forEach((entry) => {
               const el = entry.target as HTMLElement;
               if (entry.isIntersecting) {
+                el.style.setProperty("--reveal-delay", "0ms");
                 el.classList.add("is-revealed");
               } else {
                 el.classList.remove("is-revealed");
               }
             });
           },
-          { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
         );
       }
 
@@ -87,28 +96,11 @@ export function usePortalReveal(
 
       mo = new MutationObserver(() => {
         if (rescanTimer) clearTimeout(rescanTimer);
-        rescanTimer = setTimeout(scan, 120);
+        rescanTimer = setTimeout(scan, 30);
       });
       mo.observe(main, { childList: true, subtree: true });
       return true;
     }
-
-    // ---- scroll-state tracking (global) ----
-    // Adds .is-scrolling to <html> while the user is scrolling so CSS can
-    // disable expensive effects (shadows, filters, transitions). One global
-    // listener — cheap.
-    const root = document.documentElement;
-    let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
-    const onScroll = () => {
-      if (!root.classList.contains("is-scrolling")) {
-        root.classList.add("is-scrolling");
-      }
-      if (scrollEndTimer) clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(() => {
-        root.classList.remove("is-scrolling");
-      }, 140);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
 
     if (!setup()) {
       const start = Date.now();
@@ -118,9 +110,6 @@ export function usePortalReveal(
       return () => {
         clearInterval(poll);
         if (rescanTimer) clearTimeout(rescanTimer);
-        if (scrollEndTimer) clearTimeout(scrollEndTimer);
-        window.removeEventListener("scroll", onScroll, { capture: true } as any);
-        root.classList.remove("is-scrolling");
         mo?.disconnect();
         io?.disconnect();
       };
@@ -128,9 +117,6 @@ export function usePortalReveal(
 
     return () => {
       if (rescanTimer) clearTimeout(rescanTimer);
-      if (scrollEndTimer) clearTimeout(scrollEndTimer);
-      window.removeEventListener("scroll", onScroll, { capture: true } as any);
-      root.classList.remove("is-scrolling");
       mo?.disconnect();
       io?.disconnect();
     };
