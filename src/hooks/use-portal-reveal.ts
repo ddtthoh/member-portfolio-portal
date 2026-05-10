@@ -83,8 +83,7 @@ export function usePortalReveal(
               if (entry.isIntersecting) {
                 el.style.setProperty("--reveal-delay", "0ms");
                 el.classList.add("is-revealed");
-              } else {
-                el.classList.remove("is-revealed");
+                io?.unobserve(el);
               }
             });
           },
