@@ -1,4 +1,5 @@
-import { useRef, type CSSProperties, type MouseEvent, type ReactNode } from "react";
+import { useRef, type MouseEvent, type ReactNode } from "react";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 type Props = {
   children: ReactNode;
@@ -8,26 +9,21 @@ type Props = {
 
 export function SpotlightCard({ children, className = "font-normal", intensity = 18 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const mouseX = useMotionValue(-200);
+  const mouseY = useMotionValue(-200);
 
   function handleMove(e: MouseEvent<HTMLDivElement>) {
     if (!ref.current) return;
-    if (
-      typeof document !== "undefined" &&
-      (document.documentElement.classList.contains("is-scrolling") ||
-        document.documentElement.classList.contains("initial-scroll-safe"))
-    ) return;
     const r = ref.current.getBoundingClientRect();
-    ref.current.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
-    ref.current.style.setProperty("--spot-y", `${e.clientY - r.top}px`);
+    mouseX.set(e.clientX - r.left);
+    mouseY.set(e.clientY - r.top);
   }
   function handleLeave() {
-    ref.current?.style.setProperty("--spot-x", "-200px");
-    ref.current?.style.setProperty("--spot-y", "-200px");
+    mouseX.set(-200);
+    mouseY.set(-200);
   }
 
-  const spotlightStyle = {
-    background: `radial-gradient(420px circle at var(--spot-x, -200px) var(--spot-y, -200px), color-mix(in oklab, var(--gold) ${intensity}%, transparent), transparent 60%)`,
-  } satisfies CSSProperties;
+  const background = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, color-mix(in oklab, var(--gold) ${intensity}%, transparent), transparent 60%)`;
 
   return (
     <div
@@ -36,10 +32,10 @@ export function SpotlightCard({ children, className = "font-normal", intensity =
       onMouseLeave={handleLeave}
       className={`group relative ${className}`}
     >
-      <div
+      <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={spotlightStyle}
+        style={{ background }}
       />
       <div
         aria-hidden

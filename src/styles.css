@@ -206,10 +206,6 @@
     animation: ticker-marquee 180s linear infinite;
     width: max-content;
   }
-  html.initial-scroll-safe .ticker-track {
-    animation: none !important;
-    transform: none !important;
-  }
   .ticker-wrap:hover .ticker-track {
     animation-play-state: paused;
   }
@@ -266,6 +262,7 @@
     filter: blur(60px) saturate(140%);
     opacity: 0.55;
     pointer-events: none;
+    will-change: transform;
     transform: translateZ(0);
   }
   :root:not(.dark) .aurora-bg::before { opacity: 0.18; filter: blur(80px) saturate(120%); }
@@ -284,6 +281,7 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 0%, transparent 75%);
     opacity: 0.35;
     pointer-events: none;
+    will-change: transform;
     transform: translateZ(0);
   }
 
@@ -618,7 +616,7 @@
   .reveal-on-scroll {
     opacity: 0.18;
     transform: translate3d(0, 56px, 0) scale(0.985);
-    /* will-change is applied dynamically by usePortalReveal only when needed */
+    will-change: opacity, transform;
     transition:
       opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
       transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
@@ -627,75 +625,12 @@
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
-  html.initial-scroll-safe .liquid-glass,
-  html.initial-scroll-safe .liquid-glass::before,
-  html.initial-scroll-safe .liquid-glass::after,
-  html.initial-scroll-safe .reveal-on-scroll,
-  html.initial-scroll-safe .ticker-track,
-  html.initial-scroll-safe .text-gold-shine,
-  html.initial-scroll-safe .num-tick,
-  html.initial-scroll-safe .ring-pulse,
-  html.initial-scroll-safe .gold-glow-sm,
-  html.initial-scroll-safe .gold-glow-md,
-  html.initial-scroll-safe .gold-glow-bar,
-  html.initial-scroll-safe .cta-premium,
-  html.initial-scroll-safe .cta-premium::after {
-    animation: none !important;
-    transition: none !important;
-  }
-  html.initial-scroll-safe .liquid-glass,
-  html.initial-scroll-safe .liquid-glass:hover,
-  html.initial-scroll-safe .reveal-on-scroll {
-    transform: none !important;
-  }
-  html.initial-scroll-safe .aurora-bg::before,
-  html.initial-scroll-safe .grid-floor::after,
-  html.initial-scroll-safe .glass-spotlight > .spotlight-layer,
-  html.initial-scroll-safe .glass-shimmer > .shimmer-streak {
-    opacity: 0 !important;
-  }
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll {
       opacity: 1 !important;
       transform: none !important;
       transition: none !important;
     }
-  }
-
-  /* While the user is actively scrolling, suspend expensive CSS effects so
-     the main thread / GPU can focus on scroll. Animations and shadow/filter
-     transitions resume ~150ms after scroll stops. */
-  html.is-scrolling .liquid-glass,
-  html.is-scrolling .liquid-glass::before,
-  html.is-scrolling .liquid-glass::after,
-  html.is-scrolling .reveal-on-scroll {
-    transition: none !important;
-  }
-  /* Suppress hover-driven shadow/transform repaints while scrolling */
-  html.is-scrolling .liquid-glass:hover {
-    transform: none !important;
-    box-shadow:
-      inset 0 1px 0 color-mix(in oklab, white 14%, transparent),
-      inset 0 -1px 0 color-mix(in oklab, black 50%, transparent),
-      inset 0 0 0 1px color-mix(in oklab, var(--gold) 6%, transparent),
-      0 1px 0 color-mix(in oklab, white 4%, transparent),
-      0 10px 40px -20px rgba(0,0,0,0.4),
-      0 0 24px -16px color-mix(in oklab, var(--gold) 35%, transparent) !important;
-  }
-  html.is-scrolling .glass-spotlight > .spotlight-layer,
-  html.is-scrolling .glass-shimmer > .shimmer-streak {
-    opacity: 0 !important;
-    animation: none !important;
-  }
-  html.is-scrolling .gold-glow-sm,
-  html.is-scrolling .gold-glow-md,
-  html.is-scrolling .gold-glow-bar,
-  html.is-scrolling .cta-premium,
-  html.is-scrolling .cta-premium::after,
-  html.is-scrolling .ring-pulse,
-  html.is-scrolling .gold-line-breathe .recharts-line-curve,
-  html.is-scrolling .ticker-track {
-    animation-play-state: paused !important;
   }
 }
 

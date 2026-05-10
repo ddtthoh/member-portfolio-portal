@@ -59,7 +59,7 @@ function Overview() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400/30" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -181,7 +181,7 @@ function Overview() {
 
           <div >
             <Link to="/portal/holdings" className="block">
-              <SpotlightCard className="liquid-glass relative flex items-center justify-center rounded-xl px-5 py-4">
+              <SpotlightCard className="liquid-glass relative flex items-center justify-center rounded-xl px-5 py-4 transition-transform hover:-translate-y-0.5">
                 <div className="flex items-center justify-center gap-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/10 ring-1 ring-gold/25">
                     <LineChart className="h-4 w-4 text-gold" />
@@ -345,8 +345,8 @@ function Overview() {
         {[
           { label: t("overview.usdtWallet"), value: wallet.usd },
           { label: t("overview.rewardsWallet"), value: wallet.rewards },
-        ].map((w) => (
-          <div key={w.label}>
+        ].map((w, i) => (
+          <div >
             <SpotlightCard className="liquid-glass flex flex-col gap-2 rounded-xl p-5">
               <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{w.label}</div>
               <div className="text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
@@ -358,9 +358,9 @@ function Overview() {
       </div>
 
       <div className="mb-3 grid grid-cols-4 gap-3">
-        {actionTiles.map((t) => (
-          <div key={t.to}>
-            <Link to={t.to} className="group flex flex-col items-center gap-2">
+        {actionTiles.map((t, i) => (
+          <div >
+            <Link to={t.to} className="group flex flex-col items-center gap-2 transition-transform hover:-translate-y-0.5">
               <TiltCard>
                 <div className="liquid-glass flex h-14 w-14 items-center justify-center rounded-2xl text-gold sm:h-16 sm:w-16">
                   {t.icon}

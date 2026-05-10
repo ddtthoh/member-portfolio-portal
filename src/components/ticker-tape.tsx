@@ -150,7 +150,7 @@ export function TickerTape() {
       {/* Live pill */}
       <div className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 hidden md:flex items-center gap-1.5 rounded-full border border-gold/40 bg-background/90 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.2em] text-gold backdrop-blur">
         <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full rounded-full bg-gold/30" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-60" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
         </span>
         Live · DexScreener

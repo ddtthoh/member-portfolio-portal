@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+import { animate, useInView } from "framer-motion";
 import { CountUp } from "@/components/count-up";
 import { useTranslation } from "react-i18next";
 
@@ -37,10 +39,24 @@ export function TotalAssetsGauge({
   const cy = 110;
   const arcPath = `M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`;
 
+  const ref = useRef<SVGSVGElement | null>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const [sDraw, setSDraw] = useState(0);
+  const [cDraw, setCDraw] = useState(0);
+  const [eDraw, setEDraw] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const a0 = animate(0, sLen, { duration: 1.5, ease: [0.16, 1, 0.3, 1], onUpdate: setSDraw });
+    const a1 = animate(0, cLen, { duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1], onUpdate: setCDraw });
+    const a2 = animate(0, eLen, { duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1], onUpdate: setEDraw });
+    return () => { a0.stop(); a1.stop(); a2.stop(); };
+  }, [inView, sLen, cLen, eLen]);
+
   return (
     <div className="flex flex-col items-center">
       <div className="relative">
-        <svg viewBox="0 0 220 130" className="h-40 w-56">
+        <svg ref={ref} viewBox="0 0 220 130" className="h-40 w-56">
           {/* track */}
           <path
             d={arcPath}
@@ -59,7 +75,7 @@ export function TotalAssetsGauge({
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
-            strokeDasharray={`${sLen} 1`}
+            strokeDasharray={`${sDraw} 1`}
             strokeDashoffset={-sOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-participation) 55%, transparent))" }}
           />
@@ -71,7 +87,7 @@ export function TotalAssetsGauge({
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
-            strokeDasharray={`${cLen} 1`}
+            strokeDasharray={`${cDraw} 1`}
             strokeDashoffset={-cOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-cash) 55%, transparent))" }}
           />
@@ -83,7 +99,7 @@ export function TotalAssetsGauge({
             strokeWidth="14"
             strokeLinecap="round"
             pathLength={1}
-            strokeDasharray={`${eLen} 1`}
+            strokeDasharray={`${eDraw} 1`}
             strokeDashoffset={-eOffset}
             style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--asset-earnings) 55%, transparent))" }}
           />

@@ -739,7 +739,7 @@ export function ThreeBackground({
           alpha: true,
           powerPreference: typeof window !== "undefined" && window.innerWidth < 640 ? "low-power" : "high-performance",
         }}
-        frameloop="demand"
+        frameloop={reduceMotion ? "demand" : "always"}
       >
         <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
       </Canvas>

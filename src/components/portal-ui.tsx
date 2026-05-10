@@ -4,7 +4,6 @@ import { SpotlightCard } from "@/components/spotlight-card";
 import { cn } from "@/lib/utils";
 
 function handleSpotlightMove(e: MouseEvent<HTMLDivElement>) {
-  if (typeof document !== "undefined" && document.documentElement.classList.contains("is-scrolling")) return;
   const el = e.currentTarget;
   const rect = el.getBoundingClientRect();
   el.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
