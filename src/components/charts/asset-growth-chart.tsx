@@ -264,20 +264,20 @@ export function AssetGrowthChart() {
                 />
                 <Tooltip content={renderTooltip as never} />
                 {REWARD_TYPES.map((k) => (
-                  <Area
+                  <Line
                     key={k}
                     type="monotone"
                     dataKey={k}
-                    stackId="1"
                     stroke={REWARD_COLORS[k]}
-                    strokeWidth={1.25}
-                    fill={`url(#grad-cum-${k})`}
+                    strokeWidth={1.5}
+                    dot={false}
+                    activeDot={{ r: 3, fill: REWARD_COLORS[k] }}
                     isAnimationActive
                     animationDuration={900}
                     animationEasing="ease-out"
                   >
                     <LabelList dataKey={k} content={renderAreaEndLabel(k) as never} />
-                  </Area>
+                  </Line>
                 ))}
                 {/* Total Sum highlight line */}
                 <Line
