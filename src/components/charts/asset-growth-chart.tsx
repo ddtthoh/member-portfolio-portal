@@ -192,9 +192,7 @@ export function AssetGrowthChart() {
                   dataKey="total"
                   stroke="none"
                   fill="url(#grad-total)"
-                  isAnimationActive
-                  animationDuration={0}
-                  animationEasing="linear"
+                  isAnimationActive={false}
                 />
                 <Line
                   key={`line-${range}`}
