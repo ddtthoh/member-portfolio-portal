@@ -35,20 +35,9 @@ export function RewardsBreakdownChart() {
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
-              <defs>
-                {REWARD_TYPES.map((k) => (
-                  <filter key={k} id={`glow-${k}`} x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="3.5" result="b" />
-                    <feMerge>
-                      <feMergeNode in="b" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                ))}
-              </defs>
               <XAxis
                 type="number"
-                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                tick={{ fill: "var(--gold)", fontSize: 10 }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => `$${Number(v).toLocaleString()}`}
@@ -56,7 +45,7 @@ export function RewardsBreakdownChart() {
               <YAxis
                 type="category"
                 dataKey="name"
-                tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
+                tick={{ fill: "var(--gold)", fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
                 width={86}
@@ -72,20 +61,23 @@ export function RewardsBreakdownChart() {
                 formatter={(v: number) => [`$${Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`, ""]}
               />
               <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                {chartData.map((entry) => (
-                  <Cell
-                    key={entry.key}
-                    fill={REWARD_COLORS[entry.key as RewardType]}
-                    style={{ filter: `url(#glow-${entry.key}) drop-shadow(0 0 8px ${REWARD_COLORS[entry.key as RewardType]})` }}
-                  />
-                ))}
+                {chartData.map((entry) => {
+                  const c = REWARD_COLORS[entry.key as RewardType];
+                  return (
+                    <Cell
+                      key={entry.key}
+                      fill={c}
+                      style={{ filter: `drop-shadow(0 0 6px color-mix(in oklab, ${c} 55%, transparent))` }}
+                    />
+                  );
+                })}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="mt-4 flex items-baseline justify-between border-t border-border/30 pt-3">
-          <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="text-[10px] uppercase tracking-[0.18em] text-gold/80">
             {t("charts.rewardsBreakdown.total", "累计奖励")}
           </div>
           <div className="font-light tabular-nums text-gold text-base">
@@ -97,10 +89,10 @@ export function RewardsBreakdownChart() {
           {REWARD_TYPES.map((k) => (
             <div key={k} className="flex items-center gap-1.5">
               <span
-                className="h-2.5 w-2.5 rounded-full"
-                style={{ background: REWARD_COLORS[k], boxShadow: `0 0 8px ${REWARD_COLORS[k]}, 0 0 14px ${REWARD_COLORS[k]}` }}
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ background: REWARD_COLORS[k], boxShadow: `0 0 8px ${REWARD_COLORS[k]}` }}
               />
-              <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              <span className="text-[10px] uppercase tracking-[0.14em] text-gold">
                 {t(`charts.rewardTypes.${k}`, k)}
               </span>
             </div>
