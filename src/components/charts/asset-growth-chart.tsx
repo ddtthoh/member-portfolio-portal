@@ -291,7 +291,9 @@ export function AssetGrowthChart() {
                           stroke={c}
                           strokeWidth={1.5}
                           fill={`url(#${gradId})`}
-                          isAnimationActive={false}
+                          isAnimationActive
+                          animationDuration={1100}
+                          animationEasing="ease-out"
                         />
                       </AreaChart>
                     </ResponsiveContainer>
