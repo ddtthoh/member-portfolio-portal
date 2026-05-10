@@ -226,7 +226,7 @@ export function AssetGrowthChart() {
                   isAnimationActive
                   animationDuration={1100}
                   animationEasing="ease-out"
-                  style={{ filter: "drop-shadow(0 0 8px color-mix(in oklab, var(--gold) 65%, transparent))" }}
+                  className="gold-line-breathe"
                 >
                   <LabelList dataKey="total" content={renderTotalEndLabel as never} />
                 </Line>
