@@ -39,7 +39,7 @@ const sections: NavSection[] = [
       { to: "/portal", labelKey: "nav.overview", icon: LayoutDashboard },
       { to: "/portal/staking-plans", labelKey: "nav.stakingPlan", icon: Layers },
       { to: "/portal/holdings", labelKey: "nav.portfolio", icon: Wallet },
-      { to: "/portal/asset-analysis", labelKey: "nav.assetAnalysis", icon: FileBarChart },
+      
     ],
   },
   {
