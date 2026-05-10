@@ -406,6 +406,8 @@
       "portfolioLabel": "Portfolio · Total Assets",
       "tierSuffix": "{{tier}} Tier · updated just now",
       "masked": "••••••",
+      "hideAccounts": "Hide All Accounts",
+      "showAccounts": "Show All Accounts",
       "tableHeaders": {
         "date": "Date",
         "stakingPlan": "Staking Plan",
