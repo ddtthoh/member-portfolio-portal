@@ -672,6 +672,23 @@ export function ThreeBackground({
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [spread, setSpread] = useState({ x: 16, y: 10 });
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  // Pause the WebGL render loop while the user is scrolling so it doesn't
+  // fight scroll for the main thread / GPU. Resumes ~150ms after scroll stops.
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const onScroll = () => {
+      setIsScrolling(true);
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => setIsScrolling(false), 160);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll, { capture: true } as any);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const apply = () => {
