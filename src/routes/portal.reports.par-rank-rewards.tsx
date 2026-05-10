@@ -21,6 +21,9 @@ function ParRankRewardsPage() {
   return (
     <div>
       <PageHeader title={t("nav.reportsParRank")} />
+      <SpotlightCard className="liquid-glass mb-6 rounded-2xl p-6">
+        <PLCalendar title="PAR Rank Rewards Report" />
+      </SpotlightCard>
       <ReportShell
         title={t("pages.reportsParRank.transactionsTitle")}
         filterTextLabel={t("pages.reportsParRank.tableHeaders.rank")}
