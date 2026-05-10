@@ -60,7 +60,7 @@ export function RewardsBreakdownChart() {
                 }}
                 formatter={(v: number) => [`$${Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 })}`, ""]}
               />
-              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+              <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={10}>
                 {chartData.map((entry) => {
                   const c = REWARD_COLORS[entry.key as RewardType];
                   return (
