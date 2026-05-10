@@ -139,7 +139,7 @@ function DepositPage() {
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-400" />
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber-500 dark:bg-amber-400" />
                   <span className="flex-1">{t("pages.deposit.importantReminder.confirmation")}</span>
                 </li>
               </ul>
