@@ -627,6 +627,27 @@
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
+  html.initial-scroll-safe *,
+  html.initial-scroll-safe *::before,
+  html.initial-scroll-safe *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  html.initial-scroll-safe .liquid-glass,
+  html.initial-scroll-safe .liquid-glass:hover,
+  html.initial-scroll-safe [class*="shadow-"],
+  html.initial-scroll-safe [class*="drop-shadow"],
+  html.initial-scroll-safe [class*="filter"] {
+    transform: none !important;
+    filter: none !important;
+  }
+  html.initial-scroll-safe .aurora-bg::before,
+  html.initial-scroll-safe .grid-floor::after,
+  html.initial-scroll-safe .glass-spotlight > .spotlight-layer,
+  html.initial-scroll-safe .glass-shimmer > .shimmer-streak {
+    opacity: 0 !important;
+  }
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll {
       opacity: 1 !important;
