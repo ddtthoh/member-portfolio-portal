@@ -117,7 +117,7 @@ function DepositPage() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.14),transparent_60%)]" />
           <div className="relative flex gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-400/50 bg-amber-500/15 text-amber-300 shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-600/70 bg-amber-600/20 text-amber-700 shadow-[0_0_20px_-4px_rgba(180,83,9,0.55)] dark:border-amber-400/50 dark:bg-amber-500/15 dark:text-amber-300 dark:shadow-[0_0_20px_-4px_rgba(245,158,11,0.6)]">
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
