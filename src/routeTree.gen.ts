@@ -30,7 +30,6 @@ import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
-import { Route as PortalAssetAnalysisRouteImport } from './routes/portal.asset-analysis'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
 import { Route as PortalPromotionIndexRouteImport } from './routes/portal.promotion.index'
@@ -154,11 +153,6 @@ const PortalChangePasswordRoute = PortalChangePasswordRouteImport.update({
   path: '/change-password',
   getParentRoute: () => PortalRoute,
 } as any)
-const PortalAssetAnalysisRoute = PortalAssetAnalysisRouteImport.update({
-  id: '/asset-analysis',
-  path: '/asset-analysis',
-  getParentRoute: () => PortalRoute,
-} as any)
 const PortalReportsIndexRoute = PortalReportsIndexRouteImport.update({
   id: '/reports/',
   path: '/reports/',
@@ -257,7 +251,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
-  '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -297,7 +290,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -337,7 +329,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
-  '/portal/asset-analysis': typeof PortalAssetAnalysisRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -380,7 +371,6 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
-    | '/portal/asset-analysis'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -420,7 +410,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
-    | '/portal/asset-analysis'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -459,7 +448,6 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
-    | '/portal/asset-analysis'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -652,13 +640,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalChangePasswordRouteImport
       parentRoute: typeof PortalRoute
     }
-    '/portal/asset-analysis': {
-      id: '/portal/asset-analysis'
-      path: '/asset-analysis'
-      fullPath: '/portal/asset-analysis'
-      preLoaderRoute: typeof PortalAssetAnalysisRouteImport
-      parentRoute: typeof PortalRoute
-    }
     '/portal/reports/': {
       id: '/portal/reports/'
       path: '/reports'
@@ -812,7 +793,6 @@ const PortalQnaRouteWithChildren = PortalQnaRoute._addFileChildren(
 )
 
 interface PortalRouteChildren {
-  PortalAssetAnalysisRoute: typeof PortalAssetAnalysisRoute
   PortalChangePasswordRoute: typeof PortalChangePasswordRoute
   PortalDepositRoute: typeof PortalDepositRoute
   PortalDocumentsRoute: typeof PortalDocumentsRoute
@@ -846,7 +826,6 @@ interface PortalRouteChildren {
 }
 
 const PortalRouteChildren: PortalRouteChildren = {
-  PortalAssetAnalysisRoute: PortalAssetAnalysisRoute,
   PortalChangePasswordRoute: PortalChangePasswordRoute,
   PortalDepositRoute: PortalDepositRoute,
   PortalDocumentsRoute: PortalDocumentsRoute,
@@ -890,3 +869,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
