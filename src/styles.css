@@ -627,20 +627,26 @@
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
-  html.initial-scroll-safe *,
-  html.initial-scroll-safe *::before,
-  html.initial-scroll-safe *::after {
+  html.initial-scroll-safe .liquid-glass,
+  html.initial-scroll-safe .liquid-glass::before,
+  html.initial-scroll-safe .liquid-glass::after,
+  html.initial-scroll-safe .reveal-on-scroll,
+  html.initial-scroll-safe .ticker-track,
+  html.initial-scroll-safe .text-gold-shine,
+  html.initial-scroll-safe .num-tick,
+  html.initial-scroll-safe .ring-pulse,
+  html.initial-scroll-safe .gold-glow-sm,
+  html.initial-scroll-safe .gold-glow-md,
+  html.initial-scroll-safe .gold-glow-bar,
+  html.initial-scroll-safe .cta-premium,
+  html.initial-scroll-safe .cta-premium::after {
     animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
   }
   html.initial-scroll-safe .liquid-glass,
   html.initial-scroll-safe .liquid-glass:hover,
-  html.initial-scroll-safe [class*="shadow-"],
-  html.initial-scroll-safe [class*="drop-shadow"],
-  html.initial-scroll-safe [class*="filter"] {
+  html.initial-scroll-safe .reveal-on-scroll {
     transform: none !important;
-    filter: none !important;
   }
   html.initial-scroll-safe .aurora-bg::before,
   html.initial-scroll-safe .grid-floor::after,
