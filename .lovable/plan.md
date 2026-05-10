@@ -1,18 +1,20 @@
-问题：每页第一次滚动会卡一下，之后顺畅。
-原因：浏览器在首次滚动那一刻才一次性"激活"所有还没显示的卡片图层，同时多个动画一起启动，抢了一帧。
+我确认卡顿不只是 reveal fade：性能采样里滚动时排在前面的还有 ThreeBackground 每帧渲染、Framer Motion 的样式渲染、滚动恢复监听，以及页面里多个图表/数字动画在首次进入视口时一起启动。接下来建议做一版“性能优先”的修复：
 
-修复方案（视觉效果完全不变）：
+1. **滚动时暂停重负载背景**
+   - 在 `ThreeBackground` 里监听 scroll，用户滚动期间临时降低或暂停 WebGL 帧循环，停止 3D 背景和页面滚动抢主线程/GPU。
+   - 滚动停止后再恢复动画，视觉上仍保留背景，但滚动会明显更顺。
 
-1. **页面加载后预热一次**：在 `usePortalReveal` 里，页面 mount 后用 `requestIdleCallback` 提前让浏览器把所有 reveal 元素的图层准备好，这样第一次滚动就不用临时准备了。
+2. **简化 reveal 逻辑**
+   - 去掉现在较复杂的 prewarm observer / 批量 stagger / 多次 setTimeout will-change。
+   - 改成更轻的方案：元素首次初始化后只使用 CSS transition；IntersectionObserver 只负责切 class，不在滚动过程中反复写 inline style。
 
-2. **只在需要时加 `will-change`**：现在所有 reveal 元素一直挂着 `will-change: opacity, transform`，等于一直占着 GPU 资源。改成只在元素接近视口时才加，离开后移除。
+3. **图表进入视口前预挂载，动画延后**
+   - Holdings 页的 Recharts 现在是 `inView` 后才 mount，首次滚到图表位置会同时创建 SVG、计算布局、启动动画。
+   - 改成图表先低成本挂载，真正进入视口后只播放轻量动画，避免“第一次滚到那里卡一下”。
 
-3. **错开同时启动的动画**：第一次滚动如果有多个元素同时进入视口，给它们加一个非常小的 stagger（比如每个 +20ms），避免同一帧启动一堆 transition。
+4. **减少滚动期间昂贵视觉效果**
+   - 给滚动状态加全局 class，例如 `is-scrolling`。
+   - 滚动中临时关闭 `box-shadow/filter/drop-shadow` 的过渡和部分 glow 动画；停止滚动后恢复。
 
-4. **减少 MutationObserver 的工作**：图表/表格 mount 后触发的 rescan 只扫新加入的节点，不重新扫整个 main。
-
-涉及文件：
-- `src/hooks/use-portal-reveal.ts`（主要改动）
-- `src/styles.css`（移除常驻 `will-change`，改用 hook 动态加）
-
-预期结果：第一次滚动也顺，淡入淡出效果不变。
+5. **验证**
+   - 用浏览器性能工具重新采样 `/portal/holdings` 的滚动，确认 top functions 不再集中在 ThreeBackground / Framer render / 图表首次 mount 上，并检查 fade 仍然存在。

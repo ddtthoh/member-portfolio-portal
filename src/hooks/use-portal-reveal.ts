@@ -1,15 +1,12 @@
 import { useEffect, type RefObject } from "react";
 
 /**
- * Bidirectional scroll reveal for the portal.
- *
- * Top-level portal blocks fade/lift into view, and fade/lift back out when
- * they leave the viewport. To keep the first scroll smooth we:
- *  - Pre-warm GPU layers in idle time after mount (avoids first-scroll jank).
- *  - Apply `will-change` only when an element is near the viewport, and remove
- *    it after it settles, so we don't keep dozens of layers alive.
- *  - Stagger simultaneous transitions by ~25ms so a single frame doesn't kick
- *    off many transitions at once.
+ * Lightweight bidirectional scroll reveal.
+ * - One IntersectionObserver toggles `is-revealed` on/off.
+ * - No inline `will-change`, no per-element setTimeout, no rescan stagger.
+ *   CSS handles the transition; we don't write styles during scroll.
+ * - Tracks scroll state on <html> via `is-scrolling` class so heavy CSS
+ *   effects (shadows, glows, transitions) can be paused while scrolling.
  */
 export function usePortalReveal(
   scopeKey = "",
@@ -32,33 +29,17 @@ export function usePortalReveal(
     let main = mainRef?.current ?? document.querySelector("main");
     let mo: MutationObserver | null = null;
     let io: IntersectionObserver | null = null;
-    let prewarmIo: IntersectionObserver | null = null;
     let rescanTimer: ReturnType<typeof setTimeout> | null = null;
     let firstPass = true;
-    let entryBatchTick = 0;
-    let lastBatchFrame = -1;
-
-    const ric: (cb: () => void) => void =
-      (window as any).requestIdleCallback?.bind(window) ??
-      ((cb: () => void) => setTimeout(cb, 1));
-
-    function setWillChange(el: HTMLElement, on: boolean) {
-      el.style.willChange = on ? "opacity, transform" : "";
-    }
 
     function scan() {
       if (!main) return;
       const all = main.querySelectorAll<HTMLElement>(revealSelector);
-      const fresh: HTMLElement[] = [];
       all.forEach((el) => {
         if (el.dataset.revealInit === "1") return;
         if (el.hidden || el.closest("[data-radix-portal]")) return;
         if (el.parentElement?.closest(".reveal-on-scroll")) return;
-        fresh.push(el);
-      });
 
-      let initialIndex = 0;
-      fresh.forEach((el) => {
         el.dataset.revealInit = "1";
         el.classList.add("reveal-on-scroll");
 
@@ -67,40 +48,19 @@ export function usePortalReveal(
           return;
         }
 
+        // First-pass: anything already in view should reveal immediately so
+        // there's no stutter on the user's first scroll.
         const rect = el.getBoundingClientRect();
-        const inViewNow = rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+        const inViewNow = rect.top < window.innerHeight && rect.bottom > 0;
         if (firstPass && inViewNow) {
-          setWillChange(el, true);
-          const delay = 80 + initialIndex * 110;
-          el.style.setProperty("--reveal-delay", `${delay}ms`);
           requestAnimationFrame(() =>
             requestAnimationFrame(() => el.classList.add("is-revealed"))
           );
-          initialIndex++;
-          // Drop will-change after the transition completes (~0.75s + delay).
-          setTimeout(() => setWillChange(el, false), 1200 + delay);
         }
 
         io?.observe(el);
-        prewarmIo?.observe(el);
       });
       firstPass = false;
-
-      // Pre-warm: in idle time, briefly add will-change to off-screen reveal
-      // elements so the compositor allocates layers before the user scrolls.
-      if (fresh.length) {
-        ric(() => {
-          fresh.forEach((el, i) => {
-            if (el.classList.contains("is-revealed")) return;
-            setWillChange(el, true);
-            // Release after a short window — long enough for the browser to
-            // promote the layer, short enough to not hog GPU memory.
-            setTimeout(() => {
-              if (!el.classList.contains("is-revealed")) setWillChange(el, false);
-            }, 600 + i * 20);
-          });
-        });
-      }
     }
 
     function setup() {
@@ -110,49 +70,16 @@ export function usePortalReveal(
       if (!reduce) {
         io = new IntersectionObserver(
           (entries) => {
-            // Stagger transitions that fire on the same frame so the main
-            // thread doesn't start dozens of animations simultaneously.
-            const now = performance.now();
-            if (now - lastBatchFrame > 32) {
-              entryBatchTick = 0;
-              lastBatchFrame = now;
-            }
             entries.forEach((entry) => {
               const el = entry.target as HTMLElement;
               if (entry.isIntersecting) {
-                setWillChange(el, true);
-                const delay = entryBatchTick * 25;
-                el.style.setProperty("--reveal-delay", `${delay}ms`);
-                entryBatchTick++;
                 el.classList.add("is-revealed");
-                // Remove will-change after the transition has settled.
-                setTimeout(() => {
-                  if (el.classList.contains("is-revealed")) setWillChange(el, false);
-                }, 900 + delay);
               } else {
-                setWillChange(el, true);
                 el.classList.remove("is-revealed");
-                setTimeout(() => {
-                  if (!el.classList.contains("is-revealed")) setWillChange(el, false);
-                }, 900);
               }
             });
           },
-          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-        );
-
-        // Wider rootMargin observer just for pre-warming layers before they
-        // actually need to animate. Doesn't toggle classes.
-        prewarmIo = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              const el = entry.target as HTMLElement;
-              if (entry.isIntersecting && !el.classList.contains("is-revealed")) {
-                setWillChange(el, true);
-              }
-            });
-          },
-          { rootMargin: "400px 0px 400px 0px" }
+          { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
         );
       }
 
@@ -160,11 +87,28 @@ export function usePortalReveal(
 
       mo = new MutationObserver(() => {
         if (rescanTimer) clearTimeout(rescanTimer);
-        rescanTimer = setTimeout(scan, 80);
+        rescanTimer = setTimeout(scan, 120);
       });
       mo.observe(main, { childList: true, subtree: true });
       return true;
     }
+
+    // ---- scroll-state tracking (global) ----
+    // Adds .is-scrolling to <html> while the user is scrolling so CSS can
+    // disable expensive effects (shadows, filters, transitions). One global
+    // listener — cheap.
+    const root = document.documentElement;
+    let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
+    const onScroll = () => {
+      if (!root.classList.contains("is-scrolling")) {
+        root.classList.add("is-scrolling");
+      }
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        root.classList.remove("is-scrolling");
+      }, 140);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
 
     if (!setup()) {
       const start = Date.now();
@@ -174,17 +118,21 @@ export function usePortalReveal(
       return () => {
         clearInterval(poll);
         if (rescanTimer) clearTimeout(rescanTimer);
+        if (scrollEndTimer) clearTimeout(scrollEndTimer);
+        window.removeEventListener("scroll", onScroll, { capture: true } as any);
+        root.classList.remove("is-scrolling");
         mo?.disconnect();
         io?.disconnect();
-        prewarmIo?.disconnect();
       };
     }
 
     return () => {
       if (rescanTimer) clearTimeout(rescanTimer);
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      window.removeEventListener("scroll", onScroll, { capture: true } as any);
+      root.classList.remove("is-scrolling");
       mo?.disconnect();
       io?.disconnect();
-      prewarmIo?.disconnect();
     };
   }, [scopeKey]);
 }
