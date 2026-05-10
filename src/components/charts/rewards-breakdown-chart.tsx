@@ -111,7 +111,6 @@ export function RewardsBreakdownChart() {
         </div>
 
         <div className="h-64 w-full">
-          {(
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartData}
@@ -195,7 +194,6 @@ export function RewardsBreakdownChart() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          )}
         </div>
 
         <div className="mt-5 w-full divide-y divide-border/40 border-t border-border/40">
