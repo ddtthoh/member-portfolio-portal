@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,32 +19,11 @@ import {
   type RewardType,
 } from "@/hooks/use-rewards-data";
 import { CountUp } from "@/components/count-up";
-import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 export function RewardsBreakdownChart() {
   const { t } = useTranslation();
   const { data } = useRewardsBreakdown();
   const total = data.reduce((s, d) => s + d.value, 0);
-  const { ref: viewRef, inView } = useInViewOnce<HTMLDivElement>({ amount: 0.2 });
-
-  // 0 → 1 ramp; only starts once the card scrolls into view
-  const [progress, setProgress] = useState(0);
-  const raf = useRef<number | null>(null);
-  useEffect(() => {
-    if (!inView) {
-      setProgress(0);
-      return;
-    }
-    setProgress(0);
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / 1500);
-      setProgress(1 - Math.pow(1 - t, 3));
-      if (t < 1) raf.current = requestAnimationFrame(tick);
-    };
-    raf.current = requestAnimationFrame(tick);
-    return () => { if (raf.current != null) cancelAnimationFrame(raf.current); };
-  }, [data.length, inView]);
 
   // Bars follow REWARD_TYPES canonical order (top → bottom).
   const orderedData = REWARD_TYPES.map((k) => {
@@ -101,11 +79,9 @@ export function RewardsBreakdownChart() {
     const { x = 0, y = 0, width = 0, height = 0, value = 0, index = 0 } = props;
     const key = chartData[index]?.key as RewardType | undefined;
     const color = key ? REWARD_COLORS[key] : "var(--gold)";
-    const animatedValue = (Number(value) || 0) * progress;
-    const animatedWidth = width * progress;
     return (
       <text
-        x={x + animatedWidth + 6}
+        x={x + width + 6}
         y={y + height / 2}
         dy={3}
         fontSize={10}
@@ -113,14 +89,13 @@ export function RewardsBreakdownChart() {
         fill={color}
         style={{ fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}
       >
-        ${Math.round(animatedValue).toLocaleString()}
+        ${Math.round(Number(value) || 0).toLocaleString()}
       </text>
     );
   };
 
   return (
     <motion.div
-      ref={viewRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -136,7 +111,7 @@ export function RewardsBreakdownChart() {
         </div>
 
         <div className="h-64 w-full">
-          {inView && (
+          {(
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartData}
@@ -201,7 +176,7 @@ export function RewardsBreakdownChart() {
                       <rect
                         x={x}
                         y={y}
-                        width={Math.max(0, width * progress)}
+                        width={Math.max(0, width)}
                         height={height}
                         rx={2}
                         ry={2}
