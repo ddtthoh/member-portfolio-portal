@@ -180,7 +180,7 @@ function Overview() {
           </div>
 
           <div >
-            <Link to="/portal/asset-analysis" className="block">
+            <Link to="/portal/holdings" className="block">
               <SpotlightCard className="liquid-glass relative flex items-center justify-center rounded-xl px-5 py-4 transition-transform hover:-translate-y-0.5">
                 <div className="flex items-center justify-center gap-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/10 ring-1 ring-gold/25">
@@ -188,10 +188,10 @@ function Overview() {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium text-foreground">
-                      {t("overview.assetAnalysis", "Asset Analysis")}
+                      {t("overview.portfolioOverview", "Portfolio Overview")}
                     </span>
                     <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                      {t("pages.overview.insightsTrends")}
+                      {t("overview.holdingsAndStaking", "Holdings & staking plans")}
                     </span>
                   </div>
                 </div>
