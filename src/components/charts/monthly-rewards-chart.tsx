@@ -63,7 +63,7 @@ export function MonthlyRewardsChart() {
                 radius={[4, 4, 0, 0]}
                 style={{ filter: `url(#mglow-${k}) drop-shadow(0 0 6px ${REWARD_COLORS[k]})` }}
                 isAnimationActive={inView}
-                animationDuration={2200}
+                animationDuration={1500}
               />
             ))}
           </BarChart>

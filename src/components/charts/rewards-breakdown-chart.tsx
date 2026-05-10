@@ -39,7 +39,7 @@ export function RewardsBreakdownChart() {
     setProgress(0);
     const start = performance.now();
     const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / 2200);
+      const t = Math.min(1, (now - start) / 1500);
       setProgress(1 - Math.pow(1 - t, 3));
       if (t < 1) raf.current = requestAnimationFrame(tick);
     };
@@ -192,7 +192,7 @@ export function RewardsBreakdownChart() {
                   radius={[0, 4, 4, 0]}
                   barSize={10}
                   isAnimationActive
-                  animationDuration={2200}
+                  animationDuration={1500}
                   animationEasing="ease-out"
                 >
                   {chartData.map((entry) => (
