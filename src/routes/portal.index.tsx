@@ -26,7 +26,7 @@ function Overview() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [hideBalance, setHideBalance] = useState(false);
-  const { wallet } = useWallet();
+  const { wallet, loading: walletLoading } = useWallet();
 
   useEffect(() => {
     if (!user) return;
@@ -162,7 +162,7 @@ function Overview() {
                     {t("overview.participatedDay")}
                   </span>
                   <span className="mt-1 text-xl font-light tabular-nums tracking-tight text-gold sm:text-2xl">
-                    <CountUp value={85} decimals={0} />{" "}
+                    <CountUp value={walletLoading ? 0 : 85} decimals={0} />{" "}
                     <span className="text-xs font-normal text-muted-foreground">{t("common.days")}</span>
                   </span>
                 </div>
