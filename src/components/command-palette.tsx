@@ -28,7 +28,7 @@ export function CommandPalette() {
     { to: "/portal", label: t("palette.items.dashboard"), icon: LayoutDashboard, group: t("nav.overview") },
     { to: "/portal/holdings", label: t("palette.items.holdings"), icon: Wallet, group: t("palette.groups.wallet") },
     { to: "/portal/transactions", label: t("nav.transactions"), icon: ArrowLeftRight, group: t("palette.groups.wallet") },
-    { to: "/portal/asset-analysis", label: t("nav.assetAnalysis"), icon: FileBarChart, group: t("palette.groups.wallet") },
+    
     { to: "/portal/staking", label: t("nav.reportsParticipation"), icon: Layers, group: t("palette.groups.wallet") },
     { to: "/portal/staking-plans", label: t("palette.items.stakingPlans"), icon: Layers, group: t("palette.groups.wallet") },
     { to: "/portal/deposit", label: t("nav.deposit"), icon: ArrowDownToLine, group: t("palette.groups.funds") },
