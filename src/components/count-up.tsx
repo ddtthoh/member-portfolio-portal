@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 type Props = {
   value: number;
@@ -10,8 +9,9 @@ type Props = {
   className?: string;
   /**
    * When true (default), the count-up animation is gated until the element
-   * scrolls into the viewport. Set to false in tooltips / hidden elements
-   * where IntersectionObserver wouldn't fire reliably.
+   * scrolls into the viewport, and resets to 0 each time it leaves. Set to
+   * false in tooltips / hidden elements where IntersectionObserver wouldn't
+   * fire reliably.
    */
   triggerInView?: boolean;
 };
@@ -21,19 +21,39 @@ const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export function CountUp({
   value,
-  duration = 1500,
+  duration = 1800,
   decimals = 2,
   prefix = "",
   suffix = "",
   className,
   triggerInView = true,
 }: Props) {
+  const elRef = useRef<HTMLSpanElement | null>(null);
   const [display, setDisplay] = useState(0);
-  const fromRef = useRef(0);
+  const [inView, setInView] = useState(!triggerInView);
   const rafRef = useRef<number | null>(null);
-  const { ref, inView } = useInViewOnce<HTMLSpanElement>({ amount: 0.2 });
 
-  const armed = triggerInView ? inView : true;
+  // Bidirectional viewport observer — every time the element enters the
+  // viewport we re-arm the count-up, and reset to 0 when it leaves.
+  useEffect(() => {
+    if (!triggerInView) return;
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const el = elRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          setInView(entry.isIntersecting);
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [triggerInView]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -47,41 +67,31 @@ export function CountUp({
       return;
     }
 
-    // Wait until the element is in view before animating.
-    if (!armed) {
+    if (!inView) {
       setDisplay(0);
       return;
     }
 
-    // Skip animating to a 0 placeholder — wait for the real value so all
-    // CountUps on the page animate together once their data resolves.
-    if (value === 0 && fromRef.current === 0) {
-      setDisplay(0);
-      return;
-    }
-
+    // Always start fresh from 0 → value.
     const start = performance.now();
-    const from = fromRef.current;
     const to = value;
+    setDisplay(0);
 
     const tick = (now: number) => {
       const elapsed = now - start;
       const t = Math.min(1, elapsed / duration);
       const eased = easeOut(t);
-      setDisplay(from + (to - from) * eased);
+      setDisplay(to * eased);
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
-      } else {
-        fromRef.current = to;
       }
     };
 
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-      fromRef.current = value;
     };
-  }, [value, duration, armed]);
+  }, [value, duration, inView]);
 
   const text =
     prefix +
@@ -91,5 +101,5 @@ export function CountUp({
     }) +
     suffix;
 
-  return <span ref={ref} className={className}>{text}</span>;
+  return <span ref={elRef} className={className}>{text}</span>;
 }

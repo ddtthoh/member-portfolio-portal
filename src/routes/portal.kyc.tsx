@@ -381,7 +381,7 @@ function StatusBar({ status, note }: { status: KycStatus | null; note: string | 
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(Math.max(step - 1, 0) / 2) * 84}%` }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1.8, ease: "easeOut" }}
             className="absolute left-[8%] top-[14px] h-[2px] rounded-full bg-gradient-to-r from-gold to-gold/40"
           />
 

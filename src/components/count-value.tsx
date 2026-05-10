@@ -4,7 +4,7 @@ export function CountValue({
   value,
   prefix = "$",
   decimals = 0,
-  duration = 1.4,
+  duration = 1.8,
 }: {
   value: number;
   prefix?: string;
@@ -13,12 +13,12 @@ export function CountValue({
 }) {
   return (
     <CountUp
+      start={0}
       end={value}
       prefix={prefix}
       decimals={decimals}
       duration={duration}
       separator=","
-      preserveValue
     />
   );
 }
