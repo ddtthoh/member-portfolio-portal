@@ -120,6 +120,12 @@
   --asset-participation: oklch(0.78 0.13 80);
   --asset-cash: oklch(0.74 0.13 200);
   --asset-earnings: oklch(0.72 0.16 310);
+  --reward-staking: oklch(0.82 0.15 80);
+  --reward-referral: oklch(0.78 0.15 200);
+  --reward-team: oklch(0.78 0.16 145);
+  --reward-leader: oklch(0.76 0.18 310);
+  --reward-global: oklch(0.78 0.17 25);
+  --reward-par_rank: oklch(0.8 0.16 250);
 }
 
 @layer utilities {
