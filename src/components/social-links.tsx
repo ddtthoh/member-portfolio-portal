@@ -1,5 +1,4 @@
 import { Globe } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
@@ -52,8 +51,6 @@ export function SocialLinks({
   className,
   showEyebrow = true,
 }: SocialLinksProps) {
-  const reduceMotion = useReducedMotion();
-
   if (variant === "labeled") {
     return (
       <div className={cn("grid grid-cols-4 gap-3", className)}>
@@ -83,17 +80,6 @@ export function SocialLinks({
 
   const isStack = variant === "stack";
   const buttonSize = size + 16;
-
-  // Subtle breathing ring (idle pulse), staggered per icon. Disabled if user prefers reduced motion.
-  const idleAnimate = reduceMotion
-    ? undefined
-    : {
-        boxShadow: [
-          "0 0 0 1px color-mix(in oklab, var(--gold) 18%, transparent), 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent)",
-          "0 0 0 1px color-mix(in oklab, var(--gold) 32%, transparent), 0 0 10px 0 color-mix(in oklab, var(--gold) 18%, transparent)",
-          "0 0 0 1px color-mix(in oklab, var(--gold) 18%, transparent), 0 0 0 0 color-mix(in oklab, var(--gold) 0%, transparent)",
-        ],
-      };
 
   const iconRow = (
     <div
