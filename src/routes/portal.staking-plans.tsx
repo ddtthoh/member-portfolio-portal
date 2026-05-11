@@ -119,7 +119,6 @@ function StakingPlansPage() {
           }}
         />
         <div
-          ref={cardRef}
           className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 px-5 py-5 sm:px-7 sm:py-6"
           style={{
             boxShadow:
@@ -179,7 +178,7 @@ function StakingPlansPage() {
               />
               <div className="mt-2 leading-none">
                 {showAmount ? (
-                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" />
+                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} />
                 ) : (
                   <span className="inline-flex items-baseline font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
                     ••••••
