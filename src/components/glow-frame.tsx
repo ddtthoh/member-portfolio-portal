@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { SpotlightCard } from "@/components/spotlight-card";
 
 /**
  * Wraps content in the same glow shell as the "Your Position" card on
