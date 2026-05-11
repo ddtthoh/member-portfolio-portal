@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, TrendingUp, CalendarClock, Crown } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -236,7 +236,7 @@ function Row({ label, value, emphasize = false }: { label: string; value: string
   );
 }
 
-function RuleEyebrow({ icon, label }: { icon: React.ReactNode; label: string }) {
+function RuleEyebrow({ icon, label }: { icon: ReactNode; label: string }) {
   return (
     <div className="flex items-center gap-2">
       <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
