@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, Globe } from "lucide-react";
+import naslabMark from "@/assets/naslab-mark.png";
 
 const TelegramIcon = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
@@ -33,11 +34,13 @@ export function MarketingFooter() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link to="/main" className="flex items-center gap-2.5">
-              <span className="grid h-10 w-10 place-items-center rounded-lg border border-gold/40 bg-gradient-to-br from-gold/30 to-transparent font-serif text-xl font-bold text-gold">
-                N
-              </span>
-              <span className="font-serif text-xl font-semibold tracking-wide">
-                NAS<span className="text-gold">LAB</span>
+              <img
+                src={naslabMark}
+                alt="NASLAB"
+                className="h-12 w-12 object-contain drop-shadow-[0_2px_14px_color-mix(in_oklab,var(--gold)_55%,transparent)]"
+              />
+              <span className="font-serif text-xl font-semibold tracking-[0.2em]">
+                NAS<span className="m-gold-text">LAB</span>
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-foreground/65">
@@ -77,7 +80,8 @@ export function MarketingFooter() {
               href="mailto:contact@naslabtec.com"
               className="group inline-flex items-center gap-2 text-sm text-foreground/75 transition-colors hover:text-gold"
             >
-              <Mail className="h-4 w-4" /> contact@naslabtec.com
+              <Mail className="h-4 w-4" />
+              <span>contact@naslabtec.com</span>
             </a>
             <div className="mt-5 flex items-center gap-2.5">
               {socials.map(({ name, href, Icon }) => (

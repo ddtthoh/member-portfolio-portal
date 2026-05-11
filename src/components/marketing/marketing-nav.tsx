@@ -4,6 +4,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MagneticButton } from "@/components/magnetic-button";
 import { cn } from "@/lib/utils";
+import naslabMark from "@/assets/naslab-mark.png";
 
 const NAV = [
   { label: "Home", to: "/main" as const },
@@ -48,12 +49,15 @@ export function MarketingNav() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10">
         <Link to="/main" className="group flex items-center gap-2.5">
-          <span className="relative grid h-9 w-9 place-items-center rounded-lg border border-gold/40 bg-gradient-to-br from-gold/30 to-transparent">
-            <span className="font-serif text-lg font-bold text-gold">N</span>
-            <span className="absolute inset-0 rounded-lg shadow-[inset_0_0_12px_color-mix(in_oklab,var(--gold)_30%,transparent)]" />
+          <span className="relative grid h-10 w-10 place-items-center">
+            <img
+              src={naslabMark}
+              alt="NASLAB"
+              className="h-10 w-10 object-contain drop-shadow-[0_2px_12px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[8deg]"
+            />
           </span>
-          <span className="font-serif text-lg font-semibold tracking-wide">
-            NAS<span className="text-gold">LAB</span>
+          <span className="font-serif text-lg font-semibold tracking-[0.18em]">
+            NAS<span className="m-gold-text">LAB</span>
           </span>
         </Link>
 
