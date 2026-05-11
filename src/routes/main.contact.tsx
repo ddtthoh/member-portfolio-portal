@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, MessageCircle, Send, Globe } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/main/contact")({
   head: () => ({
