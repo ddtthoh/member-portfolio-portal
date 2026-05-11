@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Eye, ListOrdered, Route as RouteIcon, Layers, ShieldAlert, Globe } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { MempoolFlow } from "@/components/marketing/charts/mempool-flow";
 
 export const Route = createFileRoute("/main/ncore/basic")({
   head: () => ({
