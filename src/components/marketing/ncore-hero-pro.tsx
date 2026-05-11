@@ -39,12 +39,9 @@ export function NcoreHeroPro({
             className="mt-7 text-[clamp(2.6rem,6vw,5.6rem)] font-light leading-[0.96] tracking-[-0.04em]"
           >
             <SplitLines text={titleA} className="block" />
-            <SplitLines
-              text={titleB}
-              delay={300}
-              className={`block italic ${variant === "cyan" ? "" : "lg-tagline"}`}
-              style={{ fontFamily: "var(--font-serif)" }}
-            />
+            <span style={{ fontFamily: "var(--font-serif)" }} className="block italic">
+              <SplitLines text={titleB} delay={300} className={variant === "cyan" ? "text-cyan-300" : "lg-tagline"} />
+            </span>
           </h1>
           <p className="mt-7 max-w-md text-[15px] leading-relaxed text-foreground/75">{description}</p>
 
