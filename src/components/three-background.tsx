@@ -558,8 +558,8 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           vertexColors
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          opacity={isPhone ? 0.35 : 0.9}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
+          opacity={isLight ? (isPhone ? 0.85 : 0.95) : (isPhone ? 0.55 : 0.9)}
         />
       </lineSegments>
 
@@ -584,7 +584,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           vertexColors
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           opacity={1}
         />
       </points>
@@ -631,8 +631,8 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           vertexColors
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          opacity={0.45}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
+          opacity={isLight ? 0.7 : 0.45}
         />
       </points>
 
@@ -652,12 +652,12 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
         </bufferGeometry>
         <pointsMaterial
           map={packetSprite}
-          size={pointSize * 0.55}
+          size={pointSize * (isLight ? 0.7 : 0.55)}
           sizeAttenuation
           vertexColors
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           opacity={1}
         />
       </points>
