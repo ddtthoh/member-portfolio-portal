@@ -57,15 +57,15 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       colors[i * 3] = 0.96;
       colors[i * 3 + 1] = 0.82;
       colors[i * 3 + 2] = 0.5;
-      sizes[i] = isPhone ? 0.28 : 0.18;
+      sizes[i] = isPhone ? 0.22 : 0.18;
       seeds[i] = Math.random() * Math.PI * 2;
     }
 
-    // Build edges by proximity — far sparser on phone to avoid spider-web look
-    const maxEdgesPerNode = isPhone ? 2 : 6;
+    // Build edges by proximity — moderately dense on phone so the web reads clearly
+    const maxEdgesPerNode = isPhone ? 4 : 6;
     const volume = spreadX * spreadY * 6;
     const avgSpacing = Math.cbrt(volume / Math.max(count, 1));
-    const proximity = avgSpacing * (isPhone ? 1.35 : 1.9);
+    const proximity = avgSpacing * (isPhone ? 1.6 : 1.9);
     const edgeSet = new Set<string>();
     const adjacency: number[][] = Array.from({ length: count }, () => []);
     const edgeList: { a: number; b: number; length: number; shimmer: number }[] = [];
@@ -690,11 +690,11 @@ export function ThreeBackground({
       if (reduce) {
         setEnabled(true);
         setInteractive(false);
-        setCount(phone ? 24 : tablet ? 50 : 80);
+        setCount(phone ? 40 : tablet ? 50 : 80);
         return;
       }
       setEnabled(true);
-      setCount(phone ? 28 : tablet ? 70 : 100);
+      setCount(phone ? 60 : tablet ? 70 : 100);
       setInteractive(true);
     };
     apply();
@@ -705,7 +705,7 @@ export function ThreeBackground({
   if (!enabled) return null;
 
   const phoneMask =
-    "radial-gradient(115% 95% at 50% 35%, rgba(0,0,0,1) 25%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 95%)";
+    "radial-gradient(130% 110% at 50% 40%, rgba(0,0,0,1) 45%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0) 100%)";
   const fadeMask =
     "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)";
 
@@ -729,7 +729,7 @@ export function ThreeBackground({
     <div
       aria-hidden
       className={className ?? defaultClass}
-      style={{ opacity: isPhone ? 0.45 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
+      style={{ opacity: isPhone ? 0.8 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
