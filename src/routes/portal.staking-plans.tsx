@@ -49,20 +49,20 @@ function StakingPlansPage() {
 
   const SWEEP_MS = 2500;
   const startedRef = useRef(false);
-  const t2Ref = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const completedRef = useRef(false);
 
   const handleCountStart = () => {
     if (startedRef.current) return;
     startedRef.current = true;
     setSweepKey(1);
-    t2Ref.current = setTimeout(() => setSweepKey(2), SWEEP_MS);
   };
 
-  useEffect(() => {
-    return () => {
-      if (t2Ref.current) clearTimeout(t2Ref.current);
-    };
-  }, []);
+  const handleCountComplete = () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    setSweepKey(2);
+  };
+
   const { wallet } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
@@ -178,7 +178,7 @@ function StakingPlansPage() {
               />
               <div className="mt-2 leading-none">
                 {showAmount ? (
-                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} />
+                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} onComplete={handleCountComplete} />
                 ) : (
                   <span className="inline-flex items-baseline font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
                     ••••••
