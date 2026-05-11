@@ -129,64 +129,52 @@ function StakingPlansPage() {
             )}
           </div>
 
-          <div className="relative mt-4 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
-            {/* Staking amount */}
-            <div className="sm:border-r sm:border-gold/15 sm:pr-6">
-              <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                {t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
+          <div className="relative mt-5 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-0">
+            {/* Your Staking */}
+            <div className="text-center sm:px-4 sm:border-r sm:border-gold/15">
+              <RuleEyebrow
+                icon={<Sparkles className="h-3 w-3" />}
+                label={t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
+              />
+              <div className="mt-2 leading-none">
+                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" />
               </div>
-              <div className="mt-1.5 leading-none">
-                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="xl" />
+              <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+                {hasStaking
+                  ? t("pages.stakingPlans.labels.principal", { defaultValue: "Principal" })
+                  : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
               </div>
-              {!hasStaking && (
-                <div className="mt-1.5 text-[10px] text-muted-foreground/80">
-                  {t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake yet" })}
-                </div>
-              )}
             </div>
 
-            {/* Current tier + ROI (daily & monthly) */}
-            <div className="sm:border-r sm:border-gold/15 sm:pr-6">
-              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                <TrendingUp className="h-3 w-3" />
-                {t("pages.stakingPlans.labels.currentTier", { defaultValue: "Current Tier" })}
-              </div>
-              <div className="mt-1.5 font-serif text-xl sm:text-2xl leading-none text-gold">
+            {/* Current Tier + Monthly ROI */}
+            <div className="text-center sm:px-4 sm:border-r sm:border-gold/15">
+              <RuleEyebrow
+                icon={<TrendingUp className="h-3 w-3" />}
+                label={t("pages.stakingPlans.labels.currentTier", { defaultValue: "Current Tier" })}
+              />
+              <div className="mt-2 font-serif text-lg sm:text-xl leading-none text-gold">
                 {hasStaking ? t(currentPlan.name) : "—"}
               </div>
-              {hasStaking ? (
-                <div className="mt-3">
-                  <div className="flex items-center gap-2">
-                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-                    <span className="text-[8px] font-medium uppercase tracking-[0.32em] text-gold/70">
-                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })}
-                    </span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-                  </div>
-                  <div className="mt-1.5 text-center font-serif text-base sm:text-lg font-medium tabular-nums tracking-tight text-gold leading-none">
-                    {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                  </div>
-                </div>
-              ) : (
-                <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
-                  {t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
-                </div>
-              )}
+              <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 tabular-nums">
+                {hasStaking
+                  ? `${t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })} · ${currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}`
+                  : t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
+              </div>
             </div>
 
-            {/* Started since */}
-            <div>
-              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                <CalendarClock className="h-3 w-3" />
-                {t("pages.stakingPlans.labels.startedSince", { defaultValue: "Started Since" })}
-              </div>
-              <div className="mt-1.5 font-light text-xl sm:text-2xl leading-none tabular-nums tracking-tight text-gold">
+            {/* Started Since */}
+            <div className="text-center sm:px-4">
+              <RuleEyebrow
+                icon={<CalendarClock className="h-3 w-3" />}
+                label={t("pages.stakingPlans.labels.startedSince", { defaultValue: "Started Since" })}
+              />
+              <div className="mt-2 font-light text-lg sm:text-xl leading-none tabular-nums tracking-tight text-gold">
                 {hasStaking ? startedSince : "—"}
               </div>
-              <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
+              <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 tabular-nums">
                 {hasStaking
                   ? `${stakingDays} ${t("pages.holdings.daysUnit", { defaultValue: "days" })}`
-                  : t("pages.stakingPlans.labels.startToday", { defaultValue: "Begin your journey" })}
+                  : t("pages.stakingPlans.labels.startToday", { defaultValue: "Begin journey" })}
               </div>
             </div>
           </div>
@@ -244,6 +232,19 @@ function Row({ label, value, emphasize = false }: { label: string; value: string
       <span className={`font-light text-sm tabular-nums tracking-[-0.04em] whitespace-nowrap ${emphasize ? "text-gold" : "text-foreground/90"}`}>
         {value}
       </span>
+    </div>
+  );
+}
+
+function RuleEyebrow({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
+      <span className="inline-flex items-center gap-1 text-[8px] font-medium uppercase tracking-[0.32em] text-gold/75">
+        <span className="text-gold/70">{icon}</span>
+        {label}
+      </span>
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
     </div>
   );
 }
