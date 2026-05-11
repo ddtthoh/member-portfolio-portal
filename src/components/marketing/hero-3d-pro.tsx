@@ -244,7 +244,7 @@ function Scene() {
         />
         <DepthOfField focusDistance={0.012} focalLength={0.04} bokehScale={2.4} />
         <ChromaticAberration
-          offset={[0.0009, 0.0014] as unknown as THREE.Vector2}
+          offset={new THREE.Vector2(0.0009, 0.0014)}
           blendFunction={BlendFunction.NORMAL}
           radialModulation={false}
           modulationOffset={0}
