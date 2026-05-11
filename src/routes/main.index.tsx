@@ -1,20 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, Shield, Zap, Globe, Cpu, Network, Coins, BookOpen, TrendingUp, Activity, Users, Handshake } from "lucide-react";
+import {
+  ArrowRight, Sparkles, Shield, Zap, Globe, Cpu, Network, Coins,
+  BookOpen, TrendingUp, Activity, Users, Handshake, Gauge, Timer, Wifi,
+} from "lucide-react";
 import { lazy, Suspense } from "react";
 import { ClientOnly } from "@/components/marketing/client-only";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { MagneticButton } from "@/components/magnetic-button";
 import { CountUp } from "@/components/count-up";
+import { LGCard } from "@/components/marketing/lg-card";
+import { Tagline } from "@/components/marketing/tagline";
+import { Sparkline } from "@/components/marketing/charts/sparkline";
+import { ArbitrageGraph } from "@/components/marketing/charts/arbitrage-graph";
+import { BurnCurve, AllocationDonut } from "@/components/marketing/charts/token-charts";
 
 const Hero3D = lazy(() => import("@/components/marketing/hero-3d").then((m) => ({ default: m.Hero3D })));
+const NCTCoin3D = lazy(() => import("@/components/marketing/nct-coin-3d").then((m) => ({ default: m.NCTCoin3D })));
 
 export const Route = createFileRoute("/main/")({
   head: () => ({
     meta: [
-      { title: "NASLAB — A New Era of Digital Wealth" },
+      { title: "NASLAB — Where Luxury Meets Decentralized Innovation" },
       { name: "description", content: "Naslab is the marketing engine of Nastech Global, delivering next-generation digital finance — Ncore 2.0 MEV trading, Ncore X arbitrage, and the NCT token ecosystem." },
-      { property: "og:title", content: "NASLAB — A New Era of Digital Wealth" },
-      { property: "og:description", content: "Build your crypto reserve with confidence. Secure, scalable, predictive trading infrastructure for the digital economy." },
+      { property: "og:title", content: "NASLAB — Where Luxury Meets Decentralized Innovation" },
+      { property: "og:description", content: "Build your crypto reserve with confidence. Predictive trading infrastructure for the digital economy." },
     ],
   }),
   component: HomePage,
@@ -23,8 +32,9 @@ export const Route = createFileRoute("/main/")({
 function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-[92vh] overflow-hidden">
+      {/* ────────── HERO ────────── */}
+      <section className="relative -mt-20 h-screen min-h-[640px] overflow-hidden">
+        {/* Background 3D scene */}
         <div className="absolute inset-0 z-0">
           <ClientOnly>
             <Suspense fallback={<HeroFallback />}>
@@ -32,27 +42,45 @@ function HomePage() {
             </Suspense>
           </ClientOnly>
         </div>
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-[#06070b]/80" />
 
-        <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-7xl flex-col items-start justify-center px-6 lg:px-10">
-          <MReveal>
-            <span className="m-eyebrow">Nastech Global × Naslab</span>
-          </MReveal>
-          <MReveal delay={120}>
-            <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.02] md:text-7xl lg:text-[5.5rem]">
-              A New Era of <br />
-              <span className="m-gold-text">Digital Wealth</span>
-            </h1>
-          </MReveal>
-          <MReveal delay={240}>
-            <p className="mt-7 max-w-xl text-lg text-foreground/75">
-              Build your crypto reserve with confidence — backed by predictive MEV
-              trading, intelligent cross-platform arbitrage, and a tokenized ecosystem
-              engineered for sustainable, long-term growth.
-            </p>
-          </MReveal>
-          <MReveal delay={360}>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+        {/* God-ray overlay (CSS, on top of canvas for extra depth) */}
+        <div className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center">
+          <div className="lg-godray h-[120vh] w-[120vh] opacity-60" />
+        </div>
+
+        {/* Vignette */}
+        <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
+
+        {/* Bottom tagline */}
+        <div className="absolute inset-x-0 bottom-12 z-10 flex flex-col items-center gap-5 px-6 text-center md:bottom-20">
+          <div className="lg-pill">Naslab × Nastech Global</div>
+          <h1 className="font-serif text-[clamp(1.6rem,4.5vw,3.4rem)] leading-tight tracking-[0.01em]">
+            <Tagline text="Where Luxury Meets" className="lg-tagline block" />
+            <Tagline text="Decentralized Innovation" className="lg-tagline mt-1 block" />
+          </h1>
+          <div className="mt-2 flex items-center gap-3 text-[10px] uppercase tracking-[0.45em] text-foreground/45">
+            <span className="h-px w-10 bg-foreground/30" />
+            scroll to enter
+            <span className="h-px w-10 bg-foreground/30" />
+          </div>
+        </div>
+      </section>
+
+      {/* ────────── INTRO + CTA ────────── */}
+      <SectionShell tight>
+        <MReveal>
+          <div className="grid items-end gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <span className="lg-pill">A New Era of Digital Wealth</span>
+              <h2 className="mt-6 font-serif text-4xl leading-[1.05] md:text-6xl">
+                Build your crypto reserve with <span className="lg-tagline">confidence</span>.
+              </h2>
+              <p className="mt-6 max-w-xl text-foreground/75">
+                Backed by predictive MEV trading, intelligent cross-platform arbitrage,
+                and a tokenized ecosystem engineered for sustainable, long-term growth.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 lg:col-span-5 lg:justify-end">
               <Link to="/main/ncore/basic">
                 <MagneticButton className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)]">
                   Explore Products <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -62,35 +90,55 @@ function HomePage() {
                 to="/main/about"
                 className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 px-8 py-4 text-sm font-medium uppercase tracking-[0.18em] text-foreground/85 backdrop-blur transition-all hover:border-gold/60 hover:text-gold"
               >
-                Learn About Naslab <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                About Naslab <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-          </MReveal>
-        </div>
+          </div>
+        </MReveal>
+      </SectionShell>
 
-        {/* scroll cue */}
-        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-foreground/45">
-          Scroll
+      {/* ────────── LIVE METRICS ────────── */}
+      <SectionShell tight>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <MetricCard
+            Icon={Wifi}
+            label="Trading Operations"
+            value="24/7"
+            sub="Global cycles"
+            spark={[3, 4, 6, 5, 7, 8, 9, 10, 9, 11, 12, 14]}
+          />
+          <MetricCard
+            Icon={Shield}
+            label="Uptime Guarantee"
+            value="99.9%"
+            sub="Mission-critical"
+            spark={[8, 9, 9.2, 9.5, 9.7, 9.6, 9.8, 9.9, 9.85, 9.95, 9.9, 9.99]}
+          />
+          <MetricCard
+            Icon={Timer}
+            label="Execution Latency"
+            value="<50ms"
+            sub="Sub-second edge"
+            spark={[120, 90, 70, 80, 60, 55, 48, 50, 45, 47, 44, 42]}
+            invert
+          />
+          <MetricCard
+            Icon={Globe}
+            label="Market Coverage"
+            value="Global"
+            sub="DEX + CEX"
+            spark={[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 19]}
+          />
         </div>
-      </section>
+      </SectionShell>
 
-      {/* TRUST / STATS BAR */}
-      <section className="relative z-10 -mt-px border-y border-gold/15 bg-black/30 py-10 backdrop-blur">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 md:grid-cols-4 lg:px-10">
-          <Stat label="Trading Operations" value="24/7" sub="Global cycles" />
-          <Stat label="Uptime Guarantee" value="99.9%" sub="Mission-critical" />
-          <Stat label="Execution Latency" value="<50ms" sub="Sub-second edge" />
-          <Stat label="Market Coverage" value="Global" sub="DEX + CEX" />
-        </div>
-      </section>
-
-      {/* WHAT WE DO */}
+      {/* ────────── WHAT WE DO ────────── */}
       <SectionShell>
-        <div className="grid items-center gap-14 lg:grid-cols-2">
-          <MReveal>
-            <span className="m-eyebrow">What We Do</span>
+        <div className="grid items-center gap-14 lg:grid-cols-12">
+          <MReveal className="lg:col-span-5">
+            <span className="lg-pill">What We Do</span>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl">
-              Connecting capital to the <span className="m-gold-text">future of finance</span>.
+              Connecting capital to the <span className="lg-tagline">future of finance</span>.
             </h2>
             <p className="mt-6 text-foreground/75">
               Naslab connects businesses and individuals with innovative digital
@@ -101,66 +149,60 @@ function HomePage() {
               Look At Our Strategy <ArrowRight className="h-4 w-4" />
             </Link>
           </MReveal>
-          <MReveal delay={150}>
-            <div className="m-luxe-border">
-              <div className="grid gap-px overflow-hidden bg-gold/10 sm:grid-cols-2">
-                {[
-                  { Icon: Cpu, title: "Predictive Engines", body: "Mempool intelligence + ordering edge." },
-                  { Icon: Network, title: "Cross-Market Liquidity", body: "DEX↔DEX, CEX↔CEX, DEX↔CEX paths." },
-                  { Icon: Shield, title: "Institutional Security", body: "Audited custody, hardened ops." },
-                  { Icon: Coins, title: "Tokenized Ecosystem", body: "NCT settlement + scarcity by design." },
-                ].map(({ Icon, title, body }) => (
-                  <div key={title} className="bg-[color:var(--m-bg)] p-6 transition-colors hover:bg-gold/5">
-                    <Icon className="mb-3 h-6 w-6 text-gold" />
-                    <div className="font-serif text-lg">{title}</div>
-                    <div className="mt-1.5 text-xs text-foreground/65">{body}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </MReveal>
+          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+            {[
+              { Icon: Cpu, t: "Predictive Engines", d: "Mempool intelligence + ordering edge." },
+              { Icon: Network, t: "Cross-Market Liquidity", d: "DEX↔DEX, CEX↔CEX, DEX↔CEX paths." },
+              { Icon: Shield, t: "Institutional Security", d: "Audited custody, hardened ops." },
+              { Icon: Coins, t: "Tokenized Ecosystem", d: "NCT settlement + scarcity by design." },
+            ].map(({ Icon, t, d }, i) => (
+              <MReveal key={t} delay={i * 80}>
+                <LGCard className="h-full p-6">
+                  <Icon className="h-6 w-6 text-gold" />
+                  <div className="mt-4 font-serif text-xl">{t}</div>
+                  <p className="mt-2 text-sm text-foreground/65">{d}</p>
+                </LGCard>
+              </MReveal>
+            ))}
+          </div>
         </div>
       </SectionShell>
 
-      {/* STRATEGIC DIRECTION */}
+      {/* ────────── STRATEGIC DIRECTION ────────── */}
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="m-eyebrow">Strategic Direction</span>
+            <span className="lg-pill">Strategic Direction</span>
             <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
-              A long-term roadmap for the <span className="m-gold-text">future of digital finance</span>.
+              A long-term roadmap for the <span className="lg-tagline">future of digital finance</span>.
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-foreground/70">
-              From automated trading systems to a scalable, global digital finance
-              infrastructure — engineered to compound value over decades, not quarters.
-            </p>
           </div>
         </MReveal>
-        <MReveal delay={150}>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              { Icon: Sparkles, k: "Phase I", t: "Foundation", d: "Core architecture, technical teams, secure platform." },
-              { Icon: Zap, k: "Phase II", t: "Stabilization", d: "Live trading expansion, Ncore X strategy design." },
-              { Icon: Globe, k: "Phase III", t: "Scale", d: "International expansion, 100K+ users, $50M trading scale." },
-            ].map(({ Icon, k, t, d }) => (
-              <div key={k} className="m-glass m-tilt p-7">
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {[
+            { Icon: Sparkles, k: "Phase I", t: "Foundation", d: "Core architecture, technical teams, secure platform." },
+            { Icon: Zap, k: "Phase II", t: "Stabilization", d: "Live trading expansion, Ncore X strategy design." },
+            { Icon: Globe, k: "Phase III", t: "Scale", d: "International expansion, 100K+ users, $50M trading scale." },
+          ].map(({ Icon, k, t, d }, i) => (
+            <MReveal key={k} delay={i * 100}>
+              <LGCard className="lg-mesh-bg h-full p-7">
                 <Icon className="h-7 w-7 text-gold" />
                 <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.3em] text-gold/80">{k}</div>
                 <div className="mt-1 font-serif text-2xl">{t}</div>
                 <p className="mt-3 text-sm text-foreground/65">{d}</p>
-              </div>
-            ))}
-          </div>
-        </MReveal>
+              </LGCard>
+            </MReveal>
+          ))}
+        </div>
       </SectionShell>
 
-      {/* NCORE 2.0 SHOWCASE */}
+      {/* ────────── NCORE 2.0 SHOWCASE ────────── */}
       <SectionShell>
         <div className="grid gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="m-eyebrow">Ncore 2.0</span>
+            <span className="lg-pill">Ncore 2.0</span>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl">
-              Predictive <span className="m-cyan-glow">MEV trading</span><br />for DEX markets.
+              Predictive <span className="lg-tagline">MEV trading</span><br />for DEX markets.
             </h2>
             <p className="mt-6 text-foreground/75">
               A DEX-focused MEV trading platform that monitors the mempool,
@@ -173,108 +215,95 @@ function HomePage() {
           </MReveal>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
             {[
-              { Icon: BookOpen, t: "Basic Understanding", d: "Foundational logic of on-chain execution — visibility, ordering, paths.", to: "/main/ncore/basic" },
-              { Icon: Activity, t: "Trading Logic", d: "Mempool monitoring, sandwich execution, optimized ordering before reaction.", to: "/main/ncore/trading" },
-              { Icon: Cpu, t: "Features", d: "Real-time execution, gas optimization, customizable risk controls.", to: "/main/ncore/features" },
-              { Icon: TrendingUp, t: "Market Trends", d: "DeFi growth, MEV dynamics, L2 scaling, AI-driven trading, volatility.", to: "/main/ncore/trends" },
+              { Icon: BookOpen, t: "Basic Understanding", d: "Foundational logic of on-chain execution.", to: "/main/ncore/basic" },
+              { Icon: Activity, t: "Trading Logic", d: "Mempool monitoring, sandwich execution.", to: "/main/ncore/trading" },
+              { Icon: Cpu, t: "Features", d: "Real-time execution, gas optimization, risk controls.", to: "/main/ncore/features" },
+              { Icon: TrendingUp, t: "Market Trends", d: "DeFi growth, MEV dynamics, L2 scaling, AI trading.", to: "/main/ncore/trends" },
             ].map(({ Icon, t, d, to }, i) => (
               <MReveal key={t} delay={i * 100}>
-                <Link to={to} className="m-glass m-tilt block h-full p-6">
-                  <Icon className="h-6 w-6 text-gold" />
-                  <div className="mt-4 font-serif text-xl">{t}</div>
-                  <p className="mt-2 text-xs text-foreground/65">{d}</p>
-                  <div className="mt-4 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/85">
-                    Read more <ArrowRight className="h-3 w-3" />
-                  </div>
-                </Link>
+                <LGCard as="a" className="block h-full p-6">
+                  <Link to={to} className="block">
+                    <Icon className="h-6 w-6 text-gold" />
+                    <div className="mt-4 font-serif text-xl">{t}</div>
+                    <p className="mt-2 text-xs text-foreground/65">{d}</p>
+                    <div className="mt-4 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/85">
+                      Read more <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </Link>
+                </LGCard>
               </MReveal>
             ))}
           </div>
         </div>
       </SectionShell>
 
-      {/* NCORE X */}
+      {/* ────────── NCORE X ────────── */}
       <SectionShell>
-        <div className="m-luxe-border">
-          <div className="grid items-center gap-10 p-10 lg:grid-cols-2 lg:p-14">
-            <MReveal>
-              <span className="m-eyebrow">Ncore X</span>
-              <h2 className="mt-5 font-serif text-4xl md:text-5xl">
-                Intelligent <span className="m-gold-text">cross-platform</span> arbitrage engine.
-              </h2>
-              <p className="mt-6 text-foreground/75">
-                Covering DEX↔DEX, CEX↔CEX, and DEX↔CEX — transforming market price
-                discrepancies into repeatable, systematic returns.
-              </p>
-              <Link to="/main/ncore/x" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold hover:gap-3 transition-all">
-                Explore Ncore X <ArrowRight className="h-4 w-4" />
-              </Link>
-            </MReveal>
-            <MReveal delay={150}>
-              <ArbitrageDiagram />
-            </MReveal>
-          </div>
-        </div>
-      </SectionShell>
-
-      {/* NCT TOKEN */}
-      <SectionShell>
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <MReveal className="order-2 lg:order-1">
-            <div className="relative mx-auto aspect-square max-w-md">
-              <div className="absolute inset-0 m-orbit-slow">
-                <div className="absolute inset-0 rounded-full border border-gold/20" />
-              </div>
-              <div className="absolute inset-6 m-orbit-rev">
-                <div className="absolute inset-0 rounded-full border border-cyan-400/20" />
-              </div>
-              <div className="absolute inset-12 m-orbit-slow">
-                <div className="absolute inset-0 rounded-full border border-gold/30" />
-              </div>
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="m-float relative grid h-44 w-44 place-items-center rounded-full bg-gradient-to-br from-gold via-[#c89a2a] to-[#7a5b13] shadow-[0_30px_80px_-20px_color-mix(in_oklab,var(--gold)_80%,transparent),inset_0_-12px_30px_color-mix(in_oklab,black_45%,transparent),inset_0_8px_20px_color-mix(in_oklab,white_25%,transparent)]">
-                  <span className="font-serif text-5xl font-bold text-[#3a2a08]">NCT</span>
-                  <span className="absolute -inset-3 rounded-full border border-gold/50 [mask:radial-gradient(closest-side,transparent_70%,black)]" />
-                </div>
-              </div>
-            </div>
-          </MReveal>
-          <MReveal delay={150} className="order-1 lg:order-2">
-            <span className="m-eyebrow">NCT Token</span>
+        <div className="grid items-center gap-10 lg:grid-cols-12">
+          <MReveal className="lg:col-span-5">
+            <span className="lg-pill">Ncore X</span>
             <h2 className="mt-5 font-serif text-4xl md:text-5xl">
-              The native asset of the <span className="m-gold-text">Ncore ecosystem</span>.
+              Intelligent <span className="lg-tagline">cross-platform</span> arbitrage.
             </h2>
             <p className="mt-6 text-foreground/75">
-              NCT is the exclusive settlement, access, and incentive layer that drives
-              system usage, enforces scarcity through burn mechanisms, and aligns
-              long-term ecosystem value.
+              Covering DEX↔DEX, CEX↔CEX, and DEX↔CEX — transforming market price
+              discrepancies into repeatable, systematic returns.
             </p>
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              {[
-                { k: "Utility", v: "Settlement" },
-                { k: "Mechanism", v: "Deflationary" },
-                { k: "Access", v: "Exclusive" },
-              ].map((it) => (
-                <div key={it.k} className="rounded-lg border border-gold/20 bg-card/30 p-3">
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.25em] text-foreground/50">{it.k}</div>
-                  <div className="mt-1 font-serif text-base text-gold">{it.v}</div>
-                </div>
-              ))}
-            </div>
-            <Link to="/main/ncore/token" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold hover:gap-3 transition-all">
-              Explore NCT <ArrowRight className="h-4 w-4" />
+            <Link to="/main/ncore/x" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold hover:gap-3 transition-all">
+              Explore Ncore X <ArrowRight className="h-4 w-4" />
             </Link>
+          </MReveal>
+          <MReveal delay={150} className="lg:col-span-7">
+            <ArbitrageGraph />
           </MReveal>
         </div>
       </SectionShell>
 
-      {/* ROADMAP PREVIEW */}
+      {/* ────────── NCT TOKEN ────────── */}
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="m-eyebrow">Roadmap</span>
+            <span className="lg-pill">NCT Token</span>
             <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
-              Shaping the <span className="m-gold-text">future of digital finance</span>.
+              The native asset of the <span className="lg-tagline">Ncore ecosystem</span>.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-foreground/70">
+              Settlement, access, and incentive layer — engineered with deflationary
+              scarcity to align long-term value.
+            </p>
+          </div>
+        </MReveal>
+        <div className="mt-14 grid gap-6 lg:grid-cols-12">
+          <MReveal className="lg:col-span-5">
+            <LGCard className="p-2">
+              <ClientOnly>
+                <Suspense fallback={<div className="h-[360px]" />}>
+                  <NCTCoin3D />
+                </Suspense>
+              </ClientOnly>
+            </LGCard>
+          </MReveal>
+          <MReveal delay={120} className="lg:col-span-7">
+            <div className="grid gap-6">
+              <BurnCurve />
+              <AllocationDonut />
+            </div>
+          </MReveal>
+        </div>
+        <div className="mt-8 text-center">
+          <Link to="/main/ncore/token" className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold hover:gap-3 transition-all">
+            Explore NCT <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </SectionShell>
+
+      {/* ────────── ROADMAP PREVIEW ────────── */}
+      <SectionShell>
+        <MReveal>
+          <div className="text-center">
+            <span className="lg-pill">Roadmap</span>
+            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+              Shaping the <span className="lg-tagline">future of digital finance</span>.
             </h2>
           </div>
         </MReveal>
@@ -282,22 +311,22 @@ function HomePage() {
           <div className="absolute left-0 right-0 top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-gold/40 to-transparent md:block" />
           <div className="relative grid gap-6 md:grid-cols-4">
             {[
-              { y: "2024", t: "Foundation", d: "Ncore 2.0 core architecture, Crypto Reserve Platform, technical teams formed." },
-              { y: "2025", t: "Stabilization", d: "Ncore 2.0 upgrades, Ncore X concept design, arbitrage strategy paths.", active: true },
-              { y: "2025 Q1–Q4", t: "Live Trading Expansion", d: "Trading scale $200K → $1M, security enhancements, Ncore X closed testing.", active: true },
-              { y: "2026 Q1–Q4", t: "Scale & Market Readiness", d: "International expansion, $5M → $50M trading scale, 100,000 users target." },
+              { y: "2024", t: "Foundation", d: "Ncore 2.0 architecture, Crypto Reserve Platform, technical teams." },
+              { y: "2025", t: "Stabilization", d: "Ncore 2.0 upgrades, Ncore X concept, arbitrage strategy paths.", active: true },
+              { y: "2025 Q1–Q4", t: "Live Expansion", d: "Trading scale $200K → $1M, security, Ncore X testing.", active: true },
+              { y: "2026 Q1–Q4", t: "Scale", d: "International expansion, $5M → $50M scale, 100K users." },
             ].map((r, i) => (
               <MReveal key={r.y} delay={i * 100}>
-                <div className="m-glass m-tilt relative p-6">
-                  <div className="absolute -top-3 left-6 inline-flex items-center gap-2">
-                    {r.active && <span className="ring-pulse h-2 w-2 rounded-full bg-gold" />}
+                <LGCard className="relative p-6">
+                  <div className="absolute -top-3 left-6 inline-flex items-center gap-2 z-[4]">
+                    {r.active && <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />}
                     <span className="rounded-full border border-gold/40 bg-[color:var(--m-bg)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold">
                       {r.y}
                     </span>
                   </div>
                   <div className="mt-3 font-serif text-xl">{r.t}</div>
                   <p className="mt-2 text-xs text-foreground/65">{r.d}</p>
-                </div>
+                </LGCard>
               </MReveal>
             ))}
           </div>
@@ -311,68 +340,69 @@ function HomePage() {
         </MReveal>
       </SectionShell>
 
-      {/* CAREERS + COLLABORATION */}
+      {/* ────────── CAREERS + COLLABORATION ────────── */}
       <SectionShell>
         <div className="grid gap-6 lg:grid-cols-2">
           <MReveal>
-            <Link to="/main/careers" className="m-glass m-tilt block h-full p-10">
-              <Users className="h-8 w-8 text-gold" />
-              <h3 className="mt-6 font-serif text-3xl">Careers at Naslab</h3>
-              <p className="mt-3 text-sm text-foreground/70">
-                We're building technology-driven systems for fast-moving digital
-                markets — and we're looking for people who care about execution,
-                precision, and impact.
-              </p>
-              <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                See Open Roles <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
+            <LGCard className="lg-mesh-bg h-full p-10">
+              <Link to="/main/careers" className="block">
+                <Users className="h-8 w-8 text-gold" />
+                <h3 className="mt-6 font-serif text-3xl">Careers at Naslab</h3>
+                <p className="mt-3 text-sm text-foreground/70">
+                  Building technology-driven systems for fast-moving digital
+                  markets — for people who care about execution, precision, and impact.
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                  See Open Roles <ArrowRight className="h-4 w-4" />
+                </div>
+              </Link>
+            </LGCard>
           </MReveal>
           <MReveal delay={120}>
-            <Link to="/main/collaboration" className="m-glass m-tilt block h-full p-10">
-              <Handshake className="h-8 w-8 text-gold" />
-              <h3 className="mt-6 font-serif text-3xl">Collaboration</h3>
-              <p className="mt-3 text-sm text-foreground/70">
-                We collaborate with partners who value execution quality, technical
-                rigor, and long-term system building.
-              </p>
-              <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                Partner With Us <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
+            <LGCard className="lg-mesh-bg h-full p-10">
+              <Link to="/main/collaboration" className="block">
+                <Handshake className="h-8 w-8 text-gold" />
+                <h3 className="mt-6 font-serif text-3xl">Collaboration</h3>
+                <p className="mt-3 text-sm text-foreground/70">
+                  We collaborate with partners who value execution quality, technical
+                  rigor, and long-term system building.
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                  Partner With Us <ArrowRight className="h-4 w-4" />
+                </div>
+              </Link>
+            </LGCard>
           </MReveal>
         </div>
       </SectionShell>
 
-      {/* FINAL CTA */}
+      {/* ────────── FINAL CTA ────────── */}
       <SectionShell>
         <MReveal>
-          <div className="m-luxe-border">
-            <div className="relative overflow-hidden p-14 text-center md:p-20">
-              <div className="absolute -top-20 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-gold/20 blur-3xl" />
-              <span className="m-eyebrow">Get In Touch</span>
-              <h2 className="mx-auto mt-6 max-w-3xl font-serif text-4xl md:text-6xl">
-                Ready to navigate the <span className="m-gold-text">future of digital finance</span>?
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-foreground/70">
-                Have a question or want to learn more about our products? Let's
-                start the conversation.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link to="/main/contact">
-                  <MagneticButton className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-9 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)]">
-                    Contact Us <ArrowRight className="h-4 w-4" />
-                  </MagneticButton>
-                </Link>
-                <a
-                  href="mailto:contact@naslabtec.com"
-                  className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-9 py-4 text-sm font-medium uppercase tracking-[0.18em] text-foreground/85 transition-all hover:border-gold/60 hover:text-gold"
-                >
-                  contact@naslabtec.com
-                </a>
-              </div>
+          <LGCard className="relative overflow-hidden p-14 text-center md:p-20">
+            <div className="lg-halo absolute -top-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2" />
+            <span className="lg-pill">Get In Touch</span>
+            <h2 className="mx-auto mt-6 max-w-3xl font-serif text-4xl md:text-6xl">
+              <Tagline text="Where Luxury Meets Decentralized Innovation" className="lg-tagline" />
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-foreground/70">
+              Have a question or want to learn more about our products? Let's start
+              the conversation.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <Link to="/main/contact">
+                <MagneticButton className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-9 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)]">
+                  Contact Us <ArrowRight className="h-4 w-4" />
+                </MagneticButton>
+              </Link>
+              <a
+                href="mailto:contact@naslabtec.com"
+                className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-9 py-4 text-sm font-medium uppercase tracking-[0.18em] text-foreground/85 transition-all hover:border-gold/60 hover:text-gold"
+              >
+                contact@naslabtec.com
+              </a>
             </div>
-          </div>
+          </LGCard>
         </MReveal>
       </SectionShell>
     </>
@@ -381,86 +411,45 @@ function HomePage() {
 
 function HeroFallback() {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full bg-[#06070b]">
       <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-gold/40 to-transparent blur-3xl" />
     </div>
   );
 }
 
-function SectionShell({ children }: { children: React.ReactNode }) {
+function SectionShell({ children, tight }: { children: React.ReactNode; tight?: boolean }) {
   return (
-    <section className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:py-32 lg:px-10">
+    <section className={`relative z-10 mx-auto max-w-7xl px-6 lg:px-10 ${tight ? "py-14 md:py-20" : "py-24 md:py-32"}`}>
       {children}
     </section>
   );
 }
 
-function Stat({ label, value, sub }: { label: string; value: string; sub: string }) {
-  // numeric-only count up if value is numeric, else show static
-  const isNumeric = /^\d/.test(value);
+function MetricCard({
+  Icon, label, value, sub, spark, invert,
+}: {
+  Icon: React.ComponentType<{ className?: string }>;
+  label: string; value: string; sub: string; spark: number[]; invert?: boolean;
+}) {
+  const isPct = value.endsWith("%");
+  const numeric = parseFloat(value);
   return (
-    <div className="text-center">
-      <div className="font-serif text-4xl md:text-5xl">
-        {isNumeric ? (
-          value.includes(".") ? (
-            <span className="m-gold-text">
-              <CountUp value={parseFloat(value)} decimals={1} suffix="%" duration={1800} />
-            </span>
-          ) : (
-            <span className="m-gold-text">{value}</span>
-          )
+    <LGCard className="p-6">
+      <div className="flex items-center justify-between">
+        <Icon className="h-5 w-5 text-gold" />
+        <Sparkline data={invert ? [...spark].reverse() : spark} width={90} height={28} />
+      </div>
+      <div className="mt-5 font-serif text-4xl">
+        {Number.isFinite(numeric) ? (
+          <span className="lg-tagline">
+            <CountUp value={numeric} decimals={isPct ? 1 : 0} suffix={isPct ? "%" : ""} duration={1800} />
+          </span>
         ) : (
-          <span className="m-gold-text">{value}</span>
+          <span className="lg-tagline">{value}</span>
         )}
       </div>
-      <div className="mt-2 text-xs uppercase tracking-[0.28em] text-foreground/65">{label}</div>
+      <div className="mt-2 text-[10px] uppercase tracking-[0.28em] text-foreground/65">{label}</div>
       <div className="mt-1 text-[10px] uppercase tracking-[0.25em] text-foreground/40">{sub}</div>
-    </div>
-  );
-}
-
-function ArbitrageDiagram() {
-  const nodes = [
-    { id: "DEX A", x: 10, y: 50 },
-    { id: "DEX B", x: 90, y: 50 },
-    { id: "CEX", x: 50, y: 10 },
-    { id: "Vault", x: 50, y: 90 },
-  ];
-  return (
-    <div className="relative aspect-square w-full max-w-md">
-      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
-        <defs>
-          <linearGradient id="ng" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.2" />
-            <stop offset="50%" stopColor="var(--gold)" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="var(--gold)" stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-        {nodes.map((a, i) =>
-          nodes.slice(i + 1).map((b) => (
-            <line
-              key={`${a.id}-${b.id}`}
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke="url(#ng)"
-              strokeWidth="0.4"
-            />
-          )),
-        )}
-      </svg>
-      {nodes.map((n) => (
-        <div
-          key={n.id}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${n.x}%`, top: `${n.y}%` }}
-        >
-          <div className="ring-pulse grid h-12 w-12 place-items-center rounded-full border border-gold/60 bg-[color:var(--m-bg)] text-[10px] font-bold uppercase tracking-wider text-gold">
-            {n.id}
-          </div>
-        </div>
-      ))}
-    </div>
+    </LGCard>
   );
 }
