@@ -13,14 +13,7 @@ function Landing() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       {/* Decorative gradient */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 80% 0%, color-mix(in oklab, var(--gold) 20%, transparent), transparent 70%), radial-gradient(50% 40% at 0% 100%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%)",
-        }}
-      />
+      <div aria-hidden className="landing-aura pointer-events-none absolute inset-0 opacity-60" />
 
       <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
         <Logo />
