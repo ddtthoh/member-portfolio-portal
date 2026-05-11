@@ -1,85 +1,25 @@
-## 问题
+## Changes to `src/routes/portal.staking-plans.tsx` (Your Position card only)
 
-`src/routes/index.tsx` 顶部装饰背景：
+### 1. Remove "Principal" subline
+- Drop the `Principal` / `No active stake` text under the staking amount column. Column becomes: eyebrow → amount only (cleaner, matches the other two columns visually since they keep their sublines).
 
-```tsx
-<div className="... opacity-60" style={{
-  background:
-    "radial-gradient(60% 50% at 80% 0%, color-mix(in oklab, var(--gold) 20%, transparent), transparent 70%), \
-     radial-gradient(50% 40% at 0% 100%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%)"
-}} />
-```
+### 2. Eye-toggle masking (default = visible)
+- Add `showAmount` state (default `true`), mirroring the pattern from `staking-overview-card.tsx`.
+- Eye / EyeOff button positioned top-right of the card (next to the existing "Active" pill, or absolute top-right corner — top-right corner is cleaner so the Active pill stays beside the "Your Position" label).
+- When hidden:
+  - Staking amount → `••••••`
+  - Tier name → kept visible (it's not sensitive)
+  - Monthly ROI value → `••••`
+  - Started Since date + days → kept visible
+- Only sensitive numerics get masked; tier/date stay so the card still feels alive.
 
-在 phone (≤640px) 上几乎看不到，原因有三：
-1. 渐变尺寸用 `%`，在 430px 宽屏幕里两团光一共才 ~250px 直径，被 hero 内容完全遮住
-2. gold 浓度只有 12–20%，又叠了 `opacity-60`，到手机上几乎透明
-3. 位置在右上 / 左下角，phone 视口窄，光晕中心几乎被裁掉
+### 3. Premium glow sweep
+- A diagonal/horizontal light streak overlay that animates left → right across the card.
+- Sequence: on mount, plays **3 consecutive sweeps** (~1.6s each, ~0.2s gap), then repeats the same 3-sweep burst **every 10 seconds**.
+- Implementation: an absolutely-positioned `<div>` inside the card with a linear-gradient (`transparent → gold/25 → transparent`) and a CSS keyframe `translateX(-120%) → translateX(120%)`. Driven by a React state `sweepKey` that increments to retrigger the animation; a `setInterval` of 10s + initial burst loop kicks 3 sweeps each cycle.
+- Animation respects `overflow-hidden` already on the card. No layout shift.
+- Add the keyframe inline via a `<style>` tag or extend `src/styles.css` with a `@keyframes position-sweep` + `.animate-position-sweep` utility (preferred for clean separation).
 
-## 方案
-
-只针对 phone 做一次"略增浓 + 重新定位 + 放大半径"的覆盖，桌面端保持现状不变，做到"看得见但不抢眼"。
-
-### 改动 1 — `src/routes/index.tsx`
-
-把内联 style 抽成一个带 class 的层（保留桌面表现），新增 `landing-aura` class 用于 CSS 覆盖：
-
-```tsx
-<div aria-hidden className="landing-aura pointer-events-none absolute inset-0 opacity-60" />
-```
-
-（删除原 inline `background` 与 `style`）
-
-### 改动 2 — `src/styles.css`（在 `@layer utilities` 内追加）
-
-桌面默认（与现状视觉一致）：
-
-```css
-.landing-aura {
-  background:
-    radial-gradient(60% 50% at 80% 0%,  color-mix(in oklab, var(--gold) 20%, transparent), transparent 70%),
-    radial-gradient(50% 40% at 0% 100%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%);
-}
-```
-
-Phone 端覆盖（≤640px）：让光晕变大、稍浓、位置上移到 hero 上方，叠加一束底部柔光。仍保持低饱和、不抢标题：
-
-```css
-@media (max-width: 640px) {
-  .landing-aura {
-    opacity: 0.85;
-    background:
-      radial-gradient(120% 70% at 75% -10%, color-mix(in oklab, var(--gold) 28%, transparent), transparent 70%),
-      radial-gradient(100% 60% at 10% 110%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 72%);
-  }
-}
-```
-
-要点：
-- 用更大的 `%` + 负偏移让光晕中心稍微"探出屏幕"，phone 上能看到柔和的边缘衰减而不是一坨高光
-- gold 浓度 20→28、12→18，仍远低于按钮的纯金色，不会与 CTA 抢视线
-- `opacity` 提到 0.85，确保在 light mode 也能感知
-
-### 改动 3 — light mode 二次保险（可选）
-
-light mode 背景近白，gold 与白对比天然弱。在 phone 媒体查询内追加：
-
-```css
-:root:not(.dark) .landing-aura {
-  /* phone + light mode 再稍提一档对比 */
-  filter: saturate(115%);
-}
-```
-
-只在 `@media (max-width: 640px)` 内启用，桌面/dark mode 不受影响。
-
-## 不动
-
-- 颜色 token、hero 文案、CTA、其它 portal 页面背景
-- 入场动画时长（保持现有 1.8s 规则）
-- aurora-bg / grid-fade 等其它装饰层
-
-## 验收
-
-- iPhone 14 (390/430) 视口：右上 + 左下能感受到一层金色暖光，但标题与按钮仍是视觉焦点
-- 桌面 ≥1024：与改动前像素级一致
-- light & dark mode 都能看到光晕，dark mode 不过曝
+### Out of scope
+- No changes to the Start Staking CTA, tier sections, or other pages.
+- No changes to wallet data or business logic.
