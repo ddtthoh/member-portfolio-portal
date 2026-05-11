@@ -355,8 +355,8 @@ function TrackCard({
   const qualified = !!current;
 
   return (
-    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
-      {/* Ambient gold corner glow to make user's tracking the focal point */}
+    <GlowFrame innerClassName="liquid-glass p-6">
+      {/* Inner soft radial highlights (kept on top of glow shell) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-px rounded-2xl"
