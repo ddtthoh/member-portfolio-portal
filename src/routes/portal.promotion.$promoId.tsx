@@ -1232,7 +1232,7 @@ function RankingTrackCard({
   const qualified = status === "qualified" || top;
 
   return (
-    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
+    <GlowFrame innerClassName="liquid-glass p-6">
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-px rounded-2xl"
