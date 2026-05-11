@@ -83,19 +83,24 @@ function StakingPlansPage() {
           className="pointer-events-none absolute -inset-px rounded-2xl opacity-90 blur-[2px]"
           style={{
             background:
-              "conic-gradient(from 140deg at 50% 50%, hsl(var(--gold)/0.55), transparent 30%, hsl(var(--gold)/0.35) 55%, transparent 80%, hsl(var(--gold)/0.55))",
+              "conic-gradient(from 140deg at 50% 50%, color-mix(in oklab, var(--gold) 55%, transparent), transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 55%, transparent 80%, color-mix(in oklab, var(--gold) 55%, transparent))",
           }}
         />
-        <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 px-5 py-5 sm:px-7 sm:py-6 shadow-[0_10px_40px_-12px_hsl(var(--gold)/0.35)]">
-          {/* shimmer sweep */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -translate-x-full animate-[shimmer_3.6s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-gold/15 to-transparent"
-          />
+        <div
+          className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 px-5 py-5 sm:px-7 sm:py-6"
+          style={{
+            boxShadow:
+              "0 10px 40px -12px color-mix(in oklab, var(--gold) 35%, transparent)",
+          }}
+        >
           {/* corner glow */}
           <div
             aria-hidden
             className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gold/20 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
           />
 
           <div className="relative flex items-center gap-2">
