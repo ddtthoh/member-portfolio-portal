@@ -253,7 +253,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
         <TrackCard
           icon={<User className="h-4 w-4" />}
           eyebrow="Track 01 · Participant"
-          title="Personal Participation"
+          title="Personal Staking"
           standing={personal}
         />
         <TrackCard
