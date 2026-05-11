@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PortalRouteImport } from './routes/portal'
+import { Route as MainRouteImport } from './routes/main'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
@@ -53,6 +54,11 @@ import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.prom
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MainRoute = MainRouteImport.update({
+  id: '/main',
+  path: '/main',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -262,6 +268,7 @@ const PortalPromotionPromoIdRoute = PortalPromotionPromoIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/main': typeof MainRoute
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/main': typeof MainRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
@@ -344,6 +352,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/main': typeof MainRoute
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
@@ -388,6 +397,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/main'
     | '/portal'
     | '/invite/$memberId'
     | '/portal/change-password'
@@ -430,6 +440,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/main'
     | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
@@ -469,6 +480,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/login'
+    | '/main'
     | '/portal'
     | '/invite/$memberId'
     | '/portal/change-password'
@@ -512,6 +524,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  MainRoute: typeof MainRoute
   PortalRoute: typeof PortalRouteWithChildren
   InviteMemberIdRoute: typeof InviteMemberIdRoute
 }
@@ -523,6 +536,13 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/main': {
+      id: '/main'
+      path: '/main'
+      fullPath: '/main'
+      preLoaderRoute: typeof MainRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -905,6 +925,7 @@ const PortalRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  MainRoute: MainRoute,
   PortalRoute: PortalRouteWithChildren,
   InviteMemberIdRoute: InviteMemberIdRoute,
 }
