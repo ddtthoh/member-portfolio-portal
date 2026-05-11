@@ -1,175 +1,130 @@
+## NASLAB 官网世界级重做（挂在 `/main` 下）
 
-## Goal
-
-Build a world-class, high-end customer-unique referral landing page at `invite.naslabtec.com/{memberId}`, plus a portal page "My Landing Page" where customers can preview, share, and download their personal version (PDF / PNG). Video upload + content editing live in an admin-only page (你之后传 video 进去就行).
-
-This plan covers **landing page design + page wiring only**. Subdomain DNS、video MP4 都之后再处理。
+按你的指令：现有 `/` 保持不动，新 NASLAB 官网整体放在 `/main`，所有子页都是 `/main/xxx`。其他选择全部沿用上一轮。
 
 ---
 
-## Visual Direction
+### 一、路由结构
 
-**混合风格**：以 portal 的 luxury gold/black 为基底，叠加 futuristic / crypto-tech 元素：
-
-- **底色**：深黑 `#0A0A0B` + 渐变 noise 纹理
-- **主色**：现有 `--gold` (portal 同款) 作为奢华锚点
-- **加分**：青色科技辉光 `oklch(0.78 0.14 200)` 作为 secondary accent（限量使用，不抢金色）
-- **质感层**：
-  - Liquid glass panels（已有 `liquid-glass` class，复用）
-  - 半透明玻璃卡片带 backdrop-blur
-  - Conic gradient 边框（gold → cyan → gold）扫光动画
-  - Subtle grid background（CSS）+ 浮动光点
-  - Gold particles / orbits 在 hero 区
-- **Typography**：保留 portal 的 serif（标题）+ sans（正文）；标题加 `text-gold-shine` 渐变
-- **Motion**：framer-motion hero 入场（fade + lift），数字 count-up，scroll-reveal（复用 `usePortalReveal`），CTA magnetic hover
-
-整体感觉：**Apple keynote × 加密交易所 × 私人银行**。
-
----
-
-## Landing Page Sections (基于你的 PDF)
-
-```
-/invite/{memberId}
-────────────────────────────────
-1. NAV (透明、sticky)
-   logo  |  Why NASLAB · Packages · How it works · Contact  |  [Join Now] CTA
-
-2. HERO (full viewport)
-   - Eyebrow: "INVITED BY {referrerName} · ID {memberId}"
-   - H1: "Earn While the Market Sleeps"
-        sub: "Institutional-grade MEV trading, now open to you."
-   - Sub: 1-2 行卖点
-   - CTA primary: "Start Earning →"  (跳 /signup?ref={memberId})
-   - CTA secondary: "Watch 2-min Video" (scroll to video section)
-   - 右侧/背景：金色 orbit + 数字流 + glass card 显示 "Live ROI: 8.4% / mo"（demo 数字）
-
-3. TRUST BAR
-   - 横排 logos / metrics: "$XXM AUM · 12,000+ members · 36 months track record"
-
-4. WHY NASLAB (3-column glass cards)
-   - Ncore 2.0 AI Engine
-   - MEV Strategy
-   - Transparent On-chain
-   每个 card 带 icon (lucide) + gold/cyan glow
-
-5. HOW IT WORKS (numbered steps, horizontal on desktop / vertical mobile)
-   01 Sign Up → 02 Choose Package → 03 Stake → 04 Earn Daily
-
-6. PACKAGES (3 tiers, center one highlighted)
-   ┌─────────────┬──────────────┬─────────────┐
-   │  STANDARD   │   ADVANCE    │  PREMIUM    │
-   │  4.5–7.5%   │  7.5–10.5%   │ 10.5–13.5%  │
-   │  / month    │  / month *   │  / month    │
-   │             │ MOST POPULAR │             │
-   │  features   │  features    │  features   │
-   │  [Choose]   │  [Choose]    │  [Choose]   │
-   └─────────────┴──────────────┴─────────────┘
-   底下小字: "Reference ROI range based on market conditions. Past performance does not guarantee future returns."
-
-7. PROOF / NUMBERS (animated counters)
-   - Total Rewards Distributed
-   - Active Members
-   - Avg Monthly ROI
-   (placeholder 数字, 你之后能在 admin 改)
-
-8. TESTIMONIAL / FOUNDER NOTE (一段引用，placeholder)
-
-9. FAQ (accordion, 5–6 questions from PDF)
-
-10. FINAL CTA (大字 + 按钮)
-    "Start Your NASLAB Journey"
-    "Invited by {referrerName}"
-    [Join with this Invite →] (跳 /signup?ref={memberId})
-
-11. FOOTER
-    左: logo + tagline + © 2026 NASLAB Technologies
-    中: links (Why · Packages · FAQ · Contact)
-    右: socials (Telegram / X / Instagram / Website 4 个 icon)
-    最底: "Invite ID: {memberId}" 小字
+```text
+src/routes/
+  index.tsx                    保持不动（现 Ivory & Vale landing）
+  main.tsx                     layout：marketing shell（nav + footer + cursor glow + Outlet）
+  main.index.tsx               /main          → NASLAB Home
+  main.about.tsx               /main/about
+  main.strategy.tsx            /main/strategy
+  main.roadmap.tsx             /main/roadmap
+  main.careers.tsx             /main/careers
+  main.collaboration.tsx       /main/collaboration
+  main.contact.tsx             /main/contact
+  main.ncore.tsx               layout：产品 sub-nav + Outlet
+  main.ncore.index.tsx         /main/ncore           → Ncore overview
+  main.ncore.basic.tsx         /main/ncore/basic
+  main.ncore.trading.tsx       /main/ncore/trading
+  main.ncore.features.tsx      /main/ncore/features
+  main.ncore.trends.tsx        /main/ncore/trends
+  main.ncore.x.tsx             /main/ncore/x
+  main.ncore.token.tsx         /main/ncore/token
+  invite.$memberId.tsx         不动
+  portal.*                     不动
+  login.tsx                    不动
 ```
 
-> 注：video section 这次先不放（你之后传 MP4 再加一个 section 8.5「See It In Action」嵌入 video player）。`?print=1` 模式下永远隐藏 video（PDF/PNG 不要 video）。
+`main.tsx` 用 `<Outlet />` 渲染子路由，统一注入 marketing nav / footer / theme toggle / 3D 背景容器。
+
+每个路由各自 `head()` meta（title / description / og:title / og:description），SEO 独立。
+
+### 二、视觉方向（Direction Lock）
+
+- 基调：portal 的 Luxe Gold + Cyan Tech + 深空 `#06070b`
+- Light 模式：象牙白 `#f7f4ec` + 暖金 + 深石墨字
+- 字体：Cormorant Garamond（display）+ Inter（body）+ JetBrains Mono（数据点缀）
+- 装饰语言：conic-gradient 光圈边框 / 流体玻璃面板 / gold-shine 文字 / cyan glow 数据 / 网格背景 + 噪点 / 浮动粒子轨道
+- 交互：cursor glow、magnetic CTA、hover tilt、scroll-driven count、parallax、section reveal、route transition fade
+- 默认 dark mode，nav 右侧 toggle 切换 light（复用 `theme-provider.tsx`）
+
+### 三、3D / WebGL 处理（Maximalist + 性能护栏）
+
+每个 3D 场景：可见才渲染 + DPR ≤ 1.5 + 移动端降级为 SVG/CSS。
+
+- **Hero (`/main`)**：Three.js 旋转 NASLAB 立体 N logo（金色金属材质 + 反射）+ 粒子轨道 + 鼠标视差
+- **Strategy / Roadmap 背景**：WebGL shader 网格扭曲（金 + cyan 流动）
+- **Ncore 系列**：粒子网络流动（mempool 隐喻）+ 节点连线
+- **Token 页**：3D NCT 硬币旋转 + 光晕
+- **Collaboration / About**：3D 节点 constellation（复用 `network-constellation.tsx`）
+
+### 四、Marketing 共享框架
+
+新建 `src/components/marketing/`：
+
+- `marketing-shell.tsx` — `main.tsx` 用，包 nav + Outlet + footer + cursor glow + 路由淡入
+- `marketing-nav.tsx` — Logo + 菜单（Home / About / Strategy / Roadmap / Products↓ / Careers / Collaboration / Contact）+ ThemeToggle + Login CTA（→ `/login`，magnetic）
+- `marketing-footer.tsx` — 4 列：Brand / Products / Company / Connect（telegram / X / instagram / website / contact@naslabtec.com）+ copyright
+- 复用：`theme-toggle.tsx`、`cursor-glow.tsx`、`magnetic-button.tsx`、`count-up.tsx`、`network-constellation.tsx`
+
+### 五、各页面 Section 蓝图
+
+**Home `/main`** — long-scroll
+1. Hero：3D N logo + "A New Era of Digital Wealth"（gold-shine）+ 双 CTA
+2. Stats Bar：24/7 · 99.9% · <50ms · Global（count-up + cyan glow）
+3. What We Do：parallax 大图 + 文案 + magnetic CTA
+4. Strategic Direction：玻璃卡 + conic 边框
+5. Ncore 2.0 Showcase：3D 粒子背景 + 4 feature 卡 horizontal scroll
+6. Ncore X：split layout，左 3D 节点，右文案
+7. NCT Token：3D 硬币 + tokenomics 数据点
+8. Roadmap timeline preview（4 节点 hover 展开）
+9. Careers + Collaboration 双卡 CTA
+10. Final CTA：contact@naslabtec.com + 大金 magnetic button
+11. Footer
+
+**About** — Hero + Mission/Vision/Values 三卡 + Team grid（占位）+ stats
+**Strategy** — Hero + 多层 vertical timeline + WebGL shader 背景
+**Roadmap** — 大型交互 timeline（2024 / 2025 / 2025 Q1-Q4 / 2026 Q1-Q4），节点点击展开，scroll progress 金色描边
+**Ncore Layout** — 顶部产品 sub-nav（Basic / Trading / Features / Trends / X / Token），共享 hero
+**Ncore.basic / trading / features / trends** — 文章式长页 + 图示卡 + 数据视觉
+**Ncore.x** — 双向箭头动画展示 DEX↔DEX / CEX↔CEX / DEX↔CEX
+**Ncore.token** — 3D 硬币 + tokenomics donut（recharts）+ utility 卡
+**Careers** — Hero + 5 职位卡 + apply CTA
+**Collaboration** — Hero + 3 类合作模式卡 + form 占位
+**Contact** — 联系大字 + email 卡 + social 卡 + contact form（写入 Lovable Cloud）
+
+### 六、技术栈与新依赖
+
+- 已有：framer-motion、lucide-react、recharts、tanstack/react-router
+- 新增：`three`、`@react-three/fiber`、`@react-three/drei`
+- 新 token（`src/styles.css`）：`--marketing-bg`、`--gradient-aurora`、`--shadow-marketing`，含 light mode 对应值
+- 颜色全部走 semantic token，保证 light/dark 都不破
+
+### 七、后端（Lovable Cloud）
+
+- 新表 `contact_messages`（id / name / email / subject / message / created_at），RLS：anon insert，admin select
+- 新表 `career_applications`（id / position / name / email / phone / resume_url / message / created_at），RLS 同上
+- Storage bucket `career-resumes`（私有）
+- 不动 auth / portal 现有表
+
+### 八、分阶段实施
+
+1. **Phase 1（本轮执行）**：marketing 框架（`main.tsx` shell / nav / footer / theme tokens / 3D Hero）+ **Home `/main`** + **About** + **Contact** + **Roadmap**
+2. **Phase 2**：Strategy + Ncore layout + 6 个 Ncore 子页
+3. **Phase 3**：Careers + Collaboration + 后端表 + 表单提交
+
+### 九、不在本次范围
+
+- 多语言（i18n）翻译 — 先英文
+- 文案重写 — 沿用现有 naslabtec.com 文案
+- Portal / `/` 现有 landing / auth 流程 — 不动
+- 自定义域名 / DNS 切换
+- Logo 重新设计 — 用现有 NASLAB N（你之后给 SVG/PNG，否则文字 logo 占位）
+
+### 验收标准
+
+- 默认进入 dark；右上 toggle 切 light，不破布局/颜色
+- `/main` 首屏 3D logo desktop ~60fps，移动端自动降级
+- 所有按钮 magnetic + cursor glow（仅 desktop fine pointer）
+- 所有 section 进视口有 reveal
+- 所有路由独立 SEO meta
+- 移动端无横向滚动，触摸友好
 
 ---
 
-## Pages to Create
-
-### 1. `src/routes/invite.$memberId.tsx` (PUBLIC)
-- 完整 landing page
-- Loader: fetch referrer info (name + member id) by member_id from `profiles` table
-- 404 if member id invalid
-- `?print=1` query: 隐藏 nav / 把 CTA 换成 QR code + URL 文字（适合 PDF/PNG 截图）
-- Head meta: og:title / og:description / og:image (后续可加)
-
-### 2. `src/routes/portal.landing-page.tsx` (CUSTOMER)
-"My Landing Page" — 客户管理自己的邀请页：
-- 显示自己的 invite URL: `invite.naslabtec.com/{myMemberId}`
-- Copy URL 按钮
-- QR code (复用现有 qr-code 逻辑)
-- iframe preview of own landing page (缩小显示)
-- 4 个下载按钮：
-  - 📄 Download PDF (html2canvas + jsPDF, 抓 `?print=1` iframe)
-  - 🖼 Download PNG (html2canvas)
-  - 📱 Share to WhatsApp (wa.me link)
-  - 🔗 Copy Link
-- "Open Full Page" 按钮 → 新窗口打开自己的 landing page
-
-加到 portal sidebar nav: "My Landing Page" (带 icon)。
-
-### 3. `src/routes/portal.admin.landing-content.tsx` (ADMIN ONLY)
-- Role-gated（用现有 user_roles + has_role 模式）
-- Form 编辑 `landing_page_settings` 单行表：
-  - Hero headline / subheadline
-  - 3 个 package 的 features（JSON array）
-  - Trust bar 数字
-  - Stats 数字
-  - Founder note text
-  - FAQ items (JSON)
-  - Promo video URL（之后传 MP4 用）
-- 上传 MP4 到 `marketing-assets` bucket
-
-> ⚠️ 注：admin page + DB schema 这次只搭骨架，content 全部先用 hardcoded defaults 写在 landing page 里（避免你还没填就空白）。表 + admin UI 后续 iteration 再连。
-
----
-
-## Technical Details
-
-**新组件**（都放 `src/components/landing/`）：
-- `landing-nav.tsx`
-- `hero-section.tsx`（含 framer-motion + orbit canvas）
-- `why-section.tsx`
-- `how-it-works.tsx`
-- `packages-section.tsx`
-- `stats-section.tsx`
-- `founder-note.tsx`
-- `faq-section.tsx`
-- `final-cta.tsx`
-- `landing-footer.tsx`
-
-**新 CSS tokens**（加到 `src/styles.css`）：
-- `--cyan-glow`
-- `--landing-bg`
-- `--gradient-hero`
-- `--shadow-luxe`
-- 新 keyframes: `orbit-rotate`, `glow-pulse-cyan`
-
-**Dependencies 已有**: framer-motion ✅, lucide-react ✅, html2canvas + jsPDF（如果没有就 `bun add`）。
-
-**Subdomain**：landing page 路由是 `/invite/{memberId}`。`invite.naslabtec.com` 做 CNAME 到主站后，需要做一个 subdomain → path rewrite（可以用 Cloudflare Worker 一行 redirect，或先用 `naslabtec.com/invite/xxx`，subdomain 之后再配）。**这次先把 path 版本做出来**。
-
----
-
-## Out of Scope (这次不做)
-
-- ❌ Video MP4 上传 / video section（你之后传）
-- ❌ Subdomain DNS 配置
-- ❌ Admin landing-content 表 + 编辑 UI（先 hardcoded，之后 iteration）
-- ❌ Real PDF download（先放按钮 + 基础 html2canvas，PDF 排版后续优化）
-
-## Deliverable After This Build
-
-- 你访问 `/invite/{任何客户的 memberId}` 能看到一个完整、抢眼、世界级的 landing page
-- 你访问 `/portal/landing-page` 能看到自己那一份 + share/download 工具
-- 内容全是 hardcoded 高质量 placeholder，跟你 PDF 对得上
-- 设计上能让你立刻判断「OK 这个我可以拿出去给客户」
+确认后开始 Phase 1。如果 Phase 1 想再缩小（例如只做框架 + Home），告诉我即可。
