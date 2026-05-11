@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, MessageCircle, Send, Globe } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/main/contact")({
   head: () => ({
@@ -22,6 +25,28 @@ const channels = [
 ];
 
 function ContactPage() {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setSubmitting(true);
+    const { error } = await supabase.from("contact_messages").insert({
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? "") || null,
+      message: String(data.get("message") ?? ""),
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Could not send message. Please try again or email us directly.");
+      return;
+    }
+    toast.success("Message received — we'll respond within 24 hours.");
+    form.reset();
+  }
+
   return (
     <>
       <section className="relative overflow-hidden">
@@ -73,19 +98,7 @@ function ContactPage() {
               <h2 className="mt-5 font-serif text-3xl md:text-4xl">
                 Tell us about your <span className="m-gold-text">interest</span>.
               </h2>
-              <form
-                className="mt-8 grid gap-5"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.currentTarget as HTMLFormElement;
-                  const data = new FormData(form);
-                  const subject = encodeURIComponent(`[Website] ${data.get("subject") ?? "Inquiry"}`);
-                  const body = encodeURIComponent(
-                    `Name: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`,
-                  );
-                  window.location.href = `mailto:contact@naslabtec.com?subject=${subject}&body=${body}`;
-                }}
-              >
+              <form className="mt-8 grid gap-5" onSubmit={onSubmit}>
                 <div className="grid gap-5 md:grid-cols-2">
                   <Field name="name" label="Name" placeholder="Your full name" required />
                   <Field name="email" type="email" label="Email" placeholder="you@example.com" required />
@@ -112,12 +125,14 @@ function ContactPage() {
                   </p>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)] transition-transform hover:-translate-y-0.5"
+                    disabled={submitting}
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
                   >
-                    Send Message
+                    {submitting ? "Sending…" : "Send Message"}
                   </button>
                 </div>
               </form>
+
             </div>
           </div>
         </MReveal>
