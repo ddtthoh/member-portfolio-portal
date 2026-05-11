@@ -130,18 +130,19 @@ function StakingPlansPage() {
             className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
           />
 
-          {/* Premium left→right glow sweep (3-burst on mount, repeats every 10s) */}
-          <div
-            key={sweepKey}
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 -inset-x-1/3 animate-position-sweep"
-            style={{
-              background:
-                "linear-gradient(110deg, transparent 35%, color-mix(in oklab, var(--gold) 28%, transparent) 50%, transparent 65%)",
-              mixBlendMode: "screen",
-            }}
-          />
-
+          {/* Diagonal glow sweep — 2 plays on mount only, top-left → bottom-right */}
+          {sweepKey > 0 && (
+            <div
+              key={sweepKey}
+              aria-hidden
+              className="pointer-events-none absolute -inset-[40%] animate-position-sweep"
+              style={{
+                background:
+                  "linear-gradient(135deg, transparent 42%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 58%)",
+                mixBlendMode: "screen",
+              }}
+            />
+          )}
           <div className="relative flex items-center gap-2">
             <Crown className="h-4 w-4 text-gold" strokeWidth={2.2} />
             <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
