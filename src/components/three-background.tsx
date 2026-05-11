@@ -46,7 +46,12 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
 
     for (let i = 0; i < count; i++) {
       const x = (Math.random() - 0.5) * spreadX;
-      const y = (Math.random() - 0.5) * spreadY + 1.0; // bias upward
+      // Phone: cluster nodes in the upper portion (above the diamond box).
+      // Desktop/tablet: keep the existing slight upward bias.
+      const r = Math.random();
+      const y = isPhone
+        ? (1 - Math.pow(r, 1.7)) * spreadY * 0.5 + 0.4 // mostly upper half
+        : (Math.random() - 0.5) * spreadY + 1.0;
       const z = (Math.random() - 0.5) * 6;
       home[i * 3] = x;
       home[i * 3 + 1] = y;
@@ -516,9 +521,14 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
         data.sparkPositions[s * 3 + 2] = az + (bz - az) * cl;
         const twinkle = 0.55 + 0.45 * Math.sin(t * 2.4 + seed * 3.1);
         const intensity = Math.min(1.8, twinkle + pulseOsc * 1.4);
-        data.sparkColors[s * 3] = Math.min(1, 1.0 * intensity);
-        data.sparkColors[s * 3 + 1] = Math.min(1, 0.92 * intensity);
-        data.sparkColors[s * 3 + 2] = Math.min(1, 0.7 * intensity);
+        // Light mode: bright golden yellow that pops on white.
+        // Dark mode: warm cream that glows under additive blend.
+        const baseR = isLight ? 0.98 : 1.0;
+        const baseG = isLight ? 0.78 : 0.92;
+        const baseB = isLight ? 0.08 : 0.7;
+        data.sparkColors[s * 3] = Math.min(1, baseR * intensity);
+        data.sparkColors[s * 3 + 1] = Math.min(1, baseG * intensity);
+        data.sparkColors[s * 3 + 2] = Math.min(1, baseB * intensity);
       }
     }
     if (sparklesRef.current) {
@@ -602,10 +612,10 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           map={packetSprite}
           size={pointSize * 0.9}
           sizeAttenuation
-          color={"#fff4d6"}
+          color={isLight ? "#c98a14" : "#fff4d6"}
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           opacity={1}
         />
       </points>
@@ -632,7 +642,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           transparent
           depthWrite={false}
           blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
-          opacity={isLight ? 0.7 : 0.45}
+          opacity={isLight ? 0.85 : 0.5}
         />
       </points>
 
@@ -721,8 +731,10 @@ export function ThreeBackground({
 
   if (!enabled) return null;
 
+  // Phone: full opacity in upper ~48% (above diamond box), step down to ~0.89
+  // through the diamond zone, then fade to ~0.8 toward the bottom (icon area).
   const phoneMask =
-    "radial-gradient(130% 110% at 50% 40%, rgba(0,0,0,1) 45%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0) 100%)";
+    "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,0.89) 56%, rgba(0,0,0,0.89) 82%, rgba(0,0,0,0.8) 100%)";
   const fadeMask =
     "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)";
 
