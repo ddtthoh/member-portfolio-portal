@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { GlowFrame } from "@/components/glow-frame";
 import { MetricValue } from "@/components/metric-value";
 import { useTranslation } from "react-i18next";
 
