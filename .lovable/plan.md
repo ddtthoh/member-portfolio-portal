@@ -1,49 +1,85 @@
-## 目标
+## 问题
 
-整个 `/portal/*` 所有动画统一规则：
-- **数字**：永远从 `0` 开始计数，`0 → 目标值`
-- **所有动画时长**：统一为 **1800ms (1.8s)**
-- 缓动保持 ease-out 平滑
+`src/routes/index.tsx` 顶部装饰背景：
 
-## 改动
+```tsx
+<div className="... opacity-60" style={{
+  background:
+    "radial-gradient(60% 50% at 80% 0%, color-mix(in oklab, var(--gold) 20%, transparent), transparent 70%), \
+     radial-gradient(50% 40% at 0% 100%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%)"
+}} />
+```
 
-### 1. `src/components/count-up.tsx`（核心数字组件）
-- 默认 `duration = 1800`（原 1500）
-- 删除 `fromRef`：每次进入视口都从 `0` 开始计数（不是从上次的值继续）
-- 删除"value === 0 跳过"短路逻辑
-- 元素离开视口时重置 `display = 0` 并重置内部进度，下次进入时再次从 0 → value
-- 保留 `prefers-reduced-motion` 直接显示终值
+在 phone (≤640px) 上几乎看不到，原因有三：
+1. 渐变尺寸用 `%`，在 430px 宽屏幕里两团光一共才 ~250px 直径，被 hero 内容完全遮住
+2. gold 浓度只有 12–20%，又叠了 `opacity-60`，到手机上几乎透明
+3. 位置在右上 / 左下角，phone 视口窄，光晕中心几乎被裁掉
 
-### 2. `src/components/count-value.tsx`（react-countup 包装）
-- 默认 `duration = 1.8`（秒）
-- `start={0}`，移除 `preserveValue`，确保每次都从 0 起跳
+## 方案
 
-### 3. `src/hooks/use-in-view-once.ts` → 改为双向触发支持（仅供 CountUp 使用）
-- 在 CountUp 内部不依赖 "Once"，改用普通 IntersectionObserver：进入 → armed=true 触发 0→value；离开 → armed=false 重置为 0
-- 不破坏其它使用 `useInViewOnce` 的组件（保持原 hook 不变，CountUp 自带新 observer）
+只针对 phone 做一次"略增浓 + 重新定位 + 放大半径"的覆盖，桌面端保持现状不变，做到"看得见但不抢眼"。
 
-### 4. `src/styles.css` — 统一动画 duration
-所有 portal 入场/揭示类动画 duration 改为 1.8s：
-- `.reveal-on-scroll` transition：`0.75s` → `1.8s`
-- `@keyframes page-enter` 对应 `.page-enter` animation：`0.5s` → `1.8s`
-- `@keyframes num-tick` `.num-tick`：`0.6s` → `1.8s`
-- 保持 hover/shimmer/breathe/ticker 等"持续型/交互型"动画不变（它们不是入场动画）
+### 改动 1 — `src/routes/index.tsx`
 
-### 5. framer-motion 入场动画统一
-扫描所有 portal 内 `motion.*` 的 `initial → animate` 入场，将 `transition.duration` 统一为 `1.8`：
-- `src/components/rewards-overview-panel.tsx`：`0.5` → `1.8`
-- `src/components/portal-shell.tsx` 入场区块同理
-- 其它命中页面：grep `transition={{ duration:` 限定在 `src/components/` 与 `src/routes/portal*` 内逐个调整入场动画（不动 hover/exit 等交互动画）
+把内联 style 抽成一个带 class 的层（保留桌面表现），新增 `landing-aura` class 用于 CSS 覆盖：
 
-## 不改动
+```tsx
+<div aria-hidden className="landing-aura pointer-events-none absolute inset-0 opacity-60" />
+```
 
-- 颜色 token、布局、业务逻辑
-- 持续循环动画（ticker、breathe、shimmer、cursor-glow、aurora）
-- hover / active 微交互时长
+（删除原 inline `background` 与 `style`）
 
-## 验证
+### 改动 2 — `src/styles.css`（在 `@layer utilities` 内追加）
 
-打开 `/portal`、`/portal/holdings`、`/portal/reports/staking`：
-1. 所有金额/百分比/天数都从 `0` 开始，1.8s 内滚动到目标值
-2. 所有区块淡入/上移耗时一致，约 1.8s
-3. 上下来回滚动，数字每次进入视口都重新从 0 计数
+桌面默认（与现状视觉一致）：
+
+```css
+.landing-aura {
+  background:
+    radial-gradient(60% 50% at 80% 0%,  color-mix(in oklab, var(--gold) 20%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 0% 100%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%);
+}
+```
+
+Phone 端覆盖（≤640px）：让光晕变大、稍浓、位置上移到 hero 上方，叠加一束底部柔光。仍保持低饱和、不抢标题：
+
+```css
+@media (max-width: 640px) {
+  .landing-aura {
+    opacity: 0.85;
+    background:
+      radial-gradient(120% 70% at 75% -10%, color-mix(in oklab, var(--gold) 28%, transparent), transparent 70%),
+      radial-gradient(100% 60% at 10% 110%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 72%);
+  }
+}
+```
+
+要点：
+- 用更大的 `%` + 负偏移让光晕中心稍微"探出屏幕"，phone 上能看到柔和的边缘衰减而不是一坨高光
+- gold 浓度 20→28、12→18，仍远低于按钮的纯金色，不会与 CTA 抢视线
+- `opacity` 提到 0.85，确保在 light mode 也能感知
+
+### 改动 3 — light mode 二次保险（可选）
+
+light mode 背景近白，gold 与白对比天然弱。在 phone 媒体查询内追加：
+
+```css
+:root:not(.dark) .landing-aura {
+  /* phone + light mode 再稍提一档对比 */
+  filter: saturate(115%);
+}
+```
+
+只在 `@media (max-width: 640px)` 内启用，桌面/dark mode 不受影响。
+
+## 不动
+
+- 颜色 token、hero 文案、CTA、其它 portal 页面背景
+- 入场动画时长（保持现有 1.8s 规则）
+- aurora-bg / grid-fade 等其它装饰层
+
+## 验收
+
+- iPhone 14 (390/430) 视口：右上 + 左下能感受到一层金色暖光，但标题与按钮仍是视觉焦点
+- 桌面 ≥1024：与改动前像素级一致
+- light & dark mode 都能看到光晕，dark mode 不过曝
