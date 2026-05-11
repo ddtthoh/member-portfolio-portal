@@ -82,6 +82,12 @@ export function CountUp({
       return;
     }
 
+    // Skip animation entirely for non-positive targets — no glow/start/complete fires.
+    if (value <= 0) {
+      setDisplay(value);
+      return;
+    }
+
     // Always start fresh from 0 → value.
     const to = value;
     setDisplay(0);
@@ -89,15 +95,17 @@ export function CountUp({
     let firedStart = false;
 
     const tick = (now: number) => {
-      if (!firedStart) {
-        firedStart = true;
-        start = now;
-        onStart?.();
-      }
+      if (start === 0) start = now;
       const elapsed = now - start;
       const t = Math.min(1, elapsed / duration);
       const eased = easeOut(t);
-      setDisplay(to * eased);
+      const next = to * eased;
+      // Fire onStart on the first frame where the displayed value actually moves above 0.
+      if (!firedStart && next > 0) {
+        firedStart = true;
+        onStart?.();
+      }
+      setDisplay(next);
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
       } else {

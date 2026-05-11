@@ -63,7 +63,7 @@ function StakingPlansPage() {
     setSweepKey(2);
   };
 
-  const { wallet } = useWallet();
+  const { wallet, loading: walletLoading } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
     standard: plans.filter((p) => p.tier === "standard"),
@@ -178,7 +178,11 @@ function StakingPlansPage() {
               />
               <div className="mt-2 leading-none">
                 {showAmount ? (
-                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} onComplete={handleCountComplete} />
+                  walletLoading || wallet.staking <= 0 ? (
+                    <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" static />
+                  ) : (
+                    <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} onComplete={handleCountComplete} />
+                  )
                 ) : (
                   <span className="inline-flex items-baseline font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
                     ••••••
