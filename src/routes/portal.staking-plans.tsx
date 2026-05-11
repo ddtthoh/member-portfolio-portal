@@ -44,6 +44,33 @@ const nbspRange = (s: string) => s.replace(/\s*–\s*/, "\u00A0–\u00A0");
 function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [showAmount, setShowAmount] = useState(true);
+  const [sweepKey, setSweepKey] = useState(0);
+
+  // Burst sweep: 3 sweeps in a row, then re-trigger every 10s
+  useEffect(() => {
+    let burstTimers: ReturnType<typeof setTimeout>[] = [];
+    const SWEEP_MS = 1600;
+    const GAP_MS = 200;
+    const STEP = SWEEP_MS + GAP_MS;
+
+    const burst = () => {
+      // 3 sweeps
+      [0, STEP, STEP * 2].forEach((delay) => {
+        burstTimers.push(
+          setTimeout(() => setSweepKey((k) => k + 1), delay)
+        );
+      });
+    };
+
+    burst();
+    const interval = setInterval(burst, 10000);
+
+    return () => {
+      burstTimers.forEach(clearTimeout);
+      clearInterval(interval);
+    };
+  }, []);
   const { wallet } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
