@@ -98,19 +98,7 @@ function ContactPage() {
               <h2 className="mt-5 font-serif text-3xl md:text-4xl">
                 Tell us about your <span className="m-gold-text">interest</span>.
               </h2>
-              <form
-                className="mt-8 grid gap-5"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.currentTarget as HTMLFormElement;
-                  const data = new FormData(form);
-                  const subject = encodeURIComponent(`[Website] ${data.get("subject") ?? "Inquiry"}`);
-                  const body = encodeURIComponent(
-                    `Name: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`,
-                  );
-                  window.location.href = `mailto:contact@naslabtec.com?subject=${subject}&body=${body}`;
-                }}
-              >
+              <form className="mt-8 grid gap-5" onSubmit={onSubmit}>
                 <div className="grid gap-5 md:grid-cols-2">
                   <Field name="name" label="Name" placeholder="Your full name" required />
                   <Field name="email" type="email" label="Email" placeholder="you@example.com" required />
@@ -137,12 +125,14 @@ function ContactPage() {
                   </p>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)] transition-transform hover:-translate-y-0.5"
+                    disabled={submitting}
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-7 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
                   >
-                    Send Message
+                    {submitting ? "Sending…" : "Send Message"}
                   </button>
                 </div>
               </form>
+
             </div>
           </div>
         </MReveal>
