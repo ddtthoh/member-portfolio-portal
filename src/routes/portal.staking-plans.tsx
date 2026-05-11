@@ -45,22 +45,15 @@ function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [showAmount, setShowAmount] = useState(true);
-  const [sweepKey, setSweepKey] = useState(0);
+  const [sweepRunning, setSweepRunning] = useState(false);
 
   const SWEEP_MS = 2500;
   const startedRef = useRef(false);
-  const completedRef = useRef(false);
 
   const handleCountStart = () => {
     if (startedRef.current) return;
     startedRef.current = true;
-    setSweepKey(1);
-  };
-
-  const handleCountComplete = () => {
-    if (completedRef.current) return;
-    completedRef.current = true;
-    setSweepKey(2);
+    setSweepRunning(true);
   };
 
   const { wallet, loading: walletLoading } = useWallet();

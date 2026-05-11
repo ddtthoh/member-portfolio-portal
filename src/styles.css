@@ -666,14 +666,21 @@
 }
 
 @layer utilities {
-  @keyframes position-sweep {
-    0% { transform: translate(-60%, -60%); opacity: 0; }
-    8% { opacity: 1; }
-    92% { opacity: 1; }
-    100% { transform: translate(60%, 60%); opacity: 0; }
+  @keyframes position-sweep-move {
+    0%   { transform: translate(-60%, -60%); }
+    100% { transform: translate(60%, 60%); }
+  }
+  @keyframes position-sweep-fade {
+    0%   { opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; }
   }
   .animate-position-sweep {
-    animation: position-sweep 2.5s cubic-bezier(0.33, 1, 0.68, 1) 1 both;
+    will-change: transform, opacity;
+    animation:
+      position-sweep-move 2.5s cubic-bezier(0.33, 1, 0.68, 1) 2 both,
+      position-sweep-fade 2.5s linear 2 both;
   }
   @media (prefers-reduced-motion: reduce) {
     .animate-position-sweep { animation: none; }
