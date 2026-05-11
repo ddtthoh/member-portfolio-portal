@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useMemo, useRef, useState, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, TrendingUp, CalendarClock, Crown, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
