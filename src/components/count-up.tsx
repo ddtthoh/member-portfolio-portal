@@ -16,6 +16,8 @@ type Props = {
   triggerInView?: boolean;
   /** Fired the moment the count-up animation actually starts (frame 0). */
   onStart?: () => void;
+  /** Fired when the count-up reaches its final value. */
+  onComplete?: () => void;
 };
 
 // Ease-out cubic for a smooth, premium ramp-up.
@@ -30,6 +32,7 @@ export function CountUp({
   className,
   triggerInView = true,
   onStart,
+  onComplete,
 }: Props) {
   const elRef = useRef<HTMLSpanElement | null>(null);
   const [display, setDisplay] = useState(0);
@@ -80,18 +83,25 @@ export function CountUp({
     }
 
     // Always start fresh from 0 → value.
-    const start = performance.now();
     const to = value;
     setDisplay(0);
-    onStart?.();
+    let start = 0;
+    let firedStart = false;
 
     const tick = (now: number) => {
+      if (!firedStart) {
+        firedStart = true;
+        start = now;
+        onStart?.();
+      }
       const elapsed = now - start;
       const t = Math.min(1, elapsed / duration);
       const eased = easeOut(t);
       setDisplay(to * eased);
       if (t < 1) {
         rafRef.current = requestAnimationFrame(tick);
+      } else {
+        onComplete?.();
       }
     };
 
