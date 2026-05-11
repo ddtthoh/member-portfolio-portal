@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Coins, Flame, KeyRound, Sparkles } from "lucide-react";
-import { NcoreHero, NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreSection, SectionHeader, NcoreHero } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { BurnCurve, AllocationDonut } from "@/components/marketing/charts/token-charts";
 
 export const Route = createFileRoute("/main/ncore/token")({
   head: () => ({
@@ -31,6 +32,13 @@ function TokenPage() {
         highlight="Ncore ecosystem."
         description="NCT is more than a token. It is the settlement layer, the access key and the incentive instrument that aligns every participant — operators, partners, and users — around the long-term value of the system."
       />
+
+      <NcoreSection>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <MReveal><BurnCurve /></MReveal>
+          <MReveal delay={120}><AllocationDonut /></MReveal>
+        </div>
+      </NcoreSection>
 
       <NcoreSection>
         <div className="grid items-center gap-12 lg:grid-cols-2">

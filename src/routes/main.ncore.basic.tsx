@@ -27,6 +27,10 @@ function BasicPage() {
       />
 
       <NcoreSection>
+        <MReveal><MempoolFlow /></MReveal>
+      </NcoreSection>
+
+      <NcoreSection>
         <SectionHeader eyebrow="The Three Primitives" title="What every DEX trade" highlight="actually looks like." />
         <div className="mt-12">
           <FeatureGrid items={[

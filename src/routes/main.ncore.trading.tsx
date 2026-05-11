@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Radio, Sandwich, Cpu, Gauge, Boxes, Timer } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { SandwichTimeline } from "@/components/marketing/charts/sandwich-timeline";
 
 export const Route = createFileRoute("/main/ncore/trading")({
   head: () => ({
@@ -24,6 +25,10 @@ function TradingPage() {
         highlight="before the market reacts."
         description="Ncore 2.0 fuses mempool intelligence with deterministic ordering. The result: structured, repeatable strategies that capture value at the exact moment liquidity moves."
       />
+
+      <NcoreSection>
+        <MReveal><SandwichTimeline /></MReveal>
+      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="Core Strategies" title="Three families of" highlight="MEV execution." />

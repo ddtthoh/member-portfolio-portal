@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Zap, Fuel, SlidersHorizontal, ShieldCheck, Activity, Lock, Workflow, Eye } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { HexRadar } from "@/components/marketing/charts/hex-radar";
 
 export const Route = createFileRoute("/main/ncore/features")({
   head: () => ({
@@ -24,6 +25,10 @@ function FeaturesPage() {
         highlight="continuous, secure capture."
         description="Speed without control is fragility. Ncore 2.0 pairs real-time execution with gas-aware routing and risk controls you can actually configure."
       />
+
+      <NcoreSection>
+        <MReveal><HexRadar /></MReveal>
+      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="Core Capabilities" title="What sits inside the" highlight="Ncore engine." />
