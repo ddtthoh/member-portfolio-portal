@@ -33,6 +33,9 @@ import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
+import { Route as MainRoadmapRouteImport } from './routes/main.roadmap'
+import { Route as MainContactRouteImport } from './routes/main.contact'
+import { Route as MainAboutRouteImport } from './routes/main.about'
 import { Route as InviteMemberIdRouteImport } from './routes/invite.$memberId'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
@@ -172,6 +175,21 @@ const PortalChangePasswordRoute = PortalChangePasswordRouteImport.update({
   path: '/change-password',
   getParentRoute: () => PortalRoute,
 } as any)
+const MainRoadmapRoute = MainRoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => MainRoute,
+} as any)
+const MainContactRoute = MainContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => MainRoute,
+} as any)
+const MainAboutRoute = MainAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => MainRoute,
+} as any)
 const InviteMemberIdRoute = InviteMemberIdRouteImport.update({
   id: '/invite/$memberId',
   path: '/invite/$memberId',
@@ -277,6 +295,9 @@ export interface FileRoutesByFullPath {
   '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
+  '/main/about': typeof MainAboutRoute
+  '/main/contact': typeof MainContactRoute
+  '/main/roadmap': typeof MainRoadmapRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -319,6 +340,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
+  '/main/about': typeof MainAboutRoute
+  '/main/contact': typeof MainContactRoute
+  '/main/roadmap': typeof MainRoadmapRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -362,6 +386,9 @@ export interface FileRoutesById {
   '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
+  '/main/about': typeof MainAboutRoute
+  '/main/contact': typeof MainContactRoute
+  '/main/roadmap': typeof MainRoadmapRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -408,6 +435,9 @@ export interface FileRouteTypes {
     | '/main'
     | '/portal'
     | '/invite/$memberId'
+    | '/main/about'
+    | '/main/contact'
+    | '/main/roadmap'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -450,6 +480,9 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/invite/$memberId'
+    | '/main/about'
+    | '/main/contact'
+    | '/main/roadmap'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -492,6 +525,9 @@ export interface FileRouteTypes {
     | '/main'
     | '/portal'
     | '/invite/$memberId'
+    | '/main/about'
+    | '/main/contact'
+    | '/main/roadmap'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -709,6 +745,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalChangePasswordRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/main/roadmap': {
+      id: '/main/roadmap'
+      path: '/roadmap'
+      fullPath: '/main/roadmap'
+      preLoaderRoute: typeof MainRoadmapRouteImport
+      parentRoute: typeof MainRoute
+    }
+    '/main/contact': {
+      id: '/main/contact'
+      path: '/contact'
+      fullPath: '/main/contact'
+      preLoaderRoute: typeof MainContactRouteImport
+      parentRoute: typeof MainRoute
+    }
+    '/main/about': {
+      id: '/main/about'
+      path: '/about'
+      fullPath: '/main/about'
+      preLoaderRoute: typeof MainAboutRouteImport
+      parentRoute: typeof MainRoute
+    }
     '/invite/$memberId': {
       id: '/invite/$memberId'
       path: '/invite/$memberId'
@@ -839,10 +896,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface MainRouteChildren {
+  MainAboutRoute: typeof MainAboutRoute
+  MainContactRoute: typeof MainContactRoute
+  MainRoadmapRoute: typeof MainRoadmapRoute
   MainIndexRoute: typeof MainIndexRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainAboutRoute: MainAboutRoute,
+  MainContactRoute: MainContactRoute,
+  MainRoadmapRoute: MainRoadmapRoute,
   MainIndexRoute: MainIndexRoute,
 }
 
