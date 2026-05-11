@@ -634,3 +634,17 @@
   }
 }
 
+
+@layer utilities {
+  @keyframes tier-bar-grow {
+    from { width: 0%; }
+    to   { width: var(--tier-bar-target, 75%); }
+  }
+  .tier-bar-grow {
+    width: var(--tier-bar-target, 75%);
+    animation: tier-bar-grow 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tier-bar-grow { animation: none; }
+  }
+}
