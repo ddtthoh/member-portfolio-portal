@@ -253,13 +253,13 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
         <TrackCard
           icon={<User className="h-4 w-4" />}
           eyebrow="Track 01 · Participant"
-          title="Personal Participation"
+          title="Personal Staking"
           standing={personal}
         />
         <TrackCard
           icon={<Users className="h-4 w-4" />}
           eyebrow="Track 02 · Referral"
-          title="Referral Participation"
+          title="Referral Staking"
           standing={referral}
         />
       </div>
@@ -267,13 +267,13 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
       {/* Tier ladders */}
       <TierLadder
         title="Participant Incentive"
-        subtitle="Direct participation between 1 Feb – 30 Jun 2026"
+        subtitle="Direct staking between 1 Feb – 30 Jun 2026"
         tiers={promo.personalTiers}
         amount={promo.personalAmount}
       />
       <TierLadder
         title="Referral Incentive"
-        subtitle="Total participation referred between 1 Feb – 30 Jun 2026"
+        subtitle="Total staking referred between 1 Feb – 30 Jun 2026"
         tiers={promo.referralTiers}
         amount={promo.referralAmount}
       />
