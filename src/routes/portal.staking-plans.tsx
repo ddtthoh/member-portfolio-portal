@@ -76,6 +76,19 @@ function StakingPlansPage() {
         description={t("pages.stakingPlans.description")}
       />
 
+      {/* Hero CTA — inline, above first tier */}
+      <div className="flex justify-center">
+        <Button
+          size="lg"
+          onClick={() => setOpen(true)}
+          className="cta-premium group relative w-full sm:w-auto overflow-hidden rounded-full border-0 px-8 sm:px-12 py-5 sm:py-6 text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.3em] sm:tracking-[0.32em] transition-transform hover:-translate-y-0.5"
+        >
+          <Sparkles className="mr-2 sm:mr-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
+          <span className="relative z-10">{t("pages.stakingPlans.cta", { defaultValue: "Start Staking" })}</span>
+          <Sparkles className="ml-2 sm:ml-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
+        </Button>
+      </div>
+
       {/* Current staking status — distinctive glowing card */}
       <div className="relative">
         <div
@@ -142,23 +155,16 @@ function StakingPlansPage() {
                 {hasStaking ? t(currentPlan.name) : "—"}
               </div>
               {hasStaking ? (
-                <div className="mt-2.5 inline-flex items-stretch overflow-hidden rounded-md border border-gold/20 bg-gradient-to-r from-gold/[0.06] via-gold/[0.04] to-transparent">
-                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
-                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                      {t("pages.stakingPlans.labels.dailyRoi", { defaultValue: "Daily" })}
+                <div className="mt-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                    <span className="text-[8px] font-medium uppercase tracking-[0.32em] text-gold/70">
+                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })}
                     </span>
-                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold/90 leading-none">
-                      {currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
                   </div>
-                  <div className="w-px bg-gold/20" />
-                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
-                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly" })}
-                    </span>
-                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold leading-none">
-                      {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                    </span>
+                  <div className="mt-1.5 text-center font-serif text-base sm:text-lg font-medium tabular-nums tracking-tight text-gold leading-none">
+                    {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
                   </div>
                 </div>
               ) : (
@@ -185,19 +191,6 @@ function StakingPlansPage() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Hero CTA — inline, above first tier */}
-      <div className="flex justify-center">
-        <Button
-          size="lg"
-          onClick={() => setOpen(true)}
-          className="cta-premium group relative w-full sm:w-auto overflow-hidden rounded-full border-0 px-8 sm:px-12 py-5 sm:py-6 text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.3em] sm:tracking-[0.32em] transition-transform hover:-translate-y-0.5"
-        >
-          <Sparkles className="mr-2 sm:mr-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
-          <span className="relative z-10">{t("pages.stakingPlans.cta", { defaultValue: "Start Staking" })}</span>
-          <Sparkles className="ml-2 sm:ml-2.5 h-4 w-4 relative z-10" strokeWidth={2.2} />
-        </Button>
       </div>
 
       {/* Tier sections */}
