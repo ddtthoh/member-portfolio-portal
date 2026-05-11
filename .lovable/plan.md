@@ -1,40 +1,70 @@
-## 排查结论
+## Root cause
 
-这次不是 new tab 的 compositor 新建层问题；new tab 已经被“常驻 overlay”修好。
+The "Your Position" card visibly shrinks once the wallet finishes loading. It is **not** a font/number size change — it is a vertical-height jump caused by conditional subtext under each of the three columns:
 
-in-app preview 剩下的“开始之前跳”，根因是 **React 状态触发时机 + inline style 覆盖 CSS animation 初始帧**：
+`src/routes/portal.staking-plans.tsx`
 
-1. `CountUp` 第一帧数字刚从 0 变动时调用 `onStart`。
-2. `onStart` 执行 `setSweepRunning(true)`，React 下一次提交时会同时：
-   - 给 overlay 加上 `animate-position-sweep` class
-   - 把 inline `opacity: 0` 改成 `opacity: undefined`
-3. 在 in-app iframe/预览环境里，这个“移除 inline opacity”有概率先被绘制一帧；而 overlay 的静态 `transform` 仍是 `translateZ(0)`，还没吃到 keyframe 的 `translate(-60%, -60%)`。
-4. 结果就是 glow 正式开始前，overlay 以“默认位置/默认可见度”闪一下，看起来像盒子跳了一下。
+1. **Initial render** (`walletLoading = true`, `wallet.staking = 0`, so `hasStaking = false`):
+   - Col 1 renders `MetricValue $0.00` **plus** an extra line: `"No active stake"` (`mt-1.5` + uppercase caption).
+   - Col 2 renders `—` **plus** caption: `"Stake to unlock"`.
+   - Col 3 renders `—` **plus** caption: `"Begin journey"`.
+   - All three columns therefore have a 2-line stack.
 
-session replay 也支持这个判断：录到的是连续的 `box-shadow` 样式变化，不是布局位移；performance 里 CLS 基本为 0，所以不是 DOM layout jump，而是 paint/compositing flash。
+2. **After wallet resolves** with `staking > 0` (`hasStaking = true`):
+   - Col 1: `"No active stake"` is removed entirely (the `{!hasStaking && …}` block disappears).
+   - Cols 2 & 3: caption line stays but text changes (similar height).
+   - Col 1 loses ~18–20px → the whole card shrinks → visible "jump".
 
-## 修复计划
+The CountUp / glow sweep is already correct; the residual jump is purely DOM layout, not animation.
 
-1. **让 overlay 的静态样式永远等于动画 0% 帧**
-   - 默认 `opacity: 0`
-   - 默认 `transform: translate3d(-60%, -60%, 0)`
-   - 不再用 React 在开始瞬间移除 inline opacity。
+## Fix
 
-2. **把 glow 可见度完全交给 CSS keyframes**
-   - `.animate-position-sweep` 只负责播放 animation。
-   - React 只 toggle class，不 toggle opacity/transform。
+Reserve the subtext slot so it always occupies the same vertical space, regardless of `hasStaking` or `walletLoading`. Two small changes in `portal.staking-plans.tsx` only — no business logic, no new components.
 
-3. **把 keyframe transform 改成 3D transform**
-   - 从 `translate(-60%, -60%)` 改成 `translate3d(-60%, -60%, 0)`
-   - 结束为 `translate3d(60%, 60%, 0)`
-   - 避免浏览器在 2D/3D transform 之间切换合成路径。
+### 1. Always render the caption row under "Your Staking"
 
-4. **必要时强制隔离该卡片的 paint/composite**
-   - 在 current staking card 容器加 `isolation: isolate` / `contain: paint`。
-   - 让 `mix-blend-mode: screen` 只在卡片内部混合，减少 in-app iframe 的重绘闪烁。
+Replace the conditional `{!hasStaking && <div…>No active stake</div>}` with an always-mounted caption that swaps text content (or renders an invisible non-breaking space when there's nothing to say). This keeps the column at a fixed 2-line height at all times:
 
-## 预期效果
+```tsx
+<div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 tabular-nums min-h-[1em]">
+  {hasStaking
+    ? "\u00A0"               // reserve the line height
+    : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
+</div>
+```
 
-- glow 开始前不会再出现可见 overlay 默认帧。
-- new tab 当前的完美状态会保持不变。
-- 动画速度、两次 glow 的总时长和节奏不变。
+### 2. Stabilize the loading→loaded handoff in column 1
+
+Currently the metric branch swaps from a `static` `MetricValue` to an animated one the moment `walletLoading` flips to `false`. Use a single branch keyed on the resolved value so the inline element doesn't briefly remount:
+
+```tsx
+{showAmount ? (
+  <MetricValue
+    value={wallet.staking}
+    prefix="$"
+    decimals={2}
+    size="lg"
+    static={walletLoading || wallet.staking <= 0}
+    duration={SWEEP_MS}
+    onStart={handleCountStart}
+  />
+) : ( /* masked dots — unchanged */ )}
+```
+
+This removes the second source of micro-jump (component identity change at the same instant the subtext disappears).
+
+### 3. (Defensive) Pin a min-height on each of the 3 columns
+
+Add `min-h-[88px] sm:min-h-[96px]` (matches the natural 2-line height) to each of the three column wrappers so any future caption text length change cannot reintroduce the jump.
+
+## Verification
+
+- Hard reload `/portal/staking-plans` with throttled network → card height should be identical before and after wallet loads.
+- Toggle `showAmount` (eye icon) — no height change.
+- Switch between an account with `staking = 0` and `staking > 0` — no height change.
+
+## Files touched
+
+- `src/routes/portal.staking-plans.tsx` (the "Your Position" card block only)
+
+No CSS, no other components, no data layer.
