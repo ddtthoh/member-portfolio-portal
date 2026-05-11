@@ -116,6 +116,8 @@ function StakingPlansPage() {
           style={{
             boxShadow:
               "0 10px 40px -12px color-mix(in oklab, var(--gold) 35%, transparent)",
+            isolation: "isolate",
+            contain: "paint",
           }}
         >
           {/* corner glow */}
@@ -138,9 +140,9 @@ function StakingPlansPage() {
               background:
                 "linear-gradient(135deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%)",
               mixBlendMode: "screen",
-              opacity: sweepRunning ? undefined : 0,
+              opacity: 0,
               willChange: "transform, opacity",
-              transform: "translateZ(0)",
+              transform: "translate3d(-60%, -60%, 0)",
             }}
             onAnimationEnd={() => setSweepRunning(false)}
           />
