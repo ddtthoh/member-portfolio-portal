@@ -49,10 +49,9 @@ function StakingPlansPage() {
 
   // Play glow sweep exactly 2 times on initial mount, no repeat.
   useEffect(() => {
-    const SWEEP_MS = 2500;
-    const GAP_MS = 200;
+    const SWEEP_MS = 1500;
     const t1 = setTimeout(() => setSweepKey(1), 0);
-    const t2 = setTimeout(() => setSweepKey(2), SWEEP_MS + GAP_MS);
+    const t2 = setTimeout(() => setSweepKey(2), SWEEP_MS);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
