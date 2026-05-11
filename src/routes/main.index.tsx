@@ -114,7 +114,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid items-center gap-14 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">What We Do</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Connecting capital to the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of finance</span>.
             </h2>
@@ -151,7 +151,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">Strategic Direction</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               A long-term roadmap for the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
             </h2>
@@ -180,7 +180,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">Ncore 2.0</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Predictive <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>MEV trading</span><br />for DEX markets.
             </h2>
@@ -222,7 +222,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid items-center gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">Ncore X</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Intelligent <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>cross-platform</span> arbitrage.
             </h2>
@@ -245,7 +245,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">NCT Token</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               The native asset of the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>Ncore ecosystem</span>.
             </h2>
@@ -284,7 +284,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">Roadmap</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Shaping the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
             </h2>
@@ -365,7 +365,7 @@ function HomePage() {
         <MReveal>
           <LGCard className="relative overflow-hidden p-14 text-center md:p-20">
             <div className="lg-halo absolute -top-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2" />
-            <span className="lg-pill">Get In Touch</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,5vw,4.4rem)] font-light leading-[1.02] tracking-[-0.035em]">
               <SplitLines text="Where Luxury Meets Decentralized Innovation" className="lg-tagline" />
             </h2>
