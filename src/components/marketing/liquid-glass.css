@@ -1,0 +1,207 @@
+/* Liquid Glass Design System — Apple Vision Pro × Web3
+   Loaded via styles.css @import after marketing-theme.css. */
+
+@layer utilities {
+  /* ---------- Core glass surfaces ---------- */
+  .lg-card,
+  .lg-panel {
+    position: relative;
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, white 8%, transparent) 0%,
+        color-mix(in oklab, white 2%, transparent) 100%
+      );
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid color-mix(in oklab, white 10%, transparent);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1), border-color .5s ease, box-shadow .6s ease;
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 14%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, black 30%, transparent),
+      0 30px 60px -30px color-mix(in oklab, black 80%, transparent);
+  }
+  .lg-card::before,
+  .lg-panel::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--gold) 60%, transparent) 0%,
+      transparent 30%,
+      transparent 70%,
+      color-mix(in oklab, #ff5a3c 50%, transparent) 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: .5;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .lg-card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in oklab, var(--gold) 18%, transparent),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity .5s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .lg-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--gold) 30%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 22%, transparent),
+      inset 0 -1px 0 color-mix(in oklab, black 30%, transparent),
+      0 40px 80px -30px color-mix(in oklab, var(--gold) 25%, transparent),
+      0 0 40px -15px color-mix(in oklab, #ff5a3c 30%, transparent);
+  }
+  .lg-card:hover::after { opacity: 1; }
+
+  /* Light theme */
+  :root:not(.dark) .lg-card,
+  :root:not(.dark) .lg-panel {
+    background: linear-gradient(180deg, color-mix(in oklab, white 70%, transparent), color-mix(in oklab, white 50%, transparent));
+    border-color: color-mix(in oklab, var(--gold) 25%, transparent);
+  }
+
+  /* ---------- Pills ---------- */
+  .lg-pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .35rem .9rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, white 6%, transparent);
+    border: 1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 18%, transparent),
+      0 8px 22px -10px color-mix(in oklab, var(--gold) 40%, transparent);
+  }
+  .lg-pill::before {
+    content: ""; width: 6px; height: 6px; border-radius: 9999px;
+    background: var(--gold);
+    box-shadow: 0 0 12px var(--gold);
+    animation: lg-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes lg-pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .55; transform: scale(.85); }
+  }
+
+  /* ---------- Divider ---------- */
+  .lg-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 50%, transparent), transparent);
+  }
+
+  /* ---------- Noise overlay (kills plastic look) ---------- */
+  .lg-noise {
+    position: absolute; inset: 0; pointer-events: none; opacity: .035; z-index: 2;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- Bloom god-ray for hero ---------- */
+  .lg-godray {
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(closest-side, color-mix(in oklab, var(--gold) 28%, transparent), transparent 65%),
+      conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0deg,
+        color-mix(in oklab, var(--gold) 8%, transparent) 20deg,
+        transparent 40deg,
+        color-mix(in oklab, #ff5a3c 6%, transparent) 80deg,
+        transparent 110deg,
+        color-mix(in oklab, var(--gold) 8%, transparent) 160deg,
+        transparent 200deg,
+        color-mix(in oklab, #ff5a3c 6%, transparent) 260deg,
+        transparent 290deg,
+        color-mix(in oklab, var(--gold) 8%, transparent) 340deg,
+        transparent 360deg
+      );
+    filter: blur(40px);
+    animation: lg-godray-spin 40s linear infinite, lg-godray-pulse 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes lg-godray-spin { to { transform: rotate(360deg); } }
+  @keyframes lg-godray-pulse { 0%,100% { opacity: .65; } 50% { opacity: 1; } }
+
+  /* Static radial halo (no spin, just breath) */
+  .lg-halo {
+    position: absolute; inset: 0;
+    background: radial-gradient(closest-side at 50% 50%,
+      color-mix(in oklab, var(--gold) 35%, transparent) 0%,
+      color-mix(in oklab, #ff5a3c 14%, transparent) 35%,
+      transparent 70%);
+    filter: blur(60px);
+    animation: lg-halo-breath 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes lg-halo-breath {
+    0%,100% { opacity: .7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+
+  /* ---------- Tagline reveal ---------- */
+  .lg-tagline {
+    background: linear-gradient(120deg,
+      color-mix(in oklab, var(--gold) 95%, white) 0%,
+      var(--gold) 30%,
+      color-mix(in oklab, #ff8a5a 70%, white) 55%,
+      var(--gold) 80%,
+      color-mix(in oklab, var(--gold) 95%, white) 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    animation: lg-shine 9s ease-in-out infinite;
+  }
+  @keyframes lg-shine {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .lg-tagline-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: lg-letter-in .8s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes lg-letter-in { to { opacity: 1; transform: none; } }
+
+  /* ---------- Sparkline gradient stroke ---------- */
+  .lg-spark { stroke: var(--gold); stroke-width: 1.5; fill: none; filter: drop-shadow(0 0 4px color-mix(in oklab, var(--gold) 60%, transparent)); }
+
+  /* ---------- Animated gradient mesh background for cards ---------- */
+  .lg-mesh-bg {
+    background:
+      radial-gradient(at 20% 20%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 50%),
+      radial-gradient(at 80% 30%, color-mix(in oklab, #ff5a3c 18%, transparent), transparent 55%),
+      radial-gradient(at 40% 90%, color-mix(in oklab, var(--m-cyan) 14%, transparent), transparent 60%);
+    animation: lg-mesh-drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes lg-mesh-drift {
+    0% { background-position: 0% 0%, 100% 0%, 0% 100%; }
+    100% { background-position: 30% 20%, 70% 30%, 20% 80%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lg-godray, .lg-halo, .lg-tagline, .lg-tagline-letter, .lg-mesh-bg {
+      animation: none !important;
+    }
+    .lg-tagline-letter { opacity: 1; transform: none; }
+  }
+}
