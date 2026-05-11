@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Sparkles, TrendingUp, CalendarClock, Crown, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -47,14 +47,36 @@ function StakingPlansPage() {
   const [showAmount, setShowAmount] = useState(true);
   const [sweepKey, setSweepKey] = useState(0);
 
-  // Play glow sweep exactly 2 times on initial mount, no repeat.
+  const SWEEP_MS = 1500;
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  // Trigger 2 back-to-back glow sweeps when the card first scrolls into view,
+  // synced with the CountUp number animation (same IntersectionObserver pattern).
   useEffect(() => {
-    const SWEEP_MS = 1500;
-    const t1 = setTimeout(() => setSweepKey(1), 0);
-    const t2 = setTimeout(() => setSweepKey(2), SWEEP_MS);
+    const el = cardRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setSweepKey(1);
+      const t = setTimeout(() => setSweepKey(2), SWEEP_MS);
+      return () => clearTimeout(t);
+    }
+    let t2: ReturnType<typeof setTimeout> | undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setSweepKey(1);
+            t2 = setTimeout(() => setSweepKey(2), SWEEP_MS);
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      io.disconnect();
+      if (t2) clearTimeout(t2);
     };
   }, []);
   const { wallet } = useWallet();
@@ -113,6 +135,7 @@ function StakingPlansPage() {
           }}
         />
         <div
+          ref={cardRef}
           className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 px-5 py-5 sm:px-7 sm:py-6"
           style={{
             boxShadow:
