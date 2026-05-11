@@ -45,6 +45,19 @@ function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [showAmount, setShowAmount] = useState(true);
+  const [sweepKey, setSweepKey] = useState(0);
+
+  // Play glow sweep exactly 2 times on initial mount, no repeat.
+  useEffect(() => {
+    const SWEEP_MS = 1500;
+    const GAP_MS = 200;
+    const t1 = setTimeout(() => setSweepKey(1), 0);
+    const t2 = setTimeout(() => setSweepKey(2), SWEEP_MS + GAP_MS);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
   const { wallet } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
