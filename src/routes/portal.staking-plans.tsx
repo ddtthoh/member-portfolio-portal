@@ -140,10 +140,10 @@ function StakingPlansPage() {
             <div
               key={sweepKey}
               aria-hidden
-              className="pointer-events-none absolute -inset-[40%] animate-position-sweep"
+              className="pointer-events-none absolute -inset-[15%] animate-position-sweep"
               style={{
                 background:
-                  "linear-gradient(135deg, transparent 42%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 58%)",
+                  "linear-gradient(135deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%)",
                 mixBlendMode: "screen",
               }}
             />
