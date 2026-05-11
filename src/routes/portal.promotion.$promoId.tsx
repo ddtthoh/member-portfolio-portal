@@ -273,7 +273,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
       />
       <TierLadder
         title="Referral Incentive"
-        subtitle="Total participation referred between 1 Feb – 30 Jun 2026"
+        subtitle="Total staking referred between 1 Feb – 30 Jun 2026"
         tiers={promo.referralTiers}
         amount={promo.referralAmount}
       />
