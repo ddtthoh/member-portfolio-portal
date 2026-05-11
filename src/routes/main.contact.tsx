@@ -25,6 +25,28 @@ const channels = [
 ];
 
 function ContactPage() {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setSubmitting(true);
+    const { error } = await supabase.from("contact_messages").insert({
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      subject: String(data.get("subject") ?? "") || null,
+      message: String(data.get("message") ?? ""),
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Could not send message. Please try again or email us directly.");
+      return;
+    }
+    toast.success("Message received — we'll respond within 24 hours.");
+    form.reset();
+  }
+
   return (
     <>
       <section className="relative overflow-hidden">
