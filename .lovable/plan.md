@@ -1,130 +1,143 @@
-## NASLAB 官网世界级重做（挂在 `/main` 下）
+## 总体方向
 
-按你的指令：现有 `/` 保持不动，新 NASLAB 官网整体放在 `/main`，所有子页都是 `/main/xxx`。其他选择全部沿用上一轮。
+风格：**Apple Vision Pro × Web3** — 半透明磨砂玻璃、柔和金红渐变、景深模糊、克制但精致的动效。冷静、高端、未来感。
+
+范围：**首页 + Ncore 6 个子页**全面升级；其他页（About/Strategy/Roadmap/Careers/Collaboration/Contact）只统一玻璃卡片样式，不动结构。
 
 ---
 
-### 一、路由结构
+## 1. Hero 区（首页顶部，全屏）
+
+按你的要求改成**极简单焦点**布局：
 
 ```text
-src/routes/
-  index.tsx                    保持不动（现 Ivory & Vale landing）
-  main.tsx                     layout：marketing shell（nav + footer + cursor glow + Outlet）
-  main.index.tsx               /main          → NASLAB Home
-  main.about.tsx               /main/about
-  main.strategy.tsx            /main/strategy
-  main.roadmap.tsx             /main/roadmap
-  main.careers.tsx             /main/careers
-  main.collaboration.tsx       /main/collaboration
-  main.contact.tsx             /main/contact
-  main.ncore.tsx               layout：产品 sub-nav + Outlet
-  main.ncore.index.tsx         /main/ncore           → Ncore overview
-  main.ncore.basic.tsx         /main/ncore/basic
-  main.ncore.trading.tsx       /main/ncore/trading
-  main.ncore.features.tsx      /main/ncore/features
-  main.ncore.trends.tsx        /main/ncore/trends
-  main.ncore.x.tsx             /main/ncore/x
-  main.ncore.token.tsx         /main/ncore/token
-  invite.$memberId.tsx         不动
-  portal.*                     不动
-  login.tsx                    不动
+┌─────────────────────────────────────┐
+│        [ 3D NASLAB Logo ]           │  ← 整页只有它在动
+│         （旋转 + 漂浮）              │
+│                                     │
+│   Where Luxury Meets                │  ← 底部 tagline
+│   Decentralized Innovation          │
+└─────────────────────────────────────┘
 ```
 
-`main.tsx` 用 `<Outlet />` 渲染子路由，统一注入 marketing nav / footer / theme toggle / 3D 背景容器。
+- **3D Logo**：用代码把 N 字形状（路径）**真正 3D 挤压**出来，做成有厚度、有倒角、有金属反光的实体。
+  - 颜色：左侧金黄 → 右侧火红渐变（匹配你上传的 logo）
+  - 材质：金属度 1.0、低粗糙度、环境反射
+  - 动画：缓慢自转 + 上下浮动 + 光晕呼吸
+  - 鼠标移上去：跟随鼠标轻微倾斜
+- **光晕 + 上帝之光（God-rays）**：postprocessing bloom + 从 logo 中心向外辐射的体积光，呼吸式明灭
+- **背景**：纯黑 → 深紫的径向渐变 + 极少的星尘粒子（不抢戏），不再有满天乱飞的粒子
+- **Tagline**：底部居中，金色衬线大字 + 字母逐个淡入
 
-每个路由各自 `head()` meta（title / description / og:title / og:description），SEO 独立。
-
-### 二、视觉方向（Direction Lock）
-
-- 基调：portal 的 Luxe Gold + Cyan Tech + 深空 `#06070b`
-- Light 模式：象牙白 `#f7f4ec` + 暖金 + 深石墨字
-- 字体：Cormorant Garamond（display）+ Inter（body）+ JetBrains Mono（数据点缀）
-- 装饰语言：conic-gradient 光圈边框 / 流体玻璃面板 / gold-shine 文字 / cyan glow 数据 / 网格背景 + 噪点 / 浮动粒子轨道
-- 交互：cursor glow、magnetic CTA、hover tilt、scroll-driven count、parallax、section reveal、route transition fade
-- 默认 dark mode，nav 右侧 toggle 切换 light（复用 `theme-provider.tsx`）
-
-### 三、3D / WebGL 处理（Maximalist + 性能护栏）
-
-每个 3D 场景：可见才渲染 + DPR ≤ 1.5 + 移动端降级为 SVG/CSS。
-
-- **Hero (`/main`)**：Three.js 旋转 NASLAB 立体 N logo（金色金属材质 + 反射）+ 粒子轨道 + 鼠标视差
-- **Strategy / Roadmap 背景**：WebGL shader 网格扭曲（金 + cyan 流动）
-- **Ncore 系列**：粒子网络流动（mempool 隐喻）+ 节点连线
-- **Token 页**：3D NCT 硬币旋转 + 光晕
-- **Collaboration / About**：3D 节点 constellation（复用 `network-constellation.tsx`）
-
-### 四、Marketing 共享框架
-
-新建 `src/components/marketing/`：
-
-- `marketing-shell.tsx` — `main.tsx` 用，包 nav + Outlet + footer + cursor glow + 路由淡入
-- `marketing-nav.tsx` — Logo + 菜单（Home / About / Strategy / Roadmap / Products↓ / Careers / Collaboration / Contact）+ ThemeToggle + Login CTA（→ `/login`，magnetic）
-- `marketing-footer.tsx` — 4 列：Brand / Products / Company / Connect（telegram / X / instagram / website / contact@naslabtec.com）+ copyright
-- 复用：`theme-toggle.tsx`、`cursor-glow.tsx`、`magnetic-button.tsx`、`count-up.tsx`、`network-constellation.tsx`
-
-### 五、各页面 Section 蓝图
-
-**Home `/main`** — long-scroll
-1. Hero：3D N logo + "A New Era of Digital Wealth"（gold-shine）+ 双 CTA
-2. Stats Bar：24/7 · 99.9% · <50ms · Global（count-up + cyan glow）
-3. What We Do：parallax 大图 + 文案 + magnetic CTA
-4. Strategic Direction：玻璃卡 + conic 边框
-5. Ncore 2.0 Showcase：3D 粒子背景 + 4 feature 卡 horizontal scroll
-6. Ncore X：split layout，左 3D 节点，右文案
-7. NCT Token：3D 硬币 + tokenomics 数据点
-8. Roadmap timeline preview（4 节点 hover 展开）
-9. Careers + Collaboration 双卡 CTA
-10. Final CTA：contact@naslabtec.com + 大金 magnetic button
-11. Footer
-
-**About** — Hero + Mission/Vision/Values 三卡 + Team grid（占位）+ stats
-**Strategy** — Hero + 多层 vertical timeline + WebGL shader 背景
-**Roadmap** — 大型交互 timeline（2024 / 2025 / 2025 Q1-Q4 / 2026 Q1-Q4），节点点击展开，scroll progress 金色描边
-**Ncore Layout** — 顶部产品 sub-nav（Basic / Trading / Features / Trends / X / Token），共享 hero
-**Ncore.basic / trading / features / trends** — 文章式长页 + 图示卡 + 数据视觉
-**Ncore.x** — 双向箭头动画展示 DEX↔DEX / CEX↔CEX / DEX↔CEX
-**Ncore.token** — 3D 硬币 + tokenomics donut（recharts）+ utility 卡
-**Careers** — Hero + 5 职位卡 + apply CTA
-**Collaboration** — Hero + 3 类合作模式卡 + form 占位
-**Contact** — 联系大字 + email 卡 + social 卡 + contact form（写入 Lovable Cloud）
-
-### 六、技术栈与新依赖
-
-- 已有：framer-motion、lucide-react、recharts、tanstack/react-router
-- 新增：`three`、`@react-three/fiber`、`@react-three/drei`
-- 新 token（`src/styles.css`）：`--marketing-bg`、`--gradient-aurora`、`--shadow-marketing`，含 light mode 对应值
-- 颜色全部走 semantic token，保证 light/dark 都不破
-
-### 七、后端（Lovable Cloud）
-
-- 新表 `contact_messages`（id / name / email / subject / message / created_at），RLS：anon insert，admin select
-- 新表 `career_applications`（id / position / name / email / phone / resume_url / message / created_at），RLS 同上
-- Storage bucket `career-resumes`（私有）
-- 不动 auth / portal 现有表
-
-### 八、分阶段实施
-
-1. **Phase 1（本轮执行）**：marketing 框架（`main.tsx` shell / nav / footer / theme tokens / 3D Hero）+ **Home `/main`** + **About** + **Contact** + **Roadmap**
-2. **Phase 2**：Strategy + Ncore layout + 6 个 Ncore 子页
-3. **Phase 3**：Careers + Collaboration + 后端表 + 表单提交
-
-### 九、不在本次范围
-
-- 多语言（i18n）翻译 — 先英文
-- 文案重写 — 沿用现有 naslabtec.com 文案
-- Portal / `/` 现有 landing / auth 流程 — 不动
-- 自定义域名 / DNS 切换
-- Logo 重新设计 — 用现有 NASLAB N（你之后给 SVG/PNG，否则文字 logo 占位）
-
-### 验收标准
-
-- 默认进入 dark；右上 toggle 切 light，不破布局/颜色
-- `/main` 首屏 3D logo desktop ~60fps，移动端自动降级
-- 所有按钮 magnetic + cursor glow（仅 desktop fine pointer）
-- 所有 section 进视口有 reveal
-- 所有路由独立 SEO meta
-- 移动端无横向滚动，触摸友好
+整个 hero 没有 CTA 按钮、没有副文案 — 纯视觉冲击。CTA 按钮放到下一屏。
 
 ---
 
-确认后开始 Phase 1。如果 Phase 1 想再缩小（例如只做框架 + Home），告诉我即可。
+## 2. 真 3D Logo 实现方式
+
+- 用 SVG 路径数据（左侧 N + 右侧 N 的双 N 设计）→ Three.js `ExtrudeGeometry` 挤压
+- 加 `bevelEnabled` 倒角让边缘有金属高光
+- 用自定义 shader 做**金 → 红垂直渐变**（不是单色金）
+- 加一个透明玻璃六边形外壳包裹（可选层），增加 Vision Pro 那种"玻璃里有东西"的感觉
+- 旋转一圈约 12 秒，匀速无重力感
+
+---
+
+## 3. 液态玻璃设计系统（全站统一）
+
+新建 `liquid-glass.css`，提供这些可复用 class：
+
+| 组件 | 描述 |
+|---|---|
+| `.lg-card` | 主玻璃卡：背景模糊 24px、内边高光、边缘 1px 渐变描边、悬浮时高光流动 |
+| `.lg-pill` | 玻璃胶囊（用于标签、按钮） |
+| `.lg-panel` | 大面积玻璃面板（用于 section 容器） |
+| `.lg-divider` | 渐隐金线分隔 |
+| `.lg-spotlight` | 鼠标跟随的高光（卡片内部） |
+| `.lg-noise` | 极轻微的噪点纹理（避免纯色塑料感） |
+
+替换首页和 Ncore 子页所有现存 `m-glass` / `m-luxe-border` 用法。
+
+---
+
+## 4. 首页其他区块（hero 之后）
+
+按 Apple 官网那种"一屏一个故事"节奏：
+
+1. **What We Do** — 左文 + 右玻璃 4 宫格（图标 + 标题 + 描述），悬浮时卡片内有光斑跟鼠标
+2. **Live Metrics** — 4 个液态玻璃卡，每张里有一个**动画数字 + 微型 sparkline**（24/7、99.9%、<50ms、Global）
+3. **Strategic Direction** — 3 卡 Phase I/II/III，卡片背面用**渐变 mesh 玻璃**
+4. **Ncore 2.0 展示** — 左文 + 右 2×2 玻璃卡，每卡带一个**微型动画图标**（CPU 脉冲、网络节点闪烁等）
+5. **Ncore X 套利** — 全屏液态玻璃面板内嵌**动态套利路径图**（节点 + SVG 流光路径，金币粒子沿路径跑）
+6. **NCT Token** — 左：3D 旋转金币（替换现在那个 CSS 假币）+ **环形发行进度图** + **燃烧曲线动画**；右：文案 + 3 个属性玻璃卡
+7. **Roadmap 预览** — 水平时间轴，玻璃节点，当前节点呼吸金光
+8. **Careers + Collaboration** — 2 大玻璃卡
+9. **Footer CTA** — 大玻璃面板 "Where Luxury Meets Decentralized Innovation" + 按钮
+
+---
+
+## 5. Ncore 6 个子页 — 自定义数据可视化
+
+每页加一个标志性的 WebGL/SVG 可视化：
+
+| 页面 | 加什么 |
+|---|---|
+| `/main/ncore/basic` | **链上交易流动图**：方块从顶部落入 mempool → 排序 → 出块，循环动画 |
+| `/main/ncore/trading` | **三明治交易时序图**：3 笔交易在时间轴上前后插入目标交易，金色高亮 |
+| `/main/ncore/features` | **6 个特性的环形雷达图**（实时执行/Gas 优化/风控/...），数据从中心扩散 |
+| `/main/ncore/trends` | **DeFi 增长面积图**（多层渐变堆叠） + 趋势小卡 |
+| `/main/ncore/x` | **跨平台套利节点图**：DEX/CEX 节点用力导向布局，金币粒子沿最优路径流动 |
+| `/main/ncore/token` | **NCT 通缩曲线**（指数衰减面积图） + **环形分配饼图**（玻璃质感、悬停展开） |
+
+所有图表：自定义 SVG/Canvas（不用 recharts 的默认样式），玻璃质感 + 金红主色 + 入场动画。
+
+---
+
+## 6. 全站动效系统
+
+- **滚动驱动**：所有 section 用现有 `MReveal`，但加 stagger（子元素错开 80ms）
+- **鼠标跟随高光**：液态玻璃卡片内有跟随鼠标的径向光斑
+- **数字滚动**：所有数字（统计、价格）用 `CountUp` 入场
+- **磁性按钮**：保留现有 `MagneticButton`
+- **页面切换**：route 切换时 fade + 微 scale
+- **Reduce motion**：尊重用户的 prefers-reduced-motion 设置
+
+---
+
+## 7. 文件改动清单
+
+新建：
+- `src/components/marketing/hero-3d-logo.tsx` — 真 3D 挤压 N + 光晕 + 上帝之光
+- `src/components/marketing/liquid-glass.css` — 液态玻璃设计系统
+- `src/components/marketing/lg-card.tsx` — 液态玻璃卡片基础组件（带鼠标跟随高光）
+- `src/components/marketing/charts/` — 6 个自定义图表组件
+- `src/components/marketing/nct-coin-3d.tsx` — 3D 金币（替换 CSS 假币）
+- `src/components/marketing/arbitrage-flow.tsx` — 套利路径动画图
+
+替换重写：
+- `src/components/marketing/hero-3d.tsx` → 删旧、用新 hero-3d-logo
+- `src/routes/main.index.tsx` → 按上面 9 个 section 重写
+- `src/routes/main.ncore.{basic,trading,features,trends,x,token}.tsx` → 各加自己的可视化
+
+样式扩展：
+- `src/components/marketing/marketing-theme.css` → 加 god-ray、glass-spotlight 工具类
+
+---
+
+## 8. 性能预算
+
+- Hero 3D：单 mesh + bevel + bloom，移动端自动降到无 bloom
+- 粒子：减到 < 200（之前 2500 太多）
+- WebGL 图表：用 `IntersectionObserver` 懒加载，离屏不渲染
+- 总 hero 组件 < 80KB gzipped
+
+---
+
+## 不在范围内（保持原状）
+
+- About / Strategy / Roadmap / Careers / Collaboration / Contact 的内容结构
+- 所有 portal/* 路由
+- 后端表、auth、表单提交逻辑
+- 文案（用现有的）
+
+确认后开干。
