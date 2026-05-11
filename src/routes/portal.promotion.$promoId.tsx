@@ -458,7 +458,7 @@ function TrackCard({
           dim={!current || current.flightUsd === 0}
         />
       </div>
-    </SpotlightCard>
+    </GlowFrame>
   );
 }
 
