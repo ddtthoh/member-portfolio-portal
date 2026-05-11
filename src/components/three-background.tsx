@@ -731,8 +731,10 @@ export function ThreeBackground({
 
   if (!enabled) return null;
 
+  // Phone: full opacity in upper ~48% (above diamond box), step down to ~0.89
+  // through the diamond zone, then fade to ~0.8 toward the bottom (icon area).
   const phoneMask =
-    "radial-gradient(130% 110% at 50% 40%, rgba(0,0,0,1) 45%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0) 100%)";
+    "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 48%, rgba(0,0,0,0.89) 56%, rgba(0,0,0,0.89) 82%, rgba(0,0,0,0.8) 100%)";
   const fadeMask =
     "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 85%, rgba(0,0,0,0) 100%)";
 
