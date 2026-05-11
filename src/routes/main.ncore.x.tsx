@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeftRight, Building2, Boxes } from "lucide-react";
 import { NcoreHero, NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
-import { ArbitrageGraph } from "@/components/marketing/charts/arbitrage-graph";
+import { ArbConstellation as ArbitrageGraph } from "@/components/marketing/charts-pro/arb-constellation";
 
 export const Route = createFileRoute("/main/ncore/x")({
   head: () => ({

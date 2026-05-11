@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Coins, Flame, KeyRound, Sparkles } from "lucide-react";
 import { NcoreSection, SectionHeader, NcoreHero } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
-import { BurnCurve, AllocationDonut } from "@/components/marketing/charts/token-charts";
+import { BurnDecay as BurnCurve } from "@/components/marketing/charts-pro/burn-decay";
+import { AllocationOrbit as AllocationDonut } from "@/components/marketing/charts-pro/allocation-orbit";
 
 export const Route = createFileRoute("/main/ncore/token")({
   head: () => ({
