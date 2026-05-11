@@ -21,7 +21,7 @@ function makeSpriteTexture(inner = "rgba(255,244,214,1)", mid = "rgba(232,201,12
 
 type Packet = { edge: number; t: number; speed: number; alive: boolean; cascade: number };
 
-function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: number; interactive: boolean; spreadX: number; spreadY: number; isPhone: boolean }) {
+function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { count: number; interactive: boolean; spreadX: number; spreadY: number; isPhone: boolean; isLight: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const nodesRef = useRef<THREE.Points>(null);
   const edgesRef = useRef<THREE.LineSegments>(null);
@@ -54,9 +54,11 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       pos[i * 3] = x;
       pos[i * 3 + 1] = y;
       pos[i * 3 + 2] = z;
-      colors[i * 3] = 0.96;
-      colors[i * 3 + 1] = 0.82;
-      colors[i * 3 + 2] = 0.5;
+      // Light mode: deep saturated amber so it shows on near-white bg.
+      // Dark mode: warm cream that reads as glow under additive blend.
+      colors[i * 3] = isLight ? 0.82 : 0.96;
+      colors[i * 3 + 1] = isLight ? 0.55 : 0.82;
+      colors[i * 3 + 2] = isLight ? 0.12 : 0.5;
       sizes[i] = isPhone ? 0.22 : 0.18;
       seeds[i] = Math.random() * Math.PI * 2;
     }
@@ -106,7 +108,12 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       edgePositions[e * 6 + 3] = home[b * 3];
       edgePositions[e * 6 + 4] = home[b * 3 + 1];
       edgePositions[e * 6 + 5] = home[b * 3 + 2];
-      for (let k = 0; k < 6; k++) edgeColors[e * 6 + k] = 0.6;
+      // Edges: darker saturated gold in light mode for visibility on white
+      const er = isLight ? 0.7 : 0.6;
+      const eg = isLight ? 0.5 : 0.6;
+      const eb = isLight ? 0.15 : 0.6;
+      edgeColors[e * 6] = er; edgeColors[e * 6 + 1] = eg; edgeColors[e * 6 + 2] = eb;
+      edgeColors[e * 6 + 3] = er; edgeColors[e * 6 + 4] = eg; edgeColors[e * 6 + 5] = eb;
     }
 
     const PACKET_POOL = 120;
@@ -135,9 +142,10 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
     for (let s = 0; s < sparkCount; s++) {
       sparkSeeds[s] = Math.random() * Math.PI * 2;
       sparkOffsets[s] = 0.2 + Math.random() * 0.6; // mid section of edge
-      sparkColors[s * 3] = 1.0;
-      sparkColors[s * 3 + 1] = 0.92;
-      sparkColors[s * 3 + 2] = 0.7;
+      // Sparkles brighter in dark, deep amber in light so they twinkle on white
+      sparkColors[s * 3] = isLight ? 0.95 : 1.0;
+      sparkColors[s * 3 + 1] = isLight ? 0.7 : 0.92;
+      sparkColors[s * 3 + 2] = isLight ? 0.2 : 0.7;
     }
 
     // Per-edge pulse intensity (0..1), decays over time, spikes when packet fires
@@ -151,7 +159,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone }: { count: num
       sparkPositions, sparkColors, sparkSeeds, sparkOffsets, sparkCount,
       edgePulse,
     };
-  }, [count, spreadX, spreadY]);
+  }, [count, spreadX, spreadY, isLight, isPhone]);
 
   // Mouse / interaction refs
   const mouseNDC = useRef(new THREE.Vector2(999, 999));
