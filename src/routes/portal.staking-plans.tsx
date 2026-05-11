@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { Sparkles, TrendingUp, CalendarClock, Crown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { MetricValue } from "@/components/metric-value";
 import { Button } from "@/components/ui/button";
 import { StartStakingDialog, type StakingPlanOption } from "@/components/start-staking-dialog";
+import { useWallet } from "@/hooks/use-wallet";
 
 export const Route = createFileRoute("/portal/staking-plans")({
   component: StakingPlansPage,
