@@ -14,6 +14,7 @@ import { Route as MainRouteImport } from './routes/main'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as MainIndexRouteImport } from './routes/main.index'
 import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal'
 import { Route as PortalWalletEditRouteImport } from './routes/portal.wallet-edit'
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
@@ -75,6 +76,11 @@ const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PortalRoute,
+} as any)
+const MainIndexRoute = MainIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MainRoute,
 } as any)
 const PortalWithdrawalRoute = PortalWithdrawalRouteImport.update({
   id: '/withdrawal',
@@ -268,7 +274,7 @@ const PortalPromotionPromoIdRoute = PortalPromotionPromoIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/main': typeof MainRoute
+  '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
@@ -289,6 +295,7 @@ export interface FileRoutesByFullPath {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
+  '/main/': typeof MainIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
@@ -311,7 +318,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/main': typeof MainRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
@@ -329,6 +335,7 @@ export interface FileRoutesByTo {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
+  '/main': typeof MainIndexRoute
   '/portal': typeof PortalIndexRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
@@ -352,7 +359,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/main': typeof MainRoute
+  '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
@@ -373,6 +380,7 @@ export interface FileRoutesById {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
+  '/main/': typeof MainIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
@@ -418,6 +426,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
+    | '/main/'
     | '/portal/'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
@@ -440,7 +449,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
-    | '/main'
     | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
@@ -458,6 +466,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
+    | '/main'
     | '/portal'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
@@ -501,6 +510,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
+    | '/main/'
     | '/portal/'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
@@ -524,7 +534,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
-  MainRoute: typeof MainRoute
+  MainRoute: typeof MainRouteWithChildren
   PortalRoute: typeof PortalRouteWithChildren
   InviteMemberIdRoute: typeof InviteMemberIdRoute
 }
@@ -565,6 +575,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/'
       preLoaderRoute: typeof PortalIndexRouteImport
       parentRoute: typeof PortalRoute
+    }
+    '/main/': {
+      id: '/main/'
+      path: '/'
+      fullPath: '/main/'
+      preLoaderRoute: typeof MainIndexRouteImport
+      parentRoute: typeof MainRoute
     }
     '/portal/withdrawal': {
       id: '/portal/withdrawal'
@@ -821,6 +838,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MainRouteChildren {
+  MainIndexRoute: typeof MainIndexRoute
+}
+
+const MainRouteChildren: MainRouteChildren = {
+  MainIndexRoute: MainIndexRoute,
+}
+
+const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
+
 interface PortalPromotionRouteChildren {
   PortalPromotionPromoIdRoute: typeof PortalPromotionPromoIdRoute
   PortalPromotionIndexRoute: typeof PortalPromotionIndexRoute
@@ -925,7 +952,7 @@ const PortalRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
-  MainRoute: MainRoute,
+  MainRoute: MainRouteWithChildren,
   PortalRoute: PortalRouteWithChildren,
   InviteMemberIdRoute: InviteMemberIdRoute,
 }
