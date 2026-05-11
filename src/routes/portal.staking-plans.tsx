@@ -142,23 +142,16 @@ function StakingPlansPage() {
                 {hasStaking ? t(currentPlan.name) : "—"}
               </div>
               {hasStaking ? (
-                <div className="mt-2.5 inline-flex items-stretch overflow-hidden rounded-md border border-gold/20 bg-gradient-to-r from-gold/[0.06] via-gold/[0.04] to-transparent">
-                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
-                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                      {t("pages.stakingPlans.labels.dailyRoi", { defaultValue: "Daily" })}
+                <div className="mt-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                    <span className="text-[8px] font-medium uppercase tracking-[0.32em] text-gold/70">
+                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })}
                     </span>
-                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold/90 leading-none">
-                      {currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
                   </div>
-                  <div className="w-px bg-gold/20" />
-                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
-                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly" })}
-                    </span>
-                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold leading-none">
-                      {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
-                    </span>
+                  <div className="mt-1.5 text-center font-serif text-base sm:text-lg font-medium tabular-nums tracking-tight text-gold leading-none">
+                    {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
                   </div>
                 </div>
               ) : (
