@@ -1,0 +1,184 @@
+/* Marketing site (NASLAB) — Maximalist futuristic-luxury layer.
+   Dark default, light supported. Loaded via styles.css @import. */
+
+@layer utilities {
+  .marketing-root {
+    --m-cyan: oklch(0.78 0.14 200);
+    --m-cyan-soft: color-mix(in oklab, oklch(0.78 0.14 200) 35%, transparent);
+    --m-bg: #06070b;
+    --m-bg-grad:
+      radial-gradient(80% 60% at 50% -10%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 60%),
+      radial-gradient(60% 50% at 90% 30%, color-mix(in oklab, var(--m-cyan) 14%, transparent), transparent 70%),
+      radial-gradient(70% 60% at 10% 90%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 70%),
+      linear-gradient(180deg, #06070b 0%, #04050a 100%);
+    --m-shadow:
+      0 30px 80px -30px color-mix(in oklab, var(--gold) 50%, transparent),
+      0 0 60px -20px color-mix(in oklab, var(--m-cyan) 25%, transparent);
+    background: var(--m-bg-grad);
+    color: oklch(0.93 0.018 85);
+    min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+    font-family: var(--font-sans);
+  }
+  :root:not(.dark) .marketing-root {
+    --m-bg: #f7f4ec;
+    --m-bg-grad:
+      radial-gradient(80% 60% at 50% -10%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 65%),
+      radial-gradient(60% 50% at 90% 30%, color-mix(in oklab, var(--m-cyan) 12%, transparent), transparent 70%),
+      linear-gradient(180deg, #f7f4ec 0%, #efeadd 100%);
+    color: oklch(0.28 0.018 70);
+  }
+
+  /* Animated grid floor */
+  .m-grid {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--gold) 9%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--gold) 9%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 80%);
+  }
+  :root:not(.dark) .m-grid {
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--gold) 16%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--gold) 16%, transparent) 1px, transparent 1px);
+  }
+
+  .m-noise {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Conic gold/cyan rotating border wrapper */
+  .m-luxe-border {
+    position: relative; border-radius: 1.25rem; padding: 1px;
+    background: conic-gradient(
+      from var(--m-angle, 0deg),
+      color-mix(in oklab, var(--gold) 80%, transparent),
+      color-mix(in oklab, var(--m-cyan) 60%, transparent),
+      color-mix(in oklab, var(--gold) 80%, transparent),
+      color-mix(in oklab, var(--m-cyan) 40%, transparent),
+      color-mix(in oklab, var(--gold) 80%, transparent)
+    );
+    animation: m-luxe-rotate 9s linear infinite;
+  }
+  @property --m-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+  @keyframes m-luxe-rotate { to { --m-angle: 360deg; } }
+  .m-luxe-border > * {
+    border-radius: calc(1.25rem - 1px);
+    background: color-mix(in oklab, var(--m-bg) 92%, black);
+    height: 100%;
+  }
+  :root:not(.dark) .m-luxe-border > * {
+    background: color-mix(in oklab, white 92%, var(--gold));
+  }
+
+  /* Glass card (independent of portal liquid-glass) */
+  .m-glass {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, white 5%, transparent),
+      color-mix(in oklab, white 1%, transparent)
+    );
+    border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 1rem;
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 10%, transparent),
+      0 24px 60px -32px color-mix(in oklab, black 80%, transparent),
+      0 0 32px -16px color-mix(in oklab, var(--gold) 30%, transparent);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease, border-color 0.45s ease;
+  }
+  .m-glass:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--gold) 55%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 16%, transparent),
+      0 30px 80px -28px color-mix(in oklab, var(--gold) 40%, transparent),
+      0 0 40px -10px color-mix(in oklab, var(--m-cyan) 30%, transparent);
+  }
+  :root:not(.dark) .m-glass {
+    background: linear-gradient(180deg, color-mix(in oklab, white 80%, transparent), color-mix(in oklab, white 60%, transparent));
+    border-color: color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+
+  /* Gold-shine text (slower, premium) */
+  .m-gold-text {
+    background: linear-gradient(
+      120deg,
+      color-mix(in oklab, var(--gold) 90%, white) 0%,
+      var(--gold) 30%,
+      color-mix(in oklab, var(--gold) 50%, white) 50%,
+      var(--gold) 70%,
+      color-mix(in oklab, var(--gold) 90%, white) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: m-shine 7s ease-in-out infinite;
+  }
+  @keyframes m-shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .m-cyan-glow {
+    color: oklch(0.85 0.12 200);
+    text-shadow: 0 0 18px color-mix(in oklab, oklch(0.78 0.14 200) 60%, transparent);
+  }
+  :root:not(.dark) .m-cyan-glow {
+    color: oklch(0.5 0.16 200);
+    text-shadow: none;
+  }
+
+  /* Reveal-on-scroll */
+  .m-reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .m-reveal.is-in { opacity: 1; transform: none; }
+
+  @keyframes m-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .m-float { animation: m-float 6s ease-in-out infinite; }
+
+  @keyframes m-orbit { to { transform: rotate(360deg); } }
+  .m-orbit-slow { animation: m-orbit 40s linear infinite; }
+  .m-orbit-rev  { animation: m-orbit 60s linear infinite reverse; }
+
+  /* Section header eyebrow */
+  .m-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
+    background: color-mix(in oklab, var(--gold) 8%, transparent);
+    font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .m-eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 9999px;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  /* Magnetic hover surface for cards */
+  .m-tilt { transition: transform .5s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+  .m-tilt:hover { transform: translateY(-6px); }
+
+  /* Sticky nav glass */
+  .m-nav {
+    background: color-mix(in oklab, var(--m-bg) 70%, transparent);
+    backdrop-filter: saturate(140%) blur(18px);
+    -webkit-backdrop-filter: saturate(140%) blur(18px);
+    border-bottom: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+  }
+  :root:not(.dark) .m-nav {
+    background: color-mix(in oklab, white 80%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m-luxe-border, .m-gold-text, .m-float, .m-orbit-slow, .m-orbit-rev { animation: none !important; }
+    .m-reveal { opacity: 1; transform: none; transition: none; }
+  }
+}
