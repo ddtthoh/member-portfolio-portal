@@ -1322,6 +1322,6 @@ function RankingTrackCard({
           {fallbackFootnote}
         </div>
       )}
-    </GlowFrame>
+    </SpotlightCard>
   );
 }
