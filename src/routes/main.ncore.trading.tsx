@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Radio, Sandwich, Cpu, Gauge, Boxes, Timer } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
-import { SandwichTimeline } from "@/components/marketing/charts/sandwich-timeline";
+import { SandwichOrderflow as SandwichTimeline } from "@/components/marketing/charts-pro/sandwich-orderflow";
 
 export const Route = createFileRoute("/main/ncore/trading")({
   head: () => ({

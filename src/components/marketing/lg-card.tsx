@@ -4,16 +4,14 @@ import { cn } from "@/lib/utils";
 type Props = {
   children: ReactNode;
   className?: string;
-  as?: "div" | "a" | "button";
-  href?: string;
-  onClick?: () => void;
 };
 
 /**
  * Liquid-glass card with mouse-tracked spotlight (--mx, --my CSS vars).
- * Drop-in replacement for the old `m-glass` div.
+ * Always renders a <div> to avoid invalid HTML nesting (no <a> inside <a>).
+ * Wrap with <Link> externally if you need it clickable.
  */
-export function LGCard({ children, className, as = "div", href, onClick }: Props) {
+export function LGCard({ children, className }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -24,17 +22,10 @@ export function LGCard({ children, className, as = "div", href, onClick }: Props
     el.style.setProperty("--my", `${e.clientY - r.top}px`);
   };
 
-  const Tag: any = as;
   return (
-    <Tag
-      ref={ref as any}
-      href={href}
-      onClick={onClick}
-      onMouseMove={onMove}
-      className={cn("lg-card", className)}
-    >
+    <div ref={ref} onMouseMove={onMove} className={cn("lg-card", className)}>
       <div className="lg-noise" />
       <div className="relative z-[3]">{children}</div>
-    </Tag>
+    </div>
   );
 }

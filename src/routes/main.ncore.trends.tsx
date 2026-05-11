@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TrendingUp, Layers, Bot, Waves, Globe2, GitBranch } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
-import { StackedArea } from "@/components/marketing/charts/stacked-area";
+import { LiquidityStrata as StackedArea } from "@/components/marketing/charts-pro/liquidity-strata";
+import { HeatmapGrid } from "@/components/marketing/charts-pro/heatmap-grid";
 
 export const Route = createFileRoute("/main/ncore/trends")({
   head: () => ({

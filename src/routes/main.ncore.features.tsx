@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Zap, Fuel, SlidersHorizontal, ShieldCheck, Activity, Lock, Workflow, Eye } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
-import { HexRadar } from "@/components/marketing/charts/hex-radar";
+import { CapabilityWeb as HexRadar } from "@/components/marketing/charts-pro/capability-web";
 
 export const Route = createFileRoute("/main/ncore/features")({
   head: () => ({
