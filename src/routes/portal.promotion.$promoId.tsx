@@ -20,9 +20,33 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
-import { GlowFrame } from "@/components/glow-frame";
 import { MetricValue } from "@/components/metric-value";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+
+// One-shot diagonal gold sweep overlay — same as Your Position card on staking-plans.
+function SweepOverlay() {
+  const [running, setRunning] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setRunning(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute -inset-[15%] ${running ? "animate-position-sweep" : ""}`}
+      style={{
+        background:
+          "linear-gradient(135deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%)",
+        mixBlendMode: "screen",
+        opacity: 0,
+        willChange: "transform, opacity",
+        transform: "translate3d(-60%, -60%, 0)",
+      }}
+      onAnimationEnd={() => setRunning(false)}
+    />
+  );
+}
 
 // ---- Promotion meta ----------------------------------------------------------
 
