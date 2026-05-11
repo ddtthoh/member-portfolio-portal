@@ -38,8 +38,8 @@ export function GlowFrame({
             "conic-gradient(from 140deg at 50% 50%, color-mix(in oklab, var(--gold) 55%, transparent), transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 55%, transparent 80%, color-mix(in oklab, var(--gold) 55%, transparent))",
         }}
       />
-      <SpotlightCard
-        className={`liquid-glass relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 ${innerClassName}`}
+      <div
+        className={`relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 ${innerClassName}`}
         style={{
           boxShadow:
             "0 10px 40px -12px color-mix(in oklab, var(--gold) 35%, transparent)",
@@ -71,7 +71,7 @@ export function GlowFrame({
           onAnimationEnd={() => setPlay(false)}
         />
         {children}
-      </SpotlightCard>
+      </div>
     </div>
   );
 }
