@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Eye, ListOrdered, Route as RouteIcon, Layers, ShieldAlert, Globe } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { MempoolFlow } from "@/components/marketing/charts/mempool-flow";
 
 export const Route = createFileRoute("/main/ncore/basic")({
   head: () => ({
@@ -24,6 +25,10 @@ function BasicPage() {
         highlight="public, ordered, and contested."
         description="Before strategy, comes structure. Ncore 2.0 begins with the foundational logic of on-chain execution — what is visible, how it is ordered, and which paths a transaction can take from intent to settlement."
       />
+
+      <NcoreSection>
+        <MReveal><MempoolFlow /></MReveal>
+      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="The Three Primitives" title="What every DEX trade" highlight="actually looks like." />

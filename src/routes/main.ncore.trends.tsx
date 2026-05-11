@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TrendingUp, Layers, Bot, Waves, Globe2, GitBranch } from "lucide-react";
 import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
+import { MReveal } from "@/components/marketing/m-reveal";
+import { StackedArea } from "@/components/marketing/charts/stacked-area";
 
 export const Route = createFileRoute("/main/ncore/trends")({
   head: () => ({
@@ -23,6 +25,10 @@ function TrendsPage() {
         highlight="shaping on-chain alpha."
         description="Ncore is positioned against six structural trends compounding the size and complexity of on-chain markets — and the technical edge required to operate inside them."
       />
+
+      <NcoreSection>
+        <MReveal><StackedArea /></MReveal>
+      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="The Six Vectors" title="Where the next decade of" highlight="execution alpha lives." />

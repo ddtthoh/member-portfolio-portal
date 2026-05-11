@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeftRight, Building2, Boxes } from "lucide-react";
 import { NcoreHero, NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
 import { MReveal } from "@/components/marketing/m-reveal";
+import { ArbitrageGraph } from "@/components/marketing/charts/arbitrage-graph";
 
 export const Route = createFileRoute("/main/ncore/x")({
   head: () => ({
@@ -31,6 +32,10 @@ function NcoreXPage() {
         highlight="fragmented liquidity."
         description="Markets are not one market — they are dozens of partially connected venues. Ncore X turns the seams between them into a continuous, programmable surface for arbitrage."
       />
+
+      <NcoreSection>
+        <MReveal><ArbitrageGraph /></MReveal>
+      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="Three Arbitrage Paths" title="The full" highlight="liquidity surface." />
