@@ -314,10 +314,10 @@ function Overview() {
           <div className="relative mt-5">
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
               <div
-                className="relative h-full rounded-full"
+                className="relative h-full rounded-full tier-bar-grow"
                 style={{
-                  width: "75%",
-                  background: "linear-gradient(90deg, color-mix(in oklab, var(--gold) 60%, black), var(--gold))",
+                  ["--tier-bar-target" as string]: "75%",
+                  background: "linear-gradient(90deg, color-mix(in oklab, var(--gold) 75%, white), var(--gold))",
                   boxShadow: "0 0 12px color-mix(in oklab, var(--gold) 70%, transparent)",
                 }}
               >
