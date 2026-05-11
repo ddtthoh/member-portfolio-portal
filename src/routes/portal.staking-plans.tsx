@@ -142,20 +142,21 @@ function StakingPlansPage() {
                 {hasStaking ? t(currentPlan.name) : "—"}
               </div>
               {hasStaking ? (
-                <div className="mt-2 space-y-0.5">
-                  <div className="flex items-baseline justify-between gap-2 text-[10px] tabular-nums">
-                    <span className="uppercase tracking-[0.18em] text-muted-foreground/80">
+                <div className="mt-2.5 inline-flex items-stretch overflow-hidden rounded-md border border-gold/20 bg-gradient-to-r from-gold/[0.06] via-gold/[0.04] to-transparent">
+                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
+                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
                       {t("pages.stakingPlans.labels.dailyRoi", { defaultValue: "Daily" })}
                     </span>
-                    <span className="text-gold/90">
+                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold/90 leading-none">
                       {currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
                     </span>
                   </div>
-                  <div className="flex items-baseline justify-between gap-2 text-[10px] tabular-nums">
-                    <span className="uppercase tracking-[0.18em] text-muted-foreground/80">
+                  <div className="w-px bg-gold/20" />
+                  <div className="flex flex-col items-start gap-0.5 px-2.5 py-1.5">
+                    <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70">
                       {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly" })}
                     </span>
-                    <span className="text-gold">
+                    <span className="text-[11px] font-medium tabular-nums tracking-tight text-gold leading-none">
                       {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
                     </span>
                   </div>
