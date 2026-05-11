@@ -760,7 +760,6 @@ export function ThreeBackground({
       >
         <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} isLight={isLight} />
       </Canvas>
-      </Canvas>
     </div>
   );
 }
