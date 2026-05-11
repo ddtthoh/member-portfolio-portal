@@ -235,3 +235,16 @@ function Row({ label, value, emphasize = false }: { label: string; value: string
     </div>
   );
 }
+
+function RuleEyebrow({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
+      <span className="inline-flex items-center gap-1 text-[8px] font-medium uppercase tracking-[0.32em] text-gold/75">
+        <span className="text-gold/70">{icon}</span>
+        {label}
+      </span>
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
+    </div>
+  );
+}
