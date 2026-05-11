@@ -76,6 +76,92 @@ function StakingPlansPage() {
         description={t("pages.stakingPlans.description")}
       />
 
+      {/* Current staking status — distinctive glowing card */}
+      <div className="relative">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-90 blur-[2px]"
+          style={{
+            background:
+              "conic-gradient(from 140deg at 50% 50%, hsl(var(--gold)/0.55), transparent 30%, hsl(var(--gold)/0.35) 55%, transparent 80%, hsl(var(--gold)/0.55))",
+          }}
+        />
+        <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-card/95 via-card/80 to-background/95 px-5 py-5 sm:px-7 sm:py-6 shadow-[0_10px_40px_-12px_hsl(var(--gold)/0.35)]">
+          {/* shimmer sweep */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -translate-x-full animate-[shimmer_3.6s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+          />
+          {/* corner glow */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gold/20 blur-3xl"
+          />
+
+          <div className="relative flex items-center gap-2">
+            <Crown className="h-4 w-4 text-gold" strokeWidth={2.2} />
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
+              {t("pages.stakingPlans.yourPosition", { defaultValue: "Your Position" })}
+            </span>
+            {hasStaking && (
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full border border-success/40 bg-success/10 px-2 py-0.5 text-[9px] uppercase tracking-[0.2em] text-success">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+                {t("pages.staking.status.active", { defaultValue: "Active" })}
+              </span>
+            )}
+          </div>
+
+          <div className="relative mt-4 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6">
+            {/* Staking amount */}
+            <div className="sm:border-r sm:border-gold/15 sm:pr-6">
+              <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                {t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
+              </div>
+              <div className="mt-1.5 leading-none">
+                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="xl" static />
+              </div>
+              <div className="mt-1.5 text-[10px] text-muted-foreground/80">
+                {hasStaking
+                  ? t("pages.stakingPlans.labels.activeStake", { defaultValue: "Currently locked" })
+                  : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake yet" })}
+              </div>
+            </div>
+
+            {/* Current tier */}
+            <div className="sm:border-r sm:border-gold/15 sm:pr-6">
+              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                <TrendingUp className="h-3 w-3" />
+                {t("pages.stakingPlans.labels.currentTier", { defaultValue: "Current Tier" })}
+              </div>
+              <div className="mt-1.5 font-serif text-xl sm:text-2xl leading-none text-gold">
+                {hasStaking ? t(currentPlan.name) : "—"}
+              </div>
+              <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
+                {hasStaking
+                  ? `ROI ${currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}`
+                  : t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
+              </div>
+            </div>
+
+            {/* Started since */}
+            <div>
+              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                <CalendarClock className="h-3 w-3" />
+                {t("pages.stakingPlans.labels.startedSince", { defaultValue: "Started Since" })}
+              </div>
+              <div className="mt-1.5 font-light text-xl sm:text-2xl leading-none tabular-nums tracking-tight text-foreground">
+                {hasStaking ? startedSince : "—"}
+              </div>
+              <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
+                {hasStaking
+                  ? `${stakingDays} ${t("pages.holdings.daysUnit", { defaultValue: "days" })}`
+                  : t("pages.stakingPlans.labels.startToday", { defaultValue: "Begin your journey" })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Hero CTA — inline, above first tier */}
       <div className="flex justify-center">
         <Button
