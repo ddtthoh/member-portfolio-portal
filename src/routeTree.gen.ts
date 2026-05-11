@@ -25,11 +25,13 @@ import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
+import { Route as PortalLandingPageRouteImport } from './routes/portal.landing-page'
 import { Route as PortalKycRouteImport } from './routes/portal.kyc'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
+import { Route as InviteMemberIdRouteImport } from './routes/invite.$memberId'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
 import { Route as PortalPromotionIndexRouteImport } from './routes/portal.promotion.index'
@@ -128,6 +130,11 @@ const PortalNetworkRoute = PortalNetworkRouteImport.update({
   path: '/network',
   getParentRoute: () => PortalRoute,
 } as any)
+const PortalLandingPageRoute = PortalLandingPageRouteImport.update({
+  id: '/landing-page',
+  path: '/landing-page',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PortalKycRoute = PortalKycRouteImport.update({
   id: '/kyc',
   path: '/kyc',
@@ -152,6 +159,11 @@ const PortalChangePasswordRoute = PortalChangePasswordRouteImport.update({
   id: '/change-password',
   path: '/change-password',
   getParentRoute: () => PortalRoute,
+} as any)
+const InviteMemberIdRoute = InviteMemberIdRouteImport.update({
+  id: '/invite/$memberId',
+  path: '/invite/$memberId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PortalReportsIndexRoute = PortalReportsIndexRouteImport.update({
   id: '/reports/',
@@ -251,11 +263,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
+  '/portal/landing-page': typeof PortalLandingPageRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -290,11 +304,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
+  '/portal/landing-page': typeof PortalLandingPageRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/qr-code': typeof PortalQrCodeRoute
@@ -329,11 +345,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
+  '/portal/landing-page': typeof PortalLandingPageRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -371,11 +389,13 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
+    | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/kyc'
+    | '/portal/landing-page'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -410,11 +430,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/kyc'
+    | '/portal/landing-page'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/qr-code'
@@ -448,11 +470,13 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/portal'
+    | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
     | '/portal/holdings'
     | '/portal/kyc'
+    | '/portal/landing-page'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -489,6 +513,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   PortalRoute: typeof PortalRouteWithChildren
+  InviteMemberIdRoute: typeof InviteMemberIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -605,6 +630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalNetworkRouteImport
       parentRoute: typeof PortalRoute
     }
+    '/portal/landing-page': {
+      id: '/portal/landing-page'
+      path: '/landing-page'
+      fullPath: '/portal/landing-page'
+      preLoaderRoute: typeof PortalLandingPageRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/portal/kyc': {
       id: '/portal/kyc'
       path: '/kyc'
@@ -639,6 +671,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/change-password'
       preLoaderRoute: typeof PortalChangePasswordRouteImport
       parentRoute: typeof PortalRoute
+    }
+    '/invite/$memberId': {
+      id: '/invite/$memberId'
+      path: '/invite/$memberId'
+      fullPath: '/invite/$memberId'
+      preLoaderRoute: typeof InviteMemberIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/portal/reports/': {
       id: '/portal/reports/'
@@ -798,6 +837,7 @@ interface PortalRouteChildren {
   PortalDocumentsRoute: typeof PortalDocumentsRoute
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalKycRoute: typeof PortalKycRoute
+  PortalLandingPageRoute: typeof PortalLandingPageRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalProfileRoute: typeof PortalProfileRoute
   PortalPromotionRoute: typeof PortalPromotionRouteWithChildren
@@ -831,6 +871,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalDocumentsRoute: PortalDocumentsRoute,
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalKycRoute: PortalKycRoute,
+  PortalLandingPageRoute: PortalLandingPageRoute,
   PortalNetworkRoute: PortalNetworkRoute,
   PortalProfileRoute: PortalProfileRoute,
   PortalPromotionRoute: PortalPromotionRouteWithChildren,
@@ -865,6 +906,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   PortalRoute: PortalRouteWithChildren,
+  InviteMemberIdRoute: InviteMemberIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

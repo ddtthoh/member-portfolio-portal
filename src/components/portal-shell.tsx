@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Wallet, FileBarChart, ArrowLeftRight, FileText,
   BookOpen, Users, MessageCircleQuestion, GraduationCap, LifeBuoy, LogOut, Menu, X, ArrowDownToLine, ArrowUpFromLine, Layers,
   ChevronDown, Repeat, DollarSign, Gift, ArrowRightLeft, Send, Languages, UserCircle2, KeyRound, ShieldCheck, QrCode,
-  PanelLeftClose, PanelLeft,
+  PanelLeftClose, PanelLeft, Sparkles,
 } from "lucide-react";
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,
@@ -104,6 +104,7 @@ const sections: NavSection[] = [
         children: [
           { to: "/portal/profile", labelKey: "account.profile", icon: UserCircle2 },
           { to: "/portal/qr-code", labelKey: "account.myQrCode", icon: QrCode },
+          { to: "/portal/landing-page", labelKey: "account.myLandingPage", icon: Sparkles },
           { to: "/portal/network", labelKey: "nav.network", icon: Users },
         ],
       },
