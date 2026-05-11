@@ -2,6 +2,7 @@
 @source "../src";
 @import "./components/landing/landing-theme.css";
 @import "./components/marketing/marketing-theme.css";
+@import "./components/marketing/liquid-glass.css";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
