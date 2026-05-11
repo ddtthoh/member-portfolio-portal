@@ -1248,15 +1248,8 @@ function RankingTrackCard({
   const qualified = status === "qualified" || top;
 
   return (
-    <GlowFrame innerClassName="liquid-glass p-6">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-px rounded-2xl"
-        style={{
-          background:
-            "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 55%), radial-gradient(120% 80% at 100% 100%, color-mix(in oklab, var(--gold) 8%, transparent), transparent 60%)",
-        }}
-      />
+    <SpotlightCard className="liquid-glass gold-aura rounded-2xl p-6">
+      <SweepOverlay />
       <div className="relative mb-3 flex items-center gap-2 text-gold">
         {icon}
         <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
