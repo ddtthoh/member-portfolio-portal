@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
+import { GlowFrame } from "@/components/glow-frame";
 import { MetricValue } from "@/components/metric-value";
 import { useTranslation } from "react-i18next";
 
@@ -354,8 +355,8 @@ function TrackCard({
   const qualified = !!current;
 
   return (
-    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
-      {/* Ambient gold corner glow to make user's tracking the focal point */}
+    <GlowFrame innerClassName="liquid-glass p-6">
+      {/* Inner soft radial highlights (kept on top of glow shell) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-px rounded-2xl"
@@ -457,7 +458,7 @@ function TrackCard({
           dim={!current || current.flightUsd === 0}
         />
       </div>
-    </SpotlightCard>
+    </GlowFrame>
   );
 }
 
@@ -1231,7 +1232,7 @@ function RankingTrackCard({
   const qualified = status === "qualified" || top;
 
   return (
-    <SpotlightCard className="liquid-glass gold-aura relative overflow-hidden rounded-2xl p-6">
+    <GlowFrame innerClassName="liquid-glass p-6">
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-px rounded-2xl"
@@ -1312,6 +1313,6 @@ function RankingTrackCard({
           {fallbackFootnote}
         </div>
       )}
-    </SpotlightCard>
+    </GlowFrame>
   );
 }
