@@ -48,26 +48,11 @@ function HomePage() {
         </div>
         <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
 
-        {/* Top corners */}
-        <div className="pointer-events-none absolute inset-x-0 top-24 z-10 mx-auto flex max-w-7xl items-start justify-between px-6 lg:px-10">
-          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground/45">
-            <div>NASLAB / INDEX 001</div>
-            <div className="mt-1 text-foreground/30">EST. 2024 — NASTECH GLOBAL</div>
-          </div>
-          <div className="hidden font-mono text-[10px] uppercase tracking-[0.4em] text-foreground/45 md:block text-right">
-            <div>LIVE / 24·7</div>
-            <div className="mt-1 inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> SYSTEMS NOMINAL</div>
-          </div>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-14 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-20">
-          <h1 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(2.4rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.04em]">
+        <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-28">
+          <h1 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(3rem,11vw,11rem)] font-light leading-[0.92] tracking-[-0.05em]">
             <SplitLines text="Where Luxury Meets" className="lg-tagline block" />
             <SplitLines text="Decentralized Innovation" className="lg-tagline mt-1 block" delay={400} />
           </h1>
-          <div className="mt-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.4em] text-foreground/45">
-            <span className="h-px w-10 bg-foreground/30" /> scroll to enter <span className="h-px w-10 bg-foreground/30" />
-          </div>
         </div>
       </section>
 
@@ -88,26 +73,19 @@ function HomePage() {
         <MReveal>
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <span className="lg-pill">Capital · meet structure</span>
-              <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-6 text-[clamp(2.2rem,5.4vw,4.4rem)] font-light leading-[1.02] tracking-[-0.035em]">
+              <h2 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(2.6rem,6.4vw,5.2rem)] font-light leading-[1.0] tracking-[-0.04em]">
                 Build your crypto reserve with <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>confidence</span>.
               </h2>
-              <p className="mt-6 max-w-xl text-foreground/75">
+              <p className="mt-7 max-w-xl text-foreground/70">
                 Backed by predictive MEV trading, intelligent cross-platform arbitrage,
                 and a tokenized ecosystem engineered for sustainable, long-term growth.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4 lg:col-span-5 lg:justify-end">
               <Link to="/main/ncore/basic">
-                <MagneticButton className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-8 py-4 text-xs font-semibold uppercase tracking-[0.22em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)]">
+                <MagneticButton className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-10 py-5 text-xs font-semibold uppercase tracking-[0.24em] text-gold-foreground shadow-[0_18px_60px_-15px_color-mix(in_oklab,var(--gold)_85%,transparent)]">
                   Explore Products <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </MagneticButton>
-              </Link>
-              <Link
-                to="/main/about"
-                className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 px-8 py-4 text-xs font-medium uppercase tracking-[0.22em] text-foreground/85 backdrop-blur transition-all hover:border-gold/60 hover:text-gold"
-              >
-                About Naslab <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -136,7 +114,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid items-center gap-14 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">What We Do</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Connecting capital to the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of finance</span>.
             </h2>
@@ -173,7 +151,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">Strategic Direction</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               A long-term roadmap for the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
             </h2>
@@ -202,7 +180,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">Ncore 2.0</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Predictive <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>MEV trading</span><br />for DEX markets.
             </h2>
@@ -244,7 +222,7 @@ function HomePage() {
       <SectionShell>
         <div className="grid items-center gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
-            <span className="lg-pill">Ncore X</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Intelligent <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>cross-platform</span> arbitrage.
             </h2>
@@ -267,7 +245,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">NCT Token</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               The native asset of the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>Ncore ecosystem</span>.
             </h2>
@@ -306,7 +284,7 @@ function HomePage() {
       <SectionShell>
         <MReveal>
           <div className="text-center">
-            <span className="lg-pill">Roadmap</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
               Shaping the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
             </h2>
@@ -387,7 +365,7 @@ function HomePage() {
         <MReveal>
           <LGCard className="relative overflow-hidden p-14 text-center md:p-20">
             <div className="lg-halo absolute -top-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2" />
-            <span className="lg-pill">Get In Touch</span>
+            
             <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,5vw,4.4rem)] font-light leading-[1.02] tracking-[-0.035em]">
               <SplitLines text="Where Luxury Meets Decentralized Innovation" className="lg-tagline" />
             </h2>

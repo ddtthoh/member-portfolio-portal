@@ -23,12 +23,14 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       lerp: 0.1,
     });
 
+    // gsap.ticker passes time in SECONDS; Lenis.raf expects MILLISECONDS.
     function raf(time: number) {
-      lenis.raf(time);
+      lenis.raf(time * 1000);
       ScrollTrigger.update();
     }
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+    lenis.on("scroll", ScrollTrigger.update);
 
     return () => {
       gsap.ticker.remove(raf);
