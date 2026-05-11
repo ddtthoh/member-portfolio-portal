@@ -14,6 +14,8 @@ type Props = {
    * fire reliably.
    */
   triggerInView?: boolean;
+  /** Fired the moment the count-up animation actually starts (frame 0). */
+  onStart?: () => void;
 };
 
 // Ease-out cubic for a smooth, premium ramp-up.
@@ -27,6 +29,7 @@ export function CountUp({
   suffix = "",
   className,
   triggerInView = true,
+  onStart,
 }: Props) {
   const elRef = useRef<HTMLSpanElement | null>(null);
   const [display, setDisplay] = useState(0);
@@ -80,6 +83,7 @@ export function CountUp({
     const start = performance.now();
     const to = value;
     setDisplay(0);
+    onStart?.();
 
     const tick = (now: number) => {
       const elapsed = now - start;
