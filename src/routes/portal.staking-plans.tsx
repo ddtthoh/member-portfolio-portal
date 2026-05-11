@@ -47,36 +47,20 @@ function StakingPlansPage() {
   const [showAmount, setShowAmount] = useState(true);
   const [sweepKey, setSweepKey] = useState(0);
 
-  const SWEEP_MS = 1500;
-  const cardRef = useRef<HTMLDivElement | null>(null);
+  const SWEEP_MS = 2500;
+  const startedRef = useRef(false);
+  const t2Ref = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  // Trigger 2 back-to-back glow sweeps when the card first scrolls into view,
-  // synced with the CountUp number animation (same IntersectionObserver pattern).
+  const handleCountStart = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    setSweepKey(1);
+    t2Ref.current = setTimeout(() => setSweepKey(2), SWEEP_MS);
+  };
+
   useEffect(() => {
-    const el = cardRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setSweepKey(1);
-      const t = setTimeout(() => setSweepKey(2), SWEEP_MS);
-      return () => clearTimeout(t);
-    }
-    let t2: ReturnType<typeof setTimeout> | undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setSweepKey(1);
-            t2 = setTimeout(() => setSweepKey(2), SWEEP_MS);
-            io.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(el);
     return () => {
-      io.disconnect();
-      if (t2) clearTimeout(t2);
+      if (t2Ref.current) clearTimeout(t2Ref.current);
     };
   }, []);
   const { wallet } = useWallet();
