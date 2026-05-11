@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeftRight, Building2, Boxes } from "lucide-react";
-import { NcoreHero, NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreHeroPro } from "@/components/marketing/ncore-hero-pro";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { ArbConstellation as ArbitrageGraph } from "@/components/marketing/charts-pro/arb-constellation";
 
@@ -25,17 +26,15 @@ const PATHS = [
 function NcoreXPage() {
   return (
     <>
-      <NcoreHero
+      <NcoreHeroPro
         variant="cyan"
-        eyebrow="Ncore X · Cross-Platform Arbitrage"
-        title="Unifying"
-        highlight="fragmented liquidity."
+        ch="CH.06 / NCORE X"
+        eyebrow="Cross-Platform Arbitrage"
+        titleA="Unifying"
+        titleB="fragmented liquidity."
         description="Markets are not one market — they are dozens of partially connected venues. Ncore X turns the seams between them into a continuous, programmable surface for arbitrage."
+        visual={<div className="h-full min-h-[58vh]"><ArbitrageGraph /></div>}
       />
-
-      <NcoreSection>
-        <MReveal><ArbitrageGraph /></MReveal>
-      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="Three Arbitrage Paths" title="The full" highlight="liquidity surface." />

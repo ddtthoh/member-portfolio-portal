@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Coins, Flame, KeyRound, Sparkles } from "lucide-react";
-import { NcoreSection, SectionHeader, NcoreHero } from "@/components/marketing/ncore-shell";
+import { NcoreSection, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreHeroPro } from "@/components/marketing/ncore-hero-pro";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { BurnDecay as BurnCurve } from "@/components/marketing/charts-pro/burn-decay";
 import { AllocationOrbit as AllocationDonut } from "@/components/marketing/charts-pro/allocation-orbit";
@@ -27,19 +28,19 @@ const UTILITY = [
 function TokenPage() {
   return (
     <>
-      <NcoreHero
-        eyebrow="NCT · Ncore Token"
-        title="The native asset of the"
-        highlight="Ncore ecosystem."
-        description="NCT is more than a token. It is the settlement layer, the access key and the incentive instrument that aligns every participant — operators, partners, and users — around the long-term value of the system."
+      <NcoreHeroPro
+        ch="CH.05 / NCT TOKEN"
+        eyebrow="Native Asset"
+        titleA="The native asset of the"
+        titleB="Ncore ecosystem."
+        description="NCT is the settlement layer, the access key and the incentive instrument that aligns every participant around the long-term value of the system."
+        visual={
+          <div className="grid h-full min-h-[58vh] grid-cols-1 gap-3 lg:grid-cols-2">
+            <AllocationDonut />
+            <BurnCurve />
+          </div>
+        }
       />
-
-      <NcoreSection>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <MReveal><BurnCurve /></MReveal>
-          <MReveal delay={120}><AllocationDonut /></MReveal>
-        </div>
-      </NcoreSection>
 
       <NcoreSection>
         <div className="grid items-center gap-12 lg:grid-cols-2">

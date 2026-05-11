@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TrendingUp, Layers, Bot, Waves, Globe2, GitBranch } from "lucide-react";
-import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreSection, FeatureGrid, SectionHeader } from "@/components/marketing/ncore-shell";
+import { NcoreHeroPro } from "@/components/marketing/ncore-hero-pro";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { LiquidityStrata as StackedArea } from "@/components/marketing/charts-pro/liquidity-strata";
 import { HeatmapGrid } from "@/components/marketing/charts-pro/heatmap-grid";
@@ -20,16 +21,14 @@ export const Route = createFileRoute("/main/ncore/trends")({
 function TrendsPage() {
   return (
     <>
-      <NcoreHero
-        eyebrow="Ncore 2.0 · Market Trends"
-        title="The structural forces"
-        highlight="shaping on-chain alpha."
-        description="Ncore is positioned against six structural trends compounding the size and complexity of on-chain markets — and the technical edge required to operate inside them."
+      <NcoreHeroPro
+        ch="CH.04 / NCORE 2.0"
+        eyebrow="Market Trends"
+        titleA="The structural forces"
+        titleB="shaping on-chain alpha."
+        description="Six structural trends compounding the size and complexity of on-chain markets — and the technical edge required to operate inside them."
+        visual={<div className="h-full min-h-[58vh]"><StackedArea /></div>}
       />
-
-      <NcoreSection>
-        <MReveal><StackedArea /></MReveal>
-      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="The Six Vectors" title="Where the next decade of" highlight="execution alpha lives." />
