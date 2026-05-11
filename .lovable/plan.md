@@ -1,94 +1,40 @@
 ## 排查结论
 
-打开 `src/routes/portal.staking-plans.tsx` 和 `src/styles.css` 后，定位到三处"闪/跳"的来源，全部是渲染 + keyframe 写法造成的，不是逻辑 bug。
+这次不是 new tab 的 compositor 新建层问题；new tab 已经被“常驻 overlay”修好。
 
-### 1. 第二次 glow 开始时整个盒子闪一下
-当前实现：第一次 glow 用 `<div key={1}>`，第二次切换到 `<div key={2}>`。React 在 `setSweepKey(2)` 时**卸载旧 div、挂载新 div**，浏览器要为带 `mix-blend-mode: screen` + `-inset-[15%]` 的新合成层重新建图层，触发一次 paint/composite。在某些浏览器（尤其 inapp webview）会看到一帧闪烁，看起来像"整个盒子亮了一下"。
+in-app preview 剩下的“开始之前跳”，根因是 **React 状态触发时机 + inline style 覆盖 CSS animation 初始帧**：
 
-### 2. 第二次中段跳一下
-keyframe 当前是：
-```
-0% opacity:0 → 8% opacity:1 → 92% opacity:1 → 100% opacity:0
-```
-配合 `cubic-bezier(0.33, 1, 0.68, 1)`（ease-out）作为整段动画的 timing function。ease-out 会把"前期"压缩得很快，所以 0→8% 那段 opacity 从 0 跳到 1 实际只用 ~80ms，**视觉上是 pop-in**，不是平滑淡入。中段也因为 8% 那个硬拐点，亮度突然到顶，看起来"跳了一下"。
+1. `CountUp` 第一帧数字刚从 0 变动时调用 `onStart`。
+2. `onStart` 执行 `setSweepRunning(true)`，React 下一次提交时会同时：
+   - 给 overlay 加上 `animate-position-sweep` class
+   - 把 inline `opacity: 0` 改成 `opacity: undefined`
+3. 在 in-app iframe/预览环境里，这个“移除 inline opacity”有概率先被绘制一帧；而 overlay 的静态 `transform` 仍是 `translateZ(0)`，还没吃到 keyframe 的 `translate(-60%, -60%)`。
+4. 结果就是 glow 正式开始前，overlay 以“默认位置/默认可见度”闪一下，看起来像盒子跳了一下。
 
-### 3. 第二次结束时跳一下
-同样道理：92%→100% 的 opacity 1→0 在 ease-out 末尾被压得很短，是 pop-out，不是淡出。第一次 glow 因为紧接着第二次 glow（新元素覆盖上去），用户感知不到这个 pop-out；第二次 glow 后面没有东西接，pop-out 就被看到了。
+session replay 也支持这个判断：录到的是连续的 `box-shadow` 样式变化，不是布局位移；performance 里 CLS 基本为 0，所以不是 DOM layout jump，而是 paint/compositing flash。
 
----
+## 修复计划
 
-## 修复方案（仅前端表现层，不改任何业务逻辑）
+1. **让 overlay 的静态样式永远等于动画 0% 帧**
+   - 默认 `opacity: 0`
+   - 默认 `transform: translate3d(-60%, -60%, 0)`
+   - 不再用 React 在开始瞬间移除 inline opacity。
 
-### 改动 A：避免 key 切换造成的挂载闪烁
-不再用 `sweepKey` 来"切换两个 div"，改成**一直挂载同一个 overlay div，让它运行 keyframe 两次**：
+2. **把 glow 可见度完全交给 CSS keyframes**
+   - `.animate-position-sweep` 只负责播放 animation。
+   - React 只 toggle class，不 toggle opacity/transform。
 
-- 在 `portal.staking-plans.tsx` 里把 `sweepKey: 0 | 1 | 2` 改成 `sweepRunning: boolean`。
-- 第一次 glow 在 `onStart` 时把 `sweepRunning` 设为 `true` 并挂载 overlay。
-- overlay 的 `animation-iteration-count` 设为 `2`（两次连播），单次 2.5s，总共 5s，正好覆盖"数字跑 2.5s + 第二次 glow 2.5s"。
-- 删掉 `handleCountComplete` 里 `setSweepKey(2)` 的逻辑（第二次 glow 现在由 iteration 自动接力，时机精准）。
-- 第二次 glow 结束后用 `onAnimationEnd`（CSS `animationiteration` 事件计数 2 次后）把 `sweepRunning` 设回 `false`，把 overlay 卸载。
+3. **把 keyframe transform 改成 3D transform**
+   - 从 `translate(-60%, -60%)` 改成 `translate3d(-60%, -60%, 0)`
+   - 结束为 `translate3d(60%, 60%, 0)`
+   - 避免浏览器在 2D/3D transform 之间切换合成路径。
 
-效果：整个 glow 期间 overlay 元素从不卸载/重挂，浏览器图层稳定，第二次开始那一帧不再有合成闪烁。
-
-### 改动 B：把 keyframe 的 opacity 改成平滑曲线
-`src/styles.css` 里的 `position-sweep` 改成：
-
-```css
-@keyframes position-sweep {
-  0%   { transform: translate(-60%, -60%); opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translate(60%, 60%); opacity: 0; }
-}
-```
-
-把 8%/92% 的硬拐点放宽到 20%/80%，淡入淡出有 500ms 缓冲，不会被 ease-out 压缩成 pop。中段也因此不会出现"亮度突然到顶"的视觉跳变。
-
-### 改动 C：opacity 用线性插值，避免被 ease-out 同时影响
-单独给 opacity 用 linear，让 transform 保留 ease-out。两种做法任选其一：
-
-- **方案 C1（推荐，简洁）**：拆成两条动画并行：
-  ```css
-  .animate-position-sweep {
-    animation:
-      position-sweep-move 2.5s cubic-bezier(0.33, 1, 0.68, 1) 2 both,
-      position-sweep-fade 2.5s linear 2 both;
-  }
-  ```
-  其中 `position-sweep-move` 只动 `transform`，`position-sweep-fade` 只动 `opacity`。
-
-- **方案 C2（保守）**：维持单条动画，但把 timing 改成 `ease-in-out`（`cubic-bezier(0.4, 0, 0.2, 1)`），让前后段都不要被压缩。
-
-我倾向 C1，因为 transform 的 ease-out 节奏和数字 count-up 的 ease-out 是匹配的（这是上一轮的设计），不能动；只有 opacity 需要线性。
-
-### 改动 D（可选小优化）
-给 overlay div 加 `will-change: transform, opacity;` 显式提升合成层，避免运行中触发图层升级造成的微小卡顿。
-
----
-
-## 文件改动清单
-
-- `src/styles.css`：
-  - 拆分 keyframe 为 `position-sweep-move`（transform）+ `position-sweep-fade`（opacity）。
-  - `.animate-position-sweep` 用两条动画，opacity 走 linear，transform 保留 ease-out。
-  - opacity 关键帧拐点放宽到 20%/80%。
-  - 加 `will-change`。
-
-- `src/routes/portal.staking-plans.tsx`：
-  - `sweepKey` → `sweepRunning: boolean`。
-  - overlay 不再用 `key`，改用条件挂载 + `animation-iteration-count: 2`。
-  - `handleCountStart` 设 `sweepRunning = true`。
-  - 删除 `handleCountComplete` 对 sweep 的赋值（保留函数本体或一并删掉，反正不再需要）。
-  - 在 overlay 上加 `onAnimationEnd` 回调，第二次播完后 `sweepRunning = false`（卸载 overlay）。
-
-- `src/components/count-up.tsx`：**不改**。
-- `.lovable/plan.md`：更新本次修复的根因 + 方案备忘。
-
----
+4. **必要时强制隔离该卡片的 paint/composite**
+   - 在 current staking card 容器加 `isolation: isolate` / `contain: paint`。
+   - 让 `mix-blend-mode: screen` 只在卡片内部混合，减少 in-app iframe 的重绘闪烁。
 
 ## 预期效果
 
-- 第二次 glow 不再有"整个盒子闪"的合成层切换瞬间。
-- 中段没有 opacity pop-in，亮度均匀延续。
-- 结束时是平滑淡出，不再"跳一下"。
-- 时长、节奏、与 count-up 的同步关系全部保留。
+- glow 开始前不会再出现可见 overlay 默认帧。
+- new tab 当前的完美状态会保持不变。
+- 动画速度、两次 glow 的总时长和节奏不变。
