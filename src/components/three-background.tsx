@@ -679,6 +679,7 @@ export function ThreeBackground({
   const [interactive, setInteractive] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const [spread, setSpread] = useState({ x: 16, y: 10 });
 
   useEffect(() => {
@@ -707,7 +708,15 @@ export function ThreeBackground({
     };
     apply();
     window.addEventListener("resize", apply);
-    return () => window.removeEventListener("resize", apply);
+    const themeWatch = () =>
+      setIsLight(!document.documentElement.classList.contains("dark"));
+    themeWatch();
+    const mo = new MutationObserver(themeWatch);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => {
+      window.removeEventListener("resize", apply);
+      mo.disconnect();
+    };
   }, []);
 
   if (!enabled) return null;
@@ -737,7 +746,7 @@ export function ThreeBackground({
     <div
       aria-hidden
       className={className ?? defaultClass}
-      style={{ opacity: isPhone ? 0.8 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
+      style={{ opacity: isPhone ? 0.9 : 0.95, willChange: "transform", transform: "translateZ(0)", ...maskStyle }}
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 60 }}
@@ -749,7 +758,8 @@ export function ThreeBackground({
         }}
         frameloop={reduceMotion ? "demand" : "always"}
       >
-        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} />
+        <NodeWeb count={count} interactive={interactive} spreadX={spread.x} spreadY={spread.y} isPhone={isPhone} isLight={isLight} />
+      </Canvas>
       </Canvas>
     </div>
   );
