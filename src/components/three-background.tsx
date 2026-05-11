@@ -521,9 +521,14 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
         data.sparkPositions[s * 3 + 2] = az + (bz - az) * cl;
         const twinkle = 0.55 + 0.45 * Math.sin(t * 2.4 + seed * 3.1);
         const intensity = Math.min(1.8, twinkle + pulseOsc * 1.4);
-        data.sparkColors[s * 3] = Math.min(1, 1.0 * intensity);
-        data.sparkColors[s * 3 + 1] = Math.min(1, 0.92 * intensity);
-        data.sparkColors[s * 3 + 2] = Math.min(1, 0.7 * intensity);
+        // Light mode: bright golden yellow that pops on white.
+        // Dark mode: warm cream that glows under additive blend.
+        const baseR = isLight ? 0.98 : 1.0;
+        const baseG = isLight ? 0.78 : 0.92;
+        const baseB = isLight ? 0.08 : 0.7;
+        data.sparkColors[s * 3] = Math.min(1, baseR * intensity);
+        data.sparkColors[s * 3 + 1] = Math.min(1, baseG * intensity);
+        data.sparkColors[s * 3 + 2] = Math.min(1, baseB * intensity);
       }
     }
     if (sparklesRef.current) {
