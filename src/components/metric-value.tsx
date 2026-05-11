@@ -12,6 +12,10 @@ type Props = {
   className?: string;
   /** Disable the count-up entrance animation (e.g. inside dense tables). */
   static?: boolean;
+  /** Override the count-up duration in ms. */
+  duration?: number;
+  /** Fired when the count-up animation actually starts. */
+  onStart?: () => void;
 };
 
 const sizeClasses: Record<NonNullable<Props["size"]>, string> = {
@@ -34,6 +38,8 @@ export function MetricValue({
   unit,
   className = "",
   static: isStatic = false,
+  duration,
+  onStart,
 }: Props) {
   return (
     <span
@@ -49,7 +55,7 @@ export function MetricValue({
           {suffix}
         </span>
       ) : (
-        <CountUp value={value} prefix={prefix} suffix={suffix} decimals={decimals} />
+        <CountUp value={value} prefix={prefix} suffix={suffix} decimals={decimals} duration={duration} onStart={onStart} />
       )}
       {unit && (
         <span className="text-xs font-normal text-muted-foreground">{unit}</span>
