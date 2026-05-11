@@ -128,19 +128,22 @@ function StakingPlansPage() {
             className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
           />
 
-          {/* Diagonal glow sweep — runs 2 iterations from a single mount, no key swap */}
-          {sweepRunning && (
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -inset-[15%] animate-position-sweep"
-              style={{
-                background:
-                  "linear-gradient(135deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%)",
-                mixBlendMode: "screen",
-              }}
-              onAnimationEnd={() => setSweepRunning(false)}
-            />
-          )}
+          {/* Diagonal glow sweep — always mounted so the compositor layer (mix-blend-mode: screen)
+              is created on page load. The animation class is toggled to start/stop the sweep,
+              avoiding the first-paint flash from creating a new compositor layer at glow start. */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute -inset-[15%] ${sweepRunning ? "animate-position-sweep" : ""}`}
+            style={{
+              background:
+                "linear-gradient(135deg, transparent 30%, color-mix(in oklab, var(--gold) 35%, transparent) 50%, transparent 70%)",
+              mixBlendMode: "screen",
+              opacity: sweepRunning ? undefined : 0,
+              willChange: "transform, opacity",
+              transform: "translateZ(0)",
+            }}
+            onAnimationEnd={() => setSweepRunning(false)}
+          />
           <div className="relative flex items-center gap-2">
             <Crown className="h-4 w-4 text-gold" strokeWidth={2.2} />
             <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
