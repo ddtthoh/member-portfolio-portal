@@ -35,6 +35,7 @@ export function MagneticButton({ children, className, strength = 0.35, onClick, 
 
   return (
     <button
+      data-cursor="Click"
       {...props}
       ref={ref}
       onMouseMove={onMove}
