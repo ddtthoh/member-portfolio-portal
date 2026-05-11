@@ -46,7 +46,12 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
 
     for (let i = 0; i < count; i++) {
       const x = (Math.random() - 0.5) * spreadX;
-      const y = (Math.random() - 0.5) * spreadY + 1.0; // bias upward
+      // Phone: cluster nodes in the upper portion (above the diamond box).
+      // Desktop/tablet: keep the existing slight upward bias.
+      const r = Math.random();
+      const y = isPhone
+        ? (1 - Math.pow(r, 1.7)) * spreadY * 0.5 + 0.4 // mostly upper half
+        : (Math.random() - 0.5) * spreadY + 1.0;
       const z = (Math.random() - 0.5) * 6;
       home[i * 3] = x;
       home[i * 3 + 1] = y;
