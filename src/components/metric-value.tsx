@@ -16,6 +16,8 @@ type Props = {
   duration?: number;
   /** Fired when the count-up animation actually starts. */
   onStart?: () => void;
+  /** Fired when the count-up reaches its final value. */
+  onComplete?: () => void;
 };
 
 const sizeClasses: Record<NonNullable<Props["size"]>, string> = {
@@ -40,6 +42,7 @@ export function MetricValue({
   static: isStatic = false,
   duration,
   onStart,
+  onComplete,
 }: Props) {
   return (
     <span
@@ -55,7 +58,7 @@ export function MetricValue({
           {suffix}
         </span>
       ) : (
-        <CountUp value={value} prefix={prefix} suffix={suffix} decimals={decimals} duration={duration} onStart={onStart} />
+        <CountUp value={value} prefix={prefix} suffix={suffix} decimals={decimals} duration={duration} onStart={onStart} onComplete={onComplete} />
       )}
       {unit && (
         <span className="text-xs font-normal text-muted-foreground">{unit}</span>
