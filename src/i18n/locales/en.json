@@ -42,7 +42,8 @@
     "profile": "Profile",
     "changePassword": "Change Password",
     "myKyc": "My KYC",
-    "myQrCode": "My QR Code",
+   "myQrCode": "My QR Code",
+   "myLandingPage": "My Landing Page",
     "network": "Network",
     "logout": "Logout"
   },
