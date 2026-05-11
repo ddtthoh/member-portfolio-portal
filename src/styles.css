@@ -1,5 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../src";
+@import "./components/landing/landing-theme.css";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -687,5 +688,4 @@
   }
 }
 
-@import "./components/landing/landing-theme.css";
 
