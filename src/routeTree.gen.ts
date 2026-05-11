@@ -44,6 +44,7 @@ import { Route as InviteMemberIdRouteImport } from './routes/invite.$memberId'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
 import { Route as PortalPromotionIndexRouteImport } from './routes/portal.promotion.index'
+import { Route as MainNcoreIndexRouteImport } from './routes/main.ncore.index'
 import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
 import { Route as PortalStatementTransferUsdRouteImport } from './routes/portal.statement.transfer-usd'
 import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
@@ -240,6 +241,11 @@ const PortalPromotionIndexRoute = PortalPromotionIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PortalPromotionRoute,
 } as any)
+const MainNcoreIndexRoute = MainNcoreIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MainNcoreRoute,
+} as any)
 const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
   id: '/statement/usd',
   path: '/statement/usd',
@@ -402,6 +408,7 @@ export interface FileRoutesByFullPath {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/main/ncore/': typeof MainNcoreIndexRoute
   '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
@@ -414,7 +421,6 @@ export interface FileRoutesByTo {
   '/main/careers': typeof MainCareersRoute
   '/main/collaboration': typeof MainCollaborationRoute
   '/main/contact': typeof MainContactRoute
-  '/main/ncore': typeof MainNcoreRouteWithChildren
   '/main/roadmap': typeof MainRoadmapRoute
   '/main/strategy': typeof MainStrategyRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
@@ -455,6 +461,7 @@ export interface FileRoutesByTo {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/main/ncore': typeof MainNcoreIndexRoute
   '/portal/promotion': typeof PortalPromotionIndexRoute
   '/portal/qna': typeof PortalQnaIndexRoute
   '/portal/reports': typeof PortalReportsIndexRoute
@@ -513,6 +520,7 @@ export interface FileRoutesById {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
+  '/main/ncore/': typeof MainNcoreIndexRoute
   '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
@@ -572,6 +580,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/main/ncore/'
     | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
@@ -584,7 +593,6 @@ export interface FileRouteTypes {
     | '/main/careers'
     | '/main/collaboration'
     | '/main/contact'
-    | '/main/ncore'
     | '/main/roadmap'
     | '/main/strategy'
     | '/portal/change-password'
@@ -625,6 +633,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/main/ncore'
     | '/portal/promotion'
     | '/portal/qna'
     | '/portal/reports'
@@ -682,6 +691,7 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
+    | '/main/ncore/'
     | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
@@ -942,6 +952,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPromotionIndexRouteImport
       parentRoute: typeof PortalPromotionRoute
     }
+    '/main/ncore/': {
+      id: '/main/ncore/'
+      path: '/'
+      fullPath: '/main/ncore/'
+      preLoaderRoute: typeof MainNcoreIndexRouteImport
+      parentRoute: typeof MainNcoreRoute
+    }
     '/portal/statement/usd': {
       id: '/portal/statement/usd'
       path: '/statement/usd'
@@ -1092,6 +1109,7 @@ interface MainNcoreRouteChildren {
   MainNcoreTradingRoute: typeof MainNcoreTradingRoute
   MainNcoreTrendsRoute: typeof MainNcoreTrendsRoute
   MainNcoreXRoute: typeof MainNcoreXRoute
+  MainNcoreIndexRoute: typeof MainNcoreIndexRoute
 }
 
 const MainNcoreRouteChildren: MainNcoreRouteChildren = {
@@ -1101,6 +1119,7 @@ const MainNcoreRouteChildren: MainNcoreRouteChildren = {
   MainNcoreTradingRoute: MainNcoreTradingRoute,
   MainNcoreTrendsRoute: MainNcoreTrendsRoute,
   MainNcoreXRoute: MainNcoreXRoute,
+  MainNcoreIndexRoute: MainNcoreIndexRoute,
 }
 
 const MainNcoreRouteWithChildren = MainNcoreRoute._addFileChildren(
@@ -1242,12 +1261,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
