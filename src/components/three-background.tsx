@@ -642,7 +642,7 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           transparent
           depthWrite={false}
           blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
-          opacity={isLight ? 0.7 : 0.45}
+          opacity={isLight ? 0.85 : 0.5}
         />
       </points>
 
