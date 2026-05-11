@@ -169,37 +169,33 @@ function StakingPlansPage() {
 
           <div className="relative mt-5 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-0">
             {/* Your Staking */}
-            <div className="min-h-[88px] sm:min-h-[96px] text-center sm:px-4 sm:border-r sm:border-gold/15">
+            <div className="text-center sm:px-4 sm:border-r sm:border-gold/15">
               <RuleEyebrow
                 icon={<Sparkles className="h-3 w-3" />}
                 label={t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
               />
               <div className="mt-2 leading-none">
                 {showAmount ? (
-                  <MetricValue
-                    value={wallet.staking}
-                    prefix="$"
-                    decimals={2}
-                    size="lg"
-                    static={walletLoading || wallet.staking <= 0}
-                    duration={SWEEP_MS}
-                    onStart={handleCountStart}
-                  />
+                  walletLoading || wallet.staking <= 0 ? (
+                    <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" static />
+                  ) : (
+                    <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" duration={SWEEP_MS} onStart={handleCountStart} />
+                  )
                 ) : (
                   <span className="inline-flex items-baseline font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
                     ••••••
                   </span>
                 )}
               </div>
-              <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 tabular-nums">
-                {hasStaking
-                  ? "\u00A0"
-                  : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
-              </div>
+              {!hasStaking && (
+                <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+                  {t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
+                </div>
+              )}
             </div>
 
             {/* Current Tier + Monthly ROI */}
-            <div className="min-h-[88px] sm:min-h-[96px] text-center sm:px-4 sm:border-r sm:border-gold/15">
+            <div className="text-center sm:px-4 sm:border-r sm:border-gold/15">
               <RuleEyebrow
                 icon={<TrendingUp className="h-3 w-3" />}
                 label={t("pages.stakingPlans.labels.currentTier", { defaultValue: "Current Tier" })}
@@ -215,7 +211,7 @@ function StakingPlansPage() {
             </div>
 
             {/* Started Since */}
-            <div className="min-h-[88px] sm:min-h-[96px] text-center sm:px-4">
+            <div className="text-center sm:px-4">
               <RuleEyebrow
                 icon={<CalendarClock className="h-3 w-3" />}
                 label={t("pages.stakingPlans.labels.startedSince", { defaultValue: "Started Since" })}
