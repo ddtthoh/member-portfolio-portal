@@ -267,7 +267,7 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
       {/* Tier ladders */}
       <TierLadder
         title="Participant Incentive"
-        subtitle="Direct participation between 1 Feb – 30 Jun 2026"
+        subtitle="Direct staking between 1 Feb – 30 Jun 2026"
         tiers={promo.personalTiers}
         amount={promo.personalAmount}
       />
