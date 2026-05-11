@@ -1,6 +1,6 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles, TrendingUp, CalendarClock, Crown } from "lucide-react";
+import { Sparkles, TrendingUp, CalendarClock, Crown, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
@@ -44,6 +44,33 @@ const nbspRange = (s: string) => s.replace(/\s*–\s*/, "\u00A0–\u00A0");
 function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [showAmount, setShowAmount] = useState(true);
+  const [sweepKey, setSweepKey] = useState(0);
+
+  // Burst sweep: 3 sweeps in a row, then re-trigger every 10s
+  useEffect(() => {
+    let burstTimers: ReturnType<typeof setTimeout>[] = [];
+    const SWEEP_MS = 1600;
+    const GAP_MS = 200;
+    const STEP = SWEEP_MS + GAP_MS;
+
+    const burst = () => {
+      // 3 sweeps
+      [0, STEP, STEP * 2].forEach((delay) => {
+        burstTimers.push(
+          setTimeout(() => setSweepKey((k) => k + 1), delay)
+        );
+      });
+    };
+
+    burst();
+    const interval = setInterval(burst, 10000);
+
+    return () => {
+      burstTimers.forEach(clearTimeout);
+      clearInterval(interval);
+    };
+  }, []);
   const { wallet } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
@@ -116,6 +143,18 @@ function StakingPlansPage() {
             className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
           />
 
+          {/* Premium left→right glow sweep (3-burst on mount, repeats every 10s) */}
+          <div
+            key={sweepKey}
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 -inset-x-1/3 animate-position-sweep"
+            style={{
+              background:
+                "linear-gradient(110deg, transparent 35%, color-mix(in oklab, var(--gold) 28%, transparent) 50%, transparent 65%)",
+              mixBlendMode: "screen",
+            }}
+          />
+
           <div className="relative flex items-center gap-2">
             <Crown className="h-4 w-4 text-gold" strokeWidth={2.2} />
             <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold/85">
@@ -127,6 +166,14 @@ function StakingPlansPage() {
                 {t("pages.staking.status.active", { defaultValue: "Active" })}
               </span>
             )}
+            <button
+              type="button"
+              onClick={() => setShowAmount((s) => !s)}
+              aria-label={showAmount ? "Hide amounts" : "Show amounts"}
+              className={`${hasStaking ? "ml-2" : "ml-auto"} text-gold/70 transition-colors hover:text-gold`}
+            >
+              {showAmount ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
 
           <div className="relative mt-5 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-0">
@@ -137,13 +184,19 @@ function StakingPlansPage() {
                 label={t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
               />
               <div className="mt-2 leading-none">
-                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" />
+                {showAmount ? (
+                  <MetricValue value={wallet.staking} prefix="$" decimals={2} size="lg" />
+                ) : (
+                  <span className="inline-flex items-baseline font-light tabular-nums tracking-[-0.04em] text-gold text-2xl sm:text-3xl">
+                    ••••••
+                  </span>
+                )}
               </div>
-              <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                {hasStaking
-                  ? t("pages.stakingPlans.labels.principal", { defaultValue: "Principal" })
-                  : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
-              </div>
+              {!hasStaking && (
+                <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+                  {t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake" })}
+                </div>
+              )}
             </div>
 
             {/* Current Tier + Monthly ROI */}
@@ -157,7 +210,7 @@ function StakingPlansPage() {
               </div>
               <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70 tabular-nums">
                 {hasStaking
-                  ? `${t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })} · ${currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}`
+                  ? `${t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly ROI" })} · ${showAmount ? currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0") : "••••"}`
                   : t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
               </div>
             </div>
