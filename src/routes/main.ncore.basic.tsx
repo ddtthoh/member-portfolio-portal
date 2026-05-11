@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eye, ListOrdered, Route as RouteIcon, Layers, ShieldAlert, Globe } from "lucide-react";
-import { NcoreHero, NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
+import { NcoreSection, FeatureGrid, SectionHeader, StepList } from "@/components/marketing/ncore-shell";
+import { NcoreHeroPro } from "@/components/marketing/ncore-hero-pro";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { MempoolTape as MempoolFlow } from "@/components/marketing/charts-pro/mempool-tape";
 
@@ -19,16 +20,14 @@ export const Route = createFileRoute("/main/ncore/basic")({
 function BasicPage() {
   return (
     <>
-      <NcoreHero
-        eyebrow="Ncore 2.0 · Basic Understanding"
-        title="On-chain markets are"
-        highlight="public, ordered, and contested."
-        description="Before strategy, comes structure. Ncore 2.0 begins with the foundational logic of on-chain execution — what is visible, how it is ordered, and which paths a transaction can take from intent to settlement."
+      <NcoreHeroPro
+        ch="CH.01 / NCORE 2.0"
+        eyebrow="Basic Understanding"
+        titleA="On-chain markets are"
+        titleB="public, ordered, contested."
+        description="Before strategy, comes structure. Ncore 2.0 begins with the foundational logic of on-chain execution — what is visible, how it is ordered, and which paths a transaction can take."
+        visual={<div className="h-full min-h-[58vh]"><MempoolFlow /></div>}
       />
-
-      <NcoreSection>
-        <MReveal><MempoolFlow /></MReveal>
-      </NcoreSection>
 
       <NcoreSection>
         <SectionHeader eyebrow="The Three Primitives" title="What every DEX trade" highlight="actually looks like." />
