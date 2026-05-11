@@ -44,12 +44,29 @@ const nbspRange = (s: string) => s.replace(/\s*–\s*/, "\u00A0–\u00A0");
 function StakingPlansPage() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const { wallet } = useWallet();
 
   const grouped: Record<Tier, Plan[]> = {
     standard: plans.filter((p) => p.tier === "standard"),
     advance: plans.filter((p) => p.tier === "advance"),
     premium: plans.filter((p) => p.tier === "premium"),
   };
+
+  // Match user's current staking amount to a plan tier
+  const currentPlan = useMemo(() => {
+    const sorted = [...plans].sort((a, b) => a.minAmount - b.minAmount);
+    let match = sorted[0];
+    for (const p of sorted) {
+      if (wallet.staking >= p.minAmount) match = p;
+    }
+    return match;
+  }, [wallet.staking]);
+
+  const hasStaking = wallet.staking > 0;
+  const startedSince = "2026-02-14"; // mock since date — wire to real data when available
+  const stakingDays = hasStaking
+    ? Math.max(1, Math.floor((Date.now() - new Date(startedSince).getTime()) / 86400000))
+    : 0;
 
   return (
     <div className="space-y-6 pb-28 sm:pb-8">
