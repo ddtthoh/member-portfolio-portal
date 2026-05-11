@@ -673,7 +673,7 @@
     100% { transform: translate(100%, 100%); opacity: 0; }
   }
   .animate-position-sweep {
-    animation: position-sweep 2.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1 both;
+    animation: position-sweep 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1 both;
   }
   @media (prefers-reduced-motion: reduce) {
     .animate-position-sweep { animation: none; }
