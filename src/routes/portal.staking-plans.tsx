@@ -123,16 +123,16 @@ function StakingPlansPage() {
                 {t("pages.stakingPlans.labels.yourStaking", { defaultValue: "Your Staking" })}
               </div>
               <div className="mt-1.5 leading-none">
-                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="xl" static />
+                <MetricValue value={wallet.staking} prefix="$" decimals={2} size="xl" />
               </div>
-              <div className="mt-1.5 text-[10px] text-muted-foreground/80">
-                {hasStaking
-                  ? t("pages.stakingPlans.labels.activeStake", { defaultValue: "Currently locked" })
-                  : t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake yet" })}
-              </div>
+              {!hasStaking && (
+                <div className="mt-1.5 text-[10px] text-muted-foreground/80">
+                  {t("pages.stakingPlans.labels.noStake", { defaultValue: "No active stake yet" })}
+                </div>
+              )}
             </div>
 
-            {/* Current tier */}
+            {/* Current tier + ROI (daily & monthly) */}
             <div className="sm:border-r sm:border-gold/15 sm:pr-6">
               <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                 <TrendingUp className="h-3 w-3" />
@@ -141,11 +141,30 @@ function StakingPlansPage() {
               <div className="mt-1.5 font-serif text-xl sm:text-2xl leading-none text-gold">
                 {hasStaking ? t(currentPlan.name) : "—"}
               </div>
-              <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
-                {hasStaking
-                  ? `ROI ${currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}`
-                  : t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
-              </div>
+              {hasStaking ? (
+                <div className="mt-2 space-y-0.5">
+                  <div className="flex items-baseline justify-between gap-2 text-[10px] tabular-nums">
+                    <span className="uppercase tracking-[0.18em] text-muted-foreground/80">
+                      {t("pages.stakingPlans.labels.dailyRoi", { defaultValue: "Daily" })}
+                    </span>
+                    <span className="text-gold/90">
+                      {currentPlan.dailyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-2 text-[10px] tabular-nums">
+                    <span className="uppercase tracking-[0.18em] text-muted-foreground/80">
+                      {t("pages.stakingPlans.labels.monthlyRoi", { defaultValue: "Monthly" })}
+                    </span>
+                    <span className="text-gold">
+                      {currentPlan.monthlyRoi.replace(/\s*–\s*/, "\u00A0–\u00A0")}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
+                  {t("pages.stakingPlans.labels.unlockTier", { defaultValue: "Stake to unlock" })}
+                </div>
+              )}
             </div>
 
             {/* Started since */}
@@ -154,7 +173,7 @@ function StakingPlansPage() {
                 <CalendarClock className="h-3 w-3" />
                 {t("pages.stakingPlans.labels.startedSince", { defaultValue: "Started Since" })}
               </div>
-              <div className="mt-1.5 font-light text-xl sm:text-2xl leading-none tabular-nums tracking-tight text-foreground">
+              <div className="mt-1.5 font-light text-xl sm:text-2xl leading-none tabular-nums tracking-tight text-gold">
                 {hasStaking ? startedSince : "—"}
               </div>
               <div className="mt-1.5 text-[10px] tabular-nums text-muted-foreground/80">
