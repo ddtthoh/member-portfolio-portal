@@ -612,10 +612,10 @@ function NodeWeb({ count, interactive, spreadX, spreadY, isPhone, isLight }: { c
           map={packetSprite}
           size={pointSize * 0.9}
           sizeAttenuation
-          color={"#fff4d6"}
+          color={isLight ? "#c98a14" : "#fff4d6"}
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={isLight ? THREE.NormalBlending : THREE.AdditiveBlending}
           opacity={1}
         />
       </points>
