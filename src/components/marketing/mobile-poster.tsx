@@ -478,7 +478,7 @@ export function MobilePoster({
                   </div>
                   <div className="min-w-0 flex-1">
                     <div
-                      className="truncate font-mono text-[18px] font-semibold"
+                      className="truncate text-[18px] font-light tabular-nums tracking-[-0.04em]"
                       style={{ color: t.text }}
                     >
                       invite.naslabtec.com/{memberId}
