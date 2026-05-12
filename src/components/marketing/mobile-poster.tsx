@@ -135,7 +135,7 @@ export function MobilePoster({
             fontSize: "128px",
             lineHeight: 1.05,
             paddingBottom: "0.12em",
-            ...gold("strong"),
+            ...gold("strong", theme),
             textShadow: "0 8px 80px rgba(212,170,80,0.45)",
           }}
         >
