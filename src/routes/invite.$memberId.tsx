@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { MobilePoster } from "@/components/marketing/mobile-poster";
+import { ThreeBackground } from "@/components/three-background";
 
 type Search = { print?: string };
 
