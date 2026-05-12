@@ -104,20 +104,6 @@ function MyLandingPage() {
       <div className="mt-6 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
         {/* === Inline poster preview === */}
         <SpotlightCard className="liquid-glass self-start overflow-hidden rounded-2xl">
-          <div className="flex items-center justify-between border-b border-gold/10 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
-              <span className="ml-3 truncate font-mono text-[11px] text-foreground/60">
-                {inviteUrl}
-              </span>
-            </div>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-gold/60">
-              Live Preview
-            </span>
-          </div>
-
           <FitPoster theme={theme} innerRef={previewRef}>
             <MobilePoster memberId={memberId} theme={theme} />
           </FitPoster>
