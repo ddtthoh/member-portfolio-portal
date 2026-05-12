@@ -118,7 +118,10 @@ function MyLandingPage() {
             </span>
           </div>
 
-          <div className="relative w-full overflow-hidden bg-[#050403] p-4">
+          <div
+            className="relative w-full overflow-hidden p-4"
+            style={{ background: theme === "light" ? "#efe7d6" : "#050403" }}
+          >
             <div className="mx-auto w-full">
               <div
                 ref={previewRef}
@@ -129,7 +132,7 @@ function MyLandingPage() {
                 }}
                 className="[--lp-scale:0.42] sm:[--lp-scale:0.55] md:[--lp-scale:0.62] lg:[--lp-scale:0.5] xl:[--lp-scale:0.62]"
               >
-                <MobilePoster memberId={memberId} />
+                <MobilePoster memberId={memberId} theme={theme} />
               </div>
               <ScaledSpacer targetRef={previewRef} />
             </div>
