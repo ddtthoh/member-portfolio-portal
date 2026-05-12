@@ -19,7 +19,7 @@ import { AllocationOrbit } from "@/components/marketing/charts-pro/allocation-or
 import { BurnDecay } from "@/components/marketing/charts-pro/burn-decay";
 import { HeatmapGrid } from "@/components/marketing/charts-pro/heatmap-grid";
 
-const Hero3D = lazy(() => import("@/components/marketing/hero-3d-pro").then((m) => ({ default: m.Hero3DPro })));
+
 const NCTCoin3D = lazy(() => import("@/components/marketing/nct-coin-3d").then((m) => ({ default: m.NCTCoin3D })));
 const SignatureDissolve = lazy(() => import("@/components/marketing/signature-dissolve").then((m) => ({ default: m.SignatureDissolve })));
 
@@ -39,15 +39,8 @@ function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative -mt-20 h-screen min-h-[680px] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <ClientOnly>
-            <Suspense fallback={<HeroFallback />}>
-              <Hero3D />
-            </Suspense>
-          </ClientOnly>
-        </div>
-        <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
+      <section className="relative -mt-20 h-screen min-h-[680px] overflow-hidden bg-[#06070b]">
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,rgba(255,170,80,0.18)_0%,transparent_55%),radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
 
         <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-28">
           <h1 className="m-h1">
@@ -397,13 +390,6 @@ function HomePage() {
   );
 }
 
-function HeroFallback() {
-  return (
-    <div className="relative h-full w-full bg-[#06070b]">
-      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-gold/40 to-transparent blur-3xl" />
-    </div>
-  );
-}
 
 function SectionShell({ children, tight }: { children: React.ReactNode; tight?: boolean }) {
   return (
