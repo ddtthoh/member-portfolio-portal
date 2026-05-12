@@ -639,8 +639,9 @@ function gold(
     strong: "linear-gradient(180deg,#fff8dc 0%,#f0cf7a 28%,#c79a3e 62%,#7a5818 100%)",
     dark: "linear-gradient(180deg,#f0cf7a 0%,#9c7322 100%)",
   };
+  const ramp = theme === "light" ? light : dark;
   return {
-    backgroundImage: dark[variant],
+    backgroundImage: ramp[variant],
     backgroundColor: "transparent",
     WebkitBackgroundClip: "text" as const,
     backgroundClip: "text" as const,
