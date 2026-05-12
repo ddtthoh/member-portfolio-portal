@@ -604,7 +604,20 @@ function palette(theme: Theme) {
 
 /* ─────────────── helpers ─────────────── */
 
-function gold(variant: "default" | "strong" | "dark" = "default", theme: Theme = "dark") {
+function gold(
+  variant: "default" | "strong" | "dark" = "default",
+  theme: Theme = "dark",
+  exportMode = false,
+) {
+  // Export mode: html2canvas-pro can't reliably render
+  // background-clip:text gradients, so always paint a solid gold color.
+  if (exportMode) {
+    const solid =
+      theme === "light"
+        ? { default: "#7a5818", strong: "#5a3f0d", dark: "#3d2b06" }
+        : { default: "#f0cf7a", strong: "#fff5d4", dark: "#c79a3e" };
+    return { color: solid[variant] };
+  }
   // Light mode: use a solid dark color for max readability and to avoid the
   // background/backgroundClip shorthand rerender warning entirely.
   if (theme === "light") {
@@ -942,7 +955,7 @@ function Eyebrow({ children, theme }: { children: ReactNode; theme: Theme }) {
   );
 }
 
-function H2({ children, theme }: { children: ReactNode; theme: Theme }) {
+function H2({ children, theme, exportMode = false }: { children: ReactNode; theme: Theme; exportMode?: boolean }) {
   return (
     <h2
       className="mt-5 font-serif font-bold leading-[1.1]"
