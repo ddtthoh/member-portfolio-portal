@@ -284,9 +284,9 @@ export function MobilePoster({
           }}
         >
           {[
-            { v: 0.45, decimals: 2, suffix: "%", l: "Daily peak ROI" },
-            { v: 13.5, decimals: 1, suffix: "%", l: "Monthly peak ROI" },
-            { v: 24, decimals: 0, suffix: "/7", l: "AI Execution" },
+            { v: 0.45, decimals: 2, suffix: "%", l: "Daily peak ROI", kind: "num" as const },
+            { v: 13.5, decimals: 1, suffix: "%", l: "Monthly peak ROI", kind: "num" as const },
+            { v: 24, decimals: 0, suffix: "/7", l: "AI Execution", kind: "ratio" as const },
           ].map((s) => (
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
@@ -295,8 +295,10 @@ export function MobilePoster({
               >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
+                ) : s.kind === "ratio" ? (
+                  <NumRatio left="24" right="7" />
                 ) : (
-                  `${s.v.toFixed(s.decimals)}${s.suffix}`
+                  <FancyNum value={s.v.toFixed(s.decimals)} unit="%" />
                 )}
               </div>
               <div
