@@ -45,7 +45,7 @@ function MyLandingPage() {
     if (!target) throw new Error("Poster not ready");
     const html2canvas = (await import("html2canvas-pro")).default;
     return html2canvas(target, {
-      backgroundColor: "#050403",
+      backgroundColor: theme === "light" ? "#fbf6ea" : "#050403",
       scale: 2,
       width: 1080,
       windowWidth: 1080,
