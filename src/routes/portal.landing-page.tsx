@@ -97,10 +97,17 @@ function MyLandingPage() {
     toast.loading("Generating PNG...", { id: "png" });
     try {
       const canvas = await captureCanvas();
+      const blob: Blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob failed"))), "image/png"),
+      );
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.download = `naslab-invite-${memberId}.png`;
-      link.href = canvas.toDataURL("image/png");
+      link.href = url;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
       toast.success("PNG downloaded", { id: "png" });
     } catch (e) {
       console.error(e);
@@ -113,8 +120,6 @@ function MyLandingPage() {
     try {
       const canvas = await captureCanvas();
       const { jsPDF } = await import("jspdf");
-      // Use canvas pixel dimensions as the PDF page size so the poster lives
-      // on ONE continuous page (no A4 slicing).
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "px",
