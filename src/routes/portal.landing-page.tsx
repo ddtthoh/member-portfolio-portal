@@ -8,7 +8,7 @@ import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { deriveMemberId } from "@/lib/member-id";
-import { InviteLandingContent } from "./invite.$memberId";
+import { MobilePoster } from "@/components/marketing/mobile-poster";
 
 export const Route = createFileRoute("/portal/landing-page")({
   component: MyLandingPage,
@@ -19,7 +19,6 @@ function MyLandingPage() {
   const memberId = useMemo(() => deriveMemberId(user?.id), [user?.id]);
   const inviteUrl = `https://invite.naslabtec.com/${memberId}`;
   const localPreviewPath = `/invite/${memberId}`;
-  const printPreviewPath = `/invite/${memberId}?print=1`;
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=560x560&margin=2&qzone=2&format=png&ecc=H&color=0a0a0a&bgcolor=ffffff&data=${encodeURIComponent(inviteUrl)}`;
 
   const [copied, setCopied] = useState(false);
@@ -39,21 +38,23 @@ function MyLandingPage() {
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
+  const captureCanvas = async () => {
+    const target = previewRef.current?.querySelector(".poster-root") as HTMLElement | null;
+    if (!target) throw new Error("Poster not ready");
+    const html2canvas = (await import("html2canvas-pro")).default;
+    return html2canvas(target, {
+      backgroundColor: "#050403",
+      scale: 2,
+      width: 1080,
+      windowWidth: 1080,
+      windowHeight: target.scrollHeight,
+    });
+  };
+
   const downloadPNG = async () => {
-    const target = previewRef.current?.querySelector(".landing-root") as HTMLElement | null;
-    if (!target) {
-      toast.error("Preview not ready yet");
-      return;
-    }
     toast.loading("Generating PNG...", { id: "png" });
     try {
-      const html2canvas = (await import("html2canvas-pro")).default;
-      const canvas = await html2canvas(target, {
-        backgroundColor: "#07080c",
-        scale: 1,
-        windowWidth: 1280,
-        windowHeight: target.scrollHeight,
-      });
+      const canvas = await captureCanvas();
       const link = document.createElement("a");
       link.download = `naslab-invite-${memberId}.png`;
       link.href = canvas.toDataURL("image/png");
@@ -65,16 +66,27 @@ function MyLandingPage() {
     }
   };
 
-  const downloadPDF = () => {
-    const win = window.open(printPreviewPath, "_blank");
-    if (!win) {
-      toast.error("Pop-up blocked. Please allow pop-ups for this site.");
-      return;
+  const downloadPDF = async () => {
+    toast.loading("Generating PDF...", { id: "pdf" });
+    try {
+      const canvas = await captureCanvas();
+      const { jsPDF } = await import("jspdf");
+      // Use canvas pixel dimensions as the PDF page size so the poster lives
+      // on ONE continuous page (no A4 slicing).
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height],
+        compress: true,
+      });
+      const img = canvas.toDataURL("image/jpeg", 0.92);
+      pdf.addImage(img, "JPEG", 0, 0, canvas.width, canvas.height);
+      pdf.save(`naslab-invite-${memberId}.pdf`);
+      toast.success("PDF downloaded", { id: "pdf" });
+    } catch (e) {
+      console.error(e);
+      toast.error("Failed to generate PDF", { id: "pdf" });
     }
-    toast.info("Use your browser's Print → Save as PDF");
-    win.addEventListener("load", () => {
-      setTimeout(() => win.print(), 800);
-    });
   };
 
   const openFull = () => window.open(localPreviewPath, "_blank");
@@ -84,11 +96,11 @@ function MyLandingPage() {
       <PageHeader
         eyebrow="Marketing"
         title="My Landing Page"
-        description="Your personalized invitation page. Edit visually below, share the link, scan the QR, or download as PDF / PNG."
+        description="Single-piece mobile poster for sharing on WhatsApp. Download as PNG or PDF, or scan the QR. The full desktop site opens in a new tab."
       />
 
       <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
-        {/* === Inline preview (Visual Edits-friendly) === */}
+        {/* === Inline poster preview === */}
         <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
           <div className="flex items-center justify-between border-b border-gold/10 px-4 py-3">
             <div className="flex items-center gap-2">
@@ -110,21 +122,21 @@ function MyLandingPage() {
             </Button>
           </div>
 
-          {/* Scaled inline preview — rendered in the SAME document so Visual Edits can target it */}
-          <div className="relative w-full overflow-hidden bg-[#07080c]">
-            <div
-              ref={previewRef}
-              style={{
-                width: "1280px",
-                transform: "scale(var(--lp-scale, 0.5))",
-                transformOrigin: "top left",
-              }}
-              className="[--lp-scale:0.36] sm:[--lp-scale:0.5] lg:[--lp-scale:0.55]"
-            >
-              <InviteLandingContent memberId={memberId} />
+          <div className="relative w-full overflow-hidden bg-[#050403] p-4">
+            <div className="mx-auto" style={{ maxWidth: 540 }}>
+              <div
+                ref={previewRef}
+                style={{
+                  width: "1080px",
+                  transform: "scale(var(--lp-scale, 0.5))",
+                  transformOrigin: "top left",
+                }}
+                className="[--lp-scale:0.34] sm:[--lp-scale:0.42] lg:[--lp-scale:0.5]"
+              >
+                <MobilePoster memberId={memberId} />
+              </div>
+              <ScaledSpacer targetRef={previewRef} />
             </div>
-            {/* Spacer maintains correct scaled height */}
-            <ScaledSpacer targetRef={previewRef} />
           </div>
         </SpotlightCard>
 
@@ -210,12 +222,13 @@ function MyLandingPage() {
                 className="border-gold/30 text-gold hover:bg-gold/10 hover:text-gold sm:col-span-2"
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
-                Open Full Page
+                Open Full Page (Desktop Site)
               </Button>
             </div>
             <div className="border-t border-gold/10 bg-background/30 px-5 py-3 text-[11px] leading-relaxed text-foreground/55">
-              <strong className="text-gold/80">Tip:</strong> Click any element in the preview with
-              Visual Edits enabled to tweak text, colors and layout directly.
+              <strong className="text-gold/80">Tip:</strong> The PNG / PDF is a single-piece
+              mobile poster optimized for WhatsApp forwarding. The "Open Full Page" link shows the
+              full multi-section website on desktop.
             </div>
           </SpotlightCard>
         </div>
@@ -250,4 +263,3 @@ function ScaledSpacer({ targetRef }: { targetRef: React.RefObject<HTMLDivElement
   }, [targetRef]);
   return <div aria-hidden style={{ height: h }} />;
 }
-
