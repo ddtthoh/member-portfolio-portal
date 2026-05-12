@@ -579,12 +579,12 @@ function palette(theme: Theme) {
       body: "rgba(17,17,17,0.78)",
       muted: "rgba(17,17,17,0.55)",
       faint: "rgba(17,17,17,0.4)",
-      eyebrow: "#7a5818",
-      goldStrong: "#7a5818",
+      eyebrow: "#a8771f",
+      goldStrong: "#a8771f",
       goldBorder: "rgba(0,0,0,0.12)",
       goldBorderSoft: "rgba(0,0,0,0.08)",
-      goldBorderStrong: "rgba(122,88,24,0.45)",
-      goldFaint: "rgba(122,88,24,0.55)",
+      goldBorderStrong: "rgba(168,119,31,0.65)",
+      goldFaint: "rgba(168,119,31,0.55)",
       goldGlow: "rgba(0,0,0,0.08)",
     };
   }
@@ -627,23 +627,21 @@ function gold(
         : { default: "#f0cf7a", strong: "#fff5d4", dark: "#c79a3e" };
     return { color: solid[variant] };
   }
-  // Light mode: use a solid dark color for max readability and to avoid the
-  // background/backgroundClip shorthand rerender warning entirely.
-  if (theme === "light") {
-    const colors = {
-      default: "#5a3f0d",
-      strong: "#3d2b06",
-      dark: "#2a1d04",
-    };
-    return { color: colors[variant] };
-  }
+  // Light mode preview: real metallic gold gradient via background-clip:text.
+  // Anchors are deeper than dark-mode so the gold stays legible on white.
+  const light = {
+    default: "linear-gradient(180deg,#d9ad55 0%,#a8771f 55%,#6d4a10 100%)",
+    strong: "linear-gradient(180deg,#e6c473 0%,#b88a2a 45%,#6d4a10 100%)",
+    dark: "linear-gradient(180deg,#b88a2a 0%,#6d4a10 100%)",
+  };
   const dark = {
     default: "linear-gradient(180deg,#fff5d4 0%,#e6c473 55%,#9c7322 100%)",
     strong: "linear-gradient(180deg,#fff8dc 0%,#f0cf7a 28%,#c79a3e 62%,#7a5818 100%)",
     dark: "linear-gradient(180deg,#f0cf7a 0%,#9c7322 100%)",
   };
+  const ramp = theme === "light" ? light : dark;
   return {
-    backgroundImage: dark[variant],
+    backgroundImage: ramp[variant],
     backgroundColor: "transparent",
     WebkitBackgroundClip: "text" as const,
     backgroundClip: "text" as const,
