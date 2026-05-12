@@ -423,7 +423,7 @@ export function MobilePoster({
                 paddingBottom: "0.28em",
                 paddingLeft: "0.06em",
                 overflow: "visible",
-                ...gold("strong"),
+                ...gold("strong", theme),
               }}
             >
               Join Naslab Today
