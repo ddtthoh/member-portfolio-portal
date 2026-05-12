@@ -16,10 +16,13 @@ export function MobilePoster({
   memberId,
   theme = "dark",
   animate = false,
+  exportMode = false,
 }: {
   memberId: string;
   theme?: Theme;
   animate?: boolean;
+  /** When true, swap gradient text + webfonts for html2canvas-stable equivalents. */
+  exportMode?: boolean;
 }) {
   const inviteUrl = `https://invite.naslabtec.com/${memberId}`;
   const t = palette(theme);
@@ -68,17 +71,26 @@ export function MobilePoster({
     },
   ];
 
+  const sansStack = exportMode
+    ? 'Arial, Helvetica, "Helvetica Neue", sans-serif'
+    : 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif';
+  const serifStack = exportMode
+    ? 'Georgia, "Times New Roman", Times, serif'
+    : undefined; // let CSS .font-serif handle it
   return (
     <div
-      className="poster-root relative mx-auto overflow-hidden"
+      className={`poster-root relative mx-auto overflow-hidden${exportMode ? " poster-export" : ""}`}
       style={{
         width: "1080px",
         background: t.pageBg,
         color: t.text,
-        fontFamily:
-          'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+        fontFamily: sansStack,
       }}
     >
+      {exportMode && (
+        <style>{`.poster-export, .poster-export * { font-family: ${sansStack} !important; }
+.poster-export .font-serif, .poster-export h1, .poster-export h2, .poster-export h3 { font-family: ${serifStack} !important; }`}</style>
+      )}
       {/* ============= AMBIENT LAYERS ============= */}
       <Ornaments theme={theme} />
       <BokehGlow theme={theme} />
@@ -104,7 +116,7 @@ export function MobilePoster({
             />
           </div>
           <div className="text-left">
-            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold("default", theme)}>
+            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold("default", theme, exportMode)}>
               NASLAB
             </div>
             <div
@@ -135,7 +147,7 @@ export function MobilePoster({
             fontSize: "128px",
             lineHeight: 1.05,
             paddingBottom: "0.12em",
-            ...gold("strong", theme),
+            ...gold("strong", theme, exportMode),
             textShadow: "0 8px 80px rgba(212,170,80,0.45)",
           }}
         >
@@ -181,7 +193,7 @@ export function MobilePoster({
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
                 className="font-serif text-[60px] font-bold leading-none"
-                style={gold("default", theme)}
+                style={gold("default", theme, exportMode)}
               >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
@@ -206,7 +218,7 @@ export function MobilePoster({
       {/* ============= COMPANY INTRO ============= */}
       <section className="relative px-16 py-20 text-center">
         <Eyebrow theme={theme}>Company Introduction</Eyebrow>
-        <H2 theme={theme}>An institutional engine, opened to a private circle.</H2>
+        <H2 theme={theme} exportMode={exportMode}>An institutional engine, opened to a private circle.</H2>
         <Filigree className="mt-8" />
         <p
           className="mx-auto mt-8 max-w-[860px] text-[24px] leading-[1.55]"
@@ -226,7 +238,7 @@ export function MobilePoster({
       <section className="relative px-16 py-20">
         <div className="text-center">
           <Eyebrow theme={theme}>Core Focus</Eyebrow>
-          <H2 theme={theme}>Three pillars. One unfair advantage.</H2>
+          <H2 theme={theme} exportMode={exportMode}>Three pillars. One unfair advantage.</H2>
         </div>
 
         <div className="mt-14 space-y-6">
@@ -247,7 +259,7 @@ export function MobilePoster({
               <div className="relative flex items-start gap-8">
                 <div
                   className="font-serif text-[96px] font-black leading-none"
-                  style={gold("dark", theme)}
+                  style={gold("dark", theme, exportMode)}
                 >
                   {f.n}
                 </div>
@@ -274,8 +286,8 @@ export function MobilePoster({
       <section className="relative px-16 py-20">
         <div className="text-center">
           <Eyebrow theme={theme}>Estimated Returns</Eyebrow>
-          <H2 theme={theme}>
-            From <span style={gold("default", theme)}>4.5%</span> to <span style={gold("default", theme)}>13.5%</span> a month.
+          <H2 theme={theme} exportMode={exportMode}>
+            From <span style={gold("default", theme, exportMode)}>4.5%</span> to <span style={gold("default", theme, exportMode)}>13.5%</span> a month.
           </H2>
           <Filigree className="mt-8" />
           <p
@@ -311,7 +323,7 @@ export function MobilePoster({
               <div className="relative">
                 <div
                   className="mx-auto mt-2 font-serif text-[30px] font-black tracking-[0.22em]"
-                  style={gold("default", theme)}
+                  style={gold("default", theme, exportMode)}
                 >
                   {tier.name}
                 </div>
@@ -338,7 +350,7 @@ export function MobilePoster({
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     whiteSpace: "nowrap",
-                    ...gold("default", theme),
+                    ...gold("default", theme, exportMode),
                   }}
                 >
                   {tier.monthly.replace(/\s+/g, "\u00A0")}
@@ -423,7 +435,7 @@ export function MobilePoster({
                 paddingBottom: "0.28em",
                 paddingLeft: "0.06em",
                 overflow: "visible",
-                ...gold("strong", theme),
+                ...gold("strong", theme, exportMode),
               }}
             >
               Join Naslab Today
@@ -601,7 +613,20 @@ function palette(theme: Theme) {
 
 /* ─────────────── helpers ─────────────── */
 
-function gold(variant: "default" | "strong" | "dark" = "default", theme: Theme = "dark") {
+function gold(
+  variant: "default" | "strong" | "dark" = "default",
+  theme: Theme = "dark",
+  exportMode = false,
+) {
+  // Export mode: html2canvas-pro can't reliably render
+  // background-clip:text gradients, so always paint a solid gold color.
+  if (exportMode) {
+    const solid =
+      theme === "light"
+        ? { default: "#7a5818", strong: "#5a3f0d", dark: "#3d2b06" }
+        : { default: "#f0cf7a", strong: "#fff5d4", dark: "#c79a3e" };
+    return { color: solid[variant] };
+  }
   // Light mode: use a solid dark color for max readability and to avoid the
   // background/backgroundClip shorthand rerender warning entirely.
   if (theme === "light") {
@@ -939,11 +964,11 @@ function Eyebrow({ children, theme }: { children: ReactNode; theme: Theme }) {
   );
 }
 
-function H2({ children, theme }: { children: ReactNode; theme: Theme }) {
+function H2({ children, theme, exportMode = false }: { children: ReactNode; theme: Theme; exportMode?: boolean }) {
   return (
     <h2
       className="mt-5 font-serif font-bold leading-[1.1]"
-      style={{ fontSize: "64px", ...gold("default", theme) }}
+      style={{ fontSize: "64px", ...gold("default", theme, exportMode) }}
     >
       {children}
     </h2>
