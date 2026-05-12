@@ -67,7 +67,6 @@ export function MobilePoster({
       {/* ============= AMBIENT LAYERS ============= */}
       <Ornaments theme={theme} />
       <BokehGlow theme={theme} />
-      <FloatingShapes theme={theme} />
 
       {/* ============= HERO ============= */}
       <section className="relative px-16 pt-24 pb-28 text-center">
