@@ -1,8 +1,106 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, type CSSProperties } from "react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { CountUp } from "@/components/count-up";
 
 type Theme = "light" | "dark";
+
+/* =========================================================================
+ * Editorial numeral helpers — "Manuscript Classic"
+ * Used ONLY in the mobile poster. Hierarchy: integer base, decimal ~58%,
+ * unit ~50% with softened opacity, italic em-dash range separator.
+ * Uses lining + tabular figures for clean alignment.
+ * ========================================================================= */
+const numFigStyle: CSSProperties = {
+  fontFeatureSettings: '"lnum" 1, "tnum" 1',
+  fontVariantNumeric: "lining-nums tabular-nums",
+};
+
+function NumParts({
+  value,
+  unit,
+  decimalScale = 0.58,
+  unitScale = 0.5,
+}: {
+  value: string;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+}) {
+  const [whole, frac] = String(value).split(".");
+  return (
+    <>
+      <span>{whole}</span>
+      {frac !== undefined && (
+        <span style={{ fontSize: `${decimalScale}em`, letterSpacing: "-0.01em" }}>
+          .{frac}
+        </span>
+      )}
+      {unit && (
+        <span style={{ fontSize: `${unitScale}em`, opacity: 0.85, marginLeft: "0.08em" }}>
+          {unit}
+        </span>
+      )}
+    </>
+  );
+}
+
+function FancyNum(props: {
+  value: string | number;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+}) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <NumParts {...props} value={String(props.value)} />
+    </span>
+  );
+}
+
+function NumRange({
+  from,
+  to,
+  unit,
+  decimalScale = 0.58,
+  unitScale = 0.5,
+  sepScale = 0.7,
+}: {
+  from: string;
+  to: string;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+  sepScale?: number;
+}) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <NumParts value={from} decimalScale={decimalScale} />
+      <span
+        style={{
+          margin: "0 0.32em",
+          fontSize: `${sepScale}em`,
+          opacity: 0.45,
+          fontStyle: "italic",
+          display: "inline-block",
+          transform: "translateY(-0.06em)",
+        }}
+      >
+        —
+      </span>
+      <NumParts value={to} unit={unit} decimalScale={decimalScale} unitScale={unitScale} />
+    </span>
+  );
+}
+
+function NumRatio({ left, right, slashScale = 0.6 }: { left: string; right: string; slashScale?: number }) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <span>{left}</span>
+      <span style={{ fontSize: `${slashScale}em`, opacity: 0.55, margin: "0 0.12em" }}>/</span>
+      <span>{right}</span>
+    </span>
+  );
+}
 
 /**
  * MobilePoster — single-piece, 1080px-wide vertical poster.
