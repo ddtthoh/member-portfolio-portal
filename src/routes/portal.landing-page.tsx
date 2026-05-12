@@ -275,7 +275,7 @@ function FitPoster({
     <div
       ref={wrapRef}
       className="relative w-full overflow-hidden p-4"
-      style={{ background: theme === "light" ? "#efe7d6" : "#050403" }}
+      style={{ background: theme === "light" ? "#f4f4f5" : "#050403" }}
     >
       <div style={{ height: innerH }}>
         <div

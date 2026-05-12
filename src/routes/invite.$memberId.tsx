@@ -74,7 +74,7 @@ export function InviteLandingContent({
 
   const bg =
     theme === "light"
-      ? "radial-gradient(120% 60% at 50% 0%, #fdf6e6 0%, #f6efe1 35%, #efe7d6 100%)"
+      ? "linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%)"
       : "radial-gradient(120% 60% at 50% 0%, #1a1407 0%, #0a0805 35%, #050403 100%)";
 
   return (
