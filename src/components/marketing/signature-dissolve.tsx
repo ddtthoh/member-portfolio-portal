@@ -140,11 +140,12 @@ export function SignatureDissolve() {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const onScroll = () => {
+    let raf = 0;
+    let queued = false;
+    const compute = () => {
+      queued = false;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      // Map: when section top hits middle of viewport (rect.top = vh*0.5) -> 0
-      // when section bottom hits middle -> 1
       const total = rect.height + vh * 0.5;
       const traveled = vh * 0.5 - rect.top;
       const p = Math.min(1, Math.max(0, traveled / total));
@@ -153,9 +154,17 @@ export function SignatureDissolve() {
       else if (p < 0.95) setLabel("REASSEMBLING");
       else setLabel("NCT · MATERIALIZED");
     };
-    onScroll();
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      raf = requestAnimationFrame(compute);
+    };
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
