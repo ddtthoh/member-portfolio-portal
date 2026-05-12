@@ -181,7 +181,7 @@ export function MobilePoster({
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
                 className="font-serif text-[60px] font-bold leading-none"
-                style={gold()}
+                style={gold("default", theme)}
               >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
