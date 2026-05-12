@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { MarketingNav } from "@/components/marketing/marketing-nav";
 import { MarketingFooter } from "@/components/marketing/marketing-footer";
-import { CursorPro } from "@/components/marketing/cursor-pro";
+import { CursorGlow } from "@/components/cursor-glow";
 import { SmoothScrollProvider } from "@/lib/scroll";
 import { PageTransition } from "@/components/marketing/page-transition";
 import { LGDefs } from "@/components/marketing/lg-defs";
@@ -21,7 +21,7 @@ function MainLayout() {
         <div className="m-noise" />
         <ClientOnly><LGDefs /></ClientOnly>
         <ClientOnly><LoadingVeil /></ClientOnly>
-        <ClientOnly><CursorPro /></ClientOnly>
+        <ClientOnly><CursorGlow /></ClientOnly>
         <ClientOnly><PageTransition /></ClientOnly>
         <MarketingNav />
         <main className="relative z-10 pt-20">
