@@ -41,12 +41,30 @@ function MyLandingPage() {
   };
 
   const captureCanvas = async () => {
-    const target = previewRef.current?.querySelector(".poster-root") as HTMLElement | null;
-    if (!target) throw new Error("Poster not ready");
+    const inner = previewRef.current; // 1080px wrapper that has transform: scale(...)
+    const target = inner?.querySelector(".poster-root") as HTMLElement | null;
+    if (!inner || !target) throw new Error("Poster not ready");
 
-    // Pre-fetch any external (CORS) images and inline them as data URLs so
-    // html2canvas doesn't taint the canvas (which would make toDataURL throw
-    // and produce a corrupt download).
+    // 1) Neutralise the preview's transform: scale(...) so html2canvas measures
+    //    the real 1080px layout instead of the visually-shrunk bounding box.
+    const prevTransform = inner.style.transform;
+    const prevTransformOrigin = inner.style.transformOrigin;
+    inner.style.transform = "none";
+    inner.style.transformOrigin = "top left";
+
+    // 2) Mark the poster as "exporting" so CSS can swap unstable
+    //    background-clip:text gradients for solid gold (see marketing-theme.css).
+    target.setAttribute("data-exporting", "true");
+
+    // 3) Wait for fonts to be ready so text doesn't shift mid-capture.
+    try {
+      await (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts?.ready;
+    } catch {
+      /* ignore */
+    }
+
+    // 4) Pre-fetch any external (CORS) images and inline them as data URLs so
+    //    html2canvas doesn't taint the canvas.
     const externals = Array.from(target.querySelectorAll("img")) as HTMLImageElement[];
     const originals = new Map<HTMLImageElement, string>();
     await Promise.all(
@@ -68,9 +86,21 @@ function MyLandingPage() {
           img.src = dataUrl;
           await img.decode().catch(() => undefined);
         } catch {
-          /* ignore — html2canvas will skip tainted images */
+          /* ignore */
         }
       }),
+    );
+
+    // 5) Make sure every <img> finished decoding at its real layout size.
+    await Promise.all(
+      externals.map((img) =>
+        img.complete && img.naturalWidth > 0
+          ? img.decode().catch(() => undefined)
+          : new Promise<void>((resolve) => {
+              img.addEventListener("load", () => resolve(), { once: true });
+              img.addEventListener("error", () => resolve(), { once: true });
+            }),
+      ),
     );
 
     const html2canvas = (await import("html2canvas-pro")).default;
@@ -86,7 +116,9 @@ function MyLandingPage() {
         windowHeight: target.scrollHeight,
       });
     } finally {
-      // restore original src
+      target.removeAttribute("data-exporting");
+      inner.style.transform = prevTransform;
+      inner.style.transformOrigin = prevTransformOrigin;
       originals.forEach((src, img) => {
         img.src = src;
       });
