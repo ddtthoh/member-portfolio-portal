@@ -50,6 +50,12 @@ function InviteLandingPage() {
   return <InviteLandingContent memberId={memberId} isPrint={isPrint} />;
 }
 
+/**
+ * Renders MobilePoster on small screens (≤ md) and the rich multi-section
+ * desktop landing on larger screens. The portal preview always renders the
+ * MobilePoster directly via <MobilePoster /> — this component is for the
+ * public /invite/:memberId page.
+ */
 export function InviteLandingContent({
   memberId,
   isPrint = false,
@@ -58,23 +64,31 @@ export function InviteLandingContent({
   isPrint?: boolean;
 }) {
   return (
-    <div className={`landing-root relative min-h-screen overflow-x-hidden ${isPrint ? "landing-print" : ""}`}>
-      <div className="landing-grid-bg" />
-      <div className="landing-noise" />
+    <>
+      {/* Mobile: single-piece poster (also what gets exported as PNG/PDF) */}
+      <div className="landing-root md:hidden">
+        <MobilePoster memberId={memberId} />
+      </div>
 
-      {!isPrint && <LandingNav memberId={memberId} />}
+      {/* Desktop: full multi-section landing site */}
+      <div className={`hidden md:block relative min-h-screen overflow-x-hidden ${isPrint ? "landing-print" : ""}`}>
+        <div className="landing-grid-bg" />
+        <div className="landing-noise" />
 
-      <Hero memberId={memberId} isPrint={isPrint} />
-      <TrustBar />
-      <WhySection />
-      <HowItWorks />
-      <PackagesSection memberId={memberId} />
-      <StatsSection />
-      <FounderNote />
-      <FaqSection />
-      <FinalCta memberId={memberId} isPrint={isPrint} />
-      <LandingFooter memberId={memberId} />
-    </div>
+        {!isPrint && <LandingNav memberId={memberId} />}
+
+        <Hero memberId={memberId} isPrint={isPrint} />
+        <TrustBar />
+        <WhySection />
+        <HowItWorks />
+        <PackagesSection memberId={memberId} />
+        <StatsSection />
+        <FounderNote />
+        <FaqSection />
+        <FinalCta memberId={memberId} isPrint={isPrint} />
+        <LandingFooter memberId={memberId} />
+      </div>
+    </>
   );
 }
 
