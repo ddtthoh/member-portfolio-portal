@@ -66,13 +66,6 @@ function HomePage() {
         </MountInView>
       </ClientOnly>
 
-      {/* SIGNATURE MOMENT — logo dissolves into NCT particles */}
-      <ClientOnly>
-        <Suspense fallback={<div className="h-screen" />}>
-          <SignatureDissolve />
-        </Suspense>
-      </ClientOnly>
-
       {/* TICKER */}
       <TickerTape />
 
