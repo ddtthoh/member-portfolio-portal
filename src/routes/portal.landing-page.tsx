@@ -227,28 +227,27 @@ function MyLandingPage() {
 /** Reserves the right amount of vertical space for the scaled preview. */
 function ScaledSpacer({ targetRef }: { targetRef: React.RefObject<HTMLDivElement | null> }) {
   const [h, setH] = useState(900);
-  // Recompute on mount + resize
-  useMemoLayoutHeight(targetRef, setH);
+  useEffect(() => {
+    const el = targetRef.current;
+    if (!el) return;
+    const compute = () => {
+      const m = getComputedStyle(el).transform;
+      let scale = 0.5;
+      if (m && m.startsWith("matrix(")) {
+        const parts = m.slice(7, -1).split(",").map((v) => parseFloat(v));
+        if (!Number.isNaN(parts[0])) scale = parts[0];
+      }
+      setH(el.offsetHeight * scale);
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    window.addEventListener("resize", compute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
+  }, [targetRef]);
   return <div aria-hidden style={{ height: h }} />;
 }
 
-function useMemoLayoutHeight(
-  ref: React.RefObject<HTMLDivElement | null>,
-  setH: (n: number) => void,
-) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useState(() => {
-    if (typeof window === "undefined") return 0;
-    const compute = () => {
-      const el = ref.current;
-      if (!el) return;
-      const scale = parseFloat(getComputedStyle(el).transform.split(",")[3] || "0.5") || 0.5;
-      setH(el.offsetHeight * scale);
-    };
-    requestAnimationFrame(compute);
-    const ro = new ResizeObserver(compute);
-    queueMicrotask(() => ref.current && ro.observe(ref.current));
-    window.addEventListener("resize", compute);
-    return 0;
-  });
-}
