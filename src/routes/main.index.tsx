@@ -59,7 +59,7 @@ function HomePage() {
 
       {/* SIGNATURE MOMENT — logo dissolves into NCT particles */}
       <ClientOnly>
-        <MountInView rootMargin="40% 0px" minHeight="100vh" fallback={<div className="h-screen" />}>
+        <MountInView rootMargin="20% 0px" minHeight="100vh" unmountWhenOut fallback={<div className="h-screen" />}>
           <Suspense fallback={<div className="h-screen" />}>
             <SignatureDissolve />
           </Suspense>
