@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import logoMark from "@/assets/participant-portal-logo.png";
 
 /**
