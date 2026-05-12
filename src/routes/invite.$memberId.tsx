@@ -87,7 +87,7 @@ export function InviteLandingContent({
         .invite-scroll-reveal .poster-root > footer {
           opacity: 0;
           transform: translateY(40px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transition: opacity 0.7s ease-out, transform 0.7s ease-out;
           will-change: opacity, transform;
         }
         .invite-scroll-reveal .poster-root > section.in-view,
@@ -103,17 +103,19 @@ export function InviteLandingContent({
             transition: none;
             animation: invite-section-reveal linear both;
             animation-timeline: view();
-            animation-range: entry 0% cover 35%;
+            animation-range: entry 0% entry 60%;
           }
           @keyframes invite-section-reveal {
-            from { opacity: 0; transform: translateY(60px); }
-            to { opacity: 1; transform: translateY(0); }
+            0%   { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
           }
         }
       `}</style>
-      <ThreeBackground fixed />
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <ThreeBackground />
+      </div>
       <LightningNodes theme={theme} />
-      <div className="relative mx-auto" style={{ maxWidth: 1080 }}>
+      <div className="relative z-10 mx-auto" style={{ maxWidth: 1080 }}>
         <MobilePoster memberId={memberId} theme={theme} animate />
       </div>
       <ScrollRevealFallback />
@@ -134,13 +136,11 @@ function ScrollRevealFallback() {
         for (const e of entries) {
           if (e.isIntersecting) {
             e.target.classList.add("in-view");
-          } else if (e.boundingClientRect.top > 0) {
-            // re-hide when scrolled back above viewport so fade replays on scroll up
-            e.target.classList.remove("in-view");
+            io.unobserve(e.target);
           }
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
