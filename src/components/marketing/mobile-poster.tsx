@@ -488,7 +488,7 @@ export function MobilePoster({
 
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   <Stat label="Member" value={`#${memberId}`} theme={theme} mono />
-                  <Stat label="Network" value="On-chain" theme={theme} />
+                  <Stat label="Network" value="​" theme={theme} />
                 </div>
 
                 <div
