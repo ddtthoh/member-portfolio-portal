@@ -203,8 +203,6 @@ export function MobilePoster({
           transaction opportunities — delivering a more efficient digital asset trading solution.
         </p>
 
-        {/* tape-style ticker visual */}
-        <TickerTape theme={theme} />
       </section>
 
       <Divider theme={theme} />
