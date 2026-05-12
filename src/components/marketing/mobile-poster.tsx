@@ -387,7 +387,7 @@ export function MobilePoster({
         <div className="text-center">
           <Eyebrow theme={theme}>Estimated Returns</Eyebrow>
           <H2 theme={theme} exportMode={exportMode}>
-            From <span style={gold("default", theme, exportMode)}>4.5%</span> to <span style={gold("default", theme, exportMode)}>13.5%</span> a month.
+            From <span style={gold("default", theme, exportMode)}><FancyNum value="4.5" unit="%" /></span> to <span style={gold("default", theme, exportMode)}><FancyNum value="13.5" unit="%" /></span> a month.
           </H2>
           <Filigree className="mt-8" />
           <p
