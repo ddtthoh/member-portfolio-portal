@@ -118,25 +118,9 @@ function MyLandingPage() {
             </span>
           </div>
 
-          <div
-            className="relative w-full overflow-hidden p-4"
-            style={{ background: theme === "light" ? "#efe7d6" : "#050403" }}
-          >
-            <div className="mx-auto w-full">
-              <div
-                ref={previewRef}
-                style={{
-                  width: "1080px",
-                  transform: "scale(var(--lp-scale, 0.55))",
-                  transformOrigin: "top left",
-                }}
-                className="[--lp-scale:0.42] sm:[--lp-scale:0.55] md:[--lp-scale:0.62] lg:[--lp-scale:0.5] xl:[--lp-scale:0.62]"
-              >
-                <MobilePoster memberId={memberId} theme={theme} />
-              </div>
-              <ScaledSpacer targetRef={previewRef} />
-            </div>
-          </div>
+          <FitPoster theme={theme} innerRef={previewRef}>
+            <MobilePoster memberId={memberId} theme={theme} />
+          </FitPoster>
         </SpotlightCard>
 
         {/* === Side panel === */}
@@ -215,28 +199,65 @@ function MyLandingPage() {
   );
 }
 
-/** Reserves the right amount of vertical space for the scaled preview. */
-function ScaledSpacer({ targetRef }: { targetRef: React.RefObject<HTMLDivElement | null> }) {
-  const [h, setH] = useState(900);
+/** Scales the 1080px-wide poster to fit the available container width. */
+function FitPoster({
+  theme,
+  innerRef,
+  children,
+}: {
+  theme: "light" | "dark";
+  innerRef: React.RefObject<HTMLDivElement | null>;
+  children: React.ReactNode;
+}) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = useState(0.5);
+  const [innerH, setInnerH] = useState(900);
+
   useEffect(() => {
-    const el = targetRef.current;
-    if (!el) return;
+    const wrap = wrapRef.current;
+    const el = innerRef.current;
+    if (!wrap || !el) return;
     const compute = () => {
-      // getBoundingClientRect returns the post-transform (scaled) size.
-      const rect = el.getBoundingClientRect();
-      setH(Math.ceil(rect.height));
+      const cs = window.getComputedStyle(wrap);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const w = wrap.clientWidth - padX;
+      const s = Math.min(1, Math.max(0.1, w / 1080));
+      setScale(s);
+      // unscaled height of the poster
+      const h = el.scrollHeight;
+      setInnerH(Math.ceil(h * s));
     };
     compute();
     const raf = requestAnimationFrame(compute);
     const ro = new ResizeObserver(compute);
+    ro.observe(wrap);
     ro.observe(el);
-    if (el.parentElement) ro.observe(el.parentElement);
     window.addEventListener("resize", compute);
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener("resize", compute);
     };
-  }, [targetRef]);
-  return <div aria-hidden style={{ height: h }} />;
+  }, [innerRef]);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative w-full overflow-hidden p-4"
+      style={{ background: theme === "light" ? "#efe7d6" : "#050403" }}
+    >
+      <div style={{ height: innerH }}>
+        <div
+          ref={innerRef}
+          style={{
+            width: "1080px",
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 }
