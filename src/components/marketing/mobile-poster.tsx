@@ -556,25 +556,24 @@ export function MobilePoster({
 function palette(theme: Theme) {
   if (theme === "light") {
     return {
-      pageBg:
-        "linear-gradient(180deg,#ffffff 0%,#f6f5f2 100%)",
-      surface: "linear-gradient(180deg,#ffffff 0%,#fafaf7 100%)",
-      surfaceDeep: "#ffffff",
-      cardBg: "linear-gradient(135deg,#ffffff 0%,#fbfaf6 60%,#f6f4ed 100%)",
-      tierBg: "linear-gradient(180deg,#ffffff 0%,#fbf9f3 60%,#f4f1e8 100%)",
-      ctaBg: "linear-gradient(135deg,#fffdf5 0%,#fbf5e3 60%,#f4ead0 100%)",
-      chipBg: "linear-gradient(180deg,rgba(212,170,80,0.12),transparent)",
-      text: "#241a07",
-      body: "rgba(36,26,7,0.78)",
-      muted: "rgba(36,26,7,0.55)",
-      faint: "rgba(36,26,7,0.42)",
-      eyebrow: "rgba(122,88,24,0.85)",
+      pageBg: "#ffffff",
+      surface: "#ffffff",
+      surfaceDeep: "#fafafa",
+      cardBg: "#ffffff",
+      tierBg: "#ffffff",
+      ctaBg: "linear-gradient(180deg,#ffffff 0%,#fafafa 100%)",
+      chipBg: "rgba(0,0,0,0.04)",
+      text: "#111111",
+      body: "rgba(17,17,17,0.78)",
+      muted: "rgba(17,17,17,0.55)",
+      faint: "rgba(17,17,17,0.4)",
+      eyebrow: "#7a5818",
       goldStrong: "#7a5818",
-      goldBorder: "rgba(122,88,24,0.45)",
-      goldBorderSoft: "rgba(122,88,24,0.2)",
-      goldBorderStrong: "rgba(122,88,24,0.65)",
-      goldFaint: "rgba(122,88,24,0.6)",
-      goldGlow: "rgba(212,170,80,0.5)",
+      goldBorder: "rgba(0,0,0,0.12)",
+      goldBorderSoft: "rgba(0,0,0,0.08)",
+      goldBorderStrong: "rgba(122,88,24,0.45)",
+      goldFaint: "rgba(122,88,24,0.55)",
+      goldGlow: "rgba(0,0,0,0.08)",
     };
   }
   return {
@@ -603,19 +602,24 @@ function palette(theme: Theme) {
 /* ─────────────── helpers ─────────────── */
 
 function gold(variant: "default" | "strong" | "dark" = "default", theme: Theme = "dark") {
+  // Light mode: use a solid dark color for max readability and to avoid the
+  // background/backgroundClip shorthand rerender warning entirely.
+  if (theme === "light") {
+    const colors = {
+      default: "#5a3f0d",
+      strong: "#3d2b06",
+      dark: "#2a1d04",
+    };
+    return { color: colors[variant] };
+  }
   const dark = {
     default: "linear-gradient(180deg,#fff5d4 0%,#e6c473 55%,#9c7322 100%)",
     strong: "linear-gradient(180deg,#fff8dc 0%,#f0cf7a 28%,#c79a3e 62%,#7a5818 100%)",
     dark: "linear-gradient(180deg,#f0cf7a 0%,#9c7322 100%)",
   };
-  const light = {
-    default: "linear-gradient(180deg,#a87825 0%,#7a5818 55%,#4a3408 100%)",
-    strong: "linear-gradient(180deg,#b88528 0%,#8d6620 45%,#5a3f0d 100%)",
-    dark: "linear-gradient(180deg,#7a5818 0%,#3d2b06 100%)",
-  };
-  const grads = theme === "light" ? light : dark;
   return {
-    background: grads[variant],
+    backgroundImage: dark[variant],
+    backgroundColor: "transparent",
     WebkitBackgroundClip: "text" as const,
     backgroundClip: "text" as const,
     color: "transparent",
