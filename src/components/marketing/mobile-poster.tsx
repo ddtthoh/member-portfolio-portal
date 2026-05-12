@@ -404,8 +404,10 @@ export function MobilePoster({
               className="mt-6 font-serif font-black"
               style={{
                 fontSize: "84px",
-                lineHeight: 1.15,
-                paddingBottom: "0.16em",
+                lineHeight: 1.25,
+                paddingBottom: "0.28em",
+                paddingLeft: "0.06em",
+                overflow: "visible",
                 ...gold("strong"),
               }}
             >
