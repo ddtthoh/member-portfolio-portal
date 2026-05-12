@@ -71,17 +71,26 @@ export function MobilePoster({
     },
   ];
 
+  const sansStack = exportMode
+    ? 'Arial, Helvetica, "Helvetica Neue", sans-serif'
+    : 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif';
+  const serifStack = exportMode
+    ? 'Georgia, "Times New Roman", Times, serif'
+    : undefined; // let CSS .font-serif handle it
   return (
     <div
-      className="poster-root relative mx-auto overflow-hidden"
+      className={`poster-root relative mx-auto overflow-hidden${exportMode ? " poster-export" : ""}`}
       style={{
         width: "1080px",
         background: t.pageBg,
         color: t.text,
-        fontFamily:
-          'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+        fontFamily: sansStack,
       }}
     >
+      {exportMode && (
+        <style>{`.poster-export, .poster-export * { font-family: ${sansStack} !important; }
+.poster-export .font-serif, .poster-export h1, .poster-export h2, .poster-export h3 { font-family: ${serifStack} !important; }`}</style>
+      )}
       {/* ============= AMBIENT LAYERS ============= */}
       <Ornaments theme={theme} />
       <BokehGlow theme={theme} />
