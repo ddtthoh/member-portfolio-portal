@@ -126,6 +126,18 @@
     50% { background-position: 100% 50%; }
   }
 
+  /* Export mode: html2canvas can't reliably render background-clip:text
+     gradients, so swap them for a solid gold fill while capturing. */
+  [data-exporting="true"] .m-gold-text,
+  [data-exporting="true"] .text-gold-shine {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: var(--gold) !important;
+    color: var(--gold) !important;
+    animation: none !important;
+  }
+
   .m-cyan-glow {
     color: oklch(0.85 0.12 200);
     text-shadow: 0 0 18px color-mix(in oklab, oklch(0.78 0.14 200) 60%, transparent);
