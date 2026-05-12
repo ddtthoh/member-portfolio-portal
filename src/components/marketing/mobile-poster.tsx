@@ -482,16 +482,20 @@ export function MobilePoster({
                 >
                   Invite Link
                 </div>
-                <div
-                  className="mt-4 flex items-center gap-3 rounded-xl px-5 py-4"
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  aria-label="Copy invite link"
+                  className="mt-4 flex w-full items-center gap-3 rounded-xl px-5 py-4 text-left transition-all hover:brightness-110 active:scale-[0.99]"
                   style={{
-                    border: `1px solid ${t.goldBorder}`,
+                    border: `1px solid ${copied ? "#34d399" : t.goldBorder}`,
                     background: t.surfaceDeep,
+                    cursor: "pointer",
                   }}
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                     style={{ background: t.chipBg, border: `1px solid ${t.goldBorder}` }}>
-                    <LinkIcon color={t.goldStrong} />
+                    <CopyIcon color={copied ? "#34d399" : t.goldStrong} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div
@@ -501,10 +505,16 @@ export function MobilePoster({
                       invite.naslabtec.com/{memberId}
                     </div>
                   </div>
-                </div>
+                  <div
+                    className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: copied ? "#34d399" : t.eyebrow }}
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </div>
+                </button>
 
                 <div className="mt-4">
-                  <Stat label="Member" value={`#${memberId}`} theme={theme} />
+                  <Stat label="Member" value={memberId} theme={theme} />
                 </div>
 
                 <div
