@@ -165,7 +165,7 @@ export function MobilePoster({
           ].map((s) => (
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
-                className="text-[60px] font-light leading-none tabular-nums tracking-[-0.04em]"
+                className="font-serif text-[60px] font-bold leading-none"
                 style={gold()}
               >
                 {animate ? (
