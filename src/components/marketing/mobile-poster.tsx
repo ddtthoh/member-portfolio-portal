@@ -829,7 +829,7 @@ function Stat({
         {label}
       </div>
       <div
-        className={`mt-1 ${mono ? "font-mono" : "font-serif"} text-[18px] font-bold`}
+        className={`mt-1 ${mono ? "font-mono" : ""} text-[18px] font-light tabular-nums tracking-[-0.04em]`}
         style={{ color: t.text }}
       >
         {value}
