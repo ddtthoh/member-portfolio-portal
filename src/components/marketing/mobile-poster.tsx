@@ -486,10 +486,6 @@ export function MobilePoster({
                   </div>
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  <Stat label="Member" value={`#${memberId}`} theme={theme} />
-                  <Stat label="Network" value="​" theme={theme} />
-                </div>
 
                 <div
                   className="mt-7 inline-flex items-center gap-3 rounded-full px-9 py-4 text-[18px] font-bold"
