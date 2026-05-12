@@ -158,7 +158,7 @@ function MyLandingPage() {
         <div className="space-y-4">
           <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
-              <h3 className="font-serif text-[15px] font-semibold text-gold">Your Invite Link</h3>
+              <h3 className="font-serif text-base font-semibold text-gold text-gold-shine md:text-lg">Your Invite Link</h3>
             </div>
             <div className="space-y-4 px-5 py-5">
               <div className="group relative overflow-hidden rounded-lg border border-gold/20 bg-background/40">
