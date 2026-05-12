@@ -14,6 +14,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const cores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency ?? 4;
+    const dpr = window.devicePixelRatio || 1;
+    if (!fine || cores < 8 || dpr > 2) return;
     register();
 
     const lenis = new Lenis({
