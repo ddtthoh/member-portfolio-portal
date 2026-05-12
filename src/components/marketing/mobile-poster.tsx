@@ -936,11 +936,10 @@ function Eyebrow({ children, theme }: { children: ReactNode; theme: Theme }) {
 }
 
 function H2({ children, theme }: { children: ReactNode; theme: Theme }) {
-  void theme;
   return (
     <h2
       className="mt-5 font-serif font-bold leading-[1.1]"
-      style={{ fontSize: "64px", ...gold() }}
+      style={{ fontSize: "64px", ...gold("default", theme) }}
     >
       {children}
     </h2>
