@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { CountUp } from "@/components/count-up";
 
@@ -28,6 +28,21 @@ export function MobilePoster({
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=1&format=png&ecc=H&color=${qrFg}&bgcolor=${qrBg}&data=${encodeURIComponent(
     inviteUrl,
   )}`;
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(inviteUrl);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = inviteUrl;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch {}
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
 
   const tiers = [
     { name: "STANDARD", daily: "0.15 – 0.25%", monthly: "4.5 – 7.5%", tagline: "An entry into algorithmic yield." },
@@ -467,16 +482,20 @@ export function MobilePoster({
                 >
                   Invite Link
                 </div>
-                <div
-                  className="mt-4 flex items-center gap-3 rounded-xl px-5 py-4"
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  aria-label="Copy invite link"
+                  className="mt-4 flex w-full items-center gap-3 rounded-xl px-5 py-4 text-left transition-all hover:brightness-110 active:scale-[0.99]"
                   style={{
-                    border: `1px solid ${t.goldBorder}`,
+                    border: `1px solid ${copied ? "#34d399" : t.goldBorder}`,
                     background: t.surfaceDeep,
+                    cursor: "pointer",
                   }}
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                     style={{ background: t.chipBg, border: `1px solid ${t.goldBorder}` }}>
-                    <LinkIcon color={t.goldStrong} />
+                    <CopyIcon color={copied ? "#34d399" : t.goldStrong} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div
@@ -486,10 +505,16 @@ export function MobilePoster({
                       invite.naslabtec.com/{memberId}
                     </div>
                   </div>
-                </div>
+                  <div
+                    className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: copied ? "#34d399" : t.eyebrow }}
+                  >
+                    {copied ? "Copied" : "Copy"}
+                  </div>
+                </button>
 
                 <div className="mt-4">
-                  <Stat label="Member" value={`#${memberId}`} theme={theme} />
+                  <Stat label="Member" value={memberId} theme={theme} />
                 </div>
 
                 <div
@@ -844,6 +869,15 @@ function LinkIcon({ color }: { color: string }) {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+function CopyIcon({ color }: { color: string }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
     </svg>
   );
 }
