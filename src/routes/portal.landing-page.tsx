@@ -17,6 +17,7 @@ export const Route = createFileRoute("/portal/landing-page")({
 
 function MyLandingPage() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const memberId = useMemo(() => deriveMemberId(user?.id), [user?.id]);
   const inviteUrl = `https://invite.naslabtec.com/${memberId}`;
   const localPreviewPath = `/invite/${memberId}`;
