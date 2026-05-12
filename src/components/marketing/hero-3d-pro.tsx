@@ -241,14 +241,29 @@ function Scene() {
 }
 
 export function Hero3DPro() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(true);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([e]) => setActive(e.isIntersecting),
+      { rootMargin: "100px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <Canvas
-      dpr={[1, 1.7]}
-      camera={{ position: [0, 0.2, 7], fov: 42 }}
-      gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <Scene />
-    </Canvas>
+    <div ref={wrapRef} style={{ width: "100%", height: "100%" }}>
+      <Canvas
+        dpr={[1, 1.25]}
+        frameloop={active ? "always" : "never"}
+        camera={{ position: [0, 0.2, 7], fov: 42 }}
+        gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <Scene />
+      </Canvas>
+    </div>
   );
 }
