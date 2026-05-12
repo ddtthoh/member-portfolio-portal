@@ -16,10 +16,13 @@ export function MobilePoster({
   memberId,
   theme = "dark",
   animate = false,
+  exportMode = false,
 }: {
   memberId: string;
   theme?: Theme;
   animate?: boolean;
+  /** When true, swap gradient text + webfonts for html2canvas-stable equivalents. */
+  exportMode?: boolean;
 }) {
   const inviteUrl = `https://invite.naslabtec.com/${memberId}`;
   const t = palette(theme);
