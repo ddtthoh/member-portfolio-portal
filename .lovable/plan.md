@@ -1,48 +1,72 @@
-# Why Visual Edits can't load the landing page
+# Landing Page → Single-Piece Mobile Poster
 
-`/portal/landing-page` doesn't render the landing UI directly — it embeds it inside an `<iframe src="/invite/:memberId">` (scaled to 50% inside a 1280×1600 box).
+## What's wrong today
 
-Visual Edits works by injecting a selector overlay into the **top page's** DOM and listening to clicks there. It cannot cross into an iframe (browser security + the Lovable selector script only runs at the top level). So when you turn Visual Edits on while viewing `/portal/landing-page`:
+Current `/invite/:memberId` is a multi-section website with sticky nav (Why / How / Packages / FAQ tabs) and desktop-first layout. You want the opposite, like `tptraders.com.my/new--20`:
 
-- The chrome around the iframe (header, side panel, QR card, buttons) is selectable ✅
-- Everything inside the iframe (the actual landing content you want to tweak) is **not reachable** ❌
-- On top of that, the iframe re-mounts the entire app a second time inside itself, which is what triggers the "Failed to fetch dynamically imported module / hydration mismatch" noise you see in the console — the dev server's HMR client gets confused by two copies of the app in one tab.
+- **One single tall image / poster** (no nav, no tabs, no anchor jumps)
+- **Mobile-format aspect ratio** (portrait, ~1080px wide) so it looks native when forwarded on WhatsApp
+- Downloadable as **one high-res PNG** and **one PDF** (single long page, not multi-page)
+- Desktop "Open full page" shows the same poster, just centered on screen — no tabs, no chrome
 
-That's the root cause. It is not a bug in your landing page; it's the iframe wrapper.
+## Proposed structure
 
-## The fix
+### 1. New component: `MobilePoster` (`src/components/marketing/mobile-poster.tsx`)
 
-Render the landing component **inline** on `/portal/landing-page` instead of through an iframe. Keep the "browser chrome" frame look so it still feels like a preview, and keep a separate "Open full page" button for the real `/invite/:memberId` route (used for PDF print and PNG capture).
+A single fixed-width (1080px) vertical canvas, designed mobile-first, with bold editorial blocks stacked top-to-bottom. No sticky nav, no in-page anchors, no router links.
 
-### Steps
+Sections (all in one continuous scroll, one piece):
 
-1. **Extract the landing UI** from `src/routes/invite.$memberId.tsx` into a reusable component, e.g. `src/components/marketing/invite-landing.tsx`, that takes `{ memberId, isPrint? }` as props. The route file becomes a thin wrapper that reads the param and renders the component.
+```text
+┌──────────────────── 1080px wide ────────────────────┐
+│  HERO — full-bleed                                  │
+│   • NASLAB logo + "Member #06047282" chip           │
+│   • Massive serif headline (黄金猎人 2.0 style)     │
+│   • Gold gradient + dark background + chart accent  │
+│                                                     │
+│  STAT STRIP — 4 numbers in one row                  │
+│   8.42% · $XX M+ · 12,000+ · 24/7                   │
+│                                                     │
+│  WHY (3 cards stacked vertically)                   │
+│  HOW IT WORKS (4 numbered steps stacked)            │
+│  PACKAGES (3 tier cards stacked, Premium hero'd)    │
+│  FOUNDER NOTE (editorial quote block)               │
+│  FAQ (accordion-less, just Q→A pairs)               │
+│  FINAL CTA — big gold button + QR code + invite URL │
+│  FOOTER — minimal, member ID + legal one-liner      │
+└─────────────────────────────────────────────────────┘
+```
 
-2. **Refactor `src/routes/portal.landing-page.tsx`**:
-   - Remove the `<iframe>`.
-   - Render `<InviteLanding memberId={memberId} />` inside a scaled wrapper:
-     ```
-     <div style={{ width: 1280, transform: "scale(0.5)", transformOrigin: "top left" }}>
-       <InviteLanding memberId={memberId} />
-     </div>
-     ```
-     wrapped in a container with `overflow: hidden` and the matching reduced height (so layout doesn't jump).
-   - Keep the fake browser chrome (the three colored dots + URL bar + Open button) as decoration around the scaled preview.
+No `<a href="#...">`, no sticky header. Just one tall surface.
 
-3. **PNG capture** (`downloadPNG`): point `html2canvas-pro` at the inline `.landing-root` element instead of `iframeRef.current.contentDocument`. Temporarily un-scale it during capture (`scale: 1` + render at natural size off-screen) so the PNG is full-resolution.
+Bold design direction: heavier serif display type, larger hero (60-80% of first viewport on mobile), more gold-on-black contrast, oversized numerals, brushy/painted accent on the headline word like the reference.
 
-4. **PDF capture** (`downloadPDF`): unchanged — it already opens `/invite/:memberId?print=1` in a new tab and triggers `window.print()`. That flow doesn't need the iframe.
+### 2. Route changes
 
-5. **"Open full page"**: unchanged — still opens `/invite/:memberId` in a new tab.
+- **`/invite/:memberId`** — replace current multi-section content with `<MobilePoster memberId={...} />` only. The poster is centered on desktop (max-width 1080px, gutters on the sides). Same component on every device — desktop just shows it bigger / centered.
+- **`/portal/landing-page`** — preview already renders `InviteLandingContent` inline; no structural change, just inherits the new poster automatically. "Open full page" still opens `/invite/:memberId` in a new tab — now that page is the single poster.
 
-### Result
+### 3. Download flows
 
-- Visual Edits can now click into the headline, CTA, hero image, etc. on `/portal/landing-page` directly — every element lives in the top document.
-- The duplicate-app hydration warnings disappear.
-- PNG/PDF/share actions keep working with the same UX.
+- **PNG**: `html2canvas-pro` on the `.landing-root` poster element at 2× scale → one tall PNG (~1080×~6000px). Already wired in `portal.landing-page.tsx`; just keeps working because target is a single element.
+- **PDF**: switch from `window.print()` (which paginates into A4 sheets) to **client-side `jsPDF`**: capture poster with `html2canvas-pro`, embed as one image into a custom-size PDF page (1080pt × posterHeight pt) so the PDF is **one continuous page**, not sliced. Add `jspdf` dependency.
+- Old `?print=1` route flag and print stylesheet → removed.
 
-### Out of scope
+### 4. Cleanup
 
-- No design changes to the actual landing page.
-- No backend / auth changes.
-- The public route `/invite/:memberId` keeps working exactly as today (it just imports the new shared component).
+Delete (or stop importing) the now-unused multi-section pieces from `invite.$memberId.tsx`: the in-page nav bar, anchor IDs, and per-section route-style separation. Keep the data (headline copy, package tiers, FAQ list, founder note) — just re-render it inside the poster.
+
+## Content source
+
+Yes — please **re-upload the original content file** (the one you used last time with all the copy: hero headline, ROI ranges per tier, founder note, FAQ Q&A, footer disclaimer). The PDF you just uploaded is the *visual reference* (黄金猎人 2.0 poster) — I'll use it for the **art direction** (gold-on-black, painted serif headline, oversized hero, vertical stacking rhythm). For the actual English copy I need the text source again so I don't paraphrase the current placeholder text.
+
+## Out of scope
+
+- No backend / auth / data-model changes
+- No changes to `/portal/*` other than the preview using the new poster
+- No new routes — `/invite/:memberId` stays the only public URL
+
+## Open questions
+
+1. **Language** — keep English (current), or mirror the 黄金猎人 reference and offer Chinese too? (Defaulting to English unless you say otherwise.)
+2. **PDF dependency** — OK to add `jspdf` (~50kb) for true single-page PDF export? Alternative is keeping `window.print()` but it will paginate.
