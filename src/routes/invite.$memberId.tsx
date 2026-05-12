@@ -62,17 +62,27 @@ export function InviteLandingContent({
   memberId: string;
   isPrint?: boolean;
 }) {
-  // Single-piece poster on every device. Centered on desktop with gutters.
+  // Mirror the portal's chosen theme (stored in localStorage by useTheme).
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = (localStorage.getItem("iv-theme") as "light" | "dark" | null) ?? "dark";
+    setTheme(stored);
+    document.documentElement.classList.toggle("dark", stored === "dark");
+  }, []);
+
+  const bg =
+    theme === "light"
+      ? "radial-gradient(120% 60% at 50% 0%, #fdf6e6 0%, #f6efe1 35%, #efe7d6 100%)"
+      : "radial-gradient(120% 60% at 50% 0%, #1a1407 0%, #0a0805 35%, #050403 100%)";
+
   return (
     <div
       className="landing-root min-h-screen w-full overflow-x-hidden"
-      style={{
-        background:
-          "radial-gradient(120% 60% at 50% 0%, #1a1407 0%, #0a0805 35%, #050403 100%)",
-      }}
+      style={{ background: bg }}
     >
       <div className="mx-auto" style={{ maxWidth: 1080 }}>
-        <MobilePoster memberId={memberId} />
+        <MobilePoster memberId={memberId} theme={theme} animate />
       </div>
     </div>
   );
