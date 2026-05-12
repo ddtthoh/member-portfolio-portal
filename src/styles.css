@@ -47,22 +47,22 @@
 
 :root {
   --radius: 0.5rem;
-  /* Light: refined porcelain + graphite + champagne gold */
-  --background: oklch(0.985 0.004 85);
-  --foreground: oklch(0.55 0.11 80);
+  /* Light: neutral porcelain + charcoal text. Gold only as accent. */
+  --background: oklch(0.99 0.002 85);
+  --foreground: oklch(0.22 0.01 60);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.55 0.11 80);
+  --card-foreground: oklch(0.22 0.01 60);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.55 0.11 80);
-  --primary: oklch(0.55 0.11 80);
-  --primary-foreground: oklch(0.97 0.005 85);
-  --secondary: oklch(0.96 0.006 80);
-  --secondary-foreground: oklch(0.55 0.11 80);
-  --muted: oklch(0.95 0.005 80);
-  --muted-foreground: oklch(0.62 0.1 80);
-  --accent: oklch(0.94 0.012 80);
-  --accent-foreground: oklch(0.55 0.11 80);
-  --gold: oklch(0.6 0.12 80);
+  --popover-foreground: oklch(0.22 0.01 60);
+  --primary: oklch(0.28 0.012 60);
+  --primary-foreground: oklch(0.98 0.003 85);
+  --secondary: oklch(0.965 0.004 80);
+  --secondary-foreground: oklch(0.22 0.01 60);
+  --muted: oklch(0.955 0.003 80);
+  --muted-foreground: oklch(0.46 0.01 60);
+  --accent: oklch(0.95 0.008 80);
+  --accent-foreground: oklch(0.22 0.01 60);
+  --gold: oklch(0.55 0.12 80);
   --gold-foreground: oklch(0.18 0.015 60);
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
