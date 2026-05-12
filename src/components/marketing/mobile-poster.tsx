@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { CountUp } from "@/components/count-up";
 
