@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
-import { KernelSize } from "postprocessing";
 import * as THREE from "three";
 import { ClientOnly } from "./client-only";
 
@@ -42,7 +40,7 @@ function sampleTorusPoints(count: number, R = 1.4, r = 0.45) {
 }
 
 function ParticleMorph({ progress }: { progress: React.MutableRefObject<number> }) {
-  const COUNT = 3200;
+  const COUNT = 1400;
   const ref = useRef<THREE.Points>(null);
 
   const { posA, posB, current, sizes } = useMemo(() => {
@@ -130,10 +128,6 @@ function Scene({ progress }: { progress: React.MutableRefObject<number> }) {
       <pointLight position={[0, 0, 4]} intensity={1.2} color={"#ffb347"} />
       <ParticleMorph progress={progress} />
       <CoinRing progress={progress} />
-      <EffectComposer multisampling={0}>
-        <Bloom intensity={1.1} luminanceThreshold={0.1} luminanceSmoothing={0.6} mipmapBlur kernelSize={KernelSize.LARGE} />
-        <Vignette eskil={false} offset={0.2} darkness={0.8} />
-      </EffectComposer>
     </>
   );
 }
@@ -169,9 +163,9 @@ export function SignatureDissolve() {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <ClientOnly>
           <Canvas
-            dpr={[1, 1.7]}
+            dpr={[1, 1.25]}
             camera={{ position: [0, 0, 5.2], fov: 42 }}
-            gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
+            gl={{ antialias: false, alpha: false, powerPreference: "high-performance" }}
           >
             <Scene progress={progress} />
           </Canvas>
