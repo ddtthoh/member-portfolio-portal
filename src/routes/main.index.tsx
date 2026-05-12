@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { lazy, Suspense } from "react";
 import { ClientOnly } from "@/components/marketing/client-only";
+import { MountInView } from "@/components/marketing/mount-in-view";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { MagneticButton } from "@/components/magnetic-button";
 import { CountUp } from "@/components/count-up";
