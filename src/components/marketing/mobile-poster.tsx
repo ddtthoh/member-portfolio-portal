@@ -182,8 +182,6 @@ export function MobilePoster({
           ))}
         </div>
 
-        {/* visual flourish — animated bar chart */}
-        <BarChartFlourish theme={theme} animate={animate} />
       </section>
 
       <Divider theme={theme} />
