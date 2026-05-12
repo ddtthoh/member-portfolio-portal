@@ -216,32 +216,23 @@ function Scene() {
   return (
     <>
       <GradientBackground />
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 4, 6]} intensity={1.2} color={"#fff1cc"} />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[5, 4, 6]} intensity={1.3} color={"#fff1cc"} />
       <directionalLight position={[-6, -2, 3]} intensity={0.8} color={"#ff5a3c"} />
       <pointLight position={[0, 0, 4]} intensity={1.2} color={"#ffb347"} />
-      <Environment preset="studio" environmentIntensity={0.85} />
 
       <NLogoPro groupRef={logoRef} />
       <DepthSparkles />
-      <ContactShadows position={[0, -2.2, 0]} opacity={0.4} scale={10} blur={2.6} far={4} color={"#ff6a1f"} />
 
       <ScrollDriver logoRef={logoRef} camRef={camRef} />
 
       <EffectComposer multisampling={0}>
         <Bloom
-          intensity={0.85}
-          luminanceThreshold={0.22}
-          luminanceSmoothing={0.55}
+          intensity={0.65}
+          luminanceThreshold={0.28}
+          luminanceSmoothing={0.5}
           mipmapBlur
-          kernelSize={KernelSize.LARGE}
-        />
-        <DepthOfField focusDistance={0.012} focalLength={0.04} bokehScale={2.4} />
-        <ChromaticAberration
-          offset={new THREE.Vector2(0.0009, 0.0014)}
-          blendFunction={BlendFunction.NORMAL}
-          radialModulation={false}
-          modulationOffset={0}
+          kernelSize={KernelSize.MEDIUM}
         />
         <Vignette eskil={false} offset={0.18} darkness={0.85} />
       </EffectComposer>
