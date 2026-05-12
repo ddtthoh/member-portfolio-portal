@@ -46,7 +46,16 @@ function InviteLandingPage() {
   const { memberId } = Route.useParams();
   const { print } = Route.useSearch();
   const isPrint = print === "1";
+  return <InviteLandingContent memberId={memberId} isPrint={isPrint} />;
+}
 
+export function InviteLandingContent({
+  memberId,
+  isPrint = false,
+}: {
+  memberId: string;
+  isPrint?: boolean;
+}) {
   return (
     <div className={`landing-root relative min-h-screen overflow-x-hidden ${isPrint ? "landing-print" : ""}`}>
       <div className="landing-grid-bg" />
