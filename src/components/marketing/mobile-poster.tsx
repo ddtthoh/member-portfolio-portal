@@ -209,7 +209,7 @@ export function MobilePoster({
       {/* ============= COMPANY INTRO ============= */}
       <section className="relative px-16 py-20 text-center">
         <Eyebrow theme={theme}>Company Introduction</Eyebrow>
-        <H2 theme={theme}>An institutional engine, opened to a private circle.</H2>
+        <H2 theme={theme} exportMode={exportMode}>An institutional engine, opened to a private circle.</H2>
         <Filigree className="mt-8" />
         <p
           className="mx-auto mt-8 max-w-[860px] text-[24px] leading-[1.55]"
@@ -229,7 +229,7 @@ export function MobilePoster({
       <section className="relative px-16 py-20">
         <div className="text-center">
           <Eyebrow theme={theme}>Core Focus</Eyebrow>
-          <H2 theme={theme}>Three pillars. One unfair advantage.</H2>
+          <H2 theme={theme} exportMode={exportMode}>Three pillars. One unfair advantage.</H2>
         </div>
 
         <div className="mt-14 space-y-6">
@@ -277,7 +277,7 @@ export function MobilePoster({
       <section className="relative px-16 py-20">
         <div className="text-center">
           <Eyebrow theme={theme}>Estimated Returns</Eyebrow>
-          <H2 theme={theme}>
+          <H2 theme={theme} exportMode={exportMode}>
             From <span style={gold("default", theme, exportMode)}>4.5%</span> to <span style={gold("default", theme, exportMode)}>13.5%</span> a month.
           </H2>
           <Filigree className="mt-8" />
