@@ -45,7 +45,7 @@ function NcoreXPage() {
                 <div className="flex h-full flex-col p-8">
                   <Icon className="h-7 w-7 text-gold" />
                   <div className="mt-5 font-mono text-xs uppercase tracking-[0.3em] text-cyan-400/80">{k}</div>
-                  <div className="mt-2 font-serif text-2xl">{t}</div>
+                  <div className="mt-2 m-card-title">{t}</div>
                   <p className="mt-3 flex-1 text-sm text-foreground/70">{d}</p>
                 </div>
               </div>
@@ -59,7 +59,7 @@ function NcoreXPage() {
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <MReveal>
               <span className="m-eyebrow">Why Ncore X</span>
-              <h2 className="mt-5 font-serif text-3xl md:text-4xl">
+              <h2 className="mt-5 m-h2">
                 Spread capture, <span className="m-cyan-glow">automated</span> across the venue map.
               </h2>
               <p className="mt-5 text-foreground/75">

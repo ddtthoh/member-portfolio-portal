@@ -44,7 +44,7 @@ function StrategyPage() {
             <span className="m-eyebrow">Strategic Direction</span>
           </MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-5xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-5xl m-h1">
               Engineering the <span className="m-gold-text">long compounding</span> of digital finance.
             </h1>
           </MReveal>
@@ -64,7 +64,7 @@ function StrategyPage() {
         <MReveal>
           <div className="text-center">
             <span className="m-eyebrow">Four Pillars</span>
-            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
               Where <span className="m-gold-text">technology</span> meets <span className="m-cyan-glow">capital</span>.
             </h2>
           </div>
@@ -78,7 +78,7 @@ function StrategyPage() {
                     <Icon className="h-6 w-6 text-gold" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-2xl">{t}</h3>
+                    <h3 className="m-card-title">{t}</h3>
                     <p className="mt-3 text-sm text-foreground/70">{d}</p>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ function StrategyPage() {
         <MReveal>
           <div className="text-center">
             <span className="m-eyebrow">The Long Plan</span>
-            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
               A <span className="m-gold-text">multi-phase</span> journey, executed in sequence.
             </h2>
           </div>
@@ -118,7 +118,7 @@ function StrategyPage() {
                       <div className="font-mono text-xs uppercase tracking-[0.3em] text-gold/70">{row.phase} · {row.year}</div>
                     </div>
                     <div className="m-glass m-tilt p-6">
-                      <h3 className="font-serif text-2xl">{row.title}</h3>
+                      <h3 className="m-card-title">{row.title}</h3>
                       <p className="mt-2 text-sm text-foreground/70">{row.body}</p>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ function StrategyPage() {
       <Section>
         <MReveal>
           <div className="text-center">
-            <h2 className="mx-auto max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto max-w-3xl m-h2">
               See the <span className="m-gold-text">execution roadmap</span>.
             </h2>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">

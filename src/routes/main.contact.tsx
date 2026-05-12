@@ -56,7 +56,7 @@ function ContactPage() {
             <span className="m-eyebrow">Contact</span>
           </MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-4xl m-h1">
               Let's start a <span className="m-gold-text">conversation</span>.
             </h1>
           </MReveal>
@@ -82,7 +82,7 @@ function ContactPage() {
               >
                 <Icon className="h-6 w-6 text-gold" />
                 <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.28em] text-foreground/55">{label}</div>
-                <div className="mt-1.5 break-all font-serif text-lg text-gold">{value}</div>
+                <div className="mt-1.5 break-all m-card-title text-gold">{value}</div>
               </a>
             </MReveal>
           ))}
@@ -95,7 +95,7 @@ function ContactPage() {
           <div className="m-luxe-border">
             <div className="p-10 md:p-14">
               <span className="m-eyebrow">Send a message</span>
-              <h2 className="mt-5 font-serif text-3xl md:text-4xl">
+              <h2 className="mt-5 m-h2">
                 Tell us about your <span className="m-gold-text">interest</span>.
               </h2>
               <form className="mt-8 grid gap-5" onSubmit={onSubmit}>

@@ -36,7 +36,7 @@ function NcoreOverview() {
             <span className="m-eyebrow">Ncore Product Family</span>
           </MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-5xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-5xl m-h1">
               The execution stack <span className="m-gold-text">behind a new digital economy</span>.
             </h1>
           </MReveal>
@@ -57,7 +57,7 @@ function NcoreOverview() {
                 <div className="grid h-12 w-12 place-items-center rounded-xl border border-gold/40 bg-gradient-to-br from-gold/20 to-transparent">
                   <Icon className="h-6 w-6 text-gold" />
                 </div>
-                <h3 className="mt-5 font-serif text-2xl">{t}</h3>
+                <h3 className="mt-5 m-card-title">{t}</h3>
                 <p className="mt-3 text-sm text-foreground/70">{d}</p>
                 <div className="mt-5 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/85">
                   Read more <ArrowRight className="h-3 w-3" />

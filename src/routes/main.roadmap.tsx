@@ -67,7 +67,7 @@ function RoadmapPage() {
             <span className="m-eyebrow">Strategic Roadmap</span>
           </MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-4xl m-h1">
               Shaping the <span className="m-gold-text">future of digital finance</span>.
             </h1>
           </MReveal>
@@ -132,7 +132,7 @@ function RoadmapPage() {
                             {p.year}
                           </span>
                         </div>
-                        <h3 className="mt-4 font-serif text-2xl">{p.title}</h3>
+                        <h3 className="mt-4 m-card-title">{p.title}</h3>
                         <ul className={`mt-4 space-y-2 text-sm text-foreground/75 ${isLeft ? "md:text-right" : ""}`}>
                           {p.items.map((it) => (
                             <li key={it} className={`flex items-start gap-2 ${isLeft ? "md:flex-row-reverse" : ""}`}>
@@ -153,7 +153,7 @@ function RoadmapPage() {
         <MReveal delay={400}>
           <div className="mt-20 m-luxe-border">
             <div className="p-10 text-center md:p-14">
-              <h3 className="mx-auto max-w-2xl font-serif text-3xl md:text-4xl">
+              <h3 className="mx-auto max-w-2xl m-h2">
                 The plan is the <span className="m-gold-text">commitment</span>.
               </h3>
               <p className="mx-auto mt-5 max-w-xl text-foreground/70">
