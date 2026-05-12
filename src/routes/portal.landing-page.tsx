@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { deriveMemberId } from "@/lib/member-id";
 import { MobilePoster } from "@/components/marketing/mobile-poster";
+import { useTheme } from "@/components/theme-provider";
 
 export const Route = createFileRoute("/portal/landing-page")({
   component: MyLandingPage,
