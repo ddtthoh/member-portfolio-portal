@@ -164,7 +164,10 @@ export function MobilePoster({
             { v: 24, decimals: 0, suffix: "/7", l: "AI Execution" },
           ].map((s) => (
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
-              <div className="font-serif text-[60px] font-bold leading-none" style={gold()}>
+              <div
+                className="text-[60px] font-light leading-none tabular-nums tracking-[-0.04em]"
+                style={gold()}
+              >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
                 ) : (
