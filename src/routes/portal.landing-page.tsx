@@ -222,19 +222,18 @@ function ScaledSpacer({ targetRef }: { targetRef: React.RefObject<HTMLDivElement
     const el = targetRef.current;
     if (!el) return;
     const compute = () => {
-      const m = getComputedStyle(el).transform;
-      let scale = 0.5;
-      if (m && m.startsWith("matrix(")) {
-        const parts = m.slice(7, -1).split(",").map((v) => parseFloat(v));
-        if (!Number.isNaN(parts[0])) scale = parts[0];
-      }
-      setH(el.offsetHeight * scale);
+      // getBoundingClientRect returns the post-transform (scaled) size.
+      const rect = el.getBoundingClientRect();
+      setH(Math.ceil(rect.height));
     };
     compute();
+    const raf = requestAnimationFrame(compute);
     const ro = new ResizeObserver(compute);
     ro.observe(el);
+    if (el.parentElement) ro.observe(el.parentElement);
     window.addEventListener("resize", compute);
     return () => {
+      cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener("resize", compute);
     };
