@@ -28,6 +28,21 @@ export function MobilePoster({
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=1&format=png&ecc=H&color=${qrFg}&bgcolor=${qrBg}&data=${encodeURIComponent(
     inviteUrl,
   )}`;
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(inviteUrl);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = inviteUrl;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch {}
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
 
   const tiers = [
     { name: "STANDARD", daily: "0.15 – 0.25%", monthly: "4.5 – 7.5%", tagline: "An entry into algorithmic yield." },
