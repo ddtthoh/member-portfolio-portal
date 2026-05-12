@@ -262,9 +262,11 @@ function HomePage() {
           <MReveal className="lg:col-span-5">
             <LGCard className="p-2">
               <ClientOnly>
-                <Suspense fallback={<div className="h-[360px]" />}>
-                  <NCTCoin3D />
-                </Suspense>
+                <MountInView rootMargin="25% 0px" minHeight={360} fallback={<div className="h-[360px]" />}>
+                  <Suspense fallback={<div className="h-[360px]" />}>
+                    <NCTCoin3D />
+                  </Suspense>
+                </MountInView>
               </ClientOnly>
             </LGCard>
           </MReveal>
