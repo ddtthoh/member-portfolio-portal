@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Copy, Check, ExternalLink, ImageIcon, FileText, MessageCircle } from "lucide-react";
+import { Copy, Check, ExternalLink, ImageIcon, FileText, MessageCircle, Link2 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
@@ -99,9 +99,9 @@ function MyLandingPage() {
         description="Single-piece mobile poster for sharing on WhatsApp. Download as PNG or PDF, or scan the QR. The full desktop site opens in a new tab."
       />
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+      <div className="mt-6 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
         {/* === Inline poster preview === */}
-        <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
+        <SpotlightCard className="liquid-glass self-start overflow-hidden rounded-2xl">
           <div className="flex items-center justify-between border-b border-gold/10 px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
@@ -140,11 +140,13 @@ function MyLandingPage() {
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">Your Invite Link</h3>
             </div>
-            <div className="space-y-3 p-5">
-              <div className="rounded-lg border border-gold/20 bg-background/40 px-3 py-2.5">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-gold/55">URL</div>
-                <div className="mt-1 truncate font-mono text-[12px] text-foreground/90">
-                  {inviteUrl}
+            <div className="space-y-4 px-5 py-5">
+              <div className="group relative overflow-hidden rounded-lg border border-gold/20 bg-background/40">
+                <div className="flex min-w-0 items-center gap-2 px-3 py-2.5">
+                  <Link2 className="h-4 w-4 shrink-0 text-gold/70" />
+                  <span className="min-w-0 flex-1 truncate font-mono text-[12px] text-foreground/90 sm:text-[13px]">
+                    {inviteUrl}
+                  </span>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
@@ -163,29 +165,6 @@ function MyLandingPage() {
                   <MessageCircle className="mr-2 h-4 w-4" />
                   WhatsApp
                 </Button>
-              </div>
-            </div>
-          </SpotlightCard>
-
-          <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
-            <div className="border-b border-gold/10 px-5 py-3.5">
-              <h3 className="font-serif text-[15px] font-semibold text-gold">QR Code</h3>
-            </div>
-            <div className="p-5">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="mx-auto w-full max-w-[220px]"
-              >
-                <div className="rounded-xl bg-gradient-to-br from-gold/40 via-gold/15 to-gold/40 p-[1.5px]">
-                  <div className="rounded-xl bg-white p-3">
-                    <img src={qrSrc} alt="Invite QR" className="h-auto w-full" />
-                  </div>
-                </div>
-              </motion.div>
-              <div className="mt-4 text-center text-[10px] uppercase tracking-[0.22em] text-gold/55">
-                Member #{memberId}
               </div>
             </div>
           </SpotlightCard>
