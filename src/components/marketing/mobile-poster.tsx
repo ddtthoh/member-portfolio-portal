@@ -317,11 +317,11 @@ export function MobilePoster({
                   Monthly
                 </div>
                 <div
-                  className="mt-2 font-serif font-black"
+                  className="mt-2 font-light tabular-nums"
                   style={{
-                    fontSize: "36px",
+                    fontSize: "40px",
                     lineHeight: 1,
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "-0.04em",
                     whiteSpace: "nowrap",
                     ...gold(),
                   }}
@@ -344,10 +344,11 @@ export function MobilePoster({
                     Daily
                   </div>
                   <div
-                    className="mt-1.5 font-serif font-bold"
+                    className="mt-1.5 font-light tabular-nums"
                     style={{
-                      fontSize: "22px",
+                      fontSize: "24px",
                       lineHeight: 1,
+                      letterSpacing: "-0.04em",
                       whiteSpace: "nowrap",
                       color: t.goldStrong,
                     }}
