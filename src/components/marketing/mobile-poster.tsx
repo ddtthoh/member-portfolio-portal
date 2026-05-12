@@ -579,12 +579,12 @@ function palette(theme: Theme) {
       body: "rgba(17,17,17,0.78)",
       muted: "rgba(17,17,17,0.55)",
       faint: "rgba(17,17,17,0.4)",
-      eyebrow: "#7a5818",
-      goldStrong: "#7a5818",
+      eyebrow: "#a8771f",
+      goldStrong: "#a8771f",
       goldBorder: "rgba(0,0,0,0.12)",
       goldBorderSoft: "rgba(0,0,0,0.08)",
-      goldBorderStrong: "rgba(122,88,24,0.45)",
-      goldFaint: "rgba(122,88,24,0.55)",
+      goldBorderStrong: "rgba(168,119,31,0.65)",
+      goldFaint: "rgba(168,119,31,0.55)",
       goldGlow: "rgba(0,0,0,0.08)",
     };
   }

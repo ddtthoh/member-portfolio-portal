@@ -1,71 +1,64 @@
-## 排查结论
+## 问题诊断
 
-你上传的导出文件确认仍然是坏的：
+现在 light mode 里只有 button (CTA) 是金色，标题、数字、品牌名 NASLAB 看起来都是深咖啡色。
+原因在 `src/components/marketing/mobile-poster.tsx`：
 
-- PNG 只有 `417 × 1920`，这是被浏览器/预览缩放后的下载结果，不是稳定的 1080px 海报级导出。
-- PDF 页面是 `2880 × 13256`，说明 PDF 是从一个错误/不稳定的 canvas 再塞进 PDF 的。
-- 大块金色矩形不是普通图片问题，而是 `MobilePoster` 里大量 `background-clip: text + color: transparent` 的 inline style 被 html2canvas 渲染失败造成的。
-- 上一次只给 CSS class 加了导出 override，但核心金色文字实际来自 `style={gold(...)}` inline style，所以 CSS override 根本覆盖不到这些 inline gradient text。
-- 字体风险也存在：海报依赖远程 Google fonts，导出时 html2canvas 等字体就绪并不等于字体已经稳定用于克隆节点。
+- `gold()` 函数在 `theme === "light"` 分支被改成了纯深棕实色（`#5a3f0d / #3d2b06 / #2a1d04`），完全没有金色渐变。
+- `palette()` light 分支的 `eyebrow / goldStrong` 也是深棕 `#7a5818`，所以 eyebrow 小字、装饰边框看起来偏咖啡，而不是金。
+- 当时这样写是为了避免 html2canvas 在导出 PNG/PDF 时渲染不出 `background-clip:text` 渐变 —— 但页面预览不需要这个限制。
 
-## 彻底解决方案
+## 方案：屏幕预览用真金色渐变，导出仍走稳定实色
 
-### 1. 不再捕获缩放预览节点
+只动 `mobile-poster.tsx` 一个文件，分两层处理：
 
-把导出改成“专用离屏导出节点”：
+### 1. `gold()` light 分支改成真正的金色渐变（仅用于屏幕预览）
 
-- 点击 Download PNG/PDF 时，临时在 `document.body` 里挂载一个固定 `1080px` 宽、未缩放、不可见但可渲染的导出容器。
-- 在这个容器里重新渲染 `<MobilePoster />`。
-- html2canvas 只捕获这个离屏节点，不再捕获右侧预览里被 `transform: scale(...)` 包住的节点。
+```text
+default → linear-gradient(180deg, #d9ad55 0%, #a8771f 55%, #6d4a10 100%)
+strong  → linear-gradient(180deg, #e6c473 0%, #b88a2a 45%, #6d4a10 100%)
+dark    → linear-gradient(180deg, #b88a2a 0%, #6d4a10 100%)
+```
 
-这样可以彻底绕开预览缩放、容器裁切、当前 viewport 尺寸对导出的影响。
+用 `background-clip:text + color:transparent` 做出与 dark mode 一致的金属渐变质感，但锚点更深，确保在 ivory 白底上仍然清晰可读。
 
-### 2. 给 MobilePoster 做真正的 export mode
+`exportMode` 分支保持现在的实色金（`#7a5818 / #5a3f0d / #3d2b06`），这样 PNG/PDF 导出依旧稳定，不会出现大金块 bug。
 
-给 `MobilePoster` 增加一个 `exportMode` prop，导出专用节点传 `exportMode`：
+### 2. `palette()` light 分支微调，让金色"散落"在更多元素上
 
-- `gold(...)` 在 exportMode 下不再返回 `backgroundImage/backgroundClip/color: transparent`。
-- 改为 html2canvas 稳定支持的纯色金色 `color`。
-- 只影响 PNG/PDF 导出，不改变页面预览的正常视觉。
+- `eyebrow`: `#7a5818` → `#a8771f`（更亮的金，HERO 等小标签更出挑）
+- `goldStrong`: `#7a5818` → `#a8771f`
+- `goldBorderStrong`: `rgba(122,88,24,0.45)` → `rgba(168,119,31,0.65)`（CTA / Tier 卡片金边更明显）
+- `goldFaint`: `rgba(122,88,24,0.55)` → `rgba(168,119,31,0.55)`
 
-这是这次金色大块的关键修复点。
+背景 `pageBg` 维持白底，`text / body / muted` 维持深色 —— 正文段落保持高对比度，不动可读性。
 
-### 3. 固定导出字体，避免远程字体等待失败
+### 3. 已经在用 `gold(...)` 的位置自动获益
 
-在 exportMode 下使用系统内置稳定字体组合，避免远程字体加载/克隆时失效：
+文件里这些位置已经在调用 `gold()`，因此一改 `gold()`，下面这些元素在 light mode 就会自动变成金色渐变，不需要再改 JSX：
 
-- serif 标题用 `Georgia, Times New Roman, serif`
-- body 用 `Arial / Helvetica / system-ui`
+- HERO `NASLAB` 标题 (line 119)
+- Hero 大金额 / 强调数字 (lines 150, 196, 262)
+- "From 4.5% to 13.5% a month" 高亮百分比 (line 290)
+- Tier section 标题与数字 (lines 326, 353, 438)
+- 末尾 invite member id 大字号 (line 971)
 
-导出版本会保持高级 serif/sans 风格，但不依赖网络字体，防止再次出现字体变粗、错位、替换字体导致的 layout 改变。
+### 4. 不在范围内
 
-### 4. 等待导出节点完全稳定后再截图
+- 不动 dark mode（视觉保持不变）
+- 不动文案、布局、字体、动效
+- 不动正文段落颜色（保留 ivory 白底 + 深色 body 的高对比度）
+- 不动 button / CTA 金色（已经是金色）
+- 不动 portal 其它页面
 
-导出流程会：
+### 5. 验收
 
-- 等待 React 离屏节点 mount 完成
-- 等待 `document.fonts.ready`
-- 等待 QR 和 logo 图片 `decode()` 完成
-- 再等 2 个 `requestAnimationFrame`，确保 layout/paint 完成
-- 然后调用 html2canvas
-
-### 5. PNG/PDF 输出尺寸统一
-
-- PNG 输出：固定 `2160px` 宽，也就是 `1080 × scale 2`。
-- PDF 输出：直接使用同一个 canvas 尺寸，不再使用任何预览尺寸。
-
-### 6. 验证方式
-
-实现后我会用自动检查确认：
-
-- 导出 canvas 宽度为 `2160px`
-- 页面内容横向占比正常，不再只是一小块/被缩放
-- 上传图中那几段大金色矩形不会再出现
-- PDF 页面由同一张正确 canvas 生成
+切到 light mode 打开 `/portal/landing-page` 预览：
+- NASLAB 品牌名、HERO 大数字、Tier "0.15 – 0.25%" 等关键数字呈金色渐变
+- "From 4.5% to 13.5% a month" 中的百分比变金色
+- eyebrow 小标签（HERO / TIER / FOCUS 之类）颜色更亮、更"金"
+- 正文段落仍是深色，可读性不变
+- 下载 PNG / PDF：导出文件里这些位置呈现实色金，没有大金块 / 透明字 bug
 
 ## 改动文件
 
-- `src/components/marketing/mobile-poster.tsx`
-- `src/routes/portal.landing-page.tsx`
-
-不动数据库，不动登录逻辑，不改其它页面。
+- `src/components/marketing/mobile-poster.tsx` （仅 `gold()` 与 `palette()` 的 light 分支）
