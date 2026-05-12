@@ -146,9 +146,9 @@ export function MobilePoster({
   };
 
   const tiers = [
-    { name: "STANDARD", daily: "0.15 – 0.25%", monthly: "4.5 – 7.5%", tagline: "An entry into algorithmic yield." },
-    { name: "ADVANCE", daily: "0.25 – 0.35%", monthly: "7.5 – 10.5%", tagline: "For the patient compounder." },
-    { name: "PREMIUM", daily: "0.35 – 0.45%", monthly: "10.5 – 13.5%", tagline: "Institutional-tier execution." },
+    { name: "STANDARD", dailyFrom: "0.15", dailyTo: "0.25", monthlyFrom: "4.5", monthlyTo: "7.5", tagline: "An entry into algorithmic yield." },
+    { name: "ADVANCE",  dailyFrom: "0.25", dailyTo: "0.35", monthlyFrom: "7.5", monthlyTo: "10.5", tagline: "For the patient compounder." },
+    { name: "PREMIUM",  dailyFrom: "0.35", dailyTo: "0.45", monthlyFrom: "10.5", monthlyTo: "13.5", tagline: "Institutional-tier execution." },
   ];
 
   const focus = [
