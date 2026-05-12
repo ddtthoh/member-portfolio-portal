@@ -602,12 +602,18 @@ function palette(theme: Theme) {
 
 /* ─────────────── helpers ─────────────── */
 
-function gold(variant: "default" | "strong" | "dark" = "default") {
-  const grads = {
+function gold(variant: "default" | "strong" | "dark" = "default", theme: Theme = "dark") {
+  const dark = {
     default: "linear-gradient(180deg,#fff5d4 0%,#e6c473 55%,#9c7322 100%)",
     strong: "linear-gradient(180deg,#fff8dc 0%,#f0cf7a 28%,#c79a3e 62%,#7a5818 100%)",
     dark: "linear-gradient(180deg,#f0cf7a 0%,#9c7322 100%)",
   };
+  const light = {
+    default: "linear-gradient(180deg,#a87825 0%,#7a5818 55%,#4a3408 100%)",
+    strong: "linear-gradient(180deg,#b88528 0%,#8d6620 45%,#5a3f0d 100%)",
+    dark: "linear-gradient(180deg,#7a5818 0%,#3d2b06 100%)",
+  };
+  const grads = theme === "light" ? light : dark;
   return {
     background: grads[variant],
     WebkitBackgroundClip: "text" as const,
