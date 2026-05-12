@@ -246,8 +246,6 @@ export function MobilePoster({
                   </p>
                 </div>
               </div>
-              {/* mini sparkline per card */}
-              <Sparkline theme={theme} animate={animate} />
             </div>
           ))}
         </div>
