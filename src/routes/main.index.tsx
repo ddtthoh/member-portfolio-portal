@@ -19,7 +19,7 @@ import { AllocationOrbit } from "@/components/marketing/charts-pro/allocation-or
 import { BurnDecay } from "@/components/marketing/charts-pro/burn-decay";
 import { HeatmapGrid } from "@/components/marketing/charts-pro/heatmap-grid";
 
-const Hero3D = lazy(() => import("@/components/marketing/hero-3d-pro").then((m) => ({ default: m.Hero3DPro })));
+
 const NCTCoin3D = lazy(() => import("@/components/marketing/nct-coin-3d").then((m) => ({ default: m.NCTCoin3D })));
 const SignatureDissolve = lazy(() => import("@/components/marketing/signature-dissolve").then((m) => ({ default: m.SignatureDissolve })));
 
