@@ -58,37 +58,23 @@ function InviteLandingPage() {
  */
 export function InviteLandingContent({
   memberId,
-  isPrint = false,
 }: {
   memberId: string;
   isPrint?: boolean;
 }) {
+  // Single-piece poster on every device. Centered on desktop with gutters.
   return (
-    <>
-      {/* Mobile: single-piece poster (also what gets exported as PNG/PDF) */}
-      <div className="landing-root md:hidden">
+    <div
+      className="landing-root min-h-screen w-full overflow-x-hidden"
+      style={{
+        background:
+          "radial-gradient(120% 60% at 50% 0%, #1a1407 0%, #0a0805 35%, #050403 100%)",
+      }}
+    >
+      <div className="mx-auto" style={{ maxWidth: 1080 }}>
         <MobilePoster memberId={memberId} />
       </div>
-
-      {/* Desktop: full multi-section landing site */}
-      <div className={`hidden md:block relative min-h-screen overflow-x-hidden ${isPrint ? "landing-print" : ""}`}>
-        <div className="landing-grid-bg" />
-        <div className="landing-noise" />
-
-        {!isPrint && <LandingNav memberId={memberId} />}
-
-        <Hero memberId={memberId} isPrint={isPrint} />
-        <TrustBar />
-        <WhySection />
-        <HowItWorks />
-        <PackagesSection memberId={memberId} />
-        <StatsSection />
-        <FounderNote />
-        <FaqSection />
-        <FinalCta memberId={memberId} isPrint={isPrint} />
-        <LandingFooter memberId={memberId} />
-      </div>
-    </>
+    </div>
   );
 }
 
