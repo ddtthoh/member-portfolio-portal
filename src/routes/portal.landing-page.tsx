@@ -41,87 +41,91 @@ function MyLandingPage() {
   };
 
   const captureCanvas = async () => {
-    const inner = previewRef.current; // 1080px wrapper that has transform: scale(...)
-    const target = inner?.querySelector(".poster-root") as HTMLElement | null;
-    if (!inner || !target) throw new Error("Poster not ready");
+    // Render a fresh, unscaled, 1080px-wide MobilePoster into an offscreen
+    // container — completely independent of the on-page preview (which is
+    // scaled with transform: scale(...) and would otherwise be captured
+    // at the wrong size).
+    const { createRoot } = await import("react-dom/client");
+    const host = document.createElement("div");
+    host.style.cssText = [
+      "position: fixed",
+      "left: 0",
+      "top: 0",
+      "width: 1080px",
+      "z-index: -1",
+      "pointer-events: none",
+      "opacity: 0",
+      // keep it inside the viewport so html2canvas measures it correctly
+      "transform: translate(0, 0)",
+    ].join(";");
+    document.body.appendChild(host);
+    const root = createRoot(host);
 
-    // 1) Neutralise the preview's transform: scale(...) so html2canvas measures
-    //    the real 1080px layout instead of the visually-shrunk bounding box.
-    const prevTransform = inner.style.transform;
-    const prevTransformOrigin = inner.style.transformOrigin;
-    inner.style.transform = "none";
-    inner.style.transformOrigin = "top left";
+    const mounted = new Promise<HTMLElement>((resolve, reject) => {
+      try {
+        root.render(
+          <MobilePoster memberId={memberId} theme={theme} exportMode />,
+        );
+        // wait for the .poster-root to appear
+        let tries = 0;
+        const tick = () => {
+          const el = host.querySelector(".poster-root") as HTMLElement | null;
+          if (el && el.scrollHeight > 100) return resolve(el);
+          if (++tries > 120) return reject(new Error("Poster mount timeout"));
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      } catch (err) {
+        reject(err);
+      }
+    });
 
-    // 2) Mark the poster as "exporting" so CSS can swap unstable
-    //    background-clip:text gradients for solid gold (see marketing-theme.css).
-    target.setAttribute("data-exporting", "true");
-
-    // 3) Wait for fonts to be ready so text doesn't shift mid-capture.
     try {
-      await (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts?.ready;
-    } catch {
-      /* ignore */
-    }
+      const target = await mounted;
 
-    // 4) Pre-fetch any external (CORS) images and inline them as data URLs so
-    //    html2canvas doesn't taint the canvas.
-    const externals = Array.from(target.querySelectorAll("img")) as HTMLImageElement[];
-    const originals = new Map<HTMLImageElement, string>();
-    await Promise.all(
-      externals.map(async (img) => {
-        try {
-          const src = img.currentSrc || img.src;
-          if (!src || src.startsWith("data:")) return;
-          const res = await fetch(src, { mode: "cors", cache: "force-cache" });
-          if (!res.ok) return;
-          const blob = await res.blob();
-          const dataUrl: string = await new Promise((resolve, reject) => {
-            const fr = new FileReader();
-            fr.onload = () => resolve(fr.result as string);
-            fr.onerror = reject;
-            fr.readAsDataURL(blob);
-          });
-          originals.set(img, img.src);
-          img.crossOrigin = "anonymous";
-          img.src = dataUrl;
-          await img.decode().catch(() => undefined);
-        } catch {
-          /* ignore */
-        }
-      }),
-    );
+      // wait for fonts
+      try {
+        await (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts?.ready;
+      } catch {
+        /* ignore */
+      }
 
-    // 5) Make sure every <img> finished decoding at its real layout size.
-    await Promise.all(
-      externals.map((img) =>
-        img.complete && img.naturalWidth > 0
-          ? img.decode().catch(() => undefined)
-          : new Promise<void>((resolve) => {
-              img.addEventListener("load", () => resolve(), { once: true });
-              img.addEventListener("error", () => resolve(), { once: true });
-            }),
-      ),
-    );
+      // wait for all images (logo, QR) to fully decode
+      const imgs = Array.from(target.querySelectorAll("img")) as HTMLImageElement[];
+      await Promise.all(
+        imgs.map((img) =>
+          img.complete && img.naturalWidth > 0
+            ? img.decode().catch(() => undefined)
+            : new Promise<void>((resolve) => {
+                img.addEventListener("load", () => resolve(), { once: true });
+                img.addEventListener("error", () => resolve(), { once: true });
+              }),
+        ),
+      );
 
-    const html2canvas = (await import("html2canvas-pro")).default;
-    try {
-      return await html2canvas(target, {
+      // two RAFs to ensure layout/paint settles
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      const html2canvas = (await import("html2canvas-pro")).default;
+      const canvas = await html2canvas(target, {
         backgroundColor: theme === "light" ? "#ffffff" : "#050403",
         scale: 2,
         useCORS: true,
         allowTaint: false,
         logging: false,
         width: 1080,
+        height: target.scrollHeight,
         windowWidth: 1080,
         windowHeight: target.scrollHeight,
       });
+      return canvas;
     } finally {
-      target.removeAttribute("data-exporting");
-      inner.style.transform = prevTransform;
-      inner.style.transformOrigin = prevTransformOrigin;
-      originals.forEach((src, img) => {
-        img.src = src;
-      });
+      try {
+        root.unmount();
+      } catch {
+        /* ignore */
+      }
+      host.remove();
     }
   };
 
