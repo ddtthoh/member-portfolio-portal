@@ -99,9 +99,9 @@ function MyLandingPage() {
         description="Single-piece mobile poster for sharing on WhatsApp. Download as PNG or PDF, or scan the QR. The full desktop site opens in a new tab."
       />
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+      <div className="mt-6 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
         {/* === Inline poster preview === */}
-        <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
+        <SpotlightCard className="liquid-glass self-start overflow-hidden rounded-2xl">
           <div className="flex items-center justify-between border-b border-gold/10 px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
