@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import logoMark from "@/assets/participant-portal-logo.png";
+import { MobilePoster } from "@/components/marketing/mobile-poster";
 
 type Search = { print?: string };
 
