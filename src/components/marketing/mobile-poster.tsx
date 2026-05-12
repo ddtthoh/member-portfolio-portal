@@ -247,7 +247,7 @@ export function MobilePoster({
               <div className="relative flex items-start gap-8">
                 <div
                   className="font-serif text-[96px] font-black leading-none"
-                  style={gold("dark")}
+                  style={gold("dark", theme)}
                 >
                   {f.n}
                 </div>
