@@ -54,7 +54,7 @@ function BasicPage() {
           <MReveal delay={150}>
             <div className="m-luxe-border">
               <div className="p-8">
-                <h3 className="font-serif text-2xl">Why this matters</h3>
+                <h3 className="m-card-title">Why this matters</h3>
                 <p className="mt-3 text-sm text-foreground/70">
                   On-chain execution is not a fairer version of TradFi — it is a different game with different physics.
                   Understanding visibility, ordering and routing is the prerequisite to building any durable strategy.

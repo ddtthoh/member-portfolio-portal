@@ -61,7 +61,7 @@ function CollaborationPage() {
         <div className="mx-auto max-w-7xl px-6 pb-16 pt-20 lg:px-10 lg:pt-28">
           <MReveal><span className="m-eyebrow">Collaboration</span></MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-5xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-5xl m-h1">
               Partner with Naslab on the <span className="m-gold-text">long build</span>.
             </h1>
           </MReveal>
@@ -78,7 +78,7 @@ function CollaborationPage() {
         <MReveal>
           <div className="text-center">
             <span className="m-eyebrow">Partnership Models</span>
-            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
               Three ways to <span className="m-gold-text">build with us</span>.
             </h2>
           </div>
@@ -97,7 +97,7 @@ function CollaborationPage() {
                 <div className="flex h-full flex-col p-8">
                   <Icon className="h-7 w-7 text-gold" />
                   <div className="mt-5 font-mono text-xs uppercase tracking-[0.3em] text-gold/80">{k}</div>
-                  <div className="mt-2 font-serif text-2xl">{t}</div>
+                  <div className="mt-2 m-card-title">{t}</div>
                   <p className="mt-3 flex-1 text-sm text-foreground/70">{d}</p>
                   <span className="mt-5 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/85">
                     Start a conversation →
@@ -114,7 +114,7 @@ function CollaborationPage() {
           <div className="m-luxe-border">
             <div className="p-10 md:p-14">
               <span className="m-eyebrow">Request</span>
-              <h2 className="mt-5 font-serif text-3xl md:text-4xl">
+              <h2 className="mt-5 m-h2">
                 Tell us about your <span className="m-gold-text">partnership</span>.
               </h2>
               <form className="mt-8 grid gap-5" onSubmit={onSubmit}>

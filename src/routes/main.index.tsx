@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { lazy, Suspense } from "react";
 import { ClientOnly } from "@/components/marketing/client-only";
+import { MountInView } from "@/components/marketing/mount-in-view";
 import { MReveal } from "@/components/marketing/m-reveal";
 import { MagneticButton } from "@/components/magnetic-button";
 import { CountUp } from "@/components/count-up";
@@ -49,7 +50,7 @@ function HomePage() {
         <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
 
         <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-28">
-          <h1 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(3rem,11vw,11rem)] font-light leading-[0.92] tracking-[-0.05em]">
+          <h1 className="m-h1">
             <SplitLines text="Where Luxury Meets" className="lg-tagline block" />
             <SplitLines text="Decentralized Innovation" className="lg-tagline mt-1 block" delay={400} />
           </h1>
@@ -58,9 +59,11 @@ function HomePage() {
 
       {/* SIGNATURE MOMENT — logo dissolves into NCT particles */}
       <ClientOnly>
-        <Suspense fallback={<div className="h-screen" />}>
-          <SignatureDissolve />
-        </Suspense>
+        <MountInView rootMargin="40% 0px" minHeight="100vh" fallback={<div className="h-screen" />}>
+          <Suspense fallback={<div className="h-screen" />}>
+            <SignatureDissolve />
+          </Suspense>
+        </MountInView>
       </ClientOnly>
 
       {/* TICKER */}
@@ -73,8 +76,8 @@ function HomePage() {
         <MReveal>
           <div className="grid items-end gap-10 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h2 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(2.6rem,6.4vw,5.2rem)] font-light leading-[1.0] tracking-[-0.04em]">
-                Build your crypto reserve with <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>confidence</span>.
+              <h2 className=" m-h2">
+                Build your crypto reserve with <span className="m-accent lg-tagline">confidence</span>.
               </h2>
               <p className="mt-7 max-w-xl text-foreground/70">
                 Backed by predictive MEV trading, intelligent cross-platform arbitrage,
@@ -115,8 +118,8 @@ function HomePage() {
         <div className="grid items-center gap-14 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              Connecting capital to the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of finance</span>.
+            <h2 className="mt-5 m-h2">
+              Connecting capital to the <span className="m-accent lg-tagline">future of finance</span>.
             </h2>
             <p className="mt-6 text-foreground/75">
               Naslab connects businesses and individuals with innovative digital
@@ -137,7 +140,7 @@ function HomePage() {
               <MReveal key={t} delay={i * 80}>
                 <LGCard className="h-full p-6">
                   <Icon className="h-6 w-6 text-gold" />
-                  <div className="mt-4 text-xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>{t}</div>
+                  <div className="mt-4 m-card-title">{t}</div>
                   <p className="mt-2 text-sm text-foreground/65">{d}</p>
                 </LGCard>
               </MReveal>
@@ -152,8 +155,8 @@ function HomePage() {
         <MReveal>
           <div className="text-center">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              A long-term roadmap for the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
+              A long-term roadmap for the <span className="m-accent lg-tagline">future of digital finance</span>.
             </h2>
           </div>
         </MReveal>
@@ -167,7 +170,7 @@ function HomePage() {
               <LGCard className="lg-mesh-bg h-full p-7">
                 <Icon className="h-7 w-7 text-gold" />
                 <div className="mt-5 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-gold/80">{k}</div>
-                <div className="mt-1 text-2xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>{t}</div>
+                <div className="mt-1 text-2xl m-display">{t}</div>
                 <p className="mt-3 text-sm text-foreground/65">{d}</p>
               </LGCard>
             </MReveal>
@@ -181,8 +184,8 @@ function HomePage() {
         <div className="grid gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              Predictive <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>MEV trading</span><br />for DEX markets.
+            <h2 className="mt-5 m-h2">
+              Predictive <span className="m-accent lg-tagline">MEV trading</span><br />for DEX markets.
             </h2>
             <p className="mt-6 text-foreground/75">
               A DEX-focused MEV trading platform that monitors the mempool,
@@ -204,7 +207,7 @@ function HomePage() {
                 <Link to={to} className="block">
                   <LGCard className="h-full p-6">
                     <Icon className="h-6 w-6 text-gold" />
-                    <div className="mt-4 text-xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>{t}</div>
+                    <div className="mt-4 m-card-title">{t}</div>
                     <p className="mt-2 text-xs text-foreground/65">{d}</p>
                     <div className="mt-4 inline-flex items-center gap-1 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-gold/85">
                       Read more <ArrowRight className="h-3 w-3" />
@@ -223,8 +226,8 @@ function HomePage() {
         <div className="grid items-center gap-10 lg:grid-cols-12">
           <MReveal className="lg:col-span-5">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mt-5 text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              Intelligent <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>cross-platform</span> arbitrage.
+            <h2 className="mt-5 m-h2">
+              Intelligent <span className="m-accent lg-tagline">cross-platform</span> arbitrage.
             </h2>
             <p className="mt-6 text-foreground/75">
               Covering DEX↔DEX, CEX↔CEX, and DEX↔CEX — transforming market price
@@ -246,8 +249,8 @@ function HomePage() {
         <MReveal>
           <div className="text-center">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              The native asset of the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>Ncore ecosystem</span>.
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
+              The native asset of the <span className="m-accent lg-tagline">Ncore ecosystem</span>.
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-foreground/70">
               Settlement, access, and incentive layer — engineered with deflationary
@@ -259,9 +262,11 @@ function HomePage() {
           <MReveal className="lg:col-span-5">
             <LGCard className="p-2">
               <ClientOnly>
-                <Suspense fallback={<div className="h-[360px]" />}>
-                  <NCTCoin3D />
-                </Suspense>
+                <MountInView rootMargin="25% 0px" minHeight={360} fallback={<div className="h-[360px]" />}>
+                  <Suspense fallback={<div className="h-[360px]" />}>
+                    <NCTCoin3D />
+                  </Suspense>
+                </MountInView>
               </ClientOnly>
             </LGCard>
           </MReveal>
@@ -285,8 +290,8 @@ function HomePage() {
         <MReveal>
           <div className="text-center">
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,4.5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.035em]">
-              Shaping the <span className="lg-tagline italic" style={{ fontFamily: "var(--font-serif)" }}>future of digital finance</span>.
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
+              Shaping the <span className="m-accent lg-tagline">future of digital finance</span>.
             </h2>
           </div>
         </MReveal>
@@ -307,7 +312,7 @@ function HomePage() {
                       {r.y}
                     </span>
                   </div>
-                  <div className="mt-3 text-xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>{r.t}</div>
+                  <div className="mt-3 m-card-title">{r.t}</div>
                   <p className="mt-2 text-xs text-foreground/65">{r.d}</p>
                 </LGCard>
               </MReveal>
@@ -331,7 +336,7 @@ function HomePage() {
             <Link to="/main/careers" className="block">
               <LGCard className="lg-mesh-bg h-full p-10">
                 <Users className="h-8 w-8 text-gold" />
-                <h3 className="mt-6 text-3xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.025em" }}>Careers at Naslab</h3>
+                <h3 className="mt-6 text-3xl m-display">Careers at Naslab</h3>
                 <p className="mt-3 text-sm text-foreground/70">
                   Building technology-driven systems for fast-moving digital
                   markets — for people who care about execution, precision, and impact.
@@ -346,7 +351,7 @@ function HomePage() {
             <Link to="/main/collaboration" className="block">
               <LGCard className="lg-mesh-bg h-full p-10">
                 <Handshake className="h-8 w-8 text-gold" />
-                <h3 className="mt-6 text-3xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.025em" }}>Collaboration</h3>
+                <h3 className="mt-6 text-3xl m-display">Collaboration</h3>
                 <p className="mt-3 text-sm text-foreground/70">
                   We collaborate with partners who value execution quality, technical
                   rigor, and long-term system building.
@@ -366,7 +371,7 @@ function HomePage() {
           <LGCard className="relative overflow-hidden p-14 text-center md:p-20">
             <div className="lg-halo absolute -top-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2" />
             
-            <h2 style={{ fontFamily: "var(--font-display)" }} className="mx-auto mt-6 max-w-4xl text-[clamp(2.2rem,5vw,4.4rem)] font-light leading-[1.02] tracking-[-0.035em]">
+            <h2 className="mx-auto mt-6 max-w-4xl m-h2">
               <SplitLines text="Where Luxury Meets Decentralized Innovation" className="lg-tagline" />
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-foreground/70">
@@ -422,7 +427,7 @@ function MetricCard({
         <Icon className="h-5 w-5 text-gold" />
         <SparklinePro data={invert ? [...spark].reverse() : spark} width={90} height={28} />
       </div>
-      <div className="mt-5 text-4xl tabular-nums" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>
+      <div className="mt-5 text-4xl tabular-nums m-display" style={{ letterSpacing: "-0.03em" }}>
         {Number.isFinite(numeric) ? (
           <span className="lg-tagline">
             <CountUp value={numeric} decimals={isPct ? 1 : 0} suffix={isPct ? "%" : ""} duration={1800} />

@@ -49,7 +49,7 @@ function TokenPage() {
           </MReveal>
           <MReveal delay={150}>
             <span className="m-eyebrow">Why NCT</span>
-            <h2 className="mt-5 font-serif text-3xl md:text-4xl">
+            <h2 className="mt-5 m-h2">
               Designed for <span className="m-gold-text">scarcity by usage</span>.
             </h2>
             <p className="mt-5 text-foreground/75">
@@ -84,7 +84,7 @@ function TokenPage() {
                     <Icon className="h-6 w-6 text-gold" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-2xl">{t}</h3>
+                    <h3 className="m-card-title">{t}</h3>
                     <p className="mt-2 text-sm text-foreground/70">{d}</p>
                   </div>
                 </div>

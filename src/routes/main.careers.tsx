@@ -89,7 +89,7 @@ function CareersPage() {
         <div className="mx-auto max-w-7xl px-6 pb-16 pt-20 lg:px-10 lg:pt-28">
           <MReveal><span className="m-eyebrow">Careers</span></MReveal>
           <MReveal delay={120}>
-            <h1 className="mt-6 max-w-5xl font-serif text-5xl leading-[1.05] md:text-7xl">
+            <h1 className="mt-6 max-w-5xl m-h1">
               Build the systems behind <span className="m-gold-text">a new digital economy</span>.
             </h1>
           </MReveal>
@@ -109,7 +109,7 @@ function CareersPage() {
             <MReveal key={v.t} delay={i * 100}>
               <div className="m-glass m-tilt h-full p-7">
                 <HeartHandshake className="h-6 w-6 text-gold" />
-                <div className="mt-5 font-serif text-xl">{v.t}</div>
+                <div className="mt-5 m-card-title">{v.t}</div>
                 <p className="mt-2 text-sm text-foreground/70">{v.d}</p>
               </div>
             </MReveal>
@@ -122,7 +122,7 @@ function CareersPage() {
         <MReveal>
           <div className="text-center">
             <span className="m-eyebrow">Open Roles</span>
-            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
               Where you can <span className="m-gold-text">make an impact</span>.
             </h2>
           </div>
@@ -144,7 +144,7 @@ function CareersPage() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <h3 className="font-serif text-2xl">{t}</h3>
+                      <h3 className="m-card-title">{t}</h3>
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold/85">
                         Apply <ArrowRight className="h-3 w-3" />
                       </span>
@@ -168,7 +168,7 @@ function CareersPage() {
           <div className="m-luxe-border">
             <div className="p-10 md:p-14">
               <span className="m-eyebrow">Apply</span>
-              <h2 className="mt-5 font-serif text-3xl md:text-4xl">
+              <h2 className="mt-5 m-h2">
                 Send us your <span className="m-gold-text">application</span>.
               </h2>
               <p className="mt-3 text-sm text-foreground/65">

@@ -34,7 +34,7 @@ function AboutPage() {
             <MReveal key={t} delay={i * 100}>
               <div className="m-glass m-tilt h-full p-8">
                 <Icon className="h-7 w-7 text-gold" />
-                <h3 className="mt-5 font-serif text-2xl">{t}</h3>
+                <h3 className="mt-5 m-card-title">{t}</h3>
                 <p className="mt-3 text-sm text-foreground/70">{d}</p>
               </div>
             </MReveal>
@@ -47,7 +47,7 @@ function AboutPage() {
         <MReveal>
           <div className="text-center">
             <span className="m-eyebrow">Our Foundation</span>
-            <h2 className="mx-auto mt-5 max-w-3xl font-serif text-4xl md:text-5xl">
+            <h2 className="mx-auto mt-5 max-w-3xl m-h2">
               Built on three <span className="m-gold-text">non-negotiables</span>.
             </h2>
           </div>
@@ -62,7 +62,7 @@ function AboutPage() {
               <div className="m-luxe-border h-full">
                 <div className="h-full p-8">
                   <Icon className="h-8 w-8 text-gold" />
-                  <h3 className="mt-5 font-serif text-2xl">{t}</h3>
+                  <h3 className="mt-5 m-card-title">{t}</h3>
                   <p className="mt-3 text-sm text-foreground/70">{d}</p>
                 </div>
               </div>
@@ -75,7 +75,7 @@ function AboutPage() {
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <MReveal>
           <div className="m-glass flex flex-col items-center gap-6 p-12 text-center md:p-16">
-            <h2 className="max-w-3xl font-serif text-3xl md:text-4xl">
+            <h2 className="max-w-3xl m-h2">
               Want to learn more about how Naslab builds <span className="m-gold-text">long-term value</span>?
             </h2>
             <Link
@@ -100,7 +100,7 @@ function PageHero({ eyebrow, title, sub }: { eyebrow: string; title: React.React
           <span className="m-eyebrow">{eyebrow}</span>
         </MReveal>
         <MReveal delay={120}>
-          <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] md:text-7xl">
+          <h1 className="mt-6 max-w-4xl m-h1">
             {title}
           </h1>
         </MReveal>
