@@ -218,8 +218,10 @@ function FitPoster({
     const el = innerRef.current;
     if (!wrap || !el) return;
     const compute = () => {
-      const w = wrap.clientWidth;
-      const s = Math.min(1, w / 1080);
+      const cs = window.getComputedStyle(wrap);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const w = wrap.clientWidth - padX;
+      const s = Math.min(1, Math.max(0.1, w / 1080));
       setScale(s);
       // unscaled height of the poster
       const h = el.scrollHeight;
