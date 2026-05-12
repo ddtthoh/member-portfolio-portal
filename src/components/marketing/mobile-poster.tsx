@@ -311,7 +311,7 @@ export function MobilePoster({
               <div className="relative">
                 <div
                   className="mx-auto mt-2 font-serif text-[30px] font-black tracking-[0.22em]"
-                  style={gold()}
+                  style={gold("default", theme)}
                 >
                   {tier.name}
                 </div>
