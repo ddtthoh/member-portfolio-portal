@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { MobilePoster } from "@/components/marketing/mobile-poster";
+import { ThreeBackground } from "@/components/three-background";
 
 type Search = { print?: string };
 
@@ -78,15 +79,73 @@ export function InviteLandingContent({
 
   return (
     <div
-      className="landing-root relative min-h-screen w-full overflow-x-hidden"
+      className="landing-root invite-scroll-reveal relative min-h-screen w-full overflow-x-hidden"
       style={{ background: bg }}
     >
+      <style>{`
+        .invite-scroll-reveal .poster-root > section,
+        .invite-scroll-reveal .poster-root > footer {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          will-change: opacity, transform;
+        }
+        .invite-scroll-reveal .poster-root > section.in-view,
+        .invite-scroll-reveal .poster-root > footer.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        @supports (animation-timeline: view()) {
+          .invite-scroll-reveal .poster-root > section,
+          .invite-scroll-reveal .poster-root > footer {
+            opacity: 1;
+            transform: none;
+            transition: none;
+            animation: invite-section-reveal linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 35%;
+          }
+          @keyframes invite-section-reveal {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        }
+      `}</style>
+      <ThreeBackground fixed />
       <LightningNodes theme={theme} />
       <div className="relative mx-auto" style={{ maxWidth: 1080 }}>
         <MobilePoster memberId={memberId} theme={theme} animate />
       </div>
+      <ScrollRevealFallback />
     </div>
   );
+}
+
+/** IntersectionObserver fallback for browsers without animation-timeline (Safari/Firefox). */
+function ScrollRevealFallback() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (CSS.supports?.("animation-timeline: view()")) return;
+    const els = document.querySelectorAll(
+      ".invite-scroll-reveal .poster-root > section, .invite-scroll-reveal .poster-root > footer",
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+          } else if (e.boundingClientRect.top > 0) {
+            // re-hide when scrolled back above viewport so fade replays on scroll up
+            e.target.classList.remove("in-view");
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  return null;
 }
 
 /* ==================== LIGHTNING NODES BACKGROUND ====================
