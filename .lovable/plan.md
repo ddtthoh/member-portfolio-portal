@@ -1,25 +1,37 @@
-## 修复：把 box header 字体换回 Cormorant Garamond
+## 目标
+修复 `/portal/landing-page` 下载的 PNG / PDF：内容只占左侧 ~33%、gold 渐变文字渲染成实心金块、字体/QR 偶发错位。一次性把已知 3 个根因全部解决。
 
-### 根因
-Git 显示 `4e1b311` 这次改动把 `src/styles.css` 第 11 行的 `--font-serif` 从 `Cormorant Garamond` 改成了 `Fraunces`。所有 `font-serif` 的元素（box title、page header、tier 名 "Diamond" 等）都跟着换了字。和我上一轮的 light mode 颜色调整无关 — 是更早的一次改动。
+## 改动范围（仅前端，不动业务逻辑）
+只修改 `src/routes/portal.landing-page.tsx` 的 `captureCanvas` 函数，必要时给 `MobilePoster` 加一个"导出模式"的 className 钩子。**不改 `MobilePoster` 的视觉设计**。
 
-### 改动（只一行）
-**`src/styles.css` 第 11 行**
+## 三个根因 → 对应修复
 
-改回：
-```css
---font-serif: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+### 1. 内容只占 ~33% 宽
+**因**：`FitPoster` 用 `transform: scale(0.33)` 缩小预览，`previewRef` 指向被 transform 包住的 1080px 元素。html2canvas 读取的 bounding rect 是缩放后的尺寸。
+**修**：在 `captureCanvas` 里临时把 `previewRef.current.style.transform = "none"`，捕获后再还原。配合已有的 `width: 1080 / windowWidth: 1080`，输出就是真正的 1080×完整高度。
+
+### 2. Gold 渐变文字变成实心金块
+**因**：`MobilePoster` 用 `background-clip: text + color: transparent` 实现金色渐变，html2canvas-pro 对此支持仍不稳定。
+**修**：捕获前给 `.poster-root` 加 `data-exporting="true"`，在 `marketing-theme.css` 加一段：
 ```
+[data-exporting="true"] .text-gold-shine,
+[data-exporting="true"] .gold-gradient-text {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--gold) !important;
+}
+```
+导出后移除属性，预览不受影响。
 
-### 顺带可选清理（不做也行）
-`src/routes/__root.tsx` 第 48 行的 Google Fonts URL 现在还在加载 Fraunces。如果确认不再用，可以从 URL 里删 `family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&` 这一段，省一点字体下载。
-- **不删也没问题**：Fraunces 只是被加载但未使用，不会再出现在页面上。
-- **建议先只改 styles.css 一行**，确认视觉对了再决定要不要清理 fonts URL。
+### 3. 字体/QR 偶发错位
+**修**：捕获前 `await document.fonts.ready`，并对 `target` 内所有 `<img>` 的 `decode()` 全部 await（已部分实现，补全）。
 
-### 不改的东西
-- `portal-ui.tsx`、`page-header.tsx` — 一行不动
-- 上一轮的 light mode 颜色 token — 保留（你之前要求的"light mode 文字看得清"）
-- `.dark` block — 完全不动
+## 验证方式（不再让你来回试）
+我会在改完后自己运行一次：
+- 在 sandbox 里 import `html2canvas-pro` 不可行，所以改为：在 dev preview 里点击 Download PNG，把生成的 blob 通过 console 打到 base64，下载到 `/mnt/documents/qa.png`，用 PIL 检查（a）画布宽度 = 2160（scale:2 × 1080），（b）非空像素水平占比 > 90%，（c）随机采样 gold 文字区域不是纯色矩形。
 
-### 验证
-改完截图 /portal 一张，确认 box header 字看起来回到圆润的 Cormorant Garamond 而不是更厚实的 Fraunces。
+如果任意一项不达标，我当轮继续修，不交还给你。
+
+## 风险声明
+仍可能出错的少数情况：自定义 webfont CDN 拉取失败 / 浏览器版本差异。如果发生，会在同一轮里降级为 `<canvas>` + 手绘文字方案，但基于你当前的代码结构，预期不会触发。
