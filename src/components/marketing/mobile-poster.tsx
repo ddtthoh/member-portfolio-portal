@@ -338,7 +338,7 @@ export function MobilePoster({
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     whiteSpace: "nowrap",
-                    ...gold(),
+                    ...gold("default", theme),
                   }}
                 >
                   {tier.monthly.replace(/\s+/g, "\u00A0")}
