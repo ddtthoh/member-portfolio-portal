@@ -453,7 +453,7 @@ export function MobilePoster({
                     ...gold("default", theme, exportMode),
                   }}
                 >
-                  {tier.monthly.replace(/\s+/g, "\u00A0")}
+                  <NumRange from={tier.monthlyFrom} to={tier.monthlyTo} unit="%" />
                 </div>
 
                 {/* Daily — secondary, single-line */}
