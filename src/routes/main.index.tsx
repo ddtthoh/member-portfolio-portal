@@ -50,12 +50,21 @@ function HomePage() {
         <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
 
         <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-28">
-          <h1 style={{ fontFamily: "var(--font-display)" }} className="text-[clamp(3rem,11vw,11rem)] font-light leading-[0.92] tracking-[-0.05em]">
+          <h1 className="m-h1">
             <SplitLines text="Where Luxury Meets" className="lg-tagline block" />
             <SplitLines text="Decentralized Innovation" className="lg-tagline mt-1 block" delay={400} />
           </h1>
         </div>
       </section>
+
+      {/* SIGNATURE MOMENT — logo dissolves into NCT particles */}
+      <ClientOnly>
+        <MountInView rootMargin="40% 0px" minHeight="100vh" fallback={<div className="h-screen" />}>
+          <Suspense fallback={<div className="h-screen" />}>
+            <SignatureDissolve />
+          </Suspense>
+        </MountInView>
+      </ClientOnly>
 
       {/* SIGNATURE MOMENT — logo dissolves into NCT particles */}
       <ClientOnly>
