@@ -111,27 +111,21 @@ function MyLandingPage() {
                 {inviteUrl}
               </span>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={openFull}
-              className="text-gold hover:bg-gold/10 hover:text-gold"
-            >
-              <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-              Open
-            </Button>
+            <span className="text-[10px] uppercase tracking-[0.22em] text-gold/60">
+              Live Preview
+            </span>
           </div>
 
           <div className="relative w-full overflow-hidden bg-[#050403] p-4">
-            <div className="mx-auto" style={{ maxWidth: 540 }}>
+            <div className="mx-auto w-full">
               <div
                 ref={previewRef}
                 style={{
                   width: "1080px",
-                  transform: "scale(var(--lp-scale, 0.5))",
+                  transform: "scale(var(--lp-scale, 0.55))",
                   transformOrigin: "top left",
                 }}
-                className="[--lp-scale:0.34] sm:[--lp-scale:0.42] lg:[--lp-scale:0.5]"
+                className="[--lp-scale:0.42] sm:[--lp-scale:0.55] md:[--lp-scale:0.62] lg:[--lp-scale:0.5] xl:[--lp-scale:0.62]"
               >
                 <MobilePoster memberId={memberId} />
               </div>
