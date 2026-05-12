@@ -40,7 +40,7 @@ function sampleTorusPoints(count: number, R = 1.4, r = 0.45) {
 }
 
 function ParticleMorph({ progress }: { progress: React.MutableRefObject<number> }) {
-  const COUNT = 1400;
+  const COUNT = 600;
   const ref = useRef<THREE.Points>(null);
 
   const { posA, posB, current, sizes } = useMemo(() => {
