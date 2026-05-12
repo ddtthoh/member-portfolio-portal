@@ -1,71 +1,49 @@
-## 排查结论
+## Goal
+Refine numeral typography ONLY on the mobile invite poster (`src/components/marketing/mobile-poster.tsx`). No other pages, no other components, no logic/data changes.
 
-你上传的导出文件确认仍然是坏的：
+## Scope (where numbers appear)
+1. Hero stats row — `0.45%`, `13.5%`, `24/7` with small-caps labels
+2. Tier cards — Monthly range `4.5 – 7.5%` and Daily range `0.15 – 0.25%` (Standard / Advance / Premium)
+3. Inline copy — "From 4.5% to 13.5% a month."
 
-- PNG 只有 `417 × 1920`，这是被浏览器/预览缩放后的下载结果，不是稳定的 1080px 海报级导出。
-- PDF 页面是 `2880 × 13256`，说明 PDF 是从一个错误/不稳定的 canvas 再塞进 PDF 的。
-- 大块金色矩形不是普通图片问题，而是 `MobilePoster` 里大量 `background-clip: text + color: transparent` 的 inline style 被 html2canvas 渲染失败造成的。
-- 上一次只给 CSS class 加了导出 override，但核心金色文字实际来自 `style={gold(...)}` inline style，所以 CSS override 根本覆盖不到这些 inline gradient text。
-- 字体风险也存在：海报依赖远程 Google fonts，导出时 html2canvas 等字体就绪并不等于字体已经稳定用于克隆节点。
+## Numeral treatment (Manuscript Classic)
+For every numeric value above, render with this structure:
 
-## 彻底解决方案
+- **Integer part** at base size (current size kept), serif, gold
+- **Decimal `.NN`** at ~55–60% of the integer size, same serif, same color, slightly tighter letter-spacing
+- **`%` sign** at ~45–50% of integer size, lowered opacity (~80%), small left margin
+- **Range separator** changes from current dash to an italic em-dash `—` at ~70% size, opacity 40%, with `mx` spacing
+- **`24/7`** — slash rendered at ~60% size, opacity 60%, with `px-1`
+- **Inline copy** — decimals use `align-top` superscript style at ~40% size, integers at base, `%` follows integer at base
 
-### 1. 不再捕获缩放预览节点
+Add `font-feature-settings: "lnum" 1, "tnum" 1` (lining + tabular figures) on the numeric spans for clean alignment.
 
-把导出改成“专用离屏导出节点”：
+Keep current font family (existing serif) and current gold color tokens — no new fonts, no new colors, no gradient ramps. This guarantees html2canvas export stability we just fixed.
 
-- 点击 Download PNG/PDF 时，临时在 `document.body` 里挂载一个固定 `1080px` 宽、未缩放、不可见但可渲染的导出容器。
-- 在这个容器里重新渲染 `<MobilePoster />`。
-- html2canvas 只捕获这个离屏节点，不再捕获右侧预览里被 `transform: scale(...)` 包住的节点。
+## Implementation
+Add a small internal helper inside `mobile-poster.tsx`:
 
-这样可以彻底绕开预览缩放、容器裁切、当前 viewport 尺寸对导出的影响。
+```text
+<Num value="13.5" unit="%" />
+<NumRange from="4.5" to="7.5" unit="%" />
+<NumRatio left="24" right="7" />
+```
 
-### 2. 给 MobilePoster 做真正的 export mode
+Each helper outputs the spans with the size/opacity hierarchy above. Both preview and `exportMode` produce the same DOM (only font/color resolution differs, which `exportMode` already handles).
 
-给 `MobilePoster` 增加一个 `exportMode` prop，导出专用节点传 `exportMode`：
+Replace the existing inline numeric JSX in:
+- Hero stats block
+- Each tier card's monthly + daily lines
+- The "From X% to Y% a month." sentence
 
-- `gold(...)` 在 exportMode 下不再返回 `backgroundImage/backgroundClip/color: transparent`。
-- 改为 html2canvas 稳定支持的纯色金色 `color`。
-- 只影响 PNG/PDF 导出，不改变页面预览的正常视觉。
+## Files changed
+- `src/components/marketing/mobile-poster.tsx` (only)
 
-这是这次金色大块的关键修复点。
+## Out of scope
+- No changes to `portal.landing-page.tsx`, other portal pages, dashboard, or shared number formatting.
+- No data, no i18n, no business logic.
 
-### 3. 固定导出字体，避免远程字体等待失败
-
-在 exportMode 下使用系统内置稳定字体组合，避免远程字体加载/克隆时失效：
-
-- serif 标题用 `Georgia, Times New Roman, serif`
-- body 用 `Arial / Helvetica / system-ui`
-
-导出版本会保持高级 serif/sans 风格，但不依赖网络字体，防止再次出现字体变粗、错位、替换字体导致的 layout 改变。
-
-### 4. 等待导出节点完全稳定后再截图
-
-导出流程会：
-
-- 等待 React 离屏节点 mount 完成
-- 等待 `document.fonts.ready`
-- 等待 QR 和 logo 图片 `decode()` 完成
-- 再等 2 个 `requestAnimationFrame`，确保 layout/paint 完成
-- 然后调用 html2canvas
-
-### 5. PNG/PDF 输出尺寸统一
-
-- PNG 输出：固定 `2160px` 宽，也就是 `1080 × scale 2`。
-- PDF 输出：直接使用同一个 canvas 尺寸，不再使用任何预览尺寸。
-
-### 6. 验证方式
-
-实现后我会用自动检查确认：
-
-- 导出 canvas 宽度为 `2160px`
-- 页面内容横向占比正常，不再只是一小块/被缩放
-- 上传图中那几段大金色矩形不会再出现
-- PDF 页面由同一张正确 canvas 生成
-
-## 改动文件
-
-- `src/components/marketing/mobile-poster.tsx`
-- `src/routes/portal.landing-page.tsx`
-
-不动数据库，不动登录逻辑，不改其它页面。
+## Verification
+1. Visual check of `/portal/landing-page` preview — hero, all 3 tier cards, inline sentence
+2. Trigger Download PNG — confirm numerals render identically (exportMode keeps solid gold + system serif we set previously)
+3. Trigger Download PDF — same check
