@@ -43,24 +43,71 @@ function MyLandingPage() {
   const captureCanvas = async () => {
     const target = previewRef.current?.querySelector(".poster-root") as HTMLElement | null;
     if (!target) throw new Error("Poster not ready");
+
+    // Pre-fetch any external (CORS) images and inline them as data URLs so
+    // html2canvas doesn't taint the canvas (which would make toDataURL throw
+    // and produce a corrupt download).
+    const externals = Array.from(target.querySelectorAll("img")) as HTMLImageElement[];
+    const originals = new Map<HTMLImageElement, string>();
+    await Promise.all(
+      externals.map(async (img) => {
+        try {
+          const src = img.currentSrc || img.src;
+          if (!src || src.startsWith("data:")) return;
+          const res = await fetch(src, { mode: "cors", cache: "force-cache" });
+          if (!res.ok) return;
+          const blob = await res.blob();
+          const dataUrl: string = await new Promise((resolve, reject) => {
+            const fr = new FileReader();
+            fr.onload = () => resolve(fr.result as string);
+            fr.onerror = reject;
+            fr.readAsDataURL(blob);
+          });
+          originals.set(img, img.src);
+          img.crossOrigin = "anonymous";
+          img.src = dataUrl;
+          await img.decode().catch(() => undefined);
+        } catch {
+          /* ignore — html2canvas will skip tainted images */
+        }
+      }),
+    );
+
     const html2canvas = (await import("html2canvas-pro")).default;
-    return html2canvas(target, {
-      backgroundColor: theme === "light" ? "#fbf6ea" : "#050403",
-      scale: 2,
-      width: 1080,
-      windowWidth: 1080,
-      windowHeight: target.scrollHeight,
-    });
+    try {
+      return await html2canvas(target, {
+        backgroundColor: theme === "light" ? "#ffffff" : "#050403",
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
+        logging: false,
+        width: 1080,
+        windowWidth: 1080,
+        windowHeight: target.scrollHeight,
+      });
+    } finally {
+      // restore original src
+      originals.forEach((src, img) => {
+        img.src = src;
+      });
+    }
   };
 
   const downloadPNG = async () => {
     toast.loading("Generating PNG...", { id: "png" });
     try {
       const canvas = await captureCanvas();
+      const blob: Blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob failed"))), "image/png"),
+      );
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.download = `naslab-invite-${memberId}.png`;
-      link.href = canvas.toDataURL("image/png");
+      link.href = url;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
       toast.success("PNG downloaded", { id: "png" });
     } catch (e) {
       console.error(e);
@@ -73,8 +120,6 @@ function MyLandingPage() {
     try {
       const canvas = await captureCanvas();
       const { jsPDF } = await import("jspdf");
-      // Use canvas pixel dimensions as the PDF page size so the poster lives
-      // on ONE continuous page (no A4 slicing).
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "px",
