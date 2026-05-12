@@ -480,7 +480,7 @@ export function MobilePoster({
                       color: t.goldStrong,
                     }}
                   >
-                    {tier.daily.replace(/\s+/g, "\u00A0")}
+                    <NumRange from={tier.dailyFrom} to={tier.dailyTo} unit="%" />
                   </div>
                 </div>
 
