@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
@@ -115,10 +115,57 @@ export function InviteLandingContent({
         <ThreeBackground />
       </div>
       <LightningNodes theme={theme} />
-      <div className="relative z-10 mx-auto" style={{ maxWidth: 1080 }}>
+      <ResponsiveInvitePoster>
         <MobilePoster memberId={memberId} theme={theme} animate />
-      </div>
+      </ResponsiveInvitePoster>
       <ScrollRevealFallback />
+    </div>
+  );
+}
+
+function ResponsiveInvitePoster({ children }: { children: ReactNode }) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const [layout, setLayout] = useState({ scale: 1, height: 0 });
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const inner = innerRef.current;
+    if (!wrap || !inner) return;
+
+    const compute = () => {
+      const available = Math.min(window.innerWidth, wrap.clientWidth || window.innerWidth);
+      const scale = Math.min(1, available / 1080);
+      setLayout({ scale, height: Math.ceil(inner.scrollHeight * scale) });
+    };
+
+    compute();
+    const raf = requestAnimationFrame(compute);
+    const ro = new ResizeObserver(compute);
+    ro.observe(wrap);
+    ro.observe(inner);
+    window.addEventListener("resize", compute);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="relative z-10 mx-auto w-full overflow-hidden" style={{ maxWidth: 1080 }}>
+      <div style={{ height: layout.height || undefined }}>
+        <div
+          ref={innerRef}
+          style={{
+            width: 1080,
+            transform: `scale(${layout.scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
