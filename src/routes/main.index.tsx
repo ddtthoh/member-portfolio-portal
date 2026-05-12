@@ -39,15 +39,8 @@ function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative -mt-20 h-screen min-h-[680px] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <ClientOnly>
-            <Suspense fallback={<HeroFallback />}>
-              <Hero3D />
-            </Suspense>
-          </ClientOnly>
-        </div>
-        <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
+      <section className="relative -mt-20 h-screen min-h-[680px] overflow-hidden bg-[#06070b]">
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,rgba(255,170,80,0.18)_0%,transparent_55%),radial-gradient(ellipse_at_center,transparent_30%,#06070b_85%)]" />
 
         <div className="absolute inset-x-0 bottom-20 z-10 flex flex-col items-center gap-6 px-6 text-center md:bottom-28">
           <h1 className="m-h1">
