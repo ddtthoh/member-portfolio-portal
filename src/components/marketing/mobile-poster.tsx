@@ -104,7 +104,7 @@ export function MobilePoster({
             />
           </div>
           <div className="text-left">
-            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold()}>
+            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold("default", theme)}>
               NASLAB
             </div>
             <div
