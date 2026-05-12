@@ -404,8 +404,10 @@ export function MobilePoster({
               className="mt-6 font-serif font-black"
               style={{
                 fontSize: "84px",
-                lineHeight: 1.15,
-                paddingBottom: "0.16em",
+                lineHeight: 1.25,
+                paddingBottom: "0.28em",
+                paddingLeft: "0.06em",
+                overflow: "visible",
                 ...gold("strong"),
               }}
             >
@@ -486,6 +488,9 @@ export function MobilePoster({
                   </div>
                 </div>
 
+                <div className="mt-4">
+                  <Stat label="Member" value={`#${memberId}`} theme={theme} />
+                </div>
 
                 <div
                   className="mt-7 inline-flex items-center gap-3 rounded-full px-9 py-4 text-[18px] font-bold"
