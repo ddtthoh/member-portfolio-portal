@@ -1,8 +1,106 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, type CSSProperties } from "react";
 import logoMark from "@/assets/participant-portal-logo.png";
 import { CountUp } from "@/components/count-up";
 
 type Theme = "light" | "dark";
+
+/* =========================================================================
+ * Editorial numeral helpers — "Manuscript Classic"
+ * Used ONLY in the mobile poster. Hierarchy: integer base, decimal ~58%,
+ * unit ~50% with softened opacity, italic em-dash range separator.
+ * Uses lining + tabular figures for clean alignment.
+ * ========================================================================= */
+const numFigStyle: CSSProperties = {
+  fontFeatureSettings: '"lnum" 1, "tnum" 1',
+  fontVariantNumeric: "lining-nums tabular-nums",
+};
+
+function NumParts({
+  value,
+  unit,
+  decimalScale = 0.58,
+  unitScale = 0.5,
+}: {
+  value: string;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+}) {
+  const [whole, frac] = String(value).split(".");
+  return (
+    <>
+      <span>{whole}</span>
+      {frac !== undefined && (
+        <span style={{ fontSize: `${decimalScale}em`, letterSpacing: "-0.01em" }}>
+          .{frac}
+        </span>
+      )}
+      {unit && (
+        <span style={{ fontSize: `${unitScale}em`, opacity: 0.85, marginLeft: "0.08em" }}>
+          {unit}
+        </span>
+      )}
+    </>
+  );
+}
+
+function FancyNum(props: {
+  value: string | number;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+}) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <NumParts {...props} value={String(props.value)} />
+    </span>
+  );
+}
+
+function NumRange({
+  from,
+  to,
+  unit,
+  decimalScale = 0.58,
+  unitScale = 0.5,
+  sepScale = 0.7,
+}: {
+  from: string;
+  to: string;
+  unit?: string;
+  decimalScale?: number;
+  unitScale?: number;
+  sepScale?: number;
+}) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <NumParts value={from} decimalScale={decimalScale} />
+      <span
+        style={{
+          margin: "0 0.32em",
+          fontSize: `${sepScale}em`,
+          opacity: 0.45,
+          fontStyle: "italic",
+          display: "inline-block",
+          transform: "translateY(-0.06em)",
+        }}
+      >
+        —
+      </span>
+      <NumParts value={to} unit={unit} decimalScale={decimalScale} unitScale={unitScale} />
+    </span>
+  );
+}
+
+function NumRatio({ left, right, slashScale = 0.6 }: { left: string; right: string; slashScale?: number }) {
+  return (
+    <span style={{ ...numFigStyle, whiteSpace: "nowrap" }}>
+      <span>{left}</span>
+      <span style={{ fontSize: `${slashScale}em`, opacity: 0.55, margin: "0 0.12em" }}>/</span>
+      <span>{right}</span>
+    </span>
+  );
+}
 
 /**
  * MobilePoster — single-piece, 1080px-wide vertical poster.
@@ -48,9 +146,9 @@ export function MobilePoster({
   };
 
   const tiers = [
-    { name: "STANDARD", daily: "0.15 – 0.25%", monthly: "4.5 – 7.5%", tagline: "An entry into algorithmic yield." },
-    { name: "ADVANCE", daily: "0.25 – 0.35%", monthly: "7.5 – 10.5%", tagline: "For the patient compounder." },
-    { name: "PREMIUM", daily: "0.35 – 0.45%", monthly: "10.5 – 13.5%", tagline: "Institutional-tier execution." },
+    { name: "STANDARD", dailyFrom: "0.15", dailyTo: "0.25", monthlyFrom: "4.5", monthlyTo: "7.5", tagline: "An entry into algorithmic yield." },
+    { name: "ADVANCE",  dailyFrom: "0.25", dailyTo: "0.35", monthlyFrom: "7.5", monthlyTo: "10.5", tagline: "For the patient compounder." },
+    { name: "PREMIUM",  dailyFrom: "0.35", dailyTo: "0.45", monthlyFrom: "10.5", monthlyTo: "13.5", tagline: "Institutional-tier execution." },
   ];
 
   const focus = [
@@ -186,9 +284,9 @@ export function MobilePoster({
           }}
         >
           {[
-            { v: 0.45, decimals: 2, suffix: "%", l: "Daily peak ROI" },
-            { v: 13.5, decimals: 1, suffix: "%", l: "Monthly peak ROI" },
-            { v: 24, decimals: 0, suffix: "/7", l: "AI Execution" },
+            { v: 0.45, decimals: 2, suffix: "%", l: "Daily peak ROI", kind: "num" as const },
+            { v: 13.5, decimals: 1, suffix: "%", l: "Monthly peak ROI", kind: "num" as const },
+            { v: 24, decimals: 0, suffix: "/7", l: "AI Execution", kind: "ratio" as const },
           ].map((s) => (
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
@@ -197,8 +295,10 @@ export function MobilePoster({
               >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
+                ) : s.kind === "ratio" ? (
+                  <NumRatio left="24" right="7" />
                 ) : (
-                  `${s.v.toFixed(s.decimals)}${s.suffix}`
+                  <FancyNum value={s.v.toFixed(s.decimals)} unit="%" />
                 )}
               </div>
               <div
@@ -287,7 +387,7 @@ export function MobilePoster({
         <div className="text-center">
           <Eyebrow theme={theme}>Estimated Returns</Eyebrow>
           <H2 theme={theme} exportMode={exportMode}>
-            From <span style={gold("default", theme, exportMode)}>4.5%</span> to <span style={gold("default", theme, exportMode)}>13.5%</span> a month.
+            From <span style={gold("default", theme, exportMode)}><FancyNum value="4.5" unit="%" /></span> to <span style={gold("default", theme, exportMode)}><FancyNum value="13.5" unit="%" /></span> a month.
           </H2>
           <Filigree className="mt-8" />
           <p
@@ -353,7 +453,7 @@ export function MobilePoster({
                     ...gold("default", theme, exportMode),
                   }}
                 >
-                  {tier.monthly.replace(/\s+/g, "\u00A0")}
+                  <NumRange from={tier.monthlyFrom} to={tier.monthlyTo} unit="%" />
                 </div>
 
                 {/* Daily — secondary, single-line */}
@@ -380,7 +480,7 @@ export function MobilePoster({
                       color: t.goldStrong,
                     }}
                   >
-                    {tier.daily.replace(/\s+/g, "\u00A0")}
+                    <NumRange from={tier.dailyFrom} to={tier.dailyTo} unit="%" />
                   </div>
                 </div>
 
