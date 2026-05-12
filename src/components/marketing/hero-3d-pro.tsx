@@ -1,14 +1,8 @@
 import { useMemo, useRef, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, Environment, ContactShadows } from "@react-three/drei";
-import {
-  EffectComposer,
-  Bloom,
-  ChromaticAberration,
-  Vignette,
-  DepthOfField,
-} from "@react-three/postprocessing";
-import { BlendFunction, KernelSize } from "postprocessing";
+import { Float } from "@react-three/drei";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
+import { KernelSize } from "postprocessing";
 import * as THREE from "three";
 
 /* ============ Build N shape ============ */
