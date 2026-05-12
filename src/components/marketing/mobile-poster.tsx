@@ -527,7 +527,7 @@ function palette(theme: Theme) {
   if (theme === "light") {
     return {
       pageBg:
-        "radial-gradient(120% 70% at 50% 0%, #fdf6e6 0%, #f6efe1 35%, #efe7d6 100%)",
+        "linear-gradient(180deg,#f4ede0 0%,#efe7d6 100%)",
       surface: "linear-gradient(180deg,#ffffff 0%,#faf3e2 100%)",
       surfaceDeep: "#fbf6ea",
       cardBg: "linear-gradient(135deg,#fff8e8 0%,#fbf3df 60%,#f6ecd2 100%)",
