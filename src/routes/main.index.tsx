@@ -390,13 +390,6 @@ function HomePage() {
   );
 }
 
-function HeroFallback() {
-  return (
-    <div className="relative h-full w-full bg-[#06070b]">
-      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-gold/40 to-transparent blur-3xl" />
-    </div>
-  );
-}
 
 function SectionShell({ children, tight }: { children: React.ReactNode; tight?: boolean }) {
   return (
