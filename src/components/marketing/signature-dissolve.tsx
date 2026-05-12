@@ -166,7 +166,6 @@ export function SignatureDissolve() {
             dpr={[1, 1.25]}
             camera={{ position: [0, 0, 5.2], fov: 42 }}
             gl={{ antialias: false, alpha: false, powerPreference: "high-performance" }}
-            frameloop="demand"
           >
             <Scene progress={progress} />
           </Canvas>
