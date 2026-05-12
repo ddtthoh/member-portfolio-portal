@@ -376,7 +376,7 @@ function Divider() {
   );
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <div className="text-[14px] font-semibold uppercase tracking-[0.4em] text-[#d4aa50]/80">
       {children}
@@ -384,7 +384,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function H2({ children }: { children: React.ReactNode }) {
+function H2({ children }: { children: ReactNode }) {
   return (
     <h2
       className="mt-5 font-serif font-bold leading-[1.1]"
