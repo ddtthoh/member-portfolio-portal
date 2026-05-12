@@ -416,14 +416,15 @@ export function MobilePoster({
           <div className="relative">
             <Eyebrow theme={theme}>Start Your Journey</Eyebrow>
             <h2
-              className="mt-6 font-serif"
+              className="mt-6"
               style={{
+                fontFamily: "var(--font-display)",
                 fontWeight: 700,
-                fontSize: "82px",
-                lineHeight: 1.2,
-                letterSpacing: "-0.01em",
-                paddingBottom: "0.22em",
-                paddingLeft: "0.06em",
+                fontSize: "78px",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                paddingBottom: "0.18em",
+                paddingLeft: "0.02em",
                 overflow: "visible",
                 ...gold("strong"),
               }}

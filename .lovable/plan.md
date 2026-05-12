@@ -1,9 +1,7 @@
-恢复原来的 Fraunces serif 字体，真正修掉 J 变形。
+我查到问题点了：`Join Naslab Today` 这个标题现在用的是全局 `.font-serif`，变量写的是 `Fraunces/Cormorant Garamond`，但项目里没有实际加载这些字体，所以浏览器会 fallback 到系统 serif。这个 fallback 字体的大写 J 在当前 `font-black + 84px + 金色 background-clip` 下笔画很怪，尤其在 portal 预览被缩放后更明显。之前改的是 padding/overflow，没有解决根因。
 
-根因：`src/routes/__root.tsx` 里 Google Fonts 链接只加载了 Fraunces 的 300/400/500/600 字重，但 CTA 标题用了 `font-black`(900)，浏览器只能"合成加粗"出来，serif 的 J 弧线就被压扁/扭曲了。
-
-修复（两处小改）：
-1. `src/routes/__root.tsx`：把 Fraunces 字重补全为 `300;400;500;600;700;800;900`，这样 700/900 是真字体而不是合成。
-2. `src/components/marketing/mobile-poster.tsx` 的 `Join Naslab Today` 标题：恢复 `font-serif`（Fraunces），把字重从 `font-black` 调成 `fontWeight: 700`（视觉上够重又不会再让 J 失真），保留金色渐变和正确的 padding/overflow 防止裁切。
-
-不动其它任何文件。
+计划：
+1. 只改 `src/components/marketing/mobile-poster.tsx` 里这个 CTA 标题，不影响其他标题。
+2. 把 `font-serif font-black` 换成项目已有的 `--font-display` 视觉风格，并用 `fontWeight: 700/800`、正常 letter spacing、稳定 line-height，避免 J 的 serif fallback 变形。
+3. 保留金色渐变和原 CTA 结构，只让标题更干净、更像品牌字标。
+4. 同步确保 `/portal/landing-page` 的缩放预览和 `/invite/:memberId` full page 都使用同一个修复后的标题。
