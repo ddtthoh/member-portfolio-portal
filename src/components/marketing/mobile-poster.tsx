@@ -104,7 +104,7 @@ export function MobilePoster({
             />
           </div>
           <div className="text-left">
-            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold()}>
+            <div className="font-serif text-4xl font-bold tracking-[0.22em]" style={gold("default", theme)}>
               NASLAB
             </div>
             <div
@@ -135,7 +135,7 @@ export function MobilePoster({
             fontSize: "128px",
             lineHeight: 1.05,
             paddingBottom: "0.12em",
-            ...gold("strong"),
+            ...gold("strong", theme),
             textShadow: "0 8px 80px rgba(212,170,80,0.45)",
           }}
         >
@@ -181,7 +181,7 @@ export function MobilePoster({
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
               <div
                 className="font-serif text-[60px] font-bold leading-none"
-                style={gold()}
+                style={gold("default", theme)}
               >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
@@ -247,7 +247,7 @@ export function MobilePoster({
               <div className="relative flex items-start gap-8">
                 <div
                   className="font-serif text-[96px] font-black leading-none"
-                  style={gold("dark")}
+                  style={gold("dark", theme)}
                 >
                   {f.n}
                 </div>
@@ -275,7 +275,7 @@ export function MobilePoster({
         <div className="text-center">
           <Eyebrow theme={theme}>Estimated Returns</Eyebrow>
           <H2 theme={theme}>
-            From <span style={gold()}>4.5%</span> to <span style={gold()}>13.5%</span> a month.
+            From <span style={gold("default", theme)}>4.5%</span> to <span style={gold("default", theme)}>13.5%</span> a month.
           </H2>
           <Filigree className="mt-8" />
           <p
@@ -311,7 +311,7 @@ export function MobilePoster({
               <div className="relative">
                 <div
                   className="mx-auto mt-2 font-serif text-[30px] font-black tracking-[0.22em]"
-                  style={gold()}
+                  style={gold("default", theme)}
                 >
                   {tier.name}
                 </div>
@@ -338,7 +338,7 @@ export function MobilePoster({
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
                     whiteSpace: "nowrap",
-                    ...gold(),
+                    ...gold("default", theme),
                   }}
                 >
                   {tier.monthly.replace(/\s+/g, "\u00A0")}
@@ -423,7 +423,7 @@ export function MobilePoster({
                 paddingBottom: "0.28em",
                 paddingLeft: "0.06em",
                 overflow: "visible",
-                ...gold("strong"),
+                ...gold("strong", theme),
               }}
             >
               Join Naslab Today
@@ -602,12 +602,18 @@ function palette(theme: Theme) {
 
 /* ─────────────── helpers ─────────────── */
 
-function gold(variant: "default" | "strong" | "dark" = "default") {
-  const grads = {
+function gold(variant: "default" | "strong" | "dark" = "default", theme: Theme = "dark") {
+  const dark = {
     default: "linear-gradient(180deg,#fff5d4 0%,#e6c473 55%,#9c7322 100%)",
     strong: "linear-gradient(180deg,#fff8dc 0%,#f0cf7a 28%,#c79a3e 62%,#7a5818 100%)",
     dark: "linear-gradient(180deg,#f0cf7a 0%,#9c7322 100%)",
   };
+  const light = {
+    default: "linear-gradient(180deg,#a87825 0%,#7a5818 55%,#4a3408 100%)",
+    strong: "linear-gradient(180deg,#b88528 0%,#8d6620 45%,#5a3f0d 100%)",
+    dark: "linear-gradient(180deg,#7a5818 0%,#3d2b06 100%)",
+  };
+  const grads = theme === "light" ? light : dark;
   return {
     background: grads[variant],
     WebkitBackgroundClip: "text" as const,
@@ -930,11 +936,10 @@ function Eyebrow({ children, theme }: { children: ReactNode; theme: Theme }) {
 }
 
 function H2({ children, theme }: { children: ReactNode; theme: Theme }) {
-  void theme;
   return (
     <h2
       className="mt-5 font-serif font-bold leading-[1.1]"
-      style={{ fontSize: "64px", ...gold() }}
+      style={{ fontSize: "64px", ...gold("default", theme) }}
     >
       {children}
     </h2>
