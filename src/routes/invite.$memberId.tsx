@@ -78,12 +78,122 @@ export function InviteLandingContent({
 
   return (
     <div
-      className="landing-root min-h-screen w-full overflow-x-hidden"
+      className="landing-root relative min-h-screen w-full overflow-x-hidden"
       style={{ background: bg }}
     >
-      <div className="mx-auto" style={{ maxWidth: 1080 }}>
+      <LightningNodes theme={theme} />
+      <div className="relative mx-auto" style={{ maxWidth: 1080 }}>
         <MobilePoster memberId={memberId} theme={theme} animate />
       </div>
+    </div>
+  );
+}
+
+/* ==================== LIGHTNING NODES BACKGROUND ====================
+ * Subtle animated constellation behind the poster. Kept low-opacity so it
+ * never competes with text. Sits behind the 1080px poster column and is
+ * only really visible in the side gutters on wide screens. */
+function LightningNodes({ theme }: { theme: "light" | "dark" }) {
+  const nodeColor = theme === "light" ? "rgba(122,88,24,0.55)" : "rgba(240,207,122,0.7)";
+  const lineColor = theme === "light" ? "rgba(122,88,24,0.18)" : "rgba(240,207,122,0.22)";
+  const boltColor = theme === "light" ? "rgba(199,154,62,0.85)" : "rgba(255,235,170,0.95)";
+  // Deterministic node positions (percent-based so it scales with viewport).
+  const nodes = [
+    [6, 8], [14, 22], [4, 38], [10, 55], [18, 70], [7, 86], [22, 92],
+    [94, 6], [86, 18], [96, 32], [88, 48], [94, 64], [82, 78], [92, 90],
+    [30, 4], [70, 3], [50, 96],
+  ] as const;
+  const links: [number, number][] = [
+    [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[1,3],
+    [7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[8,10],
+    [14,7],[15,0],[6,16],[13,16],
+  ];
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      style={{ opacity: theme === "light" ? 0.45 : 0.6 }}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        preserveAspectRatio="none"
+        style={{ position: "absolute", inset: 0 }}
+      >
+        <defs>
+          <filter id="ln-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        {links.map(([a, b], i) => {
+          const [x1, y1] = nodes[a];
+          const [x2, y2] = nodes[b];
+          return (
+            <line
+              key={i}
+              x1={`${x1}%`}
+              y1={`${y1}%`}
+              x2={`${x2}%`}
+              y2={`${y2}%`}
+              stroke={lineColor}
+              strokeWidth={0.8}
+              strokeDasharray="3 6"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to="-90"
+                dur={`${8 + (i % 5)}s`}
+                repeatCount="indefinite"
+              />
+            </line>
+          );
+        })}
+        {nodes.map(([x, y], i) => (
+          <g key={i} filter="url(#ln-glow)">
+            <circle cx={`${x}%`} cy={`${y}%`} r={1.6} fill={nodeColor}>
+              <animate
+                attributeName="opacity"
+                values="0.35;1;0.35"
+                dur={`${3 + (i % 4)}s`}
+                begin={`${(i % 6) * 0.4}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+          </g>
+        ))}
+        {/* occasional bolt flashes between paired nodes */}
+        {[[0, 7], [6, 13], [14, 15]].map(([a, b], i) => {
+          const [x1, y1] = nodes[a];
+          const [x2, y2] = nodes[b];
+          return (
+            <line
+              key={`bolt-${i}`}
+              x1={`${x1}%`}
+              y1={`${y1}%`}
+              x2={`${x2}%`}
+              y2={`${y2}%`}
+              stroke={boltColor}
+              strokeWidth={1.2}
+              strokeLinecap="round"
+              opacity={0}
+              filter="url(#ln-glow)"
+            >
+              <animate
+                attributeName="opacity"
+                values="0;0;0.9;0;0"
+                dur="7s"
+                begin={`${i * 2.3}s`}
+                repeatCount="indefinite"
+              />
+            </line>
+          );
+        })}
+      </svg>
     </div>
   );
 }
