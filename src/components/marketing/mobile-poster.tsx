@@ -557,13 +557,13 @@ function palette(theme: Theme) {
   if (theme === "light") {
     return {
       pageBg:
-        "linear-gradient(180deg,#f4ede0 0%,#efe7d6 100%)",
-      surface: "linear-gradient(180deg,#ffffff 0%,#faf3e2 100%)",
-      surfaceDeep: "#fbf6ea",
-      cardBg: "linear-gradient(135deg,#fff8e8 0%,#fbf3df 60%,#f6ecd2 100%)",
-      tierBg: "linear-gradient(180deg,#fff8e6 0%,#fbf2dc 60%,#f4e9cb 100%)",
-      ctaBg: "linear-gradient(135deg,#fff8e8 0%,#fbf2dc 60%,#f1e4c1 100%)",
-      chipBg: "linear-gradient(180deg,rgba(212,170,80,0.18),transparent)",
+        "linear-gradient(180deg,#ffffff 0%,#f6f5f2 100%)",
+      surface: "linear-gradient(180deg,#ffffff 0%,#fafaf7 100%)",
+      surfaceDeep: "#ffffff",
+      cardBg: "linear-gradient(135deg,#ffffff 0%,#fbfaf6 60%,#f6f4ed 100%)",
+      tierBg: "linear-gradient(180deg,#ffffff 0%,#fbf9f3 60%,#f4f1e8 100%)",
+      ctaBg: "linear-gradient(135deg,#fffdf5 0%,#fbf5e3 60%,#f4ead0 100%)",
+      chipBg: "linear-gradient(180deg,rgba(212,170,80,0.12),transparent)",
       text: "#241a07",
       body: "rgba(36,26,7,0.78)",
       muted: "rgba(36,26,7,0.55)",
