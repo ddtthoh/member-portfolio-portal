@@ -1,13 +1,14 @@
 import { useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Copy, Check, ExternalLink, Download, Share2, ImageIcon, FileText, MessageCircle } from "lucide-react";
+import { Copy, Check, ExternalLink, ImageIcon, FileText, MessageCircle } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { deriveMemberId } from "@/lib/member-id";
+import { InviteLandingContent } from "./invite.$memberId";
 
 export const Route = createFileRoute("/portal/landing-page")({
   component: MyLandingPage,
@@ -22,7 +23,7 @@ function MyLandingPage() {
   const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=560x560&margin=2&qzone=2&format=png&ecc=H&color=0a0a0a&bgcolor=ffffff&data=${encodeURIComponent(inviteUrl)}`;
 
   const [copied, setCopied] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const previewRef = useRef<HTMLDivElement | null>(null);
 
   const copyLink = async () => {
     await navigator.clipboard.writeText(inviteUrl);
@@ -39,15 +40,14 @@ function MyLandingPage() {
   };
 
   const downloadPNG = async () => {
-    if (!iframeRef.current?.contentDocument) {
+    const target = previewRef.current?.querySelector(".landing-root") as HTMLElement | null;
+    if (!target) {
       toast.error("Preview not ready yet");
       return;
     }
     toast.loading("Generating PNG...", { id: "png" });
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
-      const target = iframeRef.current.contentDocument.querySelector(".landing-root") as HTMLElement;
-      if (!target) throw new Error("no target");
       const canvas = await html2canvas(target, {
         backgroundColor: "#07080c",
         scale: 1,
@@ -66,7 +66,6 @@ function MyLandingPage() {
   };
 
   const downloadPDF = () => {
-    // Simplest reliable approach: open print view in new window, browser's print dialog → save as PDF
     const win = window.open(printPreviewPath, "_blank");
     if (!win) {
       toast.error("Pop-up blocked. Please allow pop-ups for this site.");
@@ -85,11 +84,11 @@ function MyLandingPage() {
       <PageHeader
         eyebrow="Marketing"
         title="My Landing Page"
-        description="Your personalized invitation page. Share the link, scan the QR, or download as PDF / PNG to send to prospects."
+        description="Your personalized invitation page. Edit visually below, share the link, scan the QR, or download as PDF / PNG."
       />
 
       <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
-        {/* === Live preview === */}
+        {/* === Inline preview (Visual Edits-friendly) === */}
         <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
           <div className="flex items-center justify-between border-b border-gold/10 px-4 py-3">
             <div className="flex items-center gap-2">
@@ -110,25 +109,27 @@ function MyLandingPage() {
               Open
             </Button>
           </div>
-          <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#07080c] sm:aspect-[16/10]">
-            <iframe
-              ref={iframeRef}
-              src={localPreviewPath}
-              title="Landing page preview"
-              className="absolute left-0 top-0 origin-top-left"
+
+          {/* Scaled inline preview — rendered in the SAME document so Visual Edits can target it */}
+          <div className="relative w-full overflow-hidden bg-[#07080c]">
+            <div
+              ref={previewRef}
               style={{
                 width: "1280px",
-                height: "1600px",
-                transform: "scale(0.5)",
-                border: 0,
+                transform: "scale(var(--lp-scale, 0.5))",
+                transformOrigin: "top left",
               }}
-            />
+              className="[--lp-scale:0.36] sm:[--lp-scale:0.5] lg:[--lp-scale:0.55]"
+            >
+              <InviteLandingContent memberId={memberId} />
+            </div>
+            {/* Spacer maintains correct scaled height */}
+            <ScaledSpacer targetRef={previewRef} />
           </div>
         </SpotlightCard>
 
-        {/* === Side panel: link + QR + actions === */}
+        {/* === Side panel === */}
         <div className="space-y-4">
-          {/* Link card */}
           <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">Your Invite Link</h3>
@@ -160,7 +161,6 @@ function MyLandingPage() {
             </div>
           </SpotlightCard>
 
-          {/* QR card */}
           <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">QR Code</h3>
@@ -184,7 +184,6 @@ function MyLandingPage() {
             </div>
           </SpotlightCard>
 
-          {/* Download / share */}
           <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
             <div className="border-b border-gold/10 px-5 py-3.5">
               <h3 className="font-serif text-[15px] font-semibold text-gold">Share & Download</h3>
@@ -215,13 +214,41 @@ function MyLandingPage() {
               </Button>
             </div>
             <div className="border-t border-gold/10 bg-background/30 px-5 py-3 text-[11px] leading-relaxed text-foreground/55">
-              <strong className="text-gold/80">Tip:</strong> PDF uses your browser's print dialog
-              — choose <em>Save as PDF</em> for the cleanest output. Video is intentionally
-              excluded from PDF & PNG.
+              <strong className="text-gold/80">Tip:</strong> Click any element in the preview with
+              Visual Edits enabled to tweak text, colors and layout directly.
             </div>
           </SpotlightCard>
         </div>
       </div>
     </div>
   );
+}
+
+/** Reserves the right amount of vertical space for the scaled preview. */
+function ScaledSpacer({ targetRef }: { targetRef: React.RefObject<HTMLDivElement | null> }) {
+  const [h, setH] = useState(900);
+  // Recompute on mount + resize
+  useMemoLayoutHeight(targetRef, setH);
+  return <div aria-hidden style={{ height: h }} />;
+}
+
+function useMemoLayoutHeight(
+  ref: React.RefObject<HTMLDivElement | null>,
+  setH: (n: number) => void,
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useState(() => {
+    if (typeof window === "undefined") return 0;
+    const compute = () => {
+      const el = ref.current;
+      if (!el) return;
+      const scale = parseFloat(getComputedStyle(el).transform.split(",")[3] || "0.5") || 0.5;
+      setH(el.offsetHeight * scale);
+    };
+    requestAnimationFrame(compute);
+    const ro = new ResizeObserver(compute);
+    queueMicrotask(() => ref.current && ro.observe(ref.current));
+    window.addEventListener("resize", compute);
+    return 0;
+  });
 }
