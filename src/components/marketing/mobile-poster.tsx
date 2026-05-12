@@ -67,7 +67,6 @@ export function MobilePoster({
       {/* ============= AMBIENT LAYERS ============= */}
       <Ornaments theme={theme} />
       <BokehGlow theme={theme} />
-      <FloatingShapes theme={theme} />
 
       {/* ============= HERO ============= */}
       <section className="relative px-16 pt-24 pb-28 text-center">
@@ -165,7 +164,10 @@ export function MobilePoster({
             { v: 24, decimals: 0, suffix: "/7", l: "AI Execution" },
           ].map((s) => (
             <div key={s.l} className="px-6 py-9" style={{ background: t.surface }}>
-              <div className="font-serif text-[60px] font-bold leading-none" style={gold()}>
+              <div
+                className="text-[60px] font-light leading-none tabular-nums tracking-[-0.04em]"
+                style={gold()}
+              >
                 {animate ? (
                   <CountUp value={s.v} decimals={s.decimals} suffix={s.suffix} duration={1600} />
                 ) : (
@@ -182,8 +184,6 @@ export function MobilePoster({
           ))}
         </div>
 
-        {/* visual flourish — animated bar chart */}
-        <BarChartFlourish theme={theme} animate={animate} />
       </section>
 
       <Divider theme={theme} />
@@ -203,8 +203,6 @@ export function MobilePoster({
           transaction opportunities — delivering a more efficient digital asset trading solution.
         </p>
 
-        {/* tape-style ticker visual */}
-        <TickerTape theme={theme} />
       </section>
 
       <Divider theme={theme} />
@@ -250,8 +248,6 @@ export function MobilePoster({
                   </p>
                 </div>
               </div>
-              {/* mini sparkline per card */}
-              <Sparkline theme={theme} animate={animate} />
             </div>
           ))}
         </div>
@@ -321,11 +317,11 @@ export function MobilePoster({
                   Monthly
                 </div>
                 <div
-                  className="mt-2 font-serif font-black"
+                  className="mt-2 font-light tabular-nums"
                   style={{
-                    fontSize: "36px",
+                    fontSize: "40px",
                     lineHeight: 1,
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "-0.04em",
                     whiteSpace: "nowrap",
                     ...gold(),
                   }}
@@ -348,10 +344,11 @@ export function MobilePoster({
                     Daily
                   </div>
                   <div
-                    className="mt-1.5 font-serif font-bold"
+                    className="mt-1.5 font-light tabular-nums"
                     style={{
-                      fontSize: "22px",
+                      fontSize: "24px",
                       lineHeight: 1,
+                      letterSpacing: "-0.04em",
                       whiteSpace: "nowrap",
                       color: t.goldStrong,
                     }}
@@ -534,7 +531,7 @@ function palette(theme: Theme) {
   if (theme === "light") {
     return {
       pageBg:
-        "radial-gradient(120% 70% at 50% 0%, #fdf6e6 0%, #f6efe1 35%, #efe7d6 100%)",
+        "linear-gradient(180deg,#f4ede0 0%,#efe7d6 100%)",
       surface: "linear-gradient(180deg,#ffffff 0%,#faf3e2 100%)",
       surfaceDeep: "#fbf6ea",
       cardBg: "linear-gradient(135deg,#fff8e8 0%,#fbf3df 60%,#f6ecd2 100%)",
@@ -832,7 +829,7 @@ function Stat({
         {label}
       </div>
       <div
-        className={`mt-1 ${mono ? "font-mono" : "font-serif"} text-[18px] font-bold`}
+        className={`mt-1 ${mono ? "font-mono" : ""} text-[18px] font-light tabular-nums tracking-[-0.04em]`}
         style={{ color: t.text }}
       >
         {value}
