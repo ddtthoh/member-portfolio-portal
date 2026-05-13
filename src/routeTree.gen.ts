@@ -28,6 +28,7 @@ import { Route as PortalQnaRouteImport } from './routes/portal.qna'
 import { Route as PortalPromotionRouteImport } from './routes/portal.promotion'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
 import { Route as PortalNetworkRouteImport } from './routes/portal.network'
+import { Route as PortalMonthlyReportRouteImport } from './routes/portal.monthly-report'
 import { Route as PortalLandingPageRouteImport } from './routes/portal.landing-page'
 import { Route as PortalKycRouteImport } from './routes/portal.kyc'
 import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
@@ -160,6 +161,11 @@ const PortalProfileRoute = PortalProfileRouteImport.update({
 const PortalNetworkRoute = PortalNetworkRouteImport.update({
   id: '/network',
   path: '/network',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalMonthlyReportRoute = PortalMonthlyReportRouteImport.update({
+  id: '/monthly-report',
+  path: '/monthly-report',
   getParentRoute: () => PortalRoute,
 } as any)
 const PortalLandingPageRoute = PortalLandingPageRouteImport.update({
@@ -381,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/landing-page': typeof PortalLandingPageRoute
+  '/portal/monthly-report': typeof PortalMonthlyReportRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -437,6 +444,7 @@ export interface FileRoutesByTo {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/landing-page': typeof PortalLandingPageRoute
+  '/portal/monthly-report': typeof PortalMonthlyReportRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/qr-code': typeof PortalQrCodeRoute
@@ -495,6 +503,7 @@ export interface FileRoutesById {
   '/portal/holdings': typeof PortalHoldingsRoute
   '/portal/kyc': typeof PortalKycRoute
   '/portal/landing-page': typeof PortalLandingPageRoute
+  '/portal/monthly-report': typeof PortalMonthlyReportRoute
   '/portal/network': typeof PortalNetworkRoute
   '/portal/profile': typeof PortalProfileRoute
   '/portal/promotion': typeof PortalPromotionRouteWithChildren
@@ -556,6 +565,7 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/landing-page'
+    | '/portal/monthly-report'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -612,6 +622,7 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/landing-page'
+    | '/portal/monthly-report'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/qr-code'
@@ -669,6 +680,7 @@ export interface FileRouteTypes {
     | '/portal/holdings'
     | '/portal/kyc'
     | '/portal/landing-page'
+    | '/portal/monthly-report'
     | '/portal/network'
     | '/portal/profile'
     | '/portal/promotion'
@@ -851,6 +863,13 @@ declare module '@tanstack/react-router' {
       path: '/network'
       fullPath: '/portal/network'
       preLoaderRoute: typeof PortalNetworkRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/monthly-report': {
+      id: '/portal/monthly-report'
+      path: '/monthly-report'
+      fullPath: '/portal/monthly-report'
+      preLoaderRoute: typeof PortalMonthlyReportRouteImport
       parentRoute: typeof PortalRoute
     }
     '/portal/landing-page': {
@@ -1207,6 +1226,7 @@ interface PortalRouteChildren {
   PortalHoldingsRoute: typeof PortalHoldingsRoute
   PortalKycRoute: typeof PortalKycRoute
   PortalLandingPageRoute: typeof PortalLandingPageRoute
+  PortalMonthlyReportRoute: typeof PortalMonthlyReportRoute
   PortalNetworkRoute: typeof PortalNetworkRoute
   PortalProfileRoute: typeof PortalProfileRoute
   PortalPromotionRoute: typeof PortalPromotionRouteWithChildren
@@ -1241,6 +1261,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalHoldingsRoute: PortalHoldingsRoute,
   PortalKycRoute: PortalKycRoute,
   PortalLandingPageRoute: PortalLandingPageRoute,
+  PortalMonthlyReportRoute: PortalMonthlyReportRoute,
   PortalNetworkRoute: PortalNetworkRoute,
   PortalProfileRoute: PortalProfileRoute,
   PortalPromotionRoute: PortalPromotionRouteWithChildren,
