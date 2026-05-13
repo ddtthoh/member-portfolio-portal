@@ -287,6 +287,36 @@ export type Database = {
         }
         Relationships: []
       }
+      monthly_reports: {
+        Row: {
+          created_at: string
+          file_size: number | null
+          file_url: string
+          id: string
+          period: string | null
+          title: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string
+          file_size?: number | null
+          file_url: string
+          id?: string
+          period?: string | null
+          title: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          period?: string | null
+          title?: string
+          uploaded_by?: string
+        }
+        Relationships: []
+      }
       network_contacts: {
         Row: {
           avatar_url: string | null
