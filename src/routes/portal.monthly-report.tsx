@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Download, Eye, Calendar, Send, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/monthly-report")({
