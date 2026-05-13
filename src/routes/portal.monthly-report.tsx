@@ -233,7 +233,7 @@ function MonthlyReportPage() {
                         rel="noopener noreferrer"
                         aria-label={t("pages.monthlyReport.view", "View")}
                         title={t("pages.monthlyReport.view", "View")}
-                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
                       >
                         <Eye className="h-4 w-4" />
                       </a>
@@ -242,7 +242,7 @@ function MonthlyReportPage() {
                         download
                         aria-label={t("pages.monthlyReport.download", "Download")}
                         title={t("pages.monthlyReport.download", "Download")}
-                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
                       >
                         <Download className="h-4 w-4" />
                       </a>
@@ -275,7 +275,7 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
                       >
                         <Share2 className="h-4 w-4" />
                       </button>
