@@ -34,24 +34,40 @@ const MONTHS: Record<string, number> = {
 };
 
 /** Returns dd/mm/yyyy of the last day of the period's month. */
-function lastDayOfPeriod(period: string | null, fallback: string): string {
+function lastDayOfPeriod(period: string | null, fallback: string, title: string): string {
   let year: number | null = null;
   let month: number | null = null;
 
-  if (period) {
-    // "April 2026" / "Apr 2026"
-    const wordMatch = period.match(/([A-Za-z]+)\s+(\d{4})/);
-    // "2026-04" / "2026/4"
-    const numMatch = period.match(/(\d{4})[-/](\d{1,2})/);
-    if (wordMatch) {
-      const m = MONTHS[wordMatch[1].toLowerCase()];
-      if (m !== undefined) {
-        month = m;
-        year = Number(wordMatch[2]);
+  // Try to find month/year in title if period is null
+  const source = period || title;
+
+  if (source) {
+    // Look for month names and 4-digit years
+    const words = source.toLowerCase().split(/\s+/);
+    let foundMonth: number | null = null;
+    let foundYear: number | null = null;
+
+    for (const word of words) {
+      const cleanWord = word.replace(/[^a-z]/g, "");
+      if (MONTHS[cleanWord] !== undefined) {
+        foundMonth = MONTHS[cleanWord];
       }
-    } else if (numMatch) {
-      year = Number(numMatch[1]);
-      month = Number(numMatch[2]) - 1;
+      const yearMatch = word.match(/\d{4}/);
+      if (yearMatch) {
+        foundYear = Number(yearMatch[0]);
+      }
+    }
+
+    if (foundMonth !== null && foundYear !== null) {
+      month = foundMonth;
+      year = foundYear;
+    } else {
+      // Try "2026-04" format
+      const numMatch = source.match(/(\d{4})[-/](\d{1,2})/);
+      if (numMatch) {
+        year = Number(numMatch[1]);
+        month = Number(numMatch[2]) - 1;
+      }
     }
   }
 
@@ -61,7 +77,6 @@ function lastDayOfPeriod(period: string | null, fallback: string): string {
     month = d.getMonth();
   }
 
-  // Day 0 of next month = last day of current month
   const last = new Date(year, month + 1, 0);
   const dd = String(last.getDate()).padStart(2, "0");
   const mm = String(last.getMonth() + 1).padStart(2, "0");
@@ -151,7 +166,7 @@ function MonthlyReportPage() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2">
           {reports.map((r) => {
-            const dateStr = lastDayOfPeriod(r.period, r.created_at);
+            const dateStr = lastDayOfPeriod(r.period, r.created_at, r.title);
             const shareText = `${r.title} ${r.file_url}`;
             return (
               <div key={r.id} className="relative">
