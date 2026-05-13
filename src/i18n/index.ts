@@ -1,6 +1,5 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
 import en from "./locales/en.json";
 import zh from "./locales/zh.json";
 import id from "./locales/id.json";
@@ -37,7 +36,6 @@ export const RTL_LANGS = ["fa", "ar"];
 
 if (!i18n.isInitialized) {
   i18n
-    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
       resources: {
@@ -56,14 +54,10 @@ if (!i18n.isInitialized) {
         it: { translation: it },
         de: { translation: de },
       },
+      lng: "en",
       fallbackLng: "en",
       supportedLngs: ["en", "zh", "ja", "ko", "th", "vi", "id", "hi", "fa", "ar", "tr", "es", "it", "de"],
       interpolation: { escapeValue: false },
-      detection: {
-        order: ["localStorage", "navigator"],
-        caches: ["localStorage"],
-        lookupLocalStorage: "iv-lang",
-      },
     });
 }
 
