@@ -225,7 +225,7 @@ function MonthlyReportPage() {
                         href={r.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
                         <Eye className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.view", "View")}
@@ -241,7 +241,7 @@ function MonthlyReportPage() {
                       <a
                         href={r.file_url}
                         download
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
                         <Download className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.download", "Download")}
@@ -282,7 +282,7 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
                         <Share2 className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.share", "Share")}
