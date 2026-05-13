@@ -359,35 +359,39 @@ function MonthlyReportUploadSection() {
 
   const onPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !user) return;
-    if (!title.trim()) {
-      toast.error(t("pages.walletEdit.monthlyReport.titleRequired", "Please enter a title first"));
+    console.log("[monthly-report] picked", file?.name, file?.size, file?.type, "user?", !!user);
+    if (!file || !user) {
+      if (!user) toast.error("You must be signed in to upload");
       return;
     }
+    const effectiveTitle = title.trim() || file.name.replace(/\.[^.]+$/, "");
     setUploading(true);
     try {
       const path = `${user.id}/${Date.now()}-${file.name}`;
       const { error: upErr } = await supabase.storage
         .from("monthly-reports")
         .upload(path, file, { contentType: file.type || "application/pdf", upsert: false });
+      console.log("[monthly-report] storage upload result", upErr);
       if (upErr) throw upErr;
       const { data } = supabase.storage.from("monthly-reports").getPublicUrl(path);
       const { error } = await supabase.from("monthly_reports").insert({
-        title: title.trim(),
+        title: effectiveTitle,
         period: period.trim() || null,
         file_url: data.publicUrl,
         file_size: file.size,
         uploaded_by: user.id,
       });
+      console.log("[monthly-report] insert result", error);
       if (error) throw error;
       toast.success(t("pages.walletEdit.monthlyReport.uploaded", "Monthly report uploaded"));
       setTitle("");
       setPeriod("");
-      if (pdfRef.current) pdfRef.current.value = "";
       await refresh();
     } catch (err: any) {
+      console.error("[monthly-report] upload failed", err);
       toast.error(err?.message ?? "Upload failed");
     } finally {
+      if (pdfRef.current) pdfRef.current.value = "";
       setUploading(false);
     }
   };
