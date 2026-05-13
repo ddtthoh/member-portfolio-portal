@@ -133,8 +133,7 @@ const PROMOTIONS: Record<string, Promo> = {
     location: "Türkiye",
     month: "July 2026",
     windowLabel: "1 Feb – 30 Jun 2026",
-    intro:
-      "NASLAB will host its Official Opening Event in Türkiye in July 2026. Qualify within the campaign window to secure your seat, accommodation, and flight reimbursement.",
+    intro: "pages.promotionDetail.intros.naslabTurkey",
     personalTiers: [
       { threshold: 1_000, seats: 1, hotel: false, flightUsd: 0 },
       { threshold: 3_000, seats: 1, hotel: true, flightUsd: 250 },
@@ -159,8 +158,7 @@ const PROMOTIONS: Record<string, Promo> = {
     title: "pages.promotion.promotions.rankingIncentive.title",
     subtitle: "pages.promotion.promotions.rankingIncentive.subtitle",
     windowLabel: "1 Feb – 30 Jun 2026",
-    intro:
-      "Earn across three parallel tracks during the campaign window: every qualified referral pays out instantly, top performers unlock a share of AUM, and community-wide ranking unlocks signature physical rewards — paid out at the July 2026 Event.",
+    intro: "pages.promotionDetail.intros.ranking",
     rcbPerReferralUsd: 5,
     rcbMinStakeUsd: 100,
     rcbCount: 8,
@@ -170,12 +168,12 @@ const PROMOTIONS: Record<string, Promo> = {
     ],
     currentAum: 8_500,
     rankingTiers: [
-      { name: "Bronze", reward: "iPhone 17", valueUsd: 1_500, icon: "bronze" },
-      { name: "Silver", reward: "Marketing Support Fund", valueUsd: 3_000, icon: "silver" },
-      { name: "Gold", reward: "Marketing Support Fund", valueUsd: 5_000, icon: "gold" },
-      { name: "Platinum", reward: "Rolex Daytona", valueUsd: 30_000, icon: "platinum" },
-      { name: "Diamond", reward: "Car Subsidy", valueUsd: 100_000, icon: "diamond" },
-      { name: "Partner", reward: "Property Subsidy", valueUsd: 300_000, icon: "partner" },
+      { name: "pages.promotionDetail.ranks.bronze", reward: "pages.promotionDetail.rewards.iphone17", valueUsd: 1_500, icon: "bronze" },
+      { name: "pages.promotionDetail.ranks.silver", reward: "pages.promotionDetail.rewards.marketingFund", valueUsd: 3_000, icon: "silver" },
+      { name: "pages.promotionDetail.ranks.gold", reward: "pages.promotionDetail.rewards.marketingFund", valueUsd: 5_000, icon: "gold" },
+      { name: "pages.promotionDetail.ranks.platinum", reward: "pages.promotionDetail.rewards.rolexDaytona", valueUsd: 30_000, icon: "platinum" },
+      { name: "pages.promotionDetail.ranks.diamond", reward: "pages.promotionDetail.rewards.carSubsidy", valueUsd: 100_000, icon: "diamond" },
+      { name: "pages.promotionDetail.ranks.partner", reward: "pages.promotionDetail.rewards.propertySubsidy", valueUsd: 300_000, icon: "partner" },
     ],
     currentRankIndex: 4, // mock: currently at Diamond (tally with /portal tier card)
     nextRankProgress: {
@@ -250,6 +248,7 @@ function GenericPromotion({ promo }: { promo: GenericPromo }) {
 // ---- Event promotion ---------------------------------------------------------
 
 function EventPromotion({ promo }: { promo: EventPromo }) {
+  const { t } = useTranslation();
   const personal = computeStanding(promo.personalAmount, promo.personalTiers);
   const referral = computeStanding(promo.referralAmount, promo.referralTiers);
 
@@ -261,14 +260,14 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
           <div>
             <div className="mb-2 flex items-center gap-2 text-gold">
               <Sparkles className="h-4 w-4" />
-              <span className="text-[11px] uppercase tracking-[0.2em]">Official Opening</span>
+              <span className="text-[11px] uppercase tracking-[0.2em]">{t("pages.promotionDetail.officialOpening")}</span>
             </div>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{promo.intro}</p>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{t(promo.intro)}</p>
           </div>
           <div className="grid grid-cols-3 gap-2 md:gap-4">
-            <MetaPill icon={<MapPin className="h-3.5 w-3.5" />} label="Location" value={promo.location} />
-            <MetaPill icon={<CalendarDays className="h-3.5 w-3.5" />} label="Event" value={promo.month} />
-            <MetaPill icon={<TrendingUp className="h-3.5 w-3.5" />} label="Window" value={promo.windowLabel} />
+            <MetaPill icon={<MapPin className="h-3.5 w-3.5" />} label={t("pages.promotionDetail.meta.location")} value={promo.location} />
+            <MetaPill icon={<CalendarDays className="h-3.5 w-3.5" />} label={t("pages.promotionDetail.meta.event")} value={promo.month} />
+            <MetaPill icon={<TrendingUp className="h-3.5 w-3.5" />} label={t("pages.promotionDetail.meta.window")} value={promo.windowLabel} />
           </div>
         </div>
       </SpotlightCard>
@@ -277,36 +276,34 @@ function EventPromotion({ promo }: { promo: EventPromo }) {
       <div className="grid gap-4 lg:grid-cols-2">
         <TrackCard
           icon={<User className="h-4 w-4" />}
-          eyebrow="Track 01 · Participant"
-          title="Personal Staking"
+          eyebrow={t("pages.promotionDetail.tracks.participant")}
+          title={t("pages.promotionDetail.titles.personalStaking")}
           standing={personal}
         />
         <TrackCard
           icon={<Users className="h-4 w-4" />}
-          eyebrow="Track 02 · Referral"
-          title="Referral Staking"
+          eyebrow={t("pages.promotionDetail.tracks.referral")}
+          title={t("pages.promotionDetail.titles.referralStaking")}
           standing={referral}
         />
       </div>
 
       {/* Tier ladders */}
       <TierLadder
-        title="Participant Incentive"
-        subtitle="Direct staking between 1 Feb – 30 Jun 2026"
+        title={t("pages.promotionDetail.titles.participantIncentive")}
+        subtitle={t("pages.promotionDetail.subtitles.participant")}
         tiers={promo.personalTiers}
         amount={promo.personalAmount}
       />
       <TierLadder
-        title="Referral Incentive"
-        subtitle="Total staking referred between 1 Feb – 30 Jun 2026"
+        title={t("pages.promotionDetail.titles.referralIncentive")}
+        subtitle={t("pages.promotionDetail.subtitles.referral")}
         tiers={promo.referralTiers}
         amount={promo.referralAmount}
       />
 
       <p className="px-1 pt-1 text-[11px] leading-relaxed text-gold/60">
-        Rewards are issued during the Official Opening Event in July 2026. Qualification is final at the
-        end of the campaign window. Flight reimbursement is paid in USDT against valid travel
-        documentation.
+        {t("pages.promotionDetail.footnotes.eventRewards")}
       </p>
     </div>
   );
@@ -375,6 +372,7 @@ function TrackCard({
   title: string;
   standing: Standing;
 }) {
+  const { t } = useTranslation();
   const { amount, current, next, remaining, progressInTier, topReached } = standing;
   const qualified = !!current;
 
@@ -384,7 +382,7 @@ function TrackCard({
       <div className="relative mb-3 flex items-center gap-2 text-gold">
         {icon}
         <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
-        <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">Your Tracking</span>
+        <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">{t("pages.promotionDetail.yourTracking")}</span>
       </div>
 
       <div className="relative flex items-baseline justify-between gap-3">
@@ -394,11 +392,11 @@ function TrackCard({
 
       <div className="relative mt-4 flex items-end justify-between">
         <div>
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.yourVolume")}</div>
           <MetricValue value={amount} suffix=" USDT" decimals={0} size="md" className="mt-0.5" />
         </div>
         <div className="text-right">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current tier</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.currentTier")}</div>
           <div className="mt-0.5">
             {current ? (
               <MetricValue value={current.threshold} suffix=" USDT" decimals={0} size="sm" static />
@@ -414,14 +412,9 @@ function TrackCard({
         <div className="mb-1.5 flex items-center justify-between text-[11px] text-gold/80">
           <span>
             {next ? (
-              <>
-                Next tier ·{" "}
-                <span className="font-light tabular-nums tracking-tight text-gold">
-                  {next.threshold.toLocaleString()} USDT
-                </span>
-              </>
+              t("pages.promotionDetail.progress.nextTierWith", { value: next.threshold.toLocaleString() })
             ) : (
-              <>Top tier reached</>
+              t("pages.promotionDetail.progress.topReached")
             )}
           </span>
           <span className="tabular-nums text-gold">{Math.round(progressInTier)}%</span>
@@ -440,16 +433,9 @@ function TrackCard({
           )}
         </div>
         <div className="mt-2 text-[11px] text-gold/70">
-          {next ? (
-            <>
-              <span className="font-light tabular-nums tracking-tight text-gold">
-                {remaining.toLocaleString()} USDT
-              </span>{" "}
-              remaining to unlock the next tier of rewards.
-            </>
-          ) : (
-            <>You have unlocked the maximum reward bracket. Congratulations.</>
-          )}
+          {next
+            ? t("pages.promotionDetail.progress.remaining", { amount: remaining.toLocaleString() })
+            : t("pages.promotionDetail.progress.maxBracket")}
         </div>
       </div>
 
@@ -457,19 +443,19 @@ function TrackCard({
       <div className="relative mt-5 grid grid-cols-3 gap-2">
         <RewardStat
           icon={<Ticket className="h-3.5 w-3.5" />}
-          label="Seats"
+          label={t("pages.promotionDetail.table.seats")}
           value={current ? String(current.seats) : "0"}
           dim={!current}
         />
         <RewardStat
           icon={<Hotel className="h-3.5 w-3.5" />}
-          label="Hotel"
-          value={current ? (current.hotel ? "Included" : "—") : "—"}
+          label={t("pages.promotionDetail.table.hotel")}
+          value={current ? (current.hotel ? t("pages.promotionDetail.status.included") : "—") : "—"}
           dim={!current?.hotel}
         />
         <RewardStat
           icon={<Plane className="h-3.5 w-3.5" />}
-          label="Flight"
+          label={t("pages.promotionDetail.table.flight").replace(" (USDT)", "")}
           value={current && current.flightUsd > 0 ? `${current.flightUsd.toLocaleString()} USDT` : "—"}
           dim={!current || current.flightUsd === 0}
         />
@@ -479,20 +465,21 @@ function TrackCard({
 }
 
 function StatusChip({ qualified, top }: { qualified: boolean; top: boolean }) {
+  const { t } = useTranslation();
   if (top) {
     return (
       <span className="inline-flex items-center gap-1 rounded-full border border-gold/50 bg-gold/15 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
-        <Sparkles className="h-3 w-3" /> Apex
+        <Sparkles className="h-3 w-3" /> {t("pages.promotionDetail.status.apex")}
       </span>
     );
   }
   return qualified ? (
     <span className="inline-flex items-center gap-1 rounded-full border border-gold/40 bg-gold/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-gold">
-      <Check className="h-3 w-3" /> Qualified
+      <Check className="h-3 w-3" /> {t("pages.promotionDetail.status.qualified")}
     </span>
   ) : (
     <span className="inline-flex items-center gap-1 rounded-full border border-foreground/10 bg-foreground/5 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
-      <Lock className="h-3 w-3" /> Pending
+      <Lock className="h-3 w-3" /> {t("pages.promotionDetail.status.pending")}
     </span>
   );
 }
@@ -542,6 +529,7 @@ function TierLadder({
   tiers: Tier[];
   amount: number;
 }) {
+  const { t } = useTranslation();
   return (
     <SpotlightCard className="liquid-glass rounded-2xl p-6">
       <div className="mb-4 flex items-end justify-between gap-3">
@@ -552,7 +540,7 @@ function TierLadder({
           </h3>
         </div>
         <div className="text-right">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Your volume</div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.yourVolume")}</div>
           <MetricValue value={amount} suffix=" USDT" decimals={0} size="sm" className="mt-0.5" static />
         </div>
       </div>
@@ -563,11 +551,11 @@ function TierLadder({
           <table className="w-full text-sm">
             <thead className="bg-gold/[0.04] text-[10px] uppercase tracking-[0.18em] text-gold/80">
               <tr>
-                <th className="px-4 py-2.5 text-left font-medium">Status</th>
-                <th className="px-4 py-2.5 text-right font-medium">Threshold</th>
-                <th className="px-4 py-2.5 text-center font-medium">Seats</th>
-                <th className="px-4 py-2.5 text-center font-medium">Hotel</th>
-                <th className="px-4 py-2.5 text-right font-medium">Flight (USDT)</th>
+                <th className="px-4 py-2.5 text-left font-medium">{t("pages.promotionDetail.table.status")}</th>
+                <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.threshold")}</th>
+                <th className="px-4 py-2.5 text-center font-medium">{t("pages.promotionDetail.table.seats")}</th>
+                <th className="px-4 py-2.5 text-center font-medium">{t("pages.promotionDetail.table.hotel")}</th>
+                <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.flight")}</th>
               </tr>
             </thead>
             <tbody>
@@ -587,14 +575,14 @@ function TierLadder({
                           <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
                             <Check className="h-3 w-3" />
                           </span>
-                          <span className="text-[11px] uppercase tracking-[0.18em]">Achieved</span>
+                          <span className="text-[11px] uppercase tracking-[0.18em]">{t("pages.promotionDetail.status.achieved")}</span>
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                           <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04]">
                             <Lock className="h-3 w-3" />
                           </span>
-                          <span className="text-[11px] uppercase tracking-[0.18em]">Locked</span>
+                          <span className="text-[11px] uppercase tracking-[0.18em]">{t("pages.promotionDetail.status.locked")}</span>
                         </span>
                       )}
                     </td>
