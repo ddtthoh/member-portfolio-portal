@@ -49,18 +49,18 @@ function MonthlyReportPage() {
       />
 
       {/* Hero card — landing-page style gold gradient */}
-      <div className="relative overflow-hidden rounded-2xl border border-gold/25 p-8 sm:p-10">
+      <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-card/40 p-8 sm:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(80% 60% at 50% -10%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 65%), radial-gradient(60% 50% at 90% 90%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 70%), linear-gradient(180deg, #06070b 0%, #04050a 100%)",
+              "radial-gradient(80% 60% at 50% -10%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 65%), radial-gradient(60% 50% at 90% 90%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 70%)",
           }}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage:
               "linear-gradient(color-mix(in oklab, var(--gold) 60%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--gold) 60%, transparent) 1px, transparent 1px)",
