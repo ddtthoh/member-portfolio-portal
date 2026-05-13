@@ -214,9 +214,9 @@ function MonthlyReportPage() {
                   </div>
 
                   {/* Action triad — View / Download / Share */}
-                  <div className="relative mt-6 grid grid-cols-3 gap-0">
+                  <div className="relative mt-6 grid grid-cols-3 gap-2 sm:gap-3">
                     {/* View */}
-                    <div className="text-center sm:px-2 border-r border-gold/15">
+                    <div className="text-center min-w-0 sm:px-1">
                       <RuleEyebrow
                         icon={<Eye className="h-3 w-3" />}
                         label={t("pages.monthlyReport.view", "View")}
@@ -225,15 +225,15 @@ function MonthlyReportPage() {
                         href={r.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
-                        <Eye className="mr-1.5 h-3.5 w-3.5" />
+                        <Eye className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
                         {t("pages.monthlyReport.view", "View")}
                       </a>
                     </div>
 
                     {/* Download */}
-                    <div className="text-center sm:px-2 border-r border-gold/15">
+                    <div className="text-center min-w-0 sm:px-1">
                       <RuleEyebrow
                         icon={<Download className="h-3 w-3" />}
                         label={t("pages.monthlyReport.download", "Download")}
@@ -241,15 +241,15 @@ function MonthlyReportPage() {
                       <a
                         href={r.file_url}
                         download
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
-                        <Download className="mr-1.5 h-3.5 w-3.5" />
+                        <Download className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
                         {t("pages.monthlyReport.download", "Download")}
                       </a>
                     </div>
 
                     {/* Share — single native share button */}
-                    <div className="text-center sm:px-2">
+                    <div className="text-center min-w-0 sm:px-1">
                       <RuleEyebrow
                         icon={<Share2 className="h-3 w-3" />}
                         label={t("pages.monthlyReport.share", "Share")}
@@ -282,9 +282,9 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
                       >
-                        <Share2 className="mr-1.5 h-3.5 w-3.5" />
+                        <Share2 className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
                         {t("pages.monthlyReport.share", "Share")}
                       </button>
                     </div>
