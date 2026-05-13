@@ -86,8 +86,10 @@
       "transferUsd": "تحويل الدولار",
       "referral": "الإحالة",
       "participation": "المشاركة",
-      "promotion": "العرض الترويجي"
-    }
+      "promotion": "العرض الترويجي",
+      "monthlyReport": "التقرير الشهري"
+    },
+    "portfolioOverview": "نظرة عامة على المحفظة"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "التقدم الخاص بك",
+      "progressDescription": "سيظهر هنا التقدم الخاص بك لهذا العرض الترويجي.",
       "notFound": "لم يتم العثور على العرض الترويجي.",
       "backToPromotions": "العودة إلى العروض الترويجية",
       "details": "التفاصيل",
-      "progressDescription": "سيظهر هنا التقدم الخاص بك لهذا العرض الترويجي."
+      "officialOpening": "الافتتاح الرسمي",
+      "yourTracking": "متابعة تقدمك",
+      "meta": {
+        "location": "الموقع",
+        "event": "الفعالية",
+        "window": "الفترة",
+        "payout": "العوائد",
+        "payoutValue": "فوري + متعدد المستويات"
+      },
+      "intros": {
+        "naslabTurkey": "تأهل لفعالية افتتاح Naslab Türkiye عبر حجم التخزين الشخصي أو حجم تخزين الإحالة. تفتح المستويات الأعلى مزايا تشمل المقاعد، وتغطية الإقامة الفندقية، ودعم رحلات الطيران.",
+        "ranking": "ابنِ نشاط إحالة مؤهل، ونمِّ الأصول الخاضعة للإدارة (AUM) للمجتمع، وتقدم عبر سلم تصنيف المجتمع. تجمع المكافآت بين مدفوعات RCB الفورية، ومكافآت TCB بنسبة مئوية، وجوائز الإنجازات."
+      },
+      "tracks": {
+        "participant": "المشارك",
+        "referral": "الإحالة",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "التصنيف"
+      },
+      "titles": {
+        "personalStaking": "التخزين الشخصي",
+        "referralStaking": "تخزين الإحالة",
+        "participantIncentive": "حافز المشارك",
+        "referralIncentive": "حافز الإحالة",
+        "rapidCommunityBuilder": "باني المجتمع السريع",
+        "topCommunityBuilder": "أفضل باني مجتمع",
+        "communityRanking": "تصنيف المجتمع",
+        "rcbPayoutLadder": "سلم مدفوعات RCB",
+        "tcbTierStructure": "هيكلية مستويات TCB"
+      },
+      "subtitles": {
+        "participant": "حجم التخزين الخاص بك يفتح لك مزايا الفعالية.",
+        "referral": "حجم تخزين الإحالات المؤهلة يفتح لك مزايا الفعالية.",
+        "tcb": "حقق متطلبات كل من RCB والأصول الخاضعة للإدارة (AUM) لفتح مكافأة بنسبة مئوية.",
+        "ranking": "مكافآت الإنجازات بناءً على تصنيف مجتمعك الحالي."
+      },
+      "labels": {
+        "yourVolume": "حجمك",
+        "currentTier": "المستوى الحالي",
+        "qualifiedReferrals": "الإحالات المؤهلة",
+        "rewardEarned": "المكافأة المكتسبة",
+        "yourAum": "أصولك الخاضعة للإدارة (AUM)",
+        "reward": "المكافأة",
+        "projectedReward": "المكافأة المتوقعة",
+        "currentRank": "التصنيف الحالي",
+        "rewardValue": "قيمة المكافأة"
+      },
+      "progress": {
+        "nextTierWith": "المستوى التالي · {{value}} USDT",
+        "topReached": "تم الوصول إلى أعلى مستوى",
+        "remaining": "متبقي {{amount}} USDT",
+        "maxBracket": "تم فتح الشريحة القصوى",
+        "nextMilestoneReferrals": "الإنجاز التالي · {{count}} إحالات",
+        "moreToUnlock": "متبقي {{count}} لفتح ${{amount}}",
+        "nextTcb": "المستوى التالي · {{pct}}% من AUM",
+        "rcb": "اكتمل RCB",
+        "moreRcb": "المزيد من RCB",
+        "aum": "اكتملت AUM",
+        "moreUsdtAum": "المزيد من AUM بـ USDT",
+        "nextRank": "التصنيف التالي · {{name}}",
+        "rankPctRemaining": "متبقي {{remaining}}% للحصول على {{reward}}",
+        "rankRemaining": "متبقي {{remaining}} {{unit}} للحصول على {{reward}}"
+      },
+      "status": {
+        "achieved": "مُحقق",
+        "locked": "مغلق",
+        "qualified": "مؤهل",
+        "pending": "قيد الانتظار",
+        "apex": "القمة",
+        "current": "الحالي",
+        "included": "مشمول",
+        "yes": "نعم"
+      },
+      "table": {
+        "status": "الحالة",
+        "threshold": "الحد الأدنى",
+        "seats": "المقاعد",
+        "hotel": "الإقامة الفندقية",
+        "flight": "رحلة الطيران (USDT)",
+        "minRcb": "الحد الأدنى لـ RCB",
+        "minAum": "الحد الأدنى لـ AUM",
+        "rewardCol": "المكافأة",
+        "rewardPercent": "مكافأة {{pct}}%",
+        "pctOfAum": "{{pct}}% من AUM",
+        "needRcbAum": "تحتاج {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "التصنيف",
+        "approxValue": "القيمة التقريبية"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} لكل إحالة مؤهلة بحد أدنى للتخزين يبلغ {{min}} USDT.",
+        "rcbSubtitle": "${{usd}} لكل إحالة مؤهلة بحد أدنى للتخزين يبلغ {{min}} USDT.",
+        "referralsCount": "{{count}} إحالات",
+        "topTcbReached": "تم الوصول إلى أعلى مستوى TCB.",
+        "nextRankFootnote": "التصنيف التالي: {{name}} · {{reward}}",
+        "apexRank": "تم تحقيق تصنيف القمة — مستوى الشريك."
+      },
+      "footnotes": {
+        "eventRewards": "تُحسب مكافآت الفعالية من الأحجام المؤهلة خلال فترة العرض الترويجي وقد تخضع للتحقق النهائي.",
+        "ranking": "تستند حسابات حوافز التصنيف إلى نشاط المجتمع المؤهل خلال فترة الحملة وقد تخضع للتحقق النهائي."
+      },
+      "ranks": {
+        "bronze": "برونزي",
+        "silver": "فضي",
+        "gold": "ذهبي",
+        "platinum": "بلاتيني",
+        "diamond": "ماسي",
+        "partner": "شريك"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "صندوق التسويق",
+        "rolexDaytona": "رولكس دايتونا",
+        "carSubsidy": "دعم سيارة",
+        "propertySubsidy": "دعم عقاري"
+      }
     },
     "staking": {
       "activePrograms": "البرامج النشطة",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "الرتبة"
       }
+    },
+    "monthlyReport": {
+      "title": "التقرير الشهري",
+      "description": "تقارير نظرة عامة شهرية رسمية مُعدة من قِبل فريقنا.",
+      "eyebrow": "رؤى · شهرياً",
+      "heroTitle": "تقرير النظرة العامة الشهري",
+      "heroSubtitle": "ملخص مُعد باحترافية للأداء، وتوزيع الأصول، والتوقعات المستقبلية — يُنشر شهرياً.",
+      "empty": "لم يتم نشر أي تقارير شهرية بعد.",
+      "view": "عرض",
+      "download": "تنزيل",
+      "share": "مشاركة",
+      "linkCopied": "تم نسخ الرابط إلى الحافظة.",
+      "copyLink": "انسخ هذا الرابط للمشاركة:"
     }
   },
   "palette": {

@@ -86,8 +86,10 @@
       "transferUsd": "Chuyển USD",
       "referral": "Giới thiệu",
       "participation": "Staking",
-      "promotion": "Khuyến mãi"
-    }
+      "promotion": "Khuyến mãi",
+      "monthlyReport": "Báo cáo hàng tháng"
+    },
+    "portfolioOverview": "Tổng quan danh mục đầu tư"
   },
   "pages": {
     "deposit": {
@@ -867,6 +869,19 @@
       "tableHeaders": {
         "rank": "Hạng"
       }
+    },
+    "monthlyReport": {
+      "title": "Báo cáo hàng tháng",
+      "description": "Các báo cáo tổng quan hàng tháng chính thức do đội ngũ của chúng tôi biên soạn.",
+      "eyebrow": "Phân tích chuyên sâu · Hàng tháng",
+      "heroTitle": "Báo cáo tổng quan hàng tháng",
+      "heroSubtitle": "Bức tranh toàn cảnh chất lượng cao do chuyên gia biên soạn về hiệu suất hoạt động, phân bổ tài sản và triển vọng tương lai — xuất bản mỗi tháng.",
+      "empty": "Chưa có báo cáo hàng tháng nào được xuất bản.",
+      "view": "Xem",
+      "download": "Tải xuống",
+      "share": "Chia sẻ",
+      "linkCopied": "Đã sao chép liên kết vào khay nhớ tạm.",
+      "copyLink": "Sao chép liên kết này để chia sẻ:"
     }
   },
   "palette": {

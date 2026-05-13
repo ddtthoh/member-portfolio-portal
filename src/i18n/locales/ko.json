@@ -86,8 +86,10 @@
       "transferUsd": "USD 이체",
       "referral": "추천",
       "participation": "스테이킹",
-      "promotion": "프로모션"
-    }
+      "promotion": "프로모션",
+      "monthlyReport": "월간 보고서"
+    },
+    "portfolioOverview": "포트폴리오 개요"
   },
   "pages": {
     "deposit": {
@@ -867,6 +869,19 @@
       "tableHeaders": {
         "rank": "랭크"
       }
+    },
+    "monthlyReport": {
+      "title": "월간 보고서",
+      "description": "당사 팀이 제공하는 공식 월간 개요 보고서입니다.",
+      "eyebrow": "인사이트 · 월간",
+      "heroTitle": "월간 개요 보고서",
+      "heroSubtitle": "매월 발행되는 성과, 자산 배분 및 향후 전망에 대한 전문가 수준의 엄선된 요약 자료입니다.",
+      "empty": "아직 발행된 월간 보고서가 없습니다.",
+      "view": "보기",
+      "download": "다운로드",
+      "share": "공유",
+      "linkCopied": "링크가 클립보드에 복사되었습니다.",
+      "copyLink": "공유할 링크 복사:"
     }
   },
   "palette": {

@@ -86,8 +86,10 @@
       "transferUsd": "USD送金",
       "referral": "紹介",
       "participation": "ステーキング",
-      "promotion": "プロモーション"
-    }
+      "promotion": "プロモーション",
+      "monthlyReport": "月次レポート"
+    },
+    "portfolioOverview": "ポートフォリオ概要"
   },
   "pages": {
     "deposit": {
@@ -867,6 +869,19 @@
       "tableHeaders": {
         "rank": "ランク"
       }
+    },
+    "monthlyReport": {
+      "title": "月次レポート",
+      "description": "当チームがまとめた公式の月次概要レポートです。",
+      "eyebrow": "インサイト · 月次",
+      "heroTitle": "月次概要レポート",
+      "heroSubtitle": "運用成績、資産配分、今後の見通しについて独自にまとめた、質の高い概況を毎月お届けします。",
+      "empty": "月次レポートはまだ発行されていません。",
+      "view": "閲覧",
+      "download": "ダウンロード",
+      "share": "共有",
+      "linkCopied": "リンクをクリップボードにコピーしました。",
+      "copyLink": "共有リンクをコピー:"
     }
   },
   "palette": {

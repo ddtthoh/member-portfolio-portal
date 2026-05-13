@@ -86,8 +86,10 @@
       "transferUsd": "انتقال دلار",
       "referral": "معرفی",
       "participation": "مشارکت",
-      "promotion": "تبلیغات"
-    }
+      "promotion": "تبلیغات",
+      "monthlyReport": "گزارش ماهانه"
+    },
+    "portfolioOverview": "نمای کلی پورتفوی"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "میزان پیشرفت شما",
+      "progressDescription": "میزان پیشرفت شما در این پروموشن در اینجا نمایش داده خواهد شد.",
       "notFound": "پروموشن مورد نظر یافت نشد.",
       "backToPromotions": "بازگشت به پروموشن‌ها",
       "details": "جزئیات",
-      "progressDescription": "میزان پیشرفت شما در این پروموشن در اینجا نمایش داده خواهد شد."
+      "officialOpening": "افتتاحیه رسمی",
+      "yourTracking": "پیگیری شما",
+      "meta": {
+        "location": "مکان",
+        "event": "رویداد",
+        "window": "بازه زمانی",
+        "payout": "پرداختی",
+        "payoutValue": "فوری + پلکانی"
+      },
+      "intros": {
+        "naslabTurkey": "با حجم استیکینگ شخصی یا حجم استیکینگ زیرمجموعه‌ها، واجد شرایط شرکت در رویداد افتتاحیه Naslab Türkiye شوید. سطوح بالاتر، صندلی‌ها، هزینه‌های هتل و کمک‌هزینه پرواز را باز می‌کنند.",
+        "ranking": "با فعالیت زیرمجموعه‌های واجد شرایط و رشد AUM جامعه، در نردبان رتبه‌بندی جامعه پیشرفت کنید. پاداش‌ها شامل پرداخت‌های فوری RCB، پاداش‌های درصدی TCB و جوایز نقاط عطف است."
+      },
+      "tracks": {
+        "participant": "شرکت‌کننده",
+        "referral": "زیرمجموعه",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "رتبه‌بندی"
+      },
+      "titles": {
+        "personalStaking": "استیکینگ شخصی",
+        "referralStaking": "استیکینگ زیرمجموعه",
+        "participantIncentive": "طرح تشویقی شرکت‌کننده",
+        "referralIncentive": "طرح تشویقی زیرمجموعه",
+        "rapidCommunityBuilder": "سازنده سریع جامعه",
+        "topCommunityBuilder": "سازنده برتر جامعه",
+        "communityRanking": "رتبه‌بندی جامعه",
+        "rcbPayoutLadder": "نردبان پرداخت RCB",
+        "tcbTierStructure": "ساختار پلکانی TCB"
+      },
+      "subtitles": {
+        "participant": "حجم استیکینگ شخصی شما، مزایای رویداد را باز می‌کند.",
+        "referral": "حجم استیکینگ زیرمجموعه‌های واجد شرایط، مزایای رویداد را باز می‌کند.",
+        "tcb": "برای باز کردن پاداش درصدی، باید هر دو شرط RCB و AUM را برآورده کنید.",
+        "ranking": "پاداش‌های طرح تشویقی بر اساس رتبه فعلی جامعه شماست."
+      },
+      "labels": {
+        "yourVolume": "حجم شما",
+        "currentTier": "سطح فعلی",
+        "qualifiedReferrals": "زیرمجموعه‌های واجد شرایط",
+        "rewardEarned": "پاداش کسب‌شده",
+        "yourAum": "AUM شما",
+        "reward": "پاداش",
+        "projectedReward": "پاداش پیش‌بینی‌شده",
+        "currentRank": "رتبه فعلی",
+        "rewardValue": "ارزش پاداش"
+      },
+      "progress": {
+        "nextTierWith": "سطح بعدی · {{value}} USDT",
+        "topReached": "به بالاترین سطح رسیدید",
+        "remaining": "{{amount}} متقاضی USDT",
+        "maxBracket": "بالاترین سطح محدوده باز شد",
+        "nextMilestoneReferrals": "نقطه عطف بعدی · {{count}} زیرمجموعه",
+        "moreToUnlock": "{{count}} نفر دیگر برای باز کردن ${{amount}}",
+        "nextTcb": "سطح بعدی · {{pct}}% AUM",
+        "rcb": "RCB تکمیل شد",
+        "moreRcb": "RCB بیشتر",
+        "aum": "AUM تکمیل شد",
+        "moreUsdtAum": "USDT AUM بیشتر",
+        "nextRank": "رتبه بعدی · {{name}}",
+        "rankPctRemaining": "{{remaining}}% برای {{reward}} باقی مانده است",
+        "rankRemaining": "{{remaining}} {{unit}} برای {{reward}} باقی مانده است"
+      },
+      "status": {
+        "achieved": "محقق شده",
+        "locked": "قفل‌شده",
+        "qualified": "واجد شرایط",
+        "pending": "در انتظار",
+        "apex": "رأس",
+        "current": "فعلی",
+        "included": "شامل شده",
+        "yes": "بله"
+      },
+      "table": {
+        "status": "وضعیت",
+        "threshold": "حد نصاب",
+        "seats": "صندلی‌ها",
+        "hotel": "هتل",
+        "flight": "پرواز (USDT)",
+        "minRcb": "حداقل RCB",
+        "minAum": "حداقل AUM",
+        "rewardCol": "پاداش",
+        "rewardPercent": "{{pct}}% پاداش",
+        "pctOfAum": "{{pct}}% از AUM",
+        "needRcbAum": "نیازمند {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "رتبه",
+        "approxValue": "ارزش تقریبی"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} به ازای هر زیرمجموعه واجد شرایط با حداقل استیکینگ {{min}} USDT.",
+        "rcbSubtitle": "${{usd}} به ازای هر زیرمجموعه واجد شرایط با حداقل استیکینگ {{min}} USDT.",
+        "referralsCount": "{{count}} زیرمجموعه",
+        "topTcbReached": "به بالاترین سطح TCB رسیدید.",
+        "nextRankFootnote": "رتبه بعدی: {{name}} · {{reward}}",
+        "apexRank": "رسیدن به بالاترین رتبه — سطح Partner."
+      },
+      "footnotes": {
+        "eventRewards": "پاداش‌های رویداد بر اساس حجم‌های واجد شرایط در طول بازه زمانی طرح تشویقی محاسبه می‌شوند و ممکن است نیاز به تأیید نهایی داشته باشند.",
+        "ranking": "محاسبات طرح تشویقی رتبه‌بندی بر اساس فعالیت‌های واجد شرایط جامعه در طول بازه زمانی کمپین انجام می‌شود و ممکن است نیاز به تأیید نهایی داشته باشند."
+      },
+      "ranks": {
+        "bronze": "برنز",
+        "silver": "نقره",
+        "gold": "طلا",
+        "platinum": "پلاتینیوم",
+        "diamond": "الماس",
+        "partner": "شریک"
+      },
+      "rewards": {
+        "iphone17": "آیفون 17 پرو مکس 256GB",
+        "marketingFund": "صندوق بازاریابی",
+        "rolexDaytona": "رولکس دیتونا",
+        "carSubsidy": "کمک‌هزینه خودرو",
+        "propertySubsidy": "کمک‌هزینه مسکن"
+      }
     },
     "staking": {
       "activePrograms": "برنامه‌های فعال",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "رتبه"
       }
+    },
+    "monthlyReport": {
+      "title": "گزارش ماهانه",
+      "description": "گزارش‌های جامع و رسمی ماهانه که توسط تیم ما تهیه شده است.",
+      "eyebrow": "بینش‌ها · ماهانه",
+      "heroTitle": "گزارش جامع ماهانه",
+      "heroSubtitle": "خلاصه‌ای دقیق و حرفه‌ای از عملکرد، تخصیص منابع و چشم‌انداز آینده — که به‌صورت ماهانه منتشر می‌شود.",
+      "empty": "هنوز هیچ گزارش ماهانه‌ای منتشر نشده است.",
+      "view": "مشاهده",
+      "download": "دانلود",
+      "share": "اشتراک‌گذاری",
+      "linkCopied": "لینک در کلیپ‌بورد کپی شد.",
+      "copyLink": "برای اشتراک‌گذاری این لینک را کپی کنید:"
     }
   },
   "palette": {
