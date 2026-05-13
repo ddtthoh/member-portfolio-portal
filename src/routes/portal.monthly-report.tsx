@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText, Download, Eye, Calendar, Send, MessageCircle } from "lucide-react";
+import { FileText, Download, Eye, Calendar, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { useTranslation } from "react-i18next";
@@ -248,73 +248,45 @@ function MonthlyReportPage() {
                       </a>
                     </div>
 
-                    {/* Share — direct-jump buttons */}
+                    {/* Share — single native share button */}
                     <div className="text-center sm:px-2">
                       <RuleEyebrow
-                        icon={<Send className="h-3 w-3" />}
+                        icon={<Share2 className="h-3 w-3" />}
                         label={t("pages.monthlyReport.share", "Share")}
                       />
-                      <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
-                        <button
-                          type="button"
-                          aria-label="Share on Telegram"
-                          onClick={() => {
-                            const url = encodeURIComponent(r.file_url);
-                            const text = encodeURIComponent(r.title);
-                            window.open(
-                              `https://t.me/share/url?url=${url}&text=${text}`,
-                              "_blank",
-                              "noopener,noreferrer"
-                            );
-                          }}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/90 text-white transition-colors hover:bg-sky-500"
-                        >
-                          <Send className="h-3.5 w-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          aria-label="Share on WhatsApp"
-                          onClick={() => {
-                            const text = encodeURIComponent(shareText);
-                            window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
-                          }}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/90 text-white transition-colors hover:bg-emerald-500"
-                        >
-                          <MessageCircle className="h-3.5 w-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          aria-label="Share on WeChat"
-                          onClick={async () => {
-                            const shareData = { title: r.title, url: r.file_url };
-                            if (navigator.share) {
-                              try {
-                                await navigator.share(shareData);
-                                return;
-                              } catch {
-                                /* user cancelled */
-                              }
-                            }
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const shareData = { title: r.title, text: r.title, url: r.file_url };
+                          if (navigator.share) {
                             try {
-                              await navigator.clipboard.writeText(r.file_url);
-                              alert(
-                                t(
-                                  "pages.monthlyReport.wechatCopied",
-                                  "Link copied. Open WeChat and paste to share."
-                                )
-                              );
+                              await navigator.share(shareData);
+                              return;
                             } catch {
-                              window.prompt(
-                                t("pages.monthlyReport.wechatCopy", "Copy this link and share in WeChat:"),
-                                r.file_url
-                              );
+                              /* user cancelled */
+                              return;
                             }
-                          }}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600/90 text-white transition-colors hover:bg-emerald-600"
-                        >
-                          <MessageCircle className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
+                          }
+                          try {
+                            await navigator.clipboard.writeText(r.file_url);
+                            alert(
+                              t(
+                                "pages.monthlyReport.linkCopied",
+                                "Link copied to clipboard."
+                              )
+                            );
+                          } catch {
+                            window.prompt(
+                              t("pages.monthlyReport.copyLink", "Copy this link to share:"),
+                              r.file_url
+                            );
+                          }
+                        }}
+                        className="mt-2 inline-flex items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                      >
+                        <Share2 className="mr-1.5 h-3.5 w-3.5" />
+                        {t("pages.monthlyReport.share", "Share")}
+                      </button>
                     </div>
                   </div>
                 </article>
