@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText, Download, Eye, Calendar } from "lucide-react";
+import { FileText, Download, Eye, Calendar, Share2, Send, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/portal/monthly-report")({
@@ -144,7 +150,6 @@ function MonthlyReportPage() {
                         {r.period}
                       </span>
                     )}
-                    <span>{formatBytes(r.file_size)}</span>
                     <span>{new Date(r.created_at).toLocaleDateString()}</span>
                   </div>
                 </div>
@@ -165,6 +170,57 @@ function MonthlyReportPage() {
                     {t("pages.monthlyReport.download", "Download")}
                   </a>
                 </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="border-gold/30 text-gold hover:bg-gold/10">
+                      <Share2 className="mr-2 h-4 w-4" />
+                      {t("pages.monthlyReport.share", "Share")}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-44">
+                    <DropdownMenuItem
+                      onClick={() => {
+                        const url = encodeURIComponent(r.file_url);
+                        const text = encodeURIComponent(r.title);
+                        window.open(`https://t.me/share/url?url=${url}&text=${text}`, "_blank", "noopener,noreferrer");
+                      }}
+                    >
+                      <Send className="mr-2 h-4 w-4" />
+                      Telegram
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        const text = encodeURIComponent(`${r.title} ${r.file_url}`);
+                        window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
+                      }}
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      WhatsApp
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={async () => {
+                        const shareData = { title: r.title, url: r.file_url };
+                        if (navigator.share) {
+                          try {
+                            await navigator.share(shareData);
+                            return;
+                          } catch {
+                            /* user cancelled */
+                          }
+                        }
+                        try {
+                          await navigator.clipboard.writeText(r.file_url);
+                          alert(t("pages.monthlyReport.wechatCopied", "Link copied. Open WeChat and paste to share."));
+                        } catch {
+                          window.prompt(t("pages.monthlyReport.wechatCopy", "Copy this link and share in WeChat:"), r.file_url);
+                        }
+                      }}
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      WeChat
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </article>
           ))}
