@@ -166,7 +166,7 @@ function MonthlyReportPage() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2">
           {reports.map((r) => {
-            const dateStr = lastDayOfPeriod(r.period, r.created_at);
+            const dateStr = lastDayOfPeriod(r.period, r.created_at, r.title);
             const shareText = `${r.title} ${r.file_url}`;
             return (
               <div key={r.id} className="relative">
