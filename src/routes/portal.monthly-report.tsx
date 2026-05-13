@@ -198,58 +198,66 @@ function MonthlyReportPage() {
                     className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
                   />
 
-                  {/* Header row: title/date on the left, gold icon-action triad on the right */}
-                  <div className="relative flex items-start justify-between gap-4">
-                    <div className="min-w-0 flex-1">
-                      <h3
-                        className="font-serif text-2xl font-semibold leading-tight sm:text-3xl"
-                        style={{
-                          background:
-                            "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
-                          WebkitBackgroundClip: "text",
-                          backgroundClip: "text",
-                          color: "transparent",
-                        }}
-                      >
-                        {r.title}
-                      </h3>
-                      <div className="mt-3 h-px w-10 bg-gradient-to-r from-gold/60 to-transparent" />
-                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                        {r.period && (
-                          <span className="inline-flex items-center gap-1">
-                            <Calendar className="h-3 w-3 text-gold/70" />
-                            {r.period}
-                          </span>
-                        )}
-                        <span className="tabular-nums text-gold/70">{dateStr}</span>
-                      </div>
+                  {/* Centered title + date */}
+                  <div className="relative flex flex-col items-center text-center">
+                    {/* Diamond ornament */}
+                    <div className="flex items-center gap-2 text-gold/60">
+                      <span className="h-px w-10 bg-gradient-to-r from-transparent to-gold/50" />
+                      <span className="rotate-45 text-[10px]">◆</span>
+                      <span className="h-px w-10 bg-gradient-to-l from-transparent to-gold/50" />
                     </div>
 
-                    {/* Gold action triad — icon-only square buttons, top-right */}
-                    <div className="flex shrink-0 items-center gap-2">
+                    <h3
+                      className="mt-3 font-serif text-2xl font-semibold leading-tight sm:text-3xl"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        color: "transparent",
+                      }}
+                    >
+                      {r.title}
+                    </h3>
+
+                    {/* Thin gold rule with center dot */}
+                    <div className="mt-3 flex w-full items-center justify-center gap-2">
+                      <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold/40" />
+                      <span className="h-1 w-1 rounded-full bg-gold/70" />
+                      <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/40" />
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                      {r.period && (
+                        <span className="inline-flex items-center gap-1">
+                          <Calendar className="h-3 w-3 text-gold/70" />
+                          {r.period}
+                        </span>
+                      )}
+                      <span className="tabular-nums text-gold/70">{dateStr}</span>
+                    </div>
+
+                    {/* Segmented pill — View | Download | Share */}
+                    <div className="mt-6 flex w-full items-stretch overflow-hidden rounded-full border border-gold/50 divide-x divide-gold/30 bg-background/30">
                       <a
                         href={r.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={t("pages.monthlyReport.view", "View")}
-                        title={t("pages.monthlyReport.view", "View")}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
+                        className="group flex flex-1 items-center justify-center gap-2 px-3 py-3 text-xs font-medium text-gold transition-colors hover:bg-gold/10 sm:text-sm"
                       >
                         <Eye className="h-4 w-4" />
+                        <span>{t("pages.monthlyReport.view", "View")}</span>
                       </a>
                       <a
                         href={r.file_url}
                         download
-                        aria-label={t("pages.monthlyReport.download", "Download")}
-                        title={t("pages.monthlyReport.download", "Download")}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
+                        className="group flex flex-1 items-center justify-center gap-2 px-3 py-3 text-xs font-medium text-gold transition-colors hover:bg-gold/10 sm:text-sm"
                       >
                         <Download className="h-4 w-4" />
+                        <span>{t("pages.monthlyReport.download", "Download")}</span>
                       </a>
                       <button
                         type="button"
-                        aria-label={t("pages.monthlyReport.share", "Share")}
-                        title={t("pages.monthlyReport.share", "Share")}
                         onClick={async () => {
                           const shareData = { title: r.title, text: r.title, url: r.file_url };
                           if (navigator.share) {
@@ -263,10 +271,7 @@ function MonthlyReportPage() {
                           try {
                             await navigator.clipboard.writeText(r.file_url);
                             alert(
-                              t(
-                                "pages.monthlyReport.linkCopied",
-                                "Link copied to clipboard."
-                              )
+                              t("pages.monthlyReport.linkCopied", "Link copied to clipboard.")
                             );
                           } catch {
                             window.prompt(
@@ -275,9 +280,10 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-transparent text-gold transition-all hover:-translate-y-0.5 hover:border-gold hover:bg-gold/10 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_55%,transparent)]"
+                        className="group flex flex-1 items-center justify-center gap-2 px-3 py-3 text-xs font-medium text-gold transition-colors hover:bg-gold/10 sm:text-sm"
                       >
                         <Share2 className="h-4 w-4" />
+                        <span>{t("pages.monthlyReport.share", "Share")}</span>
                       </button>
                     </div>
                   </div>
