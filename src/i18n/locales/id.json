@@ -43,6 +43,7 @@
     "changePassword": "Ubah Kata Sandi",
     "myKyc": "KYC Saya",
     "myQrCode": "Kode QR Saya",
+    "myLandingPage": "Landing Page Saya",
     "network": "Jaringan",
     "logout": "Keluar"
   },
@@ -426,7 +427,8 @@
         "description": "Apakah Anda yakin ingin mengajukan pengembalian dana penuh? Tim kami akan meninjau permintaan Anda dan segera menghubungi Anda.",
         "confirm": "Konfirmasi Permintaan",
         "submitted": "Permintaan pengembalian dana telah diajukan"
-      }
+      },
+      "earnedSoFar": "Diperoleh"
     },
     "transferUsd": {
       "eyebrow": "Dompet USD",
@@ -854,6 +856,43 @@
       "resetAction": "Atur Ulang",
       "filterAction": "Filter",
       "exportAction": "Ekspor"
+    }
+  },
+  "charts": {
+    "empty": "Belum ada data",
+    "assetGrowth": {
+      "eyebrow": "Pertumbuhan Aset",
+      "title": "Tren Pertumbuhan Aset",
+      "current": "Total Saat Ini"
+    },
+    "totalAssets": {
+      "eyebrow": "Aset",
+      "title": "Total Aset"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Imbalan",
+      "title": "Rincian Imbalan",
+      "total": "Total Imbalan"
+    },
+    "overview": {
+      "eyebrow": "Ringkasan",
+      "title": "Ringkasan Imbalan"
+    },
+    "monthlyRewards": {
+      "title": "Imbalan Bulanan · 6 Bulan Terakhir"
+    },
+    "rewardsHeatmap": {
+      "title": "Heatmap Imbalan Harian · 90 Hari Terakhir",
+      "less": "Sedikit",
+      "more": "Banyak"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Referal",
+      "team": "Tim",
+      "leader": "Leader",
+      "global": "Global",
+      "par_rank": "Par Rank"
     }
   }
 }

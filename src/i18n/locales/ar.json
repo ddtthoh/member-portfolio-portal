@@ -43,6 +43,7 @@
     "changePassword": "تغيير كلمة المرور",
     "myKyc": "اعرف عميلك",
     "myQrCode": "رمز QR الخاص بي",
+    "myLandingPage": "صفحة الهبوط الخاصة بي",
     "network": "الشبكة",
     "logout": "تسجيل الخروج"
   },
@@ -426,7 +427,8 @@
         "description": "هل أنت متأكد من أنك تريد طلب استرداد نقدي كامل؟ سيقوم فريقنا بمراجعة طلبك والاتصال بك قريباً.",
         "confirm": "تأكيد الطلب",
         "submitted": "تم تقديم طلب الاسترداد"
-      }
+      },
+      "earnedSoFar": "المكتسبة"
     },
     "transferUsd": {
       "eyebrow": "محفظة الدولار",
@@ -854,6 +856,43 @@
       "resetAction": "إعادة تعيين",
       "filterAction": "تصفية",
       "exportAction": "تصدير"
+    }
+  },
+  "charts": {
+    "empty": "لا توجد بيانات بعد",
+    "assetGrowth": {
+      "eyebrow": "نمو الأصول",
+      "title": "اتجاه نمو الأصول",
+      "current": "الإجمالي الحالي"
+    },
+    "totalAssets": {
+      "eyebrow": "الأصول",
+      "title": "إجمالي الأصول"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "المكافآت",
+      "title": "تفصيل المكافآت",
+      "total": "إجمالي المكافآت"
+    },
+    "overview": {
+      "eyebrow": "نظرة عامة",
+      "title": "نظرة عامة على المكافآت"
+    },
+    "monthlyRewards": {
+      "title": "المكافآت الشهرية · آخر 6 أشهر"
+    },
+    "rewardsHeatmap": {
+      "title": "الخريطة الحرارية للمكافآت اليومية · آخر 90 يوماً",
+      "less": "أقل",
+      "more": "أكثر"
+    },
+    "rewardTypes": {
+      "staking": "التحصيص",
+      "referral": "الإحالة",
+      "team": "الفريق",
+      "leader": "القائد",
+      "global": "عالمي",
+      "par_rank": "رتبة التكافؤ"
     }
   }
 }

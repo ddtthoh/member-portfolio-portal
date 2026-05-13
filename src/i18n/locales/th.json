@@ -43,6 +43,7 @@
     "changePassword": "เปลี่ยนรหัสผ่าน",
     "myKyc": "KYC ของฉัน",
     "myQrCode": "QR โค้ดของฉัน",
+    "myLandingPage": "หน้าแลนดิ้งเพจของฉัน",
     "network": "เครือข่าย",
     "logout": "ออกจากระบบ"
   },
@@ -426,7 +427,8 @@
         "description": "คุณแน่ใจว่าต้องการขอคืนยอดเงินจำนวนเต็มของคุณหรือไม่? ทีมงานเราจะทำการตรวจสอบบันทึกใบคำขอของคุณและทำการติดต่อคุณภายในไม่ช้า",
         "confirm": "ยืนยันการตั้งคำขอ",
         "submitted": "ส่งข้อมูลคำร้องขอเงินตั้งคืนเสร็จสมบูรณ์"
-      }
+      },
+      "earnedSoFar": "ได้รับแล้ว"
     },
     "transferUsd": {
       "eyebrow": "กระเป๋า USD",
@@ -854,6 +856,43 @@
       "resetAction": "รีเซ็ต",
       "filterAction": "กรอง",
       "exportAction": "ส่งออก"
+    }
+  },
+  "charts": {
+    "empty": "ยังไม่มีข้อมูล",
+    "assetGrowth": {
+      "eyebrow": "การเติบโตของสินทรัพย์",
+      "title": "แนวโน้มการเติบโตของสินทรัพย์",
+      "current": "ยอดรวมปัจจุบัน"
+    },
+    "totalAssets": {
+      "eyebrow": "สินทรัพย์",
+      "title": "สินทรัพย์รวม"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "รางวัล",
+      "title": "สัดส่วนรางวัล",
+      "total": "รางวัลรวม"
+    },
+    "overview": {
+      "eyebrow": "ภาพรวม",
+      "title": "ภาพรวมรางวัล"
+    },
+    "monthlyRewards": {
+      "title": "รางวัลรายเดือน · 6 เดือนล่าสุด"
+    },
+    "rewardsHeatmap": {
+      "title": "ฮีตแมปรางวัลรายวัน · 90 วันล่าสุด",
+      "less": "น้อย",
+      "more": "มาก"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "การแนะนำ",
+      "team": "ทีม",
+      "leader": "ผู้นำ",
+      "global": "โกลบอล",
+      "par_rank": "Par Rank"
     }
   }
 }

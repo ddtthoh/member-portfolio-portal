@@ -43,6 +43,7 @@
     "changePassword": "Đổi mật khẩu",
     "myKyc": "KYC của tôi",
     "myQrCode": "Mã QR của tôi",
+    "myLandingPage": "Trang đích của tôi",
     "network": "Mạng lưới",
     "logout": "Đăng xuất"
   },
@@ -426,7 +427,8 @@
         "description": "Bạn có chắc chắn muốn yêu cầu hoàn tiền toàn bộ không? Đội ngũ của chúng tôi sẽ xem xét yêu cầu và liên hệ lại với bạn trong thời gian sớm nhất.",
         "confirm": "Xác nhận Yêu cầu",
         "submitted": "Đã gửi yêu cầu hoàn tiền"
-      }
+      },
+      "earnedSoFar": "Đã kiếm được"
     },
     "transferUsd": {
       "eyebrow": "Ví USD",
@@ -854,6 +856,43 @@
       "resetAction": "Đặt lại",
       "filterAction": "Lọc",
       "exportAction": "Xuất"
+    }
+  },
+  "charts": {
+    "empty": "Chưa có dữ liệu",
+    "assetGrowth": {
+      "eyebrow": "Tăng trưởng tài sản",
+      "title": "Xu hướng tăng trưởng tài sản",
+      "current": "Tổng hiện tại"
+    },
+    "totalAssets": {
+      "eyebrow": "Tài sản",
+      "title": "Tổng tài sản"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Phần thưởng",
+      "title": "Chi tiết phần thưởng",
+      "total": "Tổng phần thưởng"
+    },
+    "overview": {
+      "eyebrow": "Tổng quan",
+      "title": "Tổng quan phần thưởng"
+    },
+    "monthlyRewards": {
+      "title": "Phần thưởng hàng tháng · 6 tháng qua"
+    },
+    "rewardsHeatmap": {
+      "title": "Bản đồ nhiệt phần thưởng hàng ngày · 90 ngày qua",
+      "less": "Ít",
+      "more": "Nhiều"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Giới thiệu",
+      "team": "Đội nhóm",
+      "leader": "Lãnh đạo",
+      "global": "Toàn cầu",
+      "par_rank": "Đồng cấp"
     }
   }
 }

@@ -43,6 +43,7 @@
     "changePassword": "Şifre Değiştir",
     "myKyc": "KYC'm",
     "myQrCode": "QR Kodum",
+    "myLandingPage": "Açılış Sayfam",
     "network": "Ağ",
     "logout": "Çıkış Yap"
   },
@@ -426,7 +427,8 @@
         "description": "Tam para iadesi talep etmek istediğinize emin misiniz? Ekibimiz talebinizi inceleyecek ve kısa süre içinde sizinle iletişime geçecektir.",
         "confirm": "Talebi Onayla",
         "submitted": "İade talebi gönderildi"
-      }
+      },
+      "earnedSoFar": "Kazanılan"
     },
     "transferUsd": {
       "eyebrow": "USD Cüzdanı",
@@ -854,6 +856,43 @@
       "resetAction": "Sıfırla",
       "filterAction": "Filtrele",
       "exportAction": "Dışa Aktar"
+    }
+  },
+  "charts": {
+    "empty": "Henüz veri yok",
+    "assetGrowth": {
+      "eyebrow": "Varlık Büyümesi",
+      "title": "Varlık Büyüme Trendi",
+      "current": "Güncel Toplam"
+    },
+    "totalAssets": {
+      "eyebrow": "Varlıklar",
+      "title": "Toplam Varlıklar"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Ödüller",
+      "title": "Ödül Dağılımı",
+      "total": "Toplam Ödül"
+    },
+    "overview": {
+      "eyebrow": "Genel Bakış",
+      "title": "Ödüllere Genel Bakış"
+    },
+    "monthlyRewards": {
+      "title": "Aylık Ödüller · Son 6 Ay"
+    },
+    "rewardsHeatmap": {
+      "title": "Günlük Ödül Isı Haritası · Son 90 Gün",
+      "less": "Daha Az",
+      "more": "Daha Fazla"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Referans",
+      "team": "Ekip",
+      "leader": "Lider",
+      "global": "Global",
+      "par_rank": "Par Rank"
     }
   }
 }

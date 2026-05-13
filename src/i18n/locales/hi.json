@@ -43,6 +43,7 @@
     "changePassword": "पासवर्ड बदलें",
     "myKyc": "मेरा KYC",
     "myQrCode": "मेरा QR कोड",
+    "myLandingPage": "मेरा लैंडिंग पेज",
     "network": "नेटवर्क",
     "logout": "लॉग आउट"
   },
@@ -426,7 +427,8 @@
         "description": "क्या आप वाकई पूर्ण रिफंड का अनुरोध करना चाहते हैं? हमारी टीम आपके अनुरोध की समीक्षा करेगी और जल्द ही आपसे संपर्क करेगी।",
         "confirm": "अनुरोध की पुष्टि करें",
         "submitted": "रिफंड अनुरोध सबमिट किया गया"
-      }
+      },
+      "earnedSoFar": "अर्जित"
     },
     "transferUsd": {
       "eyebrow": "USD वॉलेट",
@@ -854,6 +856,43 @@
       "resetAction": "रीसेट",
       "filterAction": "फ़िल्टर",
       "exportAction": "निर्यात"
+    }
+  },
+  "charts": {
+    "empty": "अभी कोई डेटा नहीं है",
+    "assetGrowth": {
+      "eyebrow": "संपत्ति वृद्धि",
+      "title": "संपत्ति वृद्धि का रुझान",
+      "current": "वर्तमान कुल"
+    },
+    "totalAssets": {
+      "eyebrow": "संपत्ति",
+      "title": "कुल संपत्ति"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "रिवॉर्ड",
+      "title": "रिवॉर्ड का विवरण",
+      "total": "कुल रिवॉर्ड"
+    },
+    "overview": {
+      "eyebrow": "अवलोकन",
+      "title": "रिवॉर्ड का अवलोकन"
+    },
+    "monthlyRewards": {
+      "title": "मासिक रिवॉर्ड · पिछले 6 महीने"
+    },
+    "rewardsHeatmap": {
+      "title": "दैनिक रिवॉर्ड हीटमैप · पिछले 90 दिन",
+      "less": "कम",
+      "more": "अधिक"
+    },
+    "rewardTypes": {
+      "staking": "स्टेकिंग",
+      "referral": "रेफरल",
+      "team": "टीम",
+      "leader": "लीडर",
+      "global": "ग्लोबल",
+      "par_rank": "पार रैंक"
     }
   }
 }

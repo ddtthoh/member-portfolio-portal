@@ -43,6 +43,7 @@
     "changePassword": "Cambiar contraseña",
     "myKyc": "Mi KYC",
     "myQrCode": "Mi código QR",
+    "myLandingPage": "Mi página de destino",
     "network": "Red",
     "logout": "Cerrar sesión"
   },
@@ -426,7 +427,8 @@
         "description": "¿Confirma que desea solicitar un reembolso total? Nuestro equipo revisará su solicitud y lo contactará en breve.",
         "confirm": "Confirmar solicitud",
         "submitted": "Solicitud de reembolso enviada"
-      }
+      },
+      "earnedSoFar": "Ganado"
     },
     "transferUsd": {
       "eyebrow": "Billetera USD",
@@ -854,6 +856,43 @@
       "resetAction": "Restablecer",
       "filterAction": "Filtrar",
       "exportAction": "Exportar"
+    }
+  },
+  "charts": {
+    "empty": "Aún no hay datos",
+    "assetGrowth": {
+      "eyebrow": "Crecimiento de activos",
+      "title": "Tendencia de crecimiento de activos",
+      "current": "Total actual"
+    },
+    "totalAssets": {
+      "eyebrow": "Activos",
+      "title": "Activos totales"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Recompensas",
+      "title": "Desglose de recompensas",
+      "total": "Recompensas totales"
+    },
+    "overview": {
+      "eyebrow": "Resumen",
+      "title": "Resumen de recompensas"
+    },
+    "monthlyRewards": {
+      "title": "Recompensas mensuales · Últimos 6 meses"
+    },
+    "rewardsHeatmap": {
+      "title": "Mapa de calor de recompensas diarias · Últimos 90 días",
+      "less": "Menos",
+      "more": "Más"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Referidos",
+      "team": "Equipo",
+      "leader": "Líder",
+      "global": "Global",
+      "par_rank": "Rango Par"
     }
   }
 }

@@ -43,6 +43,7 @@
     "changePassword": "パスワード変更",
     "myKyc": "マイKYC",
     "myQrCode": "マイQRコード",
+    "myLandingPage": "マイランディングページ",
     "network": "ネットワーク",
     "logout": "ログアウト"
   },
@@ -426,7 +427,8 @@
         "description": "全額返金をリクエストしてもよろしいですか？弊社の担当チームがリクエストを確認し、追ってご連絡いたします。",
         "confirm": "リクエストを確定",
         "submitted": "返金リクエストを送信しました"
-      }
+      },
+      "earnedSoFar": "獲得額"
     },
     "transferUsd": {
       "eyebrow": "USDウォレット",
@@ -854,6 +856,43 @@
       "resetAction": "リセット",
       "filterAction": "フィルター",
       "exportAction": "エクスポート"
+    }
+  },
+  "charts": {
+    "empty": "データがありません",
+    "assetGrowth": {
+      "eyebrow": "資産推移",
+      "title": "資産推移トレンド",
+      "current": "現在の総額"
+    },
+    "totalAssets": {
+      "eyebrow": "資産",
+      "title": "総資産"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "報酬",
+      "title": "報酬内訳",
+      "total": "総報酬"
+    },
+    "overview": {
+      "eyebrow": "概要",
+      "title": "報酬概要"
+    },
+    "monthlyRewards": {
+      "title": "月間報酬・過去6ヶ月"
+    },
+    "rewardsHeatmap": {
+      "title": "日次報酬ヒートマップ・過去90日",
+      "less": "少",
+      "more": "多"
+    },
+    "rewardTypes": {
+      "staking": "ステーキング",
+      "referral": "紹介",
+      "team": "チーム",
+      "leader": "リーダー",
+      "global": "グローバル",
+      "par_rank": "パーランク"
     }
   }
 }

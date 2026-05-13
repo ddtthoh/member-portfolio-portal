@@ -43,6 +43,7 @@
     "changePassword": "Cambia Password",
     "myKyc": "Il mio KYC",
     "myQrCode": "Il mio QR Code",
+    "myLandingPage": "La mia Landing Page",
     "network": "Rete",
     "logout": "Disconnetti"
   },
@@ -426,7 +427,8 @@
         "description": "Sei sicuro di voler richiedere un rimborso completo? Il nostro team esaminerà la tua richiesta e ti contatterà a breve.",
         "confirm": "Conferma richiesta",
         "submitted": "Richiesta di rimborso inviata"
-      }
+      },
+      "earnedSoFar": "Guadagnato"
     },
     "transferUsd": {
       "eyebrow": "Wallet USD",
@@ -854,6 +856,43 @@
       "resetAction": "Reimposta",
       "filterAction": "Filtra",
       "exportAction": "Esporta"
+    }
+  },
+  "charts": {
+    "empty": "Nessun dato ancora",
+    "assetGrowth": {
+      "eyebrow": "Crescita degli asset",
+      "title": "Andamento della crescita degli asset",
+      "current": "Totale attuale"
+    },
+    "totalAssets": {
+      "eyebrow": "Asset",
+      "title": "Asset totali"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Ricompense",
+      "title": "Ripartizione delle ricompense",
+      "total": "Ricompense totali"
+    },
+    "overview": {
+      "eyebrow": "Panoramica",
+      "title": "Panoramica delle ricompense"
+    },
+    "monthlyRewards": {
+      "title": "Ricompense mensili · Ultimi 6 mesi"
+    },
+    "rewardsHeatmap": {
+      "title": "Heatmap delle ricompense giornaliere · Ultimi 90 giorni",
+      "less": "Meno",
+      "more": "Più"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Referral",
+      "team": "Team",
+      "leader": "Leader",
+      "global": "Globale",
+      "par_rank": "Par Rank"
     }
   }
 }
