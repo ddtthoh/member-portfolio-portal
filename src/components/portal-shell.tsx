@@ -128,6 +128,14 @@ export function PortalShell() {
   });
 
   useEffect(() => {
+    const stored = window.localStorage.getItem("iv-lang");
+    const supported = SUPPORTED_LANGUAGES.some((language) => language.code === stored);
+    if (stored && supported && i18n.language !== stored) {
+      void i18n.changeLanguage(stored);
+    }
+  }, [i18n]);
+
+  useEffect(() => {
     if (!loading && !user) navigate({ to: "/login" });
   }, [loading, user, navigate]);
 
@@ -160,7 +168,12 @@ export function PortalShell() {
   }
   if (!user) return null;
 
-  const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) ?? SUPPORTED_LANGUAGES[0];
+  const activeLanguage = i18n.resolvedLanguage ?? i18n.language;
+  const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === activeLanguage) ?? SUPPORTED_LANGUAGES[0];
+  const changeLanguage = (code: string) => {
+    window.localStorage.setItem("iv-lang", code);
+    void i18n.changeLanguage(code);
+  };
   const sidebarWidth = collapsed ? "w-[68px]" : "w-64";
   const userName = user.email?.split("@")[0] ?? t("shell.member");
 
@@ -350,7 +363,7 @@ export function PortalShell() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-44">
                   {SUPPORTED_LANGUAGES.map((l) => (
-                    <DropdownMenuItem key={l.code} onSelect={() => i18n.changeLanguage(l.code)}>
+                    <DropdownMenuItem key={l.code} onSelect={() => changeLanguage(l.code)}>
                       <span className="mr-2">{l.flag}</span>{l.label}
                     </DropdownMenuItem>
                   ))}
