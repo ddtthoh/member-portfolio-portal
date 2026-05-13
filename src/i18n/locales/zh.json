@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "您的进度",
+      "progressDescription": "您在此活动中的进度将显示于此。",
       "notFound": "未找到相关活动。",
       "backToPromotions": "返回活动",
       "details": "详情",
-      "progressDescription": "您在此活动中的进度将显示于此。"
+      "officialOpening": "官方开幕",
+      "yourTracking": "进度追踪",
+      "meta": {
+        "location": "地点",
+        "event": "活动",
+        "window": "活动周期",
+        "payout": "奖励发放",
+        "payoutValue": "即时 + 阶梯式"
+      },
+      "intros": {
+        "naslabTurkey": "通过个人质押量或推荐质押量获取 Naslab 土耳其开业活动的参与资格。更高的级别可解锁席位、酒店住宿及机票补贴。",
+        "ranking": "建立有效的推荐活动，实现社区 AUM 增长，并在社区排名阶梯中晋升。奖励包括即时 RCB 派发、TCB 百分比奖励以及里程碑奖品。"
+      },
+      "tracks": {
+        "participant": "参与者",
+        "referral": "推荐",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "排名"
+      },
+      "titles": {
+        "personalStaking": "个人质押",
+        "referralStaking": "推荐质押",
+        "participantIncentive": "参与者激励",
+        "referralIncentive": "推荐激励",
+        "rapidCommunityBuilder": "快速社区建设者",
+        "topCommunityBuilder": "顶级社区建设者",
+        "communityRanking": "社区排名",
+        "rcbPayoutLadder": "RCB 奖励派发阶梯",
+        "tcbTierStructure": "TCB 等级结构"
+      },
+      "subtitles": {
+        "participant": "您个人的质押量可解锁活动福利。",
+        "referral": "有效推荐的质押量可解锁活动福利。",
+        "tcb": "同时满足 RCB 和 AUM 要求即可解锁百分比奖励。",
+        "ranking": "基于您当前社区排名的里程碑奖励。"
+      },
+      "labels": {
+        "yourVolume": "您的质押量",
+        "currentTier": "当前等级",
+        "qualifiedReferrals": "有效推荐",
+        "rewardEarned": "已获奖励",
+        "yourAum": "您的 AUM",
+        "reward": "奖励",
+        "projectedReward": "预计奖励",
+        "currentRank": "当前排名",
+        "rewardValue": "奖励价值"
+      },
+      "progress": {
+        "nextTierWith": "下一等级 · {{value}} USDT",
+        "topReached": "已达最高等级",
+        "remaining": "还需 {{amount}} USDT",
+        "maxBracket": "最高档位已解锁",
+        "nextMilestoneReferrals": "下一里程碑 · {{count}} 位推荐",
+        "moreToUnlock": "还需 {{count}} 人以解锁 ${{amount}}",
+        "nextTcb": "下一等级 · {{pct}}% AUM",
+        "rcb": "RCB 已完成",
+        "moreRcb": "还需 RCB",
+        "aum": "AUM 已完成",
+        "moreUsdtAum": "还需 USDT AUM",
+        "nextRank": "下一排名 · {{name}}",
+        "rankPctRemaining": "距离 {{reward}} 还需 {{remaining}}%",
+        "rankRemaining": "距离 {{reward}} 还需 {{remaining}} {{unit}}"
+      },
+      "status": {
+        "achieved": "已达成",
+        "locked": "已锁定",
+        "qualified": "已达标",
+        "pending": "待处理",
+        "apex": "巅峰",
+        "current": "当前",
+        "included": "已包含",
+        "yes": "是"
+      },
+      "table": {
+        "status": "状态",
+        "threshold": "达标门槛",
+        "seats": "席位",
+        "hotel": "酒店",
+        "flight": "机票 (USDT)",
+        "minRcb": "最低 RCB",
+        "minAum": "最低 AUM",
+        "rewardCol": "奖励",
+        "rewardPercent": "{{pct}}% 奖励",
+        "pctOfAum": "AUM 的 {{pct}}%",
+        "needRcbAum": "需要 {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "级别",
+        "approxValue": "预估价值"
+      },
+      "ladder": {
+        "rcbFootnote": "每增加一名至少质押 {{min}} USDT 的有效推荐即可获得 ${{usd}}。",
+        "rcbSubtitle": "每增加一名至少质押 {{min}} USDT 的有效推荐即可获得 ${{usd}}。",
+        "referralsCount": "{{count}} 位推荐",
+        "topTcbReached": "已达最高 TCB 等级。",
+        "nextRankFootnote": "下一排名：{{name}} · {{reward}}",
+        "apexRank": "已达成巅峰排名 — 合伙人级别。"
+      },
+      "footnotes": {
+        "eventRewards": "活动奖励根据活动周期内的有效达标额度计算，并以最终核实为准。",
+        "ranking": "排名激励的计算基于活动期间内符合条件的社区活动，并以最终核实为准。"
+      },
+      "ranks": {
+        "bronze": "青铜",
+        "silver": "白银",
+        "gold": "黄金",
+        "platinum": "铂金",
+        "diamond": "钻石",
+        "partner": "合伙人"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "营销基金",
+        "rolexDaytona": "劳力士迪通拿",
+        "carSubsidy": "购车补贴",
+        "propertySubsidy": "购房补贴"
+      }
     },
     "staking": {
       "activePrograms": "活跃项目",

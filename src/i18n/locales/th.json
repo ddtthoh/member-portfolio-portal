@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "ดูยอดความคืบหน้าของบัญชี",
+      "progressDescription": "ข้อมูลสำหรับบันทึกรายการโปรโมชันใหม่จะมาโชว์บอกแสดงให้ดูในส่วนกล่องจุดรวมเนื้อหานี้",
       "notFound": "ระบบไม่มีโปรแกรมอัปเดตพิเศษอื่นๆ ในขณะนี้",
       "backToPromotions": "กลับย้อนไปยังเพจโปโมชั่นที่มีจัดข้อมูลให้",
       "details": "รายละเอียดในรายการ",
-      "progressDescription": "ข้อมูลสำหรับบันทึกรายการโปรโมชันใหม่จะมาโชว์บอกแสดงให้ดูในส่วนกล่องจุดรวมเนื้อหานี้"
+      "officialOpening": "เปิดตัวอย่างเป็นทางการ",
+      "yourTracking": "การติดตามผลของคุณ",
+      "meta": {
+        "location": "สถานที่",
+        "event": "กิจกรรม",
+        "window": "ระยะเวลา",
+        "payout": "การจ่ายผลตอบแทน",
+        "payoutValue": "ทันที + ตามระดับ"
+      },
+      "intros": {
+        "naslabTurkey": "รับสิทธิ์เข้าร่วมกิจกรรมเปิดตัว Naslab Türkiye ผ่านปริมาณ Staking ส่วนตัว หรือ ปริมาณ Staking ของผู้ที่คุณแนะนำ ระดับที่สูงขึ้นจะปลดล็อกสิทธิ์ที่นั่ง ที่พักโรงแรม และเงินอุดหนุนค่าตั๋วเครื่องบิน",
+        "ranking": "สร้างกิจกรรมการแนะนำที่ผ่านเกณฑ์ เพิ่ม AUM ของคอมมูนิตี้ และเลื่อนระดับในระบบจัดอันดับคอมมูนิตี้ รางวัลประกอบด้วยการจ่ายผลตอบแทน RCB ทันที, รางวัล TCB แบบเปอร์เซ็นต์ และรางวัลตามไมล์สโตน"
+      },
+      "tracks": {
+        "participant": "ผู้เข้าร่วม",
+        "referral": "การแนะนำ",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "อันดับ"
+      },
+      "titles": {
+        "personalStaking": "Staking ส่วนตัว",
+        "referralStaking": "Staking ของผู้ถูกแนะนำ",
+        "participantIncentive": "สิ่งจูงใจสำหรับผู้เข้าร่วม",
+        "referralIncentive": "สิ่งจูงใจสำหรับการแนะนำ",
+        "rapidCommunityBuilder": "Rapid Community Builder",
+        "topCommunityBuilder": "Top Community Builder",
+        "communityRanking": "อันดับคอมมูนิตี้",
+        "rcbPayoutLadder": "ระดับการจ่ายผลตอบแทน RCB",
+        "tcbTierStructure": "โครงสร้างระดับ TCB"
+      },
+      "subtitles": {
+        "participant": "ปริมาณ Staking ของคุณเองเพื่อปลดล็อกสิทธิประโยชน์ของกิจกรรม",
+        "referral": "ปริมาณ Staking ของผู้ถูกแนะนำที่ผ่านเกณฑ์เพื่อปลดล็อกสิทธิประโยชน์ของกิจกรรม",
+        "tcb": "บรรลุเงื่อนไขทั้ง RCB และ AUM เพื่อปลดล็อกรางวัลแบบเปอร์เซ็นต์",
+        "ranking": "รางวัลตามความสำเร็จอิงจากอันดับคอมมูนิตี้ปัจจุบันของคุณ"
+      },
+      "labels": {
+        "yourVolume": "ปริมาณของคุณ",
+        "currentTier": "ระดับปัจจุบัน",
+        "qualifiedReferrals": "การแนะนำที่ผ่านเกณฑ์",
+        "rewardEarned": "รางวัลที่ได้รับ",
+        "yourAum": "AUM ของคุณ",
+        "reward": "รางวัล",
+        "projectedReward": "รางวัลที่คาดว่าจะได้รับ",
+        "currentRank": "อันดับปัจจุบัน",
+        "rewardValue": "มูลค่ารางวัล"
+      },
+      "progress": {
+        "nextTierWith": "ระดับถัดไป · {{value}} USDT",
+        "topReached": "บรรลุระดับสูงสุดแล้ว",
+        "remaining": "เหลืออีก {{amount}} USDT",
+        "maxBracket": "ปลดล็อกระดับสูงสุดแล้ว",
+        "nextMilestoneReferrals": "เป้าหมายถัดไป · {{count}} การแนะนำ",
+        "moreToUnlock": "อีก {{count}} เพื่อปลดล็อก ${{amount}}",
+        "nextTcb": "ระดับถัดไป · AUM {{pct}}%",
+        "rcb": "RCB สมบูรณ์",
+        "moreRcb": "RCB เพิ่มเติม",
+        "aum": "AUM สมบูรณ์",
+        "moreUsdtAum": "USDT AUM เพิ่มเติม",
+        "nextRank": "อันดับถัดไป · {{name}}",
+        "rankPctRemaining": "เหลืออีก {{remaining}}% สำหรับ {{reward}}",
+        "rankRemaining": "เหลืออีก {{remaining}} {{unit}} สำหรับ {{reward}}"
+      },
+      "status": {
+        "achieved": "สำเร็จแล้ว",
+        "locked": "ล็อกอยู่",
+        "qualified": "ผ่านเกณฑ์",
+        "pending": "รอดำเนินการ",
+        "apex": "สูงสุด",
+        "current": "ปัจจุบัน",
+        "included": "รวมอยู่ด้วย",
+        "yes": "ใช่"
+      },
+      "table": {
+        "status": "สถานะ",
+        "threshold": "เกณฑ์",
+        "seats": "ที่นั่ง",
+        "hotel": "โรงแรม",
+        "flight": "เที่ยวบิน (USDT)",
+        "minRcb": "RCB ขั้นต่ำ",
+        "minAum": "AUM ขั้นต่ำ",
+        "rewardCol": "รางวัล",
+        "rewardPercent": "รางวัล {{pct}}%",
+        "pctOfAum": "{{pct}}% ของ AUM",
+        "needRcbAum": "ต้องการ {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "อันดับ",
+        "approxValue": "มูลค่าโดยประมาณ"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} ต่อการแนะนำที่ผ่านเกณฑ์ ที่มีการ Staking อย่างน้อย {{min}} USDT",
+        "rcbSubtitle": "${{usd}} ต่อการแนะนำที่ผ่านเกณฑ์ ที่มีการ Staking อย่างน้อย {{min}} USDT",
+        "referralsCount": "{{count}} การแนะนำ",
+        "topTcbReached": "บรรลุระดับ TCB สูงสุดแล้ว",
+        "nextRankFootnote": "อันดับถัดไป: {{name}} · {{reward}}",
+        "apexRank": "บรรลุอันดับสูงสุดแล้ว — ระดับ Partner"
+      },
+      "footnotes": {
+        "eventRewards": "รางวัลจากกิจกรรมคำนวณจากปริมาณที่ผ่านเกณฑ์ในช่วงระยะเวลาโปรโมชั่น และอาจมีการตรวจสอบยืนยันขั้นสุดท้าย",
+        "ranking": "การคำนวณสิ่งจูงใจในการจัดอันดับอิงจากกิจกรรมของคอมมูนิตี้ที่ผ่านเกณฑ์ในช่วงระยะเวลาแคมเปญ และอาจมีการตรวจสอบยืนยันขั้นสุดท้าย"
+      },
+      "ranks": {
+        "bronze": "บรอนซ์",
+        "silver": "ซิลเวอร์",
+        "gold": "โกลด์",
+        "platinum": "แพลทินัม",
+        "diamond": "ไดมอนด์",
+        "partner": "พาร์ทเนอร์"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "กองทุนการตลาด",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "เงินอุดหนุนรถยนต์",
+        "propertySubsidy": "เงินอุดหนุนอสังหาริมทรัพย์"
+      }
     },
     "staking": {
       "activePrograms": "รายชื่อโปรแกรมยอด Staking ปัจจุบัน",

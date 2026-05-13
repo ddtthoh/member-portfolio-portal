@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "あなたの進捗",
+      "progressDescription": "このプロモーションにおけるあなたの進捗がここに表示されます。",
       "notFound": "プロモーションが見つかりません。",
       "backToPromotions": "プロモーション一覧に戻る",
       "details": "詳細",
-      "progressDescription": "このプロモーションにおけるあなたの進捗がここに表示されます。"
+      "officialOpening": "公式オープニング",
+      "yourTracking": "トラッキング状況",
+      "meta": {
+        "location": "開催地",
+        "event": "イベント",
+        "window": "期間",
+        "payout": "報酬の支払い",
+        "payoutValue": "即時 + 階層型"
+      },
+      "intros": {
+        "naslabTurkey": "個人ステーキングボリュームまたはリファラルステーキングボリュームを通じて、Naslab Türkiyeオープニングイベントの参加資格を獲得できます。上位ティアになると、座席の確保、ホテル宿泊費、航空券の補助などの特典がアンロックされます。",
+        "ranking": "適格なリファラル活動を構築し、コミュニティAUMを拡大させて、コミュニティランキングのラダーを上げましょう。報酬は、即時支払いのRCB、パーセンテージ報酬のTCB、およびマイルストーン賞品の組み合わせとなります。"
+      },
+      "tracks": {
+        "participant": "参加者",
+        "referral": "リファラル",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "ランキング"
+      },
+      "titles": {
+        "personalStaking": "個人ステーキング",
+        "referralStaking": "リファラルステーキング",
+        "participantIncentive": "参加者インセンティブ",
+        "referralIncentive": "リファラルインセンティブ",
+        "rapidCommunityBuilder": "ラピッドコミュニティビルダー",
+        "topCommunityBuilder": "トップコミュニティビルダー",
+        "communityRanking": "コミュニティランキング",
+        "rcbPayoutLadder": "RCB支払いラダー",
+        "tcbTierStructure": "TCBティア構造"
+      },
+      "subtitles": {
+        "participant": "ご自身のステーキングボリュームにより、イベント特典がアンロックされます。",
+        "referral": "適格なリファラルステーキングボリュームにより、イベント特典がアンロックされます。",
+        "tcb": "RCBとAUMの要件を両方とも満たすと、パーセンテージ報酬がアンロックされます。",
+        "ranking": "現在のコミュニティランクに基づいたマイルストーン報酬です。"
+      },
+      "labels": {
+        "yourVolume": "あなたのボリューム",
+        "currentTier": "現在のティア",
+        "qualifiedReferrals": "適格リファラル",
+        "rewardEarned": "獲得した報酬",
+        "yourAum": "あなたのAUM",
+        "reward": "報酬",
+        "projectedReward": "予測報酬",
+        "currentRank": "現在のランク",
+        "rewardValue": "報酬額"
+      },
+      "progress": {
+        "nextTierWith": "次のティアまで · {{value}} USDT",
+        "topReached": "トップティアに到達しました",
+        "remaining": "残り {{amount}} USDT",
+        "maxBracket": "最大ブラケットがアンロックされました",
+        "nextMilestoneReferrals": "次のマイルストーンまで · {{count}} リファラル",
+        "moreToUnlock": "${{amount}}をアンロックするまで残り{{count}}",
+        "nextTcb": "次のティアまで · AUM {{pct}}%",
+        "rcb": "RCB達成",
+        "moreRcb": "追加のRCB",
+        "aum": "AUM達成",
+        "moreUsdtAum": "追加のUSDT AUM",
+        "nextRank": "次のランクまで · {{name}}",
+        "rankPctRemaining": "{{reward}}まで残り{{remaining}}%",
+        "rankRemaining": "{{reward}}まで残り{{remaining}} {{unit}}"
+      },
+      "status": {
+        "achieved": "達成済み",
+        "locked": "ロック中",
+        "qualified": "資格あり",
+        "pending": "保留中",
+        "apex": "Apex",
+        "current": "現在",
+        "included": "適用",
+        "yes": "あり"
+      },
+      "table": {
+        "status": "ステータス",
+        "threshold": "達成条件",
+        "seats": "座席数",
+        "hotel": "ホテル",
+        "flight": "航空券 (USDT)",
+        "minRcb": "最小RCB",
+        "minAum": "最小AUM",
+        "rewardCol": "報酬",
+        "rewardPercent": "{{pct}}% 報酬",
+        "pctOfAum": "AUMの{{pct}}%",
+        "needRcbAum": "{{rcb}} RCB · {{aum}} USDT AUMが必要",
+        "rank": "ランク",
+        "approxValue": "推定額"
+      },
+      "ladder": {
+        "rcbFootnote": "最低{{min}} USDTのステーキングを持つ適格リファラル1人につき${{usd}}。",
+        "rcbSubtitle": "最低{{min}} USDTのステーキングを持つ適格リファラル1人につき${{usd}}。",
+        "referralsCount": "{{count}} リファラル",
+        "topTcbReached": "トップTCBティアに到達しました。",
+        "nextRankFootnote": "次のランク: {{name}} · {{reward}}",
+        "apexRank": "Apexランクに到達しました — パートナーティアです。"
+      },
+      "footnotes": {
+        "eventRewards": "イベント報酬は、プロモーション期間中の対象ボリュームから計算され、最終確認の対象となる場合があります。",
+        "ranking": "ランキングインセンティブの計算は、キャンペーン期間中の対象となるコミュニティ活動に基づいており、最終確認の対象となる場合があります。"
+      },
+      "ranks": {
+        "bronze": "ブロンズ",
+        "silver": "シルバー",
+        "gold": "ゴールド",
+        "platinum": "プラチナ",
+        "diamond": "ダイヤモンド",
+        "partner": "パートナー"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "マーケティングファンド",
+        "rolexDaytona": "ロレックス デイトナ",
+        "carSubsidy": "自動車補助金",
+        "propertySubsidy": "不動産補助金"
+      }
     },
     "staking": {
       "activePrograms": "アクティブなプログラム",
