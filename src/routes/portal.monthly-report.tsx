@@ -198,14 +198,11 @@ function MonthlyReportPage() {
                     className="pointer-events-none absolute -left-20 -bottom-20 h-44 w-44 rounded-full bg-gold/10 blur-3xl"
                   />
 
-                  {/* Title + meta */}
-                  <div className="relative flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gold/30 bg-gold/10">
-                      <FileText className="h-5 w-5 text-gold" />
-                    </div>
+                  {/* Header row: title/date on the left, gold icon-action triad on the right */}
+                  <div className="relative flex items-start justify-between gap-4">
                     <div className="min-w-0 flex-1">
                       <h3
-                        className="truncate font-serif text-lg font-semibold"
+                        className="font-serif text-2xl font-semibold leading-tight sm:text-3xl"
                         style={{
                           background:
                             "linear-gradient(180deg, color-mix(in oklab, var(--gold) 95%, white) 0%, var(--gold) 60%, color-mix(in oklab, var(--gold) 70%, black) 100%)",
@@ -216,61 +213,43 @@ function MonthlyReportPage() {
                       >
                         {r.title}
                       </h3>
-                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                      <div className="mt-3 h-px w-10 bg-gradient-to-r from-gold/60 to-transparent" />
+                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
                         {r.period && (
                           <span className="inline-flex items-center gap-1">
                             <Calendar className="h-3 w-3 text-gold/70" />
                             {r.period}
                           </span>
                         )}
-                        <span className="tabular-nums">{dateStr}</span>
+                        <span className="tabular-nums text-gold/70">{dateStr}</span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Action triad — View / Download / Share */}
-                  <div className="relative mt-6 grid grid-cols-3 gap-2 sm:gap-3">
-                    {/* View */}
-                    <div className="text-center min-w-0 sm:px-1">
-                      <RuleEyebrow
-                        icon={<Eye className="h-3 w-3" />}
-                        label={t("pages.monthlyReport.view", "View")}
-                      />
+                    {/* Gold action triad — icon-only square buttons, top-right */}
+                    <div className="flex shrink-0 items-center gap-2">
                       <a
                         href={r.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        aria-label={t("pages.monthlyReport.view", "View")}
+                        title={t("pages.monthlyReport.view", "View")}
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
                       >
-                        <Eye className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
-                        {t("pages.monthlyReport.view", "View")}
+                        <Eye className="h-4 w-4" />
                       </a>
-                    </div>
-
-                    {/* Download */}
-                    <div className="text-center min-w-0 sm:px-1">
-                      <RuleEyebrow
-                        icon={<Download className="h-3 w-3" />}
-                        label={t("pages.monthlyReport.download", "Download")}
-                      />
                       <a
                         href={r.file_url}
                         download
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        aria-label={t("pages.monthlyReport.download", "Download")}
+                        title={t("pages.monthlyReport.download", "Download")}
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
                       >
-                        <Download className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
-                        {t("pages.monthlyReport.download", "Download")}
+                        <Download className="h-4 w-4" />
                       </a>
-                    </div>
-
-                    {/* Share — single native share button */}
-                    <div className="text-center min-w-0 sm:px-1">
-                      <RuleEyebrow
-                        icon={<Share2 className="h-3 w-3" />}
-                        label={t("pages.monthlyReport.share", "Share")}
-                      />
                       <button
                         type="button"
+                        aria-label={t("pages.monthlyReport.share", "Share")}
+                        title={t("pages.monthlyReport.share", "Share")}
                         onClick={async () => {
                           const shareData = { title: r.title, text: r.title, url: r.file_url };
                           if (navigator.share) {
@@ -278,7 +257,6 @@ function MonthlyReportPage() {
                               await navigator.share(shareData);
                               return;
                             } catch {
-                              /* user cancelled */
                               return;
                             }
                           }
@@ -297,10 +275,9 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/50 bg-gradient-to-b from-gold to-amber-500 px-1.5 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.18em] text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)] hover:-translate-y-0.5"
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/50 bg-gradient-to-b from-gold to-amber-500 text-background shadow-[0_0_12px_-2px_color-mix(in_oklab,var(--gold)_55%,transparent)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_18px_0_color-mix(in_oklab,var(--gold)_75%,transparent)]"
                       >
-                        <Share2 className="mr-1 h-3 w-3 sm:mr-1.5 sm:h-3.5 sm:w-3.5 shrink-0" />
-                        {t("pages.monthlyReport.share", "Share")}
+                        <Share2 className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
