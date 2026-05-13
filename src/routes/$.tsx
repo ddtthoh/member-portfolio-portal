@@ -81,7 +81,7 @@ function NotFound() {
           The route you signed never made it into a block. Return to base before MEV bots front-run you.
         </p>
         <Link
-          to="/main"
+          to="/"
           data-cursor="Return"
           className="mt-9 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold via-gold to-gold/90 px-7 py-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-gold-foreground shadow-[0_15px_50px_-15px_color-mix(in_oklab,var(--gold)_80%,transparent)] transition-transform hover:scale-[1.02]"
         >
