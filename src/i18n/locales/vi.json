@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "Tiến trình của bạn",
+      "progressDescription": "Tiến trình của bạn cho chương trình này sẽ được hiển thị tại đây.",
       "notFound": "Không tìm thấy chương trình khuyến mãi.",
       "backToPromotions": "Quay lại danh sách Khuyến mãi",
       "details": "Chi tiết",
-      "progressDescription": "Tiến trình của bạn cho chương trình này sẽ được hiển thị tại đây."
+      "officialOpening": "Khai Trương Chính Thức",
+      "yourTracking": "Tiến Độ Của Bạn",
+      "meta": {
+        "location": "Địa Điểm",
+        "event": "Sự Kiện",
+        "window": "Thời Gian",
+        "payout": "Trả Thưởng",
+        "payoutValue": "Tức Thì + Theo Bậc"
+      },
+      "intros": {
+        "naslabTurkey": "Đủ điều kiện tham gia sự kiện khai trương Naslab Türkiye thông qua khối lượng staking cá nhân hoặc khối lượng staking giới thiệu. Các bậc cao hơn sẽ mở khóa chỗ ngồi, chi phí khách sạn và trợ cấp chuyến bay.",
+        "ranking": "Xây dựng hoạt động giới thiệu đủ điều kiện, gia tăng AUM cộng đồng và thăng hạng trên bảng xếp hạng cộng đồng. Phần thưởng bao gồm các khoản trả thưởng RCB tức thì, mức phần thưởng TCB theo tỷ lệ phần trăm và các giải thưởng theo cột mốc."
+      },
+      "tracks": {
+        "participant": "Người Tham Gia",
+        "referral": "Giới Thiệu",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Xếp Hạng"
+      },
+      "titles": {
+        "personalStaking": "Staking Cá Nhân",
+        "referralStaking": "Staking Giới Thiệu",
+        "participantIncentive": "Ưu Đãi Người Tham Gia",
+        "referralIncentive": "Ưu Đãi Giới Thiệu",
+        "rapidCommunityBuilder": "Người Xây Dựng Cộng Đồng Nhanh",
+        "topCommunityBuilder": "Người Xây Dựng Cộng Đồng Hàng Đầu",
+        "communityRanking": "Xếp Hạng Cộng Đồng",
+        "rcbPayoutLadder": "Thang Trả Thưởng RCB",
+        "tcbTierStructure": "Cấu Trúc Bậc TCB"
+      },
+      "subtitles": {
+        "participant": "Khối lượng staking của chính bạn sẽ mở khóa các quyền lợi sự kiện.",
+        "referral": "Khối lượng staking giới thiệu đủ điều kiện sẽ mở khóa các quyền lợi sự kiện.",
+        "tcb": "Đáp ứng cả yêu cầu RCB và AUM để mở khóa phần thưởng theo tỷ lệ phần trăm.",
+        "ranking": "Phần thưởng cột mốc dựa trên thứ hạng cộng đồng hiện tại của bạn."
+      },
+      "labels": {
+        "yourVolume": "Khối Lượng Của Bạn",
+        "currentTier": "Bậc Hiện Tại",
+        "qualifiedReferrals": "Giới Thiệu Đủ Điều Kiện",
+        "rewardEarned": "Phần Thưởng Đã Nhận",
+        "yourAum": "AUM Của Bạn",
+        "reward": "Phần Thưởng",
+        "projectedReward": "Phần Thưởng Dự Kiến",
+        "currentRank": "Thứ Hạng Hiện Tại",
+        "rewardValue": "Giá Trị Phần Thưởng"
+      },
+      "progress": {
+        "nextTierWith": "Bậc tiếp theo · {{value}} USDT",
+        "topReached": "Đã đạt bậc cao nhất",
+        "remaining": "Còn lại {{amount}} USDT",
+        "maxBracket": "Khung tối đa đã được mở khóa",
+        "nextMilestoneReferrals": "Cột mốc tiếp theo · {{count}} lượt giới thiệu",
+        "moreToUnlock": "Cần thêm {{count}} để mở khóa ${{amount}}",
+        "nextTcb": "Bậc tiếp theo · {{pct}}% AUM",
+        "rcb": "Hoàn thành RCB",
+        "moreRcb": "thêm RCB",
+        "aum": "Hoàn thành AUM",
+        "moreUsdtAum": "thêm USDT AUM",
+        "nextRank": "Thứ hạng tiếp theo · {{name}}",
+        "rankPctRemaining": "Còn lại {{remaining}}% để nhận {{reward}}",
+        "rankRemaining": "Còn lại {{remaining}} {{unit}} để nhận {{reward}}"
+      },
+      "status": {
+        "achieved": "Đã Đạt",
+        "locked": "Đã Khóa",
+        "qualified": "Đủ Điều Kiện",
+        "pending": "Đang Chờ",
+        "apex": "Đỉnh Cao",
+        "current": "Hiện Tại",
+        "included": "Đã Bao Gồm",
+        "yes": "Có"
+      },
+      "table": {
+        "status": "Trạng Thái",
+        "threshold": "Ngưỡng",
+        "seats": "Chỗ Ngồi",
+        "hotel": "Khách Sạn",
+        "flight": "Chuyến Bay (USDT)",
+        "minRcb": "RCB Tối Thiểu",
+        "minAum": "AUM Tối Thiểu",
+        "rewardCol": "Phần Thưởng",
+        "rewardPercent": "Phần Thưởng {{pct}}%",
+        "pctOfAum": "{{pct}}% của AUM",
+        "needRcbAum": "Cần {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "Thứ Hạng",
+        "approxValue": "Giá Trị Ước Tính"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} cho mỗi lượt giới thiệu đủ điều kiện với tối thiểu {{min}} USDT staking.",
+        "rcbSubtitle": "${{usd}} cho mỗi lượt giới thiệu đủ điều kiện với tối thiểu {{min}} USDT staking.",
+        "referralsCount": "{{count}} lượt giới thiệu",
+        "topTcbReached": "Đã đạt bậc TCB cao nhất.",
+        "nextRankFootnote": "Thứ hạng tiếp theo: {{name}} · {{reward}}",
+        "apexRank": "Đã đạt thứ hạng Đỉnh Cao — Bậc Đối Tác."
+      },
+      "footnotes": {
+        "eventRewards": "Phần thưởng sự kiện được tính từ các khối lượng đủ điều kiện trong thời gian diễn ra chương trình khuyến mãi và có thể phải qua bước xác minh cuối cùng.",
+        "ranking": "Tính toán ưu đãi xếp hạng được dựa trên các hoạt động cộng đồng đủ điều kiện trong thời gian diễn ra chiến dịch và có thể phải qua bước xác minh cuối cùng."
+      },
+      "ranks": {
+        "bronze": "Đồng",
+        "silver": "Bạc",
+        "gold": "Vàng",
+        "platinum": "Bạch Kim",
+        "diamond": "Kim Cương",
+        "partner": "Đối Tác"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Quỹ Marketing",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Trợ Cấp Mua Xe",
+        "propertySubsidy": "Trợ Cấp Bất Động Sản"
+      }
     },
     "staking": {
       "activePrograms": "Chương trình Đang hoạt động",

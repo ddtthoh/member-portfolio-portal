@@ -42,8 +42,8 @@
     "profile": "Profile",
     "changePassword": "Change Password",
     "myKyc": "My KYC",
-   "myQrCode": "My QR Code",
-   "myLandingPage": "My Landing Page",
+    "myQrCode": "My QR Code",
+    "myLandingPage": "My Landing Page",
     "network": "Network",
     "logout": "Logout"
   },
@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "Your progress",
+      "progressDescription": "Your progress for this promotion will appear here.",
       "notFound": "Promotion not found.",
       "backToPromotions": "Back to promotions",
       "details": "Details",
-      "progressDescription": "Your progress for this promotion will appear here."
+      "officialOpening": "Official Opening",
+      "yourTracking": "Your Tracking",
+      "meta": {
+        "location": "Location",
+        "event": "Event",
+        "window": "Window",
+        "payout": "Payout",
+        "payoutValue": "Instant + Tiered"
+      },
+      "intros": {
+        "naslabTurkey": "Qualify for the Naslab Türkiye opening event through personal staking volume or referral staking volume. Higher tiers unlock seats, hotel coverage, and flight subsidies.",
+        "ranking": "Build qualified referral activity, grow community AUM, and progress through the community ranking ladder. Rewards combine instant RCB payouts, TCB percentage rewards, and milestone prizes."
+      },
+      "tracks": {
+        "participant": "Participant",
+        "referral": "Referral",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Ranking"
+      },
+      "titles": {
+        "personalStaking": "Personal Staking",
+        "referralStaking": "Referral Staking",
+        "participantIncentive": "Participant Incentive",
+        "referralIncentive": "Referral Incentive",
+        "rapidCommunityBuilder": "Rapid Community Builder",
+        "topCommunityBuilder": "Top Community Builder",
+        "communityRanking": "Community Ranking",
+        "rcbPayoutLadder": "RCB Payout Ladder",
+        "tcbTierStructure": "TCB Tier Structure"
+      },
+      "subtitles": {
+        "participant": "Your own staking volume unlocks event benefits.",
+        "referral": "Qualified referral staking volume unlocks event benefits.",
+        "tcb": "Meet both RCB and AUM requirements to unlock a percentage reward.",
+        "ranking": "Milestone rewards based on your current community rank."
+      },
+      "labels": {
+        "yourVolume": "Your Volume",
+        "currentTier": "Current Tier",
+        "qualifiedReferrals": "Qualified Referrals",
+        "rewardEarned": "Reward Earned",
+        "yourAum": "Your AUM",
+        "reward": "Reward",
+        "projectedReward": "Projected Reward",
+        "currentRank": "Current Rank",
+        "rewardValue": "Reward Value"
+      },
+      "progress": {
+        "nextTierWith": "Next tier · {{value}} USDT",
+        "topReached": "Top tier reached",
+        "remaining": "{{amount}} USDT remaining",
+        "maxBracket": "Maximum bracket unlocked",
+        "nextMilestoneReferrals": "Next milestone · {{count}} referrals",
+        "moreToUnlock": "{{count}} more to unlock ${{amount}}",
+        "nextTcb": "Next tier · {{pct}}% AUM",
+        "rcb": "RCB complete",
+        "moreRcb": "more RCB",
+        "aum": "AUM complete",
+        "moreUsdtAum": "more USDT AUM",
+        "nextRank": "Next rank · {{name}}",
+        "rankPctRemaining": "{{remaining}}% remaining for {{reward}}",
+        "rankRemaining": "{{remaining}} {{unit}} remaining for {{reward}}"
+      },
+      "status": {
+        "achieved": "Achieved",
+        "locked": "Locked",
+        "qualified": "Qualified",
+        "pending": "Pending",
+        "apex": "Apex",
+        "current": "Current",
+        "included": "Included",
+        "yes": "Yes"
+      },
+      "table": {
+        "status": "Status",
+        "threshold": "Threshold",
+        "seats": "Seats",
+        "hotel": "Hotel",
+        "flight": "Flight (USDT)",
+        "minRcb": "Min RCB",
+        "minAum": "Min AUM",
+        "rewardCol": "Reward",
+        "rewardPercent": "{{pct}}% Reward",
+        "pctOfAum": "{{pct}}% of AUM",
+        "needRcbAum": "Need {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "Rank",
+        "approxValue": "Approx. Value"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} per qualified referral with at least {{min}} USDT staking.",
+        "rcbSubtitle": "${{usd}} per qualified referral with at least {{min}} USDT staking.",
+        "referralsCount": "{{count}} referrals",
+        "topTcbReached": "Top TCB tier reached.",
+        "nextRankFootnote": "Next rank: {{name}} · {{reward}}",
+        "apexRank": "Apex rank achieved — Partner tier."
+      },
+      "footnotes": {
+        "eventRewards": "Event rewards are calculated from qualifying volumes during the promotion window and may be subject to final verification.",
+        "ranking": "Ranking incentive calculations are based on eligible community activity during the campaign window and may be subject to final verification."
+      },
+      "ranks": {
+        "bronze": "Bronze",
+        "silver": "Silver",
+        "gold": "Gold",
+        "platinum": "Platinum",
+        "diamond": "Diamond",
+        "partner": "Partner"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Marketing Fund",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Car Subsidy",
+        "propertySubsidy": "Property Subsidy"
+      }
     },
     "staking": {
       "activePrograms": "Active Programs",

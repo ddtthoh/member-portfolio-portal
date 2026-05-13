@@ -547,10 +547,126 @@
         }
       },
       "progressLabel": "Progres Anda",
+      "progressDescription": "Progres Anda untuk promosi ini akan muncul di sini.",
       "notFound": "Promosi tidak ditemukan.",
       "backToPromotions": "Kembali ke promosi",
       "details": "Detail",
-      "progressDescription": "Progres Anda untuk promosi ini akan muncul di sini."
+      "officialOpening": "Pembukaan Resmi",
+      "yourTracking": "Pelacakan Anda",
+      "meta": {
+        "location": "Lokasi",
+        "event": "Acara",
+        "window": "Periode",
+        "payout": "Pembayaran",
+        "payoutValue": "Instan + Bertingkat"
+      },
+      "intros": {
+        "naslabTurkey": "Dapatkan kualifikasi untuk acara pembukaan Naslab Türkiye melalui volume staking pribadi atau volume staking referral. Tingkat yang lebih tinggi akan membuka akses kursi, akomodasi hotel, dan subsidi penerbangan.",
+        "ranking": "Bangun aktivitas referral yang memenuhi kualifikasi, tingkatkan AUM komunitas, dan raih progres di tangga peringkat komunitas. Hadiah merupakan kombinasi dari pembayaran RCB instan, hadiah persentase TCB, dan hadiah pencapaian (milestone)."
+      },
+      "tracks": {
+        "participant": "Peserta",
+        "referral": "Referral",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Peringkat"
+      },
+      "titles": {
+        "personalStaking": "Staking Pribadi",
+        "referralStaking": "Staking Referral",
+        "participantIncentive": "Insentif Peserta",
+        "referralIncentive": "Insentif Referral",
+        "rapidCommunityBuilder": "Rapid Community Builder",
+        "topCommunityBuilder": "Top Community Builder",
+        "communityRanking": "Peringkat Komunitas",
+        "rcbPayoutLadder": "Tangga Pembayaran RCB",
+        "tcbTierStructure": "Struktur Tingkat TCB"
+      },
+      "subtitles": {
+        "participant": "Volume staking Anda sendiri membuka manfaat acara.",
+        "referral": "Volume staking referral yang memenuhi syarat membuka manfaat acara.",
+        "tcb": "Penuhi persyaratan RCB dan AUM untuk membuka hadiah persentase.",
+        "ranking": "Hadiah pencapaian berdasarkan peringkat komunitas Anda saat ini."
+      },
+      "labels": {
+        "yourVolume": "Volume Anda",
+        "currentTier": "Tingkat Saat Ini",
+        "qualifiedReferrals": "Referral Memenuhi Syarat",
+        "rewardEarned": "Hadiah Diperoleh",
+        "yourAum": "AUM Anda",
+        "reward": "Hadiah",
+        "projectedReward": "Proyeksi Hadiah",
+        "currentRank": "Peringkat Saat Ini",
+        "rewardValue": "Nilai Hadiah"
+      },
+      "progress": {
+        "nextTierWith": "Tingkat berikutnya · {{value}} USDT",
+        "topReached": "Tingkat atas tercapai",
+        "remaining": "Tersisa {{amount}} USDT",
+        "maxBracket": "Braket maksimum terbuka",
+        "nextMilestoneReferrals": "Pencapaian berikutnya · {{count}} referral",
+        "moreToUnlock": "{{count}} lagi untuk membuka ${{amount}}",
+        "nextTcb": "Tingkat berikutnya · {{pct}}% AUM",
+        "rcb": "RCB selesai",
+        "moreRcb": "RCB lagi",
+        "aum": "AUM selesai",
+        "moreUsdtAum": "USDT AUM lagi",
+        "nextRank": "Peringkat berikutnya · {{name}}",
+        "rankPctRemaining": "Tersisa {{remaining}}% untuk {{reward}}",
+        "rankRemaining": "Tersisa {{remaining}} {{unit}} untuk {{reward}}"
+      },
+      "status": {
+        "achieved": "Tercapai",
+        "locked": "Terkunci",
+        "qualified": "Memenuhi Syarat",
+        "pending": "Tertunda",
+        "apex": "Puncak",
+        "current": "Saat Ini",
+        "included": "Termasuk",
+        "yes": "Ya"
+      },
+      "table": {
+        "status": "Status",
+        "threshold": "Ambang Batas",
+        "seats": "Kursi",
+        "hotel": "Hotel",
+        "flight": "Penerbangan (USDT)",
+        "minRcb": "Min. RCB",
+        "minAum": "Min. AUM",
+        "rewardCol": "Hadiah",
+        "rewardPercent": "Hadiah {{pct}}%",
+        "pctOfAum": "{{pct}}% dari AUM",
+        "needRcbAum": "Butuh {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "Peringkat",
+        "approxValue": "Perkiraan Nilai"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} per referral yang memenuhi syarat dengan minimal staking {{min}} USDT.",
+        "rcbSubtitle": "${{usd}} per referral yang memenuhi syarat dengan minimal staking {{min}} USDT.",
+        "referralsCount": "{{count}} referral",
+        "topTcbReached": "Tingkat TCB teratas tercapai.",
+        "nextRankFootnote": "Peringkat berikutnya: {{name}} · {{reward}}",
+        "apexRank": "Peringkat puncak tercapai — Tingkat Mitra."
+      },
+      "footnotes": {
+        "eventRewards": "Hadiah acara dihitung dari volume yang memenuhi syarat selama periode promosi dan mungkin tunduk pada verifikasi akhir.",
+        "ranking": "Perhitungan insentif peringkat didasarkan pada aktivitas komunitas yang memenuhi syarat selama periode kampanye dan mungkin tunduk pada verifikasi akhir."
+      },
+      "ranks": {
+        "bronze": "Perunggu",
+        "silver": "Perak",
+        "gold": "Emas",
+        "platinum": "Platinum",
+        "diamond": "Berlian",
+        "partner": "Mitra"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Dana Pemasaran",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Subsidi Mobil",
+        "propertySubsidy": "Subsidi Properti"
+      }
     },
     "staking": {
       "activePrograms": "Program Aktif",
