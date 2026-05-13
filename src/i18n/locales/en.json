@@ -86,8 +86,10 @@
       "transferUsd": "Transfer USD",
       "referral": "Referral",
       "participation": "Staking",
-      "promotion": "Promotion"
-    }
+      "promotion": "Promotion",
+      "monthlyReport": "Monthly Report"
+    },
+    "portfolioOverview": "Portfolio Overview"
   },
   "pages": {
     "deposit": {
@@ -867,6 +869,19 @@
       "tableHeaders": {
         "rank": "rank"
       }
+    },
+    "monthlyReport": {
+      "title": "Monthly Report",
+      "description": "Official monthly overview reports curated by our team.",
+      "eyebrow": "Insights · Monthly",
+      "heroTitle": "Monthly Overview Report",
+      "heroSubtitle": "A curated, editorial-grade snapshot of performance, allocation and forward outlook — published monthly.",
+      "empty": "No monthly reports have been published yet.",
+      "view": "View",
+      "download": "Download",
+      "share": "Share",
+      "linkCopied": "Link copied to clipboard.",
+      "copyLink": "Copy this link to share:"
     }
   },
   "palette": {
