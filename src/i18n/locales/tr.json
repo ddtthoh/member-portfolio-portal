@@ -86,8 +86,10 @@
       "transferUsd": "USD Transfer Et",
       "referral": "Tavsiye",
       "participation": "Katılım",
-      "promotion": "Promosyon"
-    }
+      "promotion": "Promosyon",
+      "monthlyReport": "Aylık Rapor"
+    },
+    "portfolioOverview": "Portföy Genel Bakış"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "İlerleme durumunuz",
+      "progressDescription": "Bu promosyon için ilerleme durumunuz burada görünecektir.",
       "notFound": "Promosyon bulunamadı.",
       "backToPromotions": "Promosyonlara dön",
       "details": "Detaylar",
-      "progressDescription": "Bu promosyon için ilerleme durumunuz burada görünecektir."
+      "officialOpening": "Resmi Açılış",
+      "yourTracking": "Takibiniz",
+      "meta": {
+        "location": "Konum",
+        "event": "Etkinlik",
+        "window": "Dönem",
+        "payout": "Ödeme",
+        "payoutValue": "Anında + Kademeli"
+      },
+      "intros": {
+        "naslabTurkey": "Kişisel staking hacmi veya referans staking hacmi üzerinden Naslab Türkiye açılış etkinliğine katılmaya hak kazanın. Daha yüksek seviyeler koltuk, otel masrafları ve uçuş desteklerinin kilidini açar.",
+        "ranking": "Nitelikli referans aktivitesi oluşturun, topluluk AUM'sini büyütün ve topluluk sıralaması basamaklarında ilerleyin. Ödüller; anında RCB ödemeleri, TCB yüzdelik ödülleri ve kilometre taşı ödüllerini bir araya getirir."
+      },
+      "tracks": {
+        "participant": "Katılımcı",
+        "referral": "Referans",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Sıralama"
+      },
+      "titles": {
+        "personalStaking": "Kişisel Staking",
+        "referralStaking": "Referans Staking",
+        "participantIncentive": "Katılımcı Teşviki",
+        "referralIncentive": "Referans Teşviki",
+        "rapidCommunityBuilder": "Hızlı Topluluk Kurucu",
+        "topCommunityBuilder": "En İyi Topluluk Kurucu",
+        "communityRanking": "Topluluk Sıralaması",
+        "rcbPayoutLadder": "RCB Ödeme Basamakları",
+        "tcbTierStructure": "TCB Kademe Yapısı"
+      },
+      "subtitles": {
+        "participant": "Kendi staking hacminiz etkinlik avantajlarının kilidini açar.",
+        "referral": "Nitelikli referans staking hacmi etkinlik avantajlarının kilidini açar.",
+        "tcb": "Yüzdelik bir ödülün kilidini açmak için hem RCB hem de AUM gereksinimlerini karşılayın.",
+        "ranking": "Mevcut topluluk sıralamanıza dayalı kilometre taşı ödülleri."
+      },
+      "labels": {
+        "yourVolume": "Hacminiz",
+        "currentTier": "Mevcut Kademe",
+        "qualifiedReferrals": "Nitelikli Referanslar",
+        "rewardEarned": "Kazanılan Ödül",
+        "yourAum": "AUM'niz",
+        "reward": "Ödül",
+        "projectedReward": "Öngörülen Ödül",
+        "currentRank": "Mevcut Sıralama",
+        "rewardValue": "Ödül Değeri"
+      },
+      "progress": {
+        "nextTierWith": "Sonraki kademe · {{value}} USDT",
+        "topReached": "En üst kademeye ulaşıldı",
+        "remaining": "{{amount}} USDT kaldı",
+        "maxBracket": "Maksimum dilimin kilidi açıldı",
+        "nextMilestoneReferrals": "Sonraki kilometre taşı · {{count}} referans",
+        "moreToUnlock": "${{amount}} kilidini açmak için {{count}} kişi daha",
+        "nextTcb": "Sonraki kademe · %{{pct}} AUM",
+        "rcb": "RCB tamamlandı",
+        "moreRcb": "daha fazla RCB",
+        "aum": "AUM tamamlandı",
+        "moreUsdtAum": "daha fazla USDT AUM",
+        "nextRank": "Sonraki sıralama · {{name}}",
+        "rankPctRemaining": "{{reward}} için %{{remaining}} kaldı",
+        "rankRemaining": "{{reward}} için {{remaining}} {{unit}} kaldı"
+      },
+      "status": {
+        "achieved": "Ulaşıldı",
+        "locked": "Kilitli",
+        "qualified": "Hak Kazandı",
+        "pending": "Beklemede",
+        "apex": "Apex",
+        "current": "Mevcut",
+        "included": "Dahil",
+        "yes": "Evet"
+      },
+      "table": {
+        "status": "Durum",
+        "threshold": "Eşik",
+        "seats": "Koltuk",
+        "hotel": "Otel",
+        "flight": "Uçuş (USDT)",
+        "minRcb": "Min RCB",
+        "minAum": "Min AUM",
+        "rewardCol": "Ödül",
+        "rewardPercent": "%{{pct}} Ödül",
+        "pctOfAum": "AUM'nin %{{pct}}'si",
+        "needRcbAum": "{{rcb}} RCB · {{aum}} USDT AUM gerekiyor",
+        "rank": "Sıra",
+        "approxValue": "Yaklaşık Değer"
+      },
+      "ladder": {
+        "rcbFootnote": "En az {{min}} USDT staking yapan her nitelikli referans için ${{usd}}.",
+        "rcbSubtitle": "En az {{min}} USDT staking yapan her nitelikli referans için ${{usd}}.",
+        "referralsCount": "{{count}} referans",
+        "topTcbReached": "En üst TCB kademesine ulaşıldı.",
+        "nextRankFootnote": "Sonraki sıra: {{name}} · {{reward}}",
+        "apexRank": "Apex sırasına ulaşıldı — Partner kademesi."
+      },
+      "footnotes": {
+        "eventRewards": "Etkinlik ödülleri, kampanya dönemindeki uygun hacimlerden hesaplanır ve nihai doğrulamaya tabi olabilir.",
+        "ranking": "Sıralama teşvik hesaplamaları, kampanya dönemindeki uygun topluluk aktivitesine dayanır ve nihai doğrulamaya tabi olabilir."
+      },
+      "ranks": {
+        "bronze": "Bronz",
+        "silver": "Gümüş",
+        "gold": "Altın",
+        "platinum": "Platin",
+        "diamond": "Elmas",
+        "partner": "Partner"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Pazarlama Fonu",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Araç Desteği",
+        "propertySubsidy": "Gayrimenkul Desteği"
+      }
     },
     "staking": {
       "activePrograms": "Aktif Programlar",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "Rütbe"
       }
+    },
+    "monthlyReport": {
+      "title": "Aylık Rapor",
+      "description": "Ekibimiz tarafından hazırlanan resmi aylık genel bakış raporları.",
+      "eyebrow": "İçgörüler · Aylık",
+      "heroTitle": "Aylık Genel Bakış Raporu",
+      "heroSubtitle": "Performans, tahsis ve gelecek beklentilerinin özenle derlenmiş, profesyonel kalitede özeti — her ay yayınlanır.",
+      "empty": "Henüz aylık rapor yayınlanmadı.",
+      "view": "Görüntüle",
+      "download": "İndir",
+      "share": "Paylaş",
+      "linkCopied": "Bağlantı panoya kopyalandı.",
+      "copyLink": "Paylaşmak için bu bağlantıyı kopyalayın:"
     }
   },
   "palette": {

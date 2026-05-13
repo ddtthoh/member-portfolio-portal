@@ -86,8 +86,10 @@
       "transferUsd": "Trasferisci USD",
       "referral": "Referral",
       "participation": "Staking",
-      "promotion": "Promozione"
-    }
+      "promotion": "Promozione",
+      "monthlyReport": "Report mensile"
+    },
+    "portfolioOverview": "Panoramica del portafoglio"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "I tuoi progressi",
+      "progressDescription": "I tuoi progressi per questa promozione appariranno qui.",
       "notFound": "Promozione non trovata.",
       "backToPromotions": "Torna alle promozioni",
       "details": "Dettagli",
-      "progressDescription": "I tuoi progressi per questa promozione appariranno qui."
+      "officialOpening": "Apertura Ufficiale",
+      "yourTracking": "I tuoi Progressi",
+      "meta": {
+        "location": "Luogo",
+        "event": "Evento",
+        "window": "Periodo",
+        "payout": "Erogazione",
+        "payoutValue": "Istantaneo + A Livelli"
+      },
+      "intros": {
+        "naslabTurkey": "Qualificati per l'evento di apertura di Naslab Türkiye attraverso il volume di staking personale o il volume di staking dei referral. I livelli superiori sbloccano posti, copertura alberghiera e contributi per i voli.",
+        "ranking": "Sviluppa l'attività dei referral qualificati, fai crescere l'AUM della community e avanza nella classifica della community. Le ricompense combinano pagamenti RCB istantanei, premi percentuali TCB e premi al raggiungimento dei traguardi."
+      },
+      "tracks": {
+        "participant": "Partecipante",
+        "referral": "Referral",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Classifica"
+      },
+      "titles": {
+        "personalStaking": "Staking Personale",
+        "referralStaking": "Staking Referral",
+        "participantIncentive": "Incentivo Partecipante",
+        "referralIncentive": "Incentivo Referral",
+        "rapidCommunityBuilder": "Rapid Community Builder",
+        "topCommunityBuilder": "Top Community Builder",
+        "communityRanking": "Classifica Community",
+        "rcbPayoutLadder": "Scala di Pagamento RCB",
+        "tcbTierStructure": "Struttura dei Livelli TCB"
+      },
+      "subtitles": {
+        "participant": "Il tuo volume di staking personale sblocca i vantaggi dell'evento.",
+        "referral": "Il volume di staking dei referral qualificati sblocca i vantaggi dell'evento.",
+        "tcb": "Soddisfa i requisiti sia di RCB che di AUM per sbloccare una ricompensa percentuale.",
+        "ranking": "Ricompense per i traguardi raggiunti in base alla tua attuale posizione nella community."
+      },
+      "labels": {
+        "yourVolume": "Il tuo Volume",
+        "currentTier": "Livello Attuale",
+        "qualifiedReferrals": "Referral Qualificati",
+        "rewardEarned": "Ricompensa Ottenuta",
+        "yourAum": "Il tuo AUM",
+        "reward": "Ricompensa",
+        "projectedReward": "Ricompensa Stimata",
+        "currentRank": "Grado Attuale",
+        "rewardValue": "Valore Ricompensa"
+      },
+      "progress": {
+        "nextTierWith": "Prossimo livello · {{value}} USDT",
+        "topReached": "Livello massimo raggiunto",
+        "remaining": "{{amount}} USDT rimanenti",
+        "maxBracket": "Fascia massima sbloccata",
+        "nextMilestoneReferrals": "Prossimo traguardo · {{count}} referral",
+        "moreToUnlock": "Ancora {{count}} per sbloccare ${{amount}}",
+        "nextTcb": "Prossimo livello · {{pct}}% AUM",
+        "rcb": "RCB completato",
+        "moreRcb": "altri RCB",
+        "aum": "AUM completato",
+        "moreUsdtAum": "ulteriori USDT AUM",
+        "nextRank": "Prossimo grado · {{name}}",
+        "rankPctRemaining": "{{remaining}}% rimanente per {{reward}}",
+        "rankRemaining": "{{remaining}} {{unit}} rimanenti per {{reward}}"
+      },
+      "status": {
+        "achieved": "Raggiunto",
+        "locked": "Bloccato",
+        "qualified": "Qualificato",
+        "pending": "In sospeso",
+        "apex": "Apex",
+        "current": "Attuale",
+        "included": "Incluso",
+        "yes": "Sì"
+      },
+      "table": {
+        "status": "Stato",
+        "threshold": "Soglia",
+        "seats": "Posti",
+        "hotel": "Hotel",
+        "flight": "Volo (USDT)",
+        "minRcb": "RCB Min",
+        "minAum": "AUM Min",
+        "rewardCol": "Ricompensa",
+        "rewardPercent": "Ricompensa {{pct}}%",
+        "pctOfAum": "{{pct}}% dell'AUM",
+        "needRcbAum": "Necessari {{rcb}} RCB · {{aum}} USDT AUM",
+        "rank": "Grado",
+        "approxValue": "Valore Approssimativo"
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} per ogni referral qualificato con almeno {{min}} USDT di staking.",
+        "rcbSubtitle": "${{usd}} per ogni referral qualificato con almeno {{min}} USDT di staking.",
+        "referralsCount": "{{count}} referral",
+        "topTcbReached": "Livello TCB massimo raggiunto.",
+        "nextRankFootnote": "Prossimo grado: {{name}} · {{reward}}",
+        "apexRank": "Grado Apex raggiunto — Livello Partner."
+      },
+      "footnotes": {
+        "eventRewards": "Le ricompense dell'evento sono calcolate sui volumi di qualificazione durante il periodo della promozione e potrebbero essere soggette a verifica finale.",
+        "ranking": "I calcoli degli incentivi di classifica si basano sulle attività idonee della community durante il periodo della campagna e potrebbero essere soggetti a verifica finale."
+      },
+      "ranks": {
+        "bronze": "Bronzo",
+        "silver": "Argento",
+        "gold": "Oro",
+        "platinum": "Platino",
+        "diamond": "Diamante",
+        "partner": "Partner"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Fondo Marketing",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Contributo per Auto",
+        "propertySubsidy": "Contributo per Immobile"
+      }
     },
     "staking": {
       "activePrograms": "Programmi attivi",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "Livello"
       }
+    },
+    "monthlyReport": {
+      "title": "Report Mensile",
+      "description": "Report panoramici mensili ufficiali curati dal nostro team.",
+      "eyebrow": "Approfondimenti · Mensile",
+      "heroTitle": "Report Panoramico Mensile",
+      "heroSubtitle": "Una sintesi accurata e di livello editoriale su performance, allocazione e prospettive future — pubblicata mensilmente.",
+      "empty": "Nessun report mensile è stato ancora pubblicato.",
+      "view": "Visualizza",
+      "download": "Scarica",
+      "share": "Condividi",
+      "linkCopied": "Link copiato negli appunti.",
+      "copyLink": "Copia questo link per condividere:"
     }
   },
   "palette": {

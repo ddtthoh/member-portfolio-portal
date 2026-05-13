@@ -86,8 +86,10 @@
       "transferUsd": "Transferir USD",
       "referral": "Referidos",
       "participation": "Participación",
-      "promotion": "Promoción"
-    }
+      "promotion": "Promoción",
+      "monthlyReport": "Informe mensual"
+    },
+    "portfolioOverview": "Resumen de la cartera"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "Su progreso",
+      "progressDescription": "Su progreso para esta promoción aparecerá aquí.",
       "notFound": "Promoción no encontrada.",
       "backToPromotions": "Volver a promociones",
       "details": "Detalles",
-      "progressDescription": "Su progreso para esta promoción aparecerá aquí."
+      "officialOpening": "Apertura oficial",
+      "yourTracking": "Tu seguimiento",
+      "meta": {
+        "location": "Ubicación",
+        "event": "Evento",
+        "window": "Periodo",
+        "payout": "Pago",
+        "payoutValue": "Instantáneo + Escalonado"
+      },
+      "intros": {
+        "naslabTurkey": "Clasifica para el evento de apertura de Naslab Türkiye a través de tu volumen de staking personal o el volumen de staking de referidos. Los niveles superiores desbloquean plazas, cobertura de hotel y subsidios de vuelo.",
+        "ranking": "Genera actividad de referidos calificados, aumenta el AUM de la comunidad y avanza en la escala del ranking de la comunidad. Las recompensas combinan pagos instantáneos de RCB, recompensas porcentuales de TCB y premios por hitos."
+      },
+      "tracks": {
+        "participant": "Participante",
+        "referral": "Referido",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "Ranking"
+      },
+      "titles": {
+        "personalStaking": "Staking personal",
+        "referralStaking": "Staking de referidos",
+        "participantIncentive": "Incentivo de participante",
+        "referralIncentive": "Incentivo de referidos",
+        "rapidCommunityBuilder": "Constructor rápido de comunidad",
+        "topCommunityBuilder": "Mejor constructor de comunidad",
+        "communityRanking": "Ranking de la comunidad",
+        "rcbPayoutLadder": "Escala de pagos RCB",
+        "tcbTierStructure": "Estructura de niveles TCB"
+      },
+      "subtitles": {
+        "participant": "Tu propio volumen de staking desbloquea beneficios del evento.",
+        "referral": "El volumen de staking de referidos calificados desbloquea beneficios del evento.",
+        "tcb": "Cumple tanto con los requisitos de RCB como de AUM para desbloquear una recompensa porcentual.",
+        "ranking": "Recompensas de hitos basadas en tu rango actual en la comunidad."
+      },
+      "labels": {
+        "yourVolume": "Tu volumen",
+        "currentTier": "Nivel actual",
+        "qualifiedReferrals": "Referidos calificados",
+        "rewardEarned": "Recompensa obtenida",
+        "yourAum": "Tu AUM",
+        "reward": "Recompensa",
+        "projectedReward": "Recompensa proyectada",
+        "currentRank": "Rango actual",
+        "rewardValue": "Valor de la recompensa"
+      },
+      "progress": {
+        "nextTierWith": "Siguiente nivel · {{value}} USDT",
+        "topReached": "Nivel máximo alcanzado",
+        "remaining": "{{amount}} USDT restantes",
+        "maxBracket": "Tramo máximo desbloqueado",
+        "nextMilestoneReferrals": "Siguiente hito · {{count}} referidos",
+        "moreToUnlock": "Faltan {{count}} para desbloquear ${{amount}}",
+        "nextTcb": "Siguiente nivel · {{pct}}% AUM",
+        "rcb": "RCB completo",
+        "moreRcb": "más de RCB",
+        "aum": "AUM completo",
+        "moreUsdtAum": "más de USDT en AUM",
+        "nextRank": "Siguiente rango · {{name}}",
+        "rankPctRemaining": "{{remaining}}% restante para {{reward}}",
+        "rankRemaining": "{{remaining}} {{unit}} restantes para {{reward}}"
+      },
+      "status": {
+        "achieved": "Logrado",
+        "locked": "Bloqueado",
+        "qualified": "Calificado",
+        "pending": "Pendiente",
+        "apex": "Apex",
+        "current": "Actual",
+        "included": "Incluido",
+        "yes": "Sí"
+      },
+      "table": {
+        "status": "Estado",
+        "threshold": "Umbral",
+        "seats": "Plazas",
+        "hotel": "Hotel",
+        "flight": "Vuelo (USDT)",
+        "minRcb": "RCB mínimo",
+        "minAum": "AUM mínimo",
+        "rewardCol": "Recompensa",
+        "rewardPercent": "{{pct}}% de recompensa",
+        "pctOfAum": "{{pct}}% del AUM",
+        "needRcbAum": "Requiere {{rcb}} RCB · {{aum}} USDT en AUM",
+        "rank": "Rango",
+        "approxValue": "Valor aprox."
+      },
+      "ladder": {
+        "rcbFootnote": "${{usd}} por referido calificado con al menos {{min}} USDT en staking.",
+        "rcbSubtitle": "${{usd}} por referido calificado con al menos {{min}} USDT en staking.",
+        "referralsCount": "{{count}} referidos",
+        "topTcbReached": "Nivel TCB máximo alcanzado.",
+        "nextRankFootnote": "Siguiente rango: {{name}} · {{reward}}",
+        "apexRank": "Rango Apex alcanzado — Nivel Socio."
+      },
+      "footnotes": {
+        "eventRewards": "Las recompensas del evento se calculan a partir de los volúmenes de calificación durante el periodo de la promoción y pueden estar sujetas a verificación final.",
+        "ranking": "Los cálculos del incentivo de ranking se basan en la actividad elegible de la comunidad durante el periodo de la campaña y pueden estar sujetos a verificación final."
+      },
+      "ranks": {
+        "bronze": "Bronce",
+        "silver": "Plata",
+        "gold": "Oro",
+        "platinum": "Platino",
+        "diamond": "Diamante",
+        "partner": "Socio"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "Fondo de marketing",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "Subsidio para automóvil",
+        "propertySubsidy": "Subsidio de propiedad"
+      }
     },
     "staking": {
       "activePrograms": "Programas activos",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "rango"
       }
+    },
+    "monthlyReport": {
+      "title": "Informe mensual",
+      "description": "Informes mensuales generales oficiales preparados por nuestro equipo.",
+      "eyebrow": "Análisis · Mensual",
+      "heroTitle": "Informe general mensual",
+      "heroSubtitle": "Un resumen editorial y seleccionado sobre el rendimiento, la asignación y las perspectivas a futuro, publicado mensualmente.",
+      "empty": "Todavía no se han publicado informes mensuales.",
+      "view": "Ver",
+      "download": "Descargar",
+      "share": "Compartir",
+      "linkCopied": "Enlace copiado al portapapeles.",
+      "copyLink": "Copia este enlace para compartir:"
     }
   },
   "palette": {

@@ -86,8 +86,10 @@
       "transferUsd": "USD स्थानांतरित करें",
       "referral": "रेफरल",
       "participation": "स्टेकिंग",
-      "promotion": "प्रमोशन"
-    }
+      "promotion": "प्रमोशन",
+      "monthlyReport": "मासिक रिपोर्ट"
+    },
+    "portfolioOverview": "पोर्टफोलियो अवलोकन"
   },
   "pages": {
     "deposit": {
@@ -547,10 +549,126 @@
         }
       },
       "progressLabel": "आपकी प्रगति",
+      "progressDescription": "इस प्रमोशन के लिए आपकी प्रगति यहाँ दिखाई देगी।",
       "notFound": "प्रमोशन नहीं मिला।",
       "backToPromotions": "प्रमोशन पर वापस जाएं",
       "details": "विवरण",
-      "progressDescription": "इस प्रमोशन के लिए आपकी प्रगति यहाँ दिखाई देगी।"
+      "officialOpening": "आधिकारिक उद्घाटन",
+      "yourTracking": "आपकी ट्रैकिंग",
+      "meta": {
+        "location": "स्थान",
+        "event": "इवेंट",
+        "window": "विंडो",
+        "payout": "पेआउट",
+        "payoutValue": "तुरंत + टियर-आधारित"
+      },
+      "intros": {
+        "naslabTurkey": "व्यक्तिगत स्टेकिंग वॉल्यूम या रेफरल स्टेकिंग वॉल्यूम के माध्यम से Naslab Türkiye उद्घाटन इवेंट के लिए अर्हता प्राप्त करें। उच्च टियर सीटें, होटल कवरेज और फ्लाइट सब्सिडी अनलॉक करते हैं।",
+        "ranking": "योग्य रेफरल गतिविधि बनाएं, कम्युनिटी AUM बढ़ाएं, और कम्युनिटी रैंकिंग लैडर में आगे बढ़ें। इनामों में तुरंत RCB पेआउट, TCB प्रतिशत इनाम और माइलस्टोन पुरस्कार शामिल हैं।"
+      },
+      "tracks": {
+        "participant": "भागीदार",
+        "referral": "रेफरल",
+        "rcb": "RCB",
+        "tcb": "TCB",
+        "ranking": "रैंकिंग"
+      },
+      "titles": {
+        "personalStaking": "व्यक्तिगत स्टेकिंग",
+        "referralStaking": "रेफरल स्टेकिंग",
+        "participantIncentive": "भागीदार प्रोत्साहन",
+        "referralIncentive": "रेफरल प्रोत्साहन",
+        "rapidCommunityBuilder": "रैपिड कम्युनिटी बिल्डर",
+        "topCommunityBuilder": "टॉप कम्युनिटी बिल्डर",
+        "communityRanking": "कम्युनिटी रैंकिंग",
+        "rcbPayoutLadder": "RCB पेआउट लैडर",
+        "tcbTierStructure": "TCB टियर संरचना"
+      },
+      "subtitles": {
+        "participant": "आपका अपना स्टेकिंग वॉल्यूम इवेंट के लाभों को अनलॉक करता है।",
+        "referral": "योग्य रेफरल स्टेकिंग वॉल्यूम इवेंट के लाभों को अनलॉक करता है।",
+        "tcb": "प्रतिशत इनाम को अनलॉक करने के लिए RCB और AUM दोनों आवश्यकताओं को पूरा करें।",
+        "ranking": "आपकी वर्तमान कम्युनिटी रैंक के आधार पर माइलस्टोन इनाम।"
+      },
+      "labels": {
+        "yourVolume": "आपका वॉल्यूम",
+        "currentTier": "वर्तमान टियर",
+        "qualifiedReferrals": "योग्य रेफरल",
+        "rewardEarned": "अर्जित इनाम",
+        "yourAum": "आपका AUM",
+        "reward": "इनाम",
+        "projectedReward": "अनुमानित इनाम",
+        "currentRank": "वर्तमान रैंक",
+        "rewardValue": "इनाम का मूल्य"
+      },
+      "progress": {
+        "nextTierWith": "अगला टियर · {{value}} USDT",
+        "topReached": "शीर्ष टियर पर पहुंच गए",
+        "remaining": "{{amount}} USDT शेष",
+        "maxBracket": "अधिकतम ब्रैकेट अनलॉक हो गया",
+        "nextMilestoneReferrals": "अगला माइलस्टोन · {{count}} रेफरल",
+        "moreToUnlock": "${{amount}} अनलॉक करने के लिए {{count}} और चाहिए",
+        "nextTcb": "अगला टियर · {{pct}}% AUM",
+        "rcb": "RCB पूर्ण",
+        "moreRcb": "और RCB",
+        "aum": "AUM पूर्ण",
+        "moreUsdtAum": "और USDT AUM",
+        "nextRank": "अगली रैंक · {{name}}",
+        "rankPctRemaining": "{{reward}} के लिए {{remaining}}% शेष",
+        "rankRemaining": "{{reward}} के लिए {{remaining}} {{unit}} शेष"
+      },
+      "status": {
+        "achieved": "प्राप्त किया",
+        "locked": "लॉक्ड",
+        "qualified": "योग्य",
+        "pending": "लंबित",
+        "apex": "एपेक्स",
+        "current": "वर्तमान",
+        "included": "शामिल",
+        "yes": "हाँ"
+      },
+      "table": {
+        "status": "स्थिति",
+        "threshold": "थ्रेशोल्ड",
+        "seats": "सीटें",
+        "hotel": "होटल",
+        "flight": "फ्लाइट (USDT)",
+        "minRcb": "न्यूनतम RCB",
+        "minAum": "न्यूनतम AUM",
+        "rewardCol": "इनाम",
+        "rewardPercent": "{{pct}}% इनाम",
+        "pctOfAum": "AUM का {{pct}}%",
+        "needRcbAum": "{{rcb}} RCB · {{aum}} USDT AUM की आवश्यकता",
+        "rank": "रैंक",
+        "approxValue": "अनुमानित मूल्य"
+      },
+      "ladder": {
+        "rcbFootnote": "कम से कम {{min}} USDT स्टेकिंग वाले प्रत्येक योग्य रेफरल पर ${{usd}}।",
+        "rcbSubtitle": "कम से कम {{min}} USDT स्टेकिंग वाले प्रत्येक योग्य रेफरल पर ${{usd}}।",
+        "referralsCount": "{{count}} रेफरल",
+        "topTcbReached": "शीर्ष TCB टियर पर पहुंच गए।",
+        "nextRankFootnote": "अगली रैंक: {{name}} · {{reward}}",
+        "apexRank": "एपेक्स रैंक प्राप्त की — पार्टनर टियर।"
+      },
+      "footnotes": {
+        "eventRewards": "इवेंट के इनामों की गणना प्रमोशन विंडो के दौरान योग्य वॉल्यूम से की जाती है और ये अंतिम सत्यापन के अधीन हो सकते हैं।",
+        "ranking": "रैंकिंग प्रोत्साहन की गणना अभियान विंडो के दौरान योग्य कम्युनिटी गतिविधि पर आधारित है और यह अंतिम सत्यापन के अधीन हो सकती है।"
+      },
+      "ranks": {
+        "bronze": "ब्रॉन्ज़",
+        "silver": "सिल्वर",
+        "gold": "गोल्ड",
+        "platinum": "प्लैटिनम",
+        "diamond": "डायमंड",
+        "partner": "पार्टनर"
+      },
+      "rewards": {
+        "iphone17": "iPhone 17 Pro Max 256GB",
+        "marketingFund": "मार्केटिंग फंड",
+        "rolexDaytona": "Rolex Daytona",
+        "carSubsidy": "कार सब्सिडी",
+        "propertySubsidy": "प्रॉपर्टी सब्सिडी"
+      }
     },
     "staking": {
       "activePrograms": "सक्रिय प्रोग्राम",
@@ -751,6 +869,19 @@
       "tableHeaders": {
         "rank": "रैंक"
       }
+    },
+    "monthlyReport": {
+      "title": "मासिक रिपोर्ट",
+      "description": "हमारी टीम द्वारा तैयार की गई आधिकारिक मासिक अवलोकन रिपोर्ट।",
+      "eyebrow": "अंतर्दृष्टि · मासिक",
+      "heroTitle": "मासिक अवलोकन रिपोर्ट",
+      "heroSubtitle": "मासिक रूप से प्रकाशित प्रदर्शन, आवंटन और भविष्य के दृष्टिकोण का एक क्यूरेटेड, संपादकीय-स्तर का स्नैपशॉट।",
+      "empty": "अभी तक कोई मासिक रिपोर्ट प्रकाशित नहीं हुई है।",
+      "view": "देखें",
+      "download": "डाउनलोड करें",
+      "share": "शेयर करें",
+      "linkCopied": "लिंक क्लिपबोर्ड पर कॉपी हो गया।",
+      "copyLink": "शेयर करने के लिए इस लिंक को कॉपी करें:"
     }
   },
   "palette": {

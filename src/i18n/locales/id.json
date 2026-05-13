@@ -86,8 +86,10 @@
       "transferUsd": "Transfer USD",
       "referral": "Referal",
       "participation": "Partisipasi",
-      "promotion": "Promosi"
-    }
+      "promotion": "Promosi",
+      "monthlyReport": "Laporan Bulanan"
+    },
+    "portfolioOverview": "Ringkasan Portofolio"
   },
   "pages": {
     "deposit": {
@@ -867,6 +869,19 @@
       "tableHeaders": {
         "rank": "peringkat"
       }
+    },
+    "monthlyReport": {
+      "title": "Laporan Bulanan",
+      "description": "Laporan ringkasan bulanan resmi yang disusun oleh tim kami.",
+      "eyebrow": "Wawasan · Bulanan",
+      "heroTitle": "Laporan Ringkasan Bulanan",
+      "heroSubtitle": "Gambaran singkat berkualitas editorial yang disusun khusus mengenai kinerja, alokasi, dan prospek ke depan — diterbitkan setiap bulan.",
+      "empty": "Belum ada laporan bulanan yang diterbitkan.",
+      "view": "Lihat",
+      "download": "Unduh",
+      "share": "Bagikan",
+      "linkCopied": "Tautan disalin ke papan klip.",
+      "copyLink": "Salin tautan ini untuk dibagikan:"
     }
   },
   "palette": {
