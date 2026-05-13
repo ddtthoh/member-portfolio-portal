@@ -49,7 +49,7 @@ function MonthlyReportPage() {
       />
 
       {/* Hero card — landing-page style gold gradient */}
-      <div className="relative overflow-hidden rounded-2xl border border-gold/25 bg-card/40 p-8 sm:p-10">
+      <div className="liquid-glass relative overflow-hidden rounded-2xl border border-gold/25 p-8 sm:p-10">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
