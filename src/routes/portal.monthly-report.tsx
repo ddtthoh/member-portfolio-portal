@@ -84,7 +84,7 @@ function MonthlyReportPage() {
           >
             {t("pages.monthlyReport.heroTitle", "Monthly Overview Report")}
           </h2>
-          <p className="max-w-xl text-sm text-foreground/70 sm:text-base">
+          <p className="max-w-xl text-sm text-gold/75 sm:text-base">
             {t(
               "pages.monthlyReport.heroSubtitle",
               "A curated, editorial-grade snapshot of performance, allocation and forward outlook — published monthly."
