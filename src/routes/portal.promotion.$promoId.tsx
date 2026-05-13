@@ -648,7 +648,7 @@ function TierLadder({
                   <Ticket className="h-3 w-3" /> {tier.seats}
                 </div>
                 <div className={`flex items-center gap-1 ${reached ? "text-gold" : "text-muted-foreground"}`}>
-                  <Hotel className="h-3 w-3" /> {tier.hotel ? "Yes" : "—"}
+                  <Hotel className="h-3 w-3" /> {tier.hotel ? t("pages.promotionDetail.status.yes") : "—"}
                 </div>
                 <div className={`flex items-center gap-1 ${reached ? "text-gold" : "text-muted-foreground"}`}>
                   <Plane className="h-3 w-3" /> {tier.flightUsd > 0 ? tier.flightUsd.toLocaleString() : "—"}
@@ -837,7 +837,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
             </h3>
           </div>
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">You earned</div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.rewardEarned")}</div>
             <MetricValue
               value={rcbEarned}
               prefix="$"
