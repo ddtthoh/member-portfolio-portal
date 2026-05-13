@@ -150,7 +150,6 @@ function MonthlyReportPage() {
                         {r.period}
                       </span>
                     )}
-                    <span>{formatBytes(r.file_size)}</span>
                     <span>{new Date(r.created_at).toLocaleDateString()}</span>
                   </div>
                 </div>
