@@ -185,6 +185,7 @@ function WalletEditPage() {
       </div>
 
       <QuizUploadSection />
+      <MonthlyReportUploadSection />
     </div>
   );
 }
