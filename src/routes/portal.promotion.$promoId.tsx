@@ -640,7 +640,7 @@ function TierLadder({
                   </span>
                 </div>
                 <span className={`text-[10px] uppercase tracking-[0.18em] ${reached ? "text-gold" : "text-muted-foreground"}`}>
-                  {reached ? "Achieved" : "Locked"}
+                  {reached ? t("pages.promotionDetail.status.achieved") : t("pages.promotionDetail.status.locked")}
                 </span>
               </div>
               <div className="mt-2 grid grid-cols-3 gap-2 text-[11px]">
@@ -665,6 +665,7 @@ function TierLadder({
 // ---- Ranking promotion (RCB / TCB / Community Ranking) ----------------------
 
 function RankingPromotion({ promo }: { promo: RankingPromo }) {
+  const { t } = useTranslation();
   const rcbEarned = promo.rcbCount * promo.rcbPerReferralUsd;
 
   // ---- RCB progress: linear milestones --------------------------------------
@@ -677,30 +678,22 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
   const rcbProgress: TrackProgressData | null = rcbNext
     ? {
         pct: rcbPct,
-        topLeft: `Next milestone · ${rcbNext} referrals`,
-        bottom: (
-          <>
-            <span className="font-light tabular-nums tracking-tight text-gold">
-              {rcbNext - promo.rcbCount}
-            </span>{" "}
-            more to unlock{" "}
-            <span className="font-light tabular-nums tracking-tight text-gold">
-              ${(rcbNext * promo.rcbPerReferralUsd).toLocaleString()}
-            </span>
-            .
-          </>
-        ),
+        topLeft: t("pages.promotionDetail.progress.nextMilestoneReferrals", { count: rcbNext }),
+        bottom: t("pages.promotionDetail.progress.moreToUnlock", {
+          count: rcbNext - promo.rcbCount,
+          amount: (rcbNext * promo.rcbPerReferralUsd).toLocaleString(),
+        }),
       }
     : null;
 
   // ---- TCB progress: min(rcbPct, aumPct) of next tier ----------------------
   const tcbSorted = [...promo.tcbTiers].sort((a, b) => a.pct - b.pct);
   let currentTcb: TcbTier | null = null;
-  for (const t of tcbSorted) {
-    if (promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum) currentTcb = t;
+  for (const tier of tcbSorted) {
+    if (promo.rcbCount >= tier.minRcb && promo.currentAum >= tier.minAum) currentTcb = tier;
   }
   const nextTcb =
-    tcbSorted.find((t) => !(promo.rcbCount >= t.minRcb && promo.currentAum >= t.minAum)) ?? null;
+    tcbSorted.find((tier) => !(promo.rcbCount >= tier.minRcb && promo.currentAum >= tier.minAum)) ?? null;
   const tcbPayout = currentTcb ? (promo.currentAum * currentTcb.pct) / 100 : 0;
 
   let tcbProgress: TrackProgressData | null = null;
@@ -712,7 +705,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
     const aumGap = Math.max(0, nextTcb.minAum - promo.currentAum);
     tcbProgress = {
       pct,
-      topLeft: `Next tier · ${nextTcb.pct}% AUM`,
+      topLeft: t("pages.promotionDetail.progress.nextTcb", { pct: nextTcb.pct }),
       bottom: (
         <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="inline-flex items-center gap-1">
@@ -721,7 +714,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
             ) : (
               <span className="font-light tabular-nums tracking-tight text-gold">{rcbGap}</span>
             )}
-            <span>{rcbGap === 0 ? "RCB" : "more RCB"}</span>
+            <span>{rcbGap === 0 ? t("pages.promotionDetail.progress.rcb") : t("pages.promotionDetail.progress.moreRcb")}</span>
           </span>
           <span className="text-gold/30">·</span>
           <span className="inline-flex items-center gap-1">
@@ -732,7 +725,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                 {aumGap.toLocaleString()}
               </span>
             )}
-            <span>{aumGap === 0 ? "AUM" : "more USDT AUM"}</span>
+            <span>{aumGap === 0 ? t("pages.promotionDetail.progress.aum") : t("pages.promotionDetail.progress.moreUsdtAum")}</span>
           </span>
         </span>
       ),
@@ -749,25 +742,15 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
 
   let rankingProgress: TrackProgressData | null = null;
   if (nextRank && promo.nextRankProgress) {
-    const { current, target, unit, metricLabel } = promo.nextRankProgress;
+    const { current, target, unit } = promo.nextRankProgress;
     const pct = Math.min(100, Math.max(0, (current / target) * 100));
     const remaining = Math.max(0, target - current);
     rankingProgress = {
       pct,
-      topLeft: `Next rank · ${nextRank.name}`,
-      bottom: unit === "%" ? (
-        <>
-          <span className="font-light tabular-nums tracking-tight text-gold">{remaining}%</span>{" "}
-          to unlock <span className="text-gold">{nextRank.reward}</span>
-        </>
-      ) : (
-        <>
-          <span className="font-light tabular-nums tracking-tight text-gold">{remaining}</span>{" "}
-          more {unit} to unlock{" "}
-          <span className="text-gold">{nextRank.reward}</span>
-          <span className="ml-1 text-gold/50">({metricLabel.toLowerCase()})</span>
-        </>
-      ),
+      topLeft: t("pages.promotionDetail.progress.nextRank", { name: t(nextRank.name) }),
+      bottom: unit === "%"
+        ? t("pages.promotionDetail.progress.rankPctRemaining", { remaining, reward: t(nextRank.reward) })
+        : t("pages.promotionDetail.progress.rankRemaining", { remaining, unit, reward: t(nextRank.reward) }),
     };
   }
 
@@ -777,18 +760,18 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{promo.intro}</p>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{t(promo.intro)}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 md:gap-4">
             <MetaPill
               icon={<CalendarDays className="h-3.5 w-3.5" />}
-              label="Window"
+              label={t("pages.promotionDetail.meta.window")}
               value={promo.windowLabel}
             />
             <MetaPill
               icon={<TrendingUp className="h-3.5 w-3.5" />}
-              label="Payout"
-              value="July Event"
+              label={t("pages.promotionDetail.meta.payout")}
+              value={t("pages.promotionDetail.meta.payoutValue")}
             />
           </div>
         </div>
@@ -798,48 +781,48 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <div className="grid gap-4 lg:grid-cols-3">
         <RankingTrackCard
           icon={<UserPlus className="h-4 w-4" />}
-          eyebrow="Track 01 · RCB"
-          title="Rapid Community Builder"
+          eyebrow={t("pages.promotionDetail.tracks.rcb")}
+          title={t("pages.promotionDetail.titles.rapidCommunityBuilder")}
           status={promo.rcbCount > 0 ? "qualified" : "pending"}
-          primaryLabel="Qualified Referrals"
+          primaryLabel={t("pages.promotionDetail.labels.qualifiedReferrals")}
           primaryValue={promo.rcbCount}
-          secondaryLabel="Reward earned"
+          secondaryLabel={t("pages.promotionDetail.labels.rewardEarned")}
           secondaryValue={rcbEarned}
           secondaryPrefix="$"
           progress={rcbProgress}
-          fallbackFootnote={`USD ${promo.rcbPerReferralUsd} per referral · min stake ${promo.rcbMinStakeUsd} USDT`}
+          fallbackFootnote={t("pages.promotionDetail.ladder.rcbFootnote", { usd: promo.rcbPerReferralUsd, min: promo.rcbMinStakeUsd })}
         />
 
         <RankingTrackCard
           icon={<Wallet className="h-4 w-4" />}
-          eyebrow="Track 02 · TCB"
-          title="Top Community Builder"
+          eyebrow={t("pages.promotionDetail.tracks.tcb")}
+          title={t("pages.promotionDetail.titles.topCommunityBuilder")}
           status={currentTcb ? "qualified" : "pending"}
-          primaryLabel="Your AUM"
+          primaryLabel={t("pages.promotionDetail.labels.yourAum")}
           primaryValue={promo.currentAum}
           primarySuffix=" USDT"
-          secondaryLabel={currentTcb ? `Reward · ${currentTcb.pct}% AUM` : "Reward"}
+          secondaryLabel={currentTcb ? t("pages.promotionDetail.table.rewardPercent", { pct: currentTcb.pct }) : t("pages.promotionDetail.labels.reward")}
           secondaryValue={tcbPayout}
           secondarySuffix=" USDT"
           progress={tcbProgress}
-          fallbackFootnote="Top TCB tier reached."
+          fallbackFootnote={t("pages.promotionDetail.ladder.topTcbReached")}
         />
 
         <RankingTrackCard
           icon={<Trophy className="h-4 w-4" />}
-          eyebrow="Track 03 · Ranking"
-          title="Community Ranking"
+          eyebrow={t("pages.promotionDetail.tracks.ranking")}
+          title={t("pages.promotionDetail.titles.communityRanking")}
           status={currentRank ? (nextRank ? "qualified" : "apex") : "pending"}
-          primaryLabel="Current rank"
-          primaryText={currentRank ? currentRank.name : "—"}
-          secondaryLabel={currentRank ? "Reward value" : "—"}
+          primaryLabel={t("pages.promotionDetail.labels.currentRank")}
+          primaryText={currentRank ? t(currentRank.name) : "—"}
+          secondaryLabel={currentRank ? t("pages.promotionDetail.labels.rewardValue") : "—"}
           secondaryValue={currentRank ? currentRank.valueUsd : 0}
           secondarySuffix=" USDT"
           progress={rankingProgress}
           fallbackFootnote={
             nextRank
-              ? `Next rank: ${nextRank.name} · ${nextRank.reward}`
-              : "Apex rank achieved — Partner tier."
+              ? t("pages.promotionDetail.ladder.nextRankFootnote", { name: t(nextRank.name), reward: t(nextRank.reward) })
+              : t("pages.promotionDetail.ladder.apexRank")
           }
         />
       </div>
@@ -848,9 +831,9 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">RCB Payout Ladder</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">{t("pages.promotionDetail.titles.rcbPayoutLadder")}</div>
             <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
-              USD {promo.rcbPerReferralUsd} for every referral with a minimum stake of {promo.rcbMinStakeUsd} USDT
+              {t("pages.promotionDetail.ladder.rcbSubtitle", { usd: promo.rcbPerReferralUsd, min: promo.rcbMinStakeUsd })}
             </h3>
           </div>
           <div className="text-right">
@@ -883,7 +866,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                     reached ? "text-gold/80" : "text-muted-foreground"
                   }`}
                 >
-                  {n} REFERRALS
+                  {t("pages.promotionDetail.ladder.referralsCount", { count: n })}
                 </div>
                 <div
                   className={`mt-1 font-light tabular-nums tracking-tight ${
@@ -913,13 +896,13 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">TCB Tier Structure</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">{t("pages.promotionDetail.titles.tcbTierStructure")}</div>
             <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
-              Earn a percentage of your Asset Under Management
+              {t("pages.promotionDetail.subtitles.tcb")}
             </h3>
           </div>
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Projected reward</div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.projectedReward")}</div>
             <MetricValue
               value={tcbPayout}
               suffix=" USDT"
@@ -937,10 +920,10 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
             <table className="w-full text-sm">
               <thead className="bg-gold/[0.04] text-[10px] uppercase tracking-[0.18em] text-gold/80">
                 <tr>
-                  <th className="px-4 py-2.5 text-left font-medium">Status</th>
-                  <th className="px-4 py-2.5 text-right font-medium">Min RCB</th>
-                  <th className="px-4 py-2.5 text-right font-medium">Min AUM</th>
-                  <th className="px-4 py-2.5 text-right font-medium">Reward</th>
+                  <th className="px-4 py-2.5 text-left font-medium">{t("pages.promotionDetail.table.status")}</th>
+                  <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.minRcb")}</th>
+                  <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.minAum")}</th>
+                  <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.rewardCol")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -961,14 +944,14 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                             <span className="gold-glow-sm flex h-5 w-5 items-center justify-center rounded-full border border-gold/50 bg-gold/15">
                               <Check className="h-3 w-3" />
                             </span>
-                            <span className="text-[11px] uppercase tracking-[0.18em]">Achieved</span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">{t("pages.promotionDetail.status.achieved")}</span>
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
                             <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04]">
                               <Lock className="h-3 w-3" />
                             </span>
-                            <span className="text-[11px] uppercase tracking-[0.18em]">Locked</span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">{t("pages.promotionDetail.status.locked")}</span>
                           </span>
                         )}
                       </td>
@@ -976,7 +959,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                       <td className={`px-4 py-3 text-right ${numCls}`}>
                         {tier.minAum.toLocaleString()} USDT
                       </td>
-                      <td className={`px-4 py-3 text-right ${numCls}`}>{tier.pct}% of AUM</td>
+                      <td className={`px-4 py-3 text-right ${numCls}`}>{t("pages.promotionDetail.table.pctOfAum", { pct: tier.pct })}</td>
                     </tr>
                   );
                 })}
@@ -1005,7 +988,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                       reached ? "text-gold" : "text-muted-foreground"
                     }`}
                   >
-                    {tier.pct}% of AUM
+                    {t("pages.promotionDetail.table.pctOfAum", { pct: tier.pct })}
                   </span>
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full border ${
@@ -1022,7 +1005,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                     reached ? "text-gold/80" : "text-muted-foreground"
                   }`}
                 >
-                  Need {tier.minRcb} RCB · {tier.minAum.toLocaleString()} USDT AUM
+                  {t("pages.promotionDetail.table.needRcbAum", { rcb: tier.minRcb, aum: tier.minAum.toLocaleString() })}
                 </div>
               </div>
             );
@@ -1034,19 +1017,19 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       <SpotlightCard className="liquid-glass rounded-2xl p-6">
         <div className="mb-4 flex items-end justify-between gap-3">
           <div>
-            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">Community Ranking</div>
+            <div className="text-[11px] uppercase tracking-[0.2em] text-gold">{t("pages.promotionDetail.titles.communityRanking")}</div>
             <h3 className="mt-0.5 text-base font-light tracking-tight text-muted-foreground">
-              Attain the rank during 1 Feb – 30 Jun 2026 to claim its signature reward
+              {t("pages.promotionDetail.subtitles.ranking")}
             </h3>
           </div>
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">Current rank</div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/70">{t("pages.promotionDetail.labels.currentRank")}</div>
             <div
               className={`mt-0.5 text-base font-light tracking-tight ${
                 currentRank ? "text-gold" : "text-muted-foreground"
               }`}
             >
-              {currentRank ? currentRank.name : "—"}
+              {currentRank ? t(currentRank.name) : "—"}
             </div>
           </div>
         </div>
@@ -1057,10 +1040,10 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
             <table className="w-full text-sm">
               <thead className="bg-gold/[0.04] text-[10px] uppercase tracking-[0.18em] text-gold/80">
                 <tr>
-                  <th className="px-4 py-2.5 text-left font-medium">Status</th>
-                  <th className="px-4 py-2.5 text-left font-medium">Rank</th>
-                  <th className="px-4 py-2.5 text-left font-medium">Reward</th>
-                  <th className="px-4 py-2.5 text-right font-medium">Approx. Value</th>
+                  <th className="px-4 py-2.5 text-left font-medium">{t("pages.promotionDetail.table.status")}</th>
+                  <th className="px-4 py-2.5 text-left font-medium">{t("pages.promotionDetail.table.rank")}</th>
+                  <th className="px-4 py-2.5 text-left font-medium">{t("pages.promotionDetail.table.rewardCol")}</th>
+                  <th className="px-4 py-2.5 text-right font-medium">{t("pages.promotionDetail.table.approxValue")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -1084,7 +1067,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                               {isCurrent ? <Crown className="h-3 w-3" /> : <Check className="h-3 w-3" />}
                             </span>
                             <span className="text-[11px] uppercase tracking-[0.18em]">
-                              {isCurrent ? "Current" : "Achieved"}
+                              {isCurrent ? t("pages.promotionDetail.status.current") : t("pages.promotionDetail.status.achieved")}
                             </span>
                           </span>
                         ) : (
@@ -1092,7 +1075,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                             <span className="flex h-5 w-5 items-center justify-center rounded-full border border-foreground/15 bg-foreground/[0.04]">
                               <Lock className="h-3 w-3" />
                             </span>
-                            <span className="text-[11px] uppercase tracking-[0.18em]">Locked</span>
+                            <span className="text-[11px] uppercase tracking-[0.18em]">{t("pages.promotionDetail.status.locked")}</span>
                           </span>
                         )}
                       </td>
@@ -1101,7 +1084,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                           reached ? "text-gold" : "text-muted-foreground"
                         }`}
                       >
-                        {tier.name}
+                        {t(tier.name)}
                       </td>
                       <td
                         className={`px-4 py-3 text-sm ${
@@ -1110,7 +1093,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                       >
                         <span className="inline-flex items-center gap-1.5">
                           <Gift className="h-3.5 w-3.5 opacity-70" />
-                          {tier.reward}
+                          {t(tier.reward)}
                         </span>
                       </td>
                       <td className={`px-4 py-3 text-right ${numCls}`}>
@@ -1164,7 +1147,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                         reached ? "text-gold" : "text-muted-foreground"
                       }`}
                     >
-                      {tier.name}
+                      {t(tier.name)}
                     </span>
                   </div>
                   <span
@@ -1181,7 +1164,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
                   }`}
                 >
                   <Gift className="h-3 w-3 opacity-70" />
-                  {tier.reward}
+                  {t(tier.reward)}
                 </div>
               </div>
             );
@@ -1190,8 +1173,7 @@ function RankingPromotion({ promo }: { promo: RankingPromo }) {
       </SpotlightCard>
 
       <p className="px-1 pt-1 text-[11px] leading-relaxed text-gold/60">
-        All three tracks are calculated from 1 February to 30 June 2026 and paid out at the July 2026
-        Event. Final rankings are verified against official system data.
+        {t("pages.promotionDetail.footnotes.ranking")}
       </p>
     </div>
   );
@@ -1232,6 +1214,7 @@ function RankingTrackCard({
   progress?: TrackProgressData | null;
   fallbackFootnote: React.ReactNode;
 }) {
+  const { t } = useTranslation();
   const top = status === "apex";
   const qualified = status === "qualified" || top;
 
@@ -1242,7 +1225,7 @@ function RankingTrackCard({
         {icon}
         <span className="text-[11px] uppercase tracking-[0.2em]">{eyebrow}</span>
         <span className="ml-auto text-[9px] uppercase tracking-[0.22em] text-gold/60">
-          Your Tracking
+          {t("pages.promotionDetail.yourTracking")}
         </span>
       </div>
 
