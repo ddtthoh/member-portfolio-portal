@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText, Download, Eye, Calendar, Send, MessageCircle } from "lucide-react";
+import { FileText, Download, Eye, Calendar, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PageHeader } from "@/components/page-header";
 import { useTranslation } from "react-i18next";
