@@ -185,6 +185,7 @@ function WalletEditPage() {
       </div>
 
       <QuizUploadSection />
+      <MonthlyReportUploadSection />
     </div>
   );
 }
@@ -322,6 +323,151 @@ Answer: B`}
           {t("pages.walletEdit.quiz.hint.part6")}
         </p>
       </details>
+    </div>
+  );
+}
+
+type MonthlyReport = {
+  id: string;
+  title: string;
+  period: string | null;
+  file_url: string;
+  file_size: number | null;
+  created_at: string;
+};
+
+function MonthlyReportUploadSection() {
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const [title, setTitle] = useState("");
+  const [period, setPeriod] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [reports, setReports] = useState<MonthlyReport[]>([]);
+  const pdfRef = useRef<HTMLInputElement>(null);
+
+  const refresh = async () => {
+    const { data } = await supabase
+      .from("monthly_reports")
+      .select("id, title, period, file_url, file_size, created_at")
+      .order("created_at", { ascending: false });
+    setReports((data ?? []) as MonthlyReport[]);
+  };
+
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  const onPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    if (!title.trim()) {
+      toast.error(t("pages.walletEdit.monthlyReport.titleRequired", "Please enter a title first"));
+      return;
+    }
+    setUploading(true);
+    try {
+      const path = `${user.id}/${Date.now()}-${file.name}`;
+      const { error: upErr } = await supabase.storage
+        .from("monthly-reports")
+        .upload(path, file, { contentType: file.type || "application/pdf", upsert: false });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("monthly-reports").getPublicUrl(path);
+      const { error } = await supabase.from("monthly_reports").insert({
+        title: title.trim(),
+        period: period.trim() || null,
+        file_url: data.publicUrl,
+        file_size: file.size,
+        uploaded_by: user.id,
+      });
+      if (error) throw error;
+      toast.success(t("pages.walletEdit.monthlyReport.uploaded", "Monthly report uploaded"));
+      setTitle("");
+      setPeriod("");
+      if (pdfRef.current) pdfRef.current.value = "";
+      await refresh();
+    } catch (err: any) {
+      toast.error(err?.message ?? "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const remove = async (r: MonthlyReport) => {
+    if (!confirm(t("pages.walletEdit.monthlyReport.confirmDelete", "Delete this report?"))) return;
+    const { error } = await supabase.from("monthly_reports").delete().eq("id", r.id);
+    if (error) return toast.error(error.message);
+    toast.success(t("pages.walletEdit.monthlyReport.deleted", "Deleted"));
+    refresh();
+  };
+
+  return (
+    <div className="liquid-glass space-y-4 rounded-xl p-5">
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-gold">
+          {t("pages.walletEdit.monthlyReport.title", "Monthly Report")}
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {t("pages.walletEdit.monthlyReport.description", "Upload monthly overview PDFs visible to all members.")}
+        </p>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="mr-title">{t("pages.walletEdit.monthlyReport.titleLabel", "Report title")}</Label>
+          <Input
+            id="mr-title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="October 2025 Overview"
+          />
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="mr-period">{t("pages.walletEdit.monthlyReport.periodLabel", "Period (optional)")}</Label>
+          <Input id="mr-period" value={period} onChange={(e) => setPeriod(e.target.value)} placeholder="Oct 2025" />
+        </div>
+      </div>
+
+      <input ref={pdfRef} type="file" accept="application/pdf" onChange={onPick} className="hidden" />
+      <Button
+        type="button"
+        onClick={() => pdfRef.current?.click()}
+        disabled={uploading || !user}
+        className="bg-gradient-to-r from-gold to-amber-400 text-background hover:opacity-90"
+      >
+        <Upload className="mr-2 h-4 w-4" />
+        {uploading
+          ? t("pages.walletEdit.actions.uploading")
+          : t("pages.walletEdit.monthlyReport.uploadPdf", "Upload PDF")}
+      </Button>
+
+      {reports.length > 0 && (
+        <div className="space-y-2 pt-2">
+          {reports.map((r) => (
+            <div
+              key={r.id}
+              className="flex items-center justify-between gap-3 rounded-lg border border-border/60 bg-background/40 px-3 py-2 text-sm"
+            >
+              <div className="min-w-0">
+                <div className="truncate font-medium text-foreground">{r.title}</div>
+                <div className="text-xs text-muted-foreground">
+                  {r.period ? `${r.period} · ` : ""}
+                  {new Date(r.created_at).toLocaleDateString()}
+                </div>
+              </div>
+              <div className="flex shrink-0 gap-2">
+                <Button asChild size="sm" variant="outline">
+                  <a href={r.file_url} target="_blank" rel="noopener noreferrer">
+                    <FileText className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => remove(r)}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
