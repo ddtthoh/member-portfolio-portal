@@ -116,7 +116,7 @@ function MonthlyReportPage() {
           {reports.map((r) => (
             <article
               key={r.id}
-              className="group relative overflow-hidden rounded-2xl border border-gold/15 bg-background/40 p-5 backdrop-blur transition-all hover:border-gold/40 hover:shadow-[0_20px_60px_-30px_color-mix(in_oklab,var(--gold)_60%,transparent)]"
+              className="liquid-glass group relative overflow-hidden rounded-2xl border border-gold/15 p-5 transition-all hover:border-gold/40 hover:shadow-[0_20px_60px_-30px_color-mix(in_oklab,var(--gold)_60%,transparent)]"
             >
               <div
                 aria-hidden
