@@ -225,7 +225,7 @@ function MonthlyReportPage() {
                         href={r.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 inline-flex items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
                       >
                         <Eye className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.view", "View")}
@@ -241,7 +241,7 @@ function MonthlyReportPage() {
                       <a
                         href={r.file_url}
                         download
-                        className="mt-2 inline-flex items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
                       >
                         <Download className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.download", "Download")}
@@ -282,7 +282,7 @@ function MonthlyReportPage() {
                             );
                           }
                         }}
-                        className="mt-2 inline-flex items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
+                        className="mt-2 flex w-full items-center justify-center rounded-md border border-gold/30 bg-gold/10 px-2 py-1.5 text-[11px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-gold/20"
                       >
                         <Share2 className="mr-1.5 h-3.5 w-3.5" />
                         {t("pages.monthlyReport.share", "Share")}
