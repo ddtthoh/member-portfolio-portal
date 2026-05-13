@@ -43,6 +43,7 @@
     "changePassword": "Passwort ändern",
     "myKyc": "Meine KYC",
     "myQrCode": "Mein QR-Code",
+    "myLandingPage": "Meine Landingpage",
     "network": "Netzwerk",
     "logout": "Abmelden"
   },
@@ -426,7 +427,8 @@
         "description": "Sind Sie sicher, dass Sie eine vollständige Rückerstattung anfordern möchten? Unser Team wird Ihre Anfrage prüfen und sich in Kürze mit Ihnen in Verbindung setzen.",
         "confirm": "Anfrage bestätigen",
         "submitted": "Rückerstattungsanfrage eingereicht"
-      }
+      },
+      "earnedSoFar": "Verdient"
     },
     "transferUsd": {
       "eyebrow": "USD-Wallet",
@@ -854,6 +856,43 @@
       "resetAction": "Zurücksetzen",
       "filterAction": "Filtern",
       "exportAction": "Exportieren"
+    }
+  },
+  "charts": {
+    "empty": "Noch keine Daten",
+    "assetGrowth": {
+      "eyebrow": "Vermögenswachstum",
+      "title": "Trend des Vermögenswachstums",
+      "current": "Aktueller Gesamtwert"
+    },
+    "totalAssets": {
+      "eyebrow": "Vermögenswerte",
+      "title": "Gesamtvermögen"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "Belohnungen",
+      "title": "Aufschlüsselung der Belohnungen",
+      "total": "Gesamte Belohnungen"
+    },
+    "overview": {
+      "eyebrow": "Übersicht",
+      "title": "Übersicht der Belohnungen"
+    },
+    "monthlyRewards": {
+      "title": "Monatliche Belohnungen · Letzte 6 Monate"
+    },
+    "rewardsHeatmap": {
+      "title": "Heatmap der täglichen Belohnungen · Letzte 90 Tage",
+      "less": "Weniger",
+      "more": "Mehr"
+    },
+    "rewardTypes": {
+      "staking": "Staking",
+      "referral": "Empfehlung",
+      "team": "Team",
+      "leader": "Leader",
+      "global": "Global",
+      "par_rank": "Par Rank"
     }
   }
 }

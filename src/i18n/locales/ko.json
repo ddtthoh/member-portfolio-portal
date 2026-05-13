@@ -43,6 +43,7 @@
     "changePassword": "비밀번호 변경",
     "myKyc": "내 KYC",
     "myQrCode": "내 QR 코드",
+    "myLandingPage": "내 랜딩 페이지",
     "network": "네트워크",
     "logout": "로그아웃"
   },
@@ -426,7 +427,8 @@
         "description": "전액 환불을 요청하시겠습니까? 담당 팀에서 검토 후 곧 연락드리겠습니다.",
         "confirm": "요청 확인",
         "submitted": "환불 요청이 제출되었습니다"
-      }
+      },
+      "earnedSoFar": "누적 수익"
     },
     "transferUsd": {
       "eyebrow": "USD 지갑",
@@ -854,6 +856,43 @@
       "resetAction": "초기화",
       "filterAction": "필터",
       "exportAction": "내보내기"
+    }
+  },
+  "charts": {
+    "empty": "데이터가 없습니다",
+    "assetGrowth": {
+      "eyebrow": "자산 성장",
+      "title": "자산 성장 추이",
+      "current": "현재 총액"
+    },
+    "totalAssets": {
+      "eyebrow": "자산",
+      "title": "총 자산"
+    },
+    "rewardsBreakdown": {
+      "eyebrow": "보상",
+      "title": "보상 내역",
+      "total": "총 보상"
+    },
+    "overview": {
+      "eyebrow": "개요",
+      "title": "보상 개요"
+    },
+    "monthlyRewards": {
+      "title": "월별 보상 · 최근 6개월"
+    },
+    "rewardsHeatmap": {
+      "title": "일별 보상 히트맵 · 최근 90일",
+      "less": "적음",
+      "more": "많음"
+    },
+    "rewardTypes": {
+      "staking": "스테이킹",
+      "referral": "추천",
+      "team": "팀",
+      "leader": "리더",
+      "global": "글로벌",
+      "par_rank": "Par Rank"
     }
   }
 }
