@@ -10,12 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PortalRouteImport } from './routes/portal'
-import { Route as MainRouteImport } from './routes/main'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
-import { Route as MainIndexRouteImport } from './routes/main.index'
 import { Route as PortalWithdrawalRouteImport } from './routes/portal.withdrawal'
 import { Route as PortalWalletEditRouteImport } from './routes/portal.wallet-edit'
 import { Route as PortalTransactionsRouteImport } from './routes/portal.transactions'
@@ -35,18 +33,10 @@ import { Route as PortalHoldingsRouteImport } from './routes/portal.holdings'
 import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
 import { Route as PortalDepositRouteImport } from './routes/portal.deposit'
 import { Route as PortalChangePasswordRouteImport } from './routes/portal.change-password'
-import { Route as MainStrategyRouteImport } from './routes/main.strategy'
-import { Route as MainRoadmapRouteImport } from './routes/main.roadmap'
-import { Route as MainNcoreRouteImport } from './routes/main.ncore'
-import { Route as MainContactRouteImport } from './routes/main.contact'
-import { Route as MainCollaborationRouteImport } from './routes/main.collaboration'
-import { Route as MainCareersRouteImport } from './routes/main.careers'
-import { Route as MainAboutRouteImport } from './routes/main.about'
 import { Route as InviteMemberIdRouteImport } from './routes/invite.$memberId'
 import { Route as PortalReportsIndexRouteImport } from './routes/portal.reports.index'
 import { Route as PortalQnaIndexRouteImport } from './routes/portal.qna.index'
 import { Route as PortalPromotionIndexRouteImport } from './routes/portal.promotion.index'
-import { Route as MainNcoreIndexRouteImport } from './routes/main.ncore.index'
 import { Route as PortalStatementUsdRouteImport } from './routes/portal.statement.usd'
 import { Route as PortalStatementTransferUsdRouteImport } from './routes/portal.statement.transfer-usd'
 import { Route as PortalStatementRewardsRouteImport } from './routes/portal.statement.rewards'
@@ -61,21 +51,10 @@ import { Route as PortalReportsGlobalRewardsRouteImport } from './routes/portal.
 import { Route as PortalQnaMarketingRouteImport } from './routes/portal.qna.marketing'
 import { Route as PortalQnaCompanyRouteImport } from './routes/portal.qna.company'
 import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.promotion.$promoId'
-import { Route as MainNcoreXRouteImport } from './routes/main.ncore.x'
-import { Route as MainNcoreTrendsRouteImport } from './routes/main.ncore.trends'
-import { Route as MainNcoreTradingRouteImport } from './routes/main.ncore.trading'
-import { Route as MainNcoreTokenRouteImport } from './routes/main.ncore.token'
-import { Route as MainNcoreFeaturesRouteImport } from './routes/main.ncore.features'
-import { Route as MainNcoreBasicRouteImport } from './routes/main.ncore.basic'
 
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MainRoute = MainRouteImport.update({
-  id: '/main',
-  path: '/main',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -97,11 +76,6 @@ const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PortalRoute,
-} as any)
-const MainIndexRoute = MainIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => MainRoute,
 } as any)
 const PortalWithdrawalRoute = PortalWithdrawalRouteImport.update({
   id: '/withdrawal',
@@ -198,41 +172,6 @@ const PortalChangePasswordRoute = PortalChangePasswordRouteImport.update({
   path: '/change-password',
   getParentRoute: () => PortalRoute,
 } as any)
-const MainStrategyRoute = MainStrategyRouteImport.update({
-  id: '/strategy',
-  path: '/strategy',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainRoadmapRoute = MainRoadmapRouteImport.update({
-  id: '/roadmap',
-  path: '/roadmap',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainNcoreRoute = MainNcoreRouteImport.update({
-  id: '/ncore',
-  path: '/ncore',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainContactRoute = MainContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainCollaborationRoute = MainCollaborationRouteImport.update({
-  id: '/collaboration',
-  path: '/collaboration',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainCareersRoute = MainCareersRouteImport.update({
-  id: '/careers',
-  path: '/careers',
-  getParentRoute: () => MainRoute,
-} as any)
-const MainAboutRoute = MainAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => MainRoute,
-} as any)
 const InviteMemberIdRoute = InviteMemberIdRouteImport.update({
   id: '/invite/$memberId',
   path: '/invite/$memberId',
@@ -252,11 +191,6 @@ const PortalPromotionIndexRoute = PortalPromotionIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PortalPromotionRoute,
-} as any)
-const MainNcoreIndexRoute = MainNcoreIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => MainNcoreRoute,
 } as any)
 const PortalStatementUsdRoute = PortalStatementUsdRouteImport.update({
   id: '/statement/usd',
@@ -336,51 +270,13 @@ const PortalPromotionPromoIdRoute = PortalPromotionPromoIdRouteImport.update({
   path: '/$promoId',
   getParentRoute: () => PortalPromotionRoute,
 } as any)
-const MainNcoreXRoute = MainNcoreXRouteImport.update({
-  id: '/x',
-  path: '/x',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
-const MainNcoreTrendsRoute = MainNcoreTrendsRouteImport.update({
-  id: '/trends',
-  path: '/trends',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
-const MainNcoreTradingRoute = MainNcoreTradingRouteImport.update({
-  id: '/trading',
-  path: '/trading',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
-const MainNcoreTokenRoute = MainNcoreTokenRouteImport.update({
-  id: '/token',
-  path: '/token',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
-const MainNcoreFeaturesRoute = MainNcoreFeaturesRouteImport.update({
-  id: '/features',
-  path: '/features',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
-const MainNcoreBasicRoute = MainNcoreBasicRouteImport.update({
-  id: '/basic',
-  path: '/basic',
-  getParentRoute: () => MainNcoreRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
-  '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
-  '/main/about': typeof MainAboutRoute
-  '/main/careers': typeof MainCareersRoute
-  '/main/collaboration': typeof MainCollaborationRoute
-  '/main/contact': typeof MainContactRoute
-  '/main/ncore': typeof MainNcoreRouteWithChildren
-  '/main/roadmap': typeof MainRoadmapRoute
-  '/main/strategy': typeof MainStrategyRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -400,14 +296,7 @@ export interface FileRoutesByFullPath {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
-  '/main/': typeof MainIndexRoute
   '/portal/': typeof PortalIndexRoute
-  '/main/ncore/basic': typeof MainNcoreBasicRoute
-  '/main/ncore/features': typeof MainNcoreFeaturesRoute
-  '/main/ncore/token': typeof MainNcoreTokenRoute
-  '/main/ncore/trading': typeof MainNcoreTradingRoute
-  '/main/ncore/trends': typeof MainNcoreTrendsRoute
-  '/main/ncore/x': typeof MainNcoreXRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -422,7 +311,6 @@ export interface FileRoutesByFullPath {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
-  '/main/ncore/': typeof MainNcoreIndexRoute
   '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
@@ -432,12 +320,6 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
-  '/main/about': typeof MainAboutRoute
-  '/main/careers': typeof MainCareersRoute
-  '/main/collaboration': typeof MainCollaborationRoute
-  '/main/contact': typeof MainContactRoute
-  '/main/roadmap': typeof MainRoadmapRoute
-  '/main/strategy': typeof MainStrategyRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -455,14 +337,7 @@ export interface FileRoutesByTo {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
-  '/main': typeof MainIndexRoute
   '/portal': typeof PortalIndexRoute
-  '/main/ncore/basic': typeof MainNcoreBasicRoute
-  '/main/ncore/features': typeof MainNcoreFeaturesRoute
-  '/main/ncore/token': typeof MainNcoreTokenRoute
-  '/main/ncore/trading': typeof MainNcoreTradingRoute
-  '/main/ncore/trends': typeof MainNcoreTrendsRoute
-  '/main/ncore/x': typeof MainNcoreXRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -477,7 +352,6 @@ export interface FileRoutesByTo {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
-  '/main/ncore': typeof MainNcoreIndexRoute
   '/portal/promotion': typeof PortalPromotionIndexRoute
   '/portal/qna': typeof PortalQnaIndexRoute
   '/portal/reports': typeof PortalReportsIndexRoute
@@ -487,16 +361,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
-  '/main': typeof MainRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/invite/$memberId': typeof InviteMemberIdRoute
-  '/main/about': typeof MainAboutRoute
-  '/main/careers': typeof MainCareersRoute
-  '/main/collaboration': typeof MainCollaborationRoute
-  '/main/contact': typeof MainContactRoute
-  '/main/ncore': typeof MainNcoreRouteWithChildren
-  '/main/roadmap': typeof MainRoadmapRoute
-  '/main/strategy': typeof MainStrategyRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
   '/portal/documents': typeof PortalDocumentsRoute
@@ -516,14 +382,7 @@ export interface FileRoutesById {
   '/portal/transactions': typeof PortalTransactionsRoute
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
-  '/main/': typeof MainIndexRoute
   '/portal/': typeof PortalIndexRoute
-  '/main/ncore/basic': typeof MainNcoreBasicRoute
-  '/main/ncore/features': typeof MainNcoreFeaturesRoute
-  '/main/ncore/token': typeof MainNcoreTokenRoute
-  '/main/ncore/trading': typeof MainNcoreTradingRoute
-  '/main/ncore/trends': typeof MainNcoreTrendsRoute
-  '/main/ncore/x': typeof MainNcoreXRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -538,7 +397,6 @@ export interface FileRoutesById {
   '/portal/statement/rewards': typeof PortalStatementRewardsRoute
   '/portal/statement/transfer-usd': typeof PortalStatementTransferUsdRoute
   '/portal/statement/usd': typeof PortalStatementUsdRoute
-  '/main/ncore/': typeof MainNcoreIndexRoute
   '/portal/promotion/': typeof PortalPromotionIndexRoute
   '/portal/qna/': typeof PortalQnaIndexRoute
   '/portal/reports/': typeof PortalReportsIndexRoute
@@ -549,16 +407,8 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/login'
-    | '/main'
     | '/portal'
     | '/invite/$memberId'
-    | '/main/about'
-    | '/main/careers'
-    | '/main/collaboration'
-    | '/main/contact'
-    | '/main/ncore'
-    | '/main/roadmap'
-    | '/main/strategy'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -578,14 +428,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
-    | '/main/'
     | '/portal/'
-    | '/main/ncore/basic'
-    | '/main/ncore/features'
-    | '/main/ncore/token'
-    | '/main/ncore/trading'
-    | '/main/ncore/trends'
-    | '/main/ncore/x'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -600,7 +443,6 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
-    | '/main/ncore/'
     | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
@@ -610,12 +452,6 @@ export interface FileRouteTypes {
     | '/$'
     | '/login'
     | '/invite/$memberId'
-    | '/main/about'
-    | '/main/careers'
-    | '/main/collaboration'
-    | '/main/contact'
-    | '/main/roadmap'
-    | '/main/strategy'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -633,14 +469,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
-    | '/main'
     | '/portal'
-    | '/main/ncore/basic'
-    | '/main/ncore/features'
-    | '/main/ncore/token'
-    | '/main/ncore/trading'
-    | '/main/ncore/trends'
-    | '/main/ncore/x'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -655,7 +484,6 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
-    | '/main/ncore'
     | '/portal/promotion'
     | '/portal/qna'
     | '/portal/reports'
@@ -664,16 +492,8 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/login'
-    | '/main'
     | '/portal'
     | '/invite/$memberId'
-    | '/main/about'
-    | '/main/careers'
-    | '/main/collaboration'
-    | '/main/contact'
-    | '/main/ncore'
-    | '/main/roadmap'
-    | '/main/strategy'
     | '/portal/change-password'
     | '/portal/deposit'
     | '/portal/documents'
@@ -693,14 +513,7 @@ export interface FileRouteTypes {
     | '/portal/transactions'
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
-    | '/main/'
     | '/portal/'
-    | '/main/ncore/basic'
-    | '/main/ncore/features'
-    | '/main/ncore/token'
-    | '/main/ncore/trading'
-    | '/main/ncore/trends'
-    | '/main/ncore/x'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -715,7 +528,6 @@ export interface FileRouteTypes {
     | '/portal/statement/rewards'
     | '/portal/statement/transfer-usd'
     | '/portal/statement/usd'
-    | '/main/ncore/'
     | '/portal/promotion/'
     | '/portal/qna/'
     | '/portal/reports/'
@@ -725,7 +537,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   LoginRoute: typeof LoginRoute
-  MainRoute: typeof MainRouteWithChildren
   PortalRoute: typeof PortalRouteWithChildren
   InviteMemberIdRoute: typeof InviteMemberIdRoute
 }
@@ -737,13 +548,6 @@ declare module '@tanstack/react-router' {
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/main': {
-      id: '/main'
-      path: '/main'
-      fullPath: '/main'
-      preLoaderRoute: typeof MainRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -773,13 +577,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/'
       preLoaderRoute: typeof PortalIndexRouteImport
       parentRoute: typeof PortalRoute
-    }
-    '/main/': {
-      id: '/main/'
-      path: '/'
-      fullPath: '/main/'
-      preLoaderRoute: typeof MainIndexRouteImport
-      parentRoute: typeof MainRoute
     }
     '/portal/withdrawal': {
       id: '/portal/withdrawal'
@@ -914,55 +711,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalChangePasswordRouteImport
       parentRoute: typeof PortalRoute
     }
-    '/main/strategy': {
-      id: '/main/strategy'
-      path: '/strategy'
-      fullPath: '/main/strategy'
-      preLoaderRoute: typeof MainStrategyRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/roadmap': {
-      id: '/main/roadmap'
-      path: '/roadmap'
-      fullPath: '/main/roadmap'
-      preLoaderRoute: typeof MainRoadmapRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/ncore': {
-      id: '/main/ncore'
-      path: '/ncore'
-      fullPath: '/main/ncore'
-      preLoaderRoute: typeof MainNcoreRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/contact': {
-      id: '/main/contact'
-      path: '/contact'
-      fullPath: '/main/contact'
-      preLoaderRoute: typeof MainContactRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/collaboration': {
-      id: '/main/collaboration'
-      path: '/collaboration'
-      fullPath: '/main/collaboration'
-      preLoaderRoute: typeof MainCollaborationRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/careers': {
-      id: '/main/careers'
-      path: '/careers'
-      fullPath: '/main/careers'
-      preLoaderRoute: typeof MainCareersRouteImport
-      parentRoute: typeof MainRoute
-    }
-    '/main/about': {
-      id: '/main/about'
-      path: '/about'
-      fullPath: '/main/about'
-      preLoaderRoute: typeof MainAboutRouteImport
-      parentRoute: typeof MainRoute
-    }
     '/invite/$memberId': {
       id: '/invite/$memberId'
       path: '/invite/$memberId'
@@ -990,13 +738,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/promotion/'
       preLoaderRoute: typeof PortalPromotionIndexRouteImport
       parentRoute: typeof PortalPromotionRoute
-    }
-    '/main/ncore/': {
-      id: '/main/ncore/'
-      path: '/'
-      fullPath: '/main/ncore/'
-      preLoaderRoute: typeof MainNcoreIndexRouteImport
-      parentRoute: typeof MainNcoreRoute
     }
     '/portal/statement/usd': {
       id: '/portal/statement/usd'
@@ -1096,98 +837,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPromotionPromoIdRouteImport
       parentRoute: typeof PortalPromotionRoute
     }
-    '/main/ncore/x': {
-      id: '/main/ncore/x'
-      path: '/x'
-      fullPath: '/main/ncore/x'
-      preLoaderRoute: typeof MainNcoreXRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
-    '/main/ncore/trends': {
-      id: '/main/ncore/trends'
-      path: '/trends'
-      fullPath: '/main/ncore/trends'
-      preLoaderRoute: typeof MainNcoreTrendsRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
-    '/main/ncore/trading': {
-      id: '/main/ncore/trading'
-      path: '/trading'
-      fullPath: '/main/ncore/trading'
-      preLoaderRoute: typeof MainNcoreTradingRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
-    '/main/ncore/token': {
-      id: '/main/ncore/token'
-      path: '/token'
-      fullPath: '/main/ncore/token'
-      preLoaderRoute: typeof MainNcoreTokenRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
-    '/main/ncore/features': {
-      id: '/main/ncore/features'
-      path: '/features'
-      fullPath: '/main/ncore/features'
-      preLoaderRoute: typeof MainNcoreFeaturesRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
-    '/main/ncore/basic': {
-      id: '/main/ncore/basic'
-      path: '/basic'
-      fullPath: '/main/ncore/basic'
-      preLoaderRoute: typeof MainNcoreBasicRouteImport
-      parentRoute: typeof MainNcoreRoute
-    }
   }
 }
-
-interface MainNcoreRouteChildren {
-  MainNcoreBasicRoute: typeof MainNcoreBasicRoute
-  MainNcoreFeaturesRoute: typeof MainNcoreFeaturesRoute
-  MainNcoreTokenRoute: typeof MainNcoreTokenRoute
-  MainNcoreTradingRoute: typeof MainNcoreTradingRoute
-  MainNcoreTrendsRoute: typeof MainNcoreTrendsRoute
-  MainNcoreXRoute: typeof MainNcoreXRoute
-  MainNcoreIndexRoute: typeof MainNcoreIndexRoute
-}
-
-const MainNcoreRouteChildren: MainNcoreRouteChildren = {
-  MainNcoreBasicRoute: MainNcoreBasicRoute,
-  MainNcoreFeaturesRoute: MainNcoreFeaturesRoute,
-  MainNcoreTokenRoute: MainNcoreTokenRoute,
-  MainNcoreTradingRoute: MainNcoreTradingRoute,
-  MainNcoreTrendsRoute: MainNcoreTrendsRoute,
-  MainNcoreXRoute: MainNcoreXRoute,
-  MainNcoreIndexRoute: MainNcoreIndexRoute,
-}
-
-const MainNcoreRouteWithChildren = MainNcoreRoute._addFileChildren(
-  MainNcoreRouteChildren,
-)
-
-interface MainRouteChildren {
-  MainAboutRoute: typeof MainAboutRoute
-  MainCareersRoute: typeof MainCareersRoute
-  MainCollaborationRoute: typeof MainCollaborationRoute
-  MainContactRoute: typeof MainContactRoute
-  MainNcoreRoute: typeof MainNcoreRouteWithChildren
-  MainRoadmapRoute: typeof MainRoadmapRoute
-  MainStrategyRoute: typeof MainStrategyRoute
-  MainIndexRoute: typeof MainIndexRoute
-}
-
-const MainRouteChildren: MainRouteChildren = {
-  MainAboutRoute: MainAboutRoute,
-  MainCareersRoute: MainCareersRoute,
-  MainCollaborationRoute: MainCollaborationRoute,
-  MainContactRoute: MainContactRoute,
-  MainNcoreRoute: MainNcoreRouteWithChildren,
-  MainRoadmapRoute: MainRoadmapRoute,
-  MainStrategyRoute: MainStrategyRoute,
-  MainIndexRoute: MainIndexRoute,
-}
-
-const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
 
 interface PortalPromotionRouteChildren {
   PortalPromotionPromoIdRoute: typeof PortalPromotionPromoIdRoute
@@ -1296,10 +947,18 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   LoginRoute: LoginRoute,
-  MainRoute: MainRouteWithChildren,
   PortalRoute: PortalRouteWithChildren,
   InviteMemberIdRoute: InviteMemberIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
