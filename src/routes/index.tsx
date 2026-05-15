@@ -42,7 +42,7 @@ function Landing() {
             A private portal for the <span className="italic text-gold">discerning few</span>.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
-            Naslab members access portfolios, performance, statements, and advisor
+            Naslab partipants access portfolios, performance, statements, and advisor
             conversations through a single, quietly powerful interface.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
