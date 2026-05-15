@@ -32,7 +32,7 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Naslab Portal" },
       { name: "description", content: "Secure private banking and investment portal for Naslab participants." },
-      { name: "author", content: "Ivory & Vale" },
+      { name: "author", content: "Naslab" },
       { property: "og:title", content: "Naslab Portal" },
       { property: "og:description", content: "Secure private banking and investment portal for Naslab participants." },
       { property: "og:type", content: "website" },

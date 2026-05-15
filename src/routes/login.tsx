@@ -60,7 +60,7 @@ function LoginPage() {
           <p className="font-serif text-4xl leading-tight">
             "Wealth, when stewarded with discretion, becomes <em className="text-gold">legacy</em>."
           </p>
-          <p className="mt-6 text-sm text-muted-foreground">— Ivory &amp; Vale, est. 1908</p>
+          <p className="mt-6 text-sm text-muted-foreground">— Naslab, est. 2026</p>
         </div>
       </div>
 
