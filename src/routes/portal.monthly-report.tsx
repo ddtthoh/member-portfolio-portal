@@ -89,14 +89,27 @@ function MonthlyReportPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("monthly_reports")
-      .select("id, title, period, file_url, file_size, created_at")
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
-        setReports((data ?? []) as Report[]);
-        setLoading(false);
-      });
+    (async () => {
+      const { data } = await supabase
+        .from("monthly_reports")
+        .select("id, title, period, file_url, file_size, created_at")
+        .order("created_at", { ascending: false });
+      const rows = (data ?? []) as Report[];
+      // Bucket is private — replace stored URL/path with a fresh signed URL
+      const signed = await Promise.all(
+        rows.map(async (r) => {
+          const path = r.file_url.includes("/monthly-reports/")
+            ? r.file_url.split("/monthly-reports/")[1].split("?")[0]
+            : r.file_url;
+          const { data: s } = await supabase.storage
+            .from("monthly-reports")
+            .createSignedUrl(path, 60 * 60);
+          return { ...r, file_url: s?.signedUrl ?? r.file_url };
+        })
+      );
+      setReports(signed);
+      setLoading(false);
+    })();
   }, []);
 
   return (

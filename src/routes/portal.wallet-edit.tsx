@@ -373,11 +373,11 @@ function MonthlyReportUploadSection() {
         .upload(path, file, { contentType: file.type || "application/pdf", upsert: false });
       console.log("[monthly-report] storage upload result", upErr);
       if (upErr) throw upErr;
-      const { data } = supabase.storage.from("monthly-reports").getPublicUrl(path);
+      // Bucket is private — store the storage path; readers create signed URLs
       const { error } = await supabase.from("monthly_reports").insert({
         title: effectiveTitle,
         period: period.trim() || null,
-        file_url: data.publicUrl,
+        file_url: path,
         file_size: file.size,
         uploaded_by: user.id,
       });
