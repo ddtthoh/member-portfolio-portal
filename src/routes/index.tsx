@@ -76,7 +76,7 @@ function Landing() {
 
       <footer className="relative z-10 border-t border-border py-6">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 text-center text-xs text-muted-foreground sm:flex-row sm:justify-between sm:text-left lg:px-10">
-          <span>© {new Date().getFullYear()} Naslab Wealth Management · By invitation only</span>
+          <span>© {new Date().getFullYear()} Naslab Private Wealth · By invitation only</span>
           <SocialLinks variant="row" size={18} showEyebrow={false} />
         </div>
       </footer>
