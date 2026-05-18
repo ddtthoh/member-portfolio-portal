@@ -147,9 +147,6 @@ function Overview() {
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-end text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">
-              <span>{t("pages.overview.updatedJustNow")}</span>
-            </div>
           </SpotlightCard>
         </div>
 
