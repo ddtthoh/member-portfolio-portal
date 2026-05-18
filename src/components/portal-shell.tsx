@@ -458,6 +458,13 @@ export function PortalShell() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+
+        {showSignOutIntro && (
+          <IntroVideoOverlay
+            src={INTRO_VIDEO_SIGNOUT}
+            onFinish={() => navigate({ to: "/login" })}
+          />
+        )}
       </div>
     </TooltipProvider>
   );
