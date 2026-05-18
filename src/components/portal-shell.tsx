@@ -126,6 +126,7 @@ export function PortalShell() {
   usePortalReveal(location.pathname, mainRef);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(COLLAPSE_KEY) === "1";
