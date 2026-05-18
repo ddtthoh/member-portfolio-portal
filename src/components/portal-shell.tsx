@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { TickerTape } from "@/components/ticker-tape";
 import { CommandPalette } from "@/components/command-palette";
 import { SocialLinks } from "@/components/social-links";
+import { IntroVideoOverlay, INTRO_VIDEO_SIGNOUT } from "@/components/intro-video-overlay";
 
 import { ThreeBackground } from "@/components/three-background";
 
