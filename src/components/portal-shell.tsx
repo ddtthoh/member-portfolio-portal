@@ -385,25 +385,25 @@ export function PortalShell() {
                     <UserCircle2 className="h-5 w-5 text-gold" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/profile" as any })}>
-                    <UserCircle2 className="h-4 w-4" /> {t("account.profile")}
+                <DropdownMenuContent align="end" className="w-48 font-serif text-gold">
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => navigate({ to: "/portal/profile" as any })}>
+                    <UserCircle2 className="h-4 w-4 text-gold" /> {t("account.profile")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/change-password" as any })}>
-                    <KeyRound className="h-4 w-4" /> {t("account.changePassword")}
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => navigate({ to: "/portal/change-password" as any })}>
+                    <KeyRound className="h-4 w-4 text-gold" /> {t("account.changePassword")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/kyc" })}>
-                    <ShieldCheck className="h-4 w-4" /> {t("account.myKyc")}
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => navigate({ to: "/portal/kyc" })}>
+                    <ShieldCheck className="h-4 w-4 text-gold" /> {t("account.myKyc")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
-                    <QrCode className="h-4 w-4" /> {t("account.myQrCode")}
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => navigate({ to: "/portal/qr-code" as any })}>
+                    <QrCode className="h-4 w-4 text-gold" /> {t("account.myQrCode")}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={() => navigate({ to: "/portal/network" })}>
-                    <Users className="h-4 w-4" /> {t("account.network")}
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => navigate({ to: "/portal/network" })}>
+                    <Users className="h-4 w-4 text-gold" /> {t("account.network")}
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onSelect={() => setSignOutDialogOpen(true)}>
-                    <LogOut className="h-4 w-4" /> {t("account.logout")}
+                  <DropdownMenuSeparator className="bg-gold/30" />
+                  <DropdownMenuItem className="font-serif text-gold focus:text-gold focus:bg-gold/10" onSelect={() => setSignOutDialogOpen(true)}>
+                    <LogOut className="h-4 w-4 text-gold" /> {t("account.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
