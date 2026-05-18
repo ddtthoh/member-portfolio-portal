@@ -105,6 +105,12 @@ function LoginPage() {
           </p>
         </div>
       </div>
+      {showIntro && (
+        <IntroVideoOverlay
+          src={INTRO_VIDEO_SIGNIN}
+          onFinish={() => navigate({ to: "/portal" })}
+        />
+      )}
     </div>
   );
 }
