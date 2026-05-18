@@ -428,6 +428,31 @@ export function PortalShell() {
             </AnimatePresence>
           </main>
         </div>
+
+        {/* Sign Out Confirmation Dialog */}
+        <AlertDialog open={signOutDialogOpen} onOpenChange={setSignOutDialogOpen}>
+          <AlertDialogContent className="border-gold/20 bg-background">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="font-serif text-xl">
+                {t("account.confirmLogout", "Confirm Logout")}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {t("account.logoutPrompt", "Are you sure you want to sign out?")}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="border-border bg-card hover:bg-accent hover:text-foreground">
+                {t("common.cancel", "Cancel")}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {t("nav.signOut")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </TooltipProvider>
   );
