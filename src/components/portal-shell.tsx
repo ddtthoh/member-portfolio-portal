@@ -11,6 +11,10 @@ import {
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/use-auth";
 import { Logo } from "@/components/logo";
@@ -122,6 +126,7 @@ export function PortalShell() {
   usePortalReveal(location.pathname, mainRef);
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(COLLAPSE_KEY) === "1";
@@ -276,7 +281,7 @@ export function PortalShell() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                    onClick={() => setSignOutDialogOpen(true)}
                     className={`group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive ${
                       collapsed ? "w-full justify-center" : "flex-1"
                     }`}
@@ -397,7 +402,7 @@ export function PortalShell() {
                     <Users className="h-4 w-4" /> {t("account.network")}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onSelect={async () => { await signOut(); navigate({ to: "/login" }); }}>
+                  <DropdownMenuItem onSelect={() => setSignOutDialogOpen(true)}>
                     <LogOut className="h-4 w-4" /> {t("account.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -423,6 +428,31 @@ export function PortalShell() {
             </AnimatePresence>
           </main>
         </div>
+
+        {/* Sign Out Confirmation Dialog */}
+        <AlertDialog open={signOutDialogOpen} onOpenChange={setSignOutDialogOpen}>
+          <AlertDialogContent className="border-gold/20 bg-background">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="font-serif text-xl">
+                {t("account.confirmLogout", "Confirm Logout")}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {t("account.logoutPrompt", "Are you sure you want to sign out?")}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="border-border bg-card hover:bg-accent hover:text-foreground">
+                {t("common.cancel", "Cancel")}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {t("nav.signOut")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </TooltipProvider>
   );
