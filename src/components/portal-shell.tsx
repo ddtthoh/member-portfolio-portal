@@ -402,7 +402,7 @@ export function PortalShell() {
                     <Users className="h-4 w-4" /> {t("account.network")}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onSelect={async () => { await signOut(); navigate({ to: "/login" }); }}>
+                  <DropdownMenuItem onSelect={() => setSignOutDialogOpen(true)}>
                     <LogOut className="h-4 w-4" /> {t("account.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
