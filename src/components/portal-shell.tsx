@@ -143,8 +143,9 @@ export function PortalShell() {
   }, [i18n]);
 
   useEffect(() => {
+    if (showSignOutIntro) return; // overlay's onFinish will navigate
     if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
+  }, [loading, user, navigate, showSignOutIntro]);
 
   useEffect(() => { setOpen(false); }, [location.pathname]);
 
