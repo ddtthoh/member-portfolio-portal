@@ -174,7 +174,7 @@ export function PortalShell() {
       </div>
     );
   }
-  if (!user) return null;
+  if (!user && !showSignOutIntro) return null;
 
   const activeLanguage = i18n.resolvedLanguage ?? i18n.language;
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === activeLanguage) ?? SUPPORTED_LANGUAGES[0];
