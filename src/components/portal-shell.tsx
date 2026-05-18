@@ -319,7 +319,7 @@ export function PortalShell() {
           >
             <div className="flex items-center gap-3">
               <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)}>
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 text-gold" />
               </Button>
               <Tooltip>
                 <TooltipTrigger asChild>
