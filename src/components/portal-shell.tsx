@@ -174,7 +174,7 @@ export function PortalShell() {
       </div>
     );
   }
-  if (!user) return null;
+  if (!user && !showSignOutIntro) return null;
 
   const activeLanguage = i18n.resolvedLanguage ?? i18n.language;
   const currentLang = SUPPORTED_LANGUAGES.find((l) => l.code === activeLanguage) ?? SUPPORTED_LANGUAGES[0];
@@ -183,7 +183,7 @@ export function PortalShell() {
     void i18n.changeLanguage(code);
   };
   const sidebarWidth = collapsed ? "w-[68px]" : "w-64";
-  const userName = user.email?.split("@")[0] ?? t("shell.member");
+  const userName = user?.email?.split("@")[0] ?? t("shell.member");
 
   return (
     <TooltipProvider delayDuration={120}>
@@ -448,9 +448,8 @@ export function PortalShell() {
                 {t("common.cancel", "Cancel")}
               </AlertDialogCancel>
               <AlertDialogAction
-                onClick={async () => {
+                onClick={() => {
                   setSignOutDialogOpen(false);
-                  await signOut();
                   setShowSignOutIntro(true);
                 }}
               >
@@ -463,7 +462,10 @@ export function PortalShell() {
         {showSignOutIntro && (
           <IntroVideoOverlay
             src={INTRO_VIDEO_SIGNOUT}
-            onFinish={() => navigate({ to: "/login" })}
+            onFinish={async () => {
+              try { await signOut(); } catch { /* noop */ }
+              navigate({ to: "/login" });
+            }}
           />
         )}
       </div>
