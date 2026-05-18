@@ -281,7 +281,7 @@ export function PortalShell() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                    onClick={() => setSignOutDialogOpen(true)}
                     className={`group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive ${
                       collapsed ? "w-full justify-center" : "flex-1"
                     }`}
