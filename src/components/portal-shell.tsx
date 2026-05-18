@@ -431,9 +431,9 @@ export function PortalShell() {
 
         {/* Sign Out Confirmation Dialog */}
         <AlertDialog open={signOutDialogOpen} onOpenChange={setSignOutDialogOpen}>
-          <AlertDialogContent className="border-gold/20 bg-background">
+          <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle className="font-serif text-xl">
+              <AlertDialogTitle>
                 {t("account.confirmLogout", "Confirm Logout")}
               </AlertDialogTitle>
               <AlertDialogDescription>
@@ -441,12 +441,11 @@ export function PortalShell() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="border-border bg-card hover:bg-accent hover:text-foreground">
+              <AlertDialogCancel>
                 {t("common.cancel", "Cancel")}
               </AlertDialogCancel>
               <AlertDialogAction
                 onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
                 {t("nav.signOut")}
               </AlertDialogAction>
