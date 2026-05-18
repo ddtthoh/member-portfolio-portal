@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { IntroVideoOverlay, INTRO_VIDEO_SIGNIN } from "@/components/intro-video-overlay";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -23,6 +24,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ function LoginPage() {
       return;
     }
     toast.success("Welcome back");
-    navigate({ to: "/portal" });
+    setShowIntro(true);
   };
 
   return (
@@ -103,6 +105,12 @@ function LoginPage() {
           </p>
         </div>
       </div>
+      {showIntro && (
+        <IntroVideoOverlay
+          src={INTRO_VIDEO_SIGNIN}
+          onFinish={() => navigate({ to: "/portal" })}
+        />
+      )}
     </div>
   );
 }
