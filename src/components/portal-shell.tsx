@@ -128,6 +128,7 @@ export function PortalShell() {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
+  const [showSignOutIntro, setShowSignOutIntro] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem(COLLAPSE_KEY) === "1";
@@ -446,7 +447,11 @@ export function PortalShell() {
                 {t("common.cancel", "Cancel")}
               </AlertDialogCancel>
               <AlertDialogAction
-                onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                onClick={async () => {
+                  setSignOutDialogOpen(false);
+                  await signOut();
+                  setShowSignOutIntro(true);
+                }}
               >
                 {t("nav.signOut")}
               </AlertDialogAction>
