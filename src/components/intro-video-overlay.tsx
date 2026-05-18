@@ -9,8 +9,7 @@ interface IntroVideoOverlayProps {
 
 /**
  * Full-screen black overlay that plays a short intro video with sound, then
- * calls onFinish when it ends (or fails to load). A subtle "Skip" button is
- * always available in the top-right.
+ * calls onFinish when it ends (or fails to load).
  */
 export function IntroVideoOverlay({
   src,
@@ -71,13 +70,6 @@ export function IntroVideoOverlay({
           ready ? "opacity-100" : "opacity-0"
         }`}
       />
-      <button
-        type="button"
-        onClick={finish}
-        className="absolute right-4 top-4 rounded-full border border-gold/60 bg-black/40 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold backdrop-blur-sm transition-colors hover:bg-gold/10 hover:text-gold"
-      >
-        Skip
-      </button>
     </div>
   );
 }
