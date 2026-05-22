@@ -46,7 +46,7 @@ function Overview() {
     { label: t("overview.tiles.participation"), icon: <Coins className="h-6 w-6" />, labelOnly: true as const, to: "/portal/staking-plans" },
     { label: t("overview.tiles.monthlyReport", "Monthly Report"), icon: <FileText className="h-6 w-6" />, labelOnly: true as const, to: "/portal/monthly-report" },
     { label: t("overview.tiles.referral", "My QR code"), icon: <QrCode className="h-6 w-6" />, labelOnly: true as const, to: "/portal/qr-code" },
-    { label: t("overview.tiles.myLandingPage", "My Landing Page"), icon: <Globe className="h-6 w-6" />, labelOnly: true as const, to: "/portal/landing-page" },
+    { label: t("overview.tiles.myLandingPage", "Landing Page"), icon: <Globe className="h-6 w-6" />, labelOnly: true as const, to: "/portal/landing-page" },
     { label: t("overview.tiles.promotion"), icon: <Gift className="h-6 w-6" />, labelOnly: true as const, to: "/portal/promotion" },
   ];
 
