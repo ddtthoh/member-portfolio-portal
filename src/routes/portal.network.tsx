@@ -89,23 +89,63 @@ function NetworkPage() {
   const availableYears = useMemo(() => {
     const set = new Set<number>();
     items.forEach((c) => c.created_at && set.add(new Date(c.created_at).getFullYear()));
+    set.add(now.getFullYear());
     return Array.from(set).sort((a, b) => b - a);
-  }, [items]);
+  }, [items, now]);
+
+  // Resolve range to concrete [startDate, endDate]. "all" means open-ended.
+  const { startDate, endDate, filterActive } = useMemo(() => {
+    const hasFrom = fromYear !== "all" || fromMonth !== "all";
+    const hasTo = toYear !== "all" || toMonth !== "all";
+    let start: Date | null = null;
+    let end: Date | null = null;
+    if (hasFrom) {
+      const y = fromYear !== "all" ? Number(fromYear) : Math.min(...availableYears);
+      const m = fromMonth !== "all" ? Number(fromMonth) : 0;
+      start = new Date(y, m, 1, 0, 0, 0, 0);
+    }
+    if (hasTo) {
+      const y = toYear !== "all" ? Number(toYear) : now.getFullYear();
+      const m = toMonth !== "all" ? Number(toMonth) : 11;
+      end = new Date(y, m + 1, 0, 23, 59, 59, 999); // last day of month
+    }
+    return { startDate: start, endDate: end, filterActive: hasFrom || hasTo };
+  }, [fromMonth, fromYear, toMonth, toYear, availableYears, now]);
 
   const filteredItems = useMemo(() => {
     return items.filter((c) => {
-      if (!c.created_at) return yearFilter === "all" && monthFilter === "all";
+      if (!c.created_at) return !filterActive;
       const d = new Date(c.created_at);
-      if (yearFilter !== "all" && d.getFullYear() !== Number(yearFilter)) return false;
-      if (monthFilter !== "all" && d.getMonth() !== Number(monthFilter)) return false;
+      if (startDate && d < startDate) return false;
+      if (endDate && d > endDate) return false;
       return true;
     });
-  }, [items, yearFilter, monthFilter]);
+  }, [items, startDate, endDate, filterActive]);
 
-  const filterActive = yearFilter !== "all" || monthFilter !== "all";
-  const periodLabel = filterActive
-    ? `${monthFilter !== "all" ? MONTHS[Number(monthFilter)] : "All months"}${yearFilter !== "all" ? ` · ${yearFilter}` : ""}`
-    : "All time";
+  const fmt = (d: Date) => `${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
+  const periodLabel = !filterActive
+    ? "From the beginning"
+    : startDate && endDate
+    ? `${fmt(startDate)} → ${fmt(endDate)}`
+    : startDate
+    ? `Since ${fmt(startDate)}`
+    : endDate
+    ? `Up to ${fmt(endDate)}`
+    : "From the beginning";
+
+  const resetFilter = () => {
+    setFromMonth("all"); setFromYear("all"); setToMonth("all"); setToYear("all");
+  };
+  const setThisMonth = () => {
+    const m = String(now.getMonth()); const y = String(now.getFullYear());
+    setFromMonth(m); setFromYear(y); setToMonth(m); setToYear(y);
+  };
+  const setThisYear = () => {
+    const y = String(now.getFullYear());
+    setFromMonth("0"); setFromYear(y); setToMonth("11"); setToYear(y);
+  };
+
+
 
 
   return (
