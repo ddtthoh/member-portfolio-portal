@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, CalendarRange, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
+import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
+import { CountUp } from "@/components/count-up";
+
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
@@ -136,14 +138,7 @@ function NetworkPage() {
   const resetFilter = () => {
     setFromMonth("all"); setFromYear("all"); setToMonth("all"); setToYear("all");
   };
-  const setThisMonth = () => {
-    const m = String(now.getMonth()); const y = String(now.getFullYear());
-    setFromMonth(m); setFromYear(y); setToMonth(m); setToYear(y);
-  };
-  const setThisYear = () => {
-    const y = String(now.getFullYear());
-    setFromMonth("0"); setFromYear(y); setToMonth("11"); setToYear(y);
-  };
+
 
 
 
@@ -218,132 +213,102 @@ function NetworkPage() {
         <>
           {/* Filter + stats bar */}
           <SpotlightCard className="liquid-glass mb-4 rounded-2xl p-5">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-col gap-6">
+              {/* Stats row */}
+              <div className="flex flex-wrap items-end gap-x-10 gap-y-6">
                 <div>
-                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold">Total Members</div>
-                  <div className="mt-1 flex items-baseline gap-2">
-                    <span className="font-serif text-3xl text-foreground">{filteredItems.length}</span>
+                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold/80">Total Members</div>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="text-5xl font-light tabular-nums tracking-[-0.02em] text-gold">
+                      <CountUp value={filteredItems.length} decimals={0} />
+                    </span>
                     {filterActive && (
-                      <span className="text-xs text-muted-foreground">/ {items.length}</span>
+                      <span className="text-xs tabular-nums text-gold/60">/ {items.length}</span>
                     )}
-                  </div>
-                </div>
-                <div className="hidden h-10 w-px bg-border sm:block" />
-                <div>
-                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold">Period</div>
-                  <div className="mt-1 flex items-center gap-2 text-sm text-foreground/85">
-                    <CalendarRange className="h-3.5 w-3.5 text-gold" />
-                    {periodLabel}
                   </div>
                 </div>
                 {filterActive && (
                   <>
-                    <div className="hidden h-10 w-px bg-border sm:block" />
+                    <div className="hidden h-12 w-px bg-gold/20 sm:block" />
                     <div>
-                      <div className="text-[10px] uppercase tracking-[0.25em] text-gold">New Joins</div>
-                      <div className="mt-1 flex items-center gap-2 text-sm text-foreground/85">
-                        <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
-                        +{filteredItems.length} in period
+                      <div className="text-[10px] uppercase tracking-[0.25em] text-gold/80">New Joins</div>
+                      <div className="mt-2 flex items-baseline gap-2">
+                        <span className="text-5xl font-light tabular-nums tracking-[-0.02em] text-gold">
+                          +<CountUp value={filteredItems.length} decimals={0} />
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[11px] text-success">
+                          <TrendingUp className="h-3 w-3" /> in period
+                        </span>
                       </div>
                     </div>
                   </>
                 )}
               </div>
 
-              <div className="flex flex-col gap-3">
-                {/* Preset chips */}
-                <div className="flex flex-wrap items-center justify-end gap-1.5">
-                  <button
-                    type="button"
+              {/* From / To range */}
+              <div className="flex flex-wrap items-center gap-2 border-t border-gold/15 pt-5">
+                <span className="text-[10px] uppercase tracking-[0.22em] text-gold/80">From</span>
+                <Select value={fromMonth} onValueChange={setFromMonth}>
+                  <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
+                    <SelectValue placeholder="Month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Any month</SelectItem>
+                    {MONTHS.map((m, i) => (
+                      <SelectItem key={`fm-${m}`} value={String(i)}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={fromYear} onValueChange={setFromYear}>
+                  <SelectTrigger className="w-[110px] border-gold/30 bg-background/50 text-gold">
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Any year</SelectItem>
+                    {availableYears.map((y) => (
+                      <SelectItem key={`fy-${y}`} value={String(y)}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <span className="ml-2 text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
+                <Select value={toMonth} onValueChange={setToMonth}>
+                  <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
+                    <SelectValue placeholder="Month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Any month</SelectItem>
+                    {MONTHS.map((m, i) => (
+                      <SelectItem key={`tm-${m}`} value={String(i)}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={toYear} onValueChange={setToYear}>
+                  <SelectTrigger className="w-[110px] border-gold/30 bg-background/50 text-gold">
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Any year</SelectItem>
+                    {availableYears.map((y) => (
+                      <SelectItem key={`ty-${y}`} value={String(y)}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                {filterActive && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={resetFilter}
-                    className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
-                      !filterActive ? "border-gold bg-gold/15 text-gold" : "border-border text-muted-foreground hover:border-gold/40 hover:text-foreground"
-                    }`}
+                    className="ml-auto text-gold/70 hover:text-gold"
                   >
-                    From the beginning
-                  </button>
-                  <button
-                    type="button"
-                    onClick={setThisMonth}
-                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
-                  >
-                    This month
-                  </button>
-                  <button
-                    type="button"
-                    onClick={setThisYear}
-                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
-                  >
-                    This year
-                  </button>
-                </div>
-
-                {/* From / To range */}
-                <div className="flex flex-wrap items-center justify-end gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">From</span>
-                  <Select value={fromMonth} onValueChange={setFromMonth}>
-                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
-                      <SelectValue placeholder="Month" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Any month</SelectItem>
-                      {MONTHS.map((m, i) => (
-                        <SelectItem key={`fm-${m}`} value={String(i)}>{m}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Select value={fromYear} onValueChange={setFromYear}>
-                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
-                      <SelectValue placeholder="Year" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Any year</SelectItem>
-                      {availableYears.map((y) => (
-                        <SelectItem key={`fy-${y}`} value={String(y)}>{y}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">To</span>
-                  <Select value={toMonth} onValueChange={setToMonth}>
-                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
-                      <SelectValue placeholder="Month" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Any month</SelectItem>
-                      {MONTHS.map((m, i) => (
-                        <SelectItem key={`tm-${m}`} value={String(i)}>{m}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Select value={toYear} onValueChange={setToYear}>
-                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
-                      <SelectValue placeholder="Year" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Any year</SelectItem>
-                      {availableYears.map((y) => (
-                        <SelectItem key={`ty-${y}`} value={String(y)}>{y}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-                  {filterActive && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={resetFilter}
-                      className="text-muted-foreground hover:text-gold"
-                    >
-                      <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-                      Reset
-                    </Button>
-                  )}
-                </div>
+                    <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                    Reset
+                  </Button>
+                )}
               </div>
-
             </div>
+
           </SpotlightCard>
 
           {filteredItems.length === 0 ? (
