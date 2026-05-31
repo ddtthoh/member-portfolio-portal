@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, CalendarRange, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
+import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
+import { CountUp } from "@/components/count-up";
+
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
