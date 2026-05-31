@@ -274,7 +274,7 @@ function NetworkPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
+                  <span className="w-12 shrink-0 text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
                   <Select value={toMonth} onValueChange={setToMonth}>
                     <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
                       <SelectValue placeholder="Month" />
