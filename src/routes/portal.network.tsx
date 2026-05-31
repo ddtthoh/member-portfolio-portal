@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck } from "lucide-react";
+import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, CalendarRange, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
@@ -8,18 +8,40 @@ import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { NetworkConstellation } from "@/components/network-constellation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Route = createFileRoute("/portal/network")({
   component: NetworkPage,
 });
 
-type Contact = { id: string; name: string; role: string | null; firm: string | null; email: string | null; phone: string | null };
+type Contact = {
+  id: string;
+  name: string;
+  role: string | null;
+  firm: string | null;
+  email: string | null;
+  phone: string | null;
+  created_at: string;
+};
+
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 
 function NetworkPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [items, setItems] = useState<Contact[]>([]);
   const [passed, setPassed] = useState<boolean | null>(null);
+  const [yearFilter, setYearFilter] = useState<string>("all");
+  const [monthFilter, setMonthFilter] = useState<string>("all");
 
   useEffect(() => {
     if (!user) return;
@@ -34,9 +56,31 @@ function NetworkPage() {
 
   useEffect(() => {
     if (!user || !passed) return;
-    supabase.from("network_contacts").select("*").eq("user_id", user.id).order("name")
+    supabase.from("network_contacts").select("*").eq("user_id", user.id).order("created_at", { ascending: false })
       .then(({ data }) => setItems((data ?? []) as Contact[]));
   }, [user, passed]);
+
+  const availableYears = useMemo(() => {
+    const set = new Set<number>();
+    items.forEach((c) => c.created_at && set.add(new Date(c.created_at).getFullYear()));
+    return Array.from(set).sort((a, b) => b - a);
+  }, [items]);
+
+  const filteredItems = useMemo(() => {
+    return items.filter((c) => {
+      if (!c.created_at) return yearFilter === "all" && monthFilter === "all";
+      const d = new Date(c.created_at);
+      if (yearFilter !== "all" && d.getFullYear() !== Number(yearFilter)) return false;
+      if (monthFilter !== "all" && d.getMonth() !== Number(monthFilter)) return false;
+      return true;
+    });
+  }, [items, yearFilter, monthFilter]);
+
+  const filterActive = yearFilter !== "all" || monthFilter !== "all";
+  const periodLabel = filterActive
+    ? `${monthFilter !== "all" ? MONTHS[Number(monthFilter)] : "All months"}${yearFilter !== "all" ? ` · ${yearFilter}` : ""}`
+    : "All time";
+
 
   return (
     <div>
@@ -106,38 +150,128 @@ function NetworkPage() {
         </SpotlightCard>
       ) : (
         <>
-          <SpotlightCard className="liquid-glass mt-4 overflow-hidden rounded-2xl">
-            <NetworkConstellation
-              nodes={items.map((c) => ({ id: c.id, label: c.name, sub: c.role ?? undefined }))}
-            />
-          </SpotlightCard>
-          <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((c) => (
-            <SpotlightCard key={c.id} className="liquid-glass rounded-2xl p-6">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-serif text-lg text-gold">
-                  {c.name.charAt(0)}
-                </div>
+          {/* Filter + stats bar */}
+          <SpotlightCard className="liquid-glass mb-4 rounded-2xl p-5">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-wrap items-center gap-6">
                 <div>
-                  <div className="font-medium">{c.name}</div>
-                  {c.role && <div className="text-xs text-muted-foreground">{c.role}{c.firm ? ` · ${c.firm}` : ""}</div>}
+                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold">Total Members</div>
+                  <div className="mt-1 flex items-baseline gap-2">
+                    <span className="font-serif text-3xl text-foreground">{filteredItems.length}</span>
+                    {filterActive && (
+                      <span className="text-xs text-muted-foreground">/ {items.length}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 space-y-1.5 text-sm">
-                {c.email && (
-                  <a href={`mailto:${c.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                    <Mail className="h-3.5 w-3.5" /> {c.email}
-                  </a>
+                <div className="hidden h-10 w-px bg-border sm:block" />
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold">Period</div>
+                  <div className="mt-1 flex items-center gap-2 text-sm text-foreground/85">
+                    <CalendarRange className="h-3.5 w-3.5 text-gold" />
+                    {periodLabel}
+                  </div>
+                </div>
+                {filterActive && (
+                  <>
+                    <div className="hidden h-10 w-px bg-border sm:block" />
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.25em] text-gold">New Joins</div>
+                      <div className="mt-1 flex items-center gap-2 text-sm text-foreground/85">
+                        <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
+                        +{filteredItems.length} in period
+                      </div>
+                    </div>
+                  </>
                 )}
-                {c.phone && (
-                  <a href={`tel:${c.phone}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                    <Phone className="h-3.5 w-3.5" /> {c.phone}
-                  </a>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <Select value={monthFilter} onValueChange={setMonthFilter}>
+                  <SelectTrigger className="w-[140px] border-gold/30 bg-background/50">
+                    <SelectValue placeholder="Month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All months</SelectItem>
+                    {MONTHS.map((m, i) => (
+                      <SelectItem key={m} value={String(i)}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={yearFilter} onValueChange={setYearFilter}>
+                  <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All years</SelectItem>
+                    {availableYears.map((y) => (
+                      <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {filterActive && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => { setYearFilter("all"); setMonthFilter("all"); }}
+                    className="text-muted-foreground hover:text-gold"
+                  >
+                    <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                    Reset
+                  </Button>
                 )}
               </div>
+            </div>
+          </SpotlightCard>
+
+          {filteredItems.length === 0 ? (
+            <SpotlightCard className="liquid-glass rounded-2xl p-16 text-center">
+              <UserPlus className="mx-auto mb-3 h-6 w-6 text-muted-foreground" />
+              <p className="text-sm text-muted-foreground">No members joined in {periodLabel}.</p>
             </SpotlightCard>
-          ))}
-          </div>
+          ) : (
+            <>
+              <SpotlightCard className="liquid-glass overflow-hidden rounded-2xl">
+                <NetworkConstellation
+                  nodes={filteredItems.map((c) => ({ id: c.id, label: c.name, sub: c.role ?? undefined }))}
+                />
+              </SpotlightCard>
+              <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {filteredItems.map((c) => (
+                  <SpotlightCard key={c.id} className="liquid-glass rounded-2xl p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-serif text-lg text-gold">
+                        {c.name.charAt(0)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate font-medium">{c.name}</div>
+                        {c.role && <div className="truncate text-xs text-muted-foreground">{c.role}{c.firm ? ` · ${c.firm}` : ""}</div>}
+                      </div>
+                    </div>
+                    <div className="mt-4 space-y-1.5 text-sm">
+                      {c.email && (
+                        <a href={`mailto:${c.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                          <Mail className="h-3.5 w-3.5" /> <span className="truncate">{c.email}</span>
+                        </a>
+                      )}
+                      {c.phone && (
+                        <a href={`tel:${c.phone}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                          <Phone className="h-3.5 w-3.5" /> {c.phone}
+                        </a>
+                      )}
+                    </div>
+                    {c.created_at && (
+                      <div className="mt-4 flex items-center justify-between border-t border-border/50 pt-3 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                        <span>Joined</span>
+                        <span className="text-gold/80">
+                          {new Date(c.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                        </span>
+                      </div>
+                    )}
+                  </SpotlightCard>
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
