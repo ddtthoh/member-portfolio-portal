@@ -40,6 +40,8 @@ function NetworkPage() {
   const { user } = useAuth();
   const [items, setItems] = useState<Contact[]>([]);
   const [passed, setPassed] = useState<boolean | null>(null);
+  const [yearFilter, setYearFilter] = useState<string>("all");
+  const [monthFilter, setMonthFilter] = useState<string>("all");
 
   useEffect(() => {
     if (!user) return;
@@ -54,9 +56,31 @@ function NetworkPage() {
 
   useEffect(() => {
     if (!user || !passed) return;
-    supabase.from("network_contacts").select("*").eq("user_id", user.id).order("name")
+    supabase.from("network_contacts").select("*").eq("user_id", user.id).order("created_at", { ascending: false })
       .then(({ data }) => setItems((data ?? []) as Contact[]));
   }, [user, passed]);
+
+  const availableYears = useMemo(() => {
+    const set = new Set<number>();
+    items.forEach((c) => c.created_at && set.add(new Date(c.created_at).getFullYear()));
+    return Array.from(set).sort((a, b) => b - a);
+  }, [items]);
+
+  const filteredItems = useMemo(() => {
+    return items.filter((c) => {
+      if (!c.created_at) return yearFilter === "all" && monthFilter === "all";
+      const d = new Date(c.created_at);
+      if (yearFilter !== "all" && d.getFullYear() !== Number(yearFilter)) return false;
+      if (monthFilter !== "all" && d.getMonth() !== Number(monthFilter)) return false;
+      return true;
+    });
+  }, [items, yearFilter, monthFilter]);
+
+  const filterActive = yearFilter !== "all" || monthFilter !== "all";
+  const periodLabel = filterActive
+    ? `${monthFilter !== "all" ? MONTHS[Number(monthFilter)] : "All months"}${yearFilter !== "all" ? ` · ${yearFilter}` : ""}`
+    : "All time";
+
 
   return (
     <div>
