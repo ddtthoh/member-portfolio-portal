@@ -55,8 +55,26 @@ function DepositPage() {
       .select("network, network_label, wallet_address, qr_url")
       .eq("user_id", user.id)
       .maybeSingle()
-      .then(({ data }) => setSettings(data ?? { network: "BSC", network_label: "BNB Smart Chain (BEP20)", wallet_address: "", qr_url: null }));
+      .then(async ({ data }) => {
+        if (!data) {
+          setSettings({ network: "BSC", network_label: "BNB Smart Chain (BEP20)", wallet_address: "", qr_url: null });
+          return;
+        }
+        let signedQr: string | null = null;
+        if (data.qr_url) {
+          // qr_url stores a storage path (legacy rows may hold a full public URL).
+          const path = data.qr_url.includes("/deposit-qr/")
+            ? data.qr_url.split("/deposit-qr/")[1].split("?")[0]
+            : data.qr_url;
+          const { data: signed } = await supabase.storage
+            .from("deposit-qr")
+            .createSignedUrl(path, 60 * 60);
+          signedQr = signed?.signedUrl ?? null;
+        }
+        setSettings({ ...data, qr_url: signedQr });
+      });
   }, [user]);
+
 
   useEffect(() => {
     if (!user) return;

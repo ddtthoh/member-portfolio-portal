@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.grade_quiz(jsonb) FROM PUBLIC, anon;

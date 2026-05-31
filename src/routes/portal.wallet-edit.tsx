@@ -27,6 +27,8 @@ function WalletEditPage() {
   const [networkLabel, setNetworkLabel] = useState("BNB Smart Chain (BEP20)");
   const [address, setAddress] = useState("");
   const [qrUrl, setQrUrl] = useState<string | null>(null);
+  const [qrPath, setQrPath] = useState<string | null>(null);
+
   const [uploading, setUploading] = useState(false);
   const [savingDeposit, setSavingDeposit] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -49,12 +51,25 @@ function WalletEditPage() {
       .select("network, network_label, wallet_address, qr_url")
       .eq("user_id", user.id)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         if (!data) return;
         setNetwork(data.network ?? "BSC");
         setNetworkLabel(data.network_label ?? "");
         setAddress(data.wallet_address ?? "");
-        setQrUrl(data.qr_url ?? null);
+        const stored = data.qr_url ?? null;
+        if (!stored) {
+          setQrUrl(null);
+          return;
+        }
+        // qr_url now stores the storage path (legacy rows stored a full public URL).
+        const path = stored.includes("/deposit-qr/")
+          ? stored.split("/deposit-qr/")[1].split("?")[0]
+          : stored;
+        const { data: signed } = await supabase.storage
+          .from("deposit-qr")
+          .createSignedUrl(path, 60 * 60);
+        setQrUrl(signed?.signedUrl ?? null);
+        setQrPath(path);
       });
   }, [user]);
 
@@ -87,11 +102,15 @@ function WalletEditPage() {
       toast.error(error.message);
       return;
     }
-    const { data } = supabase.storage.from("deposit-qr").getPublicUrl(path);
-    setQrUrl(data.publicUrl);
+    // Bucket is private — store the path and use a signed URL for display.
+    const { data: signed } = await supabase.storage.from("deposit-qr").createSignedUrl(path, 60 * 60);
+    setQrUrl(signed?.signedUrl ?? null);
+    setQrPath(path);
     setUploading(false);
     toast.success(t("pages.walletEdit.toast.qrUploaded"));
   };
+
+
 
   const saveDeposit = async () => {
     if (!user) return;
@@ -102,7 +121,7 @@ function WalletEditPage() {
         network,
         network_label: networkLabel,
         wallet_address: address,
-        qr_url: qrUrl,
+        qr_url: qrPath,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "user_id" }
@@ -199,9 +218,10 @@ function QuizUploadSection() {
 
   const refresh = async () => {
     const [{ count: c1 }, { count: c2 }] = await Promise.all([
-      supabase.from("quiz_questions").select("*", { count: "exact", head: true }).eq("category", "company"),
-      supabase.from("quiz_questions").select("*", { count: "exact", head: true }).eq("category", "marketing"),
+      supabase.from("quiz_questions").select("id", { count: "exact", head: true }).eq("category", "company"),
+      supabase.from("quiz_questions").select("id", { count: "exact", head: true }).eq("category", "marketing"),
     ]);
+
     setCounts({ company: c1 ?? 0, marketing: c2 ?? 0 });
   };
 
