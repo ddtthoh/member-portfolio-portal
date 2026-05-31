@@ -251,41 +251,98 @@ function NetworkPage() {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                <Select value={monthFilter} onValueChange={setMonthFilter}>
-                  <SelectTrigger className="w-[140px] border-gold/30 bg-background/50">
-                    <SelectValue placeholder="Month" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All months</SelectItem>
-                    {MONTHS.map((m, i) => (
-                      <SelectItem key={m} value={String(i)}>{m}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={yearFilter} onValueChange={setYearFilter}>
-                  <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
-                    <SelectValue placeholder="Year" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All years</SelectItem>
-                    {availableYears.map((y) => (
-                      <SelectItem key={y} value={String(y)}>{y}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {filterActive && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => { setYearFilter("all"); setMonthFilter("all"); }}
-                    className="text-muted-foreground hover:text-gold"
+              <div className="flex flex-col gap-3">
+                {/* Preset chips */}
+                <div className="flex flex-wrap items-center justify-end gap-1.5">
+                  <button
+                    type="button"
+                    onClick={resetFilter}
+                    className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
+                      !filterActive ? "border-gold bg-gold/15 text-gold" : "border-border text-muted-foreground hover:border-gold/40 hover:text-foreground"
+                    }`}
                   >
-                    <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-                    Reset
-                  </Button>
-                )}
+                    From the beginning
+                  </button>
+                  <button
+                    type="button"
+                    onClick={setThisMonth}
+                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
+                  >
+                    This month
+                  </button>
+                  <button
+                    type="button"
+                    onClick={setThisYear}
+                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
+                  >
+                    This year
+                  </button>
+                </div>
+
+                {/* From / To range */}
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">From</span>
+                  <Select value={fromMonth} onValueChange={setFromMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`fm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={fromYear} onValueChange={setFromYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`fy-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">To</span>
+                  <Select value={toMonth} onValueChange={setToMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`tm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={toYear} onValueChange={setToYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`ty-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  {filterActive && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={resetFilter}
+                      className="text-muted-foreground hover:text-gold"
+                    >
+                      <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                      Reset
+                    </Button>
+                  )}
+                </div>
               </div>
+
             </div>
           </SpotlightCard>
 
