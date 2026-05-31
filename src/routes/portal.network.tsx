@@ -56,8 +56,12 @@ function NetworkPage() {
   const { user } = useAuth();
   const [items, setItems] = useState<Contact[]>([]);
   const [passed, setPassed] = useState<boolean | null>(null);
-  const [yearFilter, setYearFilter] = useState<string>("all");
-  const [monthFilter, setMonthFilter] = useState<string>("all");
+  const now = new Date();
+  const [fromMonth, setFromMonth] = useState<string>("all"); // "all" | "0".."11"
+  const [fromYear, setFromYear] = useState<string>("all");   // "all" | year
+  const [toMonth, setToMonth] = useState<string>("all");
+  const [toYear, setToYear] = useState<string>("all");
+
 
   useEffect(() => {
     if (PREVIEW_FORCE_PASSED) { setPassed(true); return; }
@@ -85,23 +89,63 @@ function NetworkPage() {
   const availableYears = useMemo(() => {
     const set = new Set<number>();
     items.forEach((c) => c.created_at && set.add(new Date(c.created_at).getFullYear()));
+    set.add(now.getFullYear());
     return Array.from(set).sort((a, b) => b - a);
-  }, [items]);
+  }, [items, now]);
+
+  // Resolve range to concrete [startDate, endDate]. "all" means open-ended.
+  const { startDate, endDate, filterActive } = useMemo(() => {
+    const hasFrom = fromYear !== "all" || fromMonth !== "all";
+    const hasTo = toYear !== "all" || toMonth !== "all";
+    let start: Date | null = null;
+    let end: Date | null = null;
+    if (hasFrom) {
+      const y = fromYear !== "all" ? Number(fromYear) : Math.min(...availableYears);
+      const m = fromMonth !== "all" ? Number(fromMonth) : 0;
+      start = new Date(y, m, 1, 0, 0, 0, 0);
+    }
+    if (hasTo) {
+      const y = toYear !== "all" ? Number(toYear) : now.getFullYear();
+      const m = toMonth !== "all" ? Number(toMonth) : 11;
+      end = new Date(y, m + 1, 0, 23, 59, 59, 999); // last day of month
+    }
+    return { startDate: start, endDate: end, filterActive: hasFrom || hasTo };
+  }, [fromMonth, fromYear, toMonth, toYear, availableYears, now]);
 
   const filteredItems = useMemo(() => {
     return items.filter((c) => {
-      if (!c.created_at) return yearFilter === "all" && monthFilter === "all";
+      if (!c.created_at) return !filterActive;
       const d = new Date(c.created_at);
-      if (yearFilter !== "all" && d.getFullYear() !== Number(yearFilter)) return false;
-      if (monthFilter !== "all" && d.getMonth() !== Number(monthFilter)) return false;
+      if (startDate && d < startDate) return false;
+      if (endDate && d > endDate) return false;
       return true;
     });
-  }, [items, yearFilter, monthFilter]);
+  }, [items, startDate, endDate, filterActive]);
 
-  const filterActive = yearFilter !== "all" || monthFilter !== "all";
-  const periodLabel = filterActive
-    ? `${monthFilter !== "all" ? MONTHS[Number(monthFilter)] : "All months"}${yearFilter !== "all" ? ` · ${yearFilter}` : ""}`
-    : "All time";
+  const fmt = (d: Date) => `${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
+  const periodLabel = !filterActive
+    ? "From the beginning"
+    : startDate && endDate
+    ? `${fmt(startDate)} → ${fmt(endDate)}`
+    : startDate
+    ? `Since ${fmt(startDate)}`
+    : endDate
+    ? `Up to ${fmt(endDate)}`
+    : "From the beginning";
+
+  const resetFilter = () => {
+    setFromMonth("all"); setFromYear("all"); setToMonth("all"); setToYear("all");
+  };
+  const setThisMonth = () => {
+    const m = String(now.getMonth()); const y = String(now.getFullYear());
+    setFromMonth(m); setFromYear(y); setToMonth(m); setToYear(y);
+  };
+  const setThisYear = () => {
+    const y = String(now.getFullYear());
+    setFromMonth("0"); setFromYear(y); setToMonth("11"); setToYear(y);
+  };
+
+
 
 
   return (
@@ -207,41 +251,98 @@ function NetworkPage() {
                 )}
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                <Select value={monthFilter} onValueChange={setMonthFilter}>
-                  <SelectTrigger className="w-[140px] border-gold/30 bg-background/50">
-                    <SelectValue placeholder="Month" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All months</SelectItem>
-                    {MONTHS.map((m, i) => (
-                      <SelectItem key={m} value={String(i)}>{m}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select value={yearFilter} onValueChange={setYearFilter}>
-                  <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
-                    <SelectValue placeholder="Year" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All years</SelectItem>
-                    {availableYears.map((y) => (
-                      <SelectItem key={y} value={String(y)}>{y}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {filterActive && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => { setYearFilter("all"); setMonthFilter("all"); }}
-                    className="text-muted-foreground hover:text-gold"
+              <div className="flex flex-col gap-3">
+                {/* Preset chips */}
+                <div className="flex flex-wrap items-center justify-end gap-1.5">
+                  <button
+                    type="button"
+                    onClick={resetFilter}
+                    className={`rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
+                      !filterActive ? "border-gold bg-gold/15 text-gold" : "border-border text-muted-foreground hover:border-gold/40 hover:text-foreground"
+                    }`}
                   >
-                    <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-                    Reset
-                  </Button>
-                )}
+                    From the beginning
+                  </button>
+                  <button
+                    type="button"
+                    onClick={setThisMonth}
+                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
+                  >
+                    This month
+                  </button>
+                  <button
+                    type="button"
+                    onClick={setThisYear}
+                    className="rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold/40 hover:text-foreground"
+                  >
+                    This year
+                  </button>
+                </div>
+
+                {/* From / To range */}
+                <div className="flex flex-wrap items-center justify-end gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">From</span>
+                  <Select value={fromMonth} onValueChange={setFromMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`fm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={fromYear} onValueChange={setFromYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`fy-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold">To</span>
+                  <Select value={toMonth} onValueChange={setToMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`tm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={toYear} onValueChange={setToYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`ty-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  {filterActive && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={resetFilter}
+                      className="text-muted-foreground hover:text-gold"
+                    >
+                      <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                      Reset
+                    </Button>
+                  )}
+                </div>
               </div>
+
             </div>
           </SpotlightCard>
 
