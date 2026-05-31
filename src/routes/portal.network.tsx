@@ -138,14 +138,7 @@ function NetworkPage() {
   const resetFilter = () => {
     setFromMonth("all"); setFromYear("all"); setToMonth("all"); setToYear("all");
   };
-  const setThisMonth = () => {
-    const m = String(now.getMonth()); const y = String(now.getFullYear());
-    setFromMonth(m); setFromYear(y); setToMonth(m); setToYear(y);
-  };
-  const setThisYear = () => {
-    const y = String(now.getFullYear());
-    setFromMonth("0"); setFromYear(y); setToMonth("11"); setToYear(y);
-  };
+
 
 
 
