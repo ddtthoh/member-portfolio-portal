@@ -56,8 +56,12 @@ function NetworkPage() {
   const { user } = useAuth();
   const [items, setItems] = useState<Contact[]>([]);
   const [passed, setPassed] = useState<boolean | null>(null);
-  const [yearFilter, setYearFilter] = useState<string>("all");
-  const [monthFilter, setMonthFilter] = useState<string>("all");
+  const now = new Date();
+  const [fromMonth, setFromMonth] = useState<string>("all"); // "all" | "0".."11"
+  const [fromYear, setFromYear] = useState<string>("all");   // "all" | year
+  const [toMonth, setToMonth] = useState<string>("all");
+  const [toYear, setToYear] = useState<string>("all");
+
 
   useEffect(() => {
     if (PREVIEW_FORCE_PASSED) { setPassed(true); return; }
