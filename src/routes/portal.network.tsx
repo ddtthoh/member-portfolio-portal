@@ -35,6 +35,22 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
+// TEMP preview: force unlocked state so the post-quiz design is visible
+// without an actual quiz pass. Set to false to restore real gating.
+const PREVIEW_FORCE_PASSED = true;
+
+const DEMO_CONTACTS: Contact[] = [
+  { id: "d1", name: "Sophia Laurent", role: "Director", firm: "Laurent Capital", email: "sophia@laurent.co", phone: "+1 415 555 0142", created_at: new Date(new Date().setMonth(new Date().getMonth() - 0, 4)).toISOString() },
+  { id: "d2", name: "Marcus Hale", role: "Senior Partner", firm: "Hale & Co", email: "marcus@haleco.io", phone: "+44 20 7946 0123", created_at: new Date(new Date().setMonth(new Date().getMonth() - 0, 12)).toISOString() },
+  { id: "d3", name: "Aiko Tanaka", role: "Strategist", firm: "Tanaka Group", email: "aiko@tanaka.jp", phone: "+81 3 5555 0199", created_at: new Date(new Date().setMonth(new Date().getMonth() - 1, 8)).toISOString() },
+  { id: "d4", name: "Lucas Romero", role: "Advisor", firm: "Romero Wealth", email: "lucas@romero.es", phone: "+34 91 555 0177", created_at: new Date(new Date().setMonth(new Date().getMonth() - 1, 22)).toISOString() },
+  { id: "d5", name: "Priya Anand", role: "Associate", firm: "Anand Holdings", email: "priya@anand.in", phone: "+91 22 5555 0188", created_at: new Date(new Date().setMonth(new Date().getMonth() - 2, 3)).toISOString() },
+  { id: "d6", name: "Henry Whitfield", role: "Partner", firm: "Whitfield Group", email: "henry@whitfield.co", phone: "+1 212 555 0166", created_at: new Date(new Date().setMonth(new Date().getMonth() - 3, 17)).toISOString() },
+  { id: "d7", name: "Chloé Martin", role: "Analyst", firm: "Martin & Sons", email: "chloe@martin.fr", phone: "+33 1 5555 0144", created_at: new Date(new Date().setMonth(new Date().getMonth() - 5, 9)).toISOString() },
+  { id: "d8", name: "Daniel Okafor", role: "Director", firm: "Okafor Trust", email: "daniel@okafor.ng", phone: "+234 1 555 0122", created_at: new Date(new Date().setMonth(new Date().getMonth() - 8, 27)).toISOString() },
+  { id: "d9", name: "Isabella Conti", role: "Consultant", firm: "Conti Advisory", email: "isa@conti.it", phone: "+39 02 5555 0111", created_at: new Date(new Date().setFullYear(new Date().getFullYear() - 1, 10, 14)).toISOString() },
+];
+
 function NetworkPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -44,6 +60,7 @@ function NetworkPage() {
   const [monthFilter, setMonthFilter] = useState<string>("all");
 
   useEffect(() => {
+    if (PREVIEW_FORCE_PASSED) { setPassed(true); return; }
     if (!user) return;
     supabase
       .from("quiz_passes")
@@ -55,10 +72,15 @@ function NetworkPage() {
   }, [user]);
 
   useEffect(() => {
-    if (!user || !passed) return;
+    if (!passed) return;
+    if (!user) { setItems(DEMO_CONTACTS); return; }
     supabase.from("network_contacts").select("*").eq("user_id", user.id).order("created_at", { ascending: false })
-      .then(({ data }) => setItems((data ?? []) as Contact[]));
+      .then(({ data }) => {
+        const rows = (data ?? []) as Contact[];
+        setItems(rows.length > 0 ? rows : DEMO_CONTACTS);
+      });
   }, [user, passed]);
+
 
   const availableYears = useMemo(() => {
     const set = new Set<number>();
