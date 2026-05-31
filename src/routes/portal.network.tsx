@@ -248,7 +248,7 @@ function NetworkPage() {
               {/* From / To range */}
               <div className="flex flex-col gap-3 border-t border-gold/15 pt-5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold/80">From</span>
+                  <span className="w-12 shrink-0 text-[10px] uppercase tracking-[0.22em] text-gold/80">From</span>
                   <Select value={fromMonth} onValueChange={setFromMonth}>
                     <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
                       <SelectValue placeholder="Month" />
@@ -274,7 +274,7 @@ function NetworkPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
+                  <span className="w-12 shrink-0 text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
                   <Select value={toMonth} onValueChange={setToMonth}>
                     <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
                       <SelectValue placeholder="Month" />
