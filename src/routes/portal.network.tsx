@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck } from "lucide-react";
+import { Mail, Phone, Users, Lock, GraduationCap, ArrowRight, ShieldCheck, CalendarRange, TrendingUp, UserPlus, RotateCcw } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
@@ -8,12 +8,32 @@ import { PageHeader } from "@/components/page-header";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { NetworkConstellation } from "@/components/network-constellation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Route = createFileRoute("/portal/network")({
   component: NetworkPage,
 });
 
-type Contact = { id: string; name: string; role: string | null; firm: string | null; email: string | null; phone: string | null };
+type Contact = {
+  id: string;
+  name: string;
+  role: string | null;
+  firm: string | null;
+  email: string | null;
+  phone: string | null;
+  created_at: string;
+};
+
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 
 function NetworkPage() {
   const { t } = useTranslation();
