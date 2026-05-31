@@ -198,6 +198,10 @@ function HoldingsPage() {
 
       <AssetGrowthChart />
 
+      <ParticipationStatsV1 />
+      <ParticipationStatsV2 />
+      <ParticipationStatsV3 />
+
       <SpotlightCard className="liquid-glass overflow-hidden rounded-xl">
         <div className="border-b border-border/60 px-6 py-4">
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-gold">
