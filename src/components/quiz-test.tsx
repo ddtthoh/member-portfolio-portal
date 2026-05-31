@@ -9,7 +9,13 @@ type Question = {
   id: string;
   question: string;
   options: string[];
+};
+
+type GradeResultRow = {
+  question_id: string;
   correct_index: number;
+  selected: number | null;
+  is_correct: boolean;
 };
 
 const TOTAL = 10;
@@ -32,12 +38,15 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [grading, setGrading] = useState(false);
+  const [correctMap, setCorrectMap] = useState<Record<string, number>>({});
+  const [finalScore, setFinalScore] = useState(0);
 
   const load = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("quiz_questions")
-      .select("id, question, options, correct_index")
+      .select("id, question, options")
       .eq("category", category);
     setLoading(false);
     if (error) return toast.error(error.message);
@@ -45,7 +54,6 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
       id: r.id,
       question: r.question,
       options: r.options as unknown as string[],
-      correct_index: r.correct_index,
     }));
     setPool(parsed);
     pickQuestions(parsed);
@@ -54,6 +62,8 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
   const pickQuestions = (src: Question[]) => {
     setAnswers({});
     setSubmitted(false);
+    setCorrectMap({});
+    setFinalScore(0);
     setQuestions(shuffle(src).slice(0, TOTAL));
   };
 
@@ -62,11 +72,7 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
-  const score = useMemo(
-    () => questions.reduce((s, q) => (answers[q.id] === q.correct_index ? s + 1 : s), 0),
-    [answers, questions]
-  );
-  const passed = score >= PASS;
+  const passed = finalScore >= PASS;
 
   if (loading) {
     return <p className="text-sm text-muted-foreground">{t("common.loading")}</p>;
@@ -81,6 +87,36 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
       </div>
     );
   }
+
+  const submit = async () => {
+    setGrading(true);
+    try {
+      const payload = questions.map((q) => ({
+        question_id: q.id,
+        selected: answers[q.id] ?? null,
+      }));
+      const { data, error } = await supabase.rpc("grade_quiz", { _answers: payload as unknown as any });
+      if (error) throw error;
+      const result = data as unknown as { score: number; total: number; results: GradeResultRow[] };
+      const map: Record<string, number> = {};
+      for (const r of result.results) map[r.question_id] = r.correct_index;
+      setCorrectMap(map);
+      setFinalScore(result.score);
+      setSubmitted(true);
+      if (result.score >= PASS && user) {
+        await supabase
+          .from("quiz_passes")
+          .upsert(
+            { user_id: user.id, category, score: result.score, total: TOTAL },
+            { onConflict: "user_id,category" },
+          );
+      }
+    } catch (err: any) {
+      toast.error(err?.message ?? "Failed to grade quiz");
+    } finally {
+      setGrading(false);
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -105,7 +141,7 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
           <div className="space-y-2">
             {q.options.map((opt, idx) => {
               const selected = answers[q.id] === idx;
-              const isCorrect = idx === q.correct_index;
+              const isCorrect = submitted && correctMap[q.id] === idx;
               const showResult = submitted;
               return (
                 <button
@@ -134,7 +170,7 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
           <>
             <div>
               <div className={`text-lg font-semibold ${passed ? "text-emerald-500" : "text-destructive"}`}>
-                {passed ? t("components.quiz.passed") : t("components.quiz.failed")} — {score}/{TOTAL}
+                {passed ? t("components.quiz.passed") : t("components.quiz.failed")} — {finalScore}/{TOTAL}
               </div>
               <div className="text-xs text-muted-foreground">
                 {passed ? t("components.quiz.greatJob") : t("components.quiz.needCorrectToPass", { pass: PASS })}
@@ -150,22 +186,8 @@ export function QuizTest({ category, title }: { category: "company" | "marketing
               {t("components.quiz.answeredProgress", { answered: Object.keys(answers).length, total: questions.length })}
             </div>
             <Button
-              disabled={Object.keys(answers).length < questions.length}
-              onClick={async () => {
-                setSubmitted(true);
-                const finalScore = questions.reduce(
-                  (s, q) => (answers[q.id] === q.correct_index ? s + 1 : s),
-                  0,
-                );
-                if (finalScore >= PASS && user) {
-                  await supabase
-                    .from("quiz_passes")
-                    .upsert(
-                      { user_id: user.id, category, score: finalScore, total: TOTAL },
-                      { onConflict: "user_id,category" },
-                    );
-                }
-              }}
+              disabled={Object.keys(answers).length < questions.length || grading}
+              onClick={submit}
               className="bg-gold text-gold-foreground hover:bg-gold/90"
             >
               {t("components.quiz.submitAnswers")}
