@@ -49,12 +49,25 @@ function WalletEditPage() {
       .select("network, network_label, wallet_address, qr_url")
       .eq("user_id", user.id)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         if (!data) return;
         setNetwork(data.network ?? "BSC");
         setNetworkLabel(data.network_label ?? "");
         setAddress(data.wallet_address ?? "");
-        setQrUrl(data.qr_url ?? null);
+        const stored = data.qr_url ?? null;
+        if (!stored) {
+          setQrUrl(null);
+          return;
+        }
+        // qr_url now stores the storage path (legacy rows stored a full public URL).
+        const path = stored.includes("/deposit-qr/")
+          ? stored.split("/deposit-qr/")[1].split("?")[0]
+          : stored;
+        const { data: signed } = await supabase.storage
+          .from("deposit-qr")
+          .createSignedUrl(path, 60 * 60);
+        setQrUrl(signed?.signedUrl ?? null);
+        setQrPath(path);
       });
   }, [user]);
 
@@ -87,14 +100,14 @@ function WalletEditPage() {
       toast.error(error.message);
       return;
     }
-    // Bucket is private; store the path and resolve to a signed URL on read.
+    // Bucket is private — store the path and use a signed URL for display.
     const { data: signed } = await supabase.storage.from("deposit-qr").createSignedUrl(path, 60 * 60);
     setQrUrl(signed?.signedUrl ?? null);
-    // Persist the storage path (not the signed URL) so we can re-sign on demand.
-    (window as any).__depositQrPath = path;
+    setQrPath(path);
     setUploading(false);
     toast.success(t("pages.walletEdit.toast.qrUploaded"));
   };
+
 
 
   const saveDeposit = async () => {
