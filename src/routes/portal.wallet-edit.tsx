@@ -27,6 +27,8 @@ function WalletEditPage() {
   const [networkLabel, setNetworkLabel] = useState("BNB Smart Chain (BEP20)");
   const [address, setAddress] = useState("");
   const [qrUrl, setQrUrl] = useState<string | null>(null);
+  const [qrPath, setQrPath] = useState<string | null>(null);
+
   const [uploading, setUploading] = useState(false);
   const [savingDeposit, setSavingDeposit] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
