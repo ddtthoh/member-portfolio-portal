@@ -12,27 +12,36 @@ import { TotalAssetsGauge } from "@/components/total-assets-gauge";
 import { RewardsBreakdownChart } from "@/components/charts/rewards-breakdown-chart";
 import { AssetGrowthChart } from "@/components/charts/asset-growth-chart";
 import { motion } from "framer-motion";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, Eye, EyeOff } from "lucide-react";
 
 const PARTICIPANTS = 1284;
 const PARTICIPATED_USD = 4820500;
 
 function ParticipationStats() {
+  const [masked, setMasked] = useState(false);
   return (
-    <SpotlightCard className="liquid-glass rounded-2xl p-6">
+    <SpotlightCard className="liquid-glass relative rounded-2xl p-6">
+      <button
+        type="button"
+        onClick={() => setMasked((m) => !m)}
+        aria-label={masked ? "Show values" : "Hide values"}
+        className="absolute right-4 top-4 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 bg-background/40 text-gold/80 transition hover:bg-gold/10 hover:text-gold"
+      >
+        {masked ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+      </button>
       <div className="grid grid-cols-1 divide-y divide-border/60 md:grid-cols-2 md:divide-x md:divide-y-0">
         <div className="pb-6 md:pb-0 md:pr-8">
           <div className="text-[10px] uppercase tracking-[0.22em] text-gold/80">Total Participants Joined</div>
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-5xl font-light tabular-nums tracking-[-0.02em] text-gold">
-              <CountUp value={PARTICIPANTS} decimals={0} />
+              {masked ? "••••" : <CountUp value={PARTICIPANTS} decimals={0} />}
             </span>
             <span className="text-xs uppercase tracking-[0.18em] text-gold/50">members</span>
           </div>
           <div className="mt-3 h-px w-12 bg-gold/40" />
           <div className="mt-3 flex items-center gap-1 text-[11px] text-success">
             <TrendingUp className="h-3 w-3" />
-            <span className="tabular-nums">+12.4%</span>
+            <span className="tabular-nums">{masked ? "••••" : "+12.4%"}</span>
             <span className="text-gold/50">this month</span>
           </div>
         </div>
@@ -41,14 +50,14 @@ function ParticipationStats() {
           <div className="text-[10px] uppercase tracking-[0.22em] text-gold/80">Total Participated Amounts</div>
           <div className="mt-4 flex items-baseline gap-3">
             <span className="text-5xl font-light tabular-nums tracking-[-0.02em] text-gold">
-              <CountUp value={PARTICIPATED_USD} prefix="$" decimals={0} />
+              {masked ? "••••••" : <CountUp value={PARTICIPATED_USD} prefix="$" decimals={0} />}
             </span>
             <span className="text-xs uppercase tracking-[0.18em] text-gold/50">USD</span>
           </div>
           <div className="mt-3 h-px w-12 bg-gold/40" />
           <div className="mt-3 flex items-center gap-1 text-[11px] text-success">
             <TrendingUp className="h-3 w-3" />
-            <span className="tabular-nums">+8.7%</span>
+            <span className="tabular-nums">{masked ? "••••" : "+8.7%"}</span>
             <span className="text-gold/50">this month</span>
           </div>
         </div>
@@ -56,6 +65,7 @@ function ParticipationStats() {
     </SpotlightCard>
   );
 }
+
 
 export const Route = createFileRoute("/portal/holdings")({
   component: HoldingsPage,
