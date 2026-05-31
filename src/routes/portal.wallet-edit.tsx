@@ -87,11 +87,15 @@ function WalletEditPage() {
       toast.error(error.message);
       return;
     }
-    const { data } = supabase.storage.from("deposit-qr").getPublicUrl(path);
-    setQrUrl(data.publicUrl);
+    // Bucket is private; store the path and resolve to a signed URL on read.
+    const { data: signed } = await supabase.storage.from("deposit-qr").createSignedUrl(path, 60 * 60);
+    setQrUrl(signed?.signedUrl ?? null);
+    // Persist the storage path (not the signed URL) so we can re-sign on demand.
+    (window as any).__depositQrPath = path;
     setUploading(false);
     toast.success(t("pages.walletEdit.toast.qrUploaded"));
   };
+
 
   const saveDeposit = async () => {
     if (!user) return;
