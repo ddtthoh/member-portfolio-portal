@@ -218,9 +218,10 @@ function QuizUploadSection() {
 
   const refresh = async () => {
     const [{ count: c1 }, { count: c2 }] = await Promise.all([
-      supabase.from("quiz_questions").select("*", { count: "exact", head: true }).eq("category", "company"),
-      supabase.from("quiz_questions").select("*", { count: "exact", head: true }).eq("category", "marketing"),
+      supabase.from("quiz_questions").select("id", { count: "exact", head: true }).eq("category", "company"),
+      supabase.from("quiz_questions").select("id", { count: "exact", head: true }).eq("category", "marketing"),
     ]);
+
     setCounts({ company: c1 ?? 0, marketing: c2 ?? 0 });
   };
 
