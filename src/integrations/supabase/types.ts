@@ -702,7 +702,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      grade_quiz: { Args: { _answers: Json }; Returns: Json }
     }
     Enums: {
       [_ in never]: never
