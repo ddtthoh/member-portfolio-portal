@@ -121,7 +121,7 @@ function WalletEditPage() {
         network,
         network_label: networkLabel,
         wallet_address: address,
-        qr_url: qrUrl,
+        qr_url: qrPath,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "user_id" }
