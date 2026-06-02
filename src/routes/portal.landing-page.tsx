@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { Copy, Check, ExternalLink, ImageIcon, FileText, MessageCircle, Link2 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { PageHeader } from "@/components/page-header";
@@ -7,9 +8,8 @@ import { SpotlightCard } from "@/components/spotlight-card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { deriveMemberId } from "@/lib/member-id";
+import { MobilePoster } from "@/components/marketing/mobile-poster";
 import { useTheme } from "@/components/theme-provider";
-import posterLight from "@/assets/naslab-poster-light.png.asset.json";
-import posterDark from "@/assets/naslab-poster-dark.png.asset.json";
 
 export const Route = createFileRoute("/portal/landing-page")({
   component: MyLandingPage,
@@ -21,11 +21,10 @@ function MyLandingPage() {
   const memberId = useMemo(() => deriveMemberId(user?.id), [user?.id]);
   const inviteUrl = `https://invite.naslabtec.com/${memberId}`;
   const localPreviewPath = `/invite/${memberId}`;
-
-  const posterUrl = theme === "light" ? posterLight.url : posterDark.url;
-  const posterLabel = theme === "light" ? "light" : "dark";
+  const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=560x560&margin=2&qzone=2&format=png&ecc=H&color=0a0a0a&bgcolor=ffffff&data=${encodeURIComponent(inviteUrl)}`;
 
   const [copied, setCopied] = useState(false);
+  const previewRef = useRef<HTMLDivElement | null>(null);
 
   const copyLink = async () => {
     await navigator.clipboard.writeText(inviteUrl);
@@ -41,19 +40,105 @@ function MyLandingPage() {
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
-  const fetchPosterBlob = async () => {
-    const res = await fetch(posterUrl);
-    if (!res.ok) throw new Error("Failed to fetch poster");
-    return await res.blob();
+  const captureCanvas = async () => {
+    // Render a fresh, unscaled, 1080px-wide MobilePoster into an offscreen
+    // container — completely independent of the on-page preview (which is
+    // scaled with transform: scale(...) and would otherwise be captured
+    // at the wrong size).
+    const { createRoot } = await import("react-dom/client");
+    const host = document.createElement("div");
+    host.style.cssText = [
+      "position: fixed",
+      "left: 0",
+      "top: 0",
+      "width: 1080px",
+      "z-index: -1",
+      "pointer-events: none",
+      "opacity: 0",
+      // keep it inside the viewport so html2canvas measures it correctly
+      "transform: translate(0, 0)",
+    ].join(";");
+    document.body.appendChild(host);
+    const root = createRoot(host);
+
+    const mounted = new Promise<HTMLElement>((resolve, reject) => {
+      try {
+        root.render(
+          <MobilePoster memberId={memberId} theme={theme} exportMode />,
+        );
+        // wait for the .poster-root to appear
+        let tries = 0;
+        const tick = () => {
+          const el = host.querySelector(".poster-root") as HTMLElement | null;
+          if (el && el.scrollHeight > 100) return resolve(el);
+          if (++tries > 120) return reject(new Error("Poster mount timeout"));
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      } catch (err) {
+        reject(err);
+      }
+    });
+
+    try {
+      const target = await mounted;
+
+      // wait for fonts
+      try {
+        await (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts?.ready;
+      } catch {
+        /* ignore */
+      }
+
+      // wait for all images (logo, QR) to fully decode
+      const imgs = Array.from(target.querySelectorAll("img")) as HTMLImageElement[];
+      await Promise.all(
+        imgs.map((img) =>
+          img.complete && img.naturalWidth > 0
+            ? img.decode().catch(() => undefined)
+            : new Promise<void>((resolve) => {
+                img.addEventListener("load", () => resolve(), { once: true });
+                img.addEventListener("error", () => resolve(), { once: true });
+              }),
+        ),
+      );
+
+      // two RAFs to ensure layout/paint settles
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+      const html2canvas = (await import("html2canvas-pro")).default;
+      const canvas = await html2canvas(target, {
+        backgroundColor: theme === "light" ? "#ffffff" : "#050403",
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
+        logging: false,
+        width: 1080,
+        height: target.scrollHeight,
+        windowWidth: 1080,
+        windowHeight: target.scrollHeight,
+      });
+      return canvas;
+    } finally {
+      try {
+        root.unmount();
+      } catch {
+        /* ignore */
+      }
+      host.remove();
+    }
   };
 
   const downloadPNG = async () => {
-    toast.loading("Downloading PNG...", { id: "png" });
+    toast.loading("Generating PNG...", { id: "png" });
     try {
-      const blob = await fetchPosterBlob();
+      const canvas = await captureCanvas();
+      const blob: Blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob failed"))), "image/png"),
+      );
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.download = `naslab-invite-${posterLabel}-${memberId}.png`;
+      link.download = `naslab-invite-${memberId}.png`;
       link.href = url;
       document.body.appendChild(link);
       link.click();
@@ -62,35 +147,24 @@ function MyLandingPage() {
       toast.success("PNG downloaded", { id: "png" });
     } catch (e) {
       console.error(e);
-      toast.error("Failed to download PNG", { id: "png" });
+      toast.error("Failed to generate PNG", { id: "png" });
     }
   };
 
   const downloadPDF = async () => {
     toast.loading("Generating PDF...", { id: "pdf" });
     try {
-      const blob = await fetchPosterBlob();
-      const dataUrl: string = await new Promise((resolve, reject) => {
-        const fr = new FileReader();
-        fr.onload = () => resolve(fr.result as string);
-        fr.onerror = () => reject(fr.error);
-        fr.readAsDataURL(blob);
-      });
-      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-        const i = new Image();
-        i.onload = () => resolve(i);
-        i.onerror = () => reject(new Error("Image load failed"));
-        i.src = dataUrl;
-      });
+      const canvas = await captureCanvas();
       const { jsPDF } = await import("jspdf");
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "px",
-        format: [img.naturalWidth, img.naturalHeight],
+        format: [canvas.width, canvas.height],
         compress: true,
       });
-      pdf.addImage(dataUrl, "PNG", 0, 0, img.naturalWidth, img.naturalHeight);
-      pdf.save(`naslab-invite-${posterLabel}-${memberId}.pdf`);
+      const img = canvas.toDataURL("image/jpeg", 0.92);
+      pdf.addImage(img, "JPEG", 0, 0, canvas.width, canvas.height);
+      pdf.save(`naslab-invite-${memberId}.pdf`);
       toast.success("PDF downloaded", { id: "pdf" });
     } catch (e) {
       console.error(e);
@@ -111,16 +185,9 @@ function MyLandingPage() {
       <div className="mt-6 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
         {/* === Inline poster preview === */}
         <SpotlightCard className="liquid-glass self-start overflow-hidden rounded-2xl">
-          <div
-            className="relative w-full p-4"
-            style={{ background: theme === "light" ? "#f4f4f5" : "#050403" }}
-          >
-            <img
-              src={posterUrl}
-              alt={`NASLAB invite poster (${posterLabel} mode) for member ${memberId}`}
-              className="block h-auto w-full rounded-lg"
-            />
-          </div>
+          <FitPoster theme={theme} innerRef={previewRef}>
+            <MobilePoster memberId={memberId} theme={theme} />
+          </FitPoster>
         </SpotlightCard>
 
         {/* === Side panel === */}
@@ -188,11 +255,74 @@ function MyLandingPage() {
               </Button>
             </div>
             <div className="border-t border-gold/10 bg-background/30 px-5 py-3 text-[11px] leading-relaxed text-foreground/55">
-              <strong className="text-gold/80">Tip:</strong> The poster auto-switches between the
-              light and dark version based on your current theme. Toggle the theme to download the
-              other variant.
+              <strong className="text-gold/80">Tip:</strong> The PNG / PDF is a single-piece
+              mobile poster optimized for WhatsApp forwarding. The "Open Full Page" link shows the
+              full multi-section website on desktop.
             </div>
           </SpotlightCard>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Scales the 1080px-wide poster to fit the available container width. */
+function FitPoster({
+  theme,
+  innerRef,
+  children,
+}: {
+  theme: "light" | "dark";
+  innerRef: React.RefObject<HTMLDivElement | null>;
+  children: React.ReactNode;
+}) {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = useState(0.5);
+  const [innerH, setInnerH] = useState(900);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const el = innerRef.current;
+    if (!wrap || !el) return;
+    const compute = () => {
+      const cs = window.getComputedStyle(wrap);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const w = wrap.clientWidth - padX;
+      const s = Math.min(1, Math.max(0.1, w / 1080));
+      setScale(s);
+      // unscaled height of the poster
+      const h = el.scrollHeight;
+      setInnerH(Math.ceil(h * s));
+    };
+    compute();
+    const raf = requestAnimationFrame(compute);
+    const ro = new ResizeObserver(compute);
+    ro.observe(wrap);
+    ro.observe(el);
+    window.addEventListener("resize", compute);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
+  }, [innerRef]);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative w-full overflow-hidden p-4"
+      style={{ background: theme === "light" ? "#f4f4f5" : "#050403" }}
+    >
+      <div style={{ height: innerH }}>
+        <div
+          ref={innerRef}
+          style={{
+            width: "1080px",
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {children}
         </div>
       </div>
     </div>
