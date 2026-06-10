@@ -63,6 +63,16 @@ function NetworkPage() {
   const [fromYear, setFromYear] = useState<string>("all");   // "all" | year
   const [toMonth, setToMonth] = useState<string>("all");
   const [toYear, setToYear] = useState<string>("all");
+  const [aumFromMonth, setAumFromMonth] = useState<string>("all");
+  const [aumFromYear, setAumFromYear] = useState<string>("all");
+  const [aumToMonth, setAumToMonth] = useState<string>("all");
+  const [aumToYear, setAumToYear] = useState<string>("all");
+  const TOTAL_AUM = 2_450_000;
+  const aumFilterActive =
+    aumFromMonth !== "all" || aumFromYear !== "all" || aumToMonth !== "all" || aumToYear !== "all";
+  const resetAumFilter = () => {
+    setAumFromMonth("all"); setAumFromYear("all"); setAumToMonth("all"); setAumToYear("all");
+  };
 
 
   useEffect(() => {
