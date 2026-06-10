@@ -221,6 +221,88 @@ function NetworkPage() {
         </SpotlightCard>
       ) : (
         <>
+          {/* Total AUM card */}
+          <SpotlightCard className="liquid-glass mb-4 rounded-2xl p-5">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-wrap items-end gap-x-10 gap-y-6">
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.25em] text-gold/80">Total AUM</div>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="text-5xl font-light tabular-nums tracking-[-0.02em] text-gold">
+                      <CountUp value={TOTAL_AUM} prefix="$" decimals={0} />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 border-t border-gold/15 pt-5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-12 shrink-0 text-[10px] uppercase tracking-[0.22em] text-gold/80">From</span>
+                  <Select value={aumFromMonth} onValueChange={setAumFromMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`afm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={aumFromYear} onValueChange={setAumFromYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50 text-gold">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`afy-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="w-12 shrink-0 text-[10px] uppercase tracking-[0.22em] text-gold/80">To</span>
+                  <Select value={aumToMonth} onValueChange={setAumToMonth}>
+                    <SelectTrigger className="w-[120px] border-gold/30 bg-background/50 text-gold">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any month</SelectItem>
+                      {MONTHS.map((m, i) => (
+                        <SelectItem key={`atm-${m}`} value={String(i)}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={aumToYear} onValueChange={setAumToYear}>
+                    <SelectTrigger className="w-[110px] border-gold/30 bg-background/50 text-gold">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Any year</SelectItem>
+                      {availableYears.map((y) => (
+                        <SelectItem key={`aty-${y}`} value={String(y)}>{y}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  {aumFilterActive && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={resetAumFilter}
+                      className="ml-auto text-gold/70 hover:text-gold"
+                    >
+                      <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
+                      Reset
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </SpotlightCard>
+
           {/* Filter + stats bar */}
           <SpotlightCard className="liquid-glass mb-4 rounded-2xl p-5">
             <div className="flex flex-col gap-6">
