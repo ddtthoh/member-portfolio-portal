@@ -1,20 +1,22 @@
-## Changes to `src/routes/portal.index.tsx`
+## Add "Total AUM" box above the Total Members card
 
-Reorder the `actionTiles` array so the Referral tile moves to the end (after Promotion), and insert a new "My Landing Page" tile right after Referral.
+In `src/routes/portal.network.tsx`, insert a new `SpotlightCard` immediately above the existing filter/stats card (the one with "Total Members"). It will mirror the exact same structure, styling, fonts, sizing, gold tokens, and layout — only the title and value change.
 
-New order:
-1. Deposit
-2. Withdrawal
-3. Convert Credits
-4. Transfer USD
-5. Participation
-6. Monthly Report
-7. Promotion
-8. Referral (moved here)
-9. My Landing Page (new) → navigates to `/portal/landing-page`
+### Content
+- Title: `Total AUM` (same `text-[10px] uppercase tracking-[0.25em] text-gold/80`)
+- Value: `$2,450,000` rendered with `CountUp` (`prefix="$"`, `decimals={0}`), same `text-5xl font-light tabular-nums tracking-[-0.02em] text-gold`
+- From row: `From` label + `Any month` + `Any year` selects (same gold styling)
+- To row: `To` label + `Any month` + `Any year` selects + Reset button when active
 
-## Details
+### State
+Add independent filter state so AUM filter doesn't affect Members filter:
+- `aumFromMonth`, `aumFromYear`, `aumToMonth`, `aumToYear` (each defaults to `"all"`)
+- `aumFilterActive` derived flag
+- `resetAumFilter()` handler
+- Constant `TOTAL_AUM = 2_450_000` (display only — no business logic change)
 
-- The "My Landing Page" tile uses a suitable icon (e.g. `Globe` from lucide-react) and links to the existing `/portal/landing-page` route (`src/routes/portal.landing-page.tsx` already exists).
-- Label text: "My Landing Page" (added as `t("overview.tiles.myLandingPage", "My Landing Page")` with English fallback so it works immediately without locale edits).
-- No other files changed.
+### Placement
+Insert the new card right before the existing `<SpotlightCard className="liquid-glass mb-4 rounded-2xl p-5">` (current Total Members card), wrapped with the same `mb-4` spacing. No other content, styles, or components are modified.
+
+### Files
+- `src/routes/portal.network.tsx` (only file touched)
