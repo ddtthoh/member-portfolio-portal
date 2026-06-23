@@ -51,6 +51,7 @@ import { Route as PortalReportsGlobalRewardsRouteImport } from './routes/portal.
 import { Route as PortalQnaMarketingRouteImport } from './routes/portal.qna.marketing'
 import { Route as PortalQnaCompanyRouteImport } from './routes/portal.qna.company'
 import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.promotion.$promoId'
+import { Route as PortalAdminDailyRatesRouteImport } from './routes/portal.admin.daily-rates'
 import { Route as ApiPublicHooksRunDailyProfitsRouteImport } from './routes/api/public/hooks/run-daily-profits'
 
 const PortalRoute = PortalRouteImport.update({
@@ -271,6 +272,11 @@ const PortalPromotionPromoIdRoute = PortalPromotionPromoIdRouteImport.update({
   path: '/$promoId',
   getParentRoute: () => PortalPromotionRoute,
 } as any)
+const PortalAdminDailyRatesRoute = PortalAdminDailyRatesRouteImport.update({
+  id: '/admin/daily-rates',
+  path: '/admin/daily-rates',
+  getParentRoute: () => PortalRoute,
+} as any)
 const ApiPublicHooksRunDailyProfitsRoute =
   ApiPublicHooksRunDailyProfitsRouteImport.update({
     id: '/api/public/hooks/run-daily-profits',
@@ -304,6 +310,7 @@ export interface FileRoutesByFullPath {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -346,6 +353,7 @@ export interface FileRoutesByTo {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal': typeof PortalIndexRoute
+  '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -392,6 +400,7 @@ export interface FileRoutesById {
   '/portal/wallet-edit': typeof PortalWalletEditRoute
   '/portal/withdrawal': typeof PortalWithdrawalRoute
   '/portal/': typeof PortalIndexRoute
+  '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
@@ -439,6 +448,7 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -481,6 +491,7 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal'
+    | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -526,6 +537,7 @@ export interface FileRouteTypes {
     | '/portal/wallet-edit'
     | '/portal/withdrawal'
     | '/portal/'
+    | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
@@ -851,6 +863,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalPromotionPromoIdRouteImport
       parentRoute: typeof PortalPromotionRoute
     }
+    '/portal/admin/daily-rates': {
+      id: '/portal/admin/daily-rates'
+      path: '/admin/daily-rates'
+      fullPath: '/portal/admin/daily-rates'
+      preLoaderRoute: typeof PortalAdminDailyRatesRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/api/public/hooks/run-daily-profits': {
       id: '/api/public/hooks/run-daily-profits'
       path: '/api/public/hooks/run-daily-profits'
@@ -912,6 +931,7 @@ interface PortalRouteChildren {
   PortalWalletEditRoute: typeof PortalWalletEditRoute
   PortalWithdrawalRoute: typeof PortalWithdrawalRoute
   PortalIndexRoute: typeof PortalIndexRoute
+  PortalAdminDailyRatesRoute: typeof PortalAdminDailyRatesRoute
   PortalReportsGlobalRewardsRoute: typeof PortalReportsGlobalRewardsRoute
   PortalReportsLeaderRewardsRoute: typeof PortalReportsLeaderRewardsRoute
   PortalReportsParRankRewardsRoute: typeof PortalReportsParRankRewardsRoute
@@ -947,6 +967,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalWalletEditRoute: PortalWalletEditRoute,
   PortalWithdrawalRoute: PortalWithdrawalRoute,
   PortalIndexRoute: PortalIndexRoute,
+  PortalAdminDailyRatesRoute: PortalAdminDailyRatesRoute,
   PortalReportsGlobalRewardsRoute: PortalReportsGlobalRewardsRoute,
   PortalReportsLeaderRewardsRoute: PortalReportsLeaderRewardsRoute,
   PortalReportsParRankRewardsRoute: PortalReportsParRankRewardsRoute,
