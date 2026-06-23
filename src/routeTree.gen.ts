@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SplatRouteImport } from './routes/$'
@@ -54,6 +55,11 @@ import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.prom
 import { Route as PortalAdminDailyRatesRouteImport } from './routes/portal.admin.daily-rates'
 import { Route as ApiPublicHooksRunDailyProfitsRouteImport } from './routes/api/public/hooks/run-daily-profits'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -289,6 +295,7 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/signup': typeof SignupRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
@@ -334,6 +341,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
@@ -379,6 +387,7 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/signup': typeof SignupRoute
   '/invite/$memberId': typeof InviteMemberIdRoute
   '/portal/change-password': typeof PortalChangePasswordRoute
   '/portal/deposit': typeof PortalDepositRoute
@@ -427,6 +436,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/login'
     | '/portal'
+    | '/signup'
     | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
@@ -472,6 +482,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/login'
+    | '/signup'
     | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
@@ -516,6 +527,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/login'
     | '/portal'
+    | '/signup'
     | '/invite/$memberId'
     | '/portal/change-password'
     | '/portal/deposit'
@@ -563,12 +575,20 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   LoginRoute: typeof LoginRoute
   PortalRoute: typeof PortalRouteWithChildren
+  SignupRoute: typeof SignupRoute
   InviteMemberIdRoute: typeof InviteMemberIdRoute
   ApiPublicHooksRunDailyProfitsRoute: typeof ApiPublicHooksRunDailyProfitsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal': {
       id: '/portal'
       path: '/portal'
@@ -990,6 +1010,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   LoginRoute: LoginRoute,
   PortalRoute: PortalRouteWithChildren,
+  SignupRoute: SignupRoute,
   InviteMemberIdRoute: InviteMemberIdRoute,
   ApiPublicHooksRunDailyProfitsRoute: ApiPublicHooksRunDailyProfitsRoute,
 }

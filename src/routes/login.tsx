@@ -101,7 +101,10 @@ function LoginPage() {
           </form>
 
           <p className="mt-8 text-center text-xs text-muted-foreground">
-            Membership is by invitation. Please contact your advisor for access.
+            Have an invitation code?{" "}
+            <Link to="/signup" className="text-gold hover:underline">
+              Activate your account
+            </Link>
           </p>
         </div>
       </div>
