@@ -104,6 +104,82 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_profits: {
+        Row: {
+          created_at: string
+          id: string
+          profit_amount: number
+          profit_date: string
+          rate: number
+          stake_amount: number
+          subscription_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          profit_amount: number
+          profit_date: string
+          rate: number
+          stake_amount: number
+          subscription_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          profit_amount?: number
+          profit_date?: string
+          rate?: number
+          stake_amount?: number
+          subscription_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_profits_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      daily_rates: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          plan_id: string
+          rate: number
+          rate_date: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          plan_id: string
+          rate: number
+          rate_date: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          plan_id?: string
+          rate?: number
+          rate_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_rates_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "staking_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       deposit_settings: {
         Row: {
           created_at: string
@@ -524,6 +600,89 @@ export type Database = {
         }
         Relationships: []
       }
+      staking_plans: {
+        Row: {
+          base_daily_rate: number
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          referral_rate: number
+          stake_amount: number
+          team_level_cap: number
+          tier: Database["public"]["Enums"]["plan_tier"]
+          variant: Database["public"]["Enums"]["plan_variant"]
+        }
+        Insert: {
+          base_daily_rate: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          referral_rate: number
+          stake_amount: number
+          team_level_cap: number
+          tier: Database["public"]["Enums"]["plan_tier"]
+          variant: Database["public"]["Enums"]["plan_variant"]
+        }
+        Update: {
+          base_daily_rate?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          referral_rate?: number
+          stake_amount?: number
+          team_level_cap?: number
+          tier?: Database["public"]["Enums"]["plan_tier"]
+          variant?: Database["public"]["Enums"]["plan_variant"]
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          id: string
+          plan_id: string
+          stake_amount: number
+          started_at: string
+          status: Database["public"]["Enums"]["subscription_status"]
+          terminated_at: string | null
+          total_profit: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          plan_id: string
+          stake_amount: number
+          started_at?: string
+          status?: Database["public"]["Enums"]["subscription_status"]
+          terminated_at?: string | null
+          total_profit?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          plan_id?: string
+          stake_amount?: number
+          started_at?: string
+          status?: Database["public"]["Enums"]["subscription_status"]
+          terminated_at?: string | null
+          total_profit?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "staking_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       support_tickets: {
         Row: {
           created_at: string
@@ -586,6 +745,27 @@ export type Database = {
           quantity?: number | null
           status?: string
           type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
         Relationships: []
@@ -703,9 +883,21 @@ export type Database = {
     }
     Functions: {
       grade_quiz: { Args: { _answers: Json }; Returns: Json }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      run_daily_profits: { Args: { _target_date?: string }; Returns: Json }
+      subscribe_to_plan: { Args: { _plan_id: string }; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      plan_tier: "standard" | "advance" | "premium"
+      plan_variant: "lite" | "plus" | "pro"
+      subscription_status: "active" | "terminated" | "upgraded"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -832,6 +1024,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      plan_tier: ["standard", "advance", "premium"],
+      plan_variant: ["lite", "plus", "pro"],
+      subscription_status: ["active", "terminated", "upgraded"],
+    },
   },
 } as const
