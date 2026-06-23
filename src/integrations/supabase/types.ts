@@ -445,6 +445,7 @@ export type Database = {
           national_id: string | null
           phone: string | null
           region: string | null
+          sponsor_id: string | null
           updated_at: string
         }
         Insert: {
@@ -462,6 +463,7 @@ export type Database = {
           national_id?: string | null
           phone?: string | null
           region?: string | null
+          sponsor_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -479,6 +481,7 @@ export type Database = {
           national_id?: string | null
           phone?: string | null
           region?: string | null
+          sponsor_id?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -892,6 +895,7 @@ export type Database = {
       }
       run_daily_profits: { Args: { _target_date?: string }; Returns: Json }
       subscribe_to_plan: { Args: { _plan_id: string }; Returns: string }
+      validate_referral_code: { Args: { _code: string }; Returns: Json }
     }
     Enums: {
       app_role: "admin" | "user"
