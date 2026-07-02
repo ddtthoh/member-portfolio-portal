@@ -13,12 +13,22 @@ function PromotionPage() {
 
   const promotions = [
     {
+      id: "july-2026-pdf",
+      to: "/portal/promotion/july-2026-pdf" as const,
+      title: "A Month in Istanbul",
+      subtitle: "July 2026 · Community Brief",
+    },
+    {
       id: "naslab-turkey",
+      to: "/portal/promotion/$promoId" as const,
+      params: { promoId: "naslab-turkey" },
       title: t("pages.promotion.promotions.naslabTurkey.title"),
       subtitle: t("pages.promotion.promotions.naslabTurkey.subtitle"),
     },
     {
       id: "rcb-tcb-community-ranking",
+      to: "/portal/promotion/$promoId" as const,
+      params: { promoId: "rcb-tcb-community-ranking" },
       title: t("pages.promotion.promotions.rankingIncentive.title"),
       subtitle: t("pages.promotion.promotions.rankingIncentive.subtitle"),
     },
@@ -34,8 +44,8 @@ function PromotionPage() {
         {promotions.map((p) => (
           <Link
             key={p.id}
-            to="/portal/promotion/$promoId"
-            params={{ promoId: p.id }}
+            to={p.to as any}
+            params={(p as any).params}
             className="block"
           >
             <SpotlightCard className="liquid-glass group h-full rounded-2xl p-5 transition-transform hover:-translate-y-0.5">
