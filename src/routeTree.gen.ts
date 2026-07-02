@@ -51,6 +51,7 @@ import { Route as PortalReportsLeaderRewardsRouteImport } from './routes/portal.
 import { Route as PortalReportsGlobalRewardsRouteImport } from './routes/portal.reports.global-rewards'
 import { Route as PortalQnaMarketingRouteImport } from './routes/portal.qna.marketing'
 import { Route as PortalQnaCompanyRouteImport } from './routes/portal.qna.company'
+import { Route as PortalPromotionJuly2026PdfRouteImport } from './routes/portal.promotion.july-2026-pdf'
 import { Route as PortalPromotionPromoIdRouteImport } from './routes/portal.promotion.$promoId'
 import { Route as PortalAdminDailyRatesRouteImport } from './routes/portal.admin.daily-rates'
 import { Route as ApiPublicHooksRunDailyProfitsRouteImport } from './routes/api/public/hooks/run-daily-profits'
@@ -273,6 +274,12 @@ const PortalQnaCompanyRoute = PortalQnaCompanyRouteImport.update({
   path: '/company',
   getParentRoute: () => PortalQnaRoute,
 } as any)
+const PortalPromotionJuly2026PdfRoute =
+  PortalPromotionJuly2026PdfRouteImport.update({
+    id: '/july-2026-pdf',
+    path: '/july-2026-pdf',
+    getParentRoute: () => PortalPromotionRoute,
+  } as any)
 const PortalPromotionPromoIdRoute = PortalPromotionPromoIdRouteImport.update({
   id: '/$promoId',
   path: '/$promoId',
@@ -319,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/portal/': typeof PortalIndexRoute
   '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
+  '/portal/promotion/july-2026-pdf': typeof PortalPromotionJuly2026PdfRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
@@ -363,6 +371,7 @@ export interface FileRoutesByTo {
   '/portal': typeof PortalIndexRoute
   '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
+  '/portal/promotion/july-2026-pdf': typeof PortalPromotionJuly2026PdfRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
@@ -411,6 +420,7 @@ export interface FileRoutesById {
   '/portal/': typeof PortalIndexRoute
   '/portal/admin/daily-rates': typeof PortalAdminDailyRatesRoute
   '/portal/promotion/$promoId': typeof PortalPromotionPromoIdRoute
+  '/portal/promotion/july-2026-pdf': typeof PortalPromotionJuly2026PdfRoute
   '/portal/qna/company': typeof PortalQnaCompanyRoute
   '/portal/qna/marketing': typeof PortalQnaMarketingRoute
   '/portal/reports/global-rewards': typeof PortalReportsGlobalRewardsRoute
@@ -460,6 +470,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
+    | '/portal/promotion/july-2026-pdf'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
     | '/portal/reports/global-rewards'
@@ -504,6 +515,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
+    | '/portal/promotion/july-2026-pdf'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
     | '/portal/reports/global-rewards'
@@ -551,6 +563,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/portal/admin/daily-rates'
     | '/portal/promotion/$promoId'
+    | '/portal/promotion/july-2026-pdf'
     | '/portal/qna/company'
     | '/portal/qna/marketing'
     | '/portal/reports/global-rewards'
@@ -876,6 +889,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalQnaCompanyRouteImport
       parentRoute: typeof PortalQnaRoute
     }
+    '/portal/promotion/july-2026-pdf': {
+      id: '/portal/promotion/july-2026-pdf'
+      path: '/july-2026-pdf'
+      fullPath: '/portal/promotion/july-2026-pdf'
+      preLoaderRoute: typeof PortalPromotionJuly2026PdfRouteImport
+      parentRoute: typeof PortalPromotionRoute
+    }
     '/portal/promotion/$promoId': {
       id: '/portal/promotion/$promoId'
       path: '/$promoId'
@@ -902,11 +922,13 @@ declare module '@tanstack/react-router' {
 
 interface PortalPromotionRouteChildren {
   PortalPromotionPromoIdRoute: typeof PortalPromotionPromoIdRoute
+  PortalPromotionJuly2026PdfRoute: typeof PortalPromotionJuly2026PdfRoute
   PortalPromotionIndexRoute: typeof PortalPromotionIndexRoute
 }
 
 const PortalPromotionRouteChildren: PortalPromotionRouteChildren = {
   PortalPromotionPromoIdRoute: PortalPromotionPromoIdRoute,
+  PortalPromotionJuly2026PdfRoute: PortalPromotionJuly2026PdfRoute,
   PortalPromotionIndexRoute: PortalPromotionIndexRoute,
 }
 
